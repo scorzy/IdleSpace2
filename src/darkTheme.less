@@ -2,13 +2,6 @@
 // The prefix to use on all css classes from ant.
 @ant-prefix : ant;
 
-@layout-body-background: #171717;
-@background-color-base: #262626;
-@body-background: #404041;
-@layout-sider-background: #171f22;
-@component-background: #171f22;
-@layout-header-background: #171f22;
-@menu-dark-submenu-bg: #171f22;
 @input-bg: #313133;
 @btn-default-bg: #262626;
 @border-color-base: rgba(255; 255; 255; 0.25);
@@ -35,4 +28,37 @@
 @primary-color: #0a53b0;
 @highlight-color: @red-7;
 @warning-color: @gold-9;
-@menu-dark-item-active-bg: #3a3a3b;
+
+@layout-body-background : #201F1E;
+@background-color-base: #201f1e;
+@body-background: #201f1e;
+
+@component-background: #171f22;
+@layout-header-background: #171f22;
+
+// @menu-dark-submenu-bg: #171f22;
+// @menu-dark-bg: #3b3a39;
+// @menu-dark-item-active-bg: #3a3a3b;
+// @layout-sider-background: #3b3a39;
+
+@layout-sider-background: @layout-header-background;
+@menu-submenu-bg: #171f22;
+@menu-bg: #3b3a39;
+@menu-item-active-bg: #3a3a3b;
+@layout-sider-background-light: @menu-bg;
+
+// Menu
+@menu-popup-bg: @menu-bg;
+@menu-item-color: @text-color;
+@menu-highlight-color: #f8f8f8;
+@menu-item-active-bg: @item-active-bg;
+@menu-item-group-title-color: @text-color-secondary;
+
+// dark theme
+@menu-dark-color: @text-color-secondary-dark;
+@menu-dark-bg: @layout-header-background;
+// @menu-dark-arrow-color: #fff;
+// @menu-dark-submenu-bg: #303031;
+// @menu-dark-highlight-color: #fff;
+@menu-dark-item-active-bg: #444546;
+// @menu-dark-item-active-bg: @item-active-bg;

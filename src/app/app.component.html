@@ -4,57 +4,30 @@
     nzCollapsible
     nzWidth="256px"
     nzBreakpoint="md"
-    [(nzCollapsed)]="isCollapsed"
-    [nzTrigger]="null"
+    [(nzCollapsed)]="ms.isCollapsed"
+    [nzTheme]="ms.sideTheme"
   >
-    <div class="sidebar-logo">
-      <a href="https://ng.ant.design/" target="_blank">
-        <img src="https://ng.ant.design/assets/img/logo.svg" alt="logo" />
-        <h1>Ant Design Of Angular</h1>
-      </a>
-    </div>
-    <ul
-      nz-menu
-      nzTheme="dark"
-      nzMode="inline"
-      [nzInlineCollapsed]="isCollapsed"
-    >
-      <li nz-submenu nzOpen nzTitle="Dashboard" nzIcon="dashboard">
-        <ul>
-          <li nz-menu-item nzMatchRouter>
-            <a routerLink="/welcome">Welcome</a>
-          </li>
-          <li nz-menu-item nzMatchRouter>
-            <a>Monitor</a>
-          </li>
-          <li nz-menu-item nzMatchRouter>
-            <a>Workplace</a>
-          </li>
-        </ul>
-      </li>
-      <li nz-submenu nzOpen nzTitle="Form" nzIcon="form">
-        <ul>
-          <li nz-menu-item nzMatchRouter>
-            <a>Basic Form</a>
-          </li>
-        </ul>
-      </li>
-    </ul>
+    <app-side-menu></app-side-menu>
   </nz-sider>
   <nz-layout>
     <nz-header>
       <div class="app-header">
-        <span class="header-trigger" (click)="isCollapsed = !isCollapsed">
-          <i
-            class="trigger"
-            nz-icon
-            [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"
-          ></i>
-        </span>
-        <div class="header-right">
-          <nz-badge [nzCount]="5">
-            <i nz-icon nzType="bell" nzTheme="outline"></i>
-          </nz-badge>
+        <div class="headerRow">
+          <span class="header-trigger t2" (click)="visible = !visible">
+            <i
+              class="trigger"
+              nz-icon
+              [nzType]="ms.isCollapsed ? 'menu-unfold' : 'menu-fold'"
+            ></i>
+          </span>
+
+          <app-material-top></app-material-top>
+
+          <div class="header-right">
+            <nz-badge [nzCount]="5">
+              <i nz-icon nzType="bell" nzTheme="outline"></i>
+            </nz-badge>
+          </div>
         </div>
       </div>
     </nz-header>
@@ -65,3 +38,14 @@
     </nz-content>
   </nz-layout>
 </nz-layout>
+
+<nz-drawer
+  [nzClosable]="false"
+  [nzVisible]="visible"
+  nzPlacement="left"
+  nzTitle=""
+  (nzOnClose)="close()"
+  [nzBodyStyle]="{ padding: 0 }"
+>
+  <app-side-menu [notCollapsed]="true"></app-side-menu>
+</nz-drawer>

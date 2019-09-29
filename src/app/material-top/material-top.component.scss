@@ -1,0 +1,32 @@
+span {
+  // display: block;
+  line-height: 1rem;
+  margin-left: 0.3rem;
+  margin-right: 0.3rem;
+  white-space: nowrap;
+}
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.mainContainer {
+  display: flex;
+  align-items: center;
+  border-right: 1px solid white;
+  min-height: 64px;
+  min-width: 7rem;
+  max-width: 10rem;
+  flex-basis: auto;
+  flex-grow: 1;
+  [nz-icon] {
+    margin-right: 6px;
+    margin-left: 6px;
+    font-size: 18px;
+  }
+}
+.matContainer {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
