@@ -8,7 +8,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "lint:fix": "ng lint --fix",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "tslint-check": "tslint-config-prettier-check ./tslint.json"
   },
   "private": true,
   "dependencies": {
@@ -21,8 +22,11 @@
     "@angular/platform-browser-dynamic": "^8.2.8",
     "@angular/router": "^8.2.8",
     "@ant-design/dark-theme": "^0.2.2",
+    "break_infinity.js": "^1.0.9",
     "ng-zorro-antd": "^8.3.1",
+    "postinstall": "^0.5.1",
     "rxjs": "~6.4.0",
+    "swarm-numberformat": "^0.4.0",
     "tslib": "^1.10.0",
     "zone.js": "~0.9.1"
   },
@@ -45,6 +49,7 @@
     "protractor": "~5.4.0",
     "ts-node": "~7.0.0",
     "tslint": "~5.15.0",
+    "tslint-config-prettier": "^1.18.0",
     "typescript": "~3.5.3"
   }
 }

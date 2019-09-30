@@ -33,7 +33,9 @@
               }
             ],
             "styles": ["src/darkTheme.less", "src/styles.scss"],
-            "scripts": []
+            "scripts": [
+              "node_modules/break_infinity.js/dist/break_infinity.min.js"
+            ]
           },
           "configurations": {
             "production": {
@@ -93,7 +95,9 @@
             "karmaConfig": "karma.conf.js",
             "assets": ["src/favicon.ico", "src/assets"],
             "styles": ["src/styles.scss"],
-            "scripts": []
+            "scripts": [
+              "node_modules/break_infinity.js/dist/break_infinity.min.js"
+            ]
           }
         },
         "lint": {

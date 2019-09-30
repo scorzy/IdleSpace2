@@ -4,6 +4,7 @@ import { MaterialTopComponent } from "./material-top.component";
 import { RouterTestingModule } from "@angular/router/testing";
 import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
 import { MainService } from "../main.service";
+import { testImports } from "../app.component.spec";
 
 describe("MaterialTopComponent", () => {
   let component: MaterialTopComponent;
@@ -12,7 +13,7 @@ describe("MaterialTopComponent", () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
-      imports: [RouterTestingModule],
+      imports: testImports,
       declarations: [MaterialTopComponent],
       providers: [MainService]
     }).compileComponents();

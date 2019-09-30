@@ -4,6 +4,7 @@ import { SideMenuComponent } from "./side-menu.component";
 import { RouterTestingModule } from "@angular/router/testing";
 import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
 import { MainService } from "../main.service";
+import { testImports } from "../app.component.spec";
 
 describe("SideMenuComponent", () => {
   let component: SideMenuComponent;
@@ -12,7 +13,7 @@ describe("SideMenuComponent", () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
-      imports: [RouterTestingModule],
+      imports: testImports,
       declarations: [SideMenuComponent],
       providers: [MainService]
     }).compileComponents();

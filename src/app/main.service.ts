@@ -1,4 +1,5 @@
 import { Injectable } from "@angular/core";
+import { Game } from "./model/game";
 
 @Injectable({
   providedIn: "root"
@@ -6,5 +7,8 @@ import { Injectable } from "@angular/core";
 export class MainService {
   isCollapsed = false;
   sideTheme = "dark";
-  constructor() {}
+  game: Game;
+  constructor() {
+    this.game = new Game();
+  }
 }

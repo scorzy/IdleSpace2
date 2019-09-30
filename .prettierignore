@@ -1,0 +1,6 @@
+package.json
+package-lock.json
+dist/
+.vscode
+break_infinity.d.ts
+index.html

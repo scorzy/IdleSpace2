@@ -6,10 +6,9 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ["./material-top.component.scss"]
 })
 export class MaterialTopComponent implements OnInit {
-
-  constructor() { }
-
-  ngOnInit() {
+  constructor() {
+    const ad = new Decimal();
   }
 
+  ngOnInit() {}
 }
