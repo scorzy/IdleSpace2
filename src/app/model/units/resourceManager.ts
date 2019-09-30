@@ -7,8 +7,6 @@ export class ResourceManager {
   constructor() {
     this.units = new Array<Unit>();
     //  Initialize Units
-    UNITS.forEach(unitData => {
-      const unit = new Unit(unitData);
-    });
+    this.units = UNITS.map(unitData => new Unit(unitData));
   }
 }
