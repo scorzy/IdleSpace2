@@ -16,7 +16,9 @@ import { FormatPipe } from "./format.pipe";
 import { IconsProviderModule } from "./iconModule/icons-provider.module";
 import { MainService } from "./main.service";
 import { OptionsService } from "./options.service";
-import { UnitsComponent } from './units/units.component';
+import { UnitsComponent } from "./units/units.component";
+import { UnitCardComponent } from "./units/unit-card/unit-card.component";
+import { NzCardModule } from "ng-zorro-antd/card";
 
 registerLocaleData(en);
 
@@ -26,7 +28,8 @@ registerLocaleData(en);
     SideMenuComponent,
     MaterialTopComponent,
     FormatPipe,
-    UnitsComponent
+    UnitsComponent,
+    UnitCardComponent
   ],
   imports: [
     BrowserModule,
@@ -36,7 +39,8 @@ registerLocaleData(en);
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    NzGridModule
+    NzGridModule,
+    NzCardModule
   ],
   providers: [
     { provide: NZ_I18N, useValue: en_US },

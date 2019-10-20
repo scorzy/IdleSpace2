@@ -4,7 +4,7 @@ import { UnitsComponent } from "./units/units.component";
 
 const routes: Routes = [
   { path: "", pathMatch: "full", redirectTo: "/units" },
-  { path: "units", pathMatch: "full", component: UnitsComponent }
+  { path: "units/:id", pathMatch: "full", component: UnitsComponent }
 ];
 
 @NgModule({

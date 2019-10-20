@@ -5,7 +5,7 @@ import { Game } from "./model/game";
   providedIn: "root"
 })
 export class MainService {
-  isCollapsed = false;
+  isCollapsed = true;
   sideTheme = "dark";
   game: Game;
   last: number;
@@ -26,6 +26,7 @@ export class MainService {
     this.game.update(diff / 1000);
     this.last = now;
 
+    this.game.postUpdate();
     this.updateEmitter.emit(this.last);
   }
 }

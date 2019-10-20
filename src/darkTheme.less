@@ -2,6 +2,9 @@
 // The prefix to use on all css classes from ant.
 @ant-prefix : ant;
 
+@primary-color: #0a53b0;
+// @primary-color: red;
+
 @input-bg: #313133;
 @btn-default-bg: #262626;
 @border-color-base: rgba(255; 255; 255; 0.25);
@@ -11,21 +14,21 @@
 @text-color-secondary: fade(#fff, 65%);
 @table-selected-row-bg: #3a3a3a;
 @table-expanded-row-bg: #3b3b3b;
-@table-header-bg: #3a3a3b;
-@table-row-hover-bg: #3a3a3b;
+@table-header-bg: #201f1e;
+@table-row-hover-bg: #201f1e;
 @layout-trigger-color: fade(#fff; 80%);
-@layout-trigger-background: #313232;
+@layout-trigger-background: #3b3a39;
 @alert-message-color: fade(#000; 67%);
-@item-hover-bg: fade(@blue-5, 20%);
-@item-active-bg: fade(@blue-5, 40%);
+@item-hover-bg: fade(@primary-color, 20%);
+@item-active-bg: fade(@primary-color, 30%);
 @disabled-color: rgba(255; 255; 255; 0.25);
 @tag-default-bg: #262628;
-@popover-bg: #262629;
+@popover-bg: #201f1e;
 @wait-icon-color: fade(#fff; 64%);
-@background-color-light: fade(@blue-5, 40%);
-@collapse-header-bg: #262629;
+@background-color-light: fade(@primary-color, 30%);
+@collapse-header-bg: #201f1e;
 @info-color: #313133;
-@primary-color: #0a53b0;
+
 @highlight-color: @red-7;
 @warning-color: @gold-9;
 
@@ -33,16 +36,16 @@
 @background-color-base: #201f1e;
 @body-background: #201f1e;
 
-@component-background: #171f22;
-@layout-header-background: #171f22;
+@component-background: #323130;
+@layout-header-background: #201f1e;
 
-// @menu-dark-submenu-bg: #171f22;
+// @menu-dark-submenu-bg: #323130;
 // @menu-dark-bg: #3b3a39;
 // @menu-dark-item-active-bg: #3a3a3b;
 // @layout-sider-background: #3b3a39;
 
-@layout-sider-background: @layout-header-background;
-@menu-submenu-bg: #171f22;
+@layout-sider-background: #3b3a39;
+@menu-submenu-bg: #323130;
 @menu-bg: #3b3a39;
 @menu-item-active-bg: #3a3a3b;
 @layout-sider-background-light: @menu-bg;
@@ -56,12 +59,15 @@
 
 // dark theme
 @menu-dark-color: @text-color-secondary-dark;
-@menu-dark-bg: @layout-header-background;
+@menu-dark-bg: #3b3a39;
 // @menu-dark-arrow-color: #fff;
-// @menu-dark-submenu-bg: #303031;
+@menu-dark-submenu-bg: #474645;
 // @menu-dark-highlight-color: #fff;
-@menu-dark-item-active-bg: #444546;
+@menu-dark-item-active-bg: #525150;
 // @menu-dark-item-active-bg: @item-active-bg;
+
+@menu-item-vertical-margin: 0;
+@menu-item-boundary-margin: 0;
 
 .ant-layout-header {
   border-bottom: #31302f 1px solid;
@@ -71,4 +77,39 @@
 }
 .ant-layout-sider-children {
   box-shadow: #31302f 1px 0 0;
+}
+.ant-menu-dark .ant-menu-inline.ant-menu-sub {
+  box-shadow: none;
+}
+
+.ant-layout-sider-trigger::before {
+  content: "";
+  display: block;
+  background-color: rgba(255, 255, 255, 0.18);
+  height: 1px;
+  margin: 0 10px;
+}
+.sidebar-logo {
+  background-color: @layout-header-background;
+}
+.ant-menu ul,
+.ant-menu ol {
+  .ant-menu-item::before {
+    background-color: #848483;
+    bottom: 0;
+    content: "";
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 3px;
+  }
+  .ant-menu-item-selected::before {
+    background-color: @primary-color;
+    bottom: 0;
+    content: "";
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 3px;
+  }
 }

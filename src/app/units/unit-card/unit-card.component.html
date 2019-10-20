@@ -1,0 +1,42 @@
+<nz-card
+  style="width:300px;"
+  nzTitle="{{ unit.name }}"
+  [nzExtra]="extraTemplate"
+  [nzActions]="actions"
+>
+  <p>
+    {{ unit.description }}
+  </p>
+  Effects:
+  <ul>
+    <li *ngFor="let prod of unit.production; trackBy: getProdId">
+      {{ prod.product.name }}
+    </li>
+  </ul>
+</nz-card>
+<ng-template #extraTemplate>
+  <span class="monospace">
+    {{ unit.quantity | format }}
+    ({{ unit.manualBought | format }})
+  </span>
+</ng-template>
+
+<ng-template #buyOne>
+  <div (click)="buyOneAct()">Buy <span class="monospace">1</span></div>
+</ng-template>
+<ng-template #buyHalf
+  ><div (click)="buyHalfAct()">
+    Buy
+    <span class="monospace">{{
+      unit.buyPrice.maxBuy.div(2).floor() | format: true
+    }}</span>
+  </div>
+</ng-template>
+<ng-template #buyMax
+  ><div (click)="buyMaxAct()">
+    Buy <span class="monospace">{{ unit.buyPrice.maxBuy | format: true }}</span>
+  </div>
+</ng-template>
+<ng-template #buyNone>
+  Can't buy
+</ng-template>

@@ -13,6 +13,11 @@ export class ResourceManager {
   firstEndingUnit: Unit = null;
   maxTime = Number.POSITIVE_INFINITY;
 
+  workers = new Array<Unit>();
+  unlockedWorkers = new Array<Unit>();
+  buildings = new Array<Unit>();
+  unlockedBuildings = new Array<Unit>();
+
   constructor() {
     this.makeUnits();
   }
@@ -28,15 +33,6 @@ export class ResourceManager {
         u.id === "M" ||
         u.id === "A" ||
         u.id === "S"
-    );
-    this.unlockedUnits = this.units.filter(
-      u =>
-        u.id === "f" ||
-        u.id === "e" ||
-        u.id === "m" ||
-        u.id === "F" ||
-        u.id === "E" ||
-        u.id === "M"
     );
 
     //  Production
@@ -65,6 +61,24 @@ export class ResourceManager {
         });
       }
     });
+
+    this.workers = this.units.filter(
+      u =>
+        u.id === "f" ||
+        u.id === "e" ||
+        u.id === "m" ||
+        u.id === "e" ||
+        u.id === "a" ||
+        u.id === "s"
+    );
+
+    this.reloadLists();
+  }
+
+  reloadLists() {
+    this.unlockedUnits = this.units.filter(u => u.unlocked);
+    this.unlockedWorkers = this.workers.filter(u => u.unlocked);
+    this.unlockedBuildings = this.workers.filter(u => u.unlocked);
   }
 
   /**

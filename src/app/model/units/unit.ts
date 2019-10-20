@@ -9,6 +9,7 @@ export class Unit implements IBase {
   id = "";
   name = "";
   description = "";
+  unlocked = false;
 
   operativity = 100;
   production = new Array<Production>();
@@ -29,6 +30,7 @@ export class Unit implements IBase {
     this.name = unitData.name;
     this.description = unitData.description;
     if ("startQuantity" in unitData) {
+      this.unlocked = true;
       this.quantity = new Decimal(unitData.startQuantity);
     }
   }
@@ -63,5 +65,14 @@ export class Unit implements IBase {
 
   postUpdate() {
     this.buyPrice.reload(this.manualBought);
+  }
+
+  buy(qantity: Decimal): boolean {
+    if (this.buyPrice.buy(this.manualBought, qantity)) {
+      this.manualBought = this.manualBought.plus(qantity);
+      this.quantity = this.quantity.plus(qantity);
+      return true;
+    }
+    return false;
   }
 }
