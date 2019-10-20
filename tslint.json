@@ -52,7 +52,8 @@
     "use-pipe-transform-interface": true,
     "variable-name": {
       "options": ["allow-leading-underscore"]
-    }
+    },
+    "curly": [true, "ignore-same-line"]
   },
   "rulesDirectory": ["codelyzer"]
 }

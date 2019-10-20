@@ -1,8 +1,5 @@
 <div class="sidebar-logo">
-  <a href="https://ng.ant.design/" target="_blank">
-    <img src="https://ng.ant.design/assets/img/logo.svg" alt="logo" />
-    <h1>Ant Design Of Angular</h1>
-  </a>
+  <h1>Idle Ant 3</h1>
 </div>
 
 <ul
@@ -11,23 +8,20 @@
   nzMode="inline"
   [nzInlineCollapsed]="ms.isCollapsed && !notCollapsed"
 >
-  <li nz-submenu nzOpen nzTitle="Dashboard" nzIcon="dashboard">
+  <li nz-submenu nzOpen nzTitle="Units" nzIcon="dashboard">
     <ul>
       <li nz-menu-item nzMatchRouter>
-        <a routerLink="/welcome">Welcome</a>
+        <a [routerLink]="'units'">Workers</a>
       </li>
       <li nz-menu-item nzMatchRouter>
-        <a>Monitor</a>
-      </li>
-      <li nz-menu-item nzMatchRouter>
-        <a>Workplace</a>
+        <a>Buildings</a>
       </li>
     </ul>
   </li>
-  <li nz-submenu nzOpen nzTitle="Form" nzIcon="form">
+  <li nz-submenu nzOpen nzTitle="War" nzIcon="form">
     <ul>
       <li nz-menu-item nzMatchRouter>
-        <a>Basic Form</a>
+        <a>War</a>
       </li>
     </ul>
   </li>

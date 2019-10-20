@@ -10,7 +10,7 @@
     "lint:fix": "ng lint --fix",
     "e2e": "ng e2e",
     "tslint-check": "tslint-config-prettier-check ./tslint.json",
-    "make-themes":"lessc --js ./src/darkTheme.less ./src/assets/darkTheme.css"
+    "make-themes": "lessc --js ./src/darkTheme.less ./src/assets/darkTheme.css"
   },
   "private": true,
   "dependencies": {
@@ -23,6 +23,7 @@
     "@angular/platform-browser-dynamic": "^8.2.8",
     "@angular/router": "^8.2.8",
     "@ant-design/dark-theme": "^0.2.2",
+    "ant-utils": "^1.2.0",
     "break_infinity.js": "^1.0.9",
     "ng-zorro-antd": "^8.3.1",
     "postinstall": "^0.5.1",

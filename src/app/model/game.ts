@@ -24,4 +24,28 @@ export class Game {
     Game.instance = this;
     this.resouceManager = new ResourceManager();
   }
+
+  /**
+   * Update function.
+   * Works only with resource growing at max rate of x^2
+   * When something reach zero consumers are stopped and it will update again
+   * @param delta in seconds
+   */
+  update(delta: number) {
+    let toUpdate = delta;
+
+    while (toUpdate > 0) {
+      this.resouceManager.reloadProduction();
+      const maxUp = Math.min(toUpdate, this.resouceManager.maxTime);
+      if (maxUp > 0) {
+        this.resouceManager.update(maxUp);
+        toUpdate = toUpdate - maxUp;
+      }
+      if (toUpdate > 0) {
+        this.resouceManager.stopResources();
+      }
+    }
+
+    this.resouceManager.reloadProduction();
+  }
 }

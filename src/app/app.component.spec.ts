@@ -4,7 +4,7 @@ import { AppComponent } from "./app.component";
 import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
 import { MainService } from "./main.service";
 import { FormsModule } from "@angular/forms";
-import { IconsProviderModule } from "./icons-provider.module";
+import { IconsProviderModule } from "./iconModule/icons-provider.module";
 import { NgZorroAntdModule, NzGridModule } from "ng-zorro-antd";
 import { HttpClientModule } from "@angular/common/http";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
