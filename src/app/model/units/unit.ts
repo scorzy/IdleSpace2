@@ -2,6 +2,8 @@ import { IUnitData } from "../data/iUnitData";
 import { Production } from "./production";
 import { IBase } from "../iBase";
 import { BonusStack } from "../bonus/bonusStack";
+import { MultiPrice } from "../prices/multiPrice";
+import { ZERO } from "../CONSTANTS";
 
 export class Unit implements IBase {
   id = "";
@@ -16,6 +18,9 @@ export class Unit implements IBase {
   prodEfficiety = new BonusStack();
   prodBy = new BonusStack();
 
+  buyPrice = new MultiPrice();
+  manualBought = ZERO;
+
   endIn = Number.POSITIVE_INFINITY;
   isEnding = false;
 
@@ -23,6 +28,9 @@ export class Unit implements IBase {
     this.id = unitData.id;
     this.name = unitData.name;
     this.description = unitData.description;
+    if ("startQuantity" in unitData) {
+      this.quantity = new Decimal(unitData.startQuantity);
+    }
   }
 
   private _quantity = new Decimal();
@@ -51,5 +59,9 @@ export class Unit implements IBase {
 
   public getId(): string {
     return this.id;
+  }
+
+  postUpdate() {
+    this.buyPrice.reload(this.manualBought);
   }
 }

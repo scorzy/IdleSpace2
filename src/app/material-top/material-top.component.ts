@@ -1,6 +1,13 @@
-import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  OnDestroy
+} from "@angular/core";
 import { MainService } from "../main.service";
 import { Unit } from "../model/units/unit";
+import { Subscription } from "rxjs";
 
 @Component({
   selector: "app-material-top",
@@ -8,12 +15,21 @@ import { Unit } from "../model/units/unit";
   styleUrls: ["./material-top.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class MaterialTopComponent implements OnInit {
-  constructor(public ms: MainService) {
-    const ad = new Decimal();
-  }
+export class MaterialTopComponent implements OnInit, OnDestroy {
+  private subscriptions: Subscription[] = [];
 
-  ngOnInit() {}
+  constructor(public ms: MainService, private cd: ChangeDetectorRef) {}
+
+  ngOnInit() {
+    this.subscriptions.push(
+      this.ms.updateEmitter.subscribe(() => {
+        this.cd.markForCheck();
+      })
+    );
+  }
+  ngOnDestroy() {
+    this.subscriptions.forEach((sub: Subscription) => sub.unsubscribe());
+  }
 
   getId(index: number, mat: Unit) {
     return mat.id;

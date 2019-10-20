@@ -1,4 +1,4 @@
-import { Injectable } from "@angular/core";
+import { Injectable, EventEmitter } from "@angular/core";
 import { Game } from "./model/game";
 
 @Injectable({
@@ -9,6 +9,7 @@ export class MainService {
   sideTheme = "dark";
   game: Game;
   last: number;
+  updateEmitter = new EventEmitter<number>();
 
   constructor() {
     this.game = new Game();
@@ -24,5 +25,7 @@ export class MainService {
     const diff = now - this.last;
     this.game.update(diff / 1000);
     this.last = now;
+
+    this.updateEmitter.emit(this.last);
   }
 }

@@ -1,8 +1,9 @@
 import { Unit } from "./unit";
 import { UNITS } from "../data/units";
 import { Production } from "./production";
-import { ZERO } from "../CONSTANTS";
+import { ZERO, UNIT_PRICE_GROW_RATE } from "../CONSTANTS";
 import { solveEquation } from "ant-utils";
+import { Price } from "../prices/price";
 
 export class ResourceManager {
   units = new Array<Unit>();
@@ -29,7 +30,13 @@ export class ResourceManager {
         u.id === "S"
     );
     this.unlockedUnits = this.units.filter(
-      u => u.id === "f" || u.id === "e" || u.id === "m"
+      u =>
+        u.id === "f" ||
+        u.id === "e" ||
+        u.id === "m" ||
+        u.id === "F" ||
+        u.id === "E" ||
+        u.id === "M"
     );
 
     //  Production
@@ -42,6 +49,19 @@ export class ResourceManager {
           const production = new Production(unit, product, ratio);
           unit.production.push(production);
           product.makers.push(production);
+        });
+      }
+    });
+
+    //  Buy Price
+    this.units.forEach(unit => {
+      const unitData = UNITS.find(u => u.id === unit.id);
+      if (unitData && unitData.prices) {
+        unitData.prices.forEach(price => {
+          const base = this.units.find(u => u.id === price[0]);
+          const cost = new Decimal(price[1]);
+          const realPrice = new Price(base, cost, UNIT_PRICE_GROW_RATE);
+          unit.buyPrice.prices.push(realPrice);
         });
       }
     });
@@ -146,5 +166,11 @@ export class ResourceManager {
 
     // ToDo
     // Stop consumers o producers?
+  }
+
+  postUpdate() {
+    this.unlockedUnits.forEach(unit => {
+      unit.postUpdate();
+    });
   }
 }

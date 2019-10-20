@@ -2,7 +2,7 @@ import { Unit } from "./unit";
 import { ONE, ZERO } from "../CONSTANTS";
 
 export class Production {
-  prodPerSec = ONE;
+  prodPerSec = ZERO;
   ratio: Decimal;
 
   constructor(
@@ -11,7 +11,6 @@ export class Production {
     ratio: DecimalSource = ONE
   ) {
     this.ratio = new Decimal(ratio);
-    this.prodPerSec = this.ratio;
   }
 
   reload() {
@@ -28,7 +27,7 @@ export class Production {
         totalBonus = totalBonus.times(this.producer.prodEfficiety.totalBonus);
       }
       this.prodPerSec = this.ratio
-        .times(this.producer.operativity)
+        .times(this.producer.operativity / 100)
         .times(totalBonus);
     }
   }

@@ -8,7 +8,7 @@ export class MultiPrice {
   canBuyWanted = false;
   availableIn = Number.POSITIVE_INFINITY;
 
-  constructor(public prices: Price[]) {}
+  constructor(public prices: Price[] = []) {}
   reload(bought: Decimal, numWanted = new Decimal(1)) {
     this.canBuy = true;
     this.canBuyWanted = true;
@@ -23,7 +23,7 @@ export class MultiPrice {
           .map(p => p.maxBuy)
           .reduce((p, c) => p.min(c), new Decimal(Number.POSITIVE_INFINITY))
       : ZERO;
-    this.reloadAvailableTime();
+    // this.reloadAvailableTime();
   }
   buy(quantity: Decimal, bought: Decimal): boolean {
     this.reload(bought, quantity);

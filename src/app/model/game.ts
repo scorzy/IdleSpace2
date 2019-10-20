@@ -45,7 +45,10 @@ export class Game {
         this.resouceManager.stopResources();
       }
     }
+  }
 
+  postUpdate() {
     this.resouceManager.reloadProduction();
+    this.resouceManager.postUpdate();
   }
 }

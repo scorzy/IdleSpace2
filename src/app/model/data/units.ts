@@ -5,17 +5,20 @@ export const UNITS: IUnitData[] = [
   {
     id: "F",
     name: "Food",
-    description: "Food is used to sustain your biogical units"
+    description: "Food is used to sustain your biogical units",
+    startQuantity: 100
   },
   {
     id: "E",
     name: "Energy",
-    description: ""
+    description: "",
+    startQuantity: 100
   },
   {
     id: "M",
     name: "Metal",
-    description: ""
+    description: "",
+    startQuantity: 100
   },
   {
     id: "A",
@@ -33,31 +36,39 @@ export const UNITS: IUnitData[] = [
     id: "f",
     name: "Farmer",
     description: "",
-    production: [["F", 4], ["E", -1]]
+    startQuantity: 1,
+    production: [["F", 4], ["E", -1]],
+    prices: [["F", 10]]
   },
   {
     id: "e",
     name: "Technician",
     description: "",
-    production: [["E", 4]]
+    startQuantity: 1,
+    production: [["E", 4]],
+    prices: [["F", 10]]
   },
   {
     id: "m",
     name: "Miner",
     description: "",
-    production: [["M", 4], ["E", -1]]
+    startQuantity: 1,
+    production: [["M", 4], ["E", -1]],
+    prices: [["F", 10]]
   },
   {
     id: "a",
     name: "Metallurgist",
     description: "",
-    production: [["A", 1], ["m", -5], ["E", -2]]
+    production: [["A", 1], ["m", -5], ["E", -2]],
+    prices: [["F", 10]]
   },
   {
     id: "s",
     name: "Scientist",
     description: "",
-    production: [["S", 1], ["m", -5], ["E", -2]]
+    production: [["S", 1], ["m", -5], ["E", -2]],
+    prices: [["F", 10]]
   }
   //#endregion
 ];
