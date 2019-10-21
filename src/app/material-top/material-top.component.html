@@ -7,14 +7,23 @@
 
     <div class="container">
       <span>
-        <span class="monospace">{{ item.quantity | format }}</span>
+        <span nz-text class="monospace">{{ item.quantity | format }}</span>
       </span>
       <span>
-        <span class="monospace">{{ item.perSec | format }}</span> /s</span
-      >
+        <span
+          nz-text
+          class="monospace"
+          [nzType]="item.perSec.gte(0) ? '' : 'danger'"
+          >{{ item.perSec | format }} /s</span
+        >
+      </span>
       <span>
-        <span class="monospace">{{ item.perSec2 | format }}</span> /s
-        <sup>2</sup>
+        <span
+          nz-text
+          class="monospace"
+          [nzType]="item.perSec2.gte(0) ? '' : 'danger'"
+          >{{ item.perSec2 | format }} /s<sup>2</sup></span
+        >
       </span>
     </div>
   </div>

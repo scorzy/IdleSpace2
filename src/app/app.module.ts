@@ -19,6 +19,7 @@ import { OptionsService } from "./options.service";
 import { UnitsComponent } from "./units/units.component";
 import { UnitCardComponent } from "./units/unit-card/unit-card.component";
 import { NzCardModule } from "ng-zorro-antd/card";
+import { SubTableComponent } from './units/sub-table/sub-table.component';
 
 registerLocaleData(en);
 
@@ -29,7 +30,8 @@ registerLocaleData(en);
     MaterialTopComponent,
     FormatPipe,
     UnitsComponent,
-    UnitCardComponent
+    UnitCardComponent,
+    SubTableComponent
   ],
   imports: [
     BrowserModule,

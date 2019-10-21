@@ -1,0 +1,38 @@
+<nz-table
+  #innerTable
+  [nzData]="subData"
+  nzSize="middle"
+  [nzShowPagination]="false"
+>
+  <thead>
+    <tr>
+      <th>What</th>
+      <th>Quantity</th>
+      <th>Effect</th>
+      <th>Total</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Base</td>
+      <td></td>
+      <td></td>
+      <td>
+        <span>{{ data.ratio | format }}</span>
+      </td>
+    </tr>
+    <tr *ngFor="let data of innerTable.data; trackBy: getIndex">
+      <td>{{ data.what }}</td>
+      <td>
+        <span class="monospace">{{ data.quantity | format }}</span>
+      </td>
+      <td>
+        <span class="monospace">{{ data.effect | format }}</span>
+      </td>
+      <td>
+        <span class="monospace">{{ data.total | format }}</span
+        >%
+      </td>
+    </tr>
+  </tbody>
+</nz-table>

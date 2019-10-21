@@ -36,6 +36,7 @@ export class Unit implements IBase {
   }
 
   private _quantity = new Decimal();
+  private _quantity_old = this._quantity;
   public get quantity(): Decimal {
     return this._quantity;
   }
@@ -44,6 +45,7 @@ export class Unit implements IBase {
   }
 
   private _perSec = new Decimal();
+  private _perSec_old = this._perSec;
   public get perSec() {
     return this._perSec;
   }
@@ -52,6 +54,7 @@ export class Unit implements IBase {
   }
 
   private _perSec2 = new Decimal();
+  private _perSec2_old = this._perSec2;
   public get perSec2() {
     return this._perSec2;
   }
@@ -65,10 +68,25 @@ export class Unit implements IBase {
 
   postUpdate() {
     this.buyPrice.reload(this.manualBought);
+    if (this._quantity_old.eq(this._quantity)) {
+      this._quantity = this._quantity_old;
+    } else {
+      this._quantity_old = this._quantity;
+    }
+    if (this._perSec_old.eq(this._perSec)) {
+      this._perSec = this._perSec_old;
+    } else {
+      this._perSec_old = this._perSec;
+    }
+    if (this._perSec2_old.eq(this._perSec2)) {
+      this._perSec2 = this._perSec2_old;
+    } else {
+      this._perSec2_old = this._perSec2;
+    }
   }
 
   buy(qantity: Decimal): boolean {
-    if (this.buyPrice.buy(this.manualBought, qantity)) {
+    if (this.buyPrice.buy(qantity, this.manualBought)) {
       this.manualBought = this.manualBought.plus(qantity);
       this.quantity = this.quantity.plus(qantity);
       return true;

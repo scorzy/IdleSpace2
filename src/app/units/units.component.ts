@@ -40,8 +40,8 @@ export class UnitsComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach((sub: Subscription) => sub.unsubscribe());
   }
   getUnits(params: any) {
-    const param = "" + params;
-    switch (params) {
+    const param = "" + params.id;
+    switch (param) {
       case "b":
         this.units = this.ms.game.resouceManager.unlockedBuildings;
         break;

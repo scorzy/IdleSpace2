@@ -4,15 +4,68 @@
   [nzExtra]="extraTemplate"
   [nzActions]="actions"
 >
-  <p>
-    {{ unit.description }}
-  </p>
-  Effects:
-  <ul>
-    <li *ngFor="let prod of unit.production; trackBy: getProdId">
-      {{ prod.product.name }}
-    </li>
-  </ul>
+  <nz-card-tab>
+    <nz-tabset nzSize="default" [(nzSelectedIndex)]="index1">
+      <nz-tab nzTitle="Basics"> </nz-tab>
+      <nz-tab nzTitle="Info"> </nz-tab>
+    </nz-tabset>
+  </nz-card-tab>
+
+  <span [ngSwitch]="index1">
+    <div *ngSwitchCase="0">
+      <p *ngIf="unit.description !== ''">
+        {{ unit.description }}
+      </p>
+      Operativity:
+      <span class="monospace">{{ unit.operativity | format }}</span
+      >%
+      <nz-slider
+        [(ngModel)]="unit.operativity"
+        [nzDisabled]="sliderDisabled"
+        [nzStep]="0.1"
+      ></nz-slider>
+    </div>
+    <div *ngSwitchCase="1">
+      <nz-table
+        #nestedTable
+        #middleTable
+        nzSize="middle"
+        [nzData]="unit.production"
+        [nzShowPagination]="false"
+      >
+        <thead>
+          <tr>
+            <th nzShowExpand></th>
+            <th>Product</th>
+            <th>Ratio</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-template
+            ngFor
+            let-data
+            [ngForOf]="nestedTable.data"
+            [ngForTrackBy]="getProdId"
+          >
+            <tr>
+              <td nzShowExpand [(nzExpand)]="data.expand"></td>
+              <td>{{ data.product.name }}</td>
+              <td>{{ data.ratio | format }}</td>
+              <td>{{ data.prodPerSec | format }}</td>
+            </tr>
+
+            <tr [nzExpand]="data.expand">
+              <td colspan="4" *ngIf="data.expand">
+                <app-sub-table [data]="data" [unit]="unit"></app-sub-table>
+              </td>
+            </tr>
+          </ng-template>
+        </tbody>
+      </nz-table>
+    </div>
+    <div *ngSwitchDefault></div>
+  </span>
 </nz-card>
 <ng-template #extraTemplate>
   <span class="monospace">
@@ -22,21 +75,22 @@
 </ng-template>
 
 <ng-template #buyOne>
-  <div (click)="buyOneAct()">Buy <span class="monospace">1</span></div>
-</ng-template>
-<ng-template #buyHalf
-  ><div (click)="buyHalfAct()">
+  <button (click)="buyOneAct()" nz-button nzType="link">
     Buy
-    <span class="monospace">{{
-      unit.buyPrice.maxBuy.div(2).floor() | format: true
-    }}</span>
-  </div>
+    <span class="monospace">1</span>
+  </button>
 </ng-template>
-<ng-template #buyMax
-  ><div (click)="buyMaxAct()">
+<ng-template #buyHalf>
+  <button (click)="buyHalfAct()" nz-button nzType="link">
+    Buy
+    <span class="monospace">{{ unit.buyPrice.halfBuy | format: true }}</span>
+  </button>
+</ng-template>
+<ng-template #buyMax>
+  <button (click)="buyMaxAct()" nz-button nzType="link">
     Buy <span class="monospace">{{ unit.buyPrice.maxBuy | format: true }}</span>
-  </div>
+  </button>
 </ng-template>
 <ng-template #buyNone>
-  Can't buy
+  <button nz-button nzType="link" disabled="true">Can't buy</button>
 </ng-template>

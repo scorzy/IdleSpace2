@@ -3,7 +3,9 @@ import { ZERO } from "../CONSTANTS";
 
 export class MultiPrice {
   canBuy = false;
-  maxBuy = new Decimal(0);
+  maxBuy = ZERO;
+  private _oldMaxBuy = ZERO;
+  halfBuy = ZERO;
 
   canBuyWanted = false;
   availableIn = Number.POSITIVE_INFINITY;
@@ -23,6 +25,14 @@ export class MultiPrice {
           .map(p => p.maxBuy)
           .reduce((p, c) => p.min(c), new Decimal(Number.POSITIVE_INFINITY))
       : ZERO;
+
+    if (this._oldMaxBuy.eq(this.maxBuy)) {
+      this.maxBuy = this._oldMaxBuy;
+    } else {
+      this._oldMaxBuy = this.maxBuy;
+      this.halfBuy = this.maxBuy.div(2).floor();
+    }
+
     // this.reloadAvailableTime();
   }
   buy(quantity: Decimal, bought: Decimal): boolean {

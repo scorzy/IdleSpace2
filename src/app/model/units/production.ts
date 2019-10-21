@@ -5,6 +5,8 @@ export class Production {
   prodPerSec = ZERO;
   ratio: Decimal;
 
+  expand = false;
+
   constructor(
     public producer: Unit,
     public product: Unit,

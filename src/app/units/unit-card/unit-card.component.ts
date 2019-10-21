@@ -13,6 +13,7 @@ import { MainService } from "src/app/main.service";
 import { Unit } from "src/app/model/units/unit";
 import { ONE } from "src/app/model/CONSTANTS";
 import { Production } from "src/app/model/units/production";
+import { stringify } from "@angular/compiler/src/util";
 
 @Component({
   selector: "app-unit-card",
@@ -24,6 +25,8 @@ export class UnitCardComponent implements OnInit, OnDestroy {
   @Input() unit: Unit;
   actions = [];
   private subscriptions: Subscription[] = [];
+  sliderDisabled = false;
+  index1 = 0;
 
   @ViewChild("buyOne", null)
   private buyOne: TemplateRef<any>;
@@ -37,6 +40,7 @@ export class UnitCardComponent implements OnInit, OnDestroy {
   constructor(public ms: MainService, private cd: ChangeDetectorRef) {}
 
   ngOnInit() {
+    this.sliderDisabled = !this.unit.production.find(p => p.ratio.lt(0));
     this.subscriptions.push(
       this.ms.updateEmitter.subscribe(() => {
         const newActions = [];

@@ -78,7 +78,7 @@ export class ResourceManager {
   reloadLists() {
     this.unlockedUnits = this.units.filter(u => u.unlocked);
     this.unlockedWorkers = this.workers.filter(u => u.unlocked);
-    this.unlockedBuildings = this.workers.filter(u => u.unlocked);
+    // this.unlockedBuildings = this.workers.filter(u => u.unlocked);
   }
 
   /**
