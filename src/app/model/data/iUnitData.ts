@@ -3,6 +3,7 @@ export interface IUnitData {
   name: string;
   description: string;
   startQuantity?: DecimalSource;
+  icon?: string;
 
   /**
    * Production [Unit id, quantity /s]

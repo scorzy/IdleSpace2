@@ -18,19 +18,38 @@
       <td></td>
       <td></td>
       <td>
-        <span>{{ data.ratio | format }}</span>
+        <span
+          class="monospace"
+          nz-text
+          [nzType]="data.ratio.gte(0) ? '' : 'danger'"
+          >{{ data.ratio | format }}</span
+        >
       </td>
     </tr>
     <tr *ngFor="let data of innerTable.data; trackBy: getIndex">
       <td>{{ data.what }}</td>
       <td>
-        <span class="monospace">{{ data.quantity | format }}</span>
+        <span
+          class="monospace"
+          nz-text
+          [nzType]="data.quantity.gte(0) ? '' : 'danger'"
+          >{{ data.quantity | format }}</span
+        >
       </td>
       <td>
-        <span class="monospace">{{ data.effect | format }}</span>
+        <span
+          class="monospace"
+          nz-text
+          [nzType]="data.effect.gte(0) ? '' : 'danger'"
+          >{{ data.effect | format }}</span
+        >
       </td>
       <td>
-        <span class="monospace">{{ data.total | format }}</span
+        <span
+          class="monospace"
+          nz-text
+          [nzType]="data.total.gte(0) ? '' : 'danger'"
+          >{{ data.total | format }}</span
         >%
       </td>
     </tr>

@@ -10,6 +10,7 @@ export class Unit implements IBase {
   name = "";
   description = "";
   unlocked = false;
+  icon = "";
 
   operativity = 100;
   production = new Array<Production>();
@@ -33,6 +34,7 @@ export class Unit implements IBase {
       this.unlocked = true;
       this.quantity = new Decimal(unitData.startQuantity);
     }
+    if ("icon" in unitData) this.icon = unitData.icon;
   }
 
   private _quantity = new Decimal();

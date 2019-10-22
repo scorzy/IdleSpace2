@@ -3,7 +3,7 @@
     *ngFor="let item of ms.game.resouceManager.materials; trackBy: getId"
     class="mainContainer"
   >
-    <i nz-icon [nzType]="'home'"></i>
+    <i nz-icon [nzType]="item.icon"></i>
 
     <div class="container">
       <span>

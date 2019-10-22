@@ -38,23 +38,23 @@ export class SubTableComponent implements OnInit {
   ): Array<{
     what: string;
     quantity: Decimal;
-    effect: DecimalSource;
-    total: DecimalSource;
+    effect: Decimal;
+    total: Decimal;
   }> {
     console.log("a");
 
     let ret = new Array<{
       what: string;
       quantity: Decimal;
-      effect: DecimalSource;
-      total: DecimalSource;
+      effect: Decimal;
+      total: Decimal;
     }>();
 
     ret.push({
       what: "Operativity",
       quantity: ONE,
       effect: ONE,
-      total: this.unit.operativity
+      total: new Decimal(this.unit.operativity)
     });
 
     ret = ret.concat(

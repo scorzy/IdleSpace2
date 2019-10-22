@@ -1,79 +1,98 @@
 <nz-card
-  style="width:300px;"
+  style="width:250px;"
   nzTitle="{{ unit.name }}"
   [nzExtra]="extraTemplate"
   [nzActions]="actions"
 >
-  <nz-card-tab>
-    <nz-tabset nzSize="default" [(nzSelectedIndex)]="index1">
-      <nz-tab nzTitle="Basics"> </nz-tab>
-      <nz-tab nzTitle="Info"> </nz-tab>
-    </nz-tabset>
-  </nz-card-tab>
-
-  <span [ngSwitch]="index1">
-    <div *ngSwitchCase="0">
-      <p *ngIf="unit.description !== ''">
-        {{ unit.description }}
-      </p>
-      Operativity:
-      <span class="monospace">{{ unit.operativity | format }}</span
-      >%
-      <nz-slider
-        [(ngModel)]="unit.operativity"
-        [nzDisabled]="sliderDisabled"
-        [nzStep]="0.1"
-      ></nz-slider>
-    </div>
-    <div *ngSwitchCase="1">
-      <nz-table
-        #nestedTable
-        #middleTable
-        nzSize="middle"
-        [nzData]="unit.production"
-        [nzShowPagination]="false"
-      >
-        <thead>
-          <tr>
-            <th nzShowExpand></th>
-            <th>Product</th>
-            <th>Ratio</th>
-            <th>Total</th>
-          </tr>
-        </thead>
-        <tbody>
-          <ng-template
-            ngFor
-            let-data
-            [ngForOf]="nestedTable.data"
-            [ngForTrackBy]="getProdId"
-          >
-            <tr>
-              <td nzShowExpand [(nzExpand)]="data.expand"></td>
-              <td>{{ data.product.name }}</td>
-              <td>{{ data.ratio | format }}</td>
-              <td>{{ data.prodPerSec | format }}</td>
-            </tr>
-
-            <tr [nzExpand]="data.expand">
-              <td colspan="4" *ngIf="data.expand">
-                <app-sub-table [data]="data" [unit]="unit"></app-sub-table>
-              </td>
-            </tr>
-          </ng-template>
-        </tbody>
-      </nz-table>
-    </div>
-    <div *ngSwitchDefault></div>
-  </span>
+  <p *ngIf="unit.description !== ''">
+    {{ unit.description }}
+  </p>
+  Operativity:
+  <span class="monospace">{{ unit.operativity | format }}</span
+  >%
+  <nz-slider
+    [(ngModel)]="unit.operativity"
+    [nzDisabled]="sliderDisabled"
+    [nzStep]="0.1"
+  ></nz-slider>
 </nz-card>
+
 <ng-template #extraTemplate>
   <span class="monospace">
     {{ unit.quantity | format }}
     ({{ unit.manualBought | format }})
   </span>
+  <span
+    nz-popover
+    [nzPopoverTitle]="titleTemplate"
+    [nzPopoverContent]="contentTemplate"
+  >
+    <i nz-icon nzType="info-circle" nzTheme="outline"></i>
+  </span>
 </ng-template>
 
+<ng-template #titleTemplate>
+  <i nz-icon nzType="table"></i> Production</ng-template
+>
+
+<!-- Production Table -->
+<ng-template #contentTemplate>
+  <nz-table
+    #nestedTable
+    #middleTable
+    nzSize="middle"
+    [nzData]="unit.production"
+    [nzShowPagination]="false"
+  >
+    <thead>
+      <tr>
+        <th nzShowExpand></th>
+        <th>Product</th>
+        <th>Ratio</th>
+        <th>Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-template
+        ngFor
+        let-data
+        [ngForOf]="nestedTable.data"
+        [ngForTrackBy]="getProdId"
+      >
+        <tr>
+          <td nzShowExpand [(nzExpand)]="data.expand"></td>
+          <td>
+            <i nz-icon [nzType]="data.product.icon"></i>
+            {{ data.product.name }}
+          </td>
+          <td>
+            <span
+              nz-text
+              class="monospace"
+              [nzType]="data.ratio.gte(0) ? '' : 'danger'"
+              >{{ data.ratio | format }}</span
+            >
+          </td>
+          <td>
+            <span
+              nz-text
+              class="monospace"
+              [nzType]="data.prodPerSec.gte(0) ? '' : 'danger'"
+              >{{ data.prodPerSec | format }}</span
+            >
+          </td>
+        </tr>
+
+        <tr [nzExpand]="data.expand">
+          <td colspan="4" *ngIf="data.expand">
+            <app-sub-table [data]="data" [unit]="unit"></app-sub-table>
+          </td>
+        </tr>
+      </ng-template>
+    </tbody> </nz-table
+></ng-template>
+
+<!-- Buttons -->
 <ng-template #buyOne>
   <button (click)="buyOneAct()" nz-button nzType="link">
     Buy
