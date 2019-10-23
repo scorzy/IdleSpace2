@@ -5,7 +5,13 @@
   >
     <i nz-icon [nzType]="item.icon"></i>
 
-    <div class="container">
+    <div
+      class="container"
+      nz-popover
+      [nzPopoverTitle]="titleTemplate"
+      [nzPopoverContent]="contentTemplate"
+      nzPopoverPlacement="bottom"
+    >
       <span>
         <span nz-text class="monospace">{{ item.quantity | format }}</span>
       </span>
@@ -26,5 +32,12 @@
         >
       </span>
     </div>
+
+    <ng-template #titleTemplate
+      ><i nz-icon [nzType]="item.icon"></i> {{ item.name }}</ng-template
+    >
+    <ng-template #contentTemplate>
+      <app-prod-info [unit]="item"></app-prod-info>
+    </ng-template>
   </div>
 </div>

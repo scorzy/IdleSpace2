@@ -1,0 +1,48 @@
+<h4>
+  Production:
+  <span class="monospace">
+    {{ unit.perSec | format }}
+  </span>
+</h4>
+<h4>
+  Total Production:
+  <span class="monospace">
+    {{ totalProd | format }}
+  </span>
+</h4>
+<h4>
+  Total Consumed:
+  <span nz-text nzType="danger" class="monospace">
+    {{ totalConsumed | format }}
+  </span>
+</h4>
+
+<nz-table
+  *ngIf="showTable"
+  #sortTable
+  nzSize="small"
+  [nzData]="data"
+  [nzShowPagination]="false"
+>
+  <thead (nzSortChange)="sort($event)" nzSingleSort>
+    <tr>
+      <th nzShowSort nzSortKey="producer.name">
+        Name
+      </th>
+      <th nzShowSort nzSortKey="prodPerSec">Prod</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of sortTable.data">
+      <td>{{ data.producer.name }}</td>
+      <td>
+        <span
+          nz-text
+          [nzType]="data.prodPerSec.gte(0) ? '' : 'danger'"
+          class="monospace"
+          >{{ data.prodPerSec }}</span
+        >
+      </td>
+    </tr>
+  </tbody>
+</nz-table>
