@@ -14,6 +14,7 @@ import { Unit } from "src/app/model/units/unit";
 import { ONE } from "src/app/model/CONSTANTS";
 import { Production } from "src/app/model/units/production";
 import { stringify } from "@angular/compiler/src/util";
+import { Price } from "src/app/model/prices/price";
 
 @Component({
   selector: "app-unit-card",
@@ -41,33 +42,39 @@ export class UnitCardComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.sliderDisabled = !this.unit.production.find(p => p.ratio.lt(0));
+    this.getActions();
     this.subscriptions.push(
       this.ms.updateEmitter.subscribe(() => {
-        const newActions = [];
-
-        if (this.unit.buyPrice.canBuy) {
-          newActions.push(this.buyOne);
-          if (this.unit.buyPrice.maxBuy.gte(4)) {
-            newActions.push(this.buyHalf);
-          }
-          if (this.unit.buyPrice.maxBuy.gte(2)) {
-            newActions.push(this.buyMax);
-          }
-        } else {
-          newActions.push(this.buyNone);
-        }
-
-        if (
-          newActions.length !== this.actions.length ||
-          this.actions[0] !== newActions[0]
-        ) {
-          this.actions = newActions;
-        }
-
+        this.getActions();
         this.cd.markForCheck();
       })
     );
   }
+
+  getActions() {
+    this.unit.buyPrice.reload(this.unit.manualBought);
+    const newActions = [];
+
+    if (this.unit.buyPrice.canBuy) {
+      newActions.push(this.buyOne);
+      if (this.unit.buyPrice.maxBuy.gte(4)) {
+        newActions.push(this.buyHalf);
+      }
+      if (this.unit.buyPrice.maxBuy.gte(2)) {
+        newActions.push(this.buyMax);
+      }
+    } else {
+      newActions.push(this.buyNone);
+    }
+
+    if (
+      newActions.length !== this.actions.length ||
+      this.actions[0] !== newActions[0]
+    ) {
+      this.actions = newActions;
+    }
+  }
+
   ngOnDestroy() {
     this.subscriptions.forEach((sub: Subscription) => sub.unsubscribe());
   }
@@ -83,5 +90,8 @@ export class UnitCardComponent implements OnInit, OnDestroy {
   }
   getProdId(index: number, production: Production) {
     return index + production.producer.id + production.product.id;
+  }
+  getPriceId(index: number, pri: Price) {
+    return index + pri.spendable.id;
   }
 }

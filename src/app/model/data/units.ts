@@ -51,7 +51,7 @@ export const UNITS: IUnitData[] = [
     description: "",
     startQuantity: 1,
     production: [["E", 4]],
-    prices: [["F", 10]]
+    prices: [["F", 10], ["M", 10]]
   },
   {
     id: "m",
@@ -66,7 +66,7 @@ export const UNITS: IUnitData[] = [
     name: "Metallurgist",
     description: "",
     production: [["A", 1], ["m", -5], ["E", -2]],
-    prices: [["F", 10]]
+    prices: [["F", 10], ["M", 10]]
   },
   {
     id: "s",

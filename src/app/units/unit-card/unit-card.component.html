@@ -1,13 +1,23 @@
 <nz-card
-  style="width:250px;"
+  style="width:350px;"
   nzTitle="{{ unit.name }}"
   [nzExtra]="extraTemplate"
   [nzActions]="actions"
 >
+  <span class="infoIcon">
+    <span
+      nz-popover
+      [nzPopoverTitle]="titleTemplate"
+      [nzPopoverContent]="contentTemplate"
+    >
+      <i nz-icon nzType="info-circle" nzTheme="outline"></i>
+    </span>
+  </span>
+
   <p *ngIf="unit.description !== ''">
     {{ unit.description }}
   </p>
-  Operativity:
+  <span nz-text><strong>Operativity:</strong></span>
   <span class="monospace">{{ unit.operativity | format }}</span
   >%
   <nz-slider
@@ -15,19 +25,27 @@
     [nzDisabled]="sliderDisabled"
     [nzStep]="0.1"
   ></nz-slider>
+
+  <span nz-text><strong>Price:</strong></span>
+  <span *ngFor="let pri of unit.buyPrice.prices; trackBy: getPriceId">
+    <span nz-text [nzType]="pri.canBuy ? '' : 'danger'">
+      <i nz-icon [nzType]="pri.spendable.icon"></i>
+      {{ pri.spendable.name }}
+      <span class="monospace">{{ pri.singleCost | format }}</span>
+      <span
+        *ngIf="
+          unit.buyPrice.prices.indexOf(pri) !== unit.buyPrice.prices.length - 1
+        "
+        >,</span
+      >
+    </span>
+  </span>
 </nz-card>
 
 <ng-template #extraTemplate>
   <span class="monospace">
     {{ unit.quantity | format }}
     ({{ unit.manualBought | format }})
-  </span>
-  <span
-    nz-popover
-    [nzPopoverTitle]="titleTemplate"
-    [nzPopoverContent]="contentTemplate"
-  >
-    <i nz-icon nzType="info-circle" nzTheme="outline"></i>
   </span>
 </ng-template>
 

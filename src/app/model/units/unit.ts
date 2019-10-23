@@ -69,7 +69,8 @@ export class Unit implements IBase {
   }
 
   postUpdate() {
-    this.buyPrice.reload(this.manualBought);
+    // this.buyPrice.reload(this.manualBought);
+
     if (this._quantity_old.eq(this._quantity)) {
       this._quantity = this._quantity_old;
     } else {
