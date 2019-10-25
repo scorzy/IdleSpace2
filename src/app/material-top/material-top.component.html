@@ -1,6 +1,10 @@
 <div class="matContainer">
   <div
-    *ngFor="let item of ms.game.resouceManager.materials; trackBy: getId"
+    *ngFor="
+      let item of ms.game.resouceManager.unlockedMaterials;
+      trackBy: getId
+    "
+    @fadeIn
     class="mainContainer"
   >
     <i nz-icon [nzType]="item.icon"></i>

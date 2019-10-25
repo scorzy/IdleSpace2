@@ -10,12 +10,14 @@ import { Subscription } from "rxjs";
 import { MainService } from "../main.service";
 import { Unit } from "../model/units/unit";
 import { ActivatedRoute } from "@angular/router";
+import { fadeIn } from "../animations";
 
 @Component({
   selector: "app-units",
   templateUrl: "./units.component.html",
   styleUrls: ["./units.component.scss"],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  animations: [fadeIn]
 })
 export class UnitsComponent implements OnInit, OnDestroy {
   units = new Array<Unit>();
@@ -31,6 +33,7 @@ export class UnitsComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.subscriptions.push(
       this.ms.updateEmitter.subscribe(() => {
+        this.getUnits(this.route.params);
         this.cd.markForCheck();
       }),
       this.route.params.subscribe(this.getUnits.bind(this))

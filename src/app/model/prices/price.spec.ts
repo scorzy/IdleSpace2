@@ -12,6 +12,7 @@ describe("Price", () => {
     expect(new Price(spendable, new Decimal(1))).toBeTruthy();
   });
   it("reload cannot buy", () => {
+    spendable.quantity = new Decimal(0);
     const price = new Price(spendable, new Decimal(10), 1.1);
     price.reload(new Decimal(0));
 

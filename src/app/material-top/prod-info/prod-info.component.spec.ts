@@ -1,25 +1,33 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
+import { ProdInfoComponent } from "./prod-info.component";
+import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import { testImports } from "src/app/app.component.spec";
+import { FormatPipe } from "src/app/format.pipe";
+import { MainService } from "src/app/main.service";
+import { Unit } from "src/app/model/units/unit";
+import { UNITS } from "src/app/model/data/units";
 
-import { ProdInfoComponent } from './prod-info.component';
-
-describe('ProdInfoComponent', () => {
+describe("ProdInfoComponent", () => {
   let component: ProdInfoComponent;
   let fixture: ComponentFixture<ProdInfoComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ProdInfoComponent ]
-    })
-    .compileComponents();
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
+      imports: testImports,
+      declarations: [ProdInfoComponent, FormatPipe],
+      providers: [MainService]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ProdInfoComponent);
     component = fixture.componentInstance;
+    component.unit = new Unit(UNITS[0]);
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

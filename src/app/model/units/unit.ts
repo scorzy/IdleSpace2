@@ -4,8 +4,10 @@ import { IBase } from "../iBase";
 import { BonusStack } from "../bonus/bonusStack";
 import { MultiPrice } from "../prices/multiPrice";
 import { ZERO } from "../CONSTANTS";
+import { IUnlocable } from "../iUnlocable";
+import { Game } from "../game";
 
-export class Unit implements IBase {
+export class Unit implements IBase, IUnlocable {
   id = "";
   name = "";
   description = "";
@@ -38,7 +40,7 @@ export class Unit implements IBase {
   }
 
   private _quantity = new Decimal();
-  private _quantity_old = this._quantity;
+  private _quantityOld = this._quantity;
   public get quantity(): Decimal {
     return this._quantity;
   }
@@ -47,7 +49,7 @@ export class Unit implements IBase {
   }
 
   private _perSec = new Decimal();
-  private _perSec_old = this._perSec;
+  private _perSecOld = this._perSec;
   public get perSec() {
     return this._perSec;
   }
@@ -56,7 +58,7 @@ export class Unit implements IBase {
   }
 
   private _perSec2 = new Decimal();
-  private _perSec2_old = this._perSec2;
+  private _perSec2Old = this._perSec2;
   public get perSec2() {
     return this._perSec2;
   }
@@ -68,23 +70,29 @@ export class Unit implements IBase {
     return this.id;
   }
 
+  unlock(): boolean {
+    if (this.unlocked) return false;
+    this.unlocked = true;
+    // Game.getGame().resouceManager.reloadLists();
+  }
+
   postUpdate() {
     // this.buyPrice.reload(this.manualBought);
 
-    if (this._quantity_old.eq(this._quantity)) {
-      this._quantity = this._quantity_old;
+    if (this._quantityOld.eq(this._quantity)) {
+      this._quantity = this._quantityOld;
     } else {
-      this._quantity_old = this._quantity;
+      this._quantityOld = this._quantity;
     }
-    if (this._perSec_old.eq(this._perSec)) {
-      this._perSec = this._perSec_old;
+    if (this._perSecOld.eq(this._perSec)) {
+      this._perSec = this._perSecOld;
     } else {
-      this._perSec_old = this._perSec;
+      this._perSecOld = this._perSec;
     }
-    if (this._perSec2_old.eq(this._perSec2)) {
-      this._perSec2 = this._perSec2_old;
+    if (this._perSec2Old.eq(this._perSec2)) {
+      this._perSec2 = this._perSec2Old;
     } else {
-      this._perSec2_old = this._perSec2;
+      this._perSec2Old = this._perSec2;
     }
   }
 
@@ -92,8 +100,29 @@ export class Unit implements IBase {
     if (this.buyPrice.buy(qantity, this.manualBought)) {
       this.manualBought = this.manualBought.plus(qantity);
       this.quantity = this.quantity.plus(qantity);
+      this.afterBuy();
       return true;
     }
     return false;
+  }
+  afterBuy(): boolean {
+    const rs = Game.getGame().resouceManager;
+    switch (this.id) {
+      case "f":
+      case "e":
+      case "m":
+        if (
+          rs.farmer.quantity.gte(3) &&
+          rs.miner.quantity.gte(3) &&
+          rs.technician.quantity.gte(3)
+        ) {
+          rs.scientist.unlock();
+          rs.science.unlock();
+          rs.reloadLists();
+        }
+        break;
+    }
+
+    return true;
   }
 }

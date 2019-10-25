@@ -13,7 +13,6 @@ import { MainService } from "src/app/main.service";
 import { Unit } from "src/app/model/units/unit";
 import { ONE } from "src/app/model/CONSTANTS";
 import { Production } from "src/app/model/units/production";
-import { stringify } from "@angular/compiler/src/util";
 import { Price } from "src/app/model/prices/price";
 
 @Component({

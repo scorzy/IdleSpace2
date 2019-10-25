@@ -1,5 +1,5 @@
 <div class="flex-container">
-  <div class="flex-item" *ngFor="let unit of units; trackBy: getId">
+  <div class="flex-item" *ngFor="let unit of units; trackBy: getId" @fadeIn>
     <app-unit-card [unit]="unit"> </app-unit-card>
   </div>
 </div>

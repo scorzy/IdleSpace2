@@ -9,6 +9,7 @@ export class ResourceManager {
   units = new Array<Unit>();
   unlockedUnits = new Array<Unit>();
   materials = new Array<Unit>();
+  unlockedMaterials = new Array<Unit>();
 
   firstEndingUnit: Unit = null;
   maxTime = Number.POSITIVE_INFINITY;
@@ -17,6 +18,14 @@ export class ResourceManager {
   unlockedWorkers = new Array<Unit>();
   buildings = new Array<Unit>();
   unlockedBuildings = new Array<Unit>();
+
+  //  Units
+  science: Unit;
+  farmer: Unit;
+  technician: Unit;
+  miner: Unit;
+  metallurgist: Unit;
+  scientist: Unit;
 
   constructor() {
     this.makeUnits();
@@ -34,6 +43,13 @@ export class ResourceManager {
         u.id === "A" ||
         u.id === "S"
     );
+
+    this.science = this.units.find(u => u.id === "S");
+    this.farmer = this.units.find(u => u.id === "f");
+    this.technician = this.units.find(u => u.id === "e");
+    this.miner = this.units.find(u => u.id === "m");
+    this.metallurgist = this.units.find(u => u.id === "a");
+    this.scientist = this.units.find(u => u.id === "s");
 
     //  Production
     this.units.forEach(unit => {
@@ -77,6 +93,7 @@ export class ResourceManager {
 
   reloadLists() {
     this.unlockedUnits = this.units.filter(u => u.unlocked);
+    this.unlockedMaterials = this.materials.filter(u => u.unlocked);
     this.unlockedWorkers = this.workers.filter(u => u.unlocked);
     // this.unlockedBuildings = this.workers.filter(u => u.unlocked);
   }

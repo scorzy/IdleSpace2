@@ -8,12 +8,14 @@ import {
 import { MainService } from "../main.service";
 import { Unit } from "../model/units/unit";
 import { Subscription } from "rxjs";
+import { fadeIn } from "../animations";
 
 @Component({
   selector: "app-material-top",
   templateUrl: "./material-top.component.html",
   styleUrls: ["./material-top.component.scss"],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  animations: [fadeIn]
 })
 export class MaterialTopComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
