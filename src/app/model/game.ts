@@ -1,4 +1,5 @@
 import { ResourceManager } from "./units/resourceManager";
+import { ResearchManager } from "./researches/researchManager";
 
 /**
  * Game is the main class that orchestrate everything game related
@@ -10,6 +11,7 @@ export class Game {
   private static instance: Game;
 
   resouceManager: ResourceManager;
+  researchManager: ResearchManager;
 
   /**
    * Gets game return instance of game
@@ -23,6 +25,7 @@ export class Game {
   constructor() {
     Game.instance = this;
     this.resouceManager = new ResourceManager();
+    this.researchManager = new ResearchManager();
   }
 
   /**
@@ -48,6 +51,11 @@ export class Game {
   }
 
   postUpdate() {
+    const resNotAdded = this.researchManager.addProgress(
+      this.resouceManager.science.quantity
+    );
+    this.resouceManager.science.quantity = resNotAdded;
+
     this.resouceManager.reloadProduction();
     this.resouceManager.postUpdate();
   }
