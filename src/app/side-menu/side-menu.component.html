@@ -14,8 +14,27 @@
       <li nz-menu-item nzMatchRouter>
         <a [routerLink]="'units/w'">Workers</a>
       </li>
-      <li nz-menu-item nzMatchRouter>
+      <li
+        nz-menu-item
+        nzMatchRouter
+        *ngIf="ms.game.resouceManager.unlockedBuildings.length > 0"
+        @fadeIn
+      >
         <a [routerLink]="'units/b'">Buildings</a>
+      </li>
+    </ul>
+  </li>
+  <li
+    *ngIf="ms.game.resouceManager.science.unlocked"
+    @fadeIn
+    nz-submenu
+    nzOpen
+    nzTitle="Laboratory"
+    nzIcon="my:fizzing-flask"
+  >
+    <ul>
+      <li nz-menu-item nzMatchRouter>
+        <a>Laboratory</a>
       </li>
     </ul>
   </li>
