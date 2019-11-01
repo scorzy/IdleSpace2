@@ -1,6 +1,8 @@
 import { Injectable, EventEmitter } from "@angular/core";
 import { Game } from "./model/game";
 
+export const SAVE_ID = "IA3_save";
+
 @Injectable({
   providedIn: "root"
 })
@@ -10,10 +12,27 @@ export class MainService {
   game: Game;
   last: number;
   updateEmitter = new EventEmitter<number>();
+  lzWorker: Worker;
 
   constructor() {
     this.game = new Game();
     this.last = Date.now();
+
+    // I should check that if the broser supports web workers
+    // however i don't really care
+    // without web worker the game doesn't work at all
+    // i will handle it on the loading screen
+    this.lzWorker = new Worker("./lz-string.worker", { type: "module" });
+    this.lzWorker.onmessage = ({ data }) => {
+      if ("a" in data && data.a === "c") {
+        //  Compress request
+        this.saveToLocalStorage(data.m);
+      } else {
+        // Decompress request
+        this.load(data.m);
+      }
+    };
+
     setInterval(this.update.bind(this), 250);
   }
 
@@ -28,5 +47,36 @@ export class MainService {
 
     this.game.postUpdate();
     this.updateEmitter.emit(this.last);
+  }
+
+  save() {
+    const save = this.getSave();
+    this.lzWorker.postMessage({ m: save, a: "c" });
+  }
+  private getSave(): string {
+    if (!this.game) return "";
+    const save = {
+      t: this.last,
+      g: this.game.getSave()
+    };
+    return JSON.stringify(save);
+  }
+  private saveToLocalStorage(data: string) {
+    localStorage.setItem(SAVE_ID, data);
+  }
+  private load(save: string) {
+    const data = JSON.parse(save);
+    this.last = data.t;
+    this.game = new Game();
+    this.game.load(data.g);
+  }
+  decompressAndLoad(data: string) {
+    this.lzWorker.postMessage({ m: data, a: "d" });
+  }
+  loadFromLocalStorage() {
+    const data = localStorage.getItem(SAVE_ID);
+    if (data) {
+      this.decompressAndLoad(data);
+    }
   }
 }

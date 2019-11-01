@@ -59,4 +59,19 @@ export class Game {
     this.resouceManager.reloadProduction();
     this.resouceManager.postUpdate();
   }
+
+  getSave(): any {
+    return {
+      s: this.resouceManager.getSave(),
+      r: this.researchManager.getSave()
+    };
+  }
+  load(data: any) {
+    if ("s" in data && "r" in data) {
+      throw new Error("Save not valid");
+    }
+
+    this.resouceManager.load(data.s);
+    this.researchManager.load(data.r);
+  }
 }

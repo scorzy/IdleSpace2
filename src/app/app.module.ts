@@ -21,6 +21,7 @@ import { UnitCardComponent } from "./units/unit-card/unit-card.component";
 import { NzCardModule } from "ng-zorro-antd/card";
 import { SubTableComponent } from './units/sub-table/sub-table.component';
 import { ProdInfoComponent } from './material-top/prod-info/prod-info.component';
+import { LaboratoryComponent } from './laboratory/laboratory.component';
 
 registerLocaleData(en);
 
@@ -33,7 +34,8 @@ registerLocaleData(en);
     UnitsComponent,
     UnitCardComponent,
     SubTableComponent,
-    ProdInfoComponent
+    ProdInfoComponent,
+    LaboratoryComponent
   ],
   imports: [
     BrowserModule,

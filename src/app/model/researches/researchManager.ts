@@ -22,6 +22,8 @@ export class ResearchManager extends JobManager {
         );
       }
     });
+    this.toDo = [];
+    this.done = [];
   }
 
   unlock(res: Research): boolean {
@@ -29,5 +31,24 @@ export class ResearchManager extends JobManager {
 
     this.toDo.push(res);
     return true;
+  }
+
+  getSave(): any {
+    return {
+      d: this.done.map(r => r.getSave()),
+      t: this.done.map(r => r.getSave())
+    };
+  }
+  load(data: any) {
+    for (const resData of data.t) {
+      const res = this.researches.find(r => r.id === resData.i);
+      res.load(resData);
+      this.toDo.push(res);
+    }
+    for (const resData of data.d) {
+      const res = this.researches.find(r => r.id === resData.i);
+      res.load(resData);
+      this.done.push(res);
+    }
   }
 }

@@ -204,4 +204,19 @@ export class ResourceManager {
       unit.postUpdate();
     });
   }
+
+  getSave(): any {
+    return {
+      l: this.unlockedUnits.map(u => u.getSave())
+    };
+  }
+  load(data: any) {
+    if (!("l" in data)) throw new Error("Save not valid! missin units");
+    for (const uData of data.l) {
+      const unit = this.units.find(u => u.id === uData.i);
+      unit.unlocked = true;
+      unit.load(uData);
+    }
+    this.reloadLists();
+  }
 }

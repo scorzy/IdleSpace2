@@ -4,7 +4,6 @@ import { convertToRoman } from "ant-utils";
 import { RESEARCH_GROW_RATE } from "../CONSTANTS";
 import { IUnlocable } from "../iUnlocable";
 import { Game } from "../game";
-import { unlink } from "fs";
 
 export class Research extends Job implements IUnlocable {
   id: string;
@@ -63,5 +62,23 @@ export class Research extends Job implements IUnlocable {
   unlock(): boolean {
     const resM = Game.getGame().researchManager;
     return resM.unlock(this);
+  }
+
+  getSave(): any {
+    const ret: any = {};
+    ret.i = this.id;
+    if (this.progress.gt(0)) {
+      ret.p = this.progress;
+    }
+    if (this.level > 0) {
+      ret.l = this.level;
+    }
+    return ret;
+  }
+  load(data: any) {
+    if (!("i" in data) || data.i !== this.id) return false;
+    if ("p" in data) this.progress = new Decimal(data.p);
+    if ("l" in data) this.level = data.l;
+    this.reload();
   }
 }

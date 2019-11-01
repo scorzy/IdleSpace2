@@ -125,4 +125,19 @@ export class Unit implements IBase, IUnlocable {
 
     return true;
   }
+
+  getSave(): any {
+    const ret: any = {};
+    ret.i = this.id;
+    if (this.operativity !== 100) ret.o = this.operativity;
+    if (!this.quantity.eq(0)) ret.q = this.quantity;
+    if (!this.manualBought.eq(0)) ret.m = this.manualBought;
+    return ret;
+  }
+  load(save: any) {
+    if (!("i" in save) || save.i !== this.id) return false;
+    if ("o" in save) this.operativity = save.o;
+    if ("q" in save) this.quantity = new Decimal(save.q);
+    if ("m" in save) this.manualBought = new Decimal(save.m);
+  }
 }
