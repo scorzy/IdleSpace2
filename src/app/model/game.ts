@@ -67,7 +67,7 @@ export class Game {
     };
   }
   load(data: any) {
-    if ("s" in data && "r" in data) {
+    if (!("s" in data && "r" in data)) {
       throw new Error("Save not valid");
     }
 

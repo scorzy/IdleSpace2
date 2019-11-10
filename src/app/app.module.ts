@@ -23,6 +23,7 @@ import { SubTableComponent } from './units/sub-table/sub-table.component';
 import { ProdInfoComponent } from './material-top/prod-info/prod-info.component';
 import { LaboratoryComponent } from './laboratory/laboratory.component';
 import { OptionsComponent } from './options/options.component';
+import { SaveComponent } from './save/save.component';
 
 registerLocaleData(en);
 
@@ -37,7 +38,8 @@ registerLocaleData(en);
     SubTableComponent,
     ProdInfoComponent,
     LaboratoryComponent,
-    OptionsComponent
+    OptionsComponent,
+    SaveComponent
   ],
   imports: [
     BrowserModule,

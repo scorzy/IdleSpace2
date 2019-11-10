@@ -28,9 +28,9 @@
               <i nz-icon nzType="bell" nzTheme="outline"></i>
             </nz-badge>
 
-            <button nz-button nzType="default" class="pad">
+            <!-- <button nz-button nzType="default" class="pad">
               <i nz-icon nzType="setting"></i>
-            </button>
+            </button> -->
           </div>
         </div>
       </div>
@@ -53,3 +53,15 @@
 >
   <app-side-menu [notCollapsed]="true"></app-side-menu>
 </nz-drawer>
+
+<!-- Custom Notifications -->
+<ng-template #saveNoti>
+  <div class="ant-notification-notice-content">
+    <div class="ant-notification-notice-with-icon">
+      <span class="ant-notification-notice-icon"
+        ><i nz-icon nzType="save" class="text-success"></i
+      ></span>
+      <div class="ant-notification-notice-message">Game Saved</div>
+    </div>
+  </div>
+</ng-template>

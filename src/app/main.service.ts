@@ -1,5 +1,6 @@
 import { Injectable, EventEmitter } from "@angular/core";
 import { Game } from "./model/game";
+import { formatDate } from "@angular/common";
 
 export const SAVE_ID = "IA3_save";
 
@@ -13,6 +14,11 @@ export class MainService {
   last: number;
   updateEmitter = new EventEmitter<number>();
   lzWorker: Worker;
+  notificationEmitter = new EventEmitter<{
+    type: number;
+    title?: string;
+    text?: string;
+  }>();
 
   constructor() {
     this.game = new Game();
@@ -63,12 +69,18 @@ export class MainService {
   }
   private saveToLocalStorage(data: string) {
     localStorage.setItem(SAVE_ID, data);
+    this.notificationEmitter.emit({ type: 1 });
   }
   private load(save: string) {
     const data = JSON.parse(save);
     this.last = data.t;
     this.game = new Game();
     this.game.load(data.g);
+    this.notificationEmitter.emit({
+      type: 2,
+      title: "Game Loaded",
+      text: formatDate(this.last, "medium", "EN")
+    });
   }
   decompressAndLoad(data: string) {
     this.lzWorker.postMessage({ m: data, a: "d" });
