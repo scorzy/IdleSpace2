@@ -3,7 +3,13 @@ import { NgModule } from "@angular/core";
 
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
-import { NgZorroAntdModule, NZ_I18N, en_US } from "ng-zorro-antd";
+import {
+  NgZorroAntdModule,
+  NZ_I18N,
+  en_US,
+  NzConfig,
+  NZ_CONFIG
+} from "ng-zorro-antd";
 import { FormsModule } from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
@@ -19,13 +25,17 @@ import { OptionsService } from "./options.service";
 import { UnitsComponent } from "./units/units.component";
 import { UnitCardComponent } from "./units/unit-card/unit-card.component";
 import { NzCardModule } from "ng-zorro-antd/card";
-import { SubTableComponent } from './units/sub-table/sub-table.component';
-import { ProdInfoComponent } from './material-top/prod-info/prod-info.component';
-import { LaboratoryComponent } from './laboratory/laboratory.component';
-import { OptionsComponent } from './options/options.component';
-import { SaveComponent } from './save/save.component';
+import { SubTableComponent } from "./units/sub-table/sub-table.component";
+import { ProdInfoComponent } from "./material-top/prod-info/prod-info.component";
+import { LaboratoryComponent } from "./laboratory/laboratory.component";
+import { OptionsComponent } from "./options/options.component";
+import { SaveComponent } from "./save/save.component";
 
 registerLocaleData(en);
+
+const ngZorroConfig: NzConfig = {
+  notification: { nzPlacement: "bottomRight" }
+};
 
 @NgModule({
   declarations: [
@@ -54,6 +64,7 @@ registerLocaleData(en);
   ],
   providers: [
     { provide: NZ_I18N, useValue: en_US },
+    { provide: NZ_CONFIG, useValue: ngZorroConfig },
     MainService,
     OptionsService
   ],

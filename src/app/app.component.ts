@@ -39,10 +39,6 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.notification.config({
-      nzPlacement: "bottomRight"
-    });
-
     this.subscriptions.push(
       this.ms.notificationEmitter.subscribe(n => {
         let template = this.saveNoti;
