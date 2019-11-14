@@ -1,12 +1,15 @@
 import { ZERO } from "../CONSTANTS";
 
 export abstract class Job {
-  progress: Decimal;
+  progress = ZERO;
   total: Decimal;
   max: Decimal;
   level = 0;
   initialPrice: Decimal;
   growRate = 1.1;
+  description = "";
+  name = "";
+  progressPercent = 0;
 
   /**
    * Adds progress
@@ -16,10 +19,13 @@ export abstract class Job {
   addProgress(pro: DecimalSource): Decimal {
     this.progress = this.progress.plus(pro);
     let ret: Decimal;
+    this.progressPercent = Math.floor(
+      this.progress.div(this.total).toNumber() * 100
+    );
     if (this.progress.gte(this.total)) {
       // Completed !
       ret = this.total.minus(this.progress);
-      this.progress = this.total;
+      this.progress = ZERO;
       this.level++;
       this.reload();
     } else {

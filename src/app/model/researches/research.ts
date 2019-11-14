@@ -7,12 +7,8 @@ import { Game } from "../game";
 
 export class Research extends Job implements IUnlocable {
   id: string;
-  name: string;
   private originalName: string;
-  description: string;
   max = new Decimal(Number.MAX_SAFE_INTEGER);
-  progress: Decimal;
-  total: Decimal;
   level = 0;
   unitsToUnlock?: IUnlocable[];
   researchToUnlock?: IUnlocable[];
@@ -36,6 +32,7 @@ export class Research extends Job implements IUnlocable {
         Game.getGame().resouceManager.units.find(a => a.id === uId)
       );
     }
+    this.reload();
   }
 
   reload(): void {

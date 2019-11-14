@@ -1,1 +1,37 @@
-<p>laboratory works!</p>
+<div class="research-container">
+  <h2>Backlog</h2>
+  <div
+    cdkDropList
+    #todoList="cdkDropList"
+    [cdkDropListData]="ms.game.researchManager.backlog"
+    [cdkDropListConnectedTo]="[doneList]"
+    class="job-list"
+    (cdkDropListDropped)="drop($event)"
+  >
+    <app-job
+      cdkDrag
+      class="job-box"
+      *ngFor="let resToDo of ms.game.researchManager.backlog; trackBy: getResId"
+      [job]="resToDo"
+    ></app-job>
+  </div>
+</div>
+
+<div class="research-container">
+  <h2>To do</h2>
+  <div
+    cdkDropList
+    #doneList="cdkDropList"
+    [cdkDropListData]="ms.game.researchManager.toDo"
+    [cdkDropListConnectedTo]="[todoList]"
+    class="job-list"
+    (cdkDropListDropped)="drop($event)"
+  >
+    <app-job
+      cdkDrag
+      class="job-box"
+      *ngFor="let resToDo of ms.game.researchManager.toDo; trackBy: getResId"
+      [job]="resToDo"
+    ></app-job>
+  </div>
+</div>

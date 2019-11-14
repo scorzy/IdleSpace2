@@ -1,6 +1,5 @@
 import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
-
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import {
@@ -30,6 +29,9 @@ import { ProdInfoComponent } from "./material-top/prod-info/prod-info.component"
 import { LaboratoryComponent } from "./laboratory/laboratory.component";
 import { OptionsComponent } from "./options/options.component";
 import { SaveComponent } from "./save/save.component";
+import { DragDropModule } from "@angular/cdk/drag-drop";
+import { JobComponent } from './job/job.component';
+import { ProgressComponent } from './progress/progress.component';
 
 registerLocaleData(en);
 
@@ -49,7 +51,9 @@ const ngZorroConfig: NzConfig = {
     ProdInfoComponent,
     LaboratoryComponent,
     OptionsComponent,
-    SaveComponent
+    SaveComponent,
+    JobComponent,
+    ProgressComponent
   ],
   imports: [
     BrowserModule,
@@ -60,7 +64,8 @@ const ngZorroConfig: NzConfig = {
     HttpClientModule,
     BrowserAnimationsModule,
     NzGridModule,
-    NzCardModule
+    NzCardModule,
+    DragDropModule
   ],
   providers: [
     { provide: NZ_I18N, useValue: en_US },

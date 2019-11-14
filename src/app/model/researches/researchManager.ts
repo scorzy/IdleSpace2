@@ -6,6 +6,7 @@ export class ResearchManager extends JobManager {
   researches: Research[];
   toDo: Research[];
   done: Research[];
+  backlog: Research[];
 
   constructor() {
     super();
@@ -22,8 +23,9 @@ export class ResearchManager extends JobManager {
         );
       }
     });
-    this.toDo = [];
+    this.toDo = [this.researches[0]];
     this.done = [];
+    this.backlog = [];
   }
 
   unlock(res: Research): boolean {
@@ -36,7 +38,8 @@ export class ResearchManager extends JobManager {
   getSave(): any {
     return {
       d: this.done.map(r => r.getSave()),
-      t: this.done.map(r => r.getSave())
+      t: this.done.map(r => r.getSave()),
+      b: this.done.map(r => r.getSave())
     };
   }
   load(data: any) {
@@ -49,6 +52,11 @@ export class ResearchManager extends JobManager {
       const res = this.researches.find(r => r.id === resData.i);
       res.load(resData);
       this.done.push(res);
+    }
+    for (const resData of data.b) {
+      const res = this.researches.find(r => r.id === resData.i);
+      res.load(resData);
+      this.backlog.push(res);
     }
   }
 }

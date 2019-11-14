@@ -1,0 +1,19 @@
+<nz-card style="width:100%;" nzTitle="{{ job.name }}" [nzExtra]="extraTemplate">
+  <!-- <nz-progress
+    [nzPercent]="[job.progressPercent]"
+    [nzShowInfo]="true"
+    nzSize="small"
+    status="normal"
+  ></nz-progress> -->
+
+  <i nz-icon nzType="clock-circle" nzTheme="outline"></i>
+
+  <span class="monospace"> {{ job.progressPercent }}%</span>
+  <app-progress [progress]="job.progressPercent"></app-progress>
+
+  <p>{{ job.description }}</p>
+</nz-card>
+
+<ng-template #extraTemplate>
+  <a>More</a>
+</ng-template>
