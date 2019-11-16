@@ -1,15 +1,14 @@
 import { IResearchData } from "../data/iResearchData";
 import { Job } from "../job/job";
-import { convertToRoman } from "ant-utils";
-import { RESEARCH_GROW_RATE } from "../CONSTANTS";
+import { convertToRoman, solveEquation } from "ant-utils";
+import { RESEARCH_GROW_RATE, ZERO } from "../CONSTANTS";
 import { IUnlocable } from "../iUnlocable";
 import { Game } from "../game";
 
 export class Research extends Job implements IUnlocable {
   id: string;
   private originalName: string;
-  max = new Decimal(Number.MAX_SAFE_INTEGER);
-  level = 0;
+  max = Number.MAX_SAFE_INTEGER;
   unitsToUnlock?: IUnlocable[];
   researchToUnlock?: IUnlocable[];
 
@@ -21,7 +20,7 @@ export class Research extends Job implements IUnlocable {
     this.description = researchData.description;
     this.initialPrice = new Decimal(researchData.price);
     if ("max" in researchData) {
-      this.max = new Decimal(researchData.max);
+      this.max = researchData.max;
     }
     this.growRate = RESEARCH_GROW_RATE;
     if ("growRate" in researchData) {
@@ -39,7 +38,23 @@ export class Research extends Job implements IUnlocable {
     super.reload();
     this.name =
       this.originalName +
-      (this.level > 1 ? " " + convertToRoman(this.level + 1) : "");
+      (this.level > 1
+        ? " " + convertToRoman(Decimal.min(this.level, this.max))
+        : "");
+  }
+
+  reloadUi() {
+    super.reloadUi();
+
+    const science = Game.getGame().resouceManager.science;
+    this.timeToEnd = solveEquation(
+      ZERO,
+      science.perSec2,
+      science.perSec,
+      this.total.minus(this.progress).times(-1)
+    )
+      .reduce((p, c) => p.min(c), new Decimal(Number.MAX_VALUE))
+      .toNumber();
   }
 
   onCompleted(): void {

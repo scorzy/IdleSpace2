@@ -16,12 +16,13 @@ export abstract class JobManager {
   }
 
   /**
+   *
    * Complete the first job
    */
   onJobComplete() {
     const job = this.toDo[0];
     this.toDo.shift();
-    if (job.max.gte(job.level)) {
+    if (job.max > job.level) {
       this.toDo.push(job);
     } else {
       this.done.push(job);

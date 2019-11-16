@@ -3,13 +3,14 @@ import { ZERO } from "../CONSTANTS";
 export abstract class Job {
   progress = ZERO;
   total: Decimal;
-  max: Decimal;
+  max: number;
   level = 0;
   initialPrice: Decimal;
   growRate = 1.1;
   description = "";
   name = "";
   progressPercent = 0;
+  timeToEnd?: number;
 
   /**
    * Adds progress
@@ -19,14 +20,12 @@ export abstract class Job {
   addProgress(pro: DecimalSource): Decimal {
     this.progress = this.progress.plus(pro);
     let ret: Decimal;
-    this.progressPercent = Math.floor(
-      this.progress.div(this.total).toNumber() * 100
-    );
     if (this.progress.gte(this.total)) {
       // Completed !
       ret = this.total.minus(this.progress);
       this.progress = ZERO;
       this.level++;
+      this.level = Math.min(this.level, this.max);
       this.reload();
     } else {
       ret = ZERO;
@@ -39,6 +38,12 @@ export abstract class Job {
   reload() {
     this.total = this.initialPrice.times(
       Decimal.pow(this.growRate, this.level)
+    );
+  }
+
+  reloadUi() {
+    this.progressPercent = Math.floor(
+      this.progress.div(this.total).toNumber() * 100
     );
   }
 }

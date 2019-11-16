@@ -21,8 +21,11 @@ export class JobComponent implements OnInit, OnDestroy {
   constructor(public ms: MainService, private cd: ChangeDetectorRef) {}
 
   ngOnInit() {
+    this.job.reloadUi();
+
     this.subscriptions.push(
       this.ms.updateEmitter.subscribe(() => {
+        this.job.reloadUi();
         this.cd.markForCheck();
       })
     );

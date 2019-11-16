@@ -38,11 +38,15 @@ export class ResearchManager extends JobManager {
   getSave(): any {
     return {
       d: this.done.map(r => r.getSave()),
-      t: this.done.map(r => r.getSave()),
-      b: this.done.map(r => r.getSave())
+      t: this.toDo.map(r => r.getSave()),
+      b: this.backlog.map(r => r.getSave())
     };
   }
   load(data: any) {
+    this.toDo = [];
+    this.done = [];
+    this.backlog = [];
+
     for (const resData of data.t) {
       const res = this.researches.find(r => r.id === resData.i);
       res.load(resData);

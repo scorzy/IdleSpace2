@@ -2,7 +2,7 @@ export interface IResearchData {
   id: string;
   name: string;
   description: string;
-  max?: DecimalSource;
+  max?: number;
   price: DecimalSource;
   growRate?: number;
   types?: string[];

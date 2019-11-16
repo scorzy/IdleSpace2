@@ -11,6 +11,7 @@ export class OptionsService {
   usaFormat = true;
   numFormat = "scientific";
   formatId = 0;
+  timeFormatDetail = true;
 
   constructor() {
     try {

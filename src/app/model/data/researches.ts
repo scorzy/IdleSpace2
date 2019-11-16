@@ -6,6 +6,7 @@ export const RESEARCHES: IResearchData[] = [
     name: "Metallurgist",
     description: "",
     price: 100,
-    unitsToUnlock: ["a"]
+    unitsToUnlock: ["a"],
+    max: 1
   }
 ];

@@ -32,6 +32,7 @@ import { SaveComponent } from "./save/save.component";
 import { DragDropModule } from "@angular/cdk/drag-drop";
 import { JobComponent } from './job/job.component';
 import { ProgressComponent } from './progress/progress.component';
+import { TimePipe } from './time.pipe';
 
 registerLocaleData(en);
 
@@ -53,7 +54,8 @@ const ngZorroConfig: NzConfig = {
     OptionsComponent,
     SaveComponent,
     JobComponent,
-    ProgressComponent
+    ProgressComponent,
+    TimePipe
   ],
   imports: [
     BrowserModule,

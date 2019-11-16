@@ -8,7 +8,13 @@
 
   <i nz-icon nzType="clock-circle" nzTheme="outline"></i>
 
-  <span class="monospace"> {{ job.progressPercent }}%</span>
+  <span class="monospace">
+    {{ job.timeToEnd | time }}
+    <span class="right">
+      {{ job.progress | format }}/{{ job.total | format }}
+      {{ job.progressPercent }}%</span
+    >
+  </span>
   <app-progress [progress]="job.progressPercent"></app-progress>
 
   <p>{{ job.description }}</p>

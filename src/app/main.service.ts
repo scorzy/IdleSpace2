@@ -40,6 +40,8 @@ export class MainService {
     };
 
     setInterval(this.update.bind(this), 250);
+
+    this.loadFromLocalStorage();
   }
 
   update() {
@@ -90,5 +92,11 @@ export class MainService {
     if (data) {
       this.decompressAndLoad(data);
     }
+  }
+
+  clear() {
+    localStorage.removeItem(SAVE_ID);
+    this.last = Date.now();
+    this.game = new Game();
   }
 }
