@@ -24,6 +24,7 @@ export abstract class Job {
       // Completed !
       ret = this.total.minus(this.progress);
       this.progress = ZERO;
+      this.onCompleted();
       this.level++;
       this.level = Math.min(this.level, this.max);
       this.reload();

@@ -1,16 +1,22 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { LaboratoryComponent } from './laboratory.component';
+import { LaboratoryComponent } from "./laboratory.component";
+import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import { testImports } from "../app.component.spec";
+import { FormatPipe } from "../format.pipe";
+import { MainService } from "../main.service";
 
-describe('LaboratoryComponent', () => {
+describe("LaboratoryComponent", () => {
   let component: LaboratoryComponent;
   let fixture: ComponentFixture<LaboratoryComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ LaboratoryComponent ]
-    })
-    .compileComponents();
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
+      imports: testImports,
+      declarations: [LaboratoryComponent, FormatPipe],
+      providers: [MainService]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -19,7 +25,7 @@ describe('LaboratoryComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

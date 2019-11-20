@@ -42,7 +42,10 @@ export const UNITS: IUnitData[] = [
     name: "Farmer",
     description: "",
     startQuantity: 1,
-    production: [["F", 4], ["E", -1]],
+    production: [
+      ["F", 4],
+      ["E", -1]
+    ],
     prices: [["F", 10]]
   },
   {
@@ -50,30 +53,52 @@ export const UNITS: IUnitData[] = [
     name: "Technician",
     description: "",
     startQuantity: 1,
-    production: [["F", -1], ["E", 4]],
-    prices: [["F", 10], ["M", 10]]
+    production: [
+      ["F", -1],
+      ["E", 4]
+    ],
+    prices: [
+      ["F", 10],
+      ["M", 10]
+    ]
   },
   {
     id: "m",
     name: "Miner",
     description: "",
     startQuantity: 1,
-    production: [["M", 4], ["F", -1], ["E", -1]],
+    production: [
+      ["M", 4],
+      ["F", -1],
+      ["E", -1]
+    ],
     prices: [["F", 10]]
   },
   {
     id: "s",
     name: "Scientist",
     description: "",
-    production: [["S", 1], ["F", -5], ["M", -5], ["E", -2]],
+    production: [
+      ["S", 1],
+      ["F", -5],
+      ["M", -5],
+      ["E", -2]
+    ],
     prices: [["F", 10]]
   },
   {
     id: "a",
     name: "Metallurgist",
     description: "",
-    production: [["A", 1], ["m", -5], ["E", -2]],
-    prices: [["F", 10], ["M", 10]]
+    production: [
+      ["A", 1],
+      ["M", -5],
+      ["E", -2]
+    ],
+    prices: [
+      ["F", 10],
+      ["M", 10]
+    ]
   }
   //#endregion
 ];

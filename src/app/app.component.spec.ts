@@ -5,9 +5,10 @@ import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
 import { MainService } from "./main.service";
 import { FormsModule } from "@angular/forms";
 import { IconsProviderModule } from "./iconModule/icons-provider.module";
-import { NgZorroAntdModule, NzGridModule } from "ng-zorro-antd";
+import { NgZorroAntdModule, NzGridModule, NzCardModule } from "ng-zorro-antd";
 import { HttpClientModule } from "@angular/common/http";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { DragDropModule } from "@angular/cdk/drag-drop";
 
 export const testImports = [
   RouterTestingModule,
@@ -16,7 +17,9 @@ export const testImports = [
   FormsModule,
   HttpClientModule,
   BrowserAnimationsModule,
-  NzGridModule
+  NzGridModule,
+  NzCardModule,
+  DragDropModule
 ];
 
 describe("AppComponent", () => {

@@ -9,19 +9,20 @@ span {
   display: flex;
   flex-direction: column;
   padding-left: 0.2rem;
+  min-width: 5rem;
 }
 
 .mainContainer {
   display: flex;
   align-items: center;
   min-height: 64px;
-  min-width: 7rem;
-  max-width: 10rem;
+  min-width: 8rem;
+  max-width: 11rem;
   flex-basis: auto;
   flex-grow: 1;
   [nz-icon] {
-    margin-right: 8px;
-    margin-left: 8px;
+    margin-right: 10px;
+    margin-left: 10px;
     font-size: 24px;
   }
 }
@@ -29,4 +30,16 @@ span {
   display: flex;
   justify-content: flex-start;
   flex-wrap: wrap;
+}
+
+@media only screen and (max-width: 1000px) {
+  .mainContainer {
+    width: 8rem;
+    max-width: 8rem;
+    [nz-icon] {
+      margin-right: 7px;
+      margin-left: 7px;
+      font-size: 24px;
+    }
+  }
 }

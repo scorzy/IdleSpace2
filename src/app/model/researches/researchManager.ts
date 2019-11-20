@@ -1,6 +1,7 @@
 import { JobManager } from "../job/jobManager";
 import { RESEARCHES } from "../data/researches";
 import { Research } from "./research";
+import { Game } from "../game";
 
 export class ResearchManager extends JobManager {
   researches: Research[];
@@ -20,6 +21,11 @@ export class ResearchManager extends JobManager {
       if ("researchToUnlock" in resData) {
         res.researchToUnlock = resData.researchToUnlock.map(unlId =>
           this.researches.find(resToUnl => resToUnl.id === unlId)
+        );
+      }
+      if ("unitsToUnlock" in resData) {
+        res.unitsToUnlock = resData.unitsToUnlock.map(unlId =>
+          Game.getGame().resouceManager.units.find(unit => unit.id === unlId)
         );
       }
     });

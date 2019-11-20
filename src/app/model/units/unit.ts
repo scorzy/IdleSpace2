@@ -73,7 +73,7 @@ export class Unit implements IBase, IUnlocable {
   unlock(): boolean {
     if (this.unlocked) return false;
     this.unlocked = true;
-    // Game.getGame().resouceManager.reloadLists();
+    Game.getGame().resouceManager.reloadLists();
   }
 
   postUpdate() {
