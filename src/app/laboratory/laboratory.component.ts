@@ -1,4 +1,9 @@
-import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef
+} from "@angular/core";
 import { MainService } from "../main.service";
 import { Research } from "../model/researches/research";
 import {
@@ -6,6 +11,7 @@ import {
   moveItemInArray,
   transferArrayItem
 } from "@angular/cdk/drag-drop";
+import { Subscription } from "rxjs";
 
 @Component({
   selector: "app-laboratory",
@@ -14,9 +20,17 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LaboratoryComponent implements OnInit {
-  constructor(public ms: MainService) {}
+  private subscriptions: Subscription[] = [];
 
-  ngOnInit() {}
+  constructor(public ms: MainService, private cd: ChangeDetectorRef) {}
+
+  ngOnInit() {
+    this.subscriptions.push(
+      this.ms.updateEmitter.subscribe(() => {
+        this.cd.markForCheck();
+      })
+    );
+  }
 
   getResId(index: number, research: Research) {
     return research.id;

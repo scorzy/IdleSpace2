@@ -1,5 +1,5 @@
 import { Bonus } from "./bonus";
-import { ONE, ZERO } from "../CONSTANTS";
+import { ONE } from "../CONSTANTS";
 
 export class BonusStack {
   public bonuses = new Array<Bonus>();

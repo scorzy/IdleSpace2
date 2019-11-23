@@ -22,7 +22,7 @@ export abstract class Job {
     let ret: Decimal;
     if (this.progress.gte(this.total)) {
       // Completed !
-      ret = this.total.minus(this.progress);
+      ret = this.progress.minus(this.total);
       this.progress = ZERO;
       this.onCompleted();
       this.level++;

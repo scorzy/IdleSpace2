@@ -4,13 +4,17 @@ import { convertToRoman, solveEquation } from "ant-utils";
 import { RESEARCH_GROW_RATE, ZERO } from "../CONSTANTS";
 import { IUnlocable } from "../iUnlocable";
 import { Game } from "../game";
+import { IBase } from "../iBase";
 
-export class Research extends Job implements IUnlocable {
+export class Research extends Job implements IUnlocable, IBase {
   id: string;
   private originalName: string;
   max = Number.MAX_SAFE_INTEGER;
   unitsToUnlock?: IUnlocable[];
   researchToUnlock?: IUnlocable[];
+
+  quantity: Decimal;
+  icon?: string;
 
   constructor(researchData: IResearchData) {
     super();
@@ -41,6 +45,7 @@ export class Research extends Job implements IUnlocable {
       (this.level > 1
         ? " " + convertToRoman(Decimal.min(this.level, this.max))
         : "");
+    this.quantity = new Decimal(this.level);
   }
 
   reloadUi() {

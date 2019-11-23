@@ -2,6 +2,9 @@ import { JobManager } from "../job/jobManager";
 import { RESEARCHES } from "../data/researches";
 import { Research } from "./research";
 import { Game } from "../game";
+import { BonusStack } from "../bonus/bonusStack";
+import { RESEARCH_TYPES, IResearchType } from "../data/iResearchData";
+import { Bonus } from "../bonus/bonus";
 
 export class ResearchManager extends JobManager {
   researches: Research[];
@@ -11,6 +14,12 @@ export class ResearchManager extends JobManager {
 
   constructor() {
     super();
+    for (const key in RESEARCH_TYPES) {
+      if (key) {
+        const resType = RESEARCH_TYPES[key];
+        if (resType) resType.bonus = new BonusStack();
+      }
+    }
     this.makeResearches();
   }
 
@@ -28,6 +37,13 @@ export class ResearchManager extends JobManager {
           Game.getGame().resouceManager.units.find(unit => unit.id === unlId)
         );
       }
+      if ("researchBonus" in resData) {
+        resData.researchBonus.forEach(resBonusData => {
+          resBonusData.type.bonus.bonuses.push(
+            new Bonus(res, new Decimal(resBonusData.bonus))
+          );
+        });
+      }
     });
     this.toDo = [this.researches[0]];
     this.done = [];
@@ -35,7 +51,9 @@ export class ResearchManager extends JobManager {
   }
 
   unlock(res: Research): boolean {
-    if (this.toDo.findIndex(r => r.id === res.id)) return false;
+    if (this.toDo.findIndex(r => r.id === res.id) > -1) return false;
+    if (this.done.findIndex(r => r.id === res.id) > -1) return false;
+    if (this.backlog.findIndex(r => r.id === res.id) > -1) return false;
 
     this.toDo.push(res);
     return true;
