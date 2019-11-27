@@ -1,4 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
+
 @media only screen and (min-width: 700px) {
   nz-header {
     position: -webkit-sticky;
@@ -58,4 +59,13 @@
 }
 .right {
   float: right;
+}
+.infoIcon {
+  cursor: pointer;
+}
+
+.list-unstyled {
+  list-style: none;
+  margin-left: 0;
+  padding-left: 0;
 }

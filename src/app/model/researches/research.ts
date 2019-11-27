@@ -1,5 +1,5 @@
-import { IResearchData } from "../data/iResearchData";
-import { Job } from "../job/job";
+import { IResearchData, IResearchType } from "../data/iResearchData";
+import { Job, MyIcon } from "../job/job";
 import { convertToRoman, solveEquation } from "ant-utils";
 import { RESEARCH_GROW_RATE, ZERO } from "../CONSTANTS";
 import { IUnlocable } from "../iUnlocable";
@@ -15,6 +15,7 @@ export class Research extends Job implements IUnlocable, IBase {
 
   quantity: Decimal;
   icon?: string;
+  type: IResearchType[] = [];
 
   constructor(researchData: IResearchData) {
     super();
@@ -35,6 +36,7 @@ export class Research extends Job implements IUnlocable, IBase {
         Game.getGame().resouceManager.units.find(a => a.id === uId)
       );
     }
+    this.type = researchData.type;
     this.reload();
   }
 
@@ -81,6 +83,16 @@ export class Research extends Job implements IUnlocable, IBase {
     return resM.unlock(this);
   }
 
+  getIcons(): MyIcon[] {
+    return this.type.map(t => {
+      return {
+        icon: t.icon,
+        color: t.color
+      };
+    });
+  }
+
+  //#region Save and Load
   getSave(): any {
     const ret: any = {};
     ret.i = this.id;
@@ -98,4 +110,5 @@ export class Research extends Job implements IUnlocable, IBase {
     if ("l" in data) this.level = data.l;
     this.reload();
   }
+  //#endregion
 }

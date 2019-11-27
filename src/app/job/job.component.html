@@ -1,11 +1,4 @@
-<nz-card style="width:100%;" nzTitle="{{ job.name }}" [nzExtra]="extraTemplate">
-  <!-- <nz-progress
-    [nzPercent]="[job.progressPercent]"
-    [nzShowInfo]="true"
-    nzSize="small"
-    status="normal"
-  ></nz-progress> -->
-
+<nz-card style="width:100%;" [nzTitle]="titleTemplate">
   <i nz-icon nzType="clock-circle" nzTheme="outline"></i>
 
   <span class="monospace">
@@ -20,6 +13,15 @@
   <p>{{ job.description }}</p>
 </nz-card>
 
-<ng-template #extraTemplate>
+<!-- <ng-template #extraTemplate>
   <a>More</a>
+</ng-template> -->
+
+<ng-template #titleTemplate>
+  {{ job.name }}
+  <span
+    *ngFor="let item of icons; trackBy: getIconId"
+    [style.color]="item.color"
+    ><i nz-icon [nzType]="item.icon"></i
+  ></span>
 </ng-template>

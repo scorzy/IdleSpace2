@@ -1,5 +1,7 @@
 import { ResourceManager } from "./units/resourceManager";
 import { ResearchManager } from "./researches/researchManager";
+import { RESEARCH_TYPES } from './data/iResearchData';
+import { BonusStack } from './bonus/bonusStack';
 
 /**
  * Game is the main class that orchestrate everything game related
@@ -58,8 +60,16 @@ export class Game {
 
     this.resouceManager.reloadProduction();
     this.resouceManager.postUpdate();
+
+    for (const key in RESEARCH_TYPES) {
+      if (key) {
+        const resType = RESEARCH_TYPES[key];
+        if (resType) resType.bonus.reloadBonus();
+      }
+    }
   }
 
+  //#region Save and Load
   getSave(): any {
     return {
       s: this.resouceManager.getSave(),
@@ -74,4 +84,5 @@ export class Game {
     this.resouceManager.load(data.s);
     this.researchManager.load(data.r);
   }
+  //#endregion
 }

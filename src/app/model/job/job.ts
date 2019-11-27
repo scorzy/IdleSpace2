@@ -1,5 +1,8 @@
 import { ZERO } from "../CONSTANTS";
-
+export interface MyIcon {
+  icon: string;
+  color: string;
+}
 export abstract class Job {
   progress = ZERO;
   total: Decimal;
@@ -46,5 +49,9 @@ export abstract class Job {
     this.progressPercent = Math.floor(
       this.progress.div(this.total).toNumber() * 100
     );
+  }
+
+  getIcons(): MyIcon[] {
+    return [];
   }
 }

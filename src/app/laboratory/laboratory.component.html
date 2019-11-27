@@ -35,3 +35,20 @@
     ></app-job>
   </div>
 </div>
+
+<div class="info-div">
+  <ul class="list-unstyled">
+    <li
+      *ngFor="let item of ms.game.researchManager.typesList; trackBy: getTypeId"
+    >
+      <span [style.color]="item.color"
+        ><i nz-icon [nzType]="item.icon"></i
+      ></span>
+
+      {{ item.name }}
+      <span class="monospace"
+        >{{ item.bonus.totalBonus.times(100) | format }}%</span
+      >
+    </li>
+  </ul>
+</div>

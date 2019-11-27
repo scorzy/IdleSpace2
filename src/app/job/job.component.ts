@@ -5,7 +5,7 @@ import {
   ChangeDetectorRef,
   OnDestroy
 } from "@angular/core";
-import { Job } from "../model/job/job";
+import { Job, MyIcon } from "../model/job/job";
 import { Subscription } from "rxjs";
 import { MainService } from "../main.service";
 
@@ -18,10 +18,13 @@ export class JobComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
 
   @Input() job: Job;
+  icons: MyIcon[];
+
   constructor(public ms: MainService, private cd: ChangeDetectorRef) {}
 
   ngOnInit() {
     this.job.reloadUi();
+    this.icons = this.job.getIcons();
 
     this.subscriptions.push(
       this.ms.updateEmitter.subscribe(() => {
@@ -32,5 +35,9 @@ export class JobComponent implements OnInit, OnDestroy {
   }
   ngOnDestroy() {
     this.subscriptions.forEach((sub: Subscription) => sub.unsubscribe());
+  }
+
+  getIconId(index: number, myIcon: MyIcon) {
+    return myIcon.icon + myIcon.color;
   }
 }

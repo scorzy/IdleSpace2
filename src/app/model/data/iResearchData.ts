@@ -4,13 +4,15 @@ export interface IResearchType {
   id: number;
   name: string;
   icon: string;
+  color: string;
   bonus?: BonusStack;
 }
 export const RESEARCH_TYPES: { readonly [index: string]: IResearchType } = {
   Engineering: {
     id: 0,
     name: "Engineering",
-    icon: ""
+    icon: "setting",
+    color: "#FA8C16"
   }
 };
 

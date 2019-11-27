@@ -11,19 +11,32 @@ export class ResearchManager extends JobManager {
   toDo: Research[];
   done: Research[];
   backlog: Research[];
+  typesList: IResearchType[];
 
   constructor() {
     super();
+    this.typesList = [];
+
     for (const key in RESEARCH_TYPES) {
       if (key) {
         const resType = RESEARCH_TYPES[key];
-        if (resType) resType.bonus = new BonusStack();
+        if (resType) {
+          this.typesList.push(resType);
+          resType.bonus = new BonusStack();
+        }
       }
     }
     this.makeResearches();
   }
 
   makeResearches() {
+    for (const key in RESEARCH_TYPES) {
+      if (key) {
+        const resType = RESEARCH_TYPES[key];
+        if (resType) resType.bonus = new BonusStack();
+      }
+    }
+
     this.researches = RESEARCHES.map(resData => new Research(resData));
     this.researches.forEach(res => {
       const resData = RESEARCHES.find(r => r.id === res.id);
@@ -59,6 +72,7 @@ export class ResearchManager extends JobManager {
     return true;
   }
 
+  //#region Save and Load
   getSave(): any {
     return {
       d: this.done.map(r => r.getSave()),
@@ -87,4 +101,5 @@ export class ResearchManager extends JobManager {
       this.backlog.push(res);
     }
   }
+  //#endregion
 }
