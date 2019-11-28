@@ -1,7 +1,7 @@
 import { ResourceManager } from "./units/resourceManager";
 import { ResearchManager } from "./researches/researchManager";
-import { RESEARCH_TYPES } from './data/iResearchData';
-import { BonusStack } from './bonus/bonusStack';
+import { RESEARCH_TYPES } from "./data/iResearchData";
+import { BonusStack } from "./bonus/bonusStack";
 
 /**
  * Game is the main class that orchestrate everything game related
@@ -67,6 +67,9 @@ export class Game {
         if (resType) resType.bonus.reloadBonus();
       }
     }
+
+    this.researchManager.toDo.forEach(r => r.reloadTotalBonus());
+    this.researchManager.backlog.forEach(r => r.reloadTotalBonus());
   }
 
   //#region Save and Load

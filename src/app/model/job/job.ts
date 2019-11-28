@@ -1,4 +1,5 @@
-import { ZERO } from "../CONSTANTS";
+import { ZERO, ONE } from "../CONSTANTS";
+import { IJobType } from "../data/iResearchData";
 export interface MyIcon {
   icon: string;
   color: string;
@@ -14,6 +15,9 @@ export abstract class Job {
   name = "";
   progressPercent = 0;
   timeToEnd?: number;
+  totalBonus = ONE;
+  totalBonusUi = ZERO;
+  types: IJobType[] = [];
 
   /**
    * Adds progress
@@ -21,11 +25,13 @@ export abstract class Job {
    * @returns rest
    */
   addProgress(pro: DecimalSource): Decimal {
-    this.progress = this.progress.plus(pro);
+    const toAdd = this.totalBonus.times(pro);
+    this.progress = this.progress.plus(toAdd);
     let ret: Decimal;
     if (this.progress.gte(this.total)) {
       // Completed !
       ret = this.progress.minus(this.total);
+      ret = ret.div(this.totalBonus);
       this.progress = ZERO;
       this.onCompleted();
       this.level++;
@@ -53,5 +59,12 @@ export abstract class Job {
 
   getIcons(): MyIcon[] {
     return [];
+  }
+
+  reloadTotalBonus() {
+    const newBonus = this.types
+      .map(t => t.bonus.totalBonus)
+      .reduce((p, c) => p.times(c), ONE);
+    if (!newBonus.eq(this.total)) this.totalBonus = newBonus;
   }
 }

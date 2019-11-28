@@ -12,7 +12,7 @@ import {
   transferArrayItem
 } from "@angular/cdk/drag-drop";
 import { Subscription } from "rxjs";
-import { RESEARCH_TYPES, IResearchType } from "../model/data/iResearchData";
+import { RESEARCH_TYPES, IJobType } from "../model/data/iResearchData";
 
 @Component({
   selector: "app-laboratory",
@@ -54,7 +54,7 @@ export class LaboratoryComponent implements OnInit {
     }
   }
 
-  getTypeId(num: number, data: IResearchType) {
+  getTypeId(num: number, data: IJobType) {
     return data.id;
   }
 }

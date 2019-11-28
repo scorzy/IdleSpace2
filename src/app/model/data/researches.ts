@@ -4,9 +4,9 @@ export const RESEARCHES: IResearchData[] = [
   {
     id: "m",
     name: "Metallurgist",
-    description: "",
+    description: "Unlock Metallurgists",
     price: 100,
-    unitsToUnlock: ["A", "a"],
+    unitsToUnlock: ["A", "a", "w", "W"],
     researchToUnlock: ["e"],
     max: 1,
     type: [RESEARCH_TYPES.Engineering]
@@ -14,10 +14,10 @@ export const RESEARCHES: IResearchData[] = [
   {
     id: "e",
     name: "Engineering",
-    description: "",
+    description: "+100% Engineering research speed.",
     price: 1e3,
     max: 10,
     type: [RESEARCH_TYPES.Engineering],
-    researchBonus: [{ type: RESEARCH_TYPES.Engineering, bonus: 10 }]
+    researchBonus: [{ type: RESEARCH_TYPES.Engineering, bonus: 1 }]
   }
 ];

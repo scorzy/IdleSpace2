@@ -1,4 +1,9 @@
-<nz-card style="width:100%;" [nzTitle]="titleTemplate">
+<nz-card
+  style="width:100%;"
+  [nzTitle]="titleTemplate"
+  [nzExtra]="extraTemplate"
+>
+  <p>{{ job.description }}</p>
   <i nz-icon nzType="clock-circle" nzTheme="outline"></i>
 
   <span class="monospace">
@@ -8,14 +13,15 @@
       {{ job.progressPercent }}%</span
     >
   </span>
-  <app-progress [progress]="job.progressPercent"></app-progress>
 
-  <p>{{ job.description }}</p>
+  <app-progress [progress]="job.progressPercent"></app-progress>
 </nz-card>
 
-<!-- <ng-template #extraTemplate>
-  <a>More</a>
-</ng-template> -->
+<ng-template #extraTemplate>
+  <span *ngIf="research" class="monospace">
+    +{{ research.totalBonusUi | format }}%
+  </span>
+</ng-template>
 
 <ng-template #titleTemplate>
   {{ job.name }}

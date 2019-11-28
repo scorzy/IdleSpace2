@@ -35,6 +35,12 @@ export const UNITS: IUnitData[] = [
     icon: "my:fizzing-flask",
     description: ""
   },
+  {
+    id: "W",
+    name: "Work",
+    icon: "setting",
+    description: ""
+  },
   //#endregion
   //#region Workers
   {
@@ -98,6 +104,21 @@ export const UNITS: IUnitData[] = [
     prices: [
       ["F", 10],
       ["M", 10]
+    ]
+  },
+  {
+    id: "w",
+    name: "Worker",
+    description: "",
+    production: [
+      ["W", 1],
+      ["A", -5],
+      ["E", -2]
+    ],
+    prices: [
+      ["F", 10],
+      ["M", 10],
+      ["A", 10]
     ]
   }
   //#endregion

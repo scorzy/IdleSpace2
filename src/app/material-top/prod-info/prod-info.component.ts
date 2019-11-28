@@ -34,12 +34,12 @@ export class ProdInfoComponent implements OnInit {
   getData() {
     this.totalProd = this.unit.makers
       .filter(p => p.ratio.gt(0))
-      .map(p => p.prodPerSec)
+      .map(p => p.prodPerSec.times(p.producer.quantity))
       .reduce((p, c) => p.plus(c), ZERO);
 
     this.totalConsumed = this.unit.makers
       .filter(p => p.ratio.lt(0))
-      .map(p => p.prodPerSec)
+      .map(p => p.prodPerSec.times(p.producer.quantity))
       .reduce((p, c) => p.plus(c), ZERO);
 
     this.search();

@@ -8,6 +8,7 @@ import {
 import { Job, MyIcon } from "../model/job/job";
 import { Subscription } from "rxjs";
 import { MainService } from "../main.service";
+import { Research } from "../model/researches/research";
 
 @Component({
   selector: "app-job",
@@ -19,11 +20,17 @@ export class JobComponent implements OnInit, OnDestroy {
 
   @Input() job: Job;
   icons: MyIcon[];
+  isResearch = false;
+  research: Research;
+  totalResearchBonus: Decimal;
 
   constructor(public ms: MainService, private cd: ChangeDetectorRef) {}
 
   ngOnInit() {
     this.job.reloadUi();
+    if (this.job instanceof Research) {
+      this.research = this.job;
+    }
     this.icons = this.job.getIcons();
 
     this.subscriptions.push(

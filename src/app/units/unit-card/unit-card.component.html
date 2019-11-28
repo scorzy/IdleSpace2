@@ -97,7 +97,7 @@
               nz-text
               class="monospace"
               [nzType]="data.prodPerSec.gte(0) ? '' : 'danger'"
-              >{{ data.prodPerSec | format }}</span
+              >{{ data.prodPerSec.times(unit.quantity) | format }}</span
             >
           </td>
         </tr>

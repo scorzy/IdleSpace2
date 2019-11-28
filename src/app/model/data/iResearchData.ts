@@ -1,13 +1,13 @@
 import { BonusStack } from "../bonus/bonusStack";
 
-export interface IResearchType {
+export interface IJobType {
   id: number;
   name: string;
   icon: string;
   color: string;
   bonus?: BonusStack;
 }
-export const RESEARCH_TYPES: { readonly [index: string]: IResearchType } = {
+export const RESEARCH_TYPES: { readonly [index: string]: IJobType } = {
   Engineering: {
     id: 0,
     name: "Engineering",
@@ -25,6 +25,6 @@ export interface IResearchData {
   growRate?: number;
   unitsToUnlock?: string[];
   researchToUnlock?: string[];
-  type?: IResearchType[];
-  researchBonus?: { type: IResearchType; bonus: DecimalSource }[];
+  type?: IJobType[];
+  researchBonus?: { type: IJobType; bonus: DecimalSource }[];
 }

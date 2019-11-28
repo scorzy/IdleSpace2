@@ -1,6 +1,6 @@
 <h4>
   Production:
-  <span class="monospace">
+  <span nz-text class="monospace" [nzType]="unit.perSec.gte(0) ? '' : 'danger'">
     {{ unit.perSec | format }}
   </span>
 </h4>
@@ -40,7 +40,7 @@
           nz-text
           [nzType]="data.prodPerSec.gte(0) ? '' : 'danger'"
           class="monospace"
-          >{{ data.prodPerSec }}</span
+          >{{ data.prodPerSec.times(data.producer.quantity) | format }}</span
         >
       </td>
     </tr>

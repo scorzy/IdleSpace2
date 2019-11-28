@@ -26,6 +26,7 @@ export class ResourceManager {
   miner: Unit;
   metallurgist: Unit;
   scientist: Unit;
+  worker: Unit;
 
   constructor() {
     this.makeUnits();
@@ -41,7 +42,8 @@ export class ResourceManager {
         u.id === "E" ||
         u.id === "M" ||
         u.id === "A" ||
-        u.id === "S"
+        u.id === "S" ||
+        u.id === "W"
     );
 
     this.science = this.units.find(u => u.id === "S");
@@ -85,7 +87,8 @@ export class ResourceManager {
         u.id === "m" ||
         u.id === "e" ||
         u.id === "a" ||
-        u.id === "s"
+        u.id === "s" ||
+        u.id === "w"
     );
 
     this.reloadLists();

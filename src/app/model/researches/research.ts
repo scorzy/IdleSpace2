@@ -1,7 +1,7 @@
-import { IResearchData, IResearchType } from "../data/iResearchData";
+import { IResearchData, IJobType } from "../data/iResearchData";
 import { Job, MyIcon } from "../job/job";
 import { convertToRoman, solveEquation } from "ant-utils";
-import { RESEARCH_GROW_RATE, ZERO } from "../CONSTANTS";
+import { RESEARCH_GROW_RATE, ZERO, ONE } from "../CONSTANTS";
 import { IUnlocable } from "../iUnlocable";
 import { Game } from "../game";
 import { IBase } from "../iBase";
@@ -15,7 +15,6 @@ export class Research extends Job implements IUnlocable, IBase {
 
   quantity: Decimal;
   icon?: string;
-  type: IResearchType[] = [];
 
   constructor(researchData: IResearchData) {
     super();
@@ -36,7 +35,7 @@ export class Research extends Job implements IUnlocable, IBase {
         Game.getGame().resouceManager.units.find(a => a.id === uId)
       );
     }
-    this.type = researchData.type;
+    this.types = researchData.type;
     this.reload();
   }
 
@@ -52,6 +51,8 @@ export class Research extends Job implements IUnlocable, IBase {
 
   reloadUi() {
     super.reloadUi();
+    const newTotalBonUi = this.totalBonus.minus(1).times(100);
+    if (newTotalBonUi.eq(this.totalBonusUi)) this.totalBonusUi = newTotalBonUi;
 
     const science = Game.getGame().resouceManager.science;
     this.timeToEnd = solveEquation(
@@ -84,7 +85,7 @@ export class Research extends Job implements IUnlocable, IBase {
   }
 
   getIcons(): MyIcon[] {
-    return this.type.map(t => {
+    return this.types.map(t => {
       return {
         icon: t.icon,
         color: t.color

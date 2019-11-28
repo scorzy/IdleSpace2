@@ -3,7 +3,7 @@ import { RESEARCHES } from "../data/researches";
 import { Research } from "./research";
 import { Game } from "../game";
 import { BonusStack } from "../bonus/bonusStack";
-import { RESEARCH_TYPES, IResearchType } from "../data/iResearchData";
+import { RESEARCH_TYPES, IJobType } from "../data/iResearchData";
 import { Bonus } from "../bonus/bonus";
 
 export class ResearchManager extends JobManager {
@@ -11,7 +11,7 @@ export class ResearchManager extends JobManager {
   toDo: Research[];
   done: Research[];
   backlog: Research[];
-  typesList: IResearchType[];
+  typesList: IJobType[];
 
   constructor() {
     super();
