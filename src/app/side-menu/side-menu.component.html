@@ -38,6 +38,20 @@
       </li>
     </ul>
   </li>
+  <li
+    *ngIf="ms.game.resouceManager.worker.unlocked"
+    @fadeIn
+    nz-submenu
+    nzOpen
+    nzTitle="Shipyard"
+    nzIcon="setting"
+  >
+    <ul>
+      <li nz-menu-item nzMatchRouter>
+        <a [routerLink]="'ship'">Shipyard</a>
+      </li>
+    </ul>
+  </li>
   <li nz-submenu nzOpen nzTitle="War" nzIcon="form">
     <ul>
       <li nz-menu-item nzMatchRouter>

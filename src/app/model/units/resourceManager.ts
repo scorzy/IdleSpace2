@@ -52,6 +52,7 @@ export class ResourceManager {
     this.miner = this.units.find(u => u.id === "m");
     this.metallurgist = this.units.find(u => u.id === "a");
     this.scientist = this.units.find(u => u.id === "s");
+    this.worker = this.units.find(u => u.id === "w");
 
     //  Production
     this.units.forEach(unit => {
