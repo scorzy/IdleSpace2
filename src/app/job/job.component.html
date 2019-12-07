@@ -18,16 +18,16 @@
 </nz-card>
 
 <ng-template #extraTemplate>
-  <span *ngIf="research" class="monospace">
+  <span *ngIf="research && research.totalBonusUi.gt(0)" class="monospace">
     +{{ research.totalBonusUi | format }}%
   </span>
 </ng-template>
 
 <ng-template #titleTemplate>
-  {{ job.name }}
   <span
     *ngFor="let item of icons; trackBy: getIconId"
     [style.color]="item.color"
     ><i nz-icon [nzType]="item.icon"></i
   ></span>
+  {{ job.name }}
 </ng-template>

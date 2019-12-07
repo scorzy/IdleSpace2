@@ -26,11 +26,23 @@ export class LaboratoryComponent implements OnInit {
   constructor(public ms: MainService, private cd: ChangeDetectorRef) {}
 
   ngOnInit() {
+    this.reloadUi();
+
     this.subscriptions.push(
       this.ms.updateEmitter.subscribe(() => {
+        this.reloadUi();
         this.cd.markForCheck();
       })
     );
+  }
+
+  reloadUi() {
+    for (const key in RESEARCH_TYPES) {
+      if (key) {
+        const resType = RESEARCH_TYPES[key];
+        if (resType) resType.bonus.reloadBonusUi();
+      }
+    }
   }
 
   getResId(index: number, research: Research) {

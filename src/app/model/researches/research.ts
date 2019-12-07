@@ -52,14 +52,17 @@ export class Research extends Job implements IUnlocable, IBase {
   reloadUi() {
     super.reloadUi();
     const newTotalBonUi = this.totalBonus.minus(1).times(100);
-    if (newTotalBonUi.eq(this.totalBonusUi)) this.totalBonusUi = newTotalBonUi;
+    if (!newTotalBonUi.eq(this.totalBonusUi)) this.totalBonusUi = newTotalBonUi;
 
     const science = Game.getGame().resouceManager.science;
     this.timeToEnd = solveEquation(
       ZERO,
       science.perSec2,
       science.perSec,
-      this.total.minus(this.progress).times(-1)
+      this.total
+        .minus(this.progress)
+        .times(-1)
+        .div(this.totalBonus.minus(1))
     )
       .reduce((p, c) => p.min(c), new Decimal(Number.MAX_VALUE))
       .toNumber();

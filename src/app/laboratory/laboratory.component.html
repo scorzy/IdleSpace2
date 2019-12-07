@@ -46,9 +46,7 @@
       ></span>
 
       {{ item.name }}
-      <span class="monospace"
-        >{{ item.bonus.totalBonus.times(100) | format }}%</span
-      >
+      <span class="monospace">+{{ item.bonus.totalBonusUi | format }}%</span>
     </li>
   </ul>
 </div>
