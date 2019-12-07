@@ -9,6 +9,7 @@ import { NgZorroAntdModule, NzGridModule, NzCardModule } from "ng-zorro-antd";
 import { HttpClientModule } from "@angular/common/http";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { DragDropModule } from "@angular/cdk/drag-drop";
+import { FlexLayoutModule } from "@angular/flex-layout";
 
 export const testImports = [
   RouterTestingModule,
@@ -19,7 +20,8 @@ export const testImports = [
   BrowserAnimationsModule,
   NzGridModule,
   NzCardModule,
-  DragDropModule
+  DragDropModule,
+  FlexLayoutModule
 ];
 
 describe("AppComponent", () => {

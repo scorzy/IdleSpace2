@@ -4,11 +4,18 @@
   [nzExtra]="extraTemplate"
 >
   <p>{{ job.description }}</p>
-  <i nz-icon nzType="clock-circle" nzTheme="outline"></i>
 
-  <span class="monospace">
-    {{ job.timeToEnd | time }}
-    <span class="right">
+  <span
+    class="monospace"
+    fxLayout="row"
+    fxLayout.xs="column"
+    fxLayoutAlign="space-between"
+  >
+    <span>
+      <i nz-icon nzType="clock-circle" nzTheme="outline" class="space"></i>
+      <span> {{ job.timeToEnd | time }}</span>
+    </span>
+    <span>
       {{ job.progress | format }}/{{ job.total | format }}
       {{ job.progressPercent }}%</span
     >

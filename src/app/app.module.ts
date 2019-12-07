@@ -30,10 +30,11 @@ import { LaboratoryComponent } from "./laboratory/laboratory.component";
 import { OptionsComponent } from "./options/options.component";
 import { SaveComponent } from "./save/save.component";
 import { DragDropModule } from "@angular/cdk/drag-drop";
-import { JobComponent } from './job/job.component';
-import { ProgressComponent } from './progress/progress.component';
-import { TimePipe } from './time.pipe';
-import { DesignerComponent } from './designer/designer.component';
+import { JobComponent } from "./job/job.component";
+import { ProgressComponent } from "./progress/progress.component";
+import { TimePipe } from "./time.pipe";
+import { DesignerComponent } from "./designer/designer.component";
+import { FlexLayoutModule } from "@angular/flex-layout";
 
 registerLocaleData(en);
 
@@ -69,7 +70,8 @@ const ngZorroConfig: NzConfig = {
     BrowserAnimationsModule,
     NzGridModule,
     NzCardModule,
-    DragDropModule
+    DragDropModule,
+    FlexLayoutModule
   ],
   providers: [
     { provide: NZ_I18N, useValue: en_US },
