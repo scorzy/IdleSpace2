@@ -1,0 +1,33 @@
+<nz-layout>
+  <nz-sider nzCollapsible [(nzCollapsed)]="isCollapsed" nzWidth="200px">
+    <ul
+      nz-menu
+      [nzTheme]="ms.sideTheme"
+      nzMode="inline"
+      [nzInlineCollapsed]="isCollapsed"
+    >
+      <li nz-menu-item nzMatchRouter>
+        <a [routerLink]="'/des/add'">
+          <i nz-icon nzType="plus-circle" nzTheme="outline"></i>
+          <span>Add</span>
+        </a>
+      </li>
+      <li
+        nz-menu-item
+        nzMatchRouter
+        *ngFor="
+          let design of ms.game.shipyardManager.shipDesigns;
+          trackBy: getDesignId
+        "
+      >
+        {{ design.name }}
+      </li>
+    </ul>
+  </nz-sider>
+
+  <nz-content>
+    <div class="inner-content">
+      <router-outlet></router-outlet>
+    </div>
+  </nz-content>
+</nz-layout>

@@ -1,0 +1,16 @@
+<h1>New Design</h1>
+
+<form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
+  <nz-form-item>
+    <nz-form-label [nzSpan]="6" nzFor="name">Name</nz-form-label>
+    <nz-form-control [nzSpan]="14">
+      <input nz-input name="name" type="string" id="name" />
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item nz-row>
+    <nz-form-control [nzSpan]="14" [nzOffset]="6">
+      <button nz-button nzType="primary">Create</button>
+    </nz-form-control>
+  </nz-form-item>
+</form>

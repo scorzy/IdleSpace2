@@ -3,9 +3,14 @@ import { RouterTestingModule } from "@angular/router/testing";
 import { AppComponent } from "./app.component";
 import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
 import { MainService } from "./main.service";
-import { FormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { IconsProviderModule } from "./iconModule/icons-provider.module";
-import { NgZorroAntdModule, NzGridModule, NzCardModule } from "ng-zorro-antd";
+import {
+  NgZorroAntdModule,
+  NzGridModule,
+  NzCardModule,
+  NzFormModule
+} from "ng-zorro-antd";
 import { HttpClientModule } from "@angular/common/http";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { DragDropModule } from "@angular/cdk/drag-drop";
@@ -21,7 +26,9 @@ export const testImports = [
   NzGridModule,
   NzCardModule,
   DragDropModule,
-  FlexLayoutModule
+  FlexLayoutModule,
+  NzFormModule,
+  ReactiveFormsModule
 ];
 
 describe("AppComponent", () => {

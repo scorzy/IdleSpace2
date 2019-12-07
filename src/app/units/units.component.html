@@ -1,63 +1,65 @@
-<div class="flex-container">
-  <div class="flex-item" *ngFor="let unit of units; trackBy: getId" @fadeIn>
-    <app-unit-card [unit]="unit"> </app-unit-card>
+<div class="inner-content">
+  <div class="flex-container">
+    <div class="flex-item" *ngFor="let unit of units; trackBy: getId" @fadeIn>
+      <app-unit-card [unit]="unit"> </app-unit-card>
+    </div>
+
+    <div
+      class="flex-item"
+      *ngIf="!ms.game.resouceManager.scientist.unlocked"
+      @fadeIn
+    >
+      <nz-card style="width:350px;" [nzTitle]="locked">
+        <p>To unlock you need:</p>
+        <ul>
+          <li>
+            <span
+              *ngIf="ms.game.resouceManager.farmer.quantity.gte(3); else x"
+              @fadeIn
+              nz-text
+              class="text-success"
+              nzType="success"
+            >
+              <i nz-icon nzType="check" nzTheme="outline"></i
+            ></span>
+            3 Farmes
+          </li>
+          <li>
+            <span
+              *ngIf="ms.game.resouceManager.technician.quantity.gte(3); else x"
+              @fadeIn
+              nz-text
+              class="text-success"
+              nzType="success"
+            >
+              <i nz-icon nzType="check" nzTheme="outline"></i
+            ></span>
+            3 Technician
+          </li>
+          <li>
+            <span
+              *ngIf="ms.game.resouceManager.miner.quantity.gte(3); else x"
+              @fadeIn
+              nz-text
+              class="text-success"
+              nzType="success"
+            >
+              <i nz-icon nzType="check" nzTheme="outline"></i
+            ></span>
+            3 Miner
+          </li>
+        </ul>
+      </nz-card>
+    </div>
   </div>
 
-  <div
-    class="flex-item"
-    *ngIf="!ms.game.resouceManager.scientist.unlocked"
-    @fadeIn
+  <ng-template #locked
+    ><i nz-icon nzType="lock" nzTheme="outline"></i> Locked</ng-template
   >
-    <nz-card style="width:350px;" [nzTitle]="locked">
-      <p>To unlock you need:</p>
-      <ul>
-        <li>
-          <span
-            *ngIf="ms.game.resouceManager.farmer.quantity.gte(3); else x"
-            @fadeIn
-            nz-text
-            class="text-success"
-            nzType="success"
-          >
-            <i nz-icon nzType="check" nzTheme="outline"></i
-          ></span>
-          3 Farmes
-        </li>
-        <li>
-          <span
-            *ngIf="ms.game.resouceManager.technician.quantity.gte(3); else x"
-            @fadeIn
-            nz-text
-            class="text-success"
-            nzType="success"
-          >
-            <i nz-icon nzType="check" nzTheme="outline"></i
-          ></span>
-          3 Technician
-        </li>
-        <li>
-          <span
-            *ngIf="ms.game.resouceManager.miner.quantity.gte(3); else x"
-            @fadeIn
-            nz-text
-            class="text-success"
-            nzType="success"
-          >
-            <i nz-icon nzType="check" nzTheme="outline"></i
-          ></span>
-          3 Miner
-        </li>
-      </ul>
-    </nz-card>
-  </div>
+
+  <ng-template #x>
+    <span nz-text nzType="danger"
+      ><i nz-icon nzType="close" nzTheme="outline"></i
+    ></span>
+  </ng-template>
 </div>
-
-<ng-template #locked
-  ><i nz-icon nzType="lock" nzTheme="outline"></i> Locked</ng-template
->
-
-<ng-template #x>
-  <span nz-text nzType="danger"
-    ><i nz-icon nzType="close" nzTheme="outline"></i
-  ></span>
-</ng-template>

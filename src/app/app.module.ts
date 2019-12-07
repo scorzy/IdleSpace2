@@ -9,7 +9,7 @@ import {
   NzConfig,
   NZ_CONFIG
 } from "ng-zorro-antd";
-import { FormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { registerLocaleData } from "@angular/common";
@@ -35,6 +35,9 @@ import { ProgressComponent } from "./progress/progress.component";
 import { TimePipe } from "./time.pipe";
 import { DesignerComponent } from "./designer/designer.component";
 import { FlexLayoutModule } from "@angular/flex-layout";
+import { DesignListComponent } from "./designer/design-list/design-list.component";
+import { AddComponent } from "./designer/add/add.component";
+import { NzFormModule } from "ng-zorro-antd/form";
 
 registerLocaleData(en);
 
@@ -58,7 +61,9 @@ const ngZorroConfig: NzConfig = {
     JobComponent,
     ProgressComponent,
     TimePipe,
-    DesignerComponent
+    DesignerComponent,
+    DesignListComponent,
+    AddComponent
   ],
   imports: [
     BrowserModule,
@@ -71,7 +76,9 @@ const ngZorroConfig: NzConfig = {
     NzGridModule,
     NzCardModule,
     DragDropModule,
-    FlexLayoutModule
+    FlexLayoutModule,
+    NzFormModule,
+    ReactiveFormsModule
   ],
   providers: [
     { provide: NZ_I18N, useValue: en_US },

@@ -1,11 +1,14 @@
 import { ZERO, ONE } from "../CONSTANTS";
 import { Module } from "./module";
 import { Game } from "../game";
+import { ShipType, shipTypes } from "../data/shipTypes";
 
 const PRICE_GROW_RATE = new Decimal(1.1);
 
 export class ShipDesign {
+  id: string;
   name = "";
+  type: ShipType;
 
   totalArmor = ZERO;
   totalShield = ZERO;
@@ -41,11 +44,17 @@ export class ShipDesign {
   getSave(): any {
     return {
       n: this.name,
+      t: this.type.id,
       m: this.modules.map(mod => [mod.module.id, mod.level])
     };
   }
   load(data: any) {
     if ("n" in data) this.name = data.n;
+    if ("t" in data) {
+      this.type = shipTypes.find(t => t.id === data.id);
+    }
+    if (!this.type) return false;
+
     if ("m" in data) {
       for (const mod of data.m) {
         const module = Game.getGame().shipyardManager.modules.find(

@@ -30,6 +30,8 @@ export class Game {
     Game.instance = this;
     this.resouceManager = new ResourceManager();
     this.researchManager = new ResearchManager();
+    this.shipyardManager = new ShipyardManager();
+    this.shipyardManager.init();
   }
 
   /**
