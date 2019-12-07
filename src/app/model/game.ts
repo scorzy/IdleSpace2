@@ -2,6 +2,7 @@ import { ResourceManager } from "./units/resourceManager";
 import { ResearchManager } from "./researches/researchManager";
 import { RESEARCH_TYPES } from "./data/iResearchData";
 import { BonusStack } from "./bonus/bonusStack";
+import { ShipyardManager } from "./shipyard/shipyardManager";
 
 /**
  * Game is the main class that orchestrate everything game related
@@ -14,6 +15,7 @@ export class Game {
 
   resouceManager: ResourceManager;
   researchManager: ResearchManager;
+  shipyardManager: ShipyardManager;
 
   /**
    * Gets game return instance of game

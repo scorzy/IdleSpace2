@@ -1,11 +1,20 @@
 .research-container {
-  width: 400px;
   max-width: 100%;
   margin: 0 25px 25px 0;
-  display: inline-block;
+  display: inline;
   vertical-align: top;
 }
 .info-div {
-  display: inline-block;
-  vertical-align: top;
+  display: block;
+}
+
+@media only screen and (min-width: 550px) {
+  .research-container {
+    width: 400px;
+    display: inline-block;
+  }
+  .info-div {
+    display: inline-block;
+    vertical-align: top;
+  }
 }
