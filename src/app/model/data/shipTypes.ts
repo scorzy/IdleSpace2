@@ -1,15 +1,35 @@
-export interface ShipType {
-  id: string;
+export interface ShipTypeData {
+  id: number;
   name: string;
-  maxModule: number;
-  maxPoints: number;
+  maxModule?: number;
+  maxPoints?: number;
+  navalCapacity?: number;
 }
 
-export const shipTypes: ShipType[] = [
+export const SHIP_TYPES: ShipTypeData[] = [
   {
-    id: "c",
+    id: 1,
     name: "Corvette",
-    maxModule: 3,
-    maxPoints: 5
+    navalCapacity: 1
+  },
+  {
+    id: 2,
+    name: "Corvette"
+  },
+  {
+    id: 3,
+    name: "Destroyer"
+  },
+  {
+    id: 4,
+    name: "Cruiser"
+  },
+  {
+    id: 5,
+    name: "Battlecruiser"
+  },
+  {
+    id: 6,
+    name: "Battleship"
   }
 ];

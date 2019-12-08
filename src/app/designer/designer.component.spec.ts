@@ -1,16 +1,22 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { DesignerComponent } from './designer.component';
+import { DesignerComponent } from "./designer.component";
+import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import { testImports } from "../app.component.spec";
+import { FormatPipe } from "../format.pipe";
+import { MainService } from "../main.service";
 
-describe('DesignerComponent', () => {
+describe("DesignerComponent", () => {
   let component: DesignerComponent;
   let fixture: ComponentFixture<DesignerComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ DesignerComponent ]
-    })
-    .compileComponents();
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
+      imports: testImports,
+      declarations: [DesignerComponent, FormatPipe],
+      providers: [MainService]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -19,7 +25,7 @@ describe('DesignerComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

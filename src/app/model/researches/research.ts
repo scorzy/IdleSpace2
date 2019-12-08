@@ -62,7 +62,7 @@ export class Research extends Job implements IUnlocable, IBase {
       this.total
         .minus(this.progress)
         .times(-1)
-        .div(this.totalBonus.minus(1))
+        .div(this.totalBonus)
     )
       .reduce((p, c) => p.min(c), new Decimal(Number.MAX_VALUE))
       .toNumber();

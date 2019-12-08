@@ -2,15 +2,63 @@
 
 <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
   <nz-form-item>
-    <nz-form-label [nzSpan]="6" nzFor="name">Name</nz-form-label>
-    <nz-form-control [nzSpan]="14">
-      <input nz-input name="name" type="string" id="name" />
+    <nz-form-label [nzSpan]="4" nzFor="name" nzRequired>Name</nz-form-label>
+    <nz-form-control [nzSpan]="14" nzErrorTip="Please enter a name!">
+      <nz-input-group nzCompact nzSearch [nzAddOnAfter]="suffixIconButton">
+        <input
+          nz-input
+          type="text"
+          name="name"
+          id="name"
+          formControlName="name"
+        />
+      </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label [nzSpan]="4" nzFor="name" nzRequired>Type</nz-form-label>
+    <nz-form-control [nzSpan]="14" nzErrorTip="Please select a ship type!">
+      <nz-select formControlName="type">
+        <nz-option
+          *ngFor="let shipType of unlockedTypes; trackBy: getTypeId"
+          [nzLabel]="shipType.name"
+          [nzValue]="shipType.id"
+        ></nz-option>
+      </nz-select>
     </nz-form-control>
   </nz-form-item>
 
   <nz-form-item nz-row>
-    <nz-form-control [nzSpan]="14" [nzOffset]="6">
-      <button nz-button nzType="primary">Create</button>
+    <nz-form-control [nzSpan]="14" [nzOffset]="4">
+      <button nz-button nzType="primary">
+        Create
+      </button>
     </nz-form-control>
   </nz-form-item>
 </form>
+
+<ng-template #suffixIconButton>
+  <button
+    nz-button
+    nzType="secondary"
+    nzSearch
+    class="last-button"
+    (click)="getRandomName($event)"
+  >
+    <i nz-icon nzType="search"></i>
+  </button>
+</ng-template>
+
+<!-- 
+<ng-template #suffixTemplate
+  ><i
+    nz-icon
+    nz-tooltip
+    class="ant-input-clear-icon"
+    nzTheme="fill"
+    nzType="close-circle"
+    *ngIf="getName() !== ''"
+    (click)="removeName()"
+  ></i
+></ng-template> -->
