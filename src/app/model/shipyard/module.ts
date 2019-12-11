@@ -1,8 +1,8 @@
 import { ZERO } from "../CONSTANTS";
 import { ModuleData } from "../data/modules";
-import { IUnlocable } from "../iUnlocable";
+import { IUnlockable } from "../iUnlocable";
 
-export class Module implements IUnlocable {
+export class Module implements IUnlockable {
   id = "";
   name = "";
   armor = ZERO;

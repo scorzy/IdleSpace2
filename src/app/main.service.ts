@@ -21,7 +21,6 @@ export class MainService {
   }>();
 
   constructor() {
-    this.game = new Game();
     this.last = Date.now();
 
     // I should check that if the broser supports web workers
@@ -41,7 +40,9 @@ export class MainService {
 
     setInterval(this.update.bind(this), 250);
 
-    this.loadFromLocalStorage();
+    const data = localStorage.getItem(SAVE_ID);
+    if (data) this.loadFromLocalStorage(true);
+    else this.game = new Game();
   }
 
   update() {
@@ -88,7 +89,7 @@ export class MainService {
   decompressAndLoad(data: string) {
     this.lzWorker.postMessage({ m: data, a: "d" });
   }
-  loadFromLocalStorage() {
+  loadFromLocalStorage(newGame: boolean) {
     const data = localStorage.getItem(SAVE_ID);
     if (data) {
       this.decompressAndLoad(data);

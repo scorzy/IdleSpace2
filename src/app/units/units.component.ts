@@ -46,10 +46,10 @@ export class UnitsComponent implements OnInit, OnDestroy {
     const param = "" + params.id;
     switch (param) {
       case "b":
-        this.units = this.ms.game.resouceManager.unlockedBuildings;
+        this.units = this.ms.game.resourceManager.unlockedBuildings;
         break;
       default:
-        this.units = this.ms.game.resouceManager.unlockedWorkers;
+        this.units = this.ms.game.resourceManager.unlockedWorkers;
     }
   }
 

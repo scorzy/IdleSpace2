@@ -4,10 +4,10 @@ import { IBase } from "../iBase";
 import { BonusStack } from "../bonus/bonusStack";
 import { MultiPrice } from "../prices/multiPrice";
 import { ZERO } from "../CONSTANTS";
-import { IUnlocable } from "../iUnlocable";
+import { IUnlockable } from "../iUnlocable";
 import { Game } from "../game";
 
-export class Unit implements IBase, IUnlocable {
+export class Unit implements IBase, IUnlockable {
   id = "";
   name = "";
   description = "";
@@ -73,7 +73,7 @@ export class Unit implements IBase, IUnlocable {
   unlock(): boolean {
     if (this.unlocked) return false;
     this.unlocked = true;
-    Game.getGame().resouceManager.reloadLists();
+    Game.getGame().resourceManager.reloadLists();
   }
 
   postUpdate() {
@@ -106,7 +106,7 @@ export class Unit implements IBase, IUnlocable {
     return false;
   }
   afterBuy(): boolean {
-    const rs = Game.getGame().resouceManager;
+    const rs = Game.getGame().resourceManager;
     switch (this.id) {
       case "f":
       case "e":

@@ -4,7 +4,6 @@ import { AppComponent } from "./app.component";
 import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
 import { MainService } from "./main.service";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-import { IconsProviderModule } from "./iconModule/icons-provider.module";
 import {
   NgZorroAntdModule,
   NzGridModule,
@@ -18,7 +17,6 @@ import { FlexLayoutModule } from "@angular/flex-layout";
 
 export const testImports = [
   RouterTestingModule,
-  IconsProviderModule,
   NgZorroAntdModule,
   FormsModule,
   HttpClientModule,

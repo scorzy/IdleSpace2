@@ -12,7 +12,7 @@ import {
   transferArrayItem
 } from "@angular/cdk/drag-drop";
 import { Subscription } from "rxjs";
-import { RESEARCH_TYPES, IJobType } from "../model/data/iResearchData";
+import { IJobType } from "../model/data/iResearchData";
 
 @Component({
   selector: "app-laboratory",
@@ -37,12 +37,9 @@ export class LaboratoryComponent implements OnInit {
   }
 
   reloadUi() {
-    for (const key in RESEARCH_TYPES) {
-      if (key) {
-        const resType = RESEARCH_TYPES[key];
-        if (resType) resType.bonus.reloadBonusUi();
-      }
-    }
+    this.ms.game.researchManager.technologies.forEach(t =>
+      t.bonus.reloadBonusUi()
+    );
   }
 
   getResId(index: number, research: Research) {

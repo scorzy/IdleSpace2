@@ -17,7 +17,7 @@
       <li
         nz-menu-item
         nzMatchRouter
-        *ngIf="ms.game.resouceManager.unlockedBuildings.length > 0"
+        *ngIf="ms.game.resourceManager.unlockedBuildings.length > 0"
         @fadeIn
       >
         <a [routerLink]="'units/b'">Buildings</a>
@@ -25,7 +25,7 @@
     </ul>
   </li>
   <li
-    *ngIf="ms.game.resouceManager.science.unlocked"
+    *ngIf="ms.game.resourceManager.science.unlocked"
     @fadeIn
     nz-submenu
     nzOpen
@@ -39,7 +39,7 @@
     </ul>
   </li>
   <li
-    *ngIf="ms.game.resouceManager.worker.unlocked"
+    *ngIf="ms.game.resourceManager.worker.unlocked"
     @fadeIn
     nz-submenu
     nzOpen

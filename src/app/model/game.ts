@@ -1,7 +1,5 @@
 import { ResourceManager } from "./units/resourceManager";
 import { ResearchManager } from "./researches/researchManager";
-import { RESEARCH_TYPES } from "./data/iResearchData";
-import { BonusStack } from "./bonus/bonusStack";
 import { ShipyardManager } from "./shipyard/shipyardManager";
 
 /**
@@ -13,13 +11,13 @@ export class Game {
    */
   private static instance: Game;
 
-  resouceManager: ResourceManager;
+  resourceManager: ResourceManager;
   researchManager: ResearchManager;
   shipyardManager: ShipyardManager;
 
   /**
    * Gets game return instance of game
-   * this is not a relal singleton, may return null
+   * this is not a real singleton, may return null
    * @returns game
    */
   static getGame(): Game {
@@ -28,7 +26,7 @@ export class Game {
 
   constructor() {
     Game.instance = this;
-    this.resouceManager = new ResourceManager();
+    this.resourceManager = new ResourceManager();
     this.researchManager = new ResearchManager();
     this.shipyardManager = new ShipyardManager();
     this.shipyardManager.init();
@@ -44,33 +42,27 @@ export class Game {
     let toUpdate = delta;
 
     while (toUpdate > 0) {
-      this.resouceManager.reloadProduction();
-      const maxUp = Math.min(toUpdate, this.resouceManager.maxTime);
+      this.resourceManager.reloadProduction();
+      const maxUp = Math.min(toUpdate, this.resourceManager.maxTime);
       if (maxUp > 0) {
-        this.resouceManager.update(maxUp);
+        this.resourceManager.update(maxUp);
         toUpdate = toUpdate - maxUp;
       }
       if (toUpdate > 0) {
-        this.resouceManager.stopResources();
+        this.resourceManager.stopResources();
       }
     }
   }
 
   postUpdate() {
+    this.researchManager.technologies.forEach(t => t.bonus.reloadBonus());
     const resNotAdded = this.researchManager.addProgress(
-      this.resouceManager.science.quantity
+      this.resourceManager.science.quantity
     );
-    this.resouceManager.science.quantity = resNotAdded;
+    this.resourceManager.science.quantity = resNotAdded;
 
-    this.resouceManager.reloadProduction();
-    this.resouceManager.postUpdate();
-
-    for (const key in RESEARCH_TYPES) {
-      if (key) {
-        const resType = RESEARCH_TYPES[key];
-        if (resType) resType.bonus.reloadBonus();
-      }
-    }
+    this.resourceManager.reloadProduction();
+    this.resourceManager.postUpdate();
 
     this.researchManager.toDo.forEach(r => r.reloadTotalBonus());
     this.researchManager.backlog.forEach(r => r.reloadTotalBonus());
@@ -79,7 +71,7 @@ export class Game {
   //#region Save and Load
   getSave(): any {
     return {
-      s: this.resouceManager.getSave(),
+      s: this.resourceManager.getSave(),
       r: this.researchManager.getSave()
     };
   }
@@ -88,7 +80,7 @@ export class Game {
       throw new Error("Save not valid");
     }
 
-    this.resouceManager.load(data.s);
+    this.resourceManager.load(data.s);
     this.researchManager.load(data.r);
   }
   //#endregion

@@ -2,42 +2,33 @@ import { JobManager } from "../job/jobManager";
 import { RESEARCHES } from "../data/researches";
 import { Research } from "./research";
 import { Game } from "../game";
-import { BonusStack } from "../bonus/bonusStack";
-import { RESEARCH_TYPES, IJobType } from "../data/iResearchData";
 import { Bonus } from "../bonus/bonus";
+import { Technology } from "./technology";
+import { TECHNOLOGIES } from "../data/technologyData";
 
 export class ResearchManager extends JobManager {
   researches: Research[];
   toDo: Research[];
   done: Research[];
   backlog: Research[];
-  typesList: IJobType[];
+  technologies: Technology[];
 
   constructor() {
     super();
-    this.typesList = [];
+    this.technologies = [];
 
-    for (const key in RESEARCH_TYPES) {
+    for (const key in TECHNOLOGIES) {
       if (key) {
-        const resType = RESEARCH_TYPES[key];
-        if (resType) {
-          this.typesList.push(resType);
-          resType.bonus = new BonusStack();
-        }
+        const tech = TECHNOLOGIES[key];
+        if (tech) this.technologies.push(new Technology(tech));
       }
     }
+
     this.makeResearches();
   }
 
   makeResearches() {
-    for (const key in RESEARCH_TYPES) {
-      if (key) {
-        const resType = RESEARCH_TYPES[key];
-        if (resType) resType.bonus = new BonusStack();
-      }
-    }
-
-    this.researches = RESEARCHES.map(resData => new Research(resData));
+    this.researches = RESEARCHES.map(resData => new Research(resData, this));
     this.researches.forEach(res => {
       const resData = RESEARCHES.find(r => r.id === res.id);
       if ("researchToUnlock" in resData) {
@@ -47,7 +38,7 @@ export class ResearchManager extends JobManager {
       }
       if ("unitsToUnlock" in resData) {
         res.unitsToUnlock = resData.unitsToUnlock.map(unlId =>
-          Game.getGame().resouceManager.units.find(unit => unit.id === unlId)
+          Game.getGame().resourceManager.units.find(unit => unit.id === unlId)
         );
       }
       if ("researchBonus" in resData) {

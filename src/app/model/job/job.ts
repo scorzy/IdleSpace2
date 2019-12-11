@@ -1,5 +1,6 @@
 import { ZERO, ONE } from "../CONSTANTS";
 import { IJobType } from "../data/iResearchData";
+
 export interface MyIcon {
   icon: string;
   color: string;

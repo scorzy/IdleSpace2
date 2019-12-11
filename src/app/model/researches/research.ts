@@ -1,22 +1,23 @@
-import { IResearchData, IJobType } from "../data/iResearchData";
+import { IResearchData } from "../data/iResearchData";
 import { Job, MyIcon } from "../job/job";
 import { convertToRoman, solveEquation } from "ant-utils";
 import { RESEARCH_GROW_RATE, ZERO, ONE } from "../CONSTANTS";
-import { IUnlocable } from "../iUnlocable";
+import { IUnlockable } from "../iUnlocable";
 import { Game } from "../game";
 import { IBase } from "../iBase";
+import { ResearchManager } from "./researchManager";
 
-export class Research extends Job implements IUnlocable, IBase {
+export class Research extends Job implements IUnlockable, IBase {
   id: string;
   private originalName: string;
   max = Number.MAX_SAFE_INTEGER;
-  unitsToUnlock?: IUnlocable[];
-  researchToUnlock?: IUnlocable[];
+  unitsToUnlock?: IUnlockable[];
+  researchToUnlock?: IUnlockable[];
 
   quantity: Decimal;
   icon?: string;
 
-  constructor(researchData: IResearchData) {
+  constructor(researchData: IResearchData, researchManager: ResearchManager) {
     super();
     this.id = researchData.id;
     this.name = researchData.name;
@@ -32,10 +33,12 @@ export class Research extends Job implements IUnlocable, IBase {
     }
     if ("unitsToUnlock" in researchData) {
       this.unitsToUnlock = researchData.unitsToUnlock.map(uId =>
-        Game.getGame().resouceManager.units.find(a => a.id === uId)
+        Game.getGame().resourceManager.units.find(a => a.id === uId)
       );
     }
-    this.types = researchData.type;
+    this.types = researchData.type.map(t =>
+      researchManager.technologies.find(tec => tec.id === t.id)
+    );
     this.reload();
   }
 
@@ -54,7 +57,7 @@ export class Research extends Job implements IUnlocable, IBase {
     const newTotalBonUi = this.totalBonus.minus(1).times(100);
     if (!newTotalBonUi.eq(this.totalBonusUi)) this.totalBonusUi = newTotalBonUi;
 
-    const science = Game.getGame().resouceManager.science;
+    const science = Game.getGame().resourceManager.science;
     this.timeToEnd = solveEquation(
       ZERO,
       science.perSec2,
@@ -74,7 +77,7 @@ export class Research extends Job implements IUnlocable, IBase {
     if (this.level < 2) {
       if (this.unitsToUnlock) {
         this.unitsToUnlock.forEach(u => u.unlock());
-        Game.getGame().resouceManager.reloadLists();
+        Game.getGame().resourceManager.reloadLists();
       }
       if (this.researchToUnlock) {
         this.researchToUnlock.forEach(u => u.unlock());

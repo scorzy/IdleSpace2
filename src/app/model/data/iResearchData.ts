@@ -1,20 +1,12 @@
 import { BonusStack } from "../bonus/bonusStack";
 
 export interface IJobType {
-  id: number;
+  id: string;
   name: string;
   icon: string;
   color: string;
   bonus?: BonusStack;
 }
-export const RESEARCH_TYPES: { readonly [index: string]: IJobType } = {
-  Engineering: {
-    id: 0,
-    name: "Engineering",
-    icon: "setting",
-    color: "#FA8C16"
-  }
-};
 
 export interface IResearchData {
   id: string;

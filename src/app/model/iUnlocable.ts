@@ -1,3 +1,3 @@
-export interface IUnlocable {
+export interface IUnlockable {
   unlock(): boolean;
 }
