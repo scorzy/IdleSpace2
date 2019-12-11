@@ -18,7 +18,6 @@ import { SideMenuComponent } from "./side-menu/side-menu.component";
 import { MaterialTopComponent } from "./material-top/material-top.component";
 import { NzGridModule } from "ng-zorro-antd/grid";
 import { FormatPipe } from "./format.pipe";
-import { IconsProviderModule } from "./iconModule/icons-provider.module";
 import { MainService } from "./main.service";
 import { OptionsService } from "./options.service";
 import { UnitsComponent } from "./units/units.component";
@@ -68,7 +67,6 @@ const ngZorroConfig: NzConfig = {
   imports: [
     BrowserModule,
     AppRoutingModule,
-    IconsProviderModule,
     NgZorroAntdModule,
     FormsModule,
     HttpClientModule,
