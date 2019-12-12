@@ -5,6 +5,7 @@ import { Bonus } from "../bonus/bonus";
 import { BonusStack } from "../bonus/bonusStack";
 import { ITechnologyData } from "../data/technologyData";
 import assign from "lodash-es/assign";
+import { Game } from "../game";
 
 const RESEARCH_BONUS = new Decimal(1.1);
 
@@ -19,6 +20,9 @@ export class Technology implements IBase, IUnlockable, ITechnologyData {
   color: string;
   bonus?: BonusStack;
   ratio: number;
+  progressPercent = 0;
+  priority = 50;
+  total = ZERO;
 
   constructor(data: ITechnologyData) {
     assign(this, data);
@@ -49,6 +53,34 @@ export class Technology implements IBase, IUnlockable, ITechnologyData {
     if (this.unlocked) return false;
 
     this.unlocked = true;
+    Game.getGame().researchManager.reloadTechList();
     return true;
   }
+  reloadUi() {
+    const newTotal = Decimal.pow(this.ratio, this.quantity).times(this.price);
+    if (!this.total.eq(newTotal)) {
+      this.total = newTotal;
+    }
+    this.progressPercent = Math.floor(
+      this.progress.div(this.total).toNumber() * 100
+    );
+  }
+
+  //#region
+  getSave(): any {
+    return {
+      i: this.id,
+      q: this.quantity,
+      p: this.progress,
+      r: this.priority
+    };
+  }
+  load(data: any): boolean {
+    if (!("i" in data) || this.id !== data.i) return false;
+    if ("q" in data) this.quantity = new Decimal(data.q);
+    if ("p" in data) this.progress = new Decimal(data.p);
+    if ("r" in data) this.priority = data.r;
+    return true;
+  }
+  //#endregion
 }

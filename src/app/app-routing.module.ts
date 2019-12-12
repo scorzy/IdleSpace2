@@ -7,11 +7,13 @@ import { SaveComponent } from "./save/save.component";
 import { DesignerComponent } from "./designer/designer.component";
 import { AddComponent } from "./designer/add/add.component";
 import { DesignListComponent } from "./designer/design-list/design-list.component";
+import { TechnologiesComponent } from "./technologies/technologies.component";
 
 const routes: Routes = [
   { path: "", pathMatch: "full", redirectTo: "/units/ws" },
   { path: "units/:id", pathMatch: "full", component: UnitsComponent },
   { path: "lab", pathMatch: "full", component: LaboratoryComponent },
+  { path: "tech", pathMatch: "full", component: TechnologiesComponent },
   { path: "opt", pathMatch: "full", component: OptionsComponent },
   { path: "save", pathMatch: "full", component: SaveComponent },
   {

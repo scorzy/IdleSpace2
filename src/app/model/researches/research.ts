@@ -13,6 +13,7 @@ export class Research extends Job implements IUnlockable, IBase {
   max = Number.MAX_SAFE_INTEGER;
   unitsToUnlock?: IUnlockable[];
   researchToUnlock?: IUnlockable[];
+  technologiesToUnlock?: IUnlockable[];
 
   quantity: Decimal;
   icon?: string;
@@ -34,6 +35,11 @@ export class Research extends Job implements IUnlockable, IBase {
     if ("unitsToUnlock" in researchData) {
       this.unitsToUnlock = researchData.unitsToUnlock.map(uId =>
         Game.getGame().resourceManager.units.find(a => a.id === uId)
+      );
+    }
+    if ("technologiesToUnlock" in researchData) {
+      this.technologiesToUnlock = researchData.technologiesToUnlock.map(
+        techId => researchManager.technologies.find(a => a.id === techId)
       );
     }
     this.types = researchData.type.map(t =>
@@ -82,6 +88,8 @@ export class Research extends Job implements IUnlockable, IBase {
       if (this.researchToUnlock) {
         this.researchToUnlock.forEach(u => u.unlock());
       }
+      if (this.technologiesToUnlock)
+        this.technologiesToUnlock.forEach(tech => tech.unlock());
     }
   }
 

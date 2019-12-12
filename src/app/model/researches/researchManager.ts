@@ -5,6 +5,7 @@ import { Game } from "../game";
 import { Bonus } from "../bonus/bonus";
 import { Technology } from "./technology";
 import { TECHNOLOGIES } from "../data/technologyData";
+import { ZERO } from "../CONSTANTS";
 
 export class ResearchManager extends JobManager {
   researches: Research[];
@@ -12,11 +13,20 @@ export class ResearchManager extends JobManager {
   done: Research[];
   backlog: Research[];
   technologies: Technology[];
+  unlockedTechnologies: Technology[];
+  researchPriority = 50;
+  technologiesPriority = 50;
 
   constructor() {
     super();
-    this.technologies = [];
 
+    this.makeResearches();
+  }
+
+  makeResearches() {
+    //  Technologies
+    this.technologies = [];
+    this.unlockedTechnologies = [];
     for (const key in TECHNOLOGIES) {
       if (key) {
         const tech = TECHNOLOGIES[key];
@@ -24,10 +34,7 @@ export class ResearchManager extends JobManager {
       }
     }
 
-    this.makeResearches();
-  }
-
-  makeResearches() {
+    //  Researches
     this.researches = RESEARCHES.map(resData => new Research(resData, this));
     this.researches.forEach(res => {
       const resData = RESEARCHES.find(r => r.id === res.id);
@@ -62,13 +69,42 @@ export class ResearchManager extends JobManager {
     this.toDo.push(res);
     return true;
   }
+  reloadTechList() {
+    this.unlockedTechnologies = this.technologies.filter(t => t.unlocked);
+  }
+
+  addProgress(prog: Decimal): Decimal {
+    if (this.unlockedTechnologies.length < 1) {
+      return super.addProgress(prog);
+    }
+
+    const resProg = prog.times(
+      this.researchPriority /
+        (this.researchPriority + this.technologiesPriority)
+    );
+
+    const notAdded = super.addProgress(resProg);
+    if (this.technologiesPriority <= 0) return notAdded;
+
+    const techProg = prog.minus(resProg).plus(notAdded);
+    const sum = this.unlockedTechnologies
+      .map(t => t.priority)
+      .reduce((p, c) => p + c, 0);
+    this.unlockedTechnologies.forEach(tech => {
+      tech.addProgress(techProg.times(tech.priority / sum));
+    });
+    return ZERO;
+  }
 
   //#region Save and Load
   getSave(): any {
     return {
       d: this.done.map(r => r.getSave()),
       t: this.toDo.map(r => r.getSave()),
-      b: this.backlog.map(r => r.getSave())
+      b: this.backlog.map(r => r.getSave()),
+      e: this.unlockedTechnologies.map(t => t.getSave()),
+      p: this.technologiesPriority,
+      r: this.researchPriority
     };
   }
   load(data: any) {
@@ -91,6 +127,20 @@ export class ResearchManager extends JobManager {
       res.load(resData);
       this.backlog.push(res);
     }
+    if ("e" in data) {
+      for (const techData of data.e) {
+        const tech = this.technologies.find(r => r.id === techData.i);
+        tech.unlocked = true;
+        tech.load(techData);
+      }
+    }
+    if ("p" in data) {
+      this.technologiesPriority = data.p;
+    }
+    if ("r" in data) {
+      this.researchPriority = data.r;
+    }
+    this.reloadTechList();
   }
   //#endregion
 }

@@ -37,6 +37,8 @@ import { FlexLayoutModule } from "@angular/flex-layout";
 import { DesignListComponent } from "./designer/design-list/design-list.component";
 import { AddComponent } from "./designer/add/add.component";
 import { NzFormModule } from "ng-zorro-antd/form";
+import { TechnologiesComponent } from "./technologies/technologies.component";
+import { NzInputNumberModule } from "ng-zorro-antd/input-number";
 
 registerLocaleData(en);
 
@@ -62,7 +64,8 @@ const ngZorroConfig: NzConfig = {
     TimePipe,
     DesignerComponent,
     DesignListComponent,
-    AddComponent
+    AddComponent,
+    TechnologiesComponent
   ],
   imports: [
     BrowserModule,
@@ -76,7 +79,8 @@ const ngZorroConfig: NzConfig = {
     DragDropModule,
     FlexLayoutModule,
     NzFormModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NzInputNumberModule
   ],
   providers: [
     { provide: NZ_I18N, useValue: en_US },

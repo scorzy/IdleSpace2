@@ -13,11 +13,11 @@ export abstract class ITechnologyData implements IJobType {
 
 export const TECHNOLOGIES: { readonly [index: string]: ITechnologyData } = {
   Engineering: {
-    id: "0",
+    id: "e",
     name: "Engineering",
     icon: "setting",
     color: "#FA8C16",
     price: new Decimal(1e3),
-    ratio: 10
+    ratio: 2
   }
 };
