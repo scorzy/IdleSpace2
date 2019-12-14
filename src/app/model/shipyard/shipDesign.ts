@@ -52,7 +52,7 @@ export class ShipDesign {
     if ("n" in data) this.name = data.n;
     if ("t" in data) {
       this.type = Game.getGame().shipyardManager.shipTypes.find(
-        t => t.id == data.id
+        t => t.id === data.id
       );
     }
     if (!this.type) return false;

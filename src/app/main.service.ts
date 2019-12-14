@@ -40,8 +40,8 @@ export class MainService {
 
     setInterval(this.update.bind(this), 250);
 
-    const data = localStorage.getItem(SAVE_ID);
-    if (data) this.loadFromLocalStorage(true);
+    const dataSave = localStorage.getItem(SAVE_ID);
+    if (dataSave) this.loadFromLocalStorage(true);
     else this.game = new Game();
   }
 

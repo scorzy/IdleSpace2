@@ -9,6 +9,7 @@ import { AddComponent } from "./designer/add/add.component";
 import { DesignListComponent } from "./designer/design-list/design-list.component";
 import { TechnologiesComponent } from "./technologies/technologies.component";
 import { ResearchPrioritiesComponent } from "./research-priorities/research-priorities.component";
+import { EditComponent } from "./designer/edit/edit.component";
 
 const routes: Routes = [
   { path: "", pathMatch: "full", redirectTo: "/units/ws" },
@@ -21,7 +22,10 @@ const routes: Routes = [
   {
     path: "des",
     component: DesignListComponent,
-    children: [{ path: "add", component: AddComponent }]
+    children: [
+      { path: "add", component: AddComponent },
+      { path: "edit/:id", component: EditComponent }
+    ]
   }
 ];
 

@@ -3,7 +3,7 @@
 <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
   <nz-form-item>
     <nz-form-label [nzSpan]="4" nzFor="name" nzRequired>Name</nz-form-label>
-    <nz-form-control [nzSpan]="14" nzErrorTip="Please enter a name!">
+    <nz-form-control [nzSpan]="14" [nzErrorTip]="nameErrorTpl">
       <nz-input-group nzCompact nzSearch [nzAddOnAfter]="suffixIconButton">
         <input
           nz-input
@@ -12,6 +12,14 @@
           id="name"
           formControlName="name"
         />
+        <ng-template #nameErrorTpl let-control>
+          <ng-container *ngIf="control.hasError('required')">
+            Please input a name!
+          </ng-container>
+          <ng-container *ngIf="control.hasError('duplicated')">
+            The name is redundant!
+          </ng-container>
+        </ng-template>
       </nz-input-group>
     </nz-form-control>
   </nz-form-item>
@@ -46,7 +54,7 @@
     class="last-button"
     (click)="getRandomName($event)"
   >
-    <i nz-icon nzType="search"></i>
+    <i nz-icon nzType="my:perspective-dice-six-faces-random"></i>
   </button>
 </ng-template>
 

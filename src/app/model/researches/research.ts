@@ -88,8 +88,9 @@ export class Research extends Job implements IUnlockable, IBase {
       if (this.researchToUnlock) {
         this.researchToUnlock.forEach(u => u.unlock());
       }
-      if (this.technologiesToUnlock)
+      if (this.technologiesToUnlock) {
         this.technologiesToUnlock.forEach(tech => tech.unlock());
+      }
     }
   }
 

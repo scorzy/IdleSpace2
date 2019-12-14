@@ -33,9 +33,6 @@
 @tag-default-bg: #262628;
 
 @wait-icon-color: fade(#fff; 64%);
-// @background-color-light: darken(fade(@primary-color, 30%),30%);
-// @background-color-light: #414242;
-@background-color-light: #201f1e;
 
 // @info-color: #313133;
 
@@ -52,7 +49,8 @@
 @warning-color: @gold-9;
 
 @layout-body-background: #171717;
-@background-color-base: #171717;
+@background-color-light: #201f1e;
+@background-color-base: lighten(@layout-body-background, 5);
 @body-background: #171717;
 
 @component-background: lighten(@menu-dark-bg, 5%); // #323130;

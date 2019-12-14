@@ -20,7 +20,7 @@
           trackBy: getDesignId
         "
       >
-        {{ design.name }}
+        <a [routerLink]="'/des/edit/' + design.id"> {{ design.name }}</a>
       </li>
     </ul>
   </nz-sider>

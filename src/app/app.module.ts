@@ -40,6 +40,7 @@ import { NzFormModule } from "ng-zorro-antd/form";
 import { TechnologiesComponent } from "./technologies/technologies.component";
 import { NzInputNumberModule } from "ng-zorro-antd/input-number";
 import { ResearchPrioritiesComponent } from './research-priorities/research-priorities.component';
+import { EditComponent } from './designer/edit/edit.component';
 
 registerLocaleData(en);
 
@@ -67,7 +68,8 @@ const ngZorroConfig: NzConfig = {
     DesignListComponent,
     AddComponent,
     TechnologiesComponent,
-    ResearchPrioritiesComponent
+    ResearchPrioritiesComponent,
+    EditComponent
   ],
   imports: [
     BrowserModule,

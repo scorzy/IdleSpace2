@@ -14,12 +14,13 @@ export class ShipyardManager {
     this.modules = modules.map(m => new Module(m));
   }
 
-  addDesign(name: string, type: number) {
-    const shipType = this.shipTypes.find(t => t.id == type);
+  addDesign(name: string, type: number): number {
+    const shipType = this.shipTypes.find(t => t.id === type);
     if (!shipType) return -1;
-    let newId = 0;
-    if (this.shipDesigns.length > 0)
-      this.shipDesigns[this.shipDesigns.length].id++;
+    const newId = 0;
+    if (this.shipDesigns.length > 0) {
+      this.shipDesigns[this.shipDesigns.length - 1].id++;
+    }
 
     const shipDesign = new ShipDesign();
     shipDesign.id = newId;
