@@ -5,11 +5,11 @@ import { IUnlockable } from "../iUnlocable";
 export class Module implements IUnlockable {
   id = "";
   name = "";
-  armor = ZERO;
+  armour = ZERO;
   shield = ZERO;
   energy = ZERO;
   damage = ZERO;
-  armorDamagePercent = 100;
+  armourDamagePercent = 100;
   shieldDamagePercent = 100;
   fire = 1;
   price = ZERO;
@@ -18,13 +18,13 @@ export class Module implements IUnlockable {
   constructor(moduleData: ModuleData) {
     this.id = moduleData.id;
     this.name = moduleData.name;
-    if ("armor" in moduleData) this.armor = new Decimal(moduleData.armor);
+    if ("armour" in moduleData) this.armour = new Decimal(moduleData.armour);
     if ("shield" in moduleData) this.shield = new Decimal(moduleData.shield);
     if ("energy" in moduleData) this.energy = new Decimal(moduleData.energy);
     if ("damage" in moduleData) this.damage = new Decimal(moduleData.damage);
     if ("price" in moduleData) this.price = new Decimal(moduleData.price);
-    if ("armorDamagePercent" in moduleData) {
-      this.armorDamagePercent = moduleData.armorDamagePercent;
+    if ("armourDamagePercent" in moduleData) {
+      this.armourDamagePercent = moduleData.armourDamagePercent;
     }
     if ("shieldDamagePercent" in moduleData) {
       this.shieldDamagePercent = moduleData.shieldDamagePercent;

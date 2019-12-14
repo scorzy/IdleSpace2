@@ -10,7 +10,7 @@ export class ShipDesign {
   name = "";
   type: ShipType;
 
-  totalArmor = ZERO;
+  totalarmour = ZERO;
   totalShield = ZERO;
   totalDamage = ZERO;
   energy = ZERO;
@@ -20,14 +20,16 @@ export class ShipDesign {
   modules = new Array<{ module: Module; level: Decimal }>();
 
   reload() {
-    this.totalArmor = ZERO;
+    this.totalarmour = ZERO;
     this.totalShield = ZERO;
     this.totalDamage = ZERO;
     this.modules.forEach(m => {
       const statsMulti = ONE.plus(m.level.div(10));
       const priceMulti = PRICE_GROW_RATE.pow(m.level);
 
-      this.totalArmor = this.totalArmor.plus(m.module.armor.times(statsMulti));
+      this.totalarmour = this.totalarmour.plus(
+        m.module.armour.times(statsMulti)
+      );
       this.totalShield = this.totalShield.plus(
         m.module.shield.times(statsMulti)
       );
