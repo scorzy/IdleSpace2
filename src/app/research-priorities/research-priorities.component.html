@@ -1,0 +1,51 @@
+<div class="inner-content">
+  <h1>Priorities</h1>
+
+  <div fxLayout="column">
+    <div>
+      <h3>
+        Research Priority:
+        <nz-input-number
+          [(ngModel)]="ms.game.researchManager.researchPriority"
+          [nzMin]="0"
+          [nzMax]="100"
+          [nzStep]="1"
+          [nzSize]="'small'"
+        ></nz-input-number>
+      </h3>
+      <nz-slider
+        [(ngModel)]="ms.game.researchManager.researchPriority"
+      ></nz-slider>
+    </div>
+    <div>
+      <h3>
+        Technology Priority:
+        <nz-input-number
+          [(ngModel)]="ms.game.researchManager.technologiesPriority"
+          [nzMin]="0"
+          [nzMax]="100"
+          [nzStep]="1"
+          [nzSize]="'small'"
+        ></nz-input-number>
+      </h3>
+      <nz-slider
+        [(ngModel)]="ms.game.researchManager.technologiesPriority"
+      ></nz-slider>
+    </div>
+    <div>
+      <h3>
+        Special Project Priority:
+        <nz-input-number
+          [(ngModel)]="ms.game.researchManager.specialProjectsPriority"
+          [nzMin]="0"
+          [nzMax]="100"
+          [nzStep]="1"
+          [nzSize]="'small'"
+        ></nz-input-number>
+      </h3>
+      <nz-slider
+        [(ngModel)]="ms.game.researchManager.specialProjectsPriority"
+      ></nz-slider>
+    </div>
+  </div>
+</div>

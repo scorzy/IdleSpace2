@@ -16,6 +16,7 @@ export class ResearchManager extends JobManager {
   unlockedTechnologies: Technology[];
   researchPriority = 50;
   technologiesPriority = 50;
+  specialProjectsPriority = 50;
 
   constructor() {
     super();
@@ -104,7 +105,8 @@ export class ResearchManager extends JobManager {
       b: this.backlog.map(r => r.getSave()),
       e: this.unlockedTechnologies.map(t => t.getSave()),
       p: this.technologiesPriority,
-      r: this.researchPriority
+      r: this.researchPriority,
+      s: this.specialProjectsPriority
     };
   }
   load(data: any) {
@@ -139,6 +141,9 @@ export class ResearchManager extends JobManager {
     }
     if ("r" in data) {
       this.researchPriority = data.r;
+    }
+    if ("s" in data) {
+      this.specialProjectsPriority = data.s;
     }
     this.reloadTechList();
   }
