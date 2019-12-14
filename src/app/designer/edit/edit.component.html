@@ -1,1 +1,136 @@
-<p>edit works!</p>
+<div fxLayout="row" fxLayout.lt-md="column" *ngIf="design" fxLayoutGap="1rem">
+  <div fxFlex="70">
+    <h1>{{ design.name }}</h1>
+    <span
+      class="recap"
+      *ngIf="design"
+      fxLayout="row"
+      fxLayoutAlign="space-between"
+    >
+      <span>
+        <strong>Module count:</strong>
+        <span
+          class="monospace"
+          nz-text
+          [nzType]="
+            design.modules.length <= design.type.maxModule ? '' : 'danger'
+          "
+        >
+          {{ design.modules.length | format }}/{{
+            design.type.maxModule | format
+          }}
+        </span></span
+      >
+
+      <span>
+        <strong>Points:</strong>
+        <span
+          class="monospace"
+          nz-text
+          [nzType]="design.totalPoints <= design.type.maxPoints ? '' : 'danger'"
+        >
+          {{ design.totalPoints | format }}/{{ design.type.maxPoints | format }}
+        </span></span
+      >
+
+      <span>
+        <strong>Energy:</strong>
+        <span
+          class="monospace"
+          nz-text
+          [nzType]="design.energy.gte(0) ? '' : 'danger'"
+        >
+          {{ design.energy | format }}</span
+        >
+      </span></span
+    >
+
+    <form *ngIf="design" nz-form [nzLayout]="'horizontal'">
+      <nz-form-item *ngFor="let line of design.modules; let i = index" @fadeIn>
+        <nz-form-control>
+          <div fxLayout="row" fxLayoutGap="0.5rem">
+            <nz-select
+              [name]="'module' + i"
+              [(ngModel)]="line.moduleId"
+              (ngModelChange)="moduleChange(i)"
+            >
+              <nz-option
+                *ngFor="
+                  let mod of ms.game.shipyardManager.modules;
+                  trackBy: getModId
+                "
+                [nzValue]="mod.id"
+                [nzLabel]="mod.name"
+              ></nz-option>
+            </nz-select>
+            <nz-select
+              fxFlex="8rem"
+              *ngIf="line.module"
+              [name]="'size' + i"
+              [(ngModel)]="line.size"
+              (ngModelChange)="reload()"
+            >
+              <nz-option
+                *ngFor="let size of line.module.sizes; trackBy: getSizeId"
+                [nzValue]="size"
+                [nzLabel]="size | sizePipe"
+              ></nz-option>
+            </nz-select>
+            <i
+              nz-icon
+              nzType="minus-circle-o"
+              class="dynamic-delete-button"
+              (click)="removeLine(i)"
+            ></i>
+          </div>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-control>
+          <div fxLayout="row" fxLayoutAlign="center" style="width:100%">
+            <button
+              nz-button
+              nzType="dashed"
+              class="add-button"
+              (click)="addLine($event)"
+              *ngIf="design.modules.length < design.type.maxModule"
+              @fadeIn
+            >
+              <i nz-icon nzType="plus"></i>
+              Add Module
+            </button>
+          </div>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+  </div>
+
+  <div fxFlex="30">
+    <nz-table
+      #basicTable
+      nzSize="middle"
+      [nzData]="comparisonData"
+      nzFrontPagination="false"
+    >
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Previous</th>
+          <th>New</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of basicTable.data">
+          <td>{{ data.name }}</td>
+          <td>
+            {{ data.original | format }}
+          </td>
+          <td>
+            <span nz-text [nzType]="data.type">{{ data.new | format }}</span>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+</div>

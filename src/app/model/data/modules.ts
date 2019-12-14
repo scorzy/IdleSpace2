@@ -1,3 +1,5 @@
+import { Sizes } from "./sizes";
+
 export class ModuleData {
   id: string;
   name: string;
@@ -9,9 +11,21 @@ export class ModuleData {
   shieldDamagePercent?: number;
   fire?: number;
   price?: DecimalSource;
+  greaterThan?: string[];
+  explosion?: number;
+  sizes?: Sizes[];
+  shape?: string;
 }
 
 export const modules: ModuleData[] = [
-  { id: "1", name: "armour", armour: 100, price: 100 },
-  { id: "2", name: "Shield", shield: 100, energy: -1, price: 100 }
+  { id: "A", name: "Armour", armour: 10 },
+  { id: "S", name: "Shield", shield: 10, energy: -1 },
+  {
+    id: "L",
+    name: "Laser",
+    damage: 10,
+    shieldDamagePercent: 75,
+    armourDamagePercent: 125,
+    energy: -1
+  }
 ];

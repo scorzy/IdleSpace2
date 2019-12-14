@@ -1,10 +1,14 @@
 import { ZERO } from "../CONSTANTS";
 import { ModuleData } from "../data/modules";
 import { IUnlockable } from "../iUnlocable";
+import { ALL_SIZES } from "../data/sizes";
+
+const DEFAULT_PRICE = new Decimal(10);
 
 export class Module implements IUnlockable {
   id = "";
   name = "";
+  shape = "";
   armour = ZERO;
   shield = ZERO;
   energy = ZERO;
@@ -12,8 +16,10 @@ export class Module implements IUnlockable {
   armourDamagePercent = 100;
   shieldDamagePercent = 100;
   fire = 1;
-  price = ZERO;
+  price = DEFAULT_PRICE;
+  explosion = 0;
   unlocked = false;
+  sizes = ALL_SIZES;
 
   constructor(moduleData: ModuleData) {
     this.id = moduleData.id;
@@ -30,6 +36,9 @@ export class Module implements IUnlockable {
       this.shieldDamagePercent = moduleData.shieldDamagePercent;
     }
     if ("fire" in moduleData) this.fire = moduleData.fire;
+    if ("explosion" in moduleData) this.explosion = moduleData.explosion;
+    if ("sizes" in moduleData) this.sizes = moduleData.sizes;
+    if ("shape" in moduleData) this.shape = moduleData.shape;
   }
 
   unlock(): boolean {
