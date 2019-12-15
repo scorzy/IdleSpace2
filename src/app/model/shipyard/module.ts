@@ -1,8 +1,9 @@
 import { ZERO } from "../CONSTANTS";
-import { ModuleData } from "../data/modules";
+import { ModuleData } from "../data/modulesData";
 import { IUnlockable } from "../iUnlocable";
 import { ALL_SIZES } from "../data/sizes";
 import { Technology } from "../researches/technology";
+import { Game } from "../game";
 
 const DEFAULT_PRICE = new Decimal(10);
 
@@ -23,6 +24,7 @@ export class Module implements IUnlockable {
   sizes = ALL_SIZES;
   maxLevel = ZERO;
   technologies: { technology: Technology; multi: number }[];
+  unlockLevel = ZERO;
 
   constructor(moduleData: ModuleData) {
     this.id = moduleData.id;
@@ -42,6 +44,18 @@ export class Module implements IUnlockable {
     if ("explosion" in moduleData) this.explosion = moduleData.explosion;
     if ("sizes" in moduleData) this.sizes = moduleData.sizes;
     if ("shape" in moduleData) this.shape = moduleData.shape;
+    if ("unlockLevel" in moduleData)
+      this.unlockLevel = new Decimal(moduleData.unlockLevel);
+    if ("technologies" in moduleData) {
+      this.technologies = moduleData.technologies.map(tec => {
+        return {
+          technology: Game.getGame().researchManager.technologies.find(
+            t => t.id === tec.technologyId
+          ),
+          multi: tec.multi
+        };
+      });
+    }
   }
   reloadMaxLevel() {
     let newMax = ZERO;

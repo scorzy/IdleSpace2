@@ -6,6 +6,7 @@ import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
 import { MainService } from "../main.service";
 import { testImports } from "../app.component.spec";
 import { FormatPipe } from "../format.pipe";
+import { OptionsService } from "../options.service";
 
 describe("MaterialTopComponent", () => {
   let component: MaterialTopComponent;
@@ -16,7 +17,7 @@ describe("MaterialTopComponent", () => {
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
       imports: testImports,
       declarations: [MaterialTopComponent, FormatPipe],
-      providers: [MainService]
+      providers: [MainService, OptionsService, FormatPipe]
     }).compileComponents();
   }));
 

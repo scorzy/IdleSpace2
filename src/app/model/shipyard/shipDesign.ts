@@ -30,7 +30,7 @@ export class ShipDesign {
     errorTip?: string;
   }>();
 
-  reload() {
+  reload(errorCheck = false) {
     this.totalArmour = ZERO;
     this.totalShield = ZERO;
     this.totalDamage = ZERO;
@@ -58,10 +58,19 @@ export class ShipDesign {
       });
 
     //  Error check
-    this.modules
-      .filter(m => m.module && m.errorTip && m.levelUi)
-      .forEach(mod => {});
+    if (errorCheck) {
+      this.modules
+        .filter(m => m.module)
+        .forEach(mod => {
+          mod.errorTip = "";
+          mod.validateStatus = "";
 
+          if (mod.level.gt(mod.module.maxLevel)) {
+            mod.errorTip = mod.errorTip + "Level is over max level.";
+            mod.validateStatus = "error";
+          }
+        });
+    }
     this.valid = this.energy.gte(0);
   }
   getCopy() {

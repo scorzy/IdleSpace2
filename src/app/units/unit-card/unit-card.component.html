@@ -31,8 +31,8 @@
   <span *ngFor="let pri of unit.buyPrice.prices; trackBy: getPriceId">
     <span nz-text [nzType]="pri.canBuy ? '' : 'danger'">
       <i nz-icon [nzType]="pri.spendable.icon"></i>
-      {{ pri.spendable.name }}
-      <span class="monospace">{{ pri.singleCost | format }}</span>
+      <span *ngIf="!pri.spendable.icon">{{ pri.spendable.name }}</span>
+      <span class="monospace"> {{ pri.singleCost | format }}</span>
       <span
         *ngIf="
           unit.buyPrice.prices.indexOf(pri) !== unit.buyPrice.prices.length - 1

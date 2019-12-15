@@ -6,6 +6,7 @@ import { FormatPipe } from "src/app/format.pipe";
 import { MainService } from "src/app/main.service";
 import { Unit } from "src/app/model/units/unit";
 import { UNITS } from "src/app/model/data/units";
+import { OptionsService } from "src/app/options.service";
 
 describe("ProdInfoComponent", () => {
   let component: ProdInfoComponent;
@@ -16,7 +17,7 @@ describe("ProdInfoComponent", () => {
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
       imports: testImports,
       declarations: [ProdInfoComponent, FormatPipe],
-      providers: [MainService]
+      providers: [MainService, OptionsService, FormatPipe]
     }).compileComponents();
   }));
 

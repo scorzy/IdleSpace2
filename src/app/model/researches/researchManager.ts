@@ -145,6 +145,9 @@ export class ResearchManager extends JobManager {
     if ("s" in data) {
       this.specialProjectsPriority = data.s;
     }
+    this.done.forEach(res => {
+      res.onCompleted(true);
+    });
     this.reloadTechList();
   }
   //#endregion

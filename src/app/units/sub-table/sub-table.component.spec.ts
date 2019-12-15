@@ -8,6 +8,7 @@ import { MainService } from "src/app/main.service";
 import { Unit } from "src/app/model/units/unit";
 import { UNITS } from "src/app/model/data/units";
 import { Production } from "src/app/model/units/production";
+import { OptionsService } from "src/app/options.service";
 
 describe("SubTableComponent", () => {
   let component: SubTableComponent;
@@ -18,7 +19,7 @@ describe("SubTableComponent", () => {
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
       imports: testImports,
       declarations: [SubTableComponent, FormatPipe],
-      providers: [MainService]
+      providers: [MainService, OptionsService, FormatPipe]
     }).compileComponents();
   }));
 

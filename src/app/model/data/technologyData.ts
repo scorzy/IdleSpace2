@@ -8,7 +8,7 @@ export abstract class ITechnologyData implements IJobType {
   color: string;
   bonus?: BonusStack;
   price: Decimal;
-  ratio: number;
+  ratio?: number;
 }
 
 export const TECHNOLOGIES: { readonly [index: string]: ITechnologyData } = {
@@ -17,7 +17,20 @@ export const TECHNOLOGIES: { readonly [index: string]: ITechnologyData } = {
     name: "Engineering",
     icon: "setting",
     color: "#FA8C16",
-    price: new Decimal(1e3),
-    ratio: 2
+    price: new Decimal(1e3)
+  },
+  Physics: {
+    id: "p",
+    name: "Physics",
+    icon: "my:atom",
+    color: "#096DD9",
+    price: new Decimal(1e3)
+  },
+  Computing: {
+    id: "c",
+    name: "Computing",
+    icon: "my:computing",
+    color: "#096DD9",
+    price: new Decimal(1e3)
   }
 };

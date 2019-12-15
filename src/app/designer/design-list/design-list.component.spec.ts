@@ -5,6 +5,7 @@ import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
 import { testImports } from "src/app/app.component.spec";
 import { FormatPipe } from "src/app/format.pipe";
 import { MainService } from "src/app/main.service";
+import { OptionsService } from "src/app/options.service";
 
 describe("DesignListComponent", () => {
   let component: DesignListComponent;
@@ -15,7 +16,7 @@ describe("DesignListComponent", () => {
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
       imports: testImports,
       declarations: [DesignListComponent, FormatPipe],
-      providers: [MainService]
+      providers: [MainService, OptionsService, FormatPipe]
     }).compileComponents();
   }));
 

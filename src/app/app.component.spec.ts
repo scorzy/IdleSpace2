@@ -14,6 +14,8 @@ import { HttpClientModule } from "@angular/common/http";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { DragDropModule } from "@angular/cdk/drag-drop";
 import { FlexLayoutModule } from "@angular/flex-layout";
+import { FormatPipe } from "./format.pipe";
+import { OptionsService } from "./options.service";
 
 export const testImports = [
   RouterTestingModule,
@@ -35,7 +37,7 @@ describe("AppComponent", () => {
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
       imports: testImports,
       declarations: [AppComponent],
-      providers: [MainService]
+      providers: [MainService, OptionsService, FormatPipe]
     }).compileComponents();
   }));
 

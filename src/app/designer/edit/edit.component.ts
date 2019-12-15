@@ -121,7 +121,7 @@ export class EditComponent implements OnInit, OnDestroy {
         : ONE;
     }
     if (this.design) {
-      this.design.reload();
+      this.design.reload(true);
       this.makeComparisonData();
     }
   }

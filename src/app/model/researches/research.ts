@@ -77,10 +77,10 @@ export class Research extends Job implements IUnlockable, IBase {
       .toNumber();
   }
 
-  onCompleted(): void {
+  onCompleted(force = false): void {
     super.onCompleted();
 
-    if (this.level < 2) {
+    if (this.level < 2 || force) {
       if (this.unitsToUnlock) {
         this.unitsToUnlock.forEach(u => u.unlock());
         Game.getGame().resourceManager.reloadLists();

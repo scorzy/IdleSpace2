@@ -3,6 +3,8 @@ import { SideMenuComponent } from "./side-menu.component";
 import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
 import { MainService } from "../main.service";
 import { testImports } from "../app.component.spec";
+import { FormatPipe } from "../format.pipe";
+import { OptionsService } from "../options.service";
 
 describe("SideMenuComponent", () => {
   let component: SideMenuComponent;
@@ -13,7 +15,7 @@ describe("SideMenuComponent", () => {
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
       imports: testImports,
       declarations: [SideMenuComponent],
-      providers: [MainService]
+      providers: [MainService, OptionsService, FormatPipe]
     }).compileComponents();
   }));
 

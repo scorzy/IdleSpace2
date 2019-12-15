@@ -1,13 +1,18 @@
 import { Module } from "./module";
-import { modules } from "../data/modules";
 import { ShipDesign } from "./shipDesign";
 import { ShipType } from "./ShipType";
 import { SHIP_TYPES } from "../data/shipTypes";
+import { modules } from "../data/modulesData";
 
 export class ShipyardManager {
   shipDesigns = new Array<ShipDesign>();
   modules = new Array<Module>();
   shipTypes = new Array<ShipType>();
+
+  weapons = new Array<Module>();
+  defences = new Array<Module>();
+  generators = new Array<Module>();
+  others = new Array<Module>();
 
   init() {
     this.shipTypes = SHIP_TYPES.map(s => new ShipType(s));
@@ -29,7 +34,39 @@ export class ShipyardManager {
     this.shipDesigns.push(shipDesign);
     return shipDesign.id;
   }
+  postUpdate() {
+    let unlocked = false;
+    for (let i = 0, n = this.modules.length; i < n; i++) {
+      this.modules[i].reloadMaxLevel();
+      if (
+        !this.modules[i].unlocked &&
+        this.modules[i].maxLevel.gte(this.modules[i].unlockLevel)
+      ) {
+        if (this.modules[i].unlock()) {
+          unlocked = true;
+        }
+      }
+    }
+    if (unlocked) this.reloadLists();
+  }
+  reloadLists() {
+    this.weapons = this.modules.filter(mod => mod.unlocked && mod.damage.gt(0));
+    this.defences = this.modules.filter(
+      mod => mod.unlocked && (mod.armour.gt(0) || mod.shield.gt(0))
+    );
+    this.generators = this.modules.filter(
+      mod => mod.unlocked && mod.energy.gt(0)
+    );
+    this.others = this.modules.filter(
+      mod =>
+        mod.unlocked &&
+        this.weapons.findIndex(w => w.id === mod.id) < 0 &&
+        this.defences.findIndex(w => w.id === mod.id) < 0 &&
+        this.generators.findIndex(w => w.id === mod.id) < 0
+    );
+  }
 
+  //#region Save and Load
   getSave(): any {
     return {
       d: this.shipDesigns.map(des => des.getSave())
@@ -44,4 +81,5 @@ export class ShipyardManager {
       });
     }
   }
+  //#endregion
 }

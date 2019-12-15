@@ -5,6 +5,7 @@ import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
 import { testImports } from "../app.component.spec";
 import { FormatPipe } from "../format.pipe";
 import { MainService } from "../main.service";
+import { OptionsService } from "../options.service";
 
 describe("OptionsComponent", () => {
   let component: OptionsComponent;
@@ -15,7 +16,7 @@ describe("OptionsComponent", () => {
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
       imports: testImports,
       declarations: [OptionsComponent, FormatPipe],
-      providers: [MainService]
+      providers: [MainService, OptionsService, FormatPipe]
     }).compileComponents();
   }));
 

@@ -6,6 +6,7 @@ import { testImports } from "src/app/app.component.spec";
 import { SubTableComponent } from "../sub-table/sub-table.component";
 import { FormatPipe } from "src/app/format.pipe";
 import { MainService } from "src/app/main.service";
+import { OptionsService } from "src/app/options.service";
 
 describe("UnitCardComponent", () => {
   let component: UnitCardComponent;
@@ -16,7 +17,7 @@ describe("UnitCardComponent", () => {
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
       imports: testImports,
       declarations: [UnitCardComponent, FormatPipe],
-      providers: [MainService]
+      providers: [MainService, OptionsService, FormatPipe]
     }).compileComponents();
   }));
 

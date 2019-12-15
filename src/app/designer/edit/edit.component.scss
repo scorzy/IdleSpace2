@@ -9,3 +9,8 @@
 .add-button {
   width: 60%;
 }
+@media only screen and (min-width: 959px) {
+  .recap {
+    padding-right: 2rem;
+  }
+}

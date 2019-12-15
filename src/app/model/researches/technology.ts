@@ -1,6 +1,6 @@
 import { IBase } from "../iBase";
 import { IUnlockable } from "../iUnlocable";
-import { ZERO } from "../CONSTANTS";
+import { ZERO, ONE } from "../CONSTANTS";
 import { Bonus } from "../bonus/bonus";
 import { BonusStack } from "../bonus/bonusStack";
 import { ITechnologyData } from "../data/technologyData";
@@ -12,14 +12,14 @@ const RESEARCH_BONUS = new Decimal(1.1);
 export class Technology implements IBase, IUnlockable, ITechnologyData {
   id = "";
   name = "";
-  quantity = ZERO;
+  quantity = ONE;
   icon: string;
   progress = ZERO;
   price = ZERO;
   unlocked = false;
   color: string;
   bonus?: BonusStack;
-  ratio: number;
+  ratio: number = 2;
   progressPercent = 0;
   priority = 50;
   total = ZERO;

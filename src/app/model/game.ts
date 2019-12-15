@@ -66,6 +66,7 @@ export class Game {
 
     this.researchManager.toDo.forEach(r => r.reloadTotalBonus());
     this.researchManager.backlog.forEach(r => r.reloadTotalBonus());
+    this.shipyardManager.postUpdate();
   }
 
   //#region Save and Load

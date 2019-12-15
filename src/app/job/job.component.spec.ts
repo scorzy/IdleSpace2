@@ -7,6 +7,7 @@ import { MainService } from "../main.service";
 import { FormatPipe } from "../format.pipe";
 import { TimePipe } from "../time.pipe";
 import { Game } from "../model/game";
+import { OptionsService } from "../options.service";
 
 describe("JobComponent", () => {
   let component: JobComponent;
@@ -17,7 +18,7 @@ describe("JobComponent", () => {
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
       imports: testImports,
       declarations: [JobComponent, FormatPipe, TimePipe],
-      providers: [MainService]
+      providers: [MainService, OptionsService, FormatPipe]
     }).compileComponents();
   }));
 
