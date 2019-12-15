@@ -3,8 +3,9 @@ import { ShipDesign } from "./shipDesign";
 import { ShipType } from "./ShipType";
 import { SHIP_TYPES } from "../data/shipTypes";
 import { modules } from "../data/modulesData";
+import { JobManager } from "../job/jobManager";
 
-export class ShipyardManager {
+export class ShipyardManager extends JobManager {
   shipDesigns = new Array<ShipDesign>();
   modules = new Array<Module>();
   shipTypes = new Array<ShipType>();

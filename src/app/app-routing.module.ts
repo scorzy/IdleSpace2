@@ -19,6 +19,7 @@ const routes: Routes = [
   { path: "resPri", pathMatch: "full", component: ResearchPrioritiesComponent },
   { path: "opt", pathMatch: "full", component: OptionsComponent },
   { path: "save", pathMatch: "full", component: SaveComponent },
+  { path: "des", pathMatch: "full", redirectTo: "/des/add" },
   {
     path: "des",
     component: DesignListComponent,

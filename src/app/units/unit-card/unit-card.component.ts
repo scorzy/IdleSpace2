@@ -14,6 +14,8 @@ import { Unit } from "src/app/model/units/unit";
 import { ONE } from "src/app/model/CONSTANTS";
 import { Production } from "src/app/model/units/production";
 import { Price } from "src/app/model/prices/price";
+import { NzModalService, NzModalRef } from "ng-zorro-antd";
+import { BreakpointObserver, BreakpointState } from "@angular/cdk/layout";
 
 @Component({
   selector: "app-unit-card",
@@ -23,10 +25,14 @@ import { Price } from "src/app/model/prices/price";
 })
 export class UnitCardComponent implements OnInit, OnDestroy {
   @Input() unit: Unit;
+  tplModal: NzModalRef;
+  popoverTrigger: string = null;
+
   actions = [];
   private subscriptions: Subscription[] = [];
   sliderDisabled = false;
   index1 = 0;
+  isVisible = false;
 
   @ViewChild("buyOne", null)
   private buyOne: TemplateRef<any>;
@@ -37,16 +43,28 @@ export class UnitCardComponent implements OnInit, OnDestroy {
   @ViewChild("buyNone", null)
   private buyNone: TemplateRef<any>;
 
-  constructor(public ms: MainService, private cd: ChangeDetectorRef) {}
+  constructor(
+    public ms: MainService,
+    private cd: ChangeDetectorRef,
+    private modalService: NzModalService,
+    public breakpointObserver: BreakpointObserver
+  ) {}
 
   ngOnInit() {
+    this.popoverTrigger = "hover";
+
     this.sliderDisabled = !this.unit.production.find(p => p.ratio.lt(0));
     this.getActions();
     this.subscriptions.push(
       this.ms.updateEmitter.subscribe(() => {
         this.getActions();
         this.cd.markForCheck();
-      })
+      }),
+      this.breakpointObserver
+        .observe(["(min-width: 959px)"])
+        .subscribe((state: BreakpointState) => {
+          this.popoverTrigger = state.matches ? "hover" : "null";
+        })
     );
   }
 
@@ -92,5 +110,17 @@ export class UnitCardComponent implements OnInit, OnDestroy {
   }
   getPriceId(index: number, pri: Price) {
     return index + pri.spendable.id;
+  }
+  createModal(tplContent: TemplateRef<{}>, tplFooter: TemplateRef<{}>): void {
+    this.tplModal = this.modalService.create({
+      nzTitle: this.unit.name,
+      nzContent: tplContent,
+      nzFooter: tplFooter,
+      nzMaskClosable: true,
+      nzClosable: true
+    });
+  }
+  destroyTplModal() {
+    this.tplModal.destroy();
   }
 }

@@ -24,7 +24,7 @@ export abstract class JobManager {
     this.toDo.shift();
     if (job.max > job.level) {
       this.toDo.push(job);
-    } else {
+    } else if (this.done) {
       this.done.push(job);
     }
   }

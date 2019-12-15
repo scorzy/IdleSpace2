@@ -9,7 +9,8 @@
       nz-popover
       [nzPopoverTitle]="titleTemplate"
       [nzPopoverContent]="contentTemplate"
-      nzPopoverTrigger="click"
+      [nzPopoverTrigger]="popoverTrigger"
+      (click)="createModal(contentTemplate, tplFooter)"
     >
       <i nz-icon nzType="info-circle" nzTheme="outline"></i>
     </span>
@@ -131,4 +132,10 @@
 </ng-template>
 <ng-template #buyNone>
   <button nz-button nzType="link" disabled="true">Can't buy</button>
+</ng-template>
+
+<ng-template #tplFooter>
+  <button nz-button nzType="primary" (click)="destroyTplModal()">
+    Ok
+  </button>
 </ng-template>
