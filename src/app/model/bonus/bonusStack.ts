@@ -8,9 +8,9 @@ export class BonusStack {
 
   reloadBonus() {
     this.totalBonus = ONE;
-    this.bonuses.forEach(bon => {
-      this.totalBonus = this.totalBonus.plus(bon.getBonus());
-    });
+    for (let i = 0, n = this.bonuses.length; i < n; i++) {
+      this.totalBonus = this.totalBonus.plus(this.bonuses[i].getBonus());
+    }
   }
   reloadBonusUi() {
     const newBonus = this.totalBonus.minus(1).times(100);

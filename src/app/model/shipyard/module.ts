@@ -2,6 +2,7 @@ import { ZERO } from "../CONSTANTS";
 import { ModuleData } from "../data/modules";
 import { IUnlockable } from "../iUnlocable";
 import { ALL_SIZES } from "../data/sizes";
+import { Technology } from "../researches/technology";
 
 const DEFAULT_PRICE = new Decimal(10);
 
@@ -20,6 +21,8 @@ export class Module implements IUnlockable {
   explosion = 0;
   unlocked = false;
   sizes = ALL_SIZES;
+  maxLevel = ZERO;
+  technologies: { technology: Technology; multi: number }[];
 
   constructor(moduleData: ModuleData) {
     this.id = moduleData.id;
@@ -40,7 +43,17 @@ export class Module implements IUnlockable {
     if ("sizes" in moduleData) this.sizes = moduleData.sizes;
     if ("shape" in moduleData) this.shape = moduleData.shape;
   }
-
+  reloadMaxLevel() {
+    let newMax = ZERO;
+    for (let i = 0; i < this.technologies.length; i++) {
+      newMax = newMax.plus(
+        this.technologies[i].technology.quantity.times(
+          this.technologies[i].multi
+        )
+      );
+    }
+    if (!newMax.eq(this.maxLevel)) this.maxLevel = newMax;
+  }
   unlock(): boolean {
     if (this.unlocked) return false;
     this.unlocked = true;

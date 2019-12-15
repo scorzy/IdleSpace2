@@ -72,7 +72,8 @@ export class Game {
   getSave(): any {
     return {
       s: this.resourceManager.getSave(),
-      r: this.researchManager.getSave()
+      r: this.researchManager.getSave(),
+      d: this.shipyardManager.getSave()
     };
   }
   load(data: any) {
@@ -82,6 +83,9 @@ export class Game {
 
     this.resourceManager.load(data.s);
     this.researchManager.load(data.r);
+    if ("d" in data) {
+      this.shipyardManager.load(data.d);
+    }
   }
   //#endregion
 }

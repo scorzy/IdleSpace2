@@ -39,9 +39,9 @@ import { AddComponent } from "./designer/add/add.component";
 import { NzFormModule } from "ng-zorro-antd/form";
 import { TechnologiesComponent } from "./technologies/technologies.component";
 import { NzInputNumberModule } from "ng-zorro-antd/input-number";
-import { ResearchPrioritiesComponent } from './research-priorities/research-priorities.component';
-import { EditComponent } from './designer/edit/edit.component';
-import { SizePipePipe } from './size-pipe.pipe';
+import { ResearchPrioritiesComponent } from "./research-priorities/research-priorities.component";
+import { EditComponent } from "./designer/edit/edit.component";
+import { SizePipe } from "./size.pipe";
 
 registerLocaleData(en);
 
@@ -71,7 +71,7 @@ const ngZorroConfig: NzConfig = {
     TechnologiesComponent,
     ResearchPrioritiesComponent,
     EditComponent,
-    SizePipePipe
+    SizePipe
   ],
   imports: [
     BrowserModule,
@@ -92,7 +92,8 @@ const ngZorroConfig: NzConfig = {
     { provide: NZ_I18N, useValue: en_US },
     { provide: NZ_CONFIG, useValue: ngZorroConfig },
     MainService,
-    OptionsService
+    OptionsService,
+    FormatPipe
   ],
   bootstrap: [AppComponent]
 })

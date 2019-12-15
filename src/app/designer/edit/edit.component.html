@@ -1,6 +1,8 @@
 <div fxLayout="row" fxLayout.lt-md="column" *ngIf="design" fxLayoutGap="1rem">
   <div fxFlex="70">
     <h1>{{ design.name }}</h1>
+
+    <!-- Recap Line  -->
     <span
       class="recap"
       *ngIf="design"
@@ -45,10 +47,14 @@
       </span></span
     >
 
+    <!-- Form  -->
     <form *ngIf="design" nz-form [nzLayout]="'horizontal'">
       <nz-form-item *ngFor="let line of design.modules; let i = index" @fadeIn>
-        <nz-form-control>
-          <div fxLayout="row" fxLayoutGap="0.5rem">
+        <nz-form-control
+          [nzValidateStatus]="line.validateStatus"
+          [nzErrorTip]="line.errorTip"
+        >
+          <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="0.5rem">
             <nz-select
               [name]="'module' + i"
               [(ngModel)]="line.moduleId"
@@ -64,7 +70,6 @@
               ></nz-option>
             </nz-select>
             <nz-select
-              fxFlex="8rem"
               *ngIf="line.module"
               [name]="'size' + i"
               [(ngModel)]="line.size"
@@ -76,6 +81,12 @@
                 [nzLabel]="size | sizePipe"
               ></nz-option>
             </nz-select>
+            <input
+              nz-input
+              [(ngModel)]="line.levelUi"
+              [name]="'level-' + i"
+              (ngModelChange)="reload(i)"
+            />
             <i
               nz-icon
               nzType="minus-circle-o"
@@ -106,6 +117,7 @@
     </form>
   </div>
 
+  <!-- Comparison Table -->
   <div fxFlex="30">
     <nz-table
       #basicTable
@@ -127,7 +139,9 @@
             {{ data.original | format }}
           </td>
           <td>
-            <span nz-text [nzType]="data.type">{{ data.new | format }}</span>
+            <span nz-text [nzType]="data.type" [className]="data.classes">{{
+              data.new | format
+            }}</span>
           </td>
         </tr>
       </tbody>

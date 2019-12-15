@@ -2,9 +2,10 @@ import { ZERO, ONE } from "../CONSTANTS";
 import { Module } from "./module";
 import { Game } from "../game";
 import { ShipType } from "./ShipType";
+import { MainService } from "src/app/main.service";
 
 const PRICE_GROW_RATE = new Decimal(1.1);
-const SIZE_MULTI = 0.1; // or 0.25?
+const SIZE_MULTI = 0.25;
 
 export class ShipDesign {
   id: number;
@@ -24,6 +25,9 @@ export class ShipDesign {
     level: Decimal;
     size: number;
     moduleId?: string;
+    levelUi?: string;
+    validateStatus?: string;
+    errorTip?: string;
   }>();
 
   reload() {
@@ -31,6 +35,7 @@ export class ShipDesign {
     this.totalShield = ZERO;
     this.totalDamage = ZERO;
     this.totalPoints = 0;
+    this.energy = ZERO;
     this.modules
       .filter(m => m.module)
       .forEach(m => {
@@ -51,6 +56,12 @@ export class ShipDesign {
         this.energy = this.energy.plus(m.module.energy.times(statsMulti));
         this.price = this.price.plus(m.module.price.times(priceMulti));
       });
+
+    //  Error check
+    this.modules
+      .filter(m => m.module && m.errorTip && m.levelUi)
+      .forEach(mod => {});
+
     this.valid = this.energy.gte(0);
   }
   getCopy() {
@@ -63,7 +74,10 @@ export class ShipDesign {
         module: mod.module,
         level: mod.level,
         size: mod.size,
-        moduleId: mod.module.id
+        moduleId: mod.module.id,
+        levelUi: MainService.formatPipe.transform(mod.level),
+        validateStatus: "",
+        errorTip: ""
       };
     });
     ret.reload();
@@ -73,16 +87,18 @@ export class ShipDesign {
   //#region Save and Load
   getSave(): any {
     return {
+      i: this.id,
       n: this.name,
       t: this.type.id,
       m: this.modules.map(mod => [mod.module.id, mod.level, mod.size])
     };
   }
   load(data: any) {
+    if ("i" in data) this.id = data.i;
     if ("n" in data) this.name = data.n;
     if ("t" in data) {
       this.type = Game.getGame().shipyardManager.shipTypes.find(
-        t => t.id === data.id
+        t => t.id == data.t
       );
     }
     if (!this.type) return false;

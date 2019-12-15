@@ -29,4 +29,19 @@ export class ShipyardManager {
     this.shipDesigns.push(shipDesign);
     return shipDesign.id;
   }
+
+  getSave(): any {
+    return {
+      d: this.shipDesigns.map(des => des.getSave())
+    };
+  }
+  load(data: any) {
+    if ("d" in data) {
+      this.shipDesigns = data.d.map(d => {
+        const design = new ShipDesign();
+        design.load(d);
+        return design;
+      });
+    }
+  }
 }

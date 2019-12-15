@@ -10,7 +10,7 @@ export class FormatPipe implements PipeTransform {
 
   constructor(public options: OptionsService) {
     if (FormatPipe.interval < 1) {
-      FormatPipe.interval = window.setInterval(this.clear.bind(this), 2000);
+      FormatPipe.interval = window.setInterval(this.clear.bind(this), 5000);
     }
   }
 
@@ -73,7 +73,7 @@ export class FormatPipe implements PipeTransform {
   }
 
   clear() {
-    if (FormatPipe.map.entries.length > 100) {
+    if (FormatPipe.map.entries.length > 500) {
       FormatPipe.map.clear();
     }
   }

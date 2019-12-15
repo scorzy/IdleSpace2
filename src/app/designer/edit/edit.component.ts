@@ -13,6 +13,8 @@ import { Subscription } from "rxjs";
 import { ONE } from "src/app/model/CONSTANTS";
 import { Module } from "src/app/model/shipyard/module";
 import { fadeIn } from "src/app/animations";
+import { OptionsService } from "src/app/options.service";
+declare let numberformat, Parser;
 
 @Component({
   selector: "app-edit",
@@ -29,12 +31,14 @@ export class EditComponent implements OnInit, OnDestroy {
     original: Decimal;
     new: Decimal;
     type: string;
+    classes: string;
   }[] = [];
 
   private subscriptions: Subscription[] = [];
 
   constructor(
     public ms: MainService,
+    public os: OptionsService,
     private cd: ChangeDetectorRef,
     private route: ActivatedRoute
   ) {}
@@ -72,7 +76,12 @@ export class EditComponent implements OnInit, OnDestroy {
       e.preventDefault();
     }
 
-    this.design.modules.push({ module: null, level: ONE, size: 1 });
+    this.design.modules.push({
+      module: null,
+      level: ONE,
+      size: 1,
+      levelUi: "1"
+    });
   }
   removeLine(index: number) {
     this.design.modules.splice(index, 1);
@@ -93,7 +102,24 @@ export class EditComponent implements OnInit, OnDestroy {
     return size;
   }
 
-  reload() {
+  reload(index: number = -1) {
+    if (index > -1) {
+      let levelUi = this.design.modules[index].levelUi;
+      if (!this.os.usaFormat) {
+        levelUi = levelUi.replace(",", "###");
+        levelUi = levelUi.replace(".", "@@@");
+        levelUi = levelUi.replace("###", ".");
+        levelUi = levelUi.replace("@@@", ",");
+      }
+      this.design.modules[index].level = levelUi
+        ? numberformat
+            .parse(levelUi, {
+              backend: "decimal.js",
+              Decimal
+            })
+            .max(ONE)
+        : ONE;
+    }
     if (this.design) {
       this.design.reload();
       this.makeComparisonData();
@@ -107,9 +133,40 @@ export class EditComponent implements OnInit, OnDestroy {
       new: this.design.totalArmour,
       type: this.original.totalArmour.gt(this.design.totalArmour)
         ? "danger"
-        : this.original.totalArmour.lt(this.design.totalArmour)
-        ? "success"
+        : "",
+      classes: this.original.totalArmour.lt(this.design.totalArmour)
+        ? "text-success"
         : ""
+    });
+    this.comparisonData.push({
+      name: "Shield",
+      original: this.original.totalShield,
+      new: this.design.totalShield,
+      type: this.original.totalShield.gt(this.design.totalShield)
+        ? "danger"
+        : "",
+      classes: this.original.totalShield.lt(this.design.totalShield)
+        ? "tex-success"
+        : ""
+    });
+    this.comparisonData.push({
+      name: "Avg. Damage",
+      original: this.original.totalDamage,
+      new: this.design.totalDamage,
+      type: this.original.totalDamage.gt(this.design.totalDamage)
+        ? "danger"
+        : "",
+      classes: this.original.totalDamage.lt(this.design.totalDamage)
+        ? "tex-success"
+        : ""
+    });
+
+    this.comparisonData.push({
+      name: "Price",
+      original: this.original.price,
+      new: this.design.price,
+      type: this.original.price.lt(this.design.price) ? "danger" : "",
+      classes: this.original.price.gt(this.design.price) ? "tex-success" : ""
     });
   }
 }

@@ -1,6 +1,7 @@
 import { Injectable, EventEmitter } from "@angular/core";
 import { Game } from "./model/game";
 import { formatDate } from "@angular/common";
+import { FormatPipe } from "./format.pipe";
 
 export const SAVE_ID = "IA3_save";
 
@@ -13,6 +14,7 @@ export class MainService {
   game: Game;
   last: number;
   updateEmitter = new EventEmitter<number>();
+  static formatPipe: FormatPipe;
   lzWorker: Worker;
   notificationEmitter = new EventEmitter<{
     type: number;
@@ -20,8 +22,9 @@ export class MainService {
     text?: string;
   }>();
 
-  constructor() {
+  constructor(private _formatPipe: FormatPipe) {
     this.last = Date.now();
+    MainService.formatPipe = _formatPipe;
 
     // I should check that if the broser supports web workers
     // however i don't really care
@@ -38,7 +41,7 @@ export class MainService {
       }
     };
 
-    setInterval(this.update.bind(this), 250);
+    setInterval(this.update.bind(this), 100);
 
     const dataSave = localStorage.getItem(SAVE_ID);
     if (dataSave) this.loadFromLocalStorage(true);
@@ -89,7 +92,7 @@ export class MainService {
   decompressAndLoad(data: string) {
     this.lzWorker.postMessage({ m: data, a: "d" });
   }
-  loadFromLocalStorage(newGame: boolean) {
+  loadFromLocalStorage(newGame: boolean = false) {
     const data = localStorage.getItem(SAVE_ID);
     if (data) {
       this.decompressAndLoad(data);
