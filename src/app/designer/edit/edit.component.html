@@ -60,12 +60,15 @@
               [(ngModel)]="line.moduleId"
               (ngModelChange)="moduleChange(i)"
             >
-              <nz-option-group nzLabel="Weapons">
+              <nz-option-group
+                [nzLabel]="group.name"
+                *ngFor="
+                  let group of ms.game.shipyardManager.groups;
+                  trackBy: getGroupId
+                "
+              >
                 <nz-option
-                  *ngFor="
-                    let mod of ms.game.shipyardManager.weapons;
-                    trackBy: getModId
-                  "
+                  *ngFor="let mod of group.list; trackBy: getModId"
                   nzCustomContent
                   [nzValue]="mod.id"
                   [nzLabel]="mod.name"
@@ -75,73 +78,17 @@
                     fxLayoutAlign="start center"
                     fxLayoutGap="15px"
                   >
-                    <i nz-icon [nzType]="mod.shape" style="font-size: 200%"></i>
-                    <span> {{ mod.name }}</span>
+                    <span nz-text>
+                      <i
+                        nz-icon
+                        [nzType]="mod.shape"
+                        style="font-size: 200%"
+                      ></i>
+                      <span> {{ mod.name }}</span>
+                    </span>
                   </span>
                 </nz-option>
               </nz-option-group>
-              <nz-option-group nzLabel="Defences">
-                <nz-option
-                  *ngFor="
-                    let mod of ms.game.shipyardManager.defences;
-                    trackBy: getModId
-                  "
-                  nzCustomContent
-                  [nzValue]="mod.id"
-                  [nzLabel]="mod.name"
-                >
-                  <span
-                    fxLayout="row"
-                    fxLayoutAlign="start center"
-                    fxLayoutGap="15px"
-                  >
-                    <i nz-icon [nzType]="mod.shape" style="font-size: 200%"></i>
-                    <span> {{ mod.name }}</span>
-                  </span></nz-option
-                ></nz-option-group
-              >
-              <nz-option-group nzLabel="Generators">
-                <nz-option
-                  *ngFor="
-                    let mod of ms.game.shipyardManager.generators;
-                    trackBy: getModId
-                  "
-                  nzCustomContent
-                  [nzValue]="mod.id"
-                  [nzLabel]="mod.name"
-                >
-                  <span
-                    fxLayout="row"
-                    fxLayoutAlign="start center"
-                    fxLayoutGap="15px"
-                  >
-                    <i nz-icon [nzType]="mod.shape" style="font-size: 200%"></i>
-                    <span> {{ mod.name }}</span>
-                  </span></nz-option
-                ></nz-option-group
-              ><nz-option-group
-                nzLabel="Others"
-                *ngIf="ms.game.shipyardManager.others.length > 0"
-              >
-                <nz-option
-                  *ngFor="
-                    let mod of ms.game.shipyardManager.others;
-                    trackBy: getModId
-                  "
-                  nzCustomContent
-                  [nzValue]="mod.id"
-                  [nzLabel]="mod.name"
-                >
-                  <span
-                    fxLayout="row"
-                    fxLayoutAlign="start center"
-                    fxLayoutGap="15px"
-                  >
-                    <i nz-icon [nzType]="mod.shape" style="font-size: 200%"></i>
-                    <span> {{ mod.name }}</span>
-                  </span></nz-option
-                ></nz-option-group
-              >
             </nz-select>
             <nz-select
               *ngIf="line.module"

@@ -12,6 +12,8 @@ export class ShipDesign {
   name = "";
   type: ShipType;
   totalPoints = 0;
+  shipsQuantity = ZERO;
+  navalCapPercent: number;
 
   totalArmour = ZERO;
   totalShield = ZERO;
@@ -99,7 +101,9 @@ export class ShipDesign {
       i: this.id,
       n: this.name,
       t: this.type.id,
-      m: this.modules.map(mod => [mod.module.id, mod.level, mod.size])
+      m: this.modules.map(mod => [mod.module.id, mod.level, mod.size]),
+      p: this.navalCapPercent,
+      q: this.shipsQuantity
     };
   }
   load(data: any) {
@@ -124,6 +128,12 @@ export class ShipDesign {
           this.modules.push({ module, level, size });
         }
       }
+    }
+    if ("p" in data) {
+      this.navalCapPercent = data.p;
+    }
+    if ("q" in data) {
+      this.shipsQuantity = new Decimal(data.q);
     }
     this.reload();
   }

@@ -20,6 +20,7 @@ export class ModuleData {
 }
 
 export const modules: ModuleData[] = [
+  //#region Defences
   {
     id: "A",
     name: "Armour",
@@ -35,16 +36,8 @@ export const modules: ModuleData[] = [
     technologies: [{ technologyId: "e", multi: 1 }],
     shape: "my:bubble-field"
   },
-  {
-    id: "L",
-    name: "Laser",
-    damage: 100,
-    shieldDamagePercent: 75,
-    armourDamagePercent: 125,
-    energy: -1,
-    technologies: [{ technologyId: "e", multi: 1 }],
-    shape: "my:laser-blast"
-  },
+  //#endregion
+  //#region Generators
   {
     id: "S",
     name: "Solar Panel",
@@ -59,7 +52,8 @@ export const modules: ModuleData[] = [
     price: 20,
     shape: "my:mass-driver",
     technologies: [{ technologyId: "e", multi: 1 }],
-    explosion: 15
+    explosion: 15,
+    unlockLevel: 20
   },
   {
     id: "F",
@@ -68,6 +62,20 @@ export const modules: ModuleData[] = [
     price: 30,
     shape: "my:reactor",
     technologies: [{ technologyId: "e", multi: 1 }],
-    explosion: 25
+    explosion: 25,
+    unlockLevel: 50
+  },
+  //#endregion
+  //#region Weapons
+  {
+    id: "L",
+    name: "Laser",
+    damage: 100,
+    shieldDamagePercent: 75,
+    armourDamagePercent: 125,
+    energy: -1,
+    technologies: [{ technologyId: "e", multi: 1 }],
+    shape: "my:laser-blast"
   }
+  //#endregion
 ];

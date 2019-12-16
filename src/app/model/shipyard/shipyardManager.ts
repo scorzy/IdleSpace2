@@ -5,15 +5,19 @@ import { SHIP_TYPES } from "../data/shipTypes";
 import { modules } from "../data/modulesData";
 import { JobManager } from "../job/jobManager";
 
+const MAX_DESIGN = 20;
+
 export class ShipyardManager extends JobManager {
   shipDesigns = new Array<ShipDesign>();
   modules = new Array<Module>();
   shipTypes = new Array<ShipType>();
+  navalCap = new Decimal(5e3);
 
   weapons = new Array<Module>();
   defences = new Array<Module>();
   generators = new Array<Module>();
   others = new Array<Module>();
+  groups: { name: string; list: Array<Module> }[];
 
   init() {
     this.shipTypes = SHIP_TYPES.map(s => new ShipType(s));
@@ -21,6 +25,8 @@ export class ShipyardManager extends JobManager {
   }
 
   addDesign(name: string, type: number): number {
+    if (this.shipDesigns.length >= MAX_DESIGN) return -1;
+
     const shipType = this.shipTypes.find(t => t.id === type);
     if (!shipType) return -1;
     let newId = 0;
@@ -65,6 +71,12 @@ export class ShipyardManager extends JobManager {
         this.defences.findIndex(w => w.id === mod.id) < 0 &&
         this.generators.findIndex(w => w.id === mod.id) < 0
     );
+    this.groups = [
+      { name: "Weapons", list: this.weapons },
+      { name: "Defences", list: this.defences },
+      { name: "Generators", list: this.generators },
+      { name: "Others", list: this.others }
+    ];
   }
 
   //#region Save and Load

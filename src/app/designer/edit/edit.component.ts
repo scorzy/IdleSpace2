@@ -101,6 +101,9 @@ export class EditComponent implements OnInit, OnDestroy {
   getSizeId(size: number) {
     return size;
   }
+  getGroupId(index: number) {
+    return index;
+  }
 
   reload(index: number = -1) {
     if (index > -1) {

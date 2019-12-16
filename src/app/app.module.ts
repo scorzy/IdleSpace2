@@ -42,6 +42,7 @@ import { NzInputNumberModule } from "ng-zorro-antd/input-number";
 import { ResearchPrioritiesComponent } from "./research-priorities/research-priorities.component";
 import { EditComponent } from "./designer/edit/edit.component";
 import { SizePipe } from "./size.pipe";
+import { ShipyardComponent } from "./shipyard/shipyard.component";
 
 registerLocaleData(en);
 
@@ -71,7 +72,9 @@ const ngZorroConfig: NzConfig = {
     TechnologiesComponent,
     ResearchPrioritiesComponent,
     EditComponent,
-    SizePipe
+    SizePipe,
+    ShypiardComponent,
+    ShipyardComponent
   ],
   imports: [
     BrowserModule,

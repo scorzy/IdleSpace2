@@ -2,9 +2,22 @@
 // The prefix to use on all css classes from ant.
 @ant-prefix: ant;
 
-@primary-color: @blue-7;
-@primary-color: @purple-7;
+// @primary-color: @blue-7;
+// @primary-color: @purple-7;
 @primary-color: @green-7;
+
+// Color used by default to control hover and active backgrounds and for
+// alert info backgrounds.
+@primary-1: color(~`colorPalette("@{primary-color}", 9) `);
+@primary-2: color(~`colorPalette("@{primary-color}", 8) `);
+@primary-3: color(~`colorPalette("@{primary-color}", 7) `); // unused
+@primary-4: color(~`colorPalette("@{primary-color}", 6) `); // unused
+@primary-5: color(~`colorPalette("@{primary-color}", 5) `);
+@primary-6: @primary-color;
+@primary-7: color(~`colorPalette("@{primary-color}", 4) `);
+@primary-8: color(~`colorPalette("@{primary-color}", 3) `); // unused
+@primary-9: color(~`colorPalette("@{primary-color}", 2) `); // unused
+@primary-10: color(~`colorPalette("@{primary-color}", 1) `); // unused
 
 @progress-default-color: @primary-color;
 
@@ -16,9 +29,6 @@
 @text-color: #dddddd;
 @text-color-secondary: fade(#fff, 65%);
 
-@table-header-bg: #201f1e;
-@collapse-header-bg: #201f1e;
-@table-row-hover-bg: #201f1e;
 @popover-bg: #201f1e;
 
 @table-selected-row-bg: lighten(@table-header-bg, 5%); // #414242;
@@ -27,8 +37,6 @@
 @layout-trigger-color: fade(#fff; 80%);
 @layout-trigger-background: @table-header-bg; // #3b3a39;
 @alert-message-color: fade(#000; 67%);
-@item-hover-bg: fade(@primary-color, 20%);
-@item-active-bg: fade(@primary-color, 30%);
 @disabled-color: rgba(255; 255; 255; 0.25);
 @tag-default-bg: #262628;
 
@@ -59,7 +67,6 @@
 @layout-sider-background: @layout-header-background; // #3b3a39;
 @menu-submenu-bg: @component-background; //#323130;
 @menu-bg: @layout-header-background; // #3b3a39;
-@menu-item-active-bg: #3a3a3b;
 @layout-sider-background-light: @menu-bg;
 
 // Menu

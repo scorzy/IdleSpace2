@@ -47,9 +47,11 @@ export abstract class Job {
   onCompleted() {}
 
   reload() {
-    this.total = this.initialPrice.times(
-      Decimal.pow(this.growRate, this.level)
-    );
+    if (this.max > 1 || !this.total) {
+      this.total = this.initialPrice.times(
+        Decimal.pow(this.growRate, this.level)
+      );
+    }
   }
 
   reloadUi() {

@@ -49,7 +49,7 @@ export class AddComponent implements OnInit {
         this.getName(),
         this.validateForm.get("type").value
       );
-      this.router.navigate(["/des/edit/" + id]);
+      if (id > -1) this.router.navigate(["/des/edit/" + id]);
     }
   }
 
