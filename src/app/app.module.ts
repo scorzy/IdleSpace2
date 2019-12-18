@@ -73,7 +73,6 @@ const ngZorroConfig: NzConfig = {
     ResearchPrioritiesComponent,
     EditComponent,
     SizePipe,
-    ShypiardComponent,
     ShipyardComponent
   ],
   imports: [

@@ -11,39 +11,39 @@
       fxFlex.lt-sm="100%"
     >
       <h1>Shipyard</h1>
-      <nz-table
-        nzSize="middle"
-        [nzData]="ms.game.shipyardManager.shipDesigns"
-        nzVirtualForTrackBy="getDesignId"
-        [nzShowPagination]="false"
-        [nzFrontPagination]="false"
+      <ul
+        nzSize="small"
+        nz-list
+        nzBordered
+        cdkDropList
+        class="dark-background"
+        (cdkDropListDropped)="drop($event)"
       >
-        <thead>
-          <tr>
-            <th style="width:100%">Design</th>
-            <th>Priority</th>
-          </tr>
-        </thead>
-        <tbody cdkDropList (cdkDropListDropped)="drop($event)">
-          <tr
-            *ngFor="
-              let data of ms.game.shipyardManager.shipDesigns;
-              trackBy: getDesignId
-            "
-            cdkDrag
-          >
-            <td>{{ data.name }}</td>
-            <td>
-              <nz-input-number
-                [(ngModel)]="data.navalCapPercent"
-                [nzMin]="0"
-                [nzMax]="100"
-                [nzStep]="1"
-              ></nz-input-number>
-            </td>
-          </tr>
-        </tbody>
-      </nz-table>
+        <li
+          nz-list-item
+          cdkDrag
+          class="light-background"
+          fxLayout="column"
+          *ngFor="
+            let data of ms.game.shipyardManager.updatedShipDesigns;
+            trackBy: getDesignId
+          "
+        >
+          <div fxLayout="row" fxFlexFill>
+            <span fxFlex="33"
+              ><strong>{{ data.name }}</strong></span
+            >
+            <nz-input-number
+              fxFlex="20"
+              [(ngModel)]="data.navalCapPercentUi"
+              nzSize="small"
+              [nzMin]="0"
+              [nzMax]="100"
+              [nzStep]="1"
+            ></nz-input-number>
+          </div>
+        </li>
+      </ul>
     </div>
     <div>
       <h2>Result</h2>

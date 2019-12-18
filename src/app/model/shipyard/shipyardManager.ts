@@ -9,6 +9,8 @@ const MAX_DESIGN = 20;
 
 export class ShipyardManager extends JobManager {
   shipDesigns = new Array<ShipDesign>();
+  updatedShipDesigns = new Array<ShipDesign>();
+  private maxId = 0;
   modules = new Array<Module>();
   shipTypes = new Array<ShipType>();
   navalCap = new Decimal(5e3);
@@ -29,16 +31,14 @@ export class ShipyardManager extends JobManager {
 
     const shipType = this.shipTypes.find(t => t.id === type);
     if (!shipType) return -1;
-    let newId = 0;
-    if (this.shipDesigns.length > 0) {
-      newId = this.shipDesigns[this.shipDesigns.length - 1].id + 1;
-    }
 
     const shipDesign = new ShipDesign();
-    shipDesign.id = newId;
+    shipDesign.id = this.maxId;
+    this.maxId++;
     shipDesign.name = name;
     shipDesign.type = shipType;
     this.shipDesigns.push(shipDesign);
+    this.updatedShipDesigns.push(shipDesign);
     return shipDesign.id;
   }
   postUpdate() {
@@ -78,6 +78,19 @@ export class ShipyardManager extends JobManager {
       { name: "Others", list: this.others }
     ];
   }
+  update(oldDesign: ShipDesign, newDesign: ShipDesign): boolean {
+    if (!(newDesign && oldDesign)) return false;
+
+    newDesign.modules = newDesign.modules.filter(line => line.module);
+    newDesign.id = oldDesign.id;
+    newDesign.rev = oldDesign.rev + 1;
+    newDesign.navalCapPercent = oldDesign.navalCapPercent;
+
+    this.shipDesigns.push(newDesign);
+    const index = this.updatedShipDesigns.indexOf(oldDesign);
+    if (index > -1) this.updatedShipDesigns[index] = newDesign;
+    return true;
+  }
 
   //#region Save and Load
   getSave(): any {
@@ -89,10 +102,28 @@ export class ShipyardManager extends JobManager {
     if ("d" in data) {
       this.shipDesigns = data.d.map(d => {
         const design = new ShipDesign();
-        design.load(d);
+        if (design.load(d)) {
+          if (design.id > this.maxId) {
+            this.maxId = design.id;
+          }
+        }
         return design;
       });
     }
+
+    // Remake list of most updated design
+    this.shipDesigns.forEach(design => {
+      if (this.updatedShipDesigns.findIndex(up => up.id === design.id) < 0) {
+        const designList = this.shipDesigns.filter(d => d.id === design.id);
+        let mostUp = designList[0];
+        designList.forEach(des => {
+          if (des.rev > mostUp.rev) {
+            mostUp = des;
+          }
+        });
+        this.updatedShipDesigns.push(mostUp);
+      }
+    });
   }
   //#endregion
 }

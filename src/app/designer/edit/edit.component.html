@@ -1,6 +1,9 @@
 <div fxLayout="row" fxLayout.lt-md="column" *ngIf="design" fxLayoutGap="1rem">
   <div fxFlex="70">
-    <h1>{{ design.name }}</h1>
+    <h1>
+      {{ design.name }}
+      <small>Rev. {{ design.rev | number }}</small>
+    </h1>
 
     <!-- Recap Line  -->
     <span
@@ -49,7 +52,7 @@
 
     <!-- Form  -->
     <form *ngIf="design" nz-form [nzLayout]="'horizontal'">
-      <nz-form-item *ngFor="let line of design.modules; let i = index" @fadeIn>
+      <nz-form-item *ngFor="let line of design.modules; let i = index">
         <nz-form-control
           [nzValidateStatus]="line.validateStatus"
           [nzErrorTip]="' ' + line.errorTip"
@@ -127,7 +130,6 @@
               class="add-button"
               (click)="addLine($event)"
               *ngIf="design.modules.length < design.type.maxModule"
-              @fadeIn
             >
               <i nz-icon nzType="plus"></i>
               Add Module
@@ -136,6 +138,17 @@
         </nz-form-control>
       </nz-form-item>
     </form>
+
+    <!-- Buttons -->
+    <button
+      nz-button
+      nzType="primary"
+      [disabled]="isDisabled()"
+      (click)="update()"
+    >
+      Update
+      <!-- <strong>Update</strong> -->
+    </button>
   </div>
 
   <!-- Comparison Table -->

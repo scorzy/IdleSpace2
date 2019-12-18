@@ -1,5 +1,6 @@
 <nz-card
   style="width:350px;"
+  nzSize="small"
   nzTitle="{{ unit.name }}"
   [nzExtra]="extraTemplate"
   [nzActions]="actions"
@@ -114,28 +115,29 @@
 
 <!-- Buttons -->
 <ng-template #buyOne>
-  <button (click)="buyOneAct()" nz-button nzType="link">
+  <button (click)="buyOneAct()" nz-button nzType="link" nzSize="small">
     Buy
     <span class="monospace">1</span>
   </button>
 </ng-template>
 <ng-template #buyHalf>
-  <button (click)="buyHalfAct()" nz-button nzType="link">
+  <button (click)="buyHalfAct()" nz-button nzType="link" nzSize="small">
     Buy
     <span class="monospace">{{ unit.buyPrice.halfBuy | format: true }}</span>
   </button>
 </ng-template>
 <ng-template #buyMax>
-  <button (click)="buyMaxAct()" nz-button nzType="link">
+  <button (click)="buyMaxAct()" nz-button nzType="link" nzSize="small">
     Buy <span class="monospace">{{ unit.buyPrice.maxBuy | format: true }}</span>
   </button>
 </ng-template>
 <ng-template #buyNone>
-  <button nz-button nzType="link" disabled="true">Can't buy</button>
+  <button nz-button nzType="link" disabled="true" nzSize="small">
+    Can't buy
+  </button>
 </ng-template>
-
 <ng-template #tplFooter>
-  <button nz-button nzType="primary" (click)="destroyTplModal()">
+  <button nz-button nzType="primary" (click)="destroyTplModal()" nzSize="small">
     Ok
   </button>
 </ng-template>

@@ -26,6 +26,7 @@ declare let numberformat, Parser;
 export class EditComponent implements OnInit, OnDestroy {
   @Input() design: ShipDesign;
   original: ShipDesign;
+  isEqual = true;
   comparisonData: {
     name: string;
     original: Decimal;
@@ -58,7 +59,7 @@ export class EditComponent implements OnInit, OnDestroy {
   }
 
   getDesign(id: string) {
-    this.original = this.ms.game.shipyardManager.shipDesigns.find(
+    this.original = this.ms.game.shipyardManager.updatedShipDesigns.find(
       des => parseInt(id) === des.id
     );
     if (this.original) {
@@ -125,7 +126,22 @@ export class EditComponent implements OnInit, OnDestroy {
     }
     if (this.design) {
       this.design.reload(true);
+      this.isEqual = true;
+      const lines1 = this.design.modules.filter(l => l.module);
+      const lines2 = this.original.modules.filter(l => l.module);
+      if (lines1.length === lines2.length)
+        for (let i = 0, n = lines1.length; i < n; i++) {
+          if (
+            lines1[i].module !== lines2[i].module ||
+            lines1[i].level !== lines2[i].level ||
+            lines1[i].size !== lines2[i].size
+          )
+            this.isEqual = false;
+        }
+      else this.isEqual = false;
+
       this.makeComparisonData();
+      this.cd.markForCheck();
     }
   }
   makeComparisonData() {
@@ -171,5 +187,17 @@ export class EditComponent implements OnInit, OnDestroy {
       type: this.original.price.lt(this.design.price) ? "danger" : "",
       classes: this.original.price.gt(this.design.price) ? "tex-success" : ""
     });
+  }
+  update() {
+    if (this.ms.game.shipyardManager.update(this.original, this.design)) {
+      this.original = this.design;
+      this.design = this.original.getCopy();
+      while (this.design.modules.length < 3) {
+        this.addLine();
+      }
+    }
+  }
+  isDisabled(): boolean {
+    return !this.design.valid || this.isEqual;
   }
 }

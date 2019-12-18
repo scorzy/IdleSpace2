@@ -9,11 +9,13 @@ const SIZE_MULTI = 0.25;
 
 export class ShipDesign {
   id: number;
+  rev: number = 0;
   name = "";
   type: ShipType;
   totalPoints = 0;
   shipsQuantity = ZERO;
   navalCapPercent: number;
+  navalCapPercentUi: number;
 
   totalArmour = ZERO;
   totalShield = ZERO;
@@ -59,6 +61,7 @@ export class ShipDesign {
         this.price = this.price.plus(m.module.price.times(priceMulti));
       });
 
+    this.valid = this.energy.gte(0);
     //  Error check
     if (errorCheck) {
       this.modules
@@ -70,27 +73,30 @@ export class ShipDesign {
           if (mod.level.gt(mod.module.maxLevel)) {
             mod.errorTip = mod.errorTip + "Level is over max level.";
             mod.validateStatus = "error";
+            this.valid = false;
           }
         });
     }
-    this.valid = this.energy.gte(0);
   }
   getCopy() {
     const ret = new ShipDesign();
     ret.name = this.name;
     ret.id = this.id;
+    ret.rev = this.rev;
     ret.type = this.type;
-    ret.modules = this.modules.map(mod => {
-      return {
-        module: mod.module,
-        level: mod.level,
-        size: mod.size,
-        moduleId: mod.module.id,
-        levelUi: MainService.formatPipe.transform(mod.level),
-        validateStatus: "",
-        errorTip: ""
-      };
-    });
+    ret.modules = this.modules
+      .filter(l => l.module)
+      .map(mod => {
+        return {
+          module: mod.module,
+          level: mod.level,
+          size: mod.size,
+          moduleId: mod.module.id,
+          levelUi: MainService.formatPipe.transform(mod.level),
+          validateStatus: "",
+          errorTip: ""
+        };
+      });
     ret.reload();
     return ret;
   }
@@ -99,6 +105,7 @@ export class ShipDesign {
   getSave(): any {
     return {
       i: this.id,
+      r: this.rev,
       n: this.name,
       t: this.type.id,
       m: this.modules.map(mod => [mod.module.id, mod.level, mod.size]),
@@ -108,6 +115,7 @@ export class ShipDesign {
   }
   load(data: any) {
     if ("i" in data) this.id = data.i;
+    if ("r" in data) this.rev = data.r;
     if ("n" in data) this.name = data.n;
     if ("t" in data) {
       this.type = Game.getGame().shipyardManager.shipTypes.find(
