@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "IdleAnt3": {
+    "IdleSpace2": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -18,7 +18,7 @@
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "showCircularDependencies": false,
-            "outputPath": "dist/IdleAnt3",
+            "outputPath": "dist/IdleSpace2",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -75,18 +75,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "IdleAnt3:build"
+            "browserTarget": "IdleSpace2:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "IdleAnt3:build:production"
+              "browserTarget": "IdleSpace2:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "IdleAnt3:build"
+            "browserTarget": "IdleSpace2:build"
           }
         },
         "test": {
@@ -129,16 +129,16 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "IdleAnt3:serve"
+            "devServerTarget": "IdleSpace2:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "IdleAnt3:serve:production"
+              "devServerTarget": "IdleSpace2:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "IdleAnt3"
+  "defaultProject": "IdleSpace2"
 }
