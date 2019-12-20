@@ -14,7 +14,8 @@ import { ONE } from "src/app/model/CONSTANTS";
 import { Module } from "src/app/model/shipyard/module";
 import { fadeIn } from "src/app/animations";
 import { OptionsService } from "src/app/options.service";
-declare let numberformat, Parser;
+declare let numberformat;
+declare let Parser;
 
 @Component({
   selector: "app-edit",
@@ -60,7 +61,7 @@ export class EditComponent implements OnInit, OnDestroy {
 
   getDesign(id: string) {
     this.original = this.ms.game.shipyardManager.updatedShipDesigns.find(
-      des => parseInt(id) === des.id
+      des => parseInt(id, 10) === des.id
     );
     if (this.original) {
       this.design = this.original.getCopy();
@@ -129,16 +130,17 @@ export class EditComponent implements OnInit, OnDestroy {
       this.isEqual = true;
       const lines1 = this.design.modules.filter(l => l.module);
       const lines2 = this.original.modules.filter(l => l.module);
-      if (lines1.length === lines2.length)
+      if (lines1.length === lines2.length) {
         for (let i = 0, n = lines1.length; i < n; i++) {
           if (
             lines1[i].module !== lines2[i].module ||
             lines1[i].level !== lines2[i].level ||
             lines1[i].size !== lines2[i].size
-          )
+          ) {
             this.isEqual = false;
+          }
         }
-      else this.isEqual = false;
+      } else this.isEqual = false;
 
       this.makeComparisonData();
       this.cd.markForCheck();

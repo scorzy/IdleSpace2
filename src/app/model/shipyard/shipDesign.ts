@@ -9,7 +9,7 @@ const SIZE_MULTI = 0.25;
 
 export class ShipDesign {
   id: number;
-  rev: number = 0;
+  rev = 0;
   name = "";
   type: ShipType;
   totalPoints = 0;
@@ -119,7 +119,7 @@ export class ShipDesign {
     if ("n" in data) this.name = data.n;
     if ("t" in data) {
       this.type = Game.getGame().shipyardManager.shipTypes.find(
-        t => t.id == data.t
+        t => t.id === data.t
       );
     }
     if (!this.type) return false;

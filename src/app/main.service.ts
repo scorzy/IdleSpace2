@@ -9,18 +9,6 @@ export const SAVE_ID = "IA3_save";
   providedIn: "root"
 })
 export class MainService {
-  isCollapsed = true;
-  sideTheme = "dark";
-  game: Game;
-  last: number;
-  updateEmitter = new EventEmitter<number>();
-  static formatPipe: FormatPipe;
-  lzWorker: Worker;
-  notificationEmitter = new EventEmitter<{
-    type: number;
-    title?: string;
-    text?: string;
-  }>();
 
   constructor(private _formatPipe: FormatPipe) {
     this.last = Date.now();
@@ -47,6 +35,18 @@ export class MainService {
     if (dataSave) this.loadFromLocalStorage(true);
     else this.game = new Game();
   }
+  static formatPipe: FormatPipe;
+  isCollapsed = true;
+  sideTheme = "dark";
+  game: Game;
+  last: number;
+  updateEmitter = new EventEmitter<number>();
+  lzWorker: Worker;
+  notificationEmitter = new EventEmitter<{
+    type: number;
+    title?: string;
+    text?: string;
+  }>();
 
   update() {
     if (!this.game) {

@@ -44,8 +44,9 @@ export class Module implements IUnlockable {
     if ("explosion" in moduleData) this.explosion = moduleData.explosion;
     if ("sizes" in moduleData) this.sizes = moduleData.sizes;
     if ("shape" in moduleData) this.shape = moduleData.shape;
-    if ("unlockLevel" in moduleData)
+    if ("unlockLevel" in moduleData) {
       this.unlockLevel = new Decimal(moduleData.unlockLevel);
+    }
     if ("technologies" in moduleData) {
       this.technologies = moduleData.technologies.map(tec => {
         return {
@@ -59,7 +60,7 @@ export class Module implements IUnlockable {
   }
   reloadMaxLevel() {
     let newMax = ZERO;
-    for (let i = 0; i < this.technologies.length; i++) {
+    for (let i = 0, n = this.technologies.length; i < n; i++) {
       newMax = newMax.plus(
         this.technologies[i].technology.quantity.times(
           this.technologies[i].multi
