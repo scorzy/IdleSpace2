@@ -4,6 +4,7 @@ export interface IUnitData {
   description: string;
   startQuantity?: DecimalSource;
   icon?: string;
+  color?: string;
 
   /**
    * Production [Unit id, quantity /s]

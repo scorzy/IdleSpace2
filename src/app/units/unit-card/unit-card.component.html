@@ -32,7 +32,11 @@
   <span nz-text><strong>Price:</strong></span>
   <span *ngFor="let pri of unit.buyPrice.prices; trackBy: getPriceId">
     <span nz-text [nzType]="pri.canBuy ? '' : 'danger'">
-      <i nz-icon [nzType]="pri.spendable.icon"></i>
+      <i
+        nz-icon
+        [nzType]="pri.spendable.icon"
+        [style.color]="pri?.spendable?.color"
+      ></i>
       <span *ngIf="!pri.spendable.icon">{{ pri.spendable.name }}</span>
       <span class="monospace"> {{ pri.singleCost | format }}</span>
       <span
@@ -83,7 +87,11 @@
         <tr>
           <td nzShowExpand [(nzExpand)]="data.expand"></td>
           <td>
-            <i nz-icon [nzType]="data.product.icon"></i>
+            <i
+              nz-icon
+              [nzType]="data.product.icon"
+              [style.color]="data.product.color"
+            ></i>
             {{ data.product.name }}
           </td>
           <td>

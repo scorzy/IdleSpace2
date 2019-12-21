@@ -13,6 +13,7 @@ export class Unit implements IBase, IUnlockable {
   description = "";
   unlocked = false;
   icon = "";
+  color = "";
 
   operativity = 100;
   production = new Array<Production>();
@@ -37,6 +38,7 @@ export class Unit implements IBase, IUnlockable {
       this.quantity = new Decimal(unitData.startQuantity);
     }
     if ("icon" in unitData) this.icon = unitData.icon;
+    if ("color" in unitData) this.color = unitData.color;
   }
 
   private _quantity = new Decimal();

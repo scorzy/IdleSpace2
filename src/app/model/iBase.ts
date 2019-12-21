@@ -3,4 +3,5 @@ export interface IBase {
   name: string;
   quantity: Decimal;
   icon?: string;
+  color?: string;
 }

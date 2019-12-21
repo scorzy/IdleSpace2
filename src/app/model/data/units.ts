@@ -6,40 +6,46 @@ export const UNITS: IUnitData[] = [
     id: "F",
     name: "Food",
     icon: "my:shiny-apple",
-    description: "Food is used to sustain your biogical units",
-    startQuantity: 100
+    description: "Food is used to sustain your biological units",
+    startQuantity: 100,
+    color: "#389E0D"
   },
   {
     id: "E",
     name: "Energy",
     icon: "my:electric",
     description: "",
-    startQuantity: 100
+    startQuantity: 100,
+    color: "#FADB14"
   },
   {
     id: "M",
     name: "Metal",
     icon: "my:asteroid",
     description: "",
-    startQuantity: 100
+    startQuantity: 100,
+    color: "#CF1322"
   },
   {
     id: "A",
     name: "Alloy",
     icon: "my:metal-bar",
-    description: ""
+    description: "",
+    color: "#531DAB"
   },
   {
     id: "S",
     name: "Science",
     icon: "my:fizzing-flask",
-    description: ""
+    description: "",
+    color: "#08979C"
   },
   {
     id: "W",
     name: "Work",
     icon: "setting",
-    description: ""
+    description: "",
+    color: "#EC8415"
   },
   //#endregion
   //#region Workers
