@@ -4,7 +4,7 @@ import { Game } from "../game";
 import { ShipType } from "./ShipType";
 import { MainService } from "src/app/main.service";
 
-const PRICE_GROW_RATE = new Decimal(1.1);
+const PRICE_GROW_RATE = new Decimal(0.3);
 const SIZE_MULTI = 0.25;
 
 export class ShipDesign {
@@ -38,6 +38,7 @@ export class ShipDesign {
     this.totalArmour = ZERO;
     this.totalShield = ZERO;
     this.totalDamage = ZERO;
+    this.price = ZERO;
     this.totalPoints = 0;
     this.energy = ZERO;
     this.modules
@@ -46,7 +47,7 @@ export class ShipDesign {
         const sizeMultiplier = m.size + (m.size - 1) * SIZE_MULTI;
         this.totalPoints = this.totalPoints + m.size;
         const statsMulti = ONE.plus(m.level.div(10)).times(sizeMultiplier);
-        const priceMulti = PRICE_GROW_RATE.pow(m.level);
+        const priceMulti = statsMulti.times(PRICE_GROW_RATE).times(m.level);
 
         this.totalArmour = this.totalArmour.plus(
           m.module.armour.times(statsMulti)

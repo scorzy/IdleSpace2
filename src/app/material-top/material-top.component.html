@@ -29,14 +29,14 @@
           >{{ item.perSec | format }} /s</span
         >
       </span>
-      <span>
+      <!-- <span>
         <span
           nz-text
           class="monospace"
           [nzType]="item.perSec2.gte(0) ? '' : 'danger'"
           >{{ item.perSec2 | format }} /s<sup>2</sup></span
         >
-      </span>
+      </span> -->
     </div>
 
     <ng-template #titleTemplate

@@ -5,7 +5,7 @@
     "ng": "ng",
     "start": "ng serve --open",
     "start:prod": "ng serve --open --prod",
-    "build": "ng build",
+    "build": "ng build --aot",
     "test": "ng test",
     "lint": "ng lint",
     "lint:fix": "ng lint --fix",
