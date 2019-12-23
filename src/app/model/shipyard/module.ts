@@ -5,16 +5,16 @@ import { ALL_SIZES } from "../data/sizes";
 import { Technology } from "../researches/technology";
 import { Game } from "../game";
 
-const DEFAULT_PRICE = new Decimal(10);
+const DEFAULT_PRICE = 10;
 
 export class Module implements IUnlockable {
   id = "";
   name = "";
   shape = "";
-  armour = ZERO;
-  shield = ZERO;
-  energy = ZERO;
-  damage = ZERO;
+  armour = 0;
+  shield = 0;
+  energy = 0;
+  damage = 0;
   armourDamagePercent = 100;
   shieldDamagePercent = 100;
   fire = 1;
@@ -22,18 +22,18 @@ export class Module implements IUnlockable {
   explosion = 0;
   unlocked = false;
   sizes = ALL_SIZES;
-  maxLevel = ZERO;
+  maxLevel = 0;
   technologies: { technology: Technology; multi: number }[];
-  unlockLevel = ZERO;
+  unlockLevel = 0;
 
   constructor(moduleData: ModuleData) {
     this.id = moduleData.id;
     this.name = moduleData.name;
-    if ("armour" in moduleData) this.armour = new Decimal(moduleData.armour);
-    if ("shield" in moduleData) this.shield = new Decimal(moduleData.shield);
-    if ("energy" in moduleData) this.energy = new Decimal(moduleData.energy);
-    if ("damage" in moduleData) this.damage = new Decimal(moduleData.damage);
-    if ("price" in moduleData) this.price = new Decimal(moduleData.price);
+    if ("armour" in moduleData) this.armour = moduleData.armour;
+    if ("shield" in moduleData) this.shield = moduleData.shield;
+    if ("energy" in moduleData) this.energy = moduleData.energy;
+    if ("damage" in moduleData) this.damage = moduleData.damage;
+    if ("price" in moduleData) this.price = moduleData.price;
     if ("armourDamagePercent" in moduleData) {
       this.armourDamagePercent = moduleData.armourDamagePercent;
     }
@@ -45,7 +45,7 @@ export class Module implements IUnlockable {
     if ("sizes" in moduleData) this.sizes = moduleData.sizes;
     if ("shape" in moduleData) this.shape = moduleData.shape;
     if ("unlockLevel" in moduleData) {
-      this.unlockLevel = new Decimal(moduleData.unlockLevel);
+      this.unlockLevel = moduleData.unlockLevel;
     }
     if ("technologies" in moduleData) {
       this.technologies = moduleData.technologies.map(tec => {
@@ -59,15 +59,13 @@ export class Module implements IUnlockable {
     }
   }
   reloadMaxLevel() {
-    let newMax = ZERO;
+    this.maxLevel = 0;
     for (let i = 0, n = this.technologies.length; i < n; i++) {
-      newMax = newMax.plus(
-        this.technologies[i].technology.quantity.times(
-          this.technologies[i].multi
-        )
-      );
+      this.maxLevel += this.technologies[i].technology.quantity
+        .times(this.technologies[i].multi)
+        .toNumber();
     }
-    if (!newMax.eq(this.maxLevel)) this.maxLevel = newMax;
+    this.maxLevel = Math.floor(this.maxLevel);
   }
   unlock(): boolean {
     if (this.unlocked) return false;

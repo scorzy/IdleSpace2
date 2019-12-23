@@ -3,19 +3,19 @@ import { Sizes } from "./sizes";
 export class ModuleData {
   id: string;
   name: string;
-  armour?: DecimalSource;
-  shield?: DecimalSource;
-  energy?: DecimalSource;
-  damage?: DecimalSource;
+  armour?: number;
+  shield?: number;
+  energy?: number;
+  damage?: number;
   armourDamagePercent?: number;
   shieldDamagePercent?: number;
   fire?: number;
-  price?: DecimalSource;
+  price?: number;
   greaterThan?: string[];
   explosion?: number;
   sizes?: Sizes[];
   shape?: string;
-  unlockLevel?: DecimalSource;
+  unlockLevel?: number;
   technologies: { technologyId: string; multi: number }[];
 }
 

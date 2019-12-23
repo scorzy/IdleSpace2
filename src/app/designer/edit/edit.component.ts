@@ -30,8 +30,8 @@ export class EditComponent implements OnInit, OnDestroy {
   isEqual = true;
   comparisonData: {
     name: string;
-    original: Decimal;
-    new: Decimal;
+    original: Decimal | number;
+    new: Decimal | number;
     type: string;
     classes: string;
   }[] = [];
@@ -80,7 +80,7 @@ export class EditComponent implements OnInit, OnDestroy {
 
     this.design.modules.push({
       module: null,
-      level: ONE,
+      level: 1,
       size: 1,
       levelUi: "1"
     });
@@ -152,34 +152,27 @@ export class EditComponent implements OnInit, OnDestroy {
       name: "Armour",
       original: this.original.totalArmour,
       new: this.design.totalArmour,
-      type: this.original.totalArmour.gt(this.design.totalArmour)
-        ? "danger"
-        : "",
-      classes: this.original.totalArmour.lt(this.design.totalArmour)
-        ? "text-success"
-        : ""
+      type: this.original.totalArmour > this.design.totalArmour ? "danger" : "",
+      classes:
+        this.original.totalArmour < this.design.totalArmour
+          ? "text-success"
+          : ""
     });
     this.comparisonData.push({
       name: "Shield",
       original: this.original.totalShield,
       new: this.design.totalShield,
-      type: this.original.totalShield.gt(this.design.totalShield)
-        ? "danger"
-        : "",
-      classes: this.original.totalShield.lt(this.design.totalShield)
-        ? "tex-success"
-        : ""
+      type: this.original.totalShield > this.design.totalShield ? "danger" : "",
+      classes:
+        this.original.totalShield < this.design.totalShield ? "tex-success" : ""
     });
     this.comparisonData.push({
       name: "Avg. Damage",
       original: this.original.totalDamage,
       new: this.design.totalDamage,
-      type: this.original.totalDamage.gt(this.design.totalDamage)
-        ? "danger"
-        : "",
-      classes: this.original.totalDamage.lt(this.design.totalDamage)
-        ? "tex-success"
-        : ""
+      type: this.original.totalDamage > this.design.totalDamage ? "danger" : "",
+      classes:
+        this.original.totalDamage < this.design.totalDamage ? "tex-success" : ""
     });
 
     this.comparisonData.push({

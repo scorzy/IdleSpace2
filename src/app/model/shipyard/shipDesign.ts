@@ -4,7 +4,7 @@ import { Game } from "../game";
 import { ShipType } from "./ShipType";
 import { MainService } from "src/app/main.service";
 
-const PRICE_GROW_RATE = new Decimal(0.3);
+const PRICE_GROW_RATE = 0.3;
 const SIZE_MULTI = 0.25;
 
 export class ShipDesign {
@@ -13,20 +13,20 @@ export class ShipDesign {
   name = "";
   type: ShipType;
   totalPoints = 0;
-  shipsQuantity = ZERO;
+  shipsQuantity = 0;
   navalCapPercent: number;
   navalCapPercentUi: number;
 
-  totalArmour = ZERO;
-  totalShield = ZERO;
-  totalDamage = ZERO;
-  energy = ZERO;
+  totalArmour = 0;
+  totalShield = 0;
+  totalDamage = 0;
+  energy = 0;
   price = ZERO;
   valid = true;
 
   modules = new Array<{
     module: Module;
-    level: Decimal;
+    level: number;
     size: number;
     moduleId?: string;
     levelUi?: string;
@@ -35,34 +35,31 @@ export class ShipDesign {
   }>();
 
   reload(errorCheck = false) {
-    this.totalArmour = ZERO;
-    this.totalShield = ZERO;
-    this.totalDamage = ZERO;
+    this.totalArmour = 0;
+    this.totalShield = 0;
+    this.totalDamage = 0;
     this.price = ZERO;
     this.totalPoints = 0;
-    this.energy = ZERO;
+    this.energy = 0;
     this.modules
       .filter(m => m.module)
       .forEach(m => {
         const sizeMultiplier = m.size + (m.size - 1) * SIZE_MULTI;
         this.totalPoints = this.totalPoints + m.size;
-        const statsMulti = ONE.plus(m.level.div(10)).times(sizeMultiplier);
-        const priceMulti = statsMulti.times(PRICE_GROW_RATE).times(m.level);
+        const statsMulti = 1 + (m.level * sizeMultiplier) / 10;
+        const priceMulti = Decimal.multiply(statsMulti, PRICE_GROW_RATE).times(
+          m.level
+        );
 
-        this.totalArmour = this.totalArmour.plus(
-          m.module.armour.times(statsMulti)
-        );
-        this.totalShield = this.totalShield.plus(
-          m.module.shield.times(statsMulti)
-        );
-        this.totalDamage = this.totalDamage.plus(
-          m.module.damage.times(statsMulti)
-        );
-        this.energy = this.energy.plus(m.module.energy.times(statsMulti));
-        this.price = this.price.plus(m.module.price.times(priceMulti));
+        this.totalArmour += m.module.armour * statsMulti;
+        this.totalShield += m.module.shield * statsMulti;
+        this.totalDamage += m.module.damage * statsMulti;
+
+        this.energy += m.module.energy * statsMulti;
+        this.price = this.price.plus(priceMulti.times(m.module.price));
       });
 
-    this.valid = this.energy.gte(0);
+    this.valid = this.energy >= 0;
     //  Error check
     if (errorCheck) {
       this.modules
@@ -71,7 +68,7 @@ export class ShipDesign {
           mod.errorTip = "";
           mod.validateStatus = "";
 
-          if (mod.level.gt(mod.module.maxLevel)) {
+          if (mod.level >= mod.module.maxLevel) {
             mod.errorTip = mod.errorTip + "Level is over max level.";
             mod.validateStatus = "error";
             this.valid = false;
@@ -132,7 +129,7 @@ export class ShipDesign {
         );
 
         if (module) {
-          const level = new Decimal(mod[1]);
+          const level = mod[1];
           const size = mod[2];
           this.modules.push({ module, level, size });
         }
@@ -142,7 +139,7 @@ export class ShipDesign {
       this.navalCapPercent = data.p;
     }
     if ("q" in data) {
-      this.shipsQuantity = new Decimal(data.q);
+      this.shipsQuantity = data.q;
     }
     this.reload();
   }

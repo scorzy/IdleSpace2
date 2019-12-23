@@ -47,7 +47,7 @@ export class ShipyardManager extends JobManager {
       this.modules[i].reloadMaxLevel();
       if (
         !this.modules[i].unlocked &&
-        this.modules[i].maxLevel.gte(this.modules[i].unlockLevel)
+        this.modules[i].maxLevel >= this.modules[i].unlockLevel
       ) {
         if (this.modules[i].unlock()) {
           unlocked = true;
@@ -57,12 +57,12 @@ export class ShipyardManager extends JobManager {
     if (unlocked) this.reloadLists();
   }
   reloadLists() {
-    this.weapons = this.modules.filter(mod => mod.unlocked && mod.damage.gt(0));
+    this.weapons = this.modules.filter(mod => mod.unlocked && mod.damage > 0);
     this.defences = this.modules.filter(
-      mod => mod.unlocked && (mod.armour.gt(0) || mod.shield.gt(0))
+      mod => mod.unlocked && (mod.armour > 0 || mod.shield > 0)
     );
     this.generators = this.modules.filter(
-      mod => mod.unlocked && mod.energy.gt(0)
+      mod => mod.unlocked && mod.energy > 0
     );
     this.others = this.modules.filter(
       mod =>

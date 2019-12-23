@@ -43,7 +43,7 @@
         <span
           class="monospace"
           nz-text
-          [nzType]="design.energy.gte(0) ? '' : 'danger'"
+          [nzType]="design.energy > 0 ? '' : 'danger'"
         >
           {{ design.energy | format }}</span
         >

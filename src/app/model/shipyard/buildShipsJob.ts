@@ -4,7 +4,7 @@ import { ShipDesign } from "./shipDesign";
 import { Game } from "../game";
 
 export class BuildShipsJob extends Job {
-  built = ZERO;
+  built = 0;
 
   constructor(public quantity: Decimal, public design: ShipDesign) {
     super();
@@ -15,15 +15,15 @@ export class BuildShipsJob extends Job {
     const ret = super.addProgress(pro);
     const totalShip =
       this.level > 0
-        ? this.quantity
-        : this.quantity
-            .times(this.total)
+        ? this.quantity.toNumber()
+        : this.total
+            .times(this.quantity)
             .div(this.progress)
-            .floor();
-    if (totalShip.gt(this.built)) {
-      this.design.shipsQuantity = this.design.shipsQuantity.plus(
-        totalShip.minus(this.built)
-      );
+            .floor()
+            .toNumber();
+    if (totalShip > this.built) {
+      this.design.shipsQuantity += totalShip - this.built;
+
       this.built = totalShip;
     }
     return ret;
@@ -45,7 +45,7 @@ export class BuildShipsJob extends Job {
     }
     if (!this.design) return false;
     if ("p" in data) this.progress = new Decimal(data.p);
-    if ("b" in data) this.built = new Decimal(data.b);
+    if ("b" in data) this.built = data.b;
     this.total = this.design.price.times(this.quantity);
   }
   //#endregion
