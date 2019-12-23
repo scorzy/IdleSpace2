@@ -20,7 +20,14 @@
           trackBy: getDesignId
         "
       >
-        <a [routerLink]="'/des/edit/' + design.id"> {{ design.name }}</a>
+        <a [routerLink]="'/des/edit/' + design.id">
+          <span *ngIf="isCollapsed; else allName">{{
+            design.name.substring(0, 3)
+          }}</span>
+          <ng-template #allName
+            ><span>{{ design.name }}</span></ng-template
+          >
+        </a>
       </li>
     </ul>
   </nz-sider>

@@ -1,5 +1,5 @@
 import { Module } from "./module";
-import { ShipDesign } from "./shipDesign";
+import { ShipDesign, FLEET_NUMBER } from "./shipDesign";
 import { ShipType } from "./ShipType";
 import { SHIP_TYPES } from "../data/shipTypes";
 import { modules } from "../data/modulesData";
@@ -84,7 +84,9 @@ export class ShipyardManager extends JobManager {
     newDesign.modules = newDesign.modules.filter(line => line.module);
     newDesign.id = oldDesign.id;
     newDesign.rev = oldDesign.rev + 1;
-    newDesign.navalCapPercent = oldDesign.navalCapPercent;
+    for (let i = 0; i < FLEET_NUMBER; i++) {
+      newDesign.fleets[i].navalCapPercent = oldDesign.fleets[i].navalCapPercent;
+    }
 
     this.shipDesigns.push(newDesign);
     const index = this.updatedShipDesigns.indexOf(oldDesign);

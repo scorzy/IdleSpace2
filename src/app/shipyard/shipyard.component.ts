@@ -1,6 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
 import { MainService } from "../main.service";
-import { ShipDesign } from "../model/shipyard/shipDesign";
+import { ShipDesign, FLEET_NUMBER } from "../model/shipyard/shipDesign";
 import { CdkDragDrop, moveItemInArray } from "@angular/cdk/drag-drop";
 
 @Component({
@@ -10,9 +10,15 @@ import { CdkDragDrop, moveItemInArray } from "@angular/cdk/drag-drop";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ShipyardComponent implements OnInit {
+  fleetNum = 0;
+  fleetNames = [];
+
   constructor(public ms: MainService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.fleetNames = new Array<string>(FLEET_NUMBER).fill("");
+    for (let i = 0; i < FLEET_NUMBER; i++) this.fleetNames[i] = "Fleet " + i;
+  }
   drop(event: CdkDragDrop<string[]>): void {
     moveItemInArray(
       this.ms.game.shipyardManager.shipDesigns,
@@ -22,5 +28,8 @@ export class ShipyardComponent implements OnInit {
   }
   getDesignId(index: number, design: ShipDesign) {
     return design.id;
+  }
+  getNameId(index: number, name: string) {
+    return index;
   }
 }

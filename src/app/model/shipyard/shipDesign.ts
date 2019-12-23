@@ -3,9 +3,11 @@ import { Module } from "./module";
 import { Game } from "../game";
 import { ShipType } from "./ShipType";
 import { MainService } from "src/app/main.service";
+import { FleetShips } from "./fleetShips";
 
 const PRICE_GROW_RATE = 0.3;
 const SIZE_MULTI = 0.25;
+export const FLEET_NUMBER = 10;
 
 export class ShipDesign {
   id: number;
@@ -13,9 +15,8 @@ export class ShipDesign {
   name = "";
   type: ShipType;
   totalPoints = 0;
-  shipsQuantity = 0;
-  navalCapPercent: number;
-  navalCapPercentUi: number;
+
+  fleets: FleetShips[];
 
   totalArmour = 0;
   totalShield = 0;
@@ -34,6 +35,12 @@ export class ShipDesign {
     errorTip?: string;
   }>();
 
+  constructor() {
+    this.fleets = new Array<FleetShips>(10);
+    for (let i = 0; i < FLEET_NUMBER; i++) {
+      this.fleets[i] = new FleetShips();
+    }
+  }
   reload(errorCheck = false) {
     this.totalArmour = 0;
     this.totalShield = 0;
@@ -107,11 +114,14 @@ export class ShipDesign {
       n: this.name,
       t: this.type.id,
       m: this.modules.map(mod => [mod.module.id, mod.level, mod.size]),
-      p: this.navalCapPercent,
-      q: this.shipsQuantity
+      f: this.fleets.map(fleet => fleet.getData())
     };
   }
   load(data: any) {
+    this.fleets = new Array<FleetShips>(10);
+    for (let i = 0; i < FLEET_NUMBER; i++) {
+      this.fleets[i] = new FleetShips();
+    }
     if ("i" in data) this.id = data.i;
     if ("r" in data) this.rev = data.r;
     if ("n" in data) this.name = data.n;
@@ -135,12 +145,12 @@ export class ShipDesign {
         }
       }
     }
-    if ("p" in data) {
-      this.navalCapPercent = data.p;
+    if ("f" in data) {
+      for (let i = 0, n = Math.min(data.f.length, FLEET_NUMBER); i < n; i++) {
+        this.fleets[i].load(data.f[i]);
+      }
     }
-    if ("q" in data) {
-      this.shipsQuantity = data.q;
-    }
+
     this.reload();
   }
   //#endregion

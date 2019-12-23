@@ -6,7 +6,11 @@ import { Game } from "../game";
 export class BuildShipsJob extends Job {
   built = 0;
 
-  constructor(public quantity: Decimal, public design: ShipDesign) {
+  constructor(
+    public quantity: number,
+    public design: ShipDesign,
+    public fleetNum = 0
+  ) {
     super();
     this.total = this.design.price.times(this.quantity);
   }
@@ -15,14 +19,14 @@ export class BuildShipsJob extends Job {
     const ret = super.addProgress(pro);
     const totalShip =
       this.level > 0
-        ? this.quantity.toNumber()
+        ? this.quantity
         : this.total
             .times(this.quantity)
             .div(this.progress)
             .floor()
             .toNumber();
     if (totalShip > this.built) {
-      this.design.shipsQuantity += totalShip - this.built;
+      this.design.fleets[this.fleetNum].shipsQuantity += totalShip - this.built;
 
       this.built = totalShip;
     }
@@ -34,7 +38,8 @@ export class BuildShipsJob extends Job {
     return {
       d: this.design.id,
       p: this.progress,
-      b: this.built
+      b: this.built,
+      n: this.fleetNum
     };
   }
   load(data: any) {
@@ -44,6 +49,7 @@ export class BuildShipsJob extends Job {
       );
     }
     if (!this.design) return false;
+    if ("n" in data) this.fleetNum = data.n;
     if ("p" in data) this.progress = new Decimal(data.p);
     if ("b" in data) this.built = data.b;
     this.total = this.design.price.times(this.quantity);

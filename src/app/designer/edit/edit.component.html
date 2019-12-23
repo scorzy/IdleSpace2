@@ -10,6 +10,7 @@
       class="recap"
       *ngIf="design"
       fxLayout="row"
+      fxLayout.xs="column"
       fxLayoutAlign="space-between"
     >
       <span>
@@ -80,14 +81,53 @@
                     fxLayout="row"
                     fxLayoutAlign="start center"
                     fxLayoutGap="15px"
-                  >
-                    <span nz-text>
+                    ><span nz-text>
                       <i
                         nz-icon
                         [nzType]="mod.shape"
                         style="font-size: 200%"
                       ></i>
-                      <span> {{ mod.name }}</span>
+                    </span>
+                    <span
+                      fxLayout="row"
+                      fxLayout.xs="column"
+                      fxLayoutAlign="space-between center"
+                      fxFlex="100%"
+                    >
+                      <span fxFlex="100%"> {{ mod.name }}</span>
+                      <span font="monospace">
+                        <span
+                          *ngIf="mod.armourDamagePercent !== 100"
+                          class="armour-damage-color"
+                        >
+                          <i nz-icon nzType="my:metal-scales"></i>
+                          {{ mod.armourDamagePercent }}%
+                        </span>
+                        <span
+                          *ngIf="mod.shieldDamagePercent !== 100"
+                          class="shield-damage-color"
+                        >
+                          <i nz-icon nzType="my:bubble-field"></i>
+                          {{ mod.shieldDamagePercent }}%
+                        </span>
+                        <span
+                          *ngIf="mod.armour > 0"
+                          class="armour-damage-color"
+                        >
+                          <i nz-icon nzType="my:metal-scales"></i>
+                          {{ mod.armour }}
+                        </span>
+                        <span
+                          *ngIf="mod.shield > 0"
+                          class="shield-damage-color"
+                        >
+                          <i nz-icon nzType="my:bubble-field"></i>
+                          {{ mod.shield }}
+                        </span>
+                        <span *ngIf="mod.energy !== 0" class="energy-color">
+                          <i nz-icon nzType="my:electric"></i>{{ mod.energy }}
+                        </span>
+                      </span>
                     </span>
                   </span>
                 </nz-option>

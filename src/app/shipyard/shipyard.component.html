@@ -11,6 +11,13 @@
       fxFlex.lt-sm="100%"
     >
       <h1>Shipyard</h1>
+      <nz-select [(ngModel)]="fleetNum" nzAllowClear>
+        <nz-option
+          *ngFor="let name of fleetNames; trackBy: getNameId; let i = index"
+          [nzValue]="i"
+          [nzLabel]="name"
+        ></nz-option>
+      </nz-select>
       <ul
         nzSize="small"
         nz-list
@@ -35,7 +42,7 @@
             >
             <nz-input-number
               fxFlex="20"
-              [(ngModel)]="data.navalCapPercentUi"
+              [(ngModel)]="data.fleets[fleetNum].navalCapPercentUi"
               nzSize="small"
               [nzMin]="0"
               [nzMax]="100"
