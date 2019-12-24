@@ -77,3 +77,30 @@
   padding-top: 5px;
   min-height: 360px;
 }
+
+.ant-layout-sider-children {
+  overflow: scroll;
+  padding-bottom: 50px;
+}
+.ant-layout-sider-trigger {
+  height: 36px;
+  line-height: 36px;
+}
+
+::-webkit-scrollbar {
+  width: 2px;
+  height: 2px;
+}
+::-webkit-scrollbar-button {
+  width: 0px;
+  height: 0px;
+}
+::-webkit-scrollbar-thumb {
+  border-radius: 50px;
+}
+::-webkit-scrollbar-track {
+  border-radius: 50px;
+}
+::-webkit-scrollbar-corner {
+  background: transparent;
+}

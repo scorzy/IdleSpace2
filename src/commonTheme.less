@@ -33,3 +33,25 @@
 .energy-color {
   color: @energy-color;
 }
+
+// Scroll bars
+::-webkit-scrollbar-thumb {
+  background: @text-color-secondary;
+  border: 0px none @text-color;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: @text-color;
+}
+::-webkit-scrollbar-thumb:active {
+  background: @popover-bg;
+}
+::-webkit-scrollbar-track {
+  background: @border-color-base;
+  border: 0px none @text-color;
+}
+::-webkit-scrollbar-track:hover {
+  background: @border-color-base;
+}
+::-webkit-scrollbar-track:active {
+  background: @input-bg;
+}
