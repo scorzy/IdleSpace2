@@ -4,5 +4,6 @@
         "popover",
         "spec",
         "unsubscribe"
-    ]
+    ],
+    "typescript.tsdk": "node_modules/typescript/lib"
 }

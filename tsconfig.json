@@ -12,8 +12,12 @@
     "importHelpers": true,
     "target": "es2015",
     "typeRoots": ["node_modules/@types", "src/break_infinity.d.ts"],
-    "lib": ["es2018", "dom"]
+    "lib": ["es2018", "dom"],
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true
   },
+
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,
     "strictInjectionParameters": true

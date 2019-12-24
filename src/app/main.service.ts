@@ -3,6 +3,7 @@ import { Game } from "./model/game";
 import { formatDate, DOCUMENT } from "@angular/common";
 import { FormatPipe } from "./format.pipe";
 import { OptionsService, THEMES } from "./options.service";
+import compiledCss from "./model/data/themes.json";
 
 export const SAVE_ID = "IA3_save";
 
@@ -140,12 +141,14 @@ export class MainService {
     this.game = new Game();
   }
   setTheme() {
-    const file =
+    const name =
       this.options.themeId < THEMES.length
         ? THEMES[this.options.themeId]
         : THEMES[0];
 
-    const myTheme = "assets/" + file + ".css";
+    const file = compiledCss.find(n => n.startsWith(name));
+
+    const myTheme = "assets/themes/" + file;
     if (myTheme !== this.theme.href) this.theme.href = myTheme;
     this.setScrollbarTheme();
   }

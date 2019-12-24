@@ -12,7 +12,7 @@
     "e2e": "ng e2e",
     "tslint-check": "tslint-config-prettier-check ./tslint.json",
     "make-themes2": "lessc --js ./src/darkTheme.less ./src/assets/darkTheme.css",
-    "make-themes":"node ./src/makeThemes.js"
+    "make-themes": "node ./src/makeThemes.js"
   },
   "private": true,
   "dependencies": {
@@ -36,6 +36,7 @@
     "date-fns": "^2.7.0",
     "lodash-es": "^4.17.15",
     "lz-string": "^1.4.4",
+    "md5": "^2.2.1",
     "ng-zorro-antd": "^8.5.2",
     "postinstall": "^0.5.1",
     "rxjs": "~6.5.3",
