@@ -19,13 +19,12 @@
       (click)="createModal(item.name, contentTemplate, tplFooter)"
     >
       <span>
-        <span nz-text class="monospace">{{ item.quantity | format }}</span>
+        <span class="monospace">{{ item.quantity | format }}</span>
       </span>
       <span>
         <span
-          nz-text
           class="monospace"
-          [nzType]="item.perSec.gte(0) ? '' : 'danger'"
+          [class]="item.perSec.gte(0) ? '' : 'text-danger'"
           >{{ item.perSec | format }} /s</span
         >
       </span>

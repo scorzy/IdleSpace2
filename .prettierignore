@@ -4,3 +4,4 @@ dist/
 .vscode
 break_infinity.d.ts
 index.html
+/src/assets

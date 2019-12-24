@@ -1,10 +1,10 @@
-@import "../node_modules/ng-zorro-antd/ng-zorro-antd.less";
-// The prefix to use on all css classes from ant.
-@ant-prefix: ant;
-
-// @primary-color: @blue-7;
-// @primary-color: @purple-7;
-@primary-color: @green-7;
+// -------- Colors -----------
+@info-color: @blue-7;
+@success-color: @green-7;
+@processing-color: @blue-7;
+@error-color: @red-7;
+@highlight-color: @red-7;
+@warning-color: @gold-7;
 
 @armour-damage-color: @volcano-6;
 @shield-damage-color: @blue-6;
@@ -38,8 +38,12 @@
 @table-selected-row-bg: lighten(@table-header-bg, 5%); // #414242;
 @table-expanded-row-bg: @table-selected-row-bg; // #414242;
 
-@layout-trigger-color: fade(#fff; 80%);
 @layout-trigger-background: @table-header-bg; // #3b3a39;
+@layout-trigger-color: fade(#fff; 80%);
+
+@layout-trigger-background-light: @layout-trigger-background;
+@layout-trigger-color-light: @layout-trigger-color;
+
 @alert-message-color: fade(#000; 67%);
 @disabled-color: rgba(255; 255; 255; 0.25);
 @tag-default-bg: #262628;
@@ -79,6 +83,7 @@
 @menu-highlight-color: #f8f8f8;
 @menu-item-active-bg: @item-active-bg;
 @menu-item-group-title-color: @text-color-secondary;
+@menu-item-active-border-width: 0;
 
 // dark theme
 @menu-dark-color: @text-color-secondary-dark;
@@ -137,4 +142,4 @@
   }
 }
 
-@import "./commonTheme.less";
+@import "./src/commonTheme.less";

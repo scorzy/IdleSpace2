@@ -33,7 +33,7 @@
                 "output": "/assets/"
               }
             ],
-            "styles": ["src/darkTheme.less", "src/styles.scss"],
+            "styles": ["src/styles.scss"],
             "scripts": [
               "node_modules/break_infinity.js/dist/break_infinity.min.js",
               "node_modules/swarm-numberformat/dist/swarm-numberformat.min.js"

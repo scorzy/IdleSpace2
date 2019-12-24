@@ -1,6 +1,11 @@
 <div class="sidebar-logo">
-  <i nz-icon nzType="ant-design" nzTheme="outline"></i>
-  <h1>Idle Ant 3</h1>
+  <i
+    nz-icon
+    nzType="ant-design"
+    nzTheme="outline"
+    [class.text-dark]="os.darkSide"
+  ></i>
+  <h1 [class.text-dark]="os.darkSide">Idle Ant 3</h1>
 </div>
 
 <ul

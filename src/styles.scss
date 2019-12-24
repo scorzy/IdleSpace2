@@ -87,9 +87,15 @@
   line-height: 36px;
 }
 
+.ant-menu-inline,
+.ant-menu-vertical,
+.ant-menu-vertical-left {
+  border: none;
+}
+
 ::-webkit-scrollbar {
-  width: 2px;
-  height: 2px;
+  width: 3px;
+  height: 3px;
 }
 ::-webkit-scrollbar-button {
   width: 0px;

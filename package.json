@@ -11,7 +11,8 @@
     "lint:fix": "ng lint --fix",
     "e2e": "ng e2e",
     "tslint-check": "tslint-config-prettier-check ./tslint.json",
-    "make-themes": "lessc --js ./src/darkTheme.less ./src/assets/darkTheme.css"
+    "make-themes2": "lessc --js ./src/darkTheme.less ./src/assets/darkTheme.css",
+    "make-themes":"node ./src/makeThemes.js"
   },
   "private": true,
   "dependencies": {

@@ -7,6 +7,7 @@ import {
 import { MainService } from "../main.service";
 import { fadeIn } from "../animations";
 import { ShipDesign } from "../model/shipyard/shipDesign";
+import { OptionsService } from "../options.service";
 
 @Component({
   selector: "app-side-menu",
@@ -17,7 +18,7 @@ import { ShipDesign } from "../model/shipyard/shipDesign";
 export class SideMenuComponent implements OnInit {
   @Input() notCollapsed = false;
 
-  constructor(public ms: MainService) {}
+  constructor(public ms: MainService, public os: OptionsService) {}
 
   ngOnInit() {}
 

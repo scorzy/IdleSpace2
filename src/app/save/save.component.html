@@ -9,3 +9,15 @@
     Clear
   </button>
 </nz-button-group>
+<br />
+<nz-select [(ngModel)]="os.themeId" (ngModelChange)="ms.setTheme()">
+  <nz-option nzValue="0" nzLabel="Dark Green"></nz-option>
+  <nz-option nzValue="1" nzLabel="Dark Blue"></nz-option>
+  <nz-option nzValue="2" nzLabel="Light Green"></nz-option>
+  <nz-option nzValue="3" nzLabel="Light Blue"></nz-option>
+</nz-select>
+<br />
+<nz-switch
+  [(ngModel)]="os.darkSide"
+  (ngModelChange)="ms.setSideTheme()"
+></nz-switch>

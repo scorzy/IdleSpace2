@@ -1,4 +1,4 @@
-@card-head-height: 24px;
+// @card-head-height: 24px;
 
 .text-success {
   color: @success-color;
@@ -6,6 +6,10 @@
 .text-info {
   color: @info-color;
 }
+.text-danger {
+  color: @error-color;
+}
+
 .job-list {
   background: @layout-header-background;
 }
@@ -36,22 +40,36 @@
 
 // Scroll bars
 ::-webkit-scrollbar-thumb {
-  background: @text-color-secondary;
-  border: 0px none @text-color;
+  background: fadeout(@text-color-secondary, 25%);
+  border: 0px none fadeout(@text-color-secondary, 25%);
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: @text-color;
+  background: @text-color-secondary;
 }
 ::-webkit-scrollbar-thumb:active {
   background: @popover-bg;
 }
+div.dark-scroll::-webkit-scrollbar-thumb {
+  background: fadeout(@text-color-secondary-dark, 25%);
+  border: 0px none fadeout(@text-color-secondary-dark, 25%);
+}
+div.dark-scroll::-webkit-scrollbar-thumb:hover {
+  background: @text-color-secondary;
+}
+div.dark-scroll::-webkit-scrollbar-thumb:active {
+  background: @popover-bg;
+}
+
 ::-webkit-scrollbar-track {
-  background: @border-color-base;
-  border: 0px none @text-color;
+  background: transparent;
+  border: 0px none transparent;
+  display: none;
 }
 ::-webkit-scrollbar-track:hover {
-  background: @border-color-base;
+  background: transparent;
+  display: none;
 }
 ::-webkit-scrollbar-track:active {
-  background: @input-bg;
+  background: transparent;
+  display: none;
 }

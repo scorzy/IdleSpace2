@@ -9,6 +9,7 @@ import { MainService } from "./main.service";
 import { Subscription } from "rxjs";
 import { NzNotificationService } from "ng-zorro-antd";
 import { ShipDesign } from "./model/shipyard/shipDesign";
+import { OptionsService } from "./options.service";
 
 @Component({
   selector: "app-root",
@@ -28,6 +29,7 @@ export class AppComponent implements OnInit, OnDestroy {
   visible = false;
   constructor(
     public ms: MainService,
+    public os: OptionsService,
     private notification: NzNotificationService
   ) {}
 

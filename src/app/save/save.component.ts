@@ -1,5 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
 import { MainService } from "../main.service";
+import { OptionsService } from "../options.service";
 
 @Component({
   selector: "app-save",
@@ -8,7 +9,7 @@ import { MainService } from "../main.service";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SaveComponent implements OnInit {
-  constructor(public ms: MainService) {}
+  constructor(public ms: MainService, public os: OptionsService) {}
 
   ngOnInit() {}
 }

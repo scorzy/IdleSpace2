@@ -1,7 +1,8 @@
-import { Injectable, EventEmitter } from "@angular/core";
+import { Injectable, EventEmitter, Inject } from "@angular/core";
 import { Game } from "./model/game";
-import { formatDate } from "@angular/common";
+import { formatDate, DOCUMENT } from "@angular/common";
 import { FormatPipe } from "./format.pipe";
+import { OptionsService, THEMES } from "./options.service";
 
 export const SAVE_ID = "IA3_save";
 
@@ -9,12 +10,52 @@ export const SAVE_ID = "IA3_save";
   providedIn: "root"
 })
 export class MainService {
+  theme: HTMLLinkElement;
+  scrollbarTheme: HTMLLinkElement;
+  isCollapsed = true;
+  sideTheme = "dark";
+  game: Game;
+  last: number;
+  updateEmitter = new EventEmitter<number>();
+  lzWorker: Worker;
+  notificationEmitter = new EventEmitter<{
+    type: number;
+    title?: string;
+    text?: string;
+  }>();
 
-  constructor(private _formatPipe: FormatPipe) {
+  constructor(
+    private _formatPipe: FormatPipe,
+    private options: OptionsService,
+    @Inject(DOCUMENT) private document: Document
+  ) {
     this.last = Date.now();
     MainService.formatPipe = _formatPipe;
 
-    // I should check that if the broser supports web workers
+    this.theme = this.document.createElement("link");
+    this.theme.rel = "stylesheet";
+    this.theme.type = "text/css";
+    this.document
+      .querySelector("head")
+      .insertBefore(
+        this.theme,
+        document
+          .getElementsByTagName("head")[0]
+          .getElementsByTagName("style")[0]
+      );
+    this.scrollbarTheme = this.document.createElement("link");
+    this.scrollbarTheme.rel = "stylesheet";
+    this.scrollbarTheme.type = "text/css";
+    this.document
+      .querySelector("head")
+      .insertBefore(
+        this.scrollbarTheme,
+        document
+          .getElementsByTagName("head")[0]
+          .getElementsByTagName("style")[0]
+      );
+
+    // I should check that if the browser supports web workers
     // however i don't really care
     // without web worker the game doesn't work at all
     // i will handle it on the loading screen
@@ -36,17 +77,6 @@ export class MainService {
     else this.game = new Game();
   }
   static formatPipe: FormatPipe;
-  isCollapsed = true;
-  sideTheme = "dark";
-  game: Game;
-  last: number;
-  updateEmitter = new EventEmitter<number>();
-  lzWorker: Worker;
-  notificationEmitter = new EventEmitter<{
-    type: number;
-    title?: string;
-    text?: string;
-  }>();
 
   update() {
     if (!this.game) {
@@ -70,7 +100,8 @@ export class MainService {
     if (!this.game) return "";
     const save = {
       t: this.last,
-      g: this.game.getSave()
+      g: this.game.getSave(),
+      o: this.options.getSave()
     };
     return JSON.stringify(save);
   }
@@ -83,6 +114,11 @@ export class MainService {
     this.last = data.t;
     this.game = new Game();
     this.game.load(data.g);
+    if ("o" in data) {
+      this.options.load(data.o);
+    }
+    this.setTheme();
+    this.setSideTheme();
     this.notificationEmitter.emit({
       type: 2,
       title: "Game Loaded",
@@ -98,10 +134,31 @@ export class MainService {
       this.decompressAndLoad(data);
     }
   }
-
   clear() {
     localStorage.removeItem(SAVE_ID);
     this.last = Date.now();
     this.game = new Game();
+  }
+  setTheme() {
+    const file =
+      this.options.themeId < THEMES.length
+        ? THEMES[this.options.themeId]
+        : THEMES[0];
+
+    const myTheme = "assets/" + file + ".css";
+    if (myTheme !== this.theme.href) this.theme.href = myTheme;
+    this.setScrollbarTheme();
+  }
+  setSideTheme() {
+    this.sideTheme = this.options.darkSide ? "dark" : "light";
+    this.setScrollbarTheme();
+  }
+  setScrollbarTheme() {
+    let myTheme =
+      this.options.darkSide && this.options.themeId >= THEMES.length / 2
+        ? "assets/dark-scrollbar.css"
+        : "";
+    if (myTheme !== this.scrollbarTheme.href)
+      this.scrollbarTheme.href = myTheme;
   }
 }

@@ -1,6 +1,8 @@
 import { Injectable, EventEmitter } from "@angular/core";
 declare let numberformat;
 
+export const THEMES = ["dark-green", "dark-blue", "light-green", "light-blue"];
+
 @Injectable({
   providedIn: "root"
 })
@@ -12,6 +14,8 @@ export class OptionsService {
   numFormat = "scientific";
   formatId = 0;
   timeFormatDetail = true;
+  themeId = 0;
+  darkSide = true;
 
   constructor() {
     try {
@@ -36,5 +40,18 @@ export class OptionsService {
       console.log("Error generate Formatter:" + ex);
     }
     this.formatEmitter.emit(1);
+  }
+
+  getSave(): any {
+    return {
+      u: this.usaFormat,
+      t: this.themeId,
+      d: this.darkSide
+    };
+  }
+  load(data: any) {
+    if ("u" in data) this.usaFormat = data.u;
+    if ("t" in data) this.themeId = data.t;
+    if ("d" in data) this.darkSide = data.d;
   }
 }

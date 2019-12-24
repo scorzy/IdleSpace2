@@ -11,7 +11,10 @@
   </nz-sider>
   <nz-layout>
     <nz-header>
-      <div class="app-header">
+      <div
+        class="app-header"
+        [ngClass]="os.darkSide ? 'dark-background' : 'light-background'"
+      >
         <div class="headerRow">
           <span class="header-trigger t2" (click)="visible = !visible">
             <i
