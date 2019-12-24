@@ -5,7 +5,6 @@ import { LaboratoryComponent } from "./laboratory/laboratory.component";
 import { OptionsComponent } from "./options/options.component";
 import { SaveComponent } from "./save/save.component";
 import { AddComponent } from "./designer/add/add.component";
-import { DesignListComponent } from "./designer/design-list/design-list.component";
 import { TechnologiesComponent } from "./technologies/technologies.component";
 import { ResearchPrioritiesComponent } from "./research-priorities/research-priorities.component";
 import { EditComponent } from "./designer/edit/edit.component";
@@ -19,16 +18,10 @@ const routes: Routes = [
   { path: "resPri", pathMatch: "full", component: ResearchPrioritiesComponent },
   { path: "opt", pathMatch: "full", component: OptionsComponent },
   { path: "save", pathMatch: "full", component: SaveComponent },
-  { path: "ship", pathMatch: "full", component: ShipyardComponent },
+  { path: "fleet/:id", pathMatch: "full", component: ShipyardComponent },
   { path: "des", pathMatch: "full", redirectTo: "/des/add" },
-  {
-    path: "des",
-    component: DesignListComponent,
-    children: [
-      { path: "add", component: AddComponent },
-      { path: "edit/:id", component: EditComponent }
-    ]
-  }
+  { path: "add", component: AddComponent },
+  { path: "edit/:id", component: EditComponent }
 ];
 
 @NgModule({

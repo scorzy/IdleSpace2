@@ -1,7 +1,7 @@
 export class FleetShips {
-  shipsQuantity: number = 0;
-  navalCapPercent: number = 50;
-  navalCapPercentUi: number = 50;
+  shipsQuantity = 0;
+  navalCapPercent = 50;
+  navalCapPercentUi = 50;
 
   getData(): any {
     return {

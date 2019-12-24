@@ -1,7 +1,14 @@
-import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef
+} from "@angular/core";
 import { MainService } from "../main.service";
 import { ShipDesign, FLEET_NUMBER } from "../model/shipyard/shipDesign";
 import { CdkDragDrop, moveItemInArray } from "@angular/cdk/drag-drop";
+import { ActivatedRoute } from "@angular/router";
+import { Subscription } from "rxjs";
 
 @Component({
   selector: "app-shipyard",
@@ -11,13 +18,26 @@ import { CdkDragDrop, moveItemInArray } from "@angular/cdk/drag-drop";
 })
 export class ShipyardComponent implements OnInit {
   fleetNum = 0;
-  fleetNames = [];
+  private subscriptions: Subscription[] = [];
 
-  constructor(public ms: MainService) {}
+  constructor(
+    public ms: MainService,
+    private cd: ChangeDetectorRef,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit() {
-    this.fleetNames = new Array<string>(FLEET_NUMBER).fill("");
-    for (let i = 0; i < FLEET_NUMBER; i++) this.fleetNames[i] = "Fleet " + i;
+    this.subscriptions.push(
+      this.ms.updateEmitter.subscribe(() => {
+        this.cd.markForCheck();
+      }),
+      this.route.paramMap.subscribe(paramMap =>
+        this.getFleet(paramMap.get("id"))
+      )
+    );
+  }
+  getFleet(id: string): void {
+    this.fleetNum = parseInt(id, 10);
   }
   drop(event: CdkDragDrop<string[]>): void {
     moveItemInArray(

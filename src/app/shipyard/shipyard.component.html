@@ -1,60 +1,52 @@
-<div class="inner-content">
+<div
+  fxLayout="row wrap"
+  fxLayout.lt-sm="column"
+  fxLayoutAlign="flex-start"
+  fxLayoutGap="10px"
+>
   <div
-    fxLayout="row wrap"
-    fxLayout.lt-sm="column"
-    fxLayoutAlign="flex-start"
-    fxLayoutGap="10px"
+    fxFlex="0 1 calc(30% - 10px)"
+    fxFlex.lt-md="0 1 calc(50% - 10px)"
+    fxFlex.lt-sm="100%"
   >
-    <div
-      fxFlex="0 1 calc(30% - 10px)"
-      fxFlex.lt-md="0 1 calc(50% - 10px)"
-      fxFlex.lt-sm="100%"
+    <h1>Fleet {{ fleetNum }}</h1>
+
+    <ul
+      nzSize="small"
+      nz-list
+      nzBordered
+      cdkDropList
+      class="dark-background"
+      (cdkDropListDropped)="drop($event)"
     >
-      <h1>Shipyard</h1>
-      <nz-select [(ngModel)]="fleetNum" nzAllowClear>
-        <nz-option
-          *ngFor="let name of fleetNames; trackBy: getNameId; let i = index"
-          [nzValue]="i"
-          [nzLabel]="name"
-        ></nz-option>
-      </nz-select>
-      <ul
-        nzSize="small"
-        nz-list
-        nzBordered
-        cdkDropList
-        class="dark-background"
-        (cdkDropListDropped)="drop($event)"
+      <li
+        nz-list-item
+        cdkDrag
+        class="light-background"
+        fxLayout="column"
+        *ngFor="
+          let data of ms.game.shipyardManager.updatedShipDesigns;
+          trackBy: getDesignId
+        "
       >
-        <li
-          nz-list-item
-          cdkDrag
-          class="light-background"
-          fxLayout="column"
-          *ngFor="
-            let data of ms.game.shipyardManager.updatedShipDesigns;
-            trackBy: getDesignId
-          "
-        >
-          <div fxLayout="row" fxFlexFill>
-            <span fxFlex="33"
-              ><strong>{{ data.name }}</strong></span
-            >
-            <nz-input-number
-              fxFlex="20"
-              [(ngModel)]="data.fleets[fleetNum].navalCapPercentUi"
-              nzSize="small"
-              [nzMin]="0"
-              [nzMax]="100"
-              [nzStep]="1"
-            ></nz-input-number>
-          </div>
-        </li>
-      </ul>
-    </div>
-    <div>
-      <h2>Result</h2>
-    </div>
+        <div fxLayout="row" fxFlexFill>
+          <span fxFlex="33"
+            ><strong>{{ data.name }}</strong></span
+          >
+          <nz-input-number
+            fxFlex="20"
+            [(ngModel)]="data.fleets[fleetNum].navalCapPercentUi"
+            nzSize="small"
+            [nzMin]="0"
+            [nzMax]="100"
+            [nzStep]="1"
+          ></nz-input-number>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div>
+    <h2>Result</h2>
   </div>
 </div>
 

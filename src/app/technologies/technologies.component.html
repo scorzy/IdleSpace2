@@ -1,49 +1,47 @@
-<div class="inner-content">
-  <h1>Technologies</h1>
+<h1>Technologies</h1>
 
-  <div fxLayout="row wrap">
+<div fxLayout="row wrap">
+  <div
+    class="tech-container"
+    fxFlex="100%"
+    fxFlex.gt-md="0.5 1 50%"
+    *ngFor="
+      let tech of ms.game.researchManager.unlockedTechnologies;
+      trackBy: getTechId
+    "
+  >
     <div
-      class="tech-container"
-      fxFlex="100%"
-      fxFlex.gt-md="0.5 1 50%"
-      *ngFor="
-        let tech of ms.game.researchManager.unlockedTechnologies;
-        trackBy: getTechId
-      "
+      fxLayout="row"
+      fxLayout.lt-sm="column"
+      class="zero"
+      fxLayoutAlign="space-between"
     >
-      <div
-        fxLayout="row"
-        fxLayout.lt-sm="column"
-        class="zero"
-        fxLayoutAlign="space-between"
+      <h3>
+        <span [style.color]="tech.color"
+          ><i nz-icon [nzType]="tech.icon"></i
+        ></span>
+        {{ tech.name }}:
+        <span class="monospace quantity">{{
+          tech.quantity | format: true
+        }}</span>
+      </h3>
+      <span class="monospace"
+        >{{ tech.progress | format: true }}/{{
+          tech.total | format: true
+        }}</span
       >
-        <h3>
-          <span [style.color]="tech.color"
-            ><i nz-icon [nzType]="tech.icon"></i
-          ></span>
-          {{ tech.name }}:
-          <span class="monospace quantity">{{
-            tech.quantity | format: true
-          }}</span>
-        </h3>
-        <span class="monospace"
-          >{{ tech.progress | format: true }}/{{
-            tech.total | format: true
-          }}</span
-        >
-        <div>
-          Priority:
-          <nz-input-number
-            [(ngModel)]="tech.priority"
-            [nzMin]="0"
-            [nzMax]="100"
-            [nzStep]="1"
-            [nzSize]="'small'"
-          ></nz-input-number>
-        </div>
+      <div>
+        Priority:
+        <nz-input-number
+          [(ngModel)]="tech.priority"
+          [nzMin]="0"
+          [nzMax]="100"
+          [nzStep]="1"
+          [nzSize]="'small'"
+        ></nz-input-number>
       </div>
-
-      <app-progress [progress]="tech.progressPercent"></app-progress>
     </div>
+
+    <app-progress [progress]="tech.progressPercent"></app-progress>
   </div>
 </div>

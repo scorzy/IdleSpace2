@@ -32,9 +32,7 @@ import { DragDropModule } from "@angular/cdk/drag-drop";
 import { JobComponent } from "./job/job.component";
 import { ProgressComponent } from "./progress/progress.component";
 import { TimePipe } from "./time.pipe";
-import { DesignerComponent } from "./designer/designer.component";
 import { FlexLayoutModule } from "@angular/flex-layout";
-import { DesignListComponent } from "./designer/design-list/design-list.component";
 import { AddComponent } from "./designer/add/add.component";
 import { NzFormModule } from "ng-zorro-antd/form";
 import { TechnologiesComponent } from "./technologies/technologies.component";
@@ -66,8 +64,6 @@ const ngZorroConfig: NzConfig = {
     JobComponent,
     ProgressComponent,
     TimePipe,
-    DesignerComponent,
-    DesignListComponent,
     AddComponent,
     TechnologiesComponent,
     ResearchPrioritiesComponent,

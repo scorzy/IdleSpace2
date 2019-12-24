@@ -6,6 +6,7 @@ import {
 } from "@angular/core";
 import { MainService } from "../main.service";
 import { fadeIn } from "../animations";
+import { ShipDesign } from "../model/shipyard/shipDesign";
 
 @Component({
   selector: "app-side-menu",
@@ -19,4 +20,8 @@ export class SideMenuComponent implements OnInit {
   constructor(public ms: MainService) {}
 
   ngOnInit() {}
+
+  getDesignId(index: number, shipDesign: ShipDesign) {
+    return shipDesign.id;
+  }
 }

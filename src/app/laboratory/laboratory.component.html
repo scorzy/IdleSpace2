@@ -1,74 +1,70 @@
-<div class="inner-content">
-  <div fxLayout="row wrap" fxLayoutAlign="stretch" fxLayout.lt-md="column">
-    <div
-      fxLayout="row wrap"
-      fxLayoutAlign="stretch"
-      fxLayout.lt-md="column"
-      fxFlex="75"
-    >
-      <div fxFlex="50" class="research-container">
-        <h2>Backlog</h2>
-        <div
-          cdkDropList
-          #todoList="cdkDropList"
-          [cdkDropListData]="ms.game.researchManager.backlog"
-          [cdkDropListConnectedTo]="[doneList]"
-          class="job-list"
-          (cdkDropListDropped)="drop($event)"
-        >
-          <app-job
-            cdkDrag
-            class="job-box"
-            *ngFor="
-              let resToDo of ms.game.researchManager.backlog;
-              trackBy: getResId
-            "
-            [job]="resToDo"
-          ></app-job>
-        </div>
-      </div>
-
-      <div fxFlex="50" class="research-container">
-        <h2>To do</h2>
-        <div
-          cdkDropList
-          #doneList="cdkDropList"
-          [cdkDropListData]="ms.game.researchManager.toDo"
-          [cdkDropListConnectedTo]="[todoList]"
-          class="job-list"
-          (cdkDropListDropped)="drop($event)"
-        >
-          <app-job
-            cdkDrag
-            class="job-box"
-            *ngFor="
-              let resToDo of ms.game.researchManager.toDo;
-              trackBy: getResId
-            "
-            [job]="resToDo"
-          ></app-job>
-        </div>
-      </div>
-    </div>
-
-    <div fxFlex="25" class="info-div">
-      <ul class="list-unstyled">
-        <li
+<div fxLayout="row wrap" fxLayoutAlign="stretch" fxLayout.lt-md="column">
+  <div
+    fxLayout="row wrap"
+    fxLayoutAlign="stretch"
+    fxLayout.lt-md="column"
+    fxFlex="75"
+  >
+    <div fxFlex="50" class="research-container">
+      <h2>Backlog</h2>
+      <div
+        cdkDropList
+        #todoList="cdkDropList"
+        [cdkDropListData]="ms.game.researchManager.backlog"
+        [cdkDropListConnectedTo]="[doneList]"
+        class="job-list"
+        (cdkDropListDropped)="drop($event)"
+      >
+        <app-job
+          cdkDrag
+          class="job-box"
           *ngFor="
-            let item of ms.game.researchManager.unlockedTechnologies;
-            trackBy: getTypeId
+            let resToDo of ms.game.researchManager.backlog;
+            trackBy: getResId
           "
-        >
-          <span [style.color]="item.color"
-            ><i nz-icon [nzType]="item.icon"></i
-          ></span>
-
-          {{ item.name }}
-          <span class="monospace"
-            >+{{ item.bonus.totalBonusUi | format }}%</span
-          >
-        </li>
-      </ul>
+          [job]="resToDo"
+        ></app-job>
+      </div>
     </div>
+
+    <div fxFlex="50" class="research-container">
+      <h2>To do</h2>
+      <div
+        cdkDropList
+        #doneList="cdkDropList"
+        [cdkDropListData]="ms.game.researchManager.toDo"
+        [cdkDropListConnectedTo]="[todoList]"
+        class="job-list"
+        (cdkDropListDropped)="drop($event)"
+      >
+        <app-job
+          cdkDrag
+          class="job-box"
+          *ngFor="
+            let resToDo of ms.game.researchManager.toDo;
+            trackBy: getResId
+          "
+          [job]="resToDo"
+        ></app-job>
+      </div>
+    </div>
+  </div>
+
+  <div fxFlex="25" class="info-div">
+    <ul class="list-unstyled">
+      <li
+        *ngFor="
+          let item of ms.game.researchManager.unlockedTechnologies;
+          trackBy: getTypeId
+        "
+      >
+        <span [style.color]="item.color"
+          ><i nz-icon [nzType]="item.icon"></i
+        ></span>
+
+        {{ item.name }}
+        <span class="monospace">+{{ item.bonus.totalBonusUi | format }}%</span>
+      </li>
+    </ul>
   </div>
 </div>
