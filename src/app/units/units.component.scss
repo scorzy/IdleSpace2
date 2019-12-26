@@ -1,17 +1,8 @@
-.flex-container {
-  padding: 0;
-  margin: 0;
-  list-style: none;
-
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-}
-
-.flex-item {
-  padding: 5px;
-}
-
 ul {
-  list-style: none; /* Remove list bullets */
+  list-style: none;
+}
+.flex-item {
+  min-width: 200px;
+  max-width: 400px;
+  margin-bottom: 0.5rem;
 }

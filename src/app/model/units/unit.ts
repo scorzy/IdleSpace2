@@ -98,10 +98,10 @@ export class Unit implements IBase, IUnlockable {
     }
   }
 
-  buy(qantity: Decimal): boolean {
-    if (this.buyPrice.buy(qantity, this.manualBought)) {
-      this.manualBought = this.manualBought.plus(qantity);
-      this.quantity = this.quantity.plus(qantity);
+  buy(quantity: Decimal): boolean {
+    if (this.buyPrice.buy(quantity, this.manualBought)) {
+      this.manualBought = this.manualBought.plus(quantity);
+      this.quantity = this.quantity.plus(quantity);
       this.afterBuy();
       return true;
     }
@@ -128,6 +128,7 @@ export class Unit implements IBase, IUnlockable {
     return true;
   }
 
+  //#region Save and Load
   getSave(): any {
     const ret: any = {};
     ret.i = this.id;
@@ -142,4 +143,5 @@ export class Unit implements IBase, IUnlockable {
     if ("q" in save) this.quantity = new Decimal(save.q);
     if ("m" in save) this.manualBought = new Decimal(save.m);
   }
+  //#endregion
 }

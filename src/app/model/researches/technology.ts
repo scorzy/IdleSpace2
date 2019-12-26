@@ -26,7 +26,6 @@ export class Technology implements IBase, IUnlockable, ITechnologyData {
 
   constructor(data: ITechnologyData) {
     assign(this, data);
-
     this.bonus = new BonusStack();
     this.bonus.bonuses.push(new Bonus(this, RESEARCH_BONUS));
   }
@@ -46,8 +45,10 @@ export class Technology implements IBase, IUnlockable, ITechnologyData {
         Decimal.sumGeometricSeries(toBuy, this.price, this.ratio, this.quantity)
       );
       this.quantity = this.quantity.plus(toBuy);
+      this.onCompleted();
     }
   }
+  onCompleted() {}
   unlock(): boolean {
     if (this.unlocked) return false;
 

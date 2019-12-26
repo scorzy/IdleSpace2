@@ -16,6 +16,7 @@ export class Game {
   shipyardManager: ShipyardManager;
 
   navalCapacity: number;
+  updateNavalCapacity = true;
 
   /**
    * Gets game return instance of game
@@ -57,23 +58,29 @@ export class Game {
       }
     }
   }
-
   postUpdate() {
     this.researchManager.technologies.forEach(t => t.bonus.reloadBonus());
     const resNotAdded = this.researchManager.addProgress(
       this.resourceManager.science.quantity
     );
     this.resourceManager.science.quantity = resNotAdded;
-
     this.resourceManager.reloadProduction();
     this.resourceManager.postUpdate();
-
     this.researchManager.toDo.forEach(r => r.reloadTotalBonus());
     this.researchManager.backlog.forEach(r => r.reloadTotalBonus());
+    if (this.updateNavalCapacity) {
+      this.reloadNavalCapacity();
+    }
     this.shipyardManager.postUpdate();
   }
-
-  reloadNavalCapacity() {}
+  reloadNavalCapacity() {
+    this.navalCapacity = 0;
+    for (let i = 0, n = this.researchManager.done.length; i < n; i++) {
+      this.navalCapacity += this.researchManager.done[i].navalCapacity;
+    }
+    this.navalCapacity += this.researchManager.navalCapTech.quantity.toNumber();
+    this.navalCapacity = Math.floor(this.navalCapacity);
+  }
 
   //#region Save and Load
   getSave(): any {

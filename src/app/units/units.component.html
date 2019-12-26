@@ -1,5 +1,14 @@
-<div class="flex-container">
-  <div class="flex-item" *ngFor="let unit of units; trackBy: getId" @fadeIn>
+<div fxLayout="column" fxLayout.gt-xs="row wrap" fxLayoutGap="10px">
+  <div
+    class="flex-item"
+    *ngFor="let unit of units; trackBy: getId"
+    @fadeIn
+    fxFlex.xs="0 0 calc(100% -10px)"
+    fxFlex.sm="0 0 calc(50% -10px)"
+    fxFlex.md="0 0 calc(33% -10px)"
+    fxFlex.lg="0 0 calc(25% -10px)"
+    fxFlex.xl="0 0 calc(20% -10px)"
+  >
     <app-unit-card [unit]="unit"> </app-unit-card>
   </div>
 
@@ -8,7 +17,7 @@
     *ngIf="!ms.game.resourceManager.scientist.unlocked"
     @fadeIn
   >
-    <nz-card style="width:350px;" [nzTitle]="locked">
+    <nz-card style="width:100%;" [nzTitle]="locked">
       <p>To unlock you need:</p>
       <ul>
         <li>

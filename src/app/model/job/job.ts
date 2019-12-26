@@ -43,9 +43,7 @@ export abstract class Job {
     }
     return ret;
   }
-
   onCompleted() {}
-
   reload() {
     if (this.max > 1 || !this.total) {
       this.total = this.initialPrice.times(
@@ -53,17 +51,14 @@ export abstract class Job {
       );
     }
   }
-
   reloadUi() {
     this.progressPercent = Math.floor(
       this.progress.div(this.total).toNumber() * 100
     );
   }
-
   getIcons(): MyIcon[] {
     return [];
   }
-
   reloadTotalBonus() {
     const newBonus = this.types
       .map(t => t.bonus.totalBonus)
