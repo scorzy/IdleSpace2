@@ -48,7 +48,6 @@ export class Technology implements IBase, IUnlockable, ITechnologyData {
       this.quantity = this.quantity.plus(toBuy);
     }
   }
-
   unlock(): boolean {
     if (this.unlocked) return false;
 
@@ -65,7 +64,6 @@ export class Technology implements IBase, IUnlockable, ITechnologyData {
       this.progress.div(this.total).toNumber() * 100
     );
   }
-
   //#region
   getSave(): any {
     return {

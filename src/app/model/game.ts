@@ -15,6 +15,8 @@ export class Game {
   researchManager: ResearchManager;
   shipyardManager: ShipyardManager;
 
+  navalCapacity: number;
+
   /**
    * Gets game return instance of game
    * this is not a real singleton, may return null
@@ -30,6 +32,8 @@ export class Game {
     this.researchManager = new ResearchManager();
     this.shipyardManager = new ShipyardManager();
     this.shipyardManager.init();
+    this.researchManager.makeShipsResearches();
+    this.researchManager.setRelations();
   }
 
   /**
@@ -68,6 +72,8 @@ export class Game {
     this.researchManager.backlog.forEach(r => r.reloadTotalBonus());
     this.shipyardManager.postUpdate();
   }
+
+  reloadNavalCapacity() {}
 
   //#region Save and Load
   getSave(): any {

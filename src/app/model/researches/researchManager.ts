@@ -6,6 +6,10 @@ import { Bonus } from "../bonus/bonus";
 import { Technology } from "./technology";
 import { TECHNOLOGIES } from "../data/technologyData";
 import { ZERO } from "../CONSTANTS";
+import { IResearchData } from "../data/iResearchData";
+
+const SHIP_BASE_PRICE = 1e3;
+const SHIP_PRICE_MULTI = 1e3;
 
 export class ResearchManager extends JobManager {
   researches: Research[];
@@ -14,9 +18,12 @@ export class ResearchManager extends JobManager {
   backlog: Research[];
   technologies: Technology[];
   unlockedTechnologies: Technology[];
+
   researchPriority = 50;
   technologiesPriority = 50;
   specialProjectsPriority = 50;
+
+  researchPerSec = ZERO;
 
   constructor() {
     super();
@@ -37,8 +44,26 @@ export class ResearchManager extends JobManager {
 
     //  Researches
     this.researches = RESEARCHES.map(resData => new Research(resData, this));
+  }
+  makeShipsResearches() {
+    let shipyard = Game.getGame().shipyardManager;
+    for (let i = 1, n = shipyard.shipTypes.length; i < n; i++) {
+      const resData: IResearchData = {
+        id: "s" + shipyard.shipTypes[i].id,
+        name: shipyard.shipTypes[i].name,
+        description: "Unlock " + shipyard.shipTypes[i].name,
+        price: Decimal.pow(SHIP_PRICE_MULTI, i).times(SHIP_BASE_PRICE),
+        type: [TECHNOLOGIES.Engineering]
+      };
+      if (i + 1 < n) {
+        resData.researchToUnlock = ["s" + (i + 1)];
+      }
+      this.researches.push(new Research(resData, this));
+    }
+  }
+  setRelations() {
     this.researches.forEach(res => {
-      const resData = RESEARCHES.find(r => r.id === res.id);
+      const resData = res.resData;
       if ("researchToUnlock" in resData) {
         res.researchToUnlock = resData.researchToUnlock.map(unlId =>
           this.researches.find(resToUnl => resToUnl.id === unlId)
@@ -61,7 +86,6 @@ export class ResearchManager extends JobManager {
     this.done = [];
     this.backlog = [];
   }
-
   unlock(res: Research): boolean {
     if (this.toDo.findIndex(r => r.id === res.id) > -1) return false;
     if (this.done.findIndex(r => r.id === res.id) > -1) return false;
@@ -73,24 +97,28 @@ export class ResearchManager extends JobManager {
   reloadTechList() {
     this.unlockedTechnologies = this.technologies.filter(t => t.unlocked);
   }
-
   addProgress(prog: Decimal): Decimal {
     if (this.unlockedTechnologies.length < 1) {
+      this.researchPerSec = Game.getGame().resourceManager.science.perSec;
       return super.addProgress(prog);
     }
 
-    const resProg = prog.times(
+    const resPercent =
       this.researchPriority /
-        (this.researchPriority + this.technologiesPriority)
+      (this.researchPriority + this.technologiesPriority);
+    const resProg = prog.times(resPercent);
+    this.researchPerSec = Game.getGame().resourceManager.science.perSec.times(
+      resPercent
     );
 
     const notAdded = super.addProgress(resProg);
     if (this.technologiesPriority <= 0) return notAdded;
 
     const techProg = prog.minus(resProg).plus(notAdded);
-    const sum = this.unlockedTechnologies
-      .map(t => t.priority)
-      .reduce((p, c) => p + c, 0);
+    let sum = 0;
+    for (let i = 0, n = this.unlockedTechnologies.length; i < n; i++) {
+      sum += this.unlockedTechnologies[i].priority;
+    }
     this.unlockedTechnologies.forEach(tech => {
       tech.addProgress(techProg.times(tech.priority / sum));
     });

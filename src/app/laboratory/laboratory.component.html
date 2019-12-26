@@ -51,7 +51,9 @@
   </div>
 
   <div fxFlex="25" class="info-div">
-    <ul class="list-unstyled">
+    <strong>Research /s: </strong>
+    <span>{{ ms.game.researchManager.researchPerSec | format }}</span>
+    <ul class="list-unstyled technology-list">
       <li
         *ngFor="
           let item of ms.game.researchManager.unlockedTechnologies;

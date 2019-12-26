@@ -18,6 +18,7 @@ export interface IResearchData {
   unitsToUnlock?: string[];
   researchToUnlock?: string[];
   technologiesToUnlock?: string[];
-  type?: IJobType[];
+  type: IJobType[];
   researchBonus?: { type: IJobType; bonus: DecimalSource }[];
+  navalCapacity?: number;
 }

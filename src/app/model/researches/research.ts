@@ -1,7 +1,7 @@
 import { IResearchData } from "../data/iResearchData";
 import { Job, MyIcon } from "../job/job";
 import { convertToRoman, solveEquation } from "ant-utils";
-import { RESEARCH_GROW_RATE, ZERO, ONE } from "../CONSTANTS";
+import { RESEARCH_GROW_RATE, ZERO, ONE, INFINITY } from "../CONSTANTS";
 import { IUnlockable } from "../iUnlocable";
 import { Game } from "../game";
 import { IBase } from "../iBase";
@@ -10,16 +10,19 @@ import { ResearchManager } from "./researchManager";
 export class Research extends Job implements IUnlockable, IBase {
   id: string;
   private originalName: string;
-  max = Number.MAX_SAFE_INTEGER;
+  max = 1; //Number.MAX_SAFE_INTEGER;
   unitsToUnlock?: IUnlockable[];
   researchToUnlock?: IUnlockable[];
   technologiesToUnlock?: IUnlockable[];
 
   quantity: Decimal;
   icon?: string;
+  resData: IResearchData;
+  navalCapacity: number = 0;
 
   constructor(researchData: IResearchData, researchManager: ResearchManager) {
     super();
+    this.resData = researchData;
     this.id = researchData.id;
     this.name = researchData.name;
     this.originalName = this.name;
@@ -42,12 +45,14 @@ export class Research extends Job implements IUnlockable, IBase {
         techId => researchManager.technologies.find(a => a.id === techId)
       );
     }
+    if ("navalCapacity" in researchData) {
+      this.navalCapacity = this.resData.navalCapacity;
+    }
     this.types = researchData.type.map(t =>
       researchManager.technologies.find(tec => tec.id === t.id)
     );
     this.reload();
   }
-
   reload(): void {
     super.reload();
     this.name =
@@ -57,7 +62,6 @@ export class Research extends Job implements IUnlockable, IBase {
         : "");
     this.quantity = new Decimal(this.level);
   }
-
   reloadUi() {
     super.reloadUi();
     const newTotalBonUi = this.totalBonus.minus(1).times(100);
@@ -67,23 +71,23 @@ export class Research extends Job implements IUnlockable, IBase {
     this.timeToEnd = solveEquation(
       ZERO,
       science.perSec2,
-      science.perSec,
+      Game.getGame().researchManager.researchPerSec,
       this.total
         .minus(this.progress)
         .times(-1)
         .div(this.totalBonus)
     )
-      .reduce((p, c) => p.min(c), new Decimal(Number.MAX_VALUE))
+      .reduce((p, c) => p.min(c), INFINITY)
       .toNumber();
   }
-
   onCompleted(force = false): void {
     super.onCompleted();
 
     if (this.level < 2 || force) {
+      const game = Game.getGame();
       if (this.unitsToUnlock) {
         this.unitsToUnlock.forEach(u => u.unlock());
-        Game.getGame().resourceManager.reloadLists();
+        game.resourceManager.reloadLists();
       }
       if (this.researchToUnlock) {
         this.researchToUnlock.forEach(u => u.unlock());
@@ -91,14 +95,13 @@ export class Research extends Job implements IUnlockable, IBase {
       if (this.technologiesToUnlock) {
         this.technologiesToUnlock.forEach(tech => tech.unlock());
       }
+      game.navalCapacity += this.navalCapacity;
     }
   }
-
   unlock(): boolean {
     const resM = Game.getGame().researchManager;
     return resM.unlock(this);
   }
-
   getIcons(): MyIcon[] {
     return this.types.map(t => {
       return {
@@ -107,7 +110,6 @@ export class Research extends Job implements IUnlockable, IBase {
       };
     });
   }
-
   //#region Save and Load
   getSave(): any {
     const ret: any = {};
