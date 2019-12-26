@@ -1,5 +1,6 @@
 export class FleetShips {
   shipsQuantity = 0;
+  wantedShips = 0;
   navalCapPercent = 50;
   navalCapPercentUi = 50;
 

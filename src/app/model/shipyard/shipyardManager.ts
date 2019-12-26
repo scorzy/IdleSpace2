@@ -104,14 +104,14 @@ export class ShipyardManager extends JobManager {
     if ("d" in data) {
       this.shipDesigns = data.d.map(d => {
         const design = new ShipDesign();
-        if (design.load(d)) {
-          if (design.id > this.maxId) {
-            this.maxId = design.id;
-          }
-        }
+        design.load(d);
         return design;
       });
     }
+    for (let i = 0, n = this.shipDesigns.length; i < n; i++) {
+      this.shipDesigns[i].id = i;
+    }
+    this.maxId = this.shipDesigns.length;
 
     // Remake list of most updated design
     this.shipDesigns.forEach(design => {

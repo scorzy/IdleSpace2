@@ -9,45 +9,43 @@
     fxFlex.lt-md="0 1 calc(50% - 10px)"
     fxFlex.lt-sm="100%"
   >
-    <h1>Fleet {{ fleetNum }}</h1>
+    <h1>Fleets</h1>
 
-    <ul
-      nzSize="small"
-      nz-list
-      nzBordered
-      cdkDropList
-      class="dark-background"
-      (cdkDropListDropped)="drop($event)"
-    >
-      <li
-        nz-list-item
-        cdkDrag
-        class="light-background"
-        fxLayout="column"
-        *ngFor="
-          let data of ms.game.shipyardManager.updatedShipDesigns;
-          trackBy: getDesignId
-        "
-      >
-        <div fxLayout="row" fxFlexFill>
-          <span fxFlex="33"
-            ><strong>{{ data.name }}</strong></span
-          >
-          <nz-input-number
-            fxFlex="20"
-            [(ngModel)]="data.fleets[fleetNum].navalCapPercentUi"
-            nzSize="small"
-            [nzMin]="0"
-            [nzMax]="100"
-            [nzStep]="1"
-          ></nz-input-number>
-        </div>
-      </li>
-    </ul>
+    <nz-table #basicTable nzTemplateMode>
+      <thead>
+        <tr>
+          <th>Design</th>
+          <th *ngFor="let name of fleetNames">{{ name }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="
+            let design of ms.game.shipyardManager.updatedShipDesigns;
+            trackBy: getDesignId
+          "
+        >
+          <td>{{ design.name }}</td>
+          <td *ngFor="let fleet of design.fleets">
+            <nz-input-number
+              nzSize="small"
+              [(ngModel)]="fleet.navalCapPercentUi"
+              [nzMin]="0"
+              [nzMax]="100"
+              [nzStep]="1"
+            ></nz-input-number>
+
+            <span class="monospace"
+              >{{ fleet.shipsQuantity | number: 0 }}
+            </span>
+            /
+            <span class="monospace">{{ fleet.wantedShips | number: 0 }} </span>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
   </div>
-  <div>
-    <h2>Result</h2>
-  </div>
+  <div></div>
 </div>
 
 <!-- nzVirtualForTrackBy="getDesignId" -->

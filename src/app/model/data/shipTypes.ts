@@ -14,7 +14,7 @@ export const SHIP_TYPES: ShipTypeData[] = [
   },
   {
     id: 2,
-    name: "Corvette"
+    name: "Frigate"
   },
   {
     id: 3,
@@ -31,5 +31,9 @@ export const SHIP_TYPES: ShipTypeData[] = [
   {
     id: 6,
     name: "Battleship"
+  },
+  {
+    id: 7,
+    name: "Dreadnought"
   }
 ];

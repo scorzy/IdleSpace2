@@ -1,4 +1,4 @@
-<nz-layout *ngIf="ms.game" class="app-layout">
+<nz-layout *ngIf="ms.game && ms.ready" class="app-layout" @fadeIn>
   <nz-sider
     class="menu-sidebar"
     nzCollapsible

@@ -10,11 +10,13 @@ import { Subscription } from "rxjs";
 import { NzNotificationService } from "ng-zorro-antd";
 import { ShipDesign } from "./model/shipyard/shipDesign";
 import { OptionsService } from "./options.service";
+import { fadeIn } from "./animations";
 
 @Component({
   selector: "app-root",
   templateUrl: "./app.component.html",
-  styleUrls: ["./app.component.scss"]
+  styleUrls: ["./app.component.scss"],
+  animations: [fadeIn]
 })
 export class AppComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];

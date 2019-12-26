@@ -18,7 +18,7 @@ const routes: Routes = [
   { path: "resPri", pathMatch: "full", component: ResearchPrioritiesComponent },
   { path: "opt", pathMatch: "full", component: OptionsComponent },
   { path: "save", pathMatch: "full", component: SaveComponent },
-  { path: "fleet/:id", pathMatch: "full", component: ShipyardComponent },
+  { path: "fleet", pathMatch: "full", component: ShipyardComponent },
   { path: "des", pathMatch: "full", redirectTo: "/des/add" },
   { path: "add", component: AddComponent },
   { path: "edit/:id", component: EditComponent }

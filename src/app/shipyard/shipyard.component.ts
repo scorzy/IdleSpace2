@@ -18,6 +18,7 @@ import { Subscription } from "rxjs";
 })
 export class ShipyardComponent implements OnInit {
   fleetNum = 0;
+  fleetNames = [];
   private subscriptions: Subscription[] = [];
 
   constructor(
@@ -27,6 +28,7 @@ export class ShipyardComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.fleetNames = ["Fleet 1", "Fleet 2", "Fleet 3", "Fleet 4", "Fleet 5"];
     this.subscriptions.push(
       this.ms.updateEmitter.subscribe(() => {
         this.cd.markForCheck();

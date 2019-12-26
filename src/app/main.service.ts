@@ -24,6 +24,7 @@ export class MainService {
     title?: string;
     text?: string;
   }>();
+  ready = false;
 
   constructor(
     private _formatPipe: FormatPipe,
@@ -76,6 +77,8 @@ export class MainService {
     const dataSave = localStorage.getItem(SAVE_ID);
     if (dataSave) this.loadFromLocalStorage(true);
     else this.game = new Game();
+    this.setTheme();
+    this.ready = true;
   }
   static formatPipe: FormatPipe;
 

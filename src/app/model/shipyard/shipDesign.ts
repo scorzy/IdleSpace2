@@ -7,7 +7,7 @@ import { FleetShips } from "./fleetShips";
 
 const PRICE_GROW_RATE = 0.3;
 const SIZE_MULTI = 0.25;
-export const FLEET_NUMBER = 10;
+export const FLEET_NUMBER = 5;
 
 export class ShipDesign {
   id: number;
@@ -118,7 +118,7 @@ export class ShipDesign {
     };
   }
   load(data: any) {
-    this.fleets = new Array<FleetShips>(10);
+    this.fleets = new Array<FleetShips>(FLEET_NUMBER);
     for (let i = 0; i < FLEET_NUMBER; i++) {
       this.fleets[i] = new FleetShips();
     }
