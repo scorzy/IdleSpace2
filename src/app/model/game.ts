@@ -1,6 +1,7 @@
 import { ResourceManager } from "./units/resourceManager";
 import { ResearchManager } from "./researches/researchManager";
 import { ShipyardManager } from "./shipyard/shipyardManager";
+import { BASE_NAVAL_CAPACITY } from "./CONSTANTS";
 
 /**
  * Game is the main class that orchestrate everything game related
@@ -15,7 +16,7 @@ export class Game {
   researchManager: ResearchManager;
   shipyardManager: ShipyardManager;
 
-  navalCapacity: number;
+  navalCapacity: number = BASE_NAVAL_CAPACITY;
   updateNavalCapacity = true;
 
   /**
@@ -74,12 +75,13 @@ export class Game {
     this.shipyardManager.postUpdate();
   }
   reloadNavalCapacity() {
-    this.navalCapacity = 0;
+    this.navalCapacity = BASE_NAVAL_CAPACITY;
     for (let i = 0, n = this.researchManager.done.length; i < n; i++) {
       this.navalCapacity += this.researchManager.done[i].navalCapacity;
     }
     this.navalCapacity += this.researchManager.navalCapTech.quantity.toNumber();
     this.navalCapacity = Math.floor(this.navalCapacity);
+    this.shipyardManager.reloadFleetCapacity();
   }
 
   //#region Save and Load

@@ -10,6 +10,7 @@ import { IResearchData } from "../data/iResearchData";
 
 const SHIP_BASE_PRICE = 1e3;
 const SHIP_PRICE_MULTI = 1e3;
+const SHIP_RESEARCH_NAV_CAP_MULTI = 5;
 
 export class ResearchManager extends JobManager {
   researches: Research[];
@@ -57,6 +58,8 @@ export class ResearchManager extends JobManager {
         price: Decimal.pow(SHIP_PRICE_MULTI, i).times(SHIP_BASE_PRICE),
         type: [TECHNOLOGIES.Engineering]
       };
+      resData.navalCapacity =
+        shipyard.shipTypes[i].navalCapacity * SHIP_RESEARCH_NAV_CAP_MULTI;
       if (i + 1 < n) {
         resData.researchToUnlock = ["s" + (i + 1)];
       }

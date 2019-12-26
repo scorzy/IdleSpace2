@@ -5,7 +5,7 @@ import {
   ChangeDetectorRef
 } from "@angular/core";
 import { MainService } from "../main.service";
-import { ShipDesign, FLEET_NUMBER } from "../model/shipyard/shipDesign";
+import { ShipDesign } from "../model/shipyard/shipDesign";
 import { CdkDragDrop, moveItemInArray } from "@angular/cdk/drag-drop";
 import { ActivatedRoute } from "@angular/router";
 import { Subscription } from "rxjs";
@@ -31,6 +31,7 @@ export class ShipyardComponent implements OnInit {
     this.fleetNames = ["Fleet 1", "Fleet 2", "Fleet 3", "Fleet 4", "Fleet 5"];
     this.subscriptions.push(
       this.ms.updateEmitter.subscribe(() => {
+        this.ms.game.reloadNavalCapacity();
         this.cd.markForCheck();
       }),
       this.route.paramMap.subscribe(paramMap =>
@@ -52,6 +53,13 @@ export class ShipyardComponent implements OnInit {
     return design.id;
   }
   getNameId(index: number, name: string) {
-    return index;
+    return index + name;
+  }
+  confirm() {
+    this.ms.game.shipyardManager.shipDesigns.forEach(des => {
+      des.fleets.forEach(fl => {
+        fl.navalCapPercent = fl.navalCapPercentUi;
+      });
+    });
   }
 }

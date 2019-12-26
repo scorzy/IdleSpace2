@@ -9,8 +9,7 @@ export interface ShipTypeData {
 export const SHIP_TYPES: ShipTypeData[] = [
   {
     id: 1,
-    name: "Corvette",
-    navalCapacity: 1
+    name: "Corvette"
   },
   {
     id: 2,

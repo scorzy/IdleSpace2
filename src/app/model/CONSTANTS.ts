@@ -4,3 +4,8 @@ export const RESEARCH_GROW_RATE = 1.1;
 export const ZERO = new Decimal(0);
 export const ONE = new Decimal(1);
 export const INFINITY = new Decimal(Number.POSITIVE_INFINITY);
+
+export const BASE_NAVAL_CAPACITY = 100;
+export const FLEET_NUMBER = 5;
+export const FLEET_CAPACITY = 5e3;
+export const FLEET_CAPACITY_MULTI = 10;

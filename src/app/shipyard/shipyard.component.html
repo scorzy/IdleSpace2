@@ -15,7 +15,9 @@
       <thead>
         <tr>
           <th>Design</th>
-          <th *ngFor="let name of fleetNames">{{ name }}</th>
+          <th *ngFor="let name of fleetNames; trackBy: getNameId">
+            {{ name }}
+          </th>
         </tr>
       </thead>
       <tbody>
@@ -44,6 +46,8 @@
         </tr>
       </tbody>
     </nz-table>
+
+    <button nz-button nzType="primary" (click)="confirm()">Confirm</button>
   </div>
   <div></div>
 </div>

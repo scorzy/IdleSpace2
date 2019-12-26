@@ -1,4 +1,4 @@
-import { ZERO, ONE } from "../CONSTANTS";
+import { ZERO, ONE, FLEET_NUMBER } from "../CONSTANTS";
 import { Module } from "./module";
 import { Game } from "../game";
 import { ShipType } from "./ShipType";
@@ -7,7 +7,6 @@ import { FleetShips } from "./fleetShips";
 
 const PRICE_GROW_RATE = 0.3;
 const SIZE_MULTI = 0.25;
-export const FLEET_NUMBER = 5;
 
 export class ShipDesign {
   id: number;
@@ -36,7 +35,7 @@ export class ShipDesign {
   }>();
 
   constructor() {
-    this.fleets = new Array<FleetShips>(10);
+    this.fleets = new Array<FleetShips>(FLEET_NUMBER);
     for (let i = 0; i < FLEET_NUMBER; i++) {
       this.fleets[i] = new FleetShips();
     }

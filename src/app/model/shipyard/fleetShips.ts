@@ -4,6 +4,7 @@ export class FleetShips {
   navalCapPercent = 50;
   navalCapPercentUi = 50;
 
+  //#region Save and Load
   getData(): any {
     return {
       s: this.shipsQuantity,
@@ -15,4 +16,5 @@ export class FleetShips {
     if ("n" in data) this.navalCapPercent = data.n;
     this.navalCapPercentUi = this.navalCapPercent;
   }
+  //#endregion
 }
