@@ -26,7 +26,7 @@ export class Production {
         this.product.prodBy.totalBonus
       );
       if (this.ratio.gt(0)) {
-        totalBonus = totalBonus.times(this.producer.prodEfficiety.totalBonus);
+        totalBonus = totalBonus.times(this.producer.prodEfficiency.totalBonus);
       }
       this.prodPerSec = this.ratio
         .times(this.producer.operativity / 100)

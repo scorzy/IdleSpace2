@@ -62,4 +62,7 @@ export class ShipyardComponent implements OnInit {
       });
     });
   }
+  reinforce() {
+    this.ms.game.shipyardManager.reinforce();
+  }
 }

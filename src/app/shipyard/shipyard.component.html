@@ -5,7 +5,7 @@
   fxLayoutGap="10px"
 >
   <div
-    fxFlex="0 1 calc(30% - 10px)"
+    fxFlex="0 1 calc(50% - 10px)"
     fxFlex.lt-md="0 1 calc(50% - 10px)"
     fxFlex.lt-sm="100%"
   >
@@ -48,8 +48,31 @@
     </nz-table>
 
     <button nz-button nzType="primary" (click)="confirm()">Confirm</button>
+    <button nz-button nzType="secondary" (click)="reinforce()">
+      Reinforce
+    </button>
   </div>
-  <div></div>
+  <div
+    fxFlex="0 1 calc(30% - 10px)"
+    fxFlex.lt-md="0 1 calc(40% - 10px)"
+    fxFlex.lt-sm="100%"
+  >
+    <h1>Jobs</h1>
+    <div
+      cdkDropList
+      #todoList="cdkDropList"
+      [cdkDropListData]="ms.game.shipyardManager.toDo"
+      class="job-list"
+      (cdkDropListDropped)="drop($event)"
+    >
+      <app-job
+        cdkDrag
+        class="job-box"
+        *ngFor="let resToDo of ms.game.shipyardManager.toDo"
+        [job]="resToDo"
+      ></app-job>
+    </div>
+  </div>
 </div>
 
 <!-- nzVirtualForTrackBy="getDesignId" -->

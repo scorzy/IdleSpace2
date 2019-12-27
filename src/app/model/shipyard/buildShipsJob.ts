@@ -1,10 +1,20 @@
 import { Job } from "../job/job";
-import { ZERO } from "../CONSTANTS";
 import { ShipDesign } from "./shipDesign";
 import { Game } from "../game";
 
 export class BuildShipsJob extends Job {
   built = 0;
+
+  public get name() {
+    return this.design.name;
+  }
+  public set name(_name: string) {}
+  public get description() {
+    return (
+      "Fleet " + this.fleetNum + " Ships: " + this.built + " / " + this.quantity
+    );
+  }
+  public set description(_description: string) {}
 
   constructor(
     public quantity: number,
@@ -20,9 +30,9 @@ export class BuildShipsJob extends Job {
     const totalShip =
       this.level > 0
         ? this.quantity
-        : this.total
+        : this.progress
             .times(this.quantity)
-            .div(this.progress)
+            .div(this.total)
             .floor()
             .toNumber();
     if (totalShip > this.built) {

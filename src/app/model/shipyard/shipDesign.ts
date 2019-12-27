@@ -1,4 +1,10 @@
-import { ZERO, ONE, FLEET_NUMBER } from "../CONSTANTS";
+import {
+  ZERO,
+  ONE,
+  FLEET_NUMBER,
+  BASE_ARMOUR,
+  BASE_SHIP_PRICE
+} from "../CONSTANTS";
 import { Module } from "./module";
 import { Game } from "../game";
 import { ShipType } from "./ShipType";
@@ -41,10 +47,10 @@ export class ShipDesign {
     }
   }
   reload(errorCheck = false) {
-    this.totalArmour = 0;
+    this.totalArmour = BASE_ARMOUR * (this.type.id + 1);
     this.totalShield = 0;
     this.totalDamage = 0;
-    this.price = ZERO;
+    this.price = new Decimal(BASE_SHIP_PRICE * (this.type.id + 1));
     this.totalPoints = 0;
     this.energy = 0;
     this.modules

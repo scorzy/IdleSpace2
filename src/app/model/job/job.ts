@@ -43,6 +43,12 @@ export abstract class Job {
     }
     return ret;
   }
+  getRemaining(): Decimal {
+    return this.total
+      .minus(this.progress)
+      .div(this.totalBonus)
+      .max(0);
+  }
   onCompleted() {}
   reload() {
     if (this.max > 1 || !this.total) {

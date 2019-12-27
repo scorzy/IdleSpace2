@@ -1,7 +1,7 @@
 import { ResourceManager } from "./units/resourceManager";
 import { ResearchManager } from "./researches/researchManager";
 import { ShipyardManager } from "./shipyard/shipyardManager";
-import { BASE_NAVAL_CAPACITY } from "./CONSTANTS";
+import { BASE_NAVAL_CAPACITY, ZERO } from "./CONSTANTS";
 
 /**
  * Game is the main class that orchestrate everything game related
@@ -48,6 +48,7 @@ export class Game {
     let toUpdate = delta;
 
     while (toUpdate > 0) {
+      this.resourceManager.shipyardWord.limit = this.shipyardManager.getWorkNeeded();
       this.resourceManager.reloadProduction();
       const maxUp = Math.min(toUpdate, this.resourceManager.maxTime);
       if (maxUp > 0) {
@@ -57,6 +58,10 @@ export class Game {
       if (toUpdate > 0) {
         this.resourceManager.stopResources();
       }
+      this.shipyardManager.addProgress(
+        this.resourceManager.shipyardWord.quantity
+      );
+      this.resourceManager.shipyardWord.quantity = ZERO;
     }
   }
   postUpdate() {

@@ -28,6 +28,8 @@ export class ResourceManager {
   scientist: Unit;
   worker: Unit;
 
+  shipyardWord: Unit;
+
   constructor() {
     this.makeUnits();
   }
@@ -36,6 +38,7 @@ export class ResourceManager {
     this.units = new Array<Unit>();
     //  Initialize Units
     this.units = UNITS.map(unitData => new Unit(unitData));
+    this.shipyardWord = this.units.find(u => u.id === "W");
     this.materials = this.units.filter(
       u =>
         u.id === "F" ||
@@ -119,17 +122,22 @@ export class ResourceManager {
 
       this.unlockedUnits[i].prodAllBonus.reloadBonus();
       this.unlockedUnits[i].prodBy.reloadBonus();
-      this.unlockedUnits[i].prodEfficiety.reloadBonus();
+      this.unlockedUnits[i].prodEfficiency.reloadBonus();
     }
 
     //  Bonus and operativity
     for (let i = 0, n = this.unlockedUnits.length; i < n; i++) {
+      const isLimited =
+        this.unlockedUnits[i].production.findIndex(pro =>
+          pro.product.limit.lte(Number.EPSILON)
+        ) > -1;
       for (
         let k = 0, n2 = this.unlockedUnits[i].production.length;
         k < n2;
         k++
       ) {
-        this.unlockedUnits[i].production[k].reload();
+        if (!isLimited) this.unlockedUnits[i].production[k].reload();
+        else this.unlockedUnits[i].production[k].prodPerSec = ZERO;
       }
     }
 
@@ -147,22 +155,22 @@ export class ResourceManager {
         );
 
         // x^2
-        for (
-          let i3 = 0,
-            n3 = this.unlockedUnits[i].makers[i2].producer.makers.length;
-          i3 < n3;
-          i3++
-        ) {
-          const prod2X = this.unlockedUnits[i].makers[i2].producer.makers[
-            i3
-          ].prodPerSec.times(prodX);
-          this.unlockedUnits[i].perSec2 = this.unlockedUnits[i].perSec2.plus(
-            prod2X.times(
-              this.unlockedUnits[i].makers[i2].producer.makers[i3].producer
-                .quantity
-            )
-          );
-        }
+        // for (
+        //   let i3 = 0,
+        //     n3 = this.unlockedUnits[i].makers[i2].producer.makers.length;
+        //   i3 < n3;
+        //   i3++
+        // ) {
+        //   const prod2X = this.unlockedUnits[i].makers[i2].producer.makers[
+        //     i3
+        //   ].prodPerSec.times(prodX);
+        //   this.unlockedUnits[i].perSec2 = this.unlockedUnits[i].perSec2.plus(
+        //     prod2X.times(
+        //       this.unlockedUnits[i].makers[i2].producer.makers[i3].producer
+        //         .quantity
+        //     )
+        //   );
+        // }
       }
 
       this.unlockedUnits[i].perSec2 = this.unlockedUnits[i].perSec2.div(2);

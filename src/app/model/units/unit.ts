@@ -20,7 +20,7 @@ export class Unit implements IBase, IUnlockable {
   makers = new Array<Production>();
 
   prodAllBonus = new BonusStack();
-  prodEfficiety = new BonusStack();
+  prodEfficiency = new BonusStack();
   prodBy = new BonusStack();
 
   buyPrice = new MultiPrice();
@@ -28,6 +28,7 @@ export class Unit implements IBase, IUnlockable {
 
   endIn = Number.POSITIVE_INFINITY;
   isEnding = false;
+  limit = Decimal.MAX_VALUE;
 
   constructor(unitData: IUnitData) {
     this.id = unitData.id;

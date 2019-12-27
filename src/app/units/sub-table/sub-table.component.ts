@@ -58,7 +58,7 @@ export class SubTableComponent implements OnInit {
     });
 
     ret = ret.concat(
-      prod.producer.prodEfficiety.bonuses
+      prod.producer.prodEfficiency.bonuses
         .concat(prod.producer.prodAllBonus.bonuses)
         .concat(prod.product.prodBy.bonuses)
         .map(bonus => {

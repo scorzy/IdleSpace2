@@ -5,7 +5,9 @@ import { SHIP_TYPES } from "../data/shipTypes";
 import { modules } from "../data/modulesData";
 import { JobManager } from "../job/jobManager";
 import { Game } from "../game";
-import { FLEET_CAPACITY_MULTI, FLEET_NUMBER } from "../CONSTANTS";
+import { FLEET_CAPACITY_MULTI, FLEET_NUMBER, ZERO } from "../CONSTANTS";
+import { BuildShipsJob } from "./buildShipsJob";
+import { Job } from "../job/job";
 
 const MAX_DESIGN = 20;
 
@@ -22,6 +24,7 @@ export class ShipyardManager extends JobManager {
   generators = new Array<Module>();
   others = new Array<Module>();
   groups: { name: string; list: Array<Module> }[];
+  toDo = new Array<Job>();
 
   init() {
     this.shipTypes = SHIP_TYPES.map(s => new ShipType(s));
@@ -56,6 +59,9 @@ export class ShipyardManager extends JobManager {
       }
     }
     if (unlocked) this.reloadLists();
+    for (let i = 0, n = this.toDo.length; i < n; i++) {
+      this.toDo[i].reload();
+    }
   }
   reloadLists() {
     this.weapons = this.modules.filter(mod => mod.unlocked && mod.damage > 0);
@@ -131,6 +137,39 @@ export class ShipyardManager extends JobManager {
         }
       }
     }
+  }
+  reinforce() {
+    for (let i = 0; i < FLEET_NUMBER; i++) {
+      for (let k = 0, n = this.shipDesigns.length; k < n; k++) {
+        this.shipDesigns[k].fleets[i].shipsQuantity = Math.min(
+          this.shipDesigns[k].fleets[i].shipsQuantity,
+          this.shipDesigns[k].fleets[i].wantedShips
+        );
+        let toBuild =
+          this.shipDesigns[k].fleets[i].wantedShips -
+          this.shipDesigns[k].fleets[i].shipsQuantity;
+        for (let h = 0, l = this.toDo.length; h < l; h++) {
+          const job = this.toDo[h];
+          if (
+            job instanceof BuildShipsJob &&
+            job.fleetNum === i &&
+            job.design === this.shipDesigns[k]
+          ) {
+            toBuild -= job.quantity - job.built;
+          }
+        }
+        if (toBuild > 0) {
+          this.toDo.push(new BuildShipsJob(toBuild, this.shipDesigns[k], i));
+        }
+      }
+    }
+  }
+  getWorkNeeded(): Decimal {
+    let work = ZERO;
+    for (let i = 0, n = this.toDo.length; i < n; i++) {
+      work = work.plus(this.toDo[i].getRemaining());
+    }
+    return work;
   }
 
   //#region Save and Load

@@ -9,3 +9,6 @@ export const BASE_NAVAL_CAPACITY = 100;
 export const FLEET_NUMBER = 5;
 export const FLEET_CAPACITY = 5e3;
 export const FLEET_CAPACITY_MULTI = 10;
+
+export const BASE_ARMOUR = 50;
+export const BASE_SHIP_PRICE = 50;
