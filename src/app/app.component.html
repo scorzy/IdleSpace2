@@ -7,7 +7,7 @@
     [(nzCollapsed)]="ms.isCollapsed"
     [nzTheme]="ms.sideTheme"
   >
-    <app-side-menu></app-side-menu>
+    <app-side-menu [isCollapsed]="ms.isCollapsed"></app-side-menu>
   </nz-sider>
   <nz-layout>
     <nz-header>
@@ -55,7 +55,10 @@
   (nzOnClose)="close()"
   [nzBodyStyle]="{ padding: 0 }"
 >
-  <app-side-menu [notCollapsed]="true"></app-side-menu>
+  <app-side-menu
+    [notCollapsed]="true"
+    [isCollapsed]="ms.isCollapsed"
+  ></app-side-menu>
 </nz-drawer>
 
 <!-- Custom Notifications -->

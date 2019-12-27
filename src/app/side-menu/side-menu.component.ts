@@ -13,9 +13,11 @@ import { OptionsService } from "../options.service";
   selector: "app-side-menu",
   templateUrl: "./side-menu.component.html",
   styleUrls: ["./side-menu.component.scss"],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [fadeIn]
 })
 export class SideMenuComponent implements OnInit {
+  @Input() isCollapsed = false;
   @Input() notCollapsed = false;
 
   constructor(public ms: MainService, public os: OptionsService) {}

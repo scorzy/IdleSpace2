@@ -3,7 +3,9 @@ import {
   OnInit,
   OnDestroy,
   ViewChild,
-  TemplateRef
+  TemplateRef,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef
 } from "@angular/core";
 import { MainService } from "./main.service";
 import { Subscription } from "rxjs";
@@ -16,6 +18,7 @@ import { fadeIn } from "./animations";
   selector: "app-root",
   templateUrl: "./app.component.html",
   styleUrls: ["./app.component.scss"],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [fadeIn]
 })
 export class AppComponent implements OnInit, OnDestroy {
@@ -32,7 +35,8 @@ export class AppComponent implements OnInit, OnDestroy {
   constructor(
     public ms: MainService,
     public os: OptionsService,
-    private notification: NzNotificationService
+    private notification: NzNotificationService,
+    private cd: ChangeDetectorRef
   ) {}
 
   open(): void {
@@ -45,6 +49,9 @@ export class AppComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.subscriptions.push(
+      this.ms.updateEmitter.subscribe(() => {
+        this.cd.markForCheck();
+      }),
       this.ms.notificationEmitter.subscribe(n => {
         let template = this.saveNoti;
         switch (n.type) {

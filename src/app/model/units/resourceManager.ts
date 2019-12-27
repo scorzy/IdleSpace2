@@ -21,7 +21,6 @@ export class ResourceManager {
 
   //  Units
   science: Unit;
-  farmer: Unit;
   technician: Unit;
   miner: Unit;
   metallurgist: Unit;
@@ -41,7 +40,6 @@ export class ResourceManager {
     this.shipyardWord = this.units.find(u => u.id === "W");
     this.materials = this.units.filter(
       u =>
-        u.id === "F" ||
         u.id === "E" ||
         u.id === "M" ||
         u.id === "A" ||
@@ -50,7 +48,6 @@ export class ResourceManager {
     );
 
     this.science = this.units.find(u => u.id === "S");
-    this.farmer = this.units.find(u => u.id === "f");
     this.technician = this.units.find(u => u.id === "e");
     this.miner = this.units.find(u => u.id === "m");
     this.metallurgist = this.units.find(u => u.id === "a");
@@ -86,7 +83,6 @@ export class ResourceManager {
 
     this.workers = this.units.filter(
       u =>
-        u.id === "f" ||
         u.id === "e" ||
         u.id === "m" ||
         u.id === "e" ||

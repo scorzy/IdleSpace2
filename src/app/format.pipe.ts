@@ -15,13 +15,13 @@ export class FormatPipe implements PipeTransform {
   }
 
   transform(value1: any, integer?: boolean): any {
-    const value = new Decimal(value1);
+    if (!(value1 instanceof Decimal)) value1 = new Decimal(value1);
     // console.log(value);
 
     let index = "";
     const formatter = this.options.formatter;
     index =
-      value.toString() +
+      value1.toString() +
       !!integer +
       this.options.usaFormat +
       formatter.opts.flavor +
@@ -33,8 +33,8 @@ export class FormatPipe implements PipeTransform {
     }
 
     let str = "";
-    if (value.abs().lt(100000)) {
-      let num = value.abs().toNumber();
+    if (value1.abs().lt(100000)) {
+      let num = value1.abs().toNumber();
       const digits =
         integer || num >= 100
           ? 0
@@ -54,7 +54,7 @@ export class FormatPipe implements PipeTransform {
         maximumFractionDigits: digits
       });
     } else {
-      str = formatter.formatShort(value.abs());
+      str = formatter.formatShort(value1.abs());
       if (integer) {
         str = str.replace(/\.0+$/, "");
       }
@@ -63,7 +63,7 @@ export class FormatPipe implements PipeTransform {
       }
     }
 
-    const ret = (value.lt(0) ? "-" : "") + str;
+    const ret = (value1.lt(0) ? "-" : "") + str;
 
     if (index !== "") {
       FormatPipe.map.set(index, ret);

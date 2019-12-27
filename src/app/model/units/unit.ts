@@ -114,11 +114,7 @@ export class Unit implements IBase, IUnlockable {
       case "f":
       case "e":
       case "m":
-        if (
-          rs.farmer.quantity.gte(3) &&
-          rs.miner.quantity.gte(3) &&
-          rs.technician.quantity.gte(3)
-        ) {
+        if (rs.miner.quantity.gte(3) && rs.technician.quantity.gte(3)) {
           rs.scientist.unlock();
           rs.science.unlock();
           rs.reloadLists();

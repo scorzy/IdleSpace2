@@ -3,12 +3,12 @@ import { IUnitData } from "./iUnitData";
 export const UNITS: IUnitData[] = [
   //#region Materials
   {
-    id: "F",
-    name: "Food",
-    icon: "my:shiny-apple",
-    description: "Food is used to sustain your biological units",
+    id: "M",
+    name: "Metal",
+    icon: "my:asteroid",
+    description: "",
     startQuantity: 100,
-    color: "#389E0D"
+    color: "#CF1322"
   },
   {
     id: "E",
@@ -18,14 +18,7 @@ export const UNITS: IUnitData[] = [
     startQuantity: 100,
     color: "#FADB14"
   },
-  {
-    id: "M",
-    name: "Metal",
-    icon: "my:asteroid",
-    description: "",
-    startQuantity: 100,
-    color: "#CF1322"
-  },
+
   {
     id: "A",
     name: "Alloy",
@@ -50,41 +43,23 @@ export const UNITS: IUnitData[] = [
   //#endregion
   //#region Workers
   {
-    id: "f",
-    name: "Farmer",
-    description: "",
-    startQuantity: 1,
-    production: [
-      ["F", 4],
-      ["E", -1]
-    ],
-    prices: [["F", 10]]
-  },
-  {
-    id: "e",
-    name: "Technician",
-    description: "",
-    startQuantity: 1,
-    production: [
-      ["F", -1],
-      ["E", 4]
-    ],
-    prices: [
-      ["F", 10],
-      ["M", 10]
-    ]
-  },
-  {
     id: "m",
     name: "Miner",
     description: "",
     startQuantity: 1,
     production: [
       ["M", 4],
-      ["F", -1],
       ["E", -1]
     ],
-    prices: [["F", 10]]
+    prices: [["M", 10]]
+  },
+  {
+    id: "e",
+    name: "Technician",
+    description: "",
+    startQuantity: 1,
+    production: [["E", 4]],
+    prices: [["M", 10]]
   },
   {
     id: "s",
@@ -92,11 +67,11 @@ export const UNITS: IUnitData[] = [
     description: "",
     production: [
       ["S", 1],
-      ["F", -5],
+
       ["M", -5],
       ["E", -2]
     ],
-    prices: [["F", 10]]
+    prices: [["M", 10]]
   },
   {
     id: "a",
@@ -107,10 +82,7 @@ export const UNITS: IUnitData[] = [
       ["M", -5],
       ["E", -2]
     ],
-    prices: [
-      ["F", 10],
-      ["M", 10]
-    ]
+    prices: [["M", 10]]
   },
   {
     id: "w",
@@ -122,7 +94,6 @@ export const UNITS: IUnitData[] = [
       ["E", -2]
     ],
     prices: [
-      ["F", 10],
       ["M", 10],
       ["A", 10]
     ]

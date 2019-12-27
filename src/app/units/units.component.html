@@ -22,18 +22,6 @@
       <ul>
         <li>
           <span
-            *ngIf="ms.game.resourceManager.farmer.quantity.gte(3); else x"
-            @fadeIn
-            nz-text
-            class="text-success"
-            nzType="success"
-          >
-            <i nz-icon nzType="check" nzTheme="outline"></i
-          ></span>
-          3 Farmes
-        </li>
-        <li>
-          <span
             *ngIf="ms.game.resourceManager.technician.quantity.gte(3); else x"
             @fadeIn
             nz-text

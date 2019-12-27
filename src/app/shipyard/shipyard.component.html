@@ -38,10 +38,12 @@
             ></nz-input-number>
 
             <span class="monospace"
-              >{{ fleet.shipsQuantity | number: 0 }}
+              >{{ fleet.shipsQuantity | number: "0" }}
             </span>
             /
-            <span class="monospace">{{ fleet.wantedShips | number: 0 }} </span>
+            <span class="monospace"
+              >{{ fleet.wantedShips | number: "0" }}
+            </span>
           </td>
         </tr>
       </tbody>

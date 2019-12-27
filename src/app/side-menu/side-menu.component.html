@@ -5,14 +5,14 @@
     nzTheme="outline"
     [class.text-dark]="os.darkSide"
   ></i>
-  <h1 [class.text-dark]="os.darkSide">Idle Ant 3</h1>
+  <h1 [class.text-dark]="os.darkSide">Idle Space 2</h1>
 </div>
 
 <ul
   nz-menu
   [nzTheme]="ms.sideTheme"
   nzMode="inline"
-  [nzInlineCollapsed]="ms.isCollapsed && !notCollapsed"
+  [nzInlineCollapsed]="isCollapsed && !notCollapsed"
 >
   <li nz-submenu nzOpen nzTitle="Units" nzIcon="dashboard">
     <ul>
@@ -107,7 +107,7 @@
         "
       >
         <a [routerLink]="'/edit/' + design.id">
-          <span *ngIf="ms.isCollapsed; else allName">{{
+          <span *ngIf="isCollapsed; else allName">{{
             design.name.substring(0, 3)
           }}</span>
           <ng-template #allName
