@@ -46,10 +46,12 @@ export class BuildShipsJob extends Job {
   //#region Save and Load
   getSave(): any {
     return {
+      t: "b",
       d: this.design.id,
       p: this.progress,
       b: this.built,
-      n: this.fleetNum
+      n: this.fleetNum,
+      q: this.quantity
     };
   }
   load(data: any) {

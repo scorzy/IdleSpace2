@@ -1,4 +1,5 @@
 export class FleetShips {
+  outdated = 0;
   shipsQuantity = 0;
   wantedShips = 0;
   navalCapPercent = 50;

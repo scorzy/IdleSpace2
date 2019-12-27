@@ -4,11 +4,7 @@
   fxLayoutAlign="flex-start"
   fxLayoutGap="10px"
 >
-  <div
-    fxFlex="0 1 calc(50% - 10px)"
-    fxFlex.lt-md="0 1 calc(50% - 10px)"
-    fxFlex.lt-sm="100%"
-  >
+  <div fxFlex.lt-sm="100%" fxFlex="0 1 calc(55% - 10px)">
     <h1>Fleets</h1>
 
     <nz-table #basicTable nzTemplateMode>
@@ -36,28 +32,36 @@
               [nzMax]="100"
               [nzStep]="1"
             ></nz-input-number>
-
-            <span class="monospace"
-              >{{ fleet.shipsQuantity | number: "0" }}
-            </span>
-            /
-            <span class="monospace"
-              >{{ fleet.wantedShips | number: "0" }}
-            </span>
+            <div>
+              <span class="monospace"
+                >{{ fleet.shipsQuantity | number: "1.0-0" }}(<span
+                  [class.error-text]="fleet.outdated > 0"
+                  >{{ fleet.outdated | number: "1.0-0" }}</span
+                >)</span
+              >
+              /
+              <span class="monospace"
+                >{{ fleet.wantedShips | number: "1.0-0" }}
+              </span>
+            </div>
           </td>
         </tr>
       </tbody>
     </nz-table>
 
-    <button nz-button nzType="primary" (click)="confirm()">Confirm</button>
-    <button nz-button nzType="secondary" (click)="reinforce()">
-      Reinforce
-    </button>
+    <br />
+    <nz-button-group>
+      <button nz-button nzType="primary" (click)="confirm()">Confirm</button>
+      <button nz-button nzType="secondary" (click)="reinforce()">
+        Reinforce
+      </button>
+    </nz-button-group>
   </div>
   <div
-    fxFlex="0 1 calc(30% - 10px)"
-    fxFlex.lt-md="0 1 calc(40% - 10px)"
-    fxFlex.lt-sm="100%"
+    fxFlex.lt-md="100%"
+    fxFlex.md="0 1 calc(40% - 10px)"
+    fxFlex.lg="0 1 calc(35% - 10px)"
+    fxFlex.xl="0 1 calc(30% - 10px)"
   >
     <h1>Jobs</h1>
     <div

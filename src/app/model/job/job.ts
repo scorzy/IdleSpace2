@@ -71,4 +71,5 @@ export abstract class Job {
       .reduce((p, c) => p.times(c), ONE);
     if (!newBonus.eq(this.total)) this.totalBonus = newBonus;
   }
+  abstract getSave(): any;
 }

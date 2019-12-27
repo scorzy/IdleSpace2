@@ -14,7 +14,6 @@ const MAX_DESIGN = 20;
 export class ShipyardManager extends JobManager {
   shipDesigns = new Array<ShipDesign>();
   updatedShipDesigns = new Array<ShipDesign>();
-  private maxId = 0;
   modules = new Array<Module>();
   shipTypes = new Array<ShipType>();
   fleetsCapacity = new Array<number>(FLEET_NUMBER);
@@ -37,8 +36,13 @@ export class ShipyardManager extends JobManager {
     if (!shipType) return -1;
 
     const shipDesign = new ShipDesign();
-    shipDesign.id = this.maxId;
-    this.maxId++;
+    shipDesign.id = 0;
+    for (let i = 0, n = this.shipDesigns.length; i < n; i++) {
+      if (this.shipDesigns[i].id >= shipDesign.id) {
+        shipDesign.id = this.shipDesigns[i].id + 1;
+      }
+    }
+
     shipDesign.name = name;
     shipDesign.type = shipType;
     this.shipDesigns.push(shipDesign);
@@ -175,7 +179,8 @@ export class ShipyardManager extends JobManager {
   //#region Save and Load
   getSave(): any {
     return {
-      d: this.shipDesigns.map(des => des.getSave())
+      d: this.shipDesigns.map(des => des.getSave()),
+      t: this.toDo.map(j => j.getSave())
     };
   }
   load(data: any) {
@@ -186,10 +191,6 @@ export class ShipyardManager extends JobManager {
         return design;
       });
     }
-    for (let i = 0, n = this.shipDesigns.length; i < n; i++) {
-      this.shipDesigns[i].id = i;
-    }
-    this.maxId = this.shipDesigns.length;
 
     // Remake list of most updated design
     this.shipDesigns.forEach(design => {
@@ -204,6 +205,17 @@ export class ShipyardManager extends JobManager {
         this.updatedShipDesigns.push(mostUp);
       }
     });
+
+    if ("t" in data) {
+      for (let i = 0, n = data.t.length; i < n; i++) {
+        if ("t" in data.t[i] && data.t[i].t === "b") {
+          const design = this.shipDesigns.find(d => d.id === data.t[i].d);
+          const buildJob = new BuildShipsJob(data.t[i].q, design, data.t[i].n);
+          buildJob.load(data.t[i]);
+          this.toDo.push(buildJob);
+        }
+      }
+    }
   }
   //#endregion
 }
