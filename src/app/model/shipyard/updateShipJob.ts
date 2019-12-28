@@ -64,10 +64,12 @@ export class UpdateShipJob extends Job {
     return ret;
   }
   onCompleted() {
-    for (let i = 0, n = this.design.fleets.length; i < n; i++) {
-      this.design.fleets[i].shipsQuantity += this.design.old.fleets[
-        i
-      ].shipsQuantity;
+    if (this.design.old) {
+      for (let i = 0, n = this.design.fleets.length; i < n; i++) {
+        this.design.fleets[i].shipsQuantity += this.design.old.fleets[
+          i
+        ].shipsQuantity;
+      }
     }
     this.design.old = null;
   }

@@ -8,7 +8,7 @@ import {
 } from "@angular/core";
 import { ShipDesign } from "src/app/model/shipyard/shipDesign";
 import { MainService } from "src/app/main.service";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { Subscription } from "rxjs";
 import { ONE } from "src/app/model/CONSTANTS";
 import { Module } from "src/app/model/shipyard/module";
@@ -42,7 +42,8 @@ export class EditComponent implements OnInit, OnDestroy {
     public ms: MainService,
     public os: OptionsService,
     private cd: ChangeDetectorRef,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -196,5 +197,9 @@ export class EditComponent implements OnInit, OnDestroy {
   }
   isDisabled(): boolean {
     return !this.design.valid || this.isEqual;
+  }
+  delete() {
+    this.ms.game.shipyardManager.delete(this.original);
+    this.router.navigate(["/add"]);
   }
 }

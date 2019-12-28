@@ -111,6 +111,9 @@ export class ShipDesign {
     ret.reload();
     return ret;
   }
+  deleteOutDated() {
+    this.old = null;
+  }
 
   //#region Save and Load
   getSave(): any {

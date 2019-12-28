@@ -180,15 +180,27 @@
     </form>
 
     <!-- Buttons -->
-    <button
-      nz-button
-      nzType="primary"
-      [disabled]="isDisabled()"
-      (click)="update()"
-    >
-      Update
-      <!-- <strong>Update</strong> -->
-    </button>
+    <nz-button-group>
+      <button
+        nz-button
+        nzType="primary"
+        [disabled]="isDisabled()"
+        (click)="update()"
+      >
+        Update
+      </button>
+      <button
+        nz-button
+        nzType="danger"
+        *ngIf="original.old"
+        (click)="original.deleteOutDated()"
+      >
+        Delete Outdated
+      </button>
+      <button nz-button nzType="danger" (click)="delete()">
+        Delete Design
+      </button>
+    </nz-button-group>
   </div>
 
   <!-- Comparison Table -->

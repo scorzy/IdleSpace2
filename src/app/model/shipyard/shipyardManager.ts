@@ -42,6 +42,12 @@ export class ShipyardManager extends JobManager {
         shipDesign.id = this.shipDesigns[i].id + 1;
       }
     }
+    if (shipDesign.id !== 0) {
+      shipDesign.fleets.forEach(fl => {
+        fl.navalCapPercent = 0;
+        fl.navalCapPercentUi = 0;
+      });
+    }
 
     shipDesign.name = name;
     shipDesign.type = shipType;
@@ -71,9 +77,9 @@ export class ShipyardManager extends JobManager {
       const job = this.toDo[i];
       if (
         (job instanceof BuildShipsJob && job.quantity < 1) ||
-        (job instanceof UpdateShipJob && job.toUpdate < 1)
+        (job instanceof UpdateShipJob && (job.toUpdate < 1 || !job.design.old))
       ) {
-        this.toDo.slice(i, 1);
+        this.toDo.splice(i, 1);
       }
     }
   }
@@ -219,6 +225,21 @@ export class ShipyardManager extends JobManager {
       work = work.plus(this.toDo[i].getRemaining());
     }
     return work;
+  }
+  delete(design: ShipDesign) {
+    for (let i = this.toDo.length - 1; i > 0; i--) {
+      const job = this.toDo[i];
+      if (
+        (job instanceof BuildShipsJob && job.design === design) ||
+        (job instanceof UpdateShipJob && job.design === design)
+      ) {
+        this.toDo.splice(i, 1);
+      }
+    }
+    this.shipDesigns.splice(
+      this.shipDesigns.findIndex(d => d === design),
+      1
+    );
   }
 
   //#region Save and Load
