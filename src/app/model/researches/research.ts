@@ -10,7 +10,7 @@ import { ResearchManager } from "./researchManager";
 export class Research extends Job implements IUnlockable, IBase {
   id: string;
   private originalName: string;
-  max = 1; //Number.MAX_SAFE_INTEGER;
+  max = 1; // Number.MAX_SAFE_INTEGER;
   unitsToUnlock?: IUnlockable[];
   researchToUnlock?: IUnlockable[];
   technologiesToUnlock?: IUnlockable[];
@@ -18,7 +18,7 @@ export class Research extends Job implements IUnlockable, IBase {
   quantity: Decimal;
   icon?: string;
   resData: IResearchData;
-  navalCapacity: number = 0;
+  navalCapacity = 0;
 
   constructor(researchData: IResearchData, researchManager: ResearchManager) {
     super();

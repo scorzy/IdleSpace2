@@ -8,7 +8,7 @@ export interface MyIcon {
 export abstract class Job {
   progress = ZERO;
   total: Decimal;
-  max: number = 1;
+  max = 1;
   level = 0;
   initialPrice: Decimal;
   growRate = 1.1;

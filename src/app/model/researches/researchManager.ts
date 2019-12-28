@@ -49,7 +49,7 @@ export class ResearchManager extends JobManager {
     this.researches = RESEARCHES.map(resData => new Research(resData, this));
   }
   makeShipsResearches() {
-    let shipyard = Game.getGame().shipyardManager;
+    const shipyard = Game.getGame().shipyardManager;
     for (let i = 1, n = shipyard.shipTypes.length; i < n; i++) {
       const resData: IResearchData = {
         id: "s" + shipyard.shipTypes[i].id,

@@ -3,7 +3,8 @@ import {
   OnInit,
   Input,
   ChangeDetectionStrategy,
-  ChangeDetectorRef
+  ChangeDetectorRef,
+  OnDestroy
 } from "@angular/core";
 import { MainService } from "../main.service";
 import { fadeIn } from "../animations";
@@ -18,7 +19,7 @@ import { Subscription } from "rxjs";
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [fadeIn]
 })
-export class SideMenuComponent implements OnInit {
+export class SideMenuComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
 
   @Input() isCollapsed = false;

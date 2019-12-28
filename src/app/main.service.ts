@@ -11,20 +11,6 @@ export const SAVE_ID = "IA3_save";
   providedIn: "root"
 })
 export class MainService {
-  theme: HTMLLinkElement;
-  scrollbarTheme: HTMLLinkElement;
-  isCollapsed = true;
-  sideTheme = "dark";
-  game: Game;
-  last: number;
-  updateEmitter = new EventEmitter<number>();
-  lzWorker: Worker;
-  notificationEmitter = new EventEmitter<{
-    type: number;
-    title?: string;
-    text?: string;
-  }>();
-  ready = false;
 
   constructor(
     private _formatPipe: FormatPipe,
@@ -81,13 +67,27 @@ export class MainService {
     this.ready = true;
   }
   static formatPipe: FormatPipe;
+  theme: HTMLLinkElement;
+  scrollbarTheme: HTMLLinkElement;
+  isCollapsed = true;
+  sideTheme = "dark";
+  game: Game;
+  last: number;
+  updateEmitter = new EventEmitter<number>();
+  lzWorker: Worker;
+  notificationEmitter = new EventEmitter<{
+    type: number;
+    title?: string;
+    text?: string;
+  }>();
+  ready = false;
 
   update() {
     if (!this.game) {
       return;
     }
     const now = Date.now();
-    let diff = now - this.last;
+    const diff = now - this.last;
     // diff = diff * 1e3;
     this.game.update(diff / 1000);
     this.last = now;
@@ -160,11 +160,12 @@ export class MainService {
     this.setScrollbarTheme();
   }
   setScrollbarTheme() {
-    let myTheme =
+    const myTheme =
       this.options.darkSide && this.options.themeId >= THEMES.length / 2
         ? "assets/dark-scrollbar.css"
         : "";
-    if (myTheme !== this.scrollbarTheme.href)
+    if (myTheme !== this.scrollbarTheme.href) {
       this.scrollbarTheme.href = myTheme;
+    }
   }
 }
