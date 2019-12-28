@@ -5,7 +5,7 @@ import { ALL_SIZES } from "../data/sizes";
 import { Technology } from "../researches/technology";
 import { Game } from "../game";
 
-const DEFAULT_PRICE = 10;
+const DEFAULT_PRICE = 100;
 
 export class Module implements IUnlockable {
   id = "";

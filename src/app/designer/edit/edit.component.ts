@@ -60,7 +60,7 @@ export class EditComponent implements OnInit, OnDestroy {
   }
 
   getDesign(id: string) {
-    this.original = this.ms.game.shipyardManager.updatedShipDesigns.find(
+    this.original = this.ms.game.shipyardManager.shipDesigns.find(
       des => parseInt(id, 10) === des.id
     );
     if (this.original) {
@@ -190,6 +190,8 @@ export class EditComponent implements OnInit, OnDestroy {
       while (this.design.modules.length < 3) {
         this.addLine();
       }
+      this.makeComparisonData();
+      this.isEqual = true;
     }
   }
   isDisabled(): boolean {

@@ -48,7 +48,7 @@ export class Game {
     let toUpdate = delta;
 
     while (toUpdate > 0) {
-      this.resourceManager.shipyardWord.limit = this.shipyardManager.getWorkNeeded();
+      this.resourceManager.shipyardWork.limit = this.shipyardManager.getWorkNeeded();
       this.resourceManager.reloadProduction();
       const maxUp = Math.min(toUpdate, this.resourceManager.maxTime);
       if (maxUp > 0) {
@@ -59,9 +59,9 @@ export class Game {
         this.resourceManager.stopResources();
       }
       this.shipyardManager.addProgress(
-        this.resourceManager.shipyardWord.quantity
+        this.resourceManager.shipyardWork.quantity
       );
-      this.resourceManager.shipyardWord.quantity = ZERO;
+      this.resourceManager.shipyardWork.quantity = ZERO;
     }
   }
   postUpdate() {

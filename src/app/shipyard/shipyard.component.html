@@ -19,12 +19,12 @@
       <tbody>
         <tr
           *ngFor="
-            let design of ms.game.shipyardManager.updatedShipDesigns;
+            let design of ms.game.shipyardManager.shipDesigns;
             trackBy: getDesignId
           "
         >
           <td>{{ design.name }}</td>
-          <td *ngFor="let fleet of design.fleets">
+          <td *ngFor="let fleet of design.fleets; let i = index">
             <nz-input-number
               nzSize="small"
               [(ngModel)]="fleet.navalCapPercentUi"
@@ -34,10 +34,18 @@
             ></nz-input-number>
             <div>
               <span class="monospace"
-                >{{ fleet.shipsQuantity | number: "1.0-0" }}(<span
-                  [class.error-text]="fleet.outdated > 0"
-                  >{{ fleet.outdated | number: "1.0-0" }}</span
-                >)</span
+                >{{ fleet.shipsQuantity | number: "1.0-0"
+                }}<span
+                  *ngIf="
+                    (design.old?.fleets)[i] &&
+                    (design.old?.fleets)[i].shipsQuantity > 0
+                  "
+                  >(<span class="text-danger"
+                    >{{
+                      design.old.fleets[i].shipsQuantity | number: "1.0-0"
+                    }})</span
+                  ></span
+                ></span
               >
               /
               <span class="monospace"

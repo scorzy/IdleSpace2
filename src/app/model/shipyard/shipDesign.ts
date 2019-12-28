@@ -11,7 +11,7 @@ import { ShipType } from "./ShipType";
 import { MainService } from "src/app/main.service";
 import { FleetShips } from "./fleetShips";
 
-const PRICE_GROW_RATE = 0.3;
+const PRICE_GROW_RATE = 1.2;
 const SIZE_MULTI = 0.25;
 
 export class ShipDesign {
@@ -20,6 +20,7 @@ export class ShipDesign {
   name = "";
   type: ShipType;
   totalPoints = 0;
+  old: ShipDesign;
 
   fleets: FleetShips[];
 
@@ -113,7 +114,7 @@ export class ShipDesign {
 
   //#region Save and Load
   getSave(): any {
-    return {
+    const ret: any = {
       i: this.id,
       r: this.rev,
       n: this.name,
@@ -121,6 +122,8 @@ export class ShipDesign {
       m: this.modules.map(mod => [mod.module.id, mod.level, mod.size]),
       f: this.fleets.map(fleet => fleet.getData())
     };
+    if (this.old) ret.o = this.old;
+    return ret;
   }
   load(data: any) {
     this.fleets = new Array<FleetShips>(FLEET_NUMBER);
@@ -154,6 +157,10 @@ export class ShipDesign {
       for (let i = 0, n = Math.min(data.f.length, FLEET_NUMBER); i < n; i++) {
         this.fleets[i].load(data.f[i]);
       }
+    }
+    if ("o" in data) {
+      this.old = new ShipDesign();
+      this.old.load(data.o);
     }
 
     this.reload();

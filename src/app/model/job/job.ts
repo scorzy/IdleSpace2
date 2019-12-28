@@ -8,7 +8,7 @@ export interface MyIcon {
 export abstract class Job {
   progress = ZERO;
   total: Decimal;
-  max: number;
+  max: number = 1;
   level = 0;
   initialPrice: Decimal;
   growRate = 1.1;
@@ -29,7 +29,7 @@ export abstract class Job {
     const toAdd = this.totalBonus.times(pro);
     this.progress = this.progress.plus(toAdd);
     let ret: Decimal;
-    if (this.progress.gte(this.total)) {
+    if (this.progress.gte(this.total) || this.total.lte(0)) {
       // Completed !
       ret = this.progress.minus(this.total);
       ret = ret.div(this.totalBonus);

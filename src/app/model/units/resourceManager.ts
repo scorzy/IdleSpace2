@@ -27,7 +27,7 @@ export class ResourceManager {
   scientist: Unit;
   worker: Unit;
 
-  shipyardWord: Unit;
+  shipyardWork: Unit;
 
   constructor() {
     this.makeUnits();
@@ -37,7 +37,7 @@ export class ResourceManager {
     this.units = new Array<Unit>();
     //  Initialize Units
     this.units = UNITS.map(unitData => new Unit(unitData));
-    this.shipyardWord = this.units.find(u => u.id === "W");
+    this.shipyardWork = this.units.find(u => u.id === "W");
     this.materials = this.units.filter(
       u =>
         u.id === "E" ||

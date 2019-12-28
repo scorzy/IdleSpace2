@@ -8,12 +8,12 @@ import { Game } from "../game";
 import { FLEET_CAPACITY_MULTI, FLEET_NUMBER, ZERO } from "../CONSTANTS";
 import { BuildShipsJob } from "./buildShipsJob";
 import { Job } from "../job/job";
+import { UpdateShipJob } from "./updateShipJob";
 
 const MAX_DESIGN = 20;
 
 export class ShipyardManager extends JobManager {
   shipDesigns = new Array<ShipDesign>();
-  updatedShipDesigns = new Array<ShipDesign>();
   modules = new Array<Module>();
   shipTypes = new Array<ShipType>();
   fleetsCapacity = new Array<number>(FLEET_NUMBER);
@@ -45,8 +45,8 @@ export class ShipyardManager extends JobManager {
 
     shipDesign.name = name;
     shipDesign.type = shipType;
+    shipDesign.reload();
     this.shipDesigns.push(shipDesign);
-    this.updatedShipDesigns.push(shipDesign);
     return shipDesign.id;
   }
   postUpdate() {
@@ -91,17 +91,38 @@ export class ShipyardManager extends JobManager {
   }
   update(oldDesign: ShipDesign, newDesign: ShipDesign): boolean {
     if (!(newDesign && oldDesign)) return false;
+    if (oldDesign.old) return false;
 
     newDesign.modules = newDesign.modules.filter(line => line.module);
     newDesign.id = oldDesign.id;
     newDesign.rev = oldDesign.rev + 1;
-    for (let i = 0; i < FLEET_NUMBER; i++) {
-      newDesign.fleets[i].navalCapPercent = oldDesign.fleets[i].navalCapPercent;
-    }
 
-    this.shipDesigns.push(newDesign);
-    const index = this.updatedShipDesigns.indexOf(oldDesign);
-    if (index > -1) this.updatedShipDesigns[index] = newDesign;
+    if (
+      newDesign.price.lte(oldDesign.price) ||
+      oldDesign.fleets.findIndex(fl => fl.shipsQuantity > 0) < 0
+    ) {
+      //  Lower price
+      //  Instant update
+      newDesign.fleets = oldDesign.fleets;
+    } else {
+      //  Higher price
+      //  Regular update
+      for (let i = 0; i < FLEET_NUMBER; i++) {
+        newDesign.fleets[i].navalCapPercent =
+          oldDesign.fleets[i].navalCapPercent;
+      }
+      newDesign.old = oldDesign;
+      for (let i = 0, n = this.toDo.length; i < n; i++) {
+        const toDo = this.toDo[i];
+        if (toDo instanceof BuildShipsJob && toDo.design === oldDesign) {
+          toDo.design = newDesign;
+        }
+      }
+      this.toDo.push(new UpdateShipJob(newDesign));
+    }
+    oldDesign.old = null;
+    const index = this.shipDesigns.indexOf(oldDesign);
+    if (index > -1) this.shipDesigns[index] = newDesign;
     return true;
   }
   /**
@@ -191,20 +212,6 @@ export class ShipyardManager extends JobManager {
         return design;
       });
     }
-
-    // Remake list of most updated design
-    this.shipDesigns.forEach(design => {
-      if (this.updatedShipDesigns.findIndex(up => up.id === design.id) < 0) {
-        const designList = this.shipDesigns.filter(d => d.id === design.id);
-        let mostUp = designList[0];
-        designList.forEach(des => {
-          if (des.rev > mostUp.rev) {
-            mostUp = des;
-          }
-        });
-        this.updatedShipDesigns.push(mostUp);
-      }
-    });
 
     if ("t" in data) {
       for (let i = 0, n = data.t.length; i < n; i++) {
