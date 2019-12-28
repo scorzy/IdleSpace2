@@ -9,6 +9,7 @@ import { ShipDesign } from "../model/shipyard/shipDesign";
 import { CdkDragDrop, moveItemInArray } from "@angular/cdk/drag-drop";
 import { ActivatedRoute } from "@angular/router";
 import { Subscription } from "rxjs";
+import { FleetShips } from "../model/shipyard/fleetShips";
 
 @Component({
   selector: "app-shipyard",
@@ -44,7 +45,7 @@ export class ShipyardComponent implements OnInit {
   }
   drop(event: CdkDragDrop<string[]>): void {
     moveItemInArray(
-      this.ms.game.shipyardManager.shipDesigns,
+      this.ms.game.shipyardManager.toDo,
       event.previousIndex,
       event.currentIndex
     );
@@ -54,6 +55,9 @@ export class ShipyardComponent implements OnInit {
   }
   getNameId(index: number, name: string) {
     return index + name;
+  }
+  getFleetId(index: number, fleet: FleetShips) {
+    return index;
   }
   confirm() {
     this.ms.game.shipyardManager.shipDesigns.forEach(des => {

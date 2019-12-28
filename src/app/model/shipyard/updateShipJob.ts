@@ -8,7 +8,16 @@ export class UpdateShipJob extends Job {
   toUpdate = 0;
   updated = 0;
 
-  constructor(public design: ShipDesign, public fleetNum = 0) {
+  public get name() {
+    return this.design.name;
+  }
+  public set name(_name: string) {}
+  public get description() {
+    return "Updated: " + this.updated + "/" + (this.toUpdate + this.updated);
+  }
+  public set description(_description: string) {}
+
+  constructor(public design: ShipDesign) {
     super();
     this.diff = this.design.price.minus(this.design.old.price);
     this.reload();
@@ -70,14 +79,23 @@ export class UpdateShipJob extends Job {
       }
     }
     this.total = this.diff.times(this.toUpdate + this.updated);
+    const perSec = Game.getGame().resourceManager.shipyardWork.perSec;
+    this.timeToEnd = perSec.lte(0)
+      ? Number.POSITIVE_INFINITY
+      : this.total
+          .minus(this.progress)
+          .div(perSec)
+          .floor()
+          .toNumber();
   }
 
   //#region Save and Load
   getSave() {
     return {
-      t: "b",
+      t: "u",
       d: this.design.id,
-      p: this.progress
+      p: this.progress,
+      u: this.updated
     };
   }
   load(data: any) {
@@ -88,6 +106,8 @@ export class UpdateShipJob extends Job {
     }
     if (!this.design) return false;
     if ("p" in data) this.progress = new Decimal(data.p);
+    if ("u" in data) this.updated = data.u;
+    this.reload();
   }
   //#endregion
 }

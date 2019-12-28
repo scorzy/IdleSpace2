@@ -49,6 +49,14 @@ export class BuildShipsJob extends Job {
     return ret;
   }
   reload() {
+    this.quantity = Math.min(
+      this.quantity,
+      this.design.fleets[this.fleetNum].wantedShips -
+        (this.design.fleets[this.fleetNum].shipsQuantity +
+          (this.design.old
+            ? this.design.old.fleets[this.fleetNum].shipsQuantity
+            : 0))
+    );
     this.total = this.design.price
       .times(this.quantity - this.built)
       .plus(this.workDone);

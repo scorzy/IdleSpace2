@@ -66,6 +66,16 @@ export class ShipyardManager extends JobManager {
     for (let i = 0, n = this.toDo.length; i < n; i++) {
       this.toDo[i].reload();
     }
+
+    for (let i = this.toDo.length - 1; i > 0; i--) {
+      const job = this.toDo[i];
+      if (
+        (job instanceof BuildShipsJob && job.quantity < 1) ||
+        (job instanceof UpdateShipJob && job.toUpdate < 1)
+      ) {
+        this.toDo.slice(i, 1);
+      }
+    }
   }
   reloadLists() {
     this.weapons = this.modules.filter(mod => mod.unlocked && mod.damage > 0);
@@ -170,9 +180,23 @@ export class ShipyardManager extends JobManager {
           this.shipDesigns[k].fleets[i].shipsQuantity,
           this.shipDesigns[k].fleets[i].wantedShips
         );
+        if (this.shipDesigns[k].old) {
+          this.shipDesigns[k].old.fleets[i].shipsQuantity = Math.max(
+            Math.min(
+              this.shipDesigns[k].old.fleets[i].shipsQuantity,
+              this.shipDesigns[k].fleets[i].wantedShips -
+                this.shipDesigns[k].fleets[i].shipsQuantity
+            ),
+            0
+          );
+        }
+
         let toBuild =
           this.shipDesigns[k].fleets[i].wantedShips -
           this.shipDesigns[k].fleets[i].shipsQuantity;
+        if (this.shipDesigns[k].old) {
+          toBuild -= this.shipDesigns[k].old.fleets[i].shipsQuantity;
+        }
         for (let h = 0, l = this.toDo.length; h < l; h++) {
           const job = this.toDo[h];
           if (
@@ -215,11 +239,25 @@ export class ShipyardManager extends JobManager {
 
     if ("t" in data) {
       for (let i = 0, n = data.t.length; i < n; i++) {
-        if ("t" in data.t[i] && data.t[i].t === "b") {
+        if ("t" in data.t[i]) {
           const design = this.shipDesigns.find(d => d.id === data.t[i].d);
-          const buildJob = new BuildShipsJob(data.t[i].q, design, data.t[i].n);
-          buildJob.load(data.t[i]);
-          this.toDo.push(buildJob);
+
+          //  Build ship Job
+          if (data.t[i].t === "b") {
+            const buildJob = new BuildShipsJob(
+              data.t[i].q,
+              design,
+              data.t[i].n
+            );
+            buildJob.load(data.t[i]);
+            this.toDo.push(buildJob);
+
+            // Update Job
+          } else if (data.t[i].t === "u") {
+            const upJob = new UpdateShipJob(design);
+            upJob.load(data.t[i]);
+            this.toDo.push(upJob);
+          }
         }
       }
     }

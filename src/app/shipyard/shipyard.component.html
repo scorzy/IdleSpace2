@@ -24,27 +24,27 @@
           "
         >
           <td>{{ design.name }}</td>
-          <td *ngFor="let fleet of design.fleets; let i = index">
-            <nz-input-number
-              nzSize="small"
-              [(ngModel)]="fleet.navalCapPercentUi"
-              [nzMin]="0"
-              [nzMax]="100"
-              [nzStep]="1"
-            ></nz-input-number>
+          <td
+            *ngFor="
+              let fleet of design.fleets;
+              let i = index;
+              trackBy: getFleetId
+            "
+          >
             <div>
               <span class="monospace"
-                >{{ fleet.shipsQuantity | number: "1.0-0"
+                >{{
+                  fleet.shipsQuantity + (design.old?.fleets)[i].shipsQuantity
+                    | number: "1.0-0"
                 }}<span
                   *ngIf="
                     (design.old?.fleets)[i] &&
                     (design.old?.fleets)[i].shipsQuantity > 0
                   "
-                  >(<span class="text-danger"
-                    >{{
-                      design.old.fleets[i].shipsQuantity | number: "1.0-0"
-                    }})</span
-                  ></span
+                  >(<span class="text-danger">{{
+                    design.old.fleets[i].shipsQuantity | number: "1.0-0"
+                  }}</span
+                  >)</span
                 ></span
               >
               /
@@ -52,6 +52,13 @@
                 >{{ fleet.wantedShips | number: "1.0-0" }}
               </span>
             </div>
+            <nz-input-number
+              nzSize="small"
+              [(ngModel)]="fleet.navalCapPercentUi"
+              [nzMin]="0"
+              [nzMax]="100"
+              [nzStep]="1"
+            ></nz-input-number>
           </td>
         </tr>
       </tbody>
@@ -74,7 +81,6 @@
     <h1>Jobs</h1>
     <div
       cdkDropList
-      #todoList="cdkDropList"
       [cdkDropListData]="ms.game.shipyardManager.toDo"
       class="job-list"
       (cdkDropListDropped)="drop($event)"

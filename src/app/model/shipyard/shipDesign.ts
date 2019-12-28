@@ -122,7 +122,7 @@ export class ShipDesign {
       m: this.modules.map(mod => [mod.module.id, mod.level, mod.size]),
       f: this.fleets.map(fleet => fleet.getData())
     };
-    if (this.old) ret.o = this.old;
+    if (this.old) ret.o = this.old.getSave();
     return ret;
   }
   load(data: any) {
