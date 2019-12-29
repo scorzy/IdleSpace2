@@ -9,6 +9,7 @@ import { FLEET_CAPACITY_MULTI, FLEET_NUMBER, ZERO } from "../CONSTANTS";
 import { BuildShipsJob } from "./buildShipsJob";
 import { Job } from "../job/job";
 import { UpdateShipJob } from "./updateShipJob";
+import { compact } from "lodash-es";
 
 const MAX_DESIGN = 20;
 
@@ -158,23 +159,73 @@ export class ShipyardManager extends JobManager {
       if (this.fleetsCapacity[i] < 1) {
         for (let k = 0, n = this.shipDesigns.length; k < n; k++) {
           this.shipDesigns[k].fleets[i].navalCapPercent = 0;
+          this.shipDesigns[k].fleets[i].navalCapPercentUi = 0;
         }
       } else {
         let prioritySum = 0;
+        let prioritySumUi = 0;
         let remainingNavCap = this.fleetsCapacity[i];
+        let remainingNavCapUi = this.fleetsCapacity[i];
         for (let k = 0, n = this.shipDesigns.length; k < n; k++) {
           prioritySum += this.shipDesigns[k].fleets[i].navalCapPercent;
+          prioritySumUi += this.shipDesigns[k].fleets[i].navalCapPercentUi;
         }
         prioritySum = Math.max(1, prioritySum);
+        prioritySumUi = Math.max(1, prioritySumUi);
         for (let k = 0, n = this.shipDesigns.length; k < n; k++) {
           this.shipDesigns[k].fleets[i].wantedShips = Math.floor(
             (this.fleetsCapacity[i] *
               this.shipDesigns[k].fleets[i].navalCapPercent) /
               (prioritySum * this.shipDesigns[k].type.navalCapacity)
           );
-          remainingNavCap -=
+          this.shipDesigns[k].fleets[i].wantedShipsUi = Math.floor(
+            (this.fleetsCapacity[i] *
+              this.shipDesigns[k].fleets[i].navalCapPercentUi) /
+              (prioritySumUi * this.shipDesigns[k].type.navalCapacity)
+          );
+          remainingNavCap -= Math.floor(
             this.shipDesigns[k].fleets[i].wantedShips *
-            this.shipDesigns[k].type.navalCapacity;
+              this.shipDesigns[k].type.navalCapacity
+          );
+          remainingNavCapUi -= Math.floor(
+            this.shipDesigns[k].fleets[i].wantedShipsUi *
+              this.shipDesigns[k].type.navalCapacity
+          );
+        }
+        if (remainingNavCap > 0) {
+          const ordered = this.shipDesigns
+            .slice(0)
+            .sort(
+              (a, b) =>
+                b.fleets[i].navalCapPercent - a.fleets[i].navalCapPercent
+            );
+          for (let k = 0, n = ordered.length; k < n; k++) {
+            if (ordered[k].type.navalCapacity <= remainingNavCap) {
+              const toAdd = Math.floor(
+                remainingNavCap / ordered[k].type.navalCapacity
+              );
+              ordered[k].fleets[i].wantedShips += toAdd;
+              remainingNavCap -= toAdd * ordered[k].type.navalCapacity;
+            }
+          }
+        }
+
+        if (remainingNavCapUi > 0) {
+          const ordered = this.shipDesigns
+            .slice(0)
+            .sort(
+              (a, b) =>
+                b.fleets[i].navalCapPercentUi - a.fleets[i].navalCapPercentUi
+            );
+          for (let k = 0, n = ordered.length; k < n; k++) {
+            if (ordered[k].type.navalCapacity <= remainingNavCapUi) {
+              const toAdd = Math.floor(
+                remainingNavCapUi / ordered[k].type.navalCapacity
+              );
+              ordered[k].fleets[i].wantedShipsUi += toAdd;
+              remainingNavCapUi -= toAdd * ordered[k].type.navalCapacity;
+            }
+          }
         }
       }
     }

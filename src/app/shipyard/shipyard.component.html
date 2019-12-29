@@ -49,7 +49,11 @@
               >
               /
               <span class="monospace"
-                >{{ fleet.wantedShips | number: "1.0-0" }}
+                >{{ fleet.wantedShips | number: "1.0-0" }} (<span
+                  [class.text-success]="fleet.wantedShips < fleet.wantedShipsUi"
+                  [class.text-danger]="fleet.wantedShips > fleet.wantedShipsUi"
+                  >{{ fleet.wantedShipsUi | number: "1.0-0" }}</span
+                >)
               </span>
             </div>
             <nz-input-number
