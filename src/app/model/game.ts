@@ -2,6 +2,7 @@ import { ResourceManager } from "./units/resourceManager";
 import { ResearchManager } from "./researches/researchManager";
 import { ShipyardManager } from "./shipyard/shipyardManager";
 import { BASE_NAVAL_CAPACITY, ZERO } from "./CONSTANTS";
+import { EnemyManager } from "./enemy/enemyManager";
 
 /**
  * Game is the main class that orchestrate everything game related
@@ -15,6 +16,7 @@ export class Game {
   resourceManager: ResourceManager;
   researchManager: ResearchManager;
   shipyardManager: ShipyardManager;
+  enemyManager: EnemyManager;
 
   navalCapacity: number = BASE_NAVAL_CAPACITY;
   updateNavalCapacity = true;
@@ -33,6 +35,7 @@ export class Game {
     this.resourceManager = new ResourceManager();
     this.researchManager = new ResearchManager();
     this.shipyardManager = new ShipyardManager();
+    this.enemyManager = new EnemyManager();
     this.shipyardManager.init();
     this.researchManager.makeShipsResearches();
     this.researchManager.setRelations();
@@ -94,7 +97,8 @@ export class Game {
     return {
       s: this.resourceManager.getSave(),
       r: this.researchManager.getSave(),
-      d: this.shipyardManager.getSave()
+      d: this.shipyardManager.getSave(),
+      e: this.enemyManager.getSave()
     };
   }
   load(data: any) {
@@ -106,6 +110,9 @@ export class Game {
     this.researchManager.load(data.r);
     if ("d" in data) {
       this.shipyardManager.load(data.d);
+    }
+    if ("e" in data) {
+      this.enemyManager.load(data.e);
     }
   }
   //#endregion

@@ -39,5 +39,12 @@ export const TECHNOLOGIES: { readonly [index: string]: ITechnologyData } = {
     icon: "my:computing",
     color: "red",
     price: new Decimal(1e3)
+  },
+  SEARCH: {
+    id: "r",
+    name: "Search",
+    icon: "my:computing",
+    color: "red",
+    price: new Decimal(1e3)
   }
 };

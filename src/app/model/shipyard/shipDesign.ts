@@ -168,5 +168,36 @@ export class ShipDesign {
 
     this.reload();
   }
+
+  getEnemySave(): any {
+    return {
+      n: this.name,
+      t: this.type.id,
+      m: this.modules.map(mod => [mod.module.id, mod.level, mod.size])
+    };
+  }
+  loadEnemy(data: any): any {
+    if ("n" in data) this.name = data.n;
+    if ("t" in data) {
+      this.type = Game.getGame().shipyardManager.shipTypes.find(
+        t => t.id === data.t
+      );
+    }
+    if (!this.type) return false;
+    if ("m" in data) {
+      for (const mod of data.m) {
+        const module = Game.getGame().shipyardManager.modules.find(
+          m => m.id === mod[0]
+        );
+
+        if (module) {
+          const level = mod[1];
+          const size = mod[2];
+          this.modules.push({ module, level, size });
+        }
+      }
+    }
+    this.reload();
+  }
   //#endregion
 }

@@ -9,30 +9,46 @@ export interface ShipTypeData {
 export const SHIP_TYPES: ShipTypeData[] = [
   {
     id: 1,
-    name: "Corvette"
+    name: "Drone"
   },
   {
     id: 2,
-    name: "Frigate"
+    name: "Scout"
   },
   {
     id: 3,
-    name: "Destroyer"
+    name: "Corvette"
   },
   {
     id: 4,
-    name: "Cruiser"
+    name: "Frigate"
   },
   {
     id: 5,
-    name: "Battlecruiser"
+    name: "Destroyer"
   },
   {
     id: 6,
-    name: "Battleship"
+    name: "Cruiser"
   },
   {
     id: 7,
+    name: "Battlecruiser"
+  },
+  {
+    id: 8,
+    name: "Battleship"
+  },
+  {
+    id: 9,
     name: "Dreadnought"
+  },
+  {
+    id: 10,
+    name: "Titan"
+  },
+  {
+    id: 11,
+    name: "Colossus"
   }
 ];

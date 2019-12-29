@@ -26,6 +26,8 @@ export class ResourceManager {
   metallurgist: Unit;
   scientist: Unit;
   worker: Unit;
+  search: Unit;
+  searcher: Unit;
 
   shipyardWork: Unit;
 
@@ -44,15 +46,18 @@ export class ResourceManager {
         u.id === "M" ||
         u.id === "A" ||
         u.id === "S" ||
-        u.id === "W"
+        u.id === "W" ||
+        u.id === "R"
     );
 
     this.science = this.units.find(u => u.id === "S");
+    this.search = this.units.find(u => u.id === "R");
     this.technician = this.units.find(u => u.id === "e");
     this.miner = this.units.find(u => u.id === "m");
     this.metallurgist = this.units.find(u => u.id === "a");
     this.scientist = this.units.find(u => u.id === "s");
     this.worker = this.units.find(u => u.id === "w");
+    this.searcher = this.units.find(u => u.id === "r");
 
     //  Production
     this.units.forEach(unit => {
@@ -88,6 +93,7 @@ export class ResourceManager {
         u.id === "e" ||
         u.id === "a" ||
         u.id === "s" ||
+        u.id === "r" ||
         u.id === "w"
     );
 

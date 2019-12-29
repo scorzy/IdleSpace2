@@ -18,7 +18,6 @@ export const UNITS: IUnitData[] = [
     startQuantity: 100,
     color: "#FADB14"
   },
-
   {
     id: "A",
     name: "Alloy",
@@ -36,9 +35,16 @@ export const UNITS: IUnitData[] = [
   {
     id: "W",
     name: "Work",
-    icon: "setting",
+    icon: "tool",
     description: "",
     color: "#EC8415"
+  },
+  {
+    id: "R",
+    name: "Search",
+    icon: "setting",
+    description: "",
+    color: ""
   },
   //#endregion
   //#region Workers
@@ -67,7 +73,6 @@ export const UNITS: IUnitData[] = [
     description: "",
     production: [
       ["S", 1],
-
       ["M", -5],
       ["E", -2]
     ],
@@ -91,6 +96,20 @@ export const UNITS: IUnitData[] = [
     production: [
       ["W", 1],
       ["A", -5],
+      ["E", -2]
+    ],
+    prices: [
+      ["M", 10],
+      ["A", 10]
+    ]
+  },
+  {
+    id: "r",
+    name: "Searcher",
+    description: "",
+    production: [
+      ["R", 1],
+      ["S", -5],
       ["E", -2]
     ],
     prices: [
