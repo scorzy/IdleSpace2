@@ -64,7 +64,7 @@
 @highlight-color: @red-7;
 @warning-color: @gold-9;
 
-@layout-body-background: #171717;
+@layout-body-background: #0a0a0a; //#171717
 @background-color-light: #201f1e;
 @background-color-base: lighten(@layout-body-background, 5);
 @body-background: #171717;
@@ -140,6 +140,13 @@
     top: 0;
     width: 3px;
   }
+}
+
+.dark-background {
+  background: @component-background;
+}
+.light-background {
+  background: @layout-header-background;
 }
 
 @import "./src/commonTheme.less";

@@ -18,13 +18,10 @@
   // background: @layout-header-background;
   background: @component-background;
 }
-.dark-background {
-  background: @layout-header-background;
-}
-.light-background {
-  background: @component-background;
-}
 
+.bordered {
+  border: 1px solid @border-color-base;
+}
 .progress {
   background-color: @progress-remaining-color;
 
@@ -82,7 +79,7 @@ div.dark-scroll::-webkit-scrollbar-thumb:active {
 .ant-table {
   display: block;
 
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: 550px) {
     &-thead {
       display: none;
     }

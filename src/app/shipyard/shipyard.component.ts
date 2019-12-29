@@ -10,12 +10,14 @@ import { CdkDragDrop, moveItemInArray } from "@angular/cdk/drag-drop";
 import { ActivatedRoute } from "@angular/router";
 import { Subscription } from "rxjs";
 import { FleetShips } from "../model/shipyard/fleetShips";
+import { fadeIn } from "../animations";
 
 @Component({
   selector: "app-shipyard",
   templateUrl: "./shipyard.component.html",
   styleUrls: ["./shipyard.component.scss"],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  animations: [fadeIn]
 })
 export class ShipyardComponent implements OnInit {
   fleetNum = 0;
@@ -66,7 +68,10 @@ export class ShipyardComponent implements OnInit {
       });
     });
   }
-  reinforce() {
-    this.ms.game.shipyardManager.reinforce();
+  reinforceAll() {
+    this.ms.game.shipyardManager.reinforceAll();
+  }
+  reinforce(i: number) {
+    this.ms.game.shipyardManager.reinforce(i);
   }
 }

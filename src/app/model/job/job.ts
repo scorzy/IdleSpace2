@@ -19,6 +19,7 @@ export abstract class Job {
   totalBonus = ONE;
   totalBonusUi = ZERO;
   types: IJobType[] = [];
+  canDelete = false;
 
   /**
    * Adds progress
@@ -72,4 +73,5 @@ export abstract class Job {
     if (!newBonus.eq(this.total)) this.totalBonus = newBonus;
   }
   abstract getSave(): any;
+  delete() {}
 }

@@ -67,8 +67,26 @@
     <br />
     <nz-button-group>
       <button nz-button nzType="primary" (click)="confirm()">Confirm</button>
-      <button nz-button nzType="secondary" (click)="reinforce()">
-        Reinforce
+      <button nz-button (click)="reinforceAll()">
+        Reinforce All
+      </button>
+    </nz-button-group>
+    <br />
+    <nz-button-group>
+      <button nz-button (click)="reinforce(0)">
+        Reinforce 1
+      </button>
+      <button nz-button (click)="reinforce(1)">
+        Reinforce 2
+      </button>
+      <button nz-button (click)="reinforce(2)">
+        Reinforce 3
+      </button>
+      <button nz-button (click)="reinforce(3)">
+        Reinforce 4
+      </button>
+      <button nz-button (click)="reinforce(4)">
+        Reinforce 5
       </button>
     </nz-button-group>
   </div>
@@ -90,6 +108,7 @@
         class="job-box"
         *ngFor="let resToDo of ms.game.shipyardManager.toDo"
         [job]="resToDo"
+        [collection]="ms.game.shipyardManager.toDo"
       ></app-job>
     </div>
   </div>

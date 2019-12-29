@@ -25,6 +25,7 @@ export class BuildShipsJob extends Job {
   ) {
     super();
     this.total = this.design.price.times(this.quantity);
+    this.canDelete = true;
   }
 
   addProgress(pro: DecimalSource): Decimal {
@@ -66,6 +67,13 @@ export class BuildShipsJob extends Job {
       .div(Game.getGame().resourceManager.shipyardWork.perSec)
       .floor()
       .toNumber();
+  }
+  delete() {
+    const shipyardManager = Game.getGame().shipyardManager;
+    shipyardManager.toDo.splice(
+      shipyardManager.toDo.findIndex(job => job === this),
+      1
+    );
   }
 
   //#region Save and Load

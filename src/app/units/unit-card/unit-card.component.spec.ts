@@ -24,7 +24,7 @@ describe("UnitCardComponent", () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(UnitCardComponent);
     component = fixture.componentInstance;
-    component.unit = component.ms.game.resourceManager.farmer;
+    component.unit = component.ms.game.resourceManager.miner;
     fixture.detectChanges();
   });
 

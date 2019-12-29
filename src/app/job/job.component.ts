@@ -9,6 +9,7 @@ import { Job, MyIcon } from "../model/job/job";
 import { Subscription } from "rxjs";
 import { MainService } from "../main.service";
 import { Research } from "../model/researches/research";
+import { moveItemInArray } from "@angular/cdk/drag-drop";
 
 @Component({
   selector: "app-job",
@@ -19,6 +20,8 @@ export class JobComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
 
   @Input() job: Job;
+  @Input() collection: Job[];
+
   icons: MyIcon[];
   isResearch = false;
   research: Research;
@@ -43,8 +46,21 @@ export class JobComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.subscriptions.forEach((sub: Subscription) => sub.unsubscribe());
   }
-
   getIconId(index: number, myIcon: MyIcon) {
     return myIcon.icon + myIcon.color;
+  }
+  moveUp() {
+    moveItemInArray(
+      this.collection,
+      this.collection.findIndex(e => e === this.job),
+      0
+    );
+  }
+  moveDown() {
+    moveItemInArray(
+      this.collection,
+      this.collection.findIndex(e => e === this.job),
+      this.collection.length - 1
+    );
   }
 }

@@ -179,43 +179,47 @@ export class ShipyardManager extends JobManager {
       }
     }
   }
-  reinforce() {
+  reinforceAll() {
     for (let i = 0; i < FLEET_NUMBER; i++) {
-      for (let k = 0, n = this.shipDesigns.length; k < n; k++) {
-        this.shipDesigns[k].fleets[i].shipsQuantity = Math.min(
-          this.shipDesigns[k].fleets[i].shipsQuantity,
-          this.shipDesigns[k].fleets[i].wantedShips
+      this.reinforce(i);
+    }
+  }
+  reinforce(fleetNum: number) {
+    const i = fleetNum;
+    for (let k = 0, n = this.shipDesigns.length; k < n; k++) {
+      this.shipDesigns[k].fleets[i].shipsQuantity = Math.min(
+        this.shipDesigns[k].fleets[i].shipsQuantity,
+        this.shipDesigns[k].fleets[i].wantedShips
+      );
+      if (this.shipDesigns[k].old) {
+        this.shipDesigns[k].old.fleets[i].shipsQuantity = Math.max(
+          Math.min(
+            this.shipDesigns[k].old.fleets[i].shipsQuantity,
+            this.shipDesigns[k].fleets[i].wantedShips -
+              this.shipDesigns[k].fleets[i].shipsQuantity
+          ),
+          0
         );
-        if (this.shipDesigns[k].old) {
-          this.shipDesigns[k].old.fleets[i].shipsQuantity = Math.max(
-            Math.min(
-              this.shipDesigns[k].old.fleets[i].shipsQuantity,
-              this.shipDesigns[k].fleets[i].wantedShips -
-                this.shipDesigns[k].fleets[i].shipsQuantity
-            ),
-            0
-          );
-        }
+      }
 
-        let toBuild =
-          this.shipDesigns[k].fleets[i].wantedShips -
-          this.shipDesigns[k].fleets[i].shipsQuantity;
-        if (this.shipDesigns[k].old) {
-          toBuild -= this.shipDesigns[k].old.fleets[i].shipsQuantity;
+      let toBuild =
+        this.shipDesigns[k].fleets[i].wantedShips -
+        this.shipDesigns[k].fleets[i].shipsQuantity;
+      if (this.shipDesigns[k].old) {
+        toBuild -= this.shipDesigns[k].old.fleets[i].shipsQuantity;
+      }
+      for (let h = 0, l = this.toDo.length; h < l; h++) {
+        const job = this.toDo[h];
+        if (
+          job instanceof BuildShipsJob &&
+          job.fleetNum === i &&
+          job.design === this.shipDesigns[k]
+        ) {
+          toBuild -= job.quantity - job.built;
         }
-        for (let h = 0, l = this.toDo.length; h < l; h++) {
-          const job = this.toDo[h];
-          if (
-            job instanceof BuildShipsJob &&
-            job.fleetNum === i &&
-            job.design === this.shipDesigns[k]
-          ) {
-            toBuild -= job.quantity - job.built;
-          }
-        }
-        if (toBuild > 0) {
-          this.toDo.push(new BuildShipsJob(toBuild, this.shipDesigns[k], i));
-        }
+      }
+      if (toBuild > 0) {
+        this.toDo.push(new BuildShipsJob(toBuild, this.shipDesigns[k], i));
       }
     }
   }

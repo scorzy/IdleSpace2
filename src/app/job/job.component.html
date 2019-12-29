@@ -1,41 +1,66 @@
-<nz-card
-  style="width:100%;"
-  [nzTitle]="titleTemplate"
-  [nzExtra]="extraTemplate"
-  nzSize="small"
->
-  <p class="description">{{ job.description }}</p>
-
-  <span
-    class="monospace"
-    fxLayout="row"
-    fxLayout.xs="column"
-    fxLayoutAlign="space-between"
-  >
-    <span>
-      <i nz-icon nzType="clock-circle" nzTheme="outline" class="space"></i>
-      <span> {{ job.timeToEnd | time }}</span>
-    </span>
-    <span>
-      {{ job.progress | format }}/{{ job.total | format }}
-      {{ job.progressPercent }}%</span
+<div fxLayout="rows" class="bordered job-card light-background">
+  <div xLayout="column" fxFlex="100%" fxLayoutGap="5px" class="job-content">
+    <div>
+      <span
+        *ngFor="let item of icons; trackBy: getIconId"
+        [style.color]="item.color"
+        ><i nz-icon [nzType]="item.icon"></i
+      ></span>
+      <strong>{{ job.name }}</strong>
+    </div>
+    <div>
+      <span *ngIf="research && research.totalBonusUi.gt(0)" class="monospace">
+        +{{ research.totalBonusUi | format }}%
+      </span>
+    </div>
+    <div>
+      <p class="description">{{ job.description }}</p>
+    </div>
+    <span
+      class="monospace"
+      fxLayout="row"
+      fxLayout.xs="column"
+      fxLayoutAlign="space-between"
     >
-  </span>
+      <span>
+        <i nz-icon nzType="clock-circle" nzTheme="outline" class="space"></i>
+        <span> {{ job.timeToEnd | time }}</span>
+      </span>
+      <span>
+        {{ job.progress | format }}/{{ job.total | format }}
+        {{ job.progressPercent }}%</span
+      >
+    </span>
+    <app-progress [progress]="job.progressPercent"></app-progress>
+  </div>
 
-  <app-progress [progress]="job.progressPercent"></app-progress>
-</nz-card>
-
-<ng-template #extraTemplate>
-  <span *ngIf="research && research.totalBonusUi.gt(0)" class="monospace">
-    +{{ research.totalBonusUi | format }}%
-  </span>
-</ng-template>
-
-<ng-template #titleTemplate>
-  <span
-    *ngFor="let item of icons; trackBy: getIconId"
-    [style.color]="item.color"
-    ><i nz-icon [nzType]="item.icon"></i
-  ></span>
-  {{ job.name }}
-</ng-template>
+  <div fxLayout="column" fxLayoutAlign="space-between" class="buttons">
+    <button
+      nz-button
+      nzType="link"
+      nzSize="small"
+      (click)="moveUp()"
+      *ngIf="collection"
+    >
+      <i nz-icon nzType="arrow-up"></i>
+    </button>
+    <button
+      nz-button
+      nzType="link"
+      nzSize="small"
+      *ngIf="job.canDelete"
+      (click)="job.delete()"
+    >
+      <i nz-icon nzType="delete"></i>
+    </button>
+    <button
+      nz-button
+      nzType="link"
+      nzSize="small"
+      (click)="moveDown()"
+      *ngIf="collection"
+    >
+      <i nz-icon nzType="arrow-down"></i>
+    </button>
+  </div>
+</div>
