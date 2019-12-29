@@ -11,7 +11,6 @@ export const SAVE_ID = "IA3_save";
   providedIn: "root"
 })
 export class MainService {
-
   constructor(
     private _formatPipe: FormatPipe,
     private options: OptionsService,
@@ -153,10 +152,12 @@ export class MainService {
 
     const myTheme = "assets/themes/" + file;
     if (myTheme !== this.theme.href) this.theme.href = myTheme;
+    this.options.setHeaderTheme();
     this.setScrollbarTheme();
   }
   setSideTheme() {
     this.sideTheme = this.options.darkSide ? "dark" : "light";
+    this.options.setHeaderTheme();
     this.setScrollbarTheme();
   }
   setScrollbarTheme() {

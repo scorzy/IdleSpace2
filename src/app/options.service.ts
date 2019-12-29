@@ -16,6 +16,7 @@ export class OptionsService {
   timeFormatDetail = true;
   themeId = 0;
   darkSide = true;
+  darkHeader = true;
 
   constructor() {
     try {
@@ -28,7 +29,6 @@ export class OptionsService {
 
     this.generateFormatter();
   }
-
   generateFormatter() {
     this.formatId++;
     try {
@@ -40,6 +40,9 @@ export class OptionsService {
       console.log("Error generate Formatter:" + ex);
     }
     this.formatEmitter.emit(1);
+  }
+  setHeaderTheme() {
+    this.darkHeader = this.themeId > 1 && this.darkSide;
   }
 
   getSave(): any {
