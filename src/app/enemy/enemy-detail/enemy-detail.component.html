@@ -1,0 +1,16 @@
+<h1>{{ enemy.name }}</h1>
+<div>
+  <span
+    >Level:
+    <span class="monospace">{{ enemy.level | number: "1.0-0" }}</span></span
+  >
+  <br />
+</div>
+<div>
+  <nz-button-group>
+    <button nz-button nzType="primary" (click)="attack()">Attack</button>
+    <button nz-button nzType="danger" (click)="delete()">
+      <i nz-icon nzType="delete"></i> Delete
+    </button>
+  </nz-button-group>
+</div>

@@ -9,7 +9,6 @@ import { FLEET_CAPACITY_MULTI, FLEET_NUMBER, ZERO } from "../CONSTANTS";
 import { BuildShipsJob } from "./buildShipsJob";
 import { Job } from "../job/job";
 import { UpdateShipJob } from "./updateShipJob";
-import { compact } from "lodash-es";
 
 const MAX_DESIGN = 20;
 
@@ -274,13 +273,7 @@ export class ShipyardManager extends JobManager {
       }
     }
   }
-  getWorkNeeded(): Decimal {
-    let work = ZERO;
-    for (let i = 0, n = this.toDo.length; i < n; i++) {
-      work = work.plus(this.toDo[i].getRemaining());
-    }
-    return work;
-  }
+
   delete(design: ShipDesign) {
     for (let i = this.toDo.length - 1; i > 0; i--) {
       const job = this.toDo[i];

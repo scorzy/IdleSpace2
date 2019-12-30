@@ -52,6 +52,8 @@ export class Game {
 
     while (toUpdate > 0) {
       this.resourceManager.shipyardWork.limit = this.shipyardManager.getWorkNeeded();
+      this.resourceManager.search.limit = this.enemyManager.getWorkNeeded();
+
       this.resourceManager.reloadProduction();
       const maxUp = Math.min(toUpdate, this.resourceManager.maxTime);
       if (maxUp > 0) {
@@ -65,6 +67,8 @@ export class Game {
         this.resourceManager.shipyardWork.quantity
       );
       this.resourceManager.shipyardWork.quantity = ZERO;
+      this.enemyManager.addProgress(this.resourceManager.search.quantity);
+      this.resourceManager.search.quantity = ZERO;
     }
   }
   postUpdate() {
@@ -81,6 +85,7 @@ export class Game {
       this.reloadNavalCapacity();
     }
     this.shipyardManager.postUpdate();
+    this.enemyManager.postUpdate();
   }
   reloadNavalCapacity() {
     this.navalCapacity = BASE_NAVAL_CAPACITY;

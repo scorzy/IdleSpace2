@@ -1,0 +1,55 @@
+<div
+  fxLayout="row wrap"
+  fxLayout.lt-sm="column"
+  fxLayoutAlign="flex-start"
+  fxLayoutGap="10px"
+>
+  <div
+    fxFlex.lt-sm="100%"
+    fxFlex.sm="0 1 calc(50% - 10px)"
+    fxFlex.md="0 1 calc(50% - 10px)"
+    fxFlex.lg="0 1 calc(40% - 10px)"
+    fxFlex.xl="0 1 calc(30% - 10px)"
+  >
+    <h1>Search</h1>
+    <form nz-form>
+      <nz-form-item>
+        <nz-form-label [nzSpan]="6" nzFor="level">Level</nz-form-label>
+        <nz-form-control [nzSpan]="14">
+          <nz-input-number
+            [(ngModel)]="searchLevel"
+            [nzMin]="0"
+            [nzStep]="1"
+            name="searchLevel"
+          ></nz-input-number>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+    <nz-button-group>
+      <button nz-button nzType="primary" (click)="search()">Search</button>
+    </nz-button-group>
+  </div>
+  <div
+    fxFlex.lt-sm="100%"
+    fxFlex.sm="0 1 calc(50% - 10px)"
+    fxFlex.md="0 1 calc(45% - 10px)"
+    fxFlex.lg="0 1 calc(35% - 10px)"
+    fxFlex.xl="0 1 calc(25% - 10px)"
+  >
+    <h1>Jobs</h1>
+    <div
+      cdkDropList
+      [cdkDropListData]="ms.game.enemyManager.toDo"
+      class="job-list"
+      (cdkDropListDropped)="drop($event)"
+    >
+      <app-job
+        cdkDrag
+        class="job-box"
+        *ngFor="let resToDo of ms.game.enemyManager.toDo; trackBy: getJobId"
+        [job]="resToDo"
+        [collection]="ms.game.enemyManager.toDo"
+      ></app-job>
+    </div>
+  </div>
+</div>

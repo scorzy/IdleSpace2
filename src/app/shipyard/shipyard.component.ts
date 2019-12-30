@@ -2,7 +2,8 @@ import {
   Component,
   OnInit,
   ChangeDetectionStrategy,
-  ChangeDetectorRef
+  ChangeDetectorRef,
+  OnDestroy
 } from "@angular/core";
 import { MainService } from "../main.service";
 import { ShipDesign } from "../model/shipyard/shipDesign";
@@ -19,7 +20,7 @@ import { fadeIn } from "../animations";
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [fadeIn]
 })
-export class ShipyardComponent implements OnInit {
+export class ShipyardComponent implements OnInit, OnDestroy {
   fleetNum = 0;
   fleetNames = [];
   private subscriptions: Subscription[] = [];
@@ -41,6 +42,9 @@ export class ShipyardComponent implements OnInit {
         this.getFleet(paramMap.get("id"))
       )
     );
+  }
+  ngOnDestroy() {
+    this.subscriptions.forEach((sub: Subscription) => sub.unsubscribe());
   }
   getFleet(id: string): void {
     this.fleetNum = parseInt(id, 10);

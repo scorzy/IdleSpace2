@@ -41,6 +41,9 @@ import { ResearchPrioritiesComponent } from "./research-priorities/research-prio
 import { EditComponent } from "./designer/edit/edit.component";
 import { SizePipe } from "./size.pipe";
 import { ShipyardComponent } from "./shipyard/shipyard.component";
+import { SearchComponent } from "./enemy/search/search.component";
+import { EnemiesListComponent } from "./enemy/enemies-list/enemies-list.component";
+import { EnemyDetailComponent } from "./enemy/enemy-detail/enemy-detail.component";
 
 registerLocaleData(en);
 
@@ -69,7 +72,10 @@ const ngZorroConfig: NzConfig = {
     ResearchPrioritiesComponent,
     EditComponent,
     SizePipe,
-    ShipyardComponent
+    ShipyardComponent,
+    SearchComponent,
+    EnemiesListComponent,
+    EnemyDetailComponent
   ],
   imports: [
     BrowserModule,

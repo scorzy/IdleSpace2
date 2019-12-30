@@ -1,0 +1,28 @@
+<div fxLayout="row" fxLayout.lt-sm="column">
+  <ul
+    nz-menu
+    [nzTheme]="ms.sideTheme"
+    nzMode="inline"
+    cdkDropList
+    [cdkDropListData]="ms.game.enemyManager.enemies"
+    (cdkDropListDropped)="drop($event)"
+  >
+    <li
+      nz-menu-item
+      nzMatchRouter
+      @fadeIn
+      *ngFor="let enemy of ms.game.enemyManager.enemies; trackBy: getEnemyId"
+      cdkDrag
+    >
+      <a [routerLink]="'enemyDetail/' + enemy.id">
+        <strong>{{ enemy.name }}</strong>
+        <span>
+          Lv.
+          {{ enemy.level | number: "1.0-0" }}
+        </span>
+      </a>
+    </li>
+  </ul>
+
+  <div class="inner-content"><router-outlet></router-outlet></div>
+</div>

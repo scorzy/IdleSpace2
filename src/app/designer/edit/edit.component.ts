@@ -61,8 +61,9 @@ export class EditComponent implements OnInit, OnDestroy {
   }
 
   getDesign(id: string) {
+    const idNum = parseInt(id, 10);
     this.original = this.ms.game.shipyardManager.shipDesigns.find(
-      des => parseInt(id, 10) === des.id
+      des => idNum === des.id
     );
     if (this.original) {
       this.design = this.original.getCopy();

@@ -9,8 +9,11 @@ import { TechnologiesComponent } from "./technologies/technologies.component";
 import { ResearchPrioritiesComponent } from "./research-priorities/research-priorities.component";
 import { EditComponent } from "./designer/edit/edit.component";
 import { ShipyardComponent } from "./shipyard/shipyard.component";
+import { SearchComponent } from "./enemy/search/search.component";
+import { EnemiesListComponent } from "./enemy/enemies-list/enemies-list.component";
+import { EnemyDetailComponent } from "./enemy/enemy-detail/enemy-detail.component";
 
-const routes: Routes = [
+export const routes: Routes = [
   { path: "", pathMatch: "full", redirectTo: "/units/ws" },
   { path: "units/:id", pathMatch: "full", component: UnitsComponent },
   { path: "lab", pathMatch: "full", component: LaboratoryComponent },
@@ -21,7 +24,13 @@ const routes: Routes = [
   { path: "fleet", pathMatch: "full", component: ShipyardComponent },
   { path: "des", pathMatch: "full", redirectTo: "/des/add" },
   { path: "add", component: AddComponent },
-  { path: "edit/:id", component: EditComponent }
+  { path: "edit/:id", component: EditComponent },
+  { path: "search", component: SearchComponent },
+  {
+    path: "enemyList",
+    component: EnemiesListComponent,
+    children: [{ path: "enemyDetail/:id", component: EnemyDetailComponent }]
+  }
 ];
 
 @NgModule({

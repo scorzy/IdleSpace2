@@ -1,4 +1,5 @@
 import { Job } from "./job";
+import { ZERO } from "../CONSTANTS";
 
 export abstract class JobManager {
   toDo: Job[];
@@ -28,5 +29,13 @@ export abstract class JobManager {
     } else if (this.done) {
       this.done.push(job);
     }
+  }
+
+  getWorkNeeded(): Decimal {
+    let work = ZERO;
+    for (let i = 0, n = this.toDo.length; i < n; i++) {
+      work = work.plus(this.toDo[i].getRemaining());
+    }
+    return work;
   }
 }

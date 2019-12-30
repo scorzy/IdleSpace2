@@ -84,8 +84,7 @@ export class UpdateShipJob extends Job {
     const perSec = Game.getGame().resourceManager.shipyardWork.perSec;
     this.timeToEnd = perSec.lte(0)
       ? Number.POSITIVE_INFINITY
-      : this.total
-          .minus(this.progress)
+      : this.getRemaining()
           .div(perSec)
           .floor()
           .toNumber();

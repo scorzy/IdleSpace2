@@ -41,6 +41,9 @@ export class ShipDesign {
     errorTip?: string;
   }>();
 
+  enemyPriority = 1;
+  enemyQuantity = 0;
+
   constructor() {
     this.fleets = new Array<FleetShips>(FLEET_NUMBER);
     for (let i = 0; i < FLEET_NUMBER; i++) {
@@ -173,7 +176,8 @@ export class ShipDesign {
     return {
       n: this.name,
       t: this.type.id,
-      m: this.modules.map(mod => [mod.module.id, mod.level, mod.size])
+      m: this.modules.map(mod => [mod.module.id, mod.level, mod.size]),
+      q: this.enemyQuantity
     };
   }
   loadEnemy(data: any): any {
@@ -197,6 +201,7 @@ export class ShipDesign {
         }
       }
     }
+    if ("q" in data) this.enemyQuantity = data.q;
     this.reload();
   }
   //#endregion
