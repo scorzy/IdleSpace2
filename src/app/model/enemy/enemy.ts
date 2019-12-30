@@ -41,6 +41,10 @@ export class Enemy {
       );
     });
 
+    for (let i = 0, n = this.designs.length; i < n; i++) {
+      this.designs[i].id = i;
+    }
+
     this.reloadTotalNavalCap();
   }
   generateCells() {
@@ -117,6 +121,9 @@ export class Enemy {
         cell.load(cellData);
         return cell;
       });
+    }
+    for (let i = 0, n = this.designs.length; i < n; i++) {
+      this.designs[i].id = i;
     }
     this.reloadTotalNavalCap();
     for (let i = 0; i < 100; i++) {

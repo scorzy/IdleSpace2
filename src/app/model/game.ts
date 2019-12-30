@@ -96,6 +96,7 @@ export class Game {
     this.navalCapacity = Math.floor(this.navalCapacity);
     this.shipyardManager.reloadFleetCapacity();
   }
+  onBattleEnd(data: any, fleetNum: number) {}
 
   //#region Save and Load
   getSave(): any {

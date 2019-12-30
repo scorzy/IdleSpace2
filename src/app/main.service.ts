@@ -4,6 +4,7 @@ import { formatDate, DOCUMENT } from "@angular/common";
 import { FormatPipe } from "./format.pipe";
 import { OptionsService, THEMES } from "./options.service";
 import compiledCss from "./model/data/themes.json";
+import { FLEET_NUMBER } from "./model/CONSTANTS";
 
 export const SAVE_ID = "IA3_save";
 
@@ -57,6 +58,15 @@ export class MainService {
       }
     };
 
+    for (let i = 0; i < FLEET_NUMBER; i++) {
+      MainService.battleWorkers[i] = new Worker("./battle.worker", {
+        type: "module"
+      });
+      MainService.battleWorkers[i].onmessage = ({ data }) => {
+        this.game.onBattleEnd(data, i);
+      };
+    }
+
     setInterval(this.update.bind(this), 100);
 
     const dataSave = localStorage.getItem(SAVE_ID);
@@ -66,6 +76,8 @@ export class MainService {
     this.ready = true;
   }
   static formatPipe: FormatPipe;
+  static battleWorkers: Worker[];
+
   theme: HTMLLinkElement;
   scrollbarTheme: HTMLLinkElement;
   isCollapsed = true;
@@ -74,6 +86,7 @@ export class MainService {
   last: number;
   updateEmitter = new EventEmitter<number>();
   lzWorker: Worker;
+
   notificationEmitter = new EventEmitter<{
     type: number;
     title?: string;

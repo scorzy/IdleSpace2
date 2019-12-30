@@ -2,6 +2,9 @@ import { Enemy } from "./enemy";
 import { JobManager } from "../job/jobManager";
 import { SearchJob } from "./searchJob";
 import { FLEET_NUMBER } from "../CONSTANTS";
+import { MainService } from "src/app/main.service";
+import { BattleRequest } from "../battle/battlerequest";
+import { Game } from "../game";
 
 export class EnemyManager extends JobManager {
   enemies = new Array<Enemy>();
@@ -42,6 +45,29 @@ export class EnemyManager extends JobManager {
     if (toAttack) {
       toAttack.inBattle = true;
       this.fleetsInBattle[fleetNum] = true;
+      const battleRequest = new BattleRequest();
+
+      const playerDesign = Game.getGame().shipyardManager.shipDesigns;
+      for (let i = 0, n = playerDesign.length; i < n; i++) {
+        const shipData = playerDesign[i].getShipData();
+        shipData.quantity = playerDesign[i].fleets[i].shipsQuantity;
+        battleRequest.playerFleet.push(shipData);
+
+        if (playerDesign[i].old) {
+          const shipDataOld = playerDesign[i].old.getShipData();
+          shipDataOld.designId *= -1;
+          shipDataOld.quantity = playerDesign[i].old.fleets[i].shipsQuantity;
+          battleRequest.playerFleet.push(shipDataOld);
+        }
+      }
+
+      battleRequest.enemyFleet = this.currentEnemy.designs.map(d =>
+        d.getShipData()
+      );
+      for (let i = 0, n = toAttack.ships.length; i < name; i++) {
+        battleRequest.enemyFleet[i].quantity = toAttack.ships[i];
+      }
+      MainService.battleWorkers[fleetNum].postMessage(battleRequest);
     }
   }
 
