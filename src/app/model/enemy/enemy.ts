@@ -17,6 +17,7 @@ export class Enemy {
   icon = "setting";
   cells: Array<Cell>;
   designs: Array<ShipDesign>;
+  totalNavCap = 0;
 
   generate(searchJob: SearchJob) {
     this.name = "aaa";
@@ -39,8 +40,27 @@ export class Enemy {
         (maxNavalCap * des.enemyPriority) / sum / des.type.navalCapacity
       );
     });
-  }
 
+    this.reloadTotalNavalCap();
+  }
+  generateCells() {
+    this.cells = new Array<Cell>(100);
+    this.cells.forEach(cell => {
+      cell.ships = this.designs.map(des => des.enemyQuantity);
+    });
+  }
+  reloadCell(index: number) {
+    if (this.cells[index].done) {
+      this.cells[index].percent = 0;
+    } else {
+      let cellNavCap = 0;
+      for (let i = 0, n = this.designs.length; i < n; i++) {
+        cellNavCap +=
+          this.cells[index].ships[i] * this.designs[i].type.navalCapacity;
+      }
+      this.cells[index].percent = cellNavCap / this.totalNavCap;
+    }
+  }
   private generateDesign(iShipData: IShipData): ShipDesign {
     const sm = Game.getGame().shipyardManager;
 
@@ -61,15 +81,24 @@ export class Enemy {
     design.reload();
     return design;
   }
+  private reloadTotalNavalCap() {
+    this.totalNavCap = 0;
+    for (let i = 0, n = this.designs.length; i < n; i++) {
+      this.totalNavCap +=
+        this.designs[i].enemyQuantity * this.designs[i].type.navalCapacity;
+    }
+  }
 
   //#region Save and Load
   getSave(): any {
-    return {
+    const ret: any = {
       l: this.level,
       n: this.name,
       i: this.icon,
       d: this.designs.map(des => des.getEnemySave())
     };
+    if (this.cells) ret.c = this.cells.map(c => c.getSave());
+    return ret;
   }
   load(data: any) {
     if ("l" in data) this.level = data.l;
@@ -81,6 +110,17 @@ export class Enemy {
         design.loadEnemy(designData);
         return design;
       });
+    }
+    if ("c" in data) {
+      this.cells = data.c.map(cellData => {
+        const cell = new Cell();
+        cell.load(cellData);
+        return cell;
+      });
+    }
+    this.reloadTotalNavalCap();
+    for (let i = 0; i < 100; i++) {
+      this.reloadCell(i);
     }
   }
   //#endregion
