@@ -7,7 +7,6 @@ import { sample } from "lodash-es";
 import { ENEMY_NAVAL_CAP_LEVEL, FLEET_CAPACITY_MULTI } from "../CONSTANTS";
 
 export class Enemy {
-
   constructor() {
     this.id = Enemy.lastId++;
   }
@@ -24,7 +23,7 @@ export class Enemy {
     this.designs = [];
     let sum = 0;
     const maxNavalCap = Math.min(
-      ENEMY_NAVAL_CAP_LEVEL * this.level,
+      ENEMY_NAVAL_CAP_LEVEL * (this.level + 1),
       FLEET_CAPACITY_MULTI
     );
 
@@ -46,6 +45,7 @@ export class Enemy {
     const sm = Game.getGame().shipyardManager;
 
     const design = new ShipDesign();
+    design.name = "Pippo";
     design.type = sm.shipTypes.find(t => t.id === iShipData.typeId);
     iShipData.modules.forEach(mod => {
       const modId =

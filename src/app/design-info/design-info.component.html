@@ -1,0 +1,20 @@
+<nz-table
+  #basicTable
+  [nzSize]="size"
+  [nzData]="comparisonData"
+  nzFrontPagination="false"
+>
+  <tbody>
+    <tr *ngFor="let data of basicTable.data">
+      <td>{{ data.name }}</td>
+      <td>
+        {{ data.original | format }}
+      </td>
+      <td *ngIf="design">
+        <span nz-text [nzType]="data.type" [className]="data.classes">{{
+          data.new | format
+        }}</span>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>

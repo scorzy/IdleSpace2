@@ -44,6 +44,8 @@ import { ShipyardComponent } from "./shipyard/shipyard.component";
 import { SearchComponent } from "./enemy/search/search.component";
 import { EnemiesListComponent } from "./enemy/enemies-list/enemies-list.component";
 import { EnemyDetailComponent } from "./enemy/enemy-detail/enemy-detail.component";
+import { ShipsViewComponent } from './ships-view/ships-view.component';
+import { DesignInfoComponent } from './design-info/design-info.component';
 
 registerLocaleData(en);
 
@@ -75,7 +77,9 @@ const ngZorroConfig: NzConfig = {
     ShipyardComponent,
     SearchComponent,
     EnemiesListComponent,
-    EnemyDetailComponent
+    EnemyDetailComponent,
+    ShipsViewComponent,
+    DesignInfoComponent
   ],
   imports: [
     BrowserModule,

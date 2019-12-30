@@ -1,0 +1,56 @@
+<nz-table #nzTable [nzData]="designs" nzSize="middle" nzFrontPagination="false">
+  <thead>
+    <tr>
+      <th nzShowExpand></th>
+      <th>Name</th>
+      <th>Quantity</th>
+    </tr>
+  </thead>
+  <tbody>
+    <!--  -->
+    <ng-template
+      ngFor
+      let-data
+      [ngForOf]="nzTable.data"
+      [ngForTrackBy]="getDesignId"
+    >
+      <tr>
+        <td nzShowExpand [(nzExpand)]="mapOfExpandData[data.id]"></td>
+        <td>{{ data.name }}</td>
+        <td>
+          {{ getQuantity(data) | number: "1.0-0" }}
+        </td>
+      </tr>
+      <tr [nzExpand]="mapOfExpandData[data.id]">
+        <td colspan="3">
+          <nz-tabset nzSize="small">
+            <nz-tab nzTitle="Info">
+              <app-design-info [original]="data" size="small"></app-design-info>
+            </nz-tab>
+            <nz-tab nzTitle="Detail">
+              <nz-table
+                #modTable
+                [nzData]="data.modules"
+                nzSize="small"
+                nzFrontPagination="false"
+              >
+                <thead>
+                  <th>Module</th>
+                  <th>Level</th>
+                </thead>
+                <tbody>
+                  <ng-template ngFor let-mod [ngForOf]="modTable.data">
+                    <tr>
+                      <td>{{ mod.module.name }}</td>
+                      <td>{{ mod.level | number: "1.0-0" }}</td>
+                    </tr>
+                  </ng-template>
+                </tbody>
+              </nz-table>
+            </nz-tab>
+          </nz-tabset>
+        </td>
+      </tr>
+    </ng-template>
+  </tbody>
+</nz-table>

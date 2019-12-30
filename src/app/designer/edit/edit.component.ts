@@ -4,7 +4,8 @@ import {
   ChangeDetectionStrategy,
   Input,
   ChangeDetectorRef,
-  OnDestroy
+  OnDestroy,
+  EventEmitter
 } from "@angular/core";
 import { ShipDesign } from "src/app/model/shipyard/shipDesign";
 import { MainService } from "src/app/main.service";
@@ -28,13 +29,7 @@ export class EditComponent implements OnInit, OnDestroy {
   @Input() design: ShipDesign;
   original: ShipDesign;
   isEqual = true;
-  comparisonData: {
-    name: string;
-    original: Decimal | number;
-    new: Decimal | number;
-    type: string;
-    classes: string;
-  }[] = [];
+  changeEmitter = new EventEmitter();
 
   private subscriptions: Subscription[] = [];
 
@@ -48,9 +43,6 @@ export class EditComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.subscriptions.push(
-      // this.ms.updateEmitter.subscribe(() => {
-      //   this.cd.markForCheck();
-      // }),
       this.route.paramMap.subscribe(paramMap =>
         this.getDesign(paramMap.get("id"))
       )
@@ -70,7 +62,7 @@ export class EditComponent implements OnInit, OnDestroy {
       while (this.design.modules.length < 3) {
         this.addLine();
       }
-      this.makeComparisonData();
+      this.changeEmitter.emit("1");
     }
     this.cd.markForCheck();
   }
@@ -108,7 +100,6 @@ export class EditComponent implements OnInit, OnDestroy {
   getGroupId(index: number) {
     return index;
   }
-
   reload(index: number = -1) {
     if (index > -1) {
       let levelUi = this.design.modules[index].levelUi;
@@ -144,47 +135,11 @@ export class EditComponent implements OnInit, OnDestroy {
         }
       } else this.isEqual = false;
 
-      this.makeComparisonData();
+      this.changeEmitter.emit("1");
       this.cd.markForCheck();
     }
   }
-  makeComparisonData() {
-    this.comparisonData = [];
-    this.comparisonData.push({
-      name: "Armour",
-      original: this.original.totalArmour,
-      new: this.design.totalArmour,
-      type: this.original.totalArmour > this.design.totalArmour ? "danger" : "",
-      classes:
-        this.original.totalArmour < this.design.totalArmour
-          ? "text-success"
-          : ""
-    });
-    this.comparisonData.push({
-      name: "Shield",
-      original: this.original.totalShield,
-      new: this.design.totalShield,
-      type: this.original.totalShield > this.design.totalShield ? "danger" : "",
-      classes:
-        this.original.totalShield < this.design.totalShield ? "tex-success" : ""
-    });
-    this.comparisonData.push({
-      name: "Avg. Damage",
-      original: this.original.totalDamage,
-      new: this.design.totalDamage,
-      type: this.original.totalDamage > this.design.totalDamage ? "danger" : "",
-      classes:
-        this.original.totalDamage < this.design.totalDamage ? "tex-success" : ""
-    });
 
-    this.comparisonData.push({
-      name: "Price",
-      original: this.original.price,
-      new: this.design.price,
-      type: this.original.price.lt(this.design.price) ? "danger" : "",
-      classes: this.original.price.gt(this.design.price) ? "tex-success" : ""
-    });
-  }
   update() {
     if (this.ms.game.shipyardManager.update(this.original, this.design)) {
       this.original = this.design;
@@ -192,7 +147,7 @@ export class EditComponent implements OnInit, OnDestroy {
       while (this.design.modules.length < 3) {
         this.addLine();
       }
-      this.makeComparisonData();
+      this.changeEmitter.emit("1");
       this.isEqual = true;
     }
   }
