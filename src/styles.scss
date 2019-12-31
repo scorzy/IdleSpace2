@@ -77,13 +77,17 @@
   padding-left: 0;
 }
 .inner-content {
-  padding: 15px;
+  padding: 5px;
   padding-top: 5px;
   min-height: 360px;
   height: 100%;
   width: 100%;
 }
-
+@media only screen and (min-width: 600px) {
+  .inner-content {
+    padding: 15px;
+  }
+}
 .ant-layout-sider-children {
   overflow: scroll;
   padding-bottom: 50px;
@@ -120,4 +124,16 @@
 .ant-table-thead > tr > th,
 .ant-table-tbody > tr > td {
   padding: 8px 8px;
+}
+
+@media only screen and (max-width: 599px) {
+  .ant-collapse-content > .ant-collapse-content-box {
+    padding: 1px;
+    padding-bottom: 4px;
+  }
+}
+@media only screen and (min-width: 600px) and (max-width: 959px) {
+  .ant-collapse-content > .ant-collapse-content-box {
+    padding: 8px;
+  }
 }

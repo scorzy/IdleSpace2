@@ -23,6 +23,14 @@ import { fadeIn } from "../animations";
 export class ShipyardComponent implements OnInit, OnDestroy {
   fleetNum = 0;
   fleetNames = [];
+  panels = [
+    {
+      active: true,
+      name: "Fleet 1",
+      disabled: false,
+      fleet: 0
+    }
+  ];
   private subscriptions: Subscription[] = [];
 
   constructor(

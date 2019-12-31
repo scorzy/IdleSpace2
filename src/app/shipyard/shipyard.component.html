@@ -2,71 +2,105 @@
   fxLayout="row wrap"
   fxLayout.lt-sm="column"
   fxLayoutAlign="flex-start"
-  fxLayoutGap="10px"
+  fxLayoutGap.gt-sm="10px"
 >
   <div fxFlex.lt-sm="100%" fxFlex="0 1 calc(55% - 10px)">
     <h1>Fleets</h1>
 
-    <nz-table #basicTable nzTemplateMode>
-      <thead>
-        <tr>
-          <th>Design</th>
-          <th *ngFor="let name of fleetNames; trackBy: getNameId">
-            {{ name }}
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr
-          *ngFor="
-            let design of ms.game.shipyardManager.shipDesigns;
-            trackBy: getDesignId
-          "
-        >
-          <td>{{ design.name }}</td>
-          <td
-            *ngFor="
-              let fleet of design.fleets;
-              let i = index;
-              trackBy: getFleetId
-            "
-          >
-            <div>
-              <span class="monospace"
-                >{{
-                  fleet.shipsQuantity + (design.old?.fleets)[i].shipsQuantity
-                    | number: "1.0-0"
-                }}<span
-                  *ngIf="
-                    (design.old?.fleets)[i] &&
-                    (design.old?.fleets)[i].shipsQuantity > 0
-                  "
-                  >(<span class="text-danger">{{
-                    design.old.fleets[i].shipsQuantity | number: "1.0-0"
-                  }}</span
-                  >)</span
-                ></span
+    <nz-collapse [nzBordered]="false">
+      <nz-collapse-panel
+        *ngFor="let panel of panels"
+        [nzHeader]="panel.name"
+        [nzActive]="panel.active"
+        [nzDisabled]="panel.disabled"
+      >
+        <nz-table #basicTable nzTemplateMode nzSize="small">
+          <thead>
+            <tr>
+              <th>Design</th>
+              <th nz-tooltip nzTooltipTitle="Priority">Priority</th>
+              <th
+                nz-tooltip
+                nzTooltipTitle="Quantity of ships you have, including outdated ships"
               >
-              /
-              <span class="monospace"
-                >{{ fleet.wantedShips | number: "1.0-0" }} (<span
-                  [class.text-success]="fleet.wantedShips < fleet.wantedShipsUi"
-                  [class.text-danger]="fleet.wantedShips > fleet.wantedShipsUi"
-                  >{{ fleet.wantedShipsUi | number: "1.0-0" }}</span
-                >)
-              </span>
-            </div>
-            <nz-input-number
-              nzSize="small"
-              [(ngModel)]="fleet.navalCapPercentUi"
-              [nzMin]="0"
-              [nzMax]="100"
-              [nzStep]="1"
-            ></nz-input-number>
-          </td>
-        </tr>
-      </tbody>
-    </nz-table>
+                Actual
+              </th>
+              <th nz-tooltip nzTooltipTitle="Quantity of outdated ships">
+                Old
+              </th>
+              <th nz-tooltip nzTooltipTitle="Desired quantity">Qty</th>
+              <th nz-tooltip nzTooltipTitle="New Desired quantity">New</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              *ngFor="
+                let design of ms.game.shipyardManager.shipDesigns;
+                trackBy: getDesignId
+              "
+            >
+              <td>{{ design.name }}</td>
+              <td>
+                <nz-input-number
+                  nzSize="small"
+                  [(ngModel)]="design.fleets[panel.fleet].navalCapPercentUi"
+                  [nzMin]="0"
+                  [nzMax]="100"
+                  [nzStep]="1"
+                ></nz-input-number>
+              </td>
+              <td>
+                <span class="monospace">
+                  {{
+                    design.fleets[panel.fleet].shipsQuantity +
+                      (design.old?.fleets)[panel.fleet].shipsQuantity
+                      | number: "1.0-0"
+                  }}
+                </span>
+              </td>
+              <td>
+                <span class="monospace">
+                  {{
+                    (design.old?.fleets)[panel.fleet].shipsQuantity
+                      | number: "1.0-0"
+                  }}
+                </span>
+              </td>
+              <td>
+                <span class="monospace">
+                  {{ design.fleets[panel.fleet].wantedShips | number: "1.0-0" }}
+                </span>
+              </td>
+              <td>
+                <span
+                  class="monospace"
+                  [class.text-success]="
+                    design.fleets[panel.fleet].wantedShips <
+                    design.fleets[panel.fleet].wantedShipsUi
+                  "
+                  [class.text-danger]="
+                    design.fleets[panel.fleet].wantedShips >
+                    design.fleets[panel.fleet].wantedShipsUi
+                  "
+                >
+                  {{
+                    design.fleets[panel.fleet].wantedShipsUi | number: "1.0-0"
+                  }}
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </nz-table>
+
+        <button
+          nz-button
+          (click)="reinforce(panel.fleet)"
+          class="reinforce_num"
+        >
+          Reinforce {{ panel.fleet }}
+        </button>
+      </nz-collapse-panel>
+    </nz-collapse>
 
     <br />
     <nz-button-group>
@@ -76,23 +110,7 @@
       </button>
     </nz-button-group>
     <br />
-    <nz-button-group>
-      <button nz-button (click)="reinforce(0)">
-        Reinforce 1
-      </button>
-      <button nz-button (click)="reinforce(1)">
-        Reinforce 2
-      </button>
-      <button nz-button (click)="reinforce(2)">
-        Reinforce 3
-      </button>
-      <button nz-button (click)="reinforce(3)">
-        Reinforce 4
-      </button>
-      <button nz-button (click)="reinforce(4)">
-        Reinforce 5
-      </button>
-    </nz-button-group>
+    <nz-button-group> </nz-button-group>
   </div>
   <div
     fxFlex.lt-md="100%"
