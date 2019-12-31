@@ -91,6 +91,7 @@
 @menu-dark-bg: @layout-header-background; //#3b3a39;
 @menu-dark-submenu-bg: @component-background; //#414242;
 @menu-dark-item-active-bg: lighten(@menu-dark-submenu-bg, 4%);
+@menu-dark-item-active-bg: @item-active-bg;
 
 @menu-item-vertical-margin: 0;
 @menu-item-boundary-margin: 0;
@@ -130,7 +131,7 @@
     left: 0;
     position: absolute;
     top: 0;
-    width: 3px;
+    width: 4px;
   }
   .ant-menu-item-selected::before {
     background-color: @primary-color;
@@ -139,7 +140,7 @@
     left: 0;
     position: absolute;
     top: 0;
-    width: 3px;
+    width: 4px;
   }
 }
 

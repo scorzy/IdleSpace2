@@ -25,6 +25,7 @@ export class ShipyardManager extends JobManager {
   others = new Array<Module>();
   groups: { name: string; list: Array<Module> }[];
   toDo = new Array<Job>();
+  maxFleet = 0;
 
   init() {
     this.shipTypes = SHIP_TYPES.map(s => new ShipType(s));
@@ -146,12 +147,16 @@ export class ShipyardManager extends JobManager {
    * Calculate fleets capacity and num of ships to build
    */
   reloadFleetCapacity() {
+    this.maxFleet = 0;
     //  Reload Fleet capacity
     let navalCapacity = Game.getGame().navalCapacity;
     for (let i = 0; i < FLEET_NUMBER; i++) {
       navalCapacity /= 1 + i * FLEET_CAPACITY_MULTI;
       this.fleetsCapacity[i] = Math.max(0, Math.floor(navalCapacity));
       navalCapacity -= this.fleetsCapacity[i];
+      if (this.fleetsCapacity[i] > 1) {
+        this.maxFleet++;
+      }
     }
 
     //  Reload ships number
