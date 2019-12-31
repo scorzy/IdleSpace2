@@ -99,7 +99,7 @@ export class Game {
   }
   onBattleEnd(battleResult: BattleResult, fleetNum: number) {
     this.shipyardManager.onBattleEnd(battleResult, fleetNum);
-    this.shipyardManager.onBattleEnd(battleResult, fleetNum);
+    this.enemyManager.onBattleEnd(battleResult, fleetNum);
   }
 
   //#region Save and Load

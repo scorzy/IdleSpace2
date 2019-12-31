@@ -46,6 +46,8 @@ import { EnemiesListComponent } from "./enemy/enemies-list/enemies-list.componen
 import { EnemyDetailComponent } from "./enemy/enemy-detail/enemy-detail.component";
 import { ShipsViewComponent } from './ships-view/ships-view.component';
 import { DesignInfoComponent } from './design-info/design-info.component';
+import { BattleComponent } from './battle/battle.component';
+import { BattleTableComponent } from './battle/battle-table/battle-table.component';
 
 registerLocaleData(en);
 
@@ -79,7 +81,9 @@ const ngZorroConfig: NzConfig = {
     EnemiesListComponent,
     EnemyDetailComponent,
     ShipsViewComponent,
-    DesignInfoComponent
+    DesignInfoComponent,
+    BattleComponent,
+    BattleTableComponent
   ],
   imports: [
     BrowserModule,

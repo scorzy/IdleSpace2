@@ -1,0 +1,15 @@
+<table>
+  <tr *ngFor="let i of numbers">
+    <td
+      *ngFor="let k of numbers"
+      [ngStyle]="{
+        'background-color':
+          ms.game.enemyManager.currentEnemy.cells[i * 10 + k].percent < 1
+            ? ms.game.enemyManager.currentEnemy.cells[i * 10 + k].color
+            : transparent
+      }"
+    >
+      {{ ms.game.enemyManager.currentEnemy.cells[i * 10 + k].percent }}
+    </td>
+  </tr>
+</table>

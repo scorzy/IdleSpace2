@@ -1,0 +1,50 @@
+<div fxLayout="rows" fxLayout.lt-sm="column" fxLayoutGap="10px">
+  <div *ngIf="ms.game.enemyManager.currentEnemy" fxFlex="1 1 calc(50% - 10px)">
+    <h1>
+      {{ ms.game.enemyManager.currentEnemy.name }}
+    </h1>
+    <nz-button-group>
+      <button nz-button nzType="primary" (click)="attack(-1)">
+        Attack All
+      </button>
+    </nz-button-group>
+    <nz-button-group>
+      <button nz-button nzType="primary" (click)="attack(0)">Attack 1</button>
+      <button nz-button nzType="primary" (click)="attack(1)">Attack 2</button>
+      <button nz-button nzType="primary" (click)="attack(2)">Attack 3</button>
+      <button nz-button nzType="primary" (click)="attack(3)">Attack 4</button>
+      <button nz-button nzType="primary" (click)="attack(4)">Attack 5</button>
+    </nz-button-group>
+
+    <app-battle-table></app-battle-table>
+  </div>
+  <div fxFlex="1 1 calc(50% - 10px)">
+    <nz-select [(ngModel)]="fleetNum" nzPlaceHolder="Choose">
+      <nz-option nzValue="0" nzLabel="Fleet 1"></nz-option>
+      <nz-option nzValue="1" nzLabel="Fleet 2"></nz-option>
+      <nz-option nzValue="2" nzLabel="Fleet 3"></nz-option>
+      <nz-option nzValue="3" nzLabel="Fleet 4"></nz-option>
+      <nz-option nzValue="4" nzLabel="Fleet 5"></nz-option>
+    </nz-select>
+
+    <h3>You</h3>
+    <app-ships-view
+      [designs]="ms.game.shipyardManager.shipDesigns"
+      [fleetNum]="fleetNum"
+      nzSize="small"
+    ></app-ships-view>
+
+    <br />
+    <h3 *ngIf="ms.game.enemyManager.currentEnemy">
+      {{ ms.game.enemyManager.currentEnemy.name }}
+      <small></small>
+    </h3>
+    <app-ships-view
+      *ngIf="ms.game.enemyManager.currentEnemy"
+      [designs]="ms.game.enemyManager.currentEnemy.designs"
+      [isEnemy]="true"
+      [enemyCell]="true"
+      nzSize="small"
+    ></app-ships-view>
+  </div>
+</div>

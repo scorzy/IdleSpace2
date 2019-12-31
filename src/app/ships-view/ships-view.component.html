@@ -1,4 +1,9 @@
-<nz-table #nzTable [nzData]="designs" nzSize="middle" nzFrontPagination="false">
+<nz-table
+  #nzTable
+  [nzData]="designs"
+  [nzSize]="nzSize"
+  nzFrontPagination="false"
+>
   <thead>
     <tr>
       <th nzShowExpand></th>
@@ -7,18 +12,18 @@
     </tr>
   </thead>
   <tbody>
-    <!--  -->
     <ng-template
       ngFor
       let-data
       [ngForOf]="nzTable.data"
       [ngForTrackBy]="getDesignId"
+      let-i="index"
     >
       <tr>
         <td nzShowExpand [(nzExpand)]="mapOfExpandData[data.id]"></td>
         <td>{{ data.name }}</td>
         <td>
-          {{ getQuantity(data) | number: "1.0-0" }}
+          {{ getQuantity(data, i) | number: "1.0-0" }}
         </td>
       </tr>
       <tr [nzExpand]="mapOfExpandData[data.id]">

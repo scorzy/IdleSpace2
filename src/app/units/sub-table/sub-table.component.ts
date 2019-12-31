@@ -41,8 +41,6 @@ export class SubTableComponent implements OnInit {
     effect: Decimal;
     total: Decimal;
   }> {
-    console.log("a");
-
     let ret = new Array<{
       what: string;
       quantity: Decimal;

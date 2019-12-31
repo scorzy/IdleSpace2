@@ -76,7 +76,7 @@ export class MainService {
     this.ready = true;
   }
   static formatPipe: FormatPipe;
-  static battleWorkers: Worker[];
+  static battleWorkers = new Array<Worker>(FLEET_NUMBER);
 
   theme: HTMLLinkElement;
   scrollbarTheme: HTMLLinkElement;
@@ -99,8 +99,8 @@ export class MainService {
       return;
     }
     const now = Date.now();
-    const diff = now - this.last;
-    // diff = diff * 1e3;
+    let diff = now - this.last;
+    diff = diff * 1e3;
     this.game.update(diff / 1000);
     this.last = now;
 

@@ -12,6 +12,7 @@ import { ShipyardComponent } from "./shipyard/shipyard.component";
 import { SearchComponent } from "./enemy/search/search.component";
 import { EnemiesListComponent } from "./enemy/enemies-list/enemies-list.component";
 import { EnemyDetailComponent } from "./enemy/enemy-detail/enemy-detail.component";
+import { BattleComponent } from "./battle/battle.component";
 
 export const routes: Routes = [
   { path: "", pathMatch: "full", redirectTo: "/units/ws" },
@@ -26,6 +27,7 @@ export const routes: Routes = [
   { path: "add", component: AddComponent },
   { path: "edit/:id", component: EditComponent },
   { path: "search", component: SearchComponent },
+  { path: "battle", component: BattleComponent },
   {
     path: "enemyList",
     component: EnemiesListComponent,

@@ -42,12 +42,13 @@ export class EnemyDetailComponent implements OnInit, OnDestroy {
   }
 
   getEnemy(idString: string) {
-    console.log(idString);
     const id = parseInt(idString, 10);
     this.enemy = this.ms.game.enemyManager.enemies.find(e => e.id === id);
     if (!this.enemy) this.enemy = this.ms.game.enemyManager.enemies[0];
   }
-  attack() {}
+  attack() {
+    this.ms.game.enemyManager.attackEnemy(this.enemy);
+  }
   delete() {
     const id = this.ms.game.enemyManager.enemies.indexOf(this.enemy);
     this.ms.game.enemyManager.enemies.splice(id, 1);

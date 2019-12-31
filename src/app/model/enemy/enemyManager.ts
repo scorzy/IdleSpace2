@@ -38,21 +38,24 @@ export class EnemyManager extends JobManager {
   attackEnemy(enemy: Enemy) {
     if (this.currentEnemy) return false;
     this.currentEnemy = enemy;
+    this.currentEnemy.generateCells();
     const index = this.enemies.indexOf(this.currentEnemy);
     if (index > 0) this.enemies.splice(index, 1);
   }
   attackCell(fleetNum: number) {
     if (this.fleetsInBattle[fleetNum]) return false;
+    const playerDesign = Game.getGame().shipyardManager.shipDesigns;
+
     const toAttack = this.currentEnemy.cells.find(c => !c.done && !c.inBattle);
     if (toAttack) {
       toAttack.inBattle = true;
       this.fleetsInBattle[fleetNum] = toAttack;
       const battleRequest = new BattleRequest();
 
-      const playerDesign = Game.getGame().shipyardManager.shipDesigns;
+      //  Player Fleet
       for (let i = 0, n = playerDesign.length; i < n; i++) {
         const shipData = playerDesign[i].getShipData();
-        shipData.quantity = playerDesign[i].fleets[i].shipsQuantity;
+        shipData.quantity = playerDesign[i].fleets[fleetNum].shipsQuantity;
         battleRequest.playerFleet.push(shipData);
 
         if (playerDesign[i].old) {
@@ -63,25 +66,35 @@ export class EnemyManager extends JobManager {
         }
       }
 
+      //  Enemy Fleet
       battleRequest.enemyFleet = this.currentEnemy.designs.map(d =>
         d.getShipData()
       );
-      for (let i = 0, n = toAttack.ships.length; i < name; i++) {
+      for (let i = 0, n = toAttack.ships.length; i < n; i++) {
         battleRequest.enemyFleet[i].quantity = toAttack.ships[i];
       }
+
+      //  Battle
       MainService.battleWorkers[fleetNum].postMessage(battleRequest);
     }
   }
   onBattleEnd(battleResult: BattleResult, fleetNum: number) {
+    let done = true;
     const cell = this.fleetsInBattle[fleetNum];
     for (let i = 0, n = this.currentEnemy.designs.length; i < n; i++) {
       const designId = this.currentEnemy.designs[i].id;
       const lostD = battleResult.enemyLost.find(en => en.id === designId);
       if (lostD) {
-        cell[i] -= lostD.lost;
-        cell[i] = Math.floor(Math.max(cell[i], 0));
+        cell.ships[i] -= lostD.lost;
+        cell.ships[i] = Math.floor(Math.max(cell.ships[i], 0));
+      }
+      if (cell.ships[i] > 0) {
+        done = false;
       }
     }
+    cell.done = done;
+    cell.inBattle = false;
+    this.currentEnemy.reloadCell(this.currentEnemy.cells.indexOf(cell));
     this.fleetsInBattle[fleetNum] = null;
   }
 

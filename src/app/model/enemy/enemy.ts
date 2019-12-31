@@ -1,4 +1,4 @@
-import { Cell } from "./cell";
+import { Cell, TO_DO_COLOR, DONE_COLOR } from "./cell";
 import { ShipDesign } from "../shipyard/shipDesign";
 import { SearchJob } from "./searchJob";
 import { IShipData, FIRST_DRONE } from "../data/shipsData";
@@ -49,13 +49,16 @@ export class Enemy {
   }
   generateCells() {
     this.cells = new Array<Cell>(100);
-    this.cells.forEach(cell => {
-      cell.ships = this.designs.map(des => des.enemyQuantity);
-    });
+    for (let i = 0; i < 100; i++) {
+      this.cells[i] = new Cell();
+      this.cells[i].ships = this.designs.map(des => des.enemyQuantity);
+    }
   }
   reloadCell(index: number) {
+    if (!this.cells) return;
     if (this.cells[index].done) {
       this.cells[index].percent = 0;
+      this.cells[index].color = "rgb(96, 181, 21)";
     } else {
       let cellNavCap = 0;
       for (let i = 0, n = this.designs.length; i < n; i++) {
@@ -63,6 +66,15 @@ export class Enemy {
           this.cells[index].ships[i] * this.designs[i].type.navalCapacity;
       }
       this.cells[index].percent = cellNavCap / this.totalNavCap;
+
+      this.cells[index].color = "rgb(";
+      for (let i = 0; i < 3; i++) {
+        const col =
+          TO_DO_COLOR[i] +
+          (DONE_COLOR[i] - TO_DO_COLOR[i]) * (1 - this.cells[index].percent);
+        this.cells[index].color += col + (i < 2 ? "," : "");
+      }
+      this.cells[index].color += ")";
     }
   }
   private generateDesign(iShipData: IShipData): ShipDesign {

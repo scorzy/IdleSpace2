@@ -1,11 +1,15 @@
 import { ZERO } from "../CONSTANTS";
 
+export const TO_DO_COLOR = [245, 79, 71];
+export const DONE_COLOR = [96, 181, 21];
+
 export class Cell {
   metal = ZERO;
   alloy = ZERO;
   percent = 100;
   done = false;
   inBattle = false;
+  color = "rgb(245, 79, 71)";
 
   ships: Array<number>;
 
