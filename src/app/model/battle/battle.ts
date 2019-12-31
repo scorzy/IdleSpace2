@@ -1,10 +1,10 @@
-import { BattleRequest } from "./battlerequest";
+import { BattleRequest } from "./battleRequest";
 import { Ship } from "./ship";
 import { WeaponData, ShipData } from "./shipData";
+import { BattleResult } from "./battleResult";
 
 export function battle(battleRequest: BattleRequest): any {
   const firingOrder: { weapon: WeaponData; shipData: ShipData }[] = [];
-
   const fleets = [battleRequest.enemyFleet, battleRequest.playerFleet];
 
   for (let i = 0, n = fleets.length; i < n; i++) {
@@ -25,19 +25,34 @@ export function battle(battleRequest: BattleRequest): any {
         shipData.ships.push(ship.getCopy());
       }
     });
+  }
 
-    firingOrder.sort((a, b) => a.weapon.initiative - b.weapon.initiative);
-    for (let i = 0; i < 5; i++) {
-      round(firingOrder);
-      postRound();
-      if (
-        battleRequest.enemyFleet.findIndex(s => s.ships.length > 0) < 0 ||
-        battleRequest.playerFleet.findIndex(s => s.ships.length > 0) < 0
-      ) {
-        break;
-      }
+  firingOrder.sort((a, b) => a.weapon.initiative - b.weapon.initiative);
+  for (let i = 0; i < 5; i++) {
+    round(firingOrder);
+    postRound();
+    if (
+      battleRequest.enemyFleet.findIndex(s => s.ships.length > 0) < 0 ||
+      battleRequest.playerFleet.findIndex(s => s.ships.length > 0) < 0
+    ) {
+      break;
     }
   }
+
+  const battleResult = new BattleResult();
+  battleResult.playerLost = battleRequest.playerFleet.map(data => {
+    return {
+      id: data.designId,
+      lost: data.quantity - data.ships.length
+    };
+  });
+  battleResult.enemyLost = battleRequest.enemyFleet.map(data => {
+    return {
+      id: data.designId,
+      lost: data.quantity - data.ships.length
+    };
+  });
+  return battleResult;
 }
 function postRound() {
   //  Regenerate shields

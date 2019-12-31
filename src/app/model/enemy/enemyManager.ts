@@ -3,14 +3,16 @@ import { JobManager } from "../job/jobManager";
 import { SearchJob } from "./searchJob";
 import { FLEET_NUMBER } from "../CONSTANTS";
 import { MainService } from "src/app/main.service";
-import { BattleRequest } from "../battle/battlerequest";
+import { BattleRequest } from "../battle/battleRequest";
 import { Game } from "../game";
+import { BattleResult } from "../battle/battleResult";
+import { Cell } from "./cell";
 
 export class EnemyManager extends JobManager {
   enemies = new Array<Enemy>();
   toDo = new Array<SearchJob>();
   currentEnemy: Enemy;
-  fleetsInBattle: Array<boolean>;
+  fleetsInBattle: Array<Cell>;
 
   constructor() {
     super();
@@ -44,7 +46,7 @@ export class EnemyManager extends JobManager {
     const toAttack = this.currentEnemy.cells.find(c => !c.done && !c.inBattle);
     if (toAttack) {
       toAttack.inBattle = true;
-      this.fleetsInBattle[fleetNum] = true;
+      this.fleetsInBattle[fleetNum] = toAttack;
       const battleRequest = new BattleRequest();
 
       const playerDesign = Game.getGame().shipyardManager.shipDesigns;
@@ -69,6 +71,18 @@ export class EnemyManager extends JobManager {
       }
       MainService.battleWorkers[fleetNum].postMessage(battleRequest);
     }
+  }
+  onBattleEnd(battleResult: BattleResult, fleetNum: number) {
+    const cell = this.fleetsInBattle[fleetNum];
+    for (let i = 0, n = this.currentEnemy.designs.length; i < n; i++) {
+      const designId = this.currentEnemy.designs[i].id;
+      const lostD = battleResult.enemyLost.find(en => en.id === designId);
+      if (lostD) {
+        cell[i] -= lostD.lost;
+        cell[i] = Math.floor(Math.max(cell[i], 0));
+      }
+    }
+    this.fleetsInBattle[fleetNum] = null;
   }
 
   //#region Save and Load

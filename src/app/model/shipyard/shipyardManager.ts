@@ -9,6 +9,7 @@ import { FLEET_CAPACITY_MULTI, FLEET_NUMBER, ZERO } from "../CONSTANTS";
 import { BuildShipsJob } from "./buildShipsJob";
 import { Job } from "../job/job";
 import { UpdateShipJob } from "./updateShipJob";
+import { BattleResult } from "../battle/battleResult";
 
 const MAX_DESIGN = 20;
 
@@ -36,13 +37,13 @@ export class ShipyardManager extends JobManager {
     if (!shipType) return -1;
 
     const shipDesign = new ShipDesign();
-    shipDesign.id = 0;
+    shipDesign.id = 1;
     for (let i = 0, n = this.shipDesigns.length; i < n; i++) {
       if (this.shipDesigns[i].id >= shipDesign.id) {
         shipDesign.id = this.shipDesigns[i].id + 1;
       }
     }
-    if (shipDesign.id !== 0) {
+    if (shipDesign.id !== 1) {
       shipDesign.fleets.forEach(fl => {
         fl.navalCapPercent = 0;
         fl.navalCapPercentUi = 0;
@@ -273,7 +274,6 @@ export class ShipyardManager extends JobManager {
       }
     }
   }
-
   delete(design: ShipDesign) {
     for (let i = this.toDo.length - 1; i > 0; i--) {
       const job = this.toDo[i];
@@ -288,6 +288,22 @@ export class ShipyardManager extends JobManager {
       this.shipDesigns.findIndex(d => d === design),
       1
     );
+  }
+  onBattleEnd(battleResult: BattleResult, fleetNum: number) {
+    for (let i = 0, n = this.shipDesigns.length; i < n; n++) {
+      const id = Math.abs(battleResult.playerLost[i].id);
+      let design = this.shipDesigns.find(des => des.id === id);
+      if (battleResult.playerLost[i].id < 0) {
+        design = design.old;
+      }
+      if (design) {
+        design.fleets[fleetNum].shipsQuantity -=
+          battleResult.playerLost[i].lost;
+        design.fleets[fleetNum].shipsQuantity = Math.floor(
+          Math.max(design.fleets[fleetNum].shipsQuantity, 0)
+        );
+      }
+    }
   }
 
   //#region Save and Load

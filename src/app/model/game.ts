@@ -3,6 +3,7 @@ import { ResearchManager } from "./researches/researchManager";
 import { ShipyardManager } from "./shipyard/shipyardManager";
 import { BASE_NAVAL_CAPACITY, ZERO } from "./CONSTANTS";
 import { EnemyManager } from "./enemy/enemyManager";
+import { BattleResult } from "./battle/battleResult";
 
 /**
  * Game is the main class that orchestrate everything game related
@@ -96,7 +97,10 @@ export class Game {
     this.navalCapacity = Math.floor(this.navalCapacity);
     this.shipyardManager.reloadFleetCapacity();
   }
-  onBattleEnd(data: any, fleetNum: number) {}
+  onBattleEnd(battleResult: BattleResult, fleetNum: number) {
+    this.shipyardManager.onBattleEnd(battleResult, fleetNum);
+    this.shipyardManager.onBattleEnd(battleResult, fleetNum);
+  }
 
   //#region Save and Load
   getSave(): any {
