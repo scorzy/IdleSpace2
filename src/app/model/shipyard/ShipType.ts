@@ -14,12 +14,12 @@ export class ShipType implements ShipTypeData {
     if ("maxModule" in data) {
       this.maxModule = data.maxModule;
     } else {
-      this.maxModule = 3 + this.id;
+      this.maxModule = 2 + this.id;
     }
     if ("maxPoints" in data) {
       this.maxPoints = data.maxPoints;
     } else {
-      this.maxPoints = 2 + 2 * this.id;
+      this.maxPoints = 1 + 2 * this.id;
     }
     if ("navalCapacity" in data) {
       this.navalCapacity = data.navalCapacity;

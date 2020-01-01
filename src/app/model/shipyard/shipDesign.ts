@@ -13,7 +13,7 @@ import { FleetShips } from "./fleetShips";
 import { ShipData } from "../battle/shipData";
 
 const PRICE_GROW_RATE = 1.2;
-const SIZE_MULTI = 0.25;
+const SIZE_MULTI = 0.2;
 
 export class ShipDesign {
   id: number;
@@ -55,7 +55,7 @@ export class ShipDesign {
   }
   static getStatsMulti(m: any): number {
     const sizeMultiplier = m.size + (m.size - 1) * SIZE_MULTI;
-    return 1 + (m.level * sizeMultiplier) / 10;
+    return (1 + 0.1 * (m.level - 1)) * sizeMultiplier;
   }
   reload(errorCheck = false) {
     this.totalArmour = BASE_ARMOUR * (this.type.id + 1);

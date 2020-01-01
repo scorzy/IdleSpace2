@@ -1,17 +1,20 @@
 export enum Sizes {
-  Small = 1,
+  ExtraSmall = 1,
+  Small,
   Medium,
   Large,
   ExtraLarge,
   Titanic
 }
 export const ALL_SIZES = [
+  Sizes.ExtraSmall,
   Sizes.Small,
   Sizes.Medium,
   Sizes.Large,
   Sizes.ExtraLarge
 ];
 const sizeNames = [
+  ["XS", "ExtraSmall"],
   ["S", "Small"],
   ["M", "Medium"],
   ["L", "Large"],
@@ -19,7 +22,7 @@ const sizeNames = [
   ["T", "Titanic"]
 ];
 export function getSizeName(size: Sizes, short = false): string {
-  return size < 5
+  return size < 6
     ? sizeNames[size - 1][short ? 0 : 1]
     : (short ? "T " : "Titan ") + (size - 4);
 }

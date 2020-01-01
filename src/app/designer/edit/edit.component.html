@@ -58,7 +58,13 @@
           [nzValidateStatus]="line.validateStatus"
           [nzErrorTip]="' ' + line.errorTip"
         >
-          <div fxLayout="row" fxLayout.lt-md="column" fxLayoutGap="0.5rem">
+          <!-- fxLayout.lt-md="column" -->
+          <div
+            fxLayout="row"
+            fxLayoutGap="0.5rem"
+            fxLayout="row"
+            fxLayout.lt-sm="column"
+          >
             <nz-select
               [name]="'module' + i"
               [(ngModel)]="line.moduleId"
@@ -133,30 +139,34 @@
                 </nz-option>
               </nz-option-group>
             </nz-select>
-            <nz-select
-              *ngIf="line.module"
-              [name]="'size' + i"
-              [(ngModel)]="line.size"
-              (ngModelChange)="reload()"
-            >
-              <nz-option
-                *ngFor="let size of line.module.sizes; trackBy: getSizeId"
-                [nzValue]="size"
-                [nzLabel]="size | sizePipe"
-              ></nz-option>
-            </nz-select>
-            <input
-              nz-input
-              [(ngModel)]="line.levelUi"
-              [name]="'level-' + i"
-              (ngModelChange)="reload(i)"
-            />
-            <i
-              nz-icon
-              nzType="minus-circle-o"
-              class="dynamic-delete-button"
-              (click)="removeLine(i)"
-            ></i>
+            <div fxLayout="row" fxLayoutGap="0.5rem">
+              <nz-select
+                *ngIf="line.module"
+                [name]="'size' + i"
+                [(ngModel)]="line.size"
+                (ngModelChange)="reload()"
+                style="min-width: 6rem;"
+              >
+                <nz-option
+                  *ngFor="let size of line.module.sizes; trackBy: getSizeId"
+                  [nzValue]="size"
+                  [nzLabel]="size | sizePipe"
+                ></nz-option>
+              </nz-select>
+              <input
+                nz-input
+                [(ngModel)]="line.levelUi"
+                [name]="'level-' + i"
+                (ngModelChange)="reload(i)"
+                class="levelNum"
+              />
+              <i
+                nz-icon
+                nzType="minus-circle-o"
+                class="dynamic-delete-button"
+                (click)="removeLine(i)"
+              ></i>
+            </div>
           </div>
         </nz-form-control>
       </nz-form-item>
