@@ -10,7 +10,7 @@ export const RESEARCHES: IResearchData[] = [
     unitsToUnlock: ["A", "a", "w", "W"],
     researchToUnlock: ["p", "s2", "c", "n", "s"],
     max: 1,
-    type: [TECHNOLOGIES.Engineering],
+    type: [TECHNOLOGIES.MilitaryEngineering],
     technologiesToUnlock: ["e"]
   },
   {

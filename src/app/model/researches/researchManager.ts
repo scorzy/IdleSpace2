@@ -56,7 +56,7 @@ export class ResearchManager extends JobManager {
         name: shipyard.shipTypes[i].name,
         description: "Unlock " + shipyard.shipTypes[i].name,
         price: Decimal.pow(SHIP_PRICE_MULTI, i).times(SHIP_BASE_PRICE),
-        type: [TECHNOLOGIES.Engineering]
+        type: [TECHNOLOGIES.MilitaryEngineering]
       };
       resData.navalCapacity =
         shipyard.shipTypes[i].navalCapacity * SHIP_RESEARCH_NAV_CAP_MULTI;

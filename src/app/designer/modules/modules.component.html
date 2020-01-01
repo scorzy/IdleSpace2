@@ -1,5 +1,18 @@
 <h1>Ship Modules</h1>
 
+<nz-select [(ngModel)]="type" (ngModelChange)="reload()">
+  <nz-option nzValue="a" nzLabel="All Types"></nz-option>
+  <nz-option nzValue="w" nzLabel="Weapons"></nz-option>
+  <nz-option nzValue="d" nzLabel="Defences"></nz-option>
+  <nz-option nzValue="g" nzLabel="Generators"></nz-option>
+  <nz-option nzValue="o" nzLabel="Others"></nz-option>
+</nz-select>
+<nz-select [(ngModel)]="status" (ngModelChange)="reload()">
+  <nz-option nzValue="a" nzLabel="All Statuses"></nz-option>
+  <nz-option nzValue="u" nzLabel="Unlocked"></nz-option>
+  <nz-option nzValue="l" nzLabel="Locked"></nz-option>
+</nz-select>
+
 <nz-list [nzDataSource]="modules" nzBordered [nzRenderItem]="moduleItem">
   <ng-template #moduleItem let-mod>
     <nz-list-item>

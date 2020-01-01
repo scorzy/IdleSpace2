@@ -112,7 +112,7 @@
                 [name]="'size' + i"
                 [(ngModel)]="line.size"
                 (ngModelChange)="reload()"
-                style="min-width: 6rem;"
+                style="min-width: 8rem;"
               >
                 <nz-option
                   *ngFor="let size of line.module.sizes; trackBy: getSizeId"
