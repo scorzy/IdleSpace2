@@ -54,6 +54,7 @@ export function battle(battleRequest: BattleRequest): any {
   }
 
   const battleResult = new BattleResult();
+  battleResult.gameId = battleRequest.gameId;
   battleResult.playerLost = battleRequest.playerFleet.map(data => {
     return {
       id: data.designId,

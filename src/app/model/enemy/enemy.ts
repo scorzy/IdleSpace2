@@ -4,7 +4,11 @@ import { SearchJob } from "./searchJob";
 import { IShipData, FIRST_DRONE } from "../data/shipsData";
 import { Game } from "../game";
 import { sample } from "lodash-es";
-import { ENEMY_NAVAL_CAP_LEVEL, FLEET_CAPACITY_MULTI } from "../CONSTANTS";
+import {
+  ENEMY_NAVAL_CAP_LEVEL,
+  FLEET_CAPACITY_MULTI,
+  FLEET_CAPACITY
+} from "../CONSTANTS";
 
 export class Enemy {
   constructor() {
@@ -23,16 +27,19 @@ export class Enemy {
     this.name = "aaa";
     this.designs = [];
     let sum = 0;
+    this.level = searchJob.enemyLevel;
     const maxNavalCap = Math.min(
       ENEMY_NAVAL_CAP_LEVEL * (this.level + 1),
-      FLEET_CAPACITY_MULTI
+      FLEET_CAPACITY
     );
 
-    if (searchJob.level < 1) {
+    if (searchJob.enemyLevel < 1) {
       this.designs.push(this.generateDesign(FIRST_DRONE));
       sum = 1;
     } else {
       // ToDo
+      this.designs.push(this.generateDesign(FIRST_DRONE));
+      sum = 1;
     }
 
     this.designs.forEach(des => {

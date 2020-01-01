@@ -43,7 +43,11 @@ export class EnemyManager extends JobManager {
     if (index > 0) this.enemies.splice(index, 1);
   }
   attackCell(fleetNum: number) {
-    if (this.fleetsInBattle[fleetNum]) return false;
+    if (
+      this.fleetsInBattle[fleetNum] ||
+      Game.getGame().shipyardManager.maxFleet <= fleetNum
+    )
+      return false;
     const playerDesign = Game.getGame().shipyardManager.shipDesigns;
 
     const toAttack = this.currentEnemy.cells.find(c => !c.done && !c.inBattle);
@@ -51,6 +55,7 @@ export class EnemyManager extends JobManager {
       toAttack.inBattle = true;
       this.fleetsInBattle[fleetNum] = toAttack;
       const battleRequest = new BattleRequest();
+      battleRequest.gameId = Game.getGame().gameId;
 
       //  Player Fleet
       for (let i = 0, n = playerDesign.length; i < n; i++) {
@@ -79,8 +84,13 @@ export class EnemyManager extends JobManager {
     }
   }
   onBattleEnd(battleResult: BattleResult, fleetNum: number) {
-    let done = true;
     const cell = this.fleetsInBattle[fleetNum];
+    if (!this.currentEnemy) {
+      this.fleetsInBattle[fleetNum] = null;
+      return;
+    }
+
+    let done = true;
     for (let i = 0, n = this.currentEnemy.designs.length; i < n; i++) {
       const designId = this.currentEnemy.designs[i].id;
       const lostD = battleResult.enemyLost.find(en => en.id === designId);
@@ -96,6 +106,9 @@ export class EnemyManager extends JobManager {
     cell.inBattle = false;
     this.currentEnemy.reloadCell(this.currentEnemy.cells.indexOf(cell));
     this.fleetsInBattle[fleetNum] = null;
+  }
+  surrender() {
+    this.currentEnemy = null;
   }
 
   //#region Save and Load

@@ -38,4 +38,7 @@ export class BattleComponent implements OnInit, OnDestroy {
       }
     } else this.ms.game.enemyManager.attackCell(num);
   }
+  surrender() {
+    this.ms.game.enemyManager.surrender();
+  }
 }

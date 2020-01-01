@@ -9,7 +9,7 @@
 
     <nz-collapse [nzBordered]="false">
       <nz-collapse-panel
-        *ngFor="let panel of panels"
+        *ngFor="let panel of panels; trackBy: getPanelId"
         [nzHeader]="panel.name"
         [nzActive]="panel.active"
         [nzDisabled]="panel.disabled"
@@ -102,15 +102,12 @@
       </nz-collapse-panel>
     </nz-collapse>
 
-    <br />
     <nz-button-group>
       <button nz-button nzType="primary" (click)="confirm()">Confirm</button>
       <button nz-button (click)="reinforceAll()">
         Reinforce All
       </button>
     </nz-button-group>
-    <br />
-    <nz-button-group> </nz-button-group>
   </div>
   <div
     fxFlex.lt-md="100%"

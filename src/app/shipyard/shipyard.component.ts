@@ -41,6 +41,14 @@ export class ShipyardComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.fleetNames = ["Fleet 1", "Fleet 2", "Fleet 3", "Fleet 4", "Fleet 5"];
+    for (let i = 1; i < this.ms.game.shipyardManager.maxFleet; i++) {
+      this.panels.push({
+        active: true,
+        name: "Fleet " + i,
+        disabled: false,
+        fleet: i
+      });
+    }
     this.subscriptions.push(
       this.ms.updateEmitter.subscribe(() => {
         this.ms.game.reloadNavalCapacity();
@@ -71,6 +79,9 @@ export class ShipyardComponent implements OnInit, OnDestroy {
     return index + name;
   }
   getFleetId(index: number, fleet: FleetShips) {
+    return index;
+  }
+  getPanelId(index: number, panels: any) {
     return index;
   }
   confirm() {

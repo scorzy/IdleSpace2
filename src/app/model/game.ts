@@ -21,6 +21,7 @@ export class Game {
 
   navalCapacity: number = BASE_NAVAL_CAPACITY;
   updateNavalCapacity = true;
+  private _gameId = "";
 
   /**
    * Gets game return instance of game
@@ -33,6 +34,7 @@ export class Game {
 
   constructor() {
     Game.instance = this;
+    this.generateGameId();
     this.resourceManager = new ResourceManager();
     this.researchManager = new ResearchManager();
     this.shipyardManager = new ShipyardManager();
@@ -40,6 +42,12 @@ export class Game {
     this.shipyardManager.init();
     this.researchManager.makeShipsResearches();
     this.researchManager.setRelations();
+  }
+  private generateGameId() {
+    this._gameId = Date.now().toString() + Math.random().toString();
+  }
+  get gameId() {
+    return this._gameId;
   }
 
   /**
@@ -98,6 +106,9 @@ export class Game {
     this.shipyardManager.reloadFleetCapacity();
   }
   onBattleEnd(battleResult: BattleResult, fleetNum: number) {
+    console.log(battleResult.gameId);
+    console.log(this.gameId);
+    if (battleResult.gameId !== this.gameId) return;
     this.shipyardManager.onBattleEnd(battleResult, fleetNum);
     this.enemyManager.onBattleEnd(battleResult, fleetNum);
   }
