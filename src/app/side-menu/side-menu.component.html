@@ -61,33 +61,6 @@
       <li nz-menu-item nzMatchRouter>
         <a [routerLink]="'fleet'">Fleet</a>
       </li>
-      <!-- <li nz-menu-item nzMatchRouter>
-        <a [routerLink]="'fleet/2'">Fleet 2</a>
-      </li>
-      <li nz-menu-item nzMatchRouter>
-        <a [routerLink]="'fleet/3'">Fleet 3</a>
-      </li>
-      <li nz-menu-item nzMatchRouter>
-        <a [routerLink]="'fleet/4'">Fleet 4</a>
-      </li>
-      <li nz-menu-item nzMatchRouter>
-        <a [routerLink]="'fleet/5'">Fleet 5</a>
-      </li>
-      <li nz-menu-item nzMatchRouter>
-        <a [routerLink]="'fleet/6'">Fleet 6</a>
-      </li>
-      <li nz-menu-item nzMatchRouter>
-        <a [routerLink]="'fleet/7'">Fleet 7</a>
-      </li>
-      <li nz-menu-item nzMatchRouter>
-        <a [routerLink]="'fleet/8'">Fleet 8</a>
-      </li>
-      <li nz-menu-item nzMatchRouter>
-        <a [routerLink]="'fleet/9'">Fleet 9</a>
-      </li>
-      <li nz-menu-item nzMatchRouter>
-        <a [routerLink]="'fleet/10'">Fleet 10</a>
-      </li> -->
     </ul>
   </li>
   <li @fadeIn nz-submenu nzOpen nzTitle="Designer" nzIcon="my:pencil-ruler">
@@ -96,6 +69,11 @@
         <a [routerLink]="'/add'">
           <i nz-icon nzType="plus-circle" nzTheme="outline"></i>
           <span>Add</span>
+        </a>
+      </li>
+      <li nz-menu-item nzMatchRouter>
+        <a [routerLink]="'/modules'">
+          <span>Modules</span>
         </a>
       </li>
       <li

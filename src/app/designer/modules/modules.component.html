@@ -1,0 +1,64 @@
+<h1>Ship Modules</h1>
+
+<nz-list [nzDataSource]="modules" nzBordered [nzRenderItem]="moduleItem">
+  <ng-template #moduleItem let-mod>
+    <nz-list-item>
+      <div
+        fxLayout="rows wrap"
+        fxLayoutAlign="center center"
+        class="modRow"
+        fxLayoutAlign="start"
+      >
+        <div>
+          <i
+            nz-icon
+            [nzType]="mod.shape"
+            nzTheme="outline"
+            class="moduleIcon"
+          ></i>
+        </div>
+        <div
+          fxFlex.xs="calc(100% - 60px)"
+          fxFlex.sm="0 1 calc(60% - 60px)"
+          fxFlex.md="0 1 calc(50% - 60px)"
+          fxFlex.gt-md="0 1 calc(40% - 60px)"
+        >
+          <span class="firstLine">
+            <strong>{{ mod.name }}</strong>
+            <i
+              *ngIf="!mod.unlocked"
+              nz-icon
+              nzType="lock"
+              nzTheme="outline"
+              class="lockIcon"
+            ></i>
+            <span
+              class="monospace"
+              nz-tooltip
+              nzTooltipTitle="Max Leve / Unlock Level"
+            >
+              {{ mod.maxLevel | format: true
+              }}<span *ngIf="!mod.unlocked"
+                >/{{ mod.unlockLevel | format: true }}</span
+              >
+            </span>
+          </span>
+          <app-module-info [mod]="mod"></app-module-info>
+        </div>
+        <div fxLayout="rows wrap">
+          <span
+            *ngFor="let item of mod.technologies"
+            nz-tooltip
+            [nzTooltipTitle]="item.technology.name"
+            class="techLine"
+          >
+            <span [style.color]="item.technology.color"
+              ><i nz-icon [nzType]="item.technology.icon"></i
+            ></span>
+            <span class="monospace">{{ item.multi * 100 | format }}%</span>
+          </span>
+        </div>
+      </div>
+    </nz-list-item>
+  </ng-template>
+</nz-list>

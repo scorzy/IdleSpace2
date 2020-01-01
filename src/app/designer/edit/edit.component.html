@@ -58,7 +58,6 @@
           [nzValidateStatus]="line.validateStatus"
           [nzErrorTip]="' ' + line.errorTip"
         >
-          <!-- fxLayout.lt-md="column" -->
           <div
             fxLayout="row"
             fxLayoutGap="0.5rem"
@@ -101,39 +100,7 @@
                       fxFlex="100%"
                     >
                       <span fxFlex="100%"> {{ mod.name }}</span>
-                      <span font="monospace">
-                        <span
-                          *ngIf="mod.armourDamagePercent !== 100"
-                          class="armour-damage-color"
-                        >
-                          <i nz-icon nzType="my:metal-scales"></i>
-                          {{ mod.armourDamagePercent }}%
-                        </span>
-                        <span
-                          *ngIf="mod.shieldDamagePercent !== 100"
-                          class="shield-damage-color"
-                        >
-                          <i nz-icon nzType="my:bubble-field"></i>
-                          {{ mod.shieldDamagePercent }}%
-                        </span>
-                        <span
-                          *ngIf="mod.armour > 0"
-                          class="armour-damage-color"
-                        >
-                          <i nz-icon nzType="my:metal-scales"></i>
-                          {{ mod.armour }}
-                        </span>
-                        <span
-                          *ngIf="mod.shield > 0"
-                          class="shield-damage-color"
-                        >
-                          <i nz-icon nzType="my:bubble-field"></i>
-                          {{ mod.shield }}
-                        </span>
-                        <span *ngIf="mod.energy !== 0" class="energy-color">
-                          <i nz-icon nzType="my:electric"></i>{{ mod.energy }}
-                        </span>
-                      </span>
+                      <app-module-info [mod]="mod"></app-module-info>
                     </span>
                   </span>
                 </nz-option>

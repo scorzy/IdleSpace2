@@ -1,0 +1,70 @@
+<span font="monospace" fxLayout="row">
+  <span
+    *ngIf="mod.damage > 0"
+    class="damage-color"
+    nz-tooltip
+    nzTooltipTitle="Damage"
+    fxLayout="row"
+  >
+    <i nz-icon nzType="my:blaster"></i>
+    <span>{{ mod.damage }}</span>
+  </span>
+  <span
+    *ngIf="mod.armourDamagePercent !== 100"
+    class="armour-damage-color"
+    nz-tooltip
+    nzTooltipTitle="Armour % Damage"
+    fxLayout="row"
+  >
+    <i nz-icon nzType="my:laser-blast"></i>
+    {{ mod.armourDamagePercent }}%
+  </span>
+  <span
+    *ngIf="mod.shieldDamagePercent !== 100"
+    class="shield-damage-color"
+    nz-tooltip
+    nzTooltipTitle="Shield % Damage"
+    fxLayout="row"
+  >
+    <i nz-icon nzType="my:supersonic-bullet"></i>
+    {{ mod.shieldDamagePercent }}%
+  </span>
+  <span
+    *ngIf="mod.armour > 0"
+    class="armour-damage-color"
+    nz-tooltip
+    nzTooltipTitle="Armour"
+    fxLayout="row"
+  >
+    <i nz-icon nzType="my:metal-scales"></i>
+    {{ mod.armour }}
+  </span>
+  <span
+    *ngIf="mod.shield > 0"
+    class="shield-damage-color"
+    nz-tooltip
+    nzTooltipTitle="Shield"
+    fxLayout="row"
+  >
+    <i nz-icon nzType="my:bubble-field"></i>
+    {{ mod.shield }}
+  </span>
+  <span
+    *ngIf="mod.energy !== 0"
+    class="energy-color"
+    nz-tooltip
+    nzTooltipTitle="Energy"
+    fxLayout="row"
+  >
+    <i nz-icon nzType="my:electric"></i>{{ mod.energy }}
+  </span>
+  <span
+    *ngIf="mod.explosion !== 0"
+    class="explosion-color"
+    nz-tooltip
+    nzTooltipTitle="Explosion %"
+    fxLayout="row"
+  >
+    <i nz-icon nzType="my:explosion-rays"></i>{{ mod.explosion }}%
+  </span>
+</span>
