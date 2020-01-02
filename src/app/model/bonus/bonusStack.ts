@@ -9,7 +9,7 @@ export class BonusStack {
   reloadBonus() {
     this.totalBonus = ONE;
     for (let i = 0, n = this.bonuses.length; i < n; i++) {
-      this.totalBonus = this.totalBonus.plus(this.bonuses[i].getBonus());
+      this.totalBonus = this.totalBonus.times(this.bonuses[i].getBonus());
     }
   }
   reloadBonusUi() {

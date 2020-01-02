@@ -15,6 +15,7 @@ export class Module implements IUnlockable {
   shield = 0;
   energy = 0;
   damage = 0;
+  cargo = 0;
   armourDamagePercent = 100;
   shieldDamagePercent = 100;
   fire = 1;
@@ -34,6 +35,7 @@ export class Module implements IUnlockable {
     if ("energy" in moduleData) this.energy = moduleData.energy;
     if ("damage" in moduleData) this.damage = moduleData.damage;
     if ("price" in moduleData) this.price = moduleData.price;
+    if ("cargo" in moduleData) this.cargo = moduleData.cargo;
     if ("armourDamagePercent" in moduleData) {
       this.armourDamagePercent = moduleData.armourDamagePercent;
     }

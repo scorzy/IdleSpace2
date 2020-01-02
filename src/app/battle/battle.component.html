@@ -2,6 +2,10 @@
   <div *ngIf="ms.game.enemyManager.currentEnemy" fxFlex="1 1 calc(50% - 10px)">
     <h1>
       {{ ms.game.enemyManager.currentEnemy.name }}
+      <small
+        >lv.
+        {{ ms.game.enemyManager.currentEnemy.level | number: "1.0-0" }}</small
+      >
     </h1>
     <nz-button-group>
       <button nz-button nzType="primary" (click)="attack(-1)">

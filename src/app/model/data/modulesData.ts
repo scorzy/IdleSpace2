@@ -1,4 +1,5 @@
 import { Sizes } from "./sizes";
+import { TECHNOLOGIES } from "./technologyData";
 
 export class ModuleData {
   id: string;
@@ -16,6 +17,7 @@ export class ModuleData {
   sizes?: Sizes[];
   shape?: string;
   unlockLevel?: number;
+  cargo?: number;
   technologies: { technologyId: string; multi: number }[];
 }
 
@@ -33,7 +35,9 @@ export const modules: ModuleData[] = [
     name: "Shield",
     shield: 100,
     energy: -1,
-    technologies: [{ technologyId: "e", multi: 1 }],
+    technologies: [
+      { technologyId: TECHNOLOGIES.CivilEngineering.id, multi: 1 }
+    ],
     shape: "my:bubble-field"
   },
   //#endregion
@@ -74,8 +78,19 @@ export const modules: ModuleData[] = [
     shieldDamagePercent: 75,
     armourDamagePercent: 125,
     energy: -1,
-    technologies: [{ technologyId: "e", multi: 1 }],
+    technologies: [{ technologyId: TECHNOLOGIES.Physics.id, multi: 1 }],
     shape: "my:laser-blast"
+  },
+  //#endregion
+  //#region Others
+  {
+    id: "C",
+    name: "Cargo",
+    technologies: [
+      { technologyId: TECHNOLOGIES.CivilEngineering.id, multi: 1 }
+    ],
+    cargo: 100,
+    shape: "my:cube"
   }
   //#endregion
 ];

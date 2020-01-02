@@ -7,12 +7,14 @@ import { BattleRequest } from "../battle/battleRequest";
 import { Game } from "../game";
 import { BattleResult } from "../battle/battleResult";
 import { Cell } from "./cell";
+import { getWeekYearWithOptions } from "date-fns/fp";
 
 export class EnemyManager extends JobManager {
   enemies = new Array<Enemy>();
   toDo = new Array<SearchJob>();
   currentEnemy: Enemy;
   fleetsInBattle: Array<Cell>;
+  maxLevel = 0;
 
   constructor() {
     super();
@@ -36,7 +38,7 @@ export class EnemyManager extends JobManager {
     }
   }
   attackEnemy(enemy: Enemy) {
-    if (this.currentEnemy) return false;
+    if (this.currentEnemy || enemy.level > this.maxLevel) return false;
     this.currentEnemy = enemy;
     this.currentEnemy.generateCells();
     const index = this.enemies.indexOf(this.currentEnemy);
@@ -89,7 +91,6 @@ export class EnemyManager extends JobManager {
       this.fleetsInBattle[fleetNum] = null;
       return;
     }
-
     let done = true;
     for (let i = 0, n = this.currentEnemy.designs.length; i < n; i++) {
       const designId = this.currentEnemy.designs[i].id;
@@ -104,20 +105,29 @@ export class EnemyManager extends JobManager {
     }
     cell.done = done;
     cell.inBattle = false;
+    if (cell.done) {
+      this.reward(cell, fleetNum);
+      if (this.currentEnemy.cells.findIndex(c => !c.done) < 0) {
+        this.defeatEnemy();
+      }
+    }
     this.currentEnemy.reloadCell(this.currentEnemy.cells.indexOf(cell));
     this.fleetsInBattle[fleetNum] = null;
   }
   surrender() {
     this.currentEnemy = null;
   }
+  reward(cell: Cell, fleetNum: number) {}
+  defeatEnemy() {}
 
   //#region Save and Load
   getSave(): any {
-    return {
+    const ret: any = {
       e: this.enemies.map(en => en.getSave()),
       t: this.toDo.map(t => t.getSave()),
-      c: this.currentEnemy.getSave()
+      m: this.maxLevel
     };
+    if (this.currentEnemy) ret.c = this.currentEnemy.getSave();
   }
   load(data: any) {
     if ("e" in data) {
@@ -138,6 +148,7 @@ export class EnemyManager extends JobManager {
       this.currentEnemy = new Enemy();
       this.currentEnemy.load(data.c);
     }
+    if ("m" in data) this.maxLevel = data.m;
   }
   //#endregion
 }

@@ -111,5 +111,21 @@ export class DesignInfoComponent implements OnInit, OnDestroy {
         ? "text-success"
         : ""
     });
+
+    this.comparisonData.push({
+      name: "Cargo",
+      original: this.original.cargo,
+      new: !this.design ? null : this.design.cargo,
+      type: !this.design
+        ? null
+        : this.original.cargo.gt(this.design.cargo)
+        ? "danger"
+        : "",
+      classes: !this.design
+        ? null
+        : this.original.cargo.lt(this.design.cargo)
+        ? "text-success"
+        : ""
+    });
   }
 }

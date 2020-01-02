@@ -12,7 +12,7 @@ const RESEARCH_BONUS = new Decimal(1.1);
 export class Technology implements IBase, IUnlockable, ITechnologyData {
   id = "";
   name = "";
-  quantity = ONE;
+  quantity = ZERO;
   icon: string;
   progress = ZERO;
   price = ZERO;
@@ -53,6 +53,7 @@ export class Technology implements IBase, IUnlockable, ITechnologyData {
     if (this.unlocked) return false;
 
     this.unlocked = true;
+    this.quantity = ONE;
     Game.getGame().researchManager.reloadTechList();
     return true;
   }

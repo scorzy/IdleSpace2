@@ -7,7 +7,7 @@
     fxLayout="row"
   >
     <i nz-icon nzType="my:blaster"></i>
-    <span>{{ mod.damage }}</span>
+    <span>{{ mod.damage | number: "1.0-0" }}</span>
   </span>
   <span
     *ngIf="mod.armourDamagePercent !== 100"
@@ -17,7 +17,7 @@
     fxLayout="row"
   >
     <i nz-icon nzType="my:laser-blast"></i>
-    {{ mod.armourDamagePercent }}%
+    {{ mod.armourDamagePercent | number: "1.0-0" }}%
   </span>
   <span
     *ngIf="mod.shieldDamagePercent !== 100"
@@ -27,7 +27,7 @@
     fxLayout="row"
   >
     <i nz-icon nzType="my:supersonic-bullet"></i>
-    {{ mod.shieldDamagePercent }}%
+    {{ mod.shieldDamagePercent | number: "1.0-0" }}%
   </span>
   <span
     *ngIf="mod.armour > 0"
@@ -37,7 +37,7 @@
     fxLayout="row"
   >
     <i nz-icon nzType="my:metal-scales"></i>
-    {{ mod.armour }}
+    {{ mod.armour | number: "1.0-0" }}
   </span>
   <span
     *ngIf="mod.shield > 0"
@@ -47,7 +47,7 @@
     fxLayout="row"
   >
     <i nz-icon nzType="my:bubble-field"></i>
-    {{ mod.shield }}
+    {{ mod.shield | number: "1.0-0" }}
   </span>
   <span
     *ngIf="mod.energy !== 0"
@@ -56,7 +56,7 @@
     nzTooltipTitle="Energy"
     fxLayout="row"
   >
-    <i nz-icon nzType="my:electric"></i>{{ mod.energy }}
+    <i nz-icon nzType="my:electric"></i>{{ mod.energy | number: "1.0-0" }}
   </span>
   <span
     *ngIf="mod.explosion !== 0"
@@ -65,6 +65,16 @@
     nzTooltipTitle="Explosion %"
     fxLayout="row"
   >
-    <i nz-icon nzType="my:explosion-rays"></i>{{ mod.explosion }}%
+    <i nz-icon nzType="my:explosion-rays"></i
+    >{{ mod.explosion | number: "1.0-0" }}
+  </span>
+  <span
+    *ngIf="mod.cargo > 0"
+    class="cargo-color"
+    nz-tooltip
+    nzTooltipTitle="Cargo"
+    fxLayout="row"
+  >
+    <i nz-icon nzType="my:cube"></i>{{ mod.cargo | number: "1.0-0" }}%
   </span>
 </span>

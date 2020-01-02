@@ -12,7 +12,7 @@ import { MainService } from "src/app/main.service";
 import { FleetShips } from "./fleetShips";
 import { ShipData } from "../battle/shipData";
 
-const PRICE_GROW_RATE = 1.2;
+const PRICE_GROW_RATE = 1.05;
 const SIZE_MULTI = 0.2;
 
 export class ShipDesign {
@@ -31,6 +31,7 @@ export class ShipDesign {
   explosionChance = 20;
   energy = 0;
   price = ZERO;
+  cargo = ZERO;
   valid = true;
 
   modules = new Array<{
@@ -62,6 +63,7 @@ export class ShipDesign {
     this.totalShield = 0;
     this.totalDamage = 0;
     this.price = new Decimal(BASE_SHIP_PRICE * (this.type.id + 1));
+    this.cargo = ZERO;
     this.totalPoints = 0;
     this.energy = 0;
     this.modules
@@ -69,8 +71,8 @@ export class ShipDesign {
       .forEach(m => {
         this.totalPoints = this.totalPoints + m.size;
         const statsMulti = ShipDesign.getStatsMulti(m);
-        const priceMulti = Decimal.multiply(statsMulti, PRICE_GROW_RATE).times(
-          m.level
+        const priceMulti = Decimal.pow(PRICE_GROW_RATE, m.level).times(
+          statsMulti
         );
 
         this.totalArmour += m.module.armour * statsMulti;
@@ -79,6 +81,9 @@ export class ShipDesign {
 
         this.energy += m.module.energy * statsMulti;
         this.price = this.price.plus(priceMulti.times(m.module.price));
+        this.cargo = this.cargo.plus(
+          Decimal.multiply(m.module.cargo, statsMulti)
+        );
       });
 
     this.valid = this.energy >= 0;

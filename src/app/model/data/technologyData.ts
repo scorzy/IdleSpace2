@@ -15,6 +15,13 @@ export const TECHNOLOGIES: { readonly [index: string]: ITechnologyData } = {
   MilitaryEngineering: {
     id: "e",
     name: "Military Engineering",
+    icon: "my:upgrade",
+    color: "#D4380D",
+    price: new Decimal(1e3)
+  },
+  CivilEngineering: {
+    id: "i",
+    name: "Civil Engineering",
     icon: "setting",
     color: "#FA8C16",
     price: new Decimal(1e3)
@@ -30,21 +37,21 @@ export const TECHNOLOGIES: { readonly [index: string]: ITechnologyData } = {
     id: "c",
     name: "Computing",
     icon: "my:computing",
-    color: "#096DD9",
+    color: "#85A5FF",
     price: new Decimal(1e3)
   },
   Naval: {
     id: "n",
     name: "Naval",
-    icon: "my:computing",
+    icon: "my:medal",
     color: "red",
     price: new Decimal(1e3)
   },
   SEARCH: {
     id: "r",
     name: "Search",
-    icon: "my:computing",
-    color: "red",
+    icon: "my:radar-sweep",
+    color: "#7CB305",
     price: new Decimal(1e3)
   }
 };

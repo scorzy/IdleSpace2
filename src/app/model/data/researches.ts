@@ -11,7 +11,7 @@ export const RESEARCHES: IResearchData[] = [
     researchToUnlock: ["p", "s2", "c", "n", "s"],
     max: 1,
     type: [TECHNOLOGIES.MilitaryEngineering],
-    technologiesToUnlock: ["e"]
+    technologiesToUnlock: ["e", TECHNOLOGIES.CivilEngineering.id]
   },
   {
     id: "p",

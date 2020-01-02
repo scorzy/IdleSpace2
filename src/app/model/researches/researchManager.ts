@@ -52,7 +52,7 @@ export class ResearchManager extends JobManager {
     const shipyard = Game.getGame().shipyardManager;
     for (let i = 1, n = shipyard.shipTypes.length; i < n; i++) {
       const resData: IResearchData = {
-        id: "s" + shipyard.shipTypes[i].id,
+        id: "s" + i,
         name: shipyard.shipTypes[i].name,
         description: "Unlock " + shipyard.shipTypes[i].name,
         price: Decimal.pow(SHIP_PRICE_MULTI, i).times(SHIP_BASE_PRICE),
