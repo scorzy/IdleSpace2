@@ -1,0 +1,55 @@
+<h1>Battle Reports</h1>
+<div>
+  <nz-select
+    [nzMaxTagCount]="6"
+    nzMode="multiple"
+    nzPlaceHolder="Please select"
+    [(ngModel)]="listOfSelectedRounds"
+  >
+    <nz-option
+      *ngFor="let option of listOfRounds"
+      [nzLabel]="option.label"
+      [nzValue]="option.value"
+    ></nz-option>
+  </nz-select>
+  <nz-select
+    [nzMaxTagCount]="15"
+    nzMode="multiple"
+    nzPlaceHolder="Please select"
+    [(ngModel)]="listOfSelectedValues"
+  >
+    <nz-option
+      *ngFor="let option of listOfValues"
+      [nzLabel]="option.label"
+      [nzValue]="option.value"
+    ></nz-option>
+  </nz-select>
+</div>
+
+<nz-table #statsTable [nzData]="stats">
+  <thead>
+    <tr>
+      <th rowspan="2">Name</th>
+      <th colspan="3" *ngFor="let round of listOfSelectedRounds">
+        {{ round > 5 ? "Total" : "Round " + round }}
+      </th>
+    </tr>
+    <tr>
+      <ng-container *ngFor="let option of listOfSelectedRounds">
+        <th *ngFor="let value of listOfSelectedValues">
+          {{ value }}
+        </th>
+      </ng-container>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of statsTable.data">
+      <td>{{ data.name }}</td>
+      <ng-container *ngFor="let round of listOfSelectedRounds">
+        <td *ngFor="let value of listOfSelectedValues">
+          {{ getValue(data, round, value) }}
+        </td>
+      </ng-container>
+    </tr>
+  </tbody>
+</nz-table>

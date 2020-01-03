@@ -1,4 +1,5 @@
 import { Ship } from "./ship";
+import { Stats } from "./battleResult";
 
 export class WeaponData {
   damage: number;
@@ -8,6 +9,7 @@ export class WeaponData {
 }
 export class ShipData {
   designId: number;
+  name = "";
   totalArmour: number;
   totalShield: number;
   explosionChance: number;
@@ -17,4 +19,5 @@ export class ShipData {
   quantity: number;
   ships: Ship[];
   targets: ShipData[];
+  stats: Stats;
 }

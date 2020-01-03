@@ -5,7 +5,7 @@ import { FLEET_NUMBER } from "../CONSTANTS";
 import { MainService } from "src/app/main.service";
 import { BattleRequest } from "../battle/battleRequest";
 import { Game } from "../game";
-import { BattleResult } from "../battle/battleResult";
+import { BattleResult, Stats } from "../battle/battleResult";
 import { Cell } from "./cell";
 import { getWeekYearWithOptions } from "date-fns/fp";
 
@@ -128,6 +128,7 @@ export class EnemyManager extends JobManager {
       m: this.maxLevel
     };
     if (this.currentEnemy) ret.c = this.currentEnemy.getSave();
+    return ret;
   }
   load(data: any) {
     if ("e" in data) {

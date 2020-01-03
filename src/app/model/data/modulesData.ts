@@ -26,14 +26,14 @@ export const modules: ModuleData[] = [
   {
     id: "A",
     name: "Armour",
-    armour: 100,
+    armour: 200,
     technologies: [{ technologyId: "e", multi: 1 }],
     shape: "my:metal-scales"
   },
   {
     id: "s",
     name: "Shield",
-    shield: 100,
+    shield: 200,
     energy: -1,
     technologies: [
       { technologyId: TECHNOLOGIES.CivilEngineering.id, multi: 1 }
@@ -76,7 +76,7 @@ export const modules: ModuleData[] = [
   {
     id: "L",
     name: "Laser",
-    damage: 100,
+    damage: 80,
     shieldDamagePercent: 75,
     armourDamagePercent: 125,
     energy: -1,

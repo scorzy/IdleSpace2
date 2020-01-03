@@ -3,7 +3,7 @@ import { ResearchManager } from "./researches/researchManager";
 import { ShipyardManager } from "./shipyard/shipyardManager";
 import { BASE_NAVAL_CAPACITY, ZERO } from "./CONSTANTS";
 import { EnemyManager } from "./enemy/enemyManager";
-import { BattleResult } from "./battle/battleResult";
+import { BattleResult, Stats } from "./battle/battleResult";
 
 /**
  * Game is the main class that orchestrate everything game related
@@ -21,6 +21,10 @@ export class Game {
 
   navalCapacity: number = BASE_NAVAL_CAPACITY;
   updateNavalCapacity = true;
+
+  battleStats = new Array<Stats[]>();
+  updateStats = true;
+
   private _gameId = "";
 
   /**
@@ -108,9 +112,13 @@ export class Game {
     this.shipyardManager.reloadFleetCapacity();
   }
   onBattleEnd(battleResult: BattleResult, fleetNum: number) {
-    console.log(battleResult.gameId);
-    console.log(this.gameId);
     if (battleResult.gameId !== this.gameId) return;
+
+    if (this.updateStats) {
+      this.battleStats.push(battleResult.stats);
+      this.battleStats.splice(3);
+    }
+
     this.shipyardManager.onBattleEnd(battleResult, fleetNum);
     this.enemyManager.onBattleEnd(battleResult, fleetNum);
   }
@@ -138,6 +146,7 @@ export class Game {
     if ("d" in data) {
       this.shipyardManager.load(data.d);
     }
+
     if ("e" in data) {
       this.enemyManager.load(data.e);
     }

@@ -1,19 +1,28 @@
 import { BattleRequest } from "./battleRequest";
 import { Ship } from "./ship";
 import { WeaponData, ShipData } from "./shipData";
-import { BattleResult } from "./battleResult";
+import { BattleResult, Stats, DesignReport } from "./battleResult";
 
 export function battle(battleRequest: BattleRequest): any {
-  // console.log(battleRequest);
-
   const firingOrder: { weapon: WeaponData; shipData: ShipData }[] = [];
   const fleets = [battleRequest.enemyFleet, battleRequest.playerFleet];
+  const battleResult = new BattleResult();
 
+  //  Data initialization
   for (let i = 0, n = fleets.length; i < n; i++) {
     const fleet = fleets[i];
     fleet.forEach(shipData => {
       shipData.ships = [];
       shipData.targets = i === 0 ? fleets[1] : fleets[0];
+      shipData.stats = new Stats();
+      shipData.stats.name = shipData.name;
+      shipData.stats.designId = shipData.designId;
+      shipData.stats.player = i === 1;
+      shipData.stats.total = new DesignReport();
+      shipData.stats.rounds = new Array<DesignReport>(5);
+      for (let k = 0; k < 5; k++) {
+        shipData.stats.rounds[k] = new DesignReport();
+      }
 
       shipData.weapons.forEach(weapon => {
         firingOrder.push({
@@ -30,17 +39,15 @@ export function battle(battleRequest: BattleRequest): any {
 
   firingOrder.sort((a, b) => a.weapon.initiative - b.weapon.initiative);
 
-  // console.log(firingOrder);
-
+  //  Firing; 5 rounds
   for (let z = 0; z < 5; z++) {
     for (let i = 0, n = firingOrder.length; i < n; i++) {
       const firing = firingOrder[i];
       for (let k = 0, n2 = firing.shipData.ships.length; k < n2; k++) {
         const currentShip = firing.shipData.ships[k];
-        // console.log(currentShip);
         const target = getTarget(currentShip.shipData.targets);
         if (target) {
-          dealDamage(firing.weapon, target);
+          dealDamage(firing.weapon, target, currentShip, z);
         }
       }
     }
@@ -53,7 +60,6 @@ export function battle(battleRequest: BattleRequest): any {
     }
   }
 
-  const battleResult = new BattleResult();
   battleResult.gameId = battleRequest.gameId;
   battleResult.playerLost = battleRequest.playerFleet.map(data => {
     return {
@@ -67,6 +73,18 @@ export function battle(battleRequest: BattleRequest): any {
       lost: data.quantity - data.ships.length
     };
   });
+  battleResult.stats = [];
+  for (let i = 0, n = fleets.length; i < n; i++) {
+    const fleet = fleets[i];
+    fleet.forEach(shipData => {
+      for (let z = 0; z < 5; z++) {
+        shipData.stats.total.exploded += shipData.stats.rounds[z].exploded;
+        shipData.stats.total.kills += shipData.stats.rounds[z].kills;
+        shipData.stats.total.lost += shipData.stats.rounds[z].lost;
+      }
+      battleResult.stats.push(shipData.stats);
+    });
+  }
 
   return battleResult;
 }
@@ -95,7 +113,12 @@ function getTarget(targets: ShipData[]): Ship {
 
   return target;
 }
-function dealDamage(weapon: WeaponData, target: Ship) {
+function dealDamage(
+  weapon: WeaponData,
+  target: Ship,
+  attacker: Ship,
+  round: number
+) {
   let damageToDo = weapon.damage;
 
   //  Damage to shield
@@ -129,6 +152,7 @@ function dealDamage(weapon: WeaponData, target: Ship) {
     if (Math.random() < explosion) {
       //  Explode
       target.armour = 0;
+      target.shipData.stats.rounds[round].exploded++;
     }
   }
 
@@ -136,5 +160,7 @@ function dealDamage(weapon: WeaponData, target: Ship) {
   if (target.armour <= 0) {
     const index = target.shipData.ships.indexOf(target);
     target.shipData.ships.splice(index, 1);
+    target.shipData.stats.rounds[round].lost++;
+    attacker.shipData.stats.rounds[round].kills++;
   }
 }
