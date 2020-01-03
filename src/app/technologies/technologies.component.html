@@ -16,14 +16,14 @@
       class="zero"
       fxLayoutAlign="space-between"
     >
-      <h3>
-        <span [style.color]="tech.color"
-          ><i nz-icon [nzType]="tech.icon"></i
-        ></span>
-        {{ tech.name }}:
-        <span class="monospace quantity">{{
-          tech.quantity | format: true
-        }}</span>
+      <h3 fxLayout="row" fxLayoutGap="0.5rem">
+        <i nz-icon [nzType]="tech.icon" [style.color]="tech.color"></i>
+        <span>
+          {{ tech.name }}:
+          <span class="monospace">{{
+            tech.quantity | format: true
+          }}</span></span
+        >
       </h3>
       <span class="monospace"
         >{{ tech.progress | format: true }}/{{

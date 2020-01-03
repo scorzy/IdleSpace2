@@ -4,7 +4,9 @@ export interface IJobType {
   id: string;
   name: string;
   icon: string;
-  color: string;
+  color?: string;
+  darkColor: string;
+  lightColor: string;
   bonus?: BonusStack;
 }
 

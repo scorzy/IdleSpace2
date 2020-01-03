@@ -42,6 +42,8 @@ export class Game {
     this.shipyardManager.init();
     this.researchManager.makeShipsResearches();
     this.researchManager.setRelations();
+
+    this.setTheme();
   }
   private generateGameId() {
     this._gameId = Date.now().toString() + Math.random().toString();
@@ -112,7 +114,11 @@ export class Game {
     this.shipyardManager.onBattleEnd(battleResult, fleetNum);
     this.enemyManager.onBattleEnd(battleResult, fleetNum);
   }
-
+  setTheme() {
+    this.researchManager.technologies.forEach(tech => {
+      tech.setTheme();
+    });
+  }
   //#region Save and Load
   getSave(): any {
     return {

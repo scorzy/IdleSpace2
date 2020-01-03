@@ -30,6 +30,8 @@ export class DesignInfoComponent implements OnInit, OnDestroy {
     new?: Decimal | number;
     type?: string;
     classes?: string;
+    icon?: string;
+    iconClass?: string;
   }[] = [];
   constructor(private cd: ChangeDetectorRef) {}
 
@@ -52,6 +54,8 @@ export class DesignInfoComponent implements OnInit, OnDestroy {
     this.comparisonData = [];
     this.comparisonData.push({
       name: "Armour",
+      icon: "my:metal-scales",
+      iconClass: "armour-damage-color",
       original: this.original.totalArmour,
       new: !this.design ? null : this.design.totalArmour,
       type: !this.design
@@ -67,6 +71,8 @@ export class DesignInfoComponent implements OnInit, OnDestroy {
     });
     this.comparisonData.push({
       name: "Shield",
+      icon: "my:bubble-field",
+      iconClass: "shield-damage-color",
       original: this.original.totalShield,
       new: !this.design ? null : this.design.totalShield,
       type: !this.design
@@ -82,6 +88,8 @@ export class DesignInfoComponent implements OnInit, OnDestroy {
     });
     this.comparisonData.push({
       name: "Avg. Damage",
+      icon: "my:blaster",
+      iconClass: "damage-color",
       original: this.original.totalDamage,
       new: !this.design ? null : this.design.totalDamage,
       type: !this.design
@@ -98,6 +106,8 @@ export class DesignInfoComponent implements OnInit, OnDestroy {
 
     this.comparisonData.push({
       name: "Price",
+      icon: "tool",
+      iconClass: "damage-color",
       original: this.original.price,
       new: !this.design ? null : this.design.price,
       type: !this.design
@@ -114,6 +124,8 @@ export class DesignInfoComponent implements OnInit, OnDestroy {
 
     this.comparisonData.push({
       name: "Cargo",
+      icon: "my:cube",
+      iconClass: "cargo-color",
       original: this.original.cargo,
       new: !this.design ? null : this.design.cargo,
       type: !this.design

@@ -107,7 +107,6 @@ export class MainService {
     this.game.postUpdate();
     this.updateEmitter.emit(this.last);
   }
-
   save() {
     const save = this.getSave();
     this.lzWorker.postMessage({ m: save, a: "c" });
@@ -167,6 +166,7 @@ export class MainService {
     if (myTheme !== this.theme.href) this.theme.href = myTheme;
     this.options.setHeaderTheme();
     this.setScrollbarTheme();
+    if (this.game) this.game.setTheme();
   }
   setSideTheme() {
     this.sideTheme = this.options.darkSide ? "dark" : "light";

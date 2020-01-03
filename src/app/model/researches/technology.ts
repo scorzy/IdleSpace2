@@ -23,13 +23,14 @@ export class Technology implements IBase, IUnlockable, ITechnologyData {
   progressPercent = 0;
   priority = 50;
   total = ZERO;
+  darkColor: string;
+  lightColor: string;
 
   constructor(data: ITechnologyData) {
     assign(this, data);
     this.bonus = new BonusStack();
     this.bonus.bonuses.push(new Bonus(this, RESEARCH_BONUS));
   }
-
   addProgress(progress: Decimal) {
     if (progress.lte(0)) return;
 
@@ -65,6 +66,9 @@ export class Technology implements IBase, IUnlockable, ITechnologyData {
     this.progressPercent = Math.floor(
       this.progress.div(this.total).toNumber() * 100
     );
+  }
+  setTheme(dark = true) {
+    this.color = dark ? this.darkColor : this.lightColor;
   }
   //#region
   getSave(): any {

@@ -58,16 +58,21 @@
           </span>
           <app-module-info [mod]="mod"></app-module-info>
         </div>
-        <div fxLayout="rows wrap">
+        <div fxLayout="row wrap">
           <span
             *ngFor="let item of mod.technologies"
             nz-tooltip
             [nzTooltipTitle]="item.technology.name"
             class="techLine"
+            fxLayout="row"
+            fxLayoutAlign="center center"
+            fxLayoutGap="0.3rem"
           >
-            <span [style.color]="item.technology.color"
-              ><i nz-icon [nzType]="item.technology.icon"></i
-            ></span>
+            <i
+              nz-icon
+              [nzType]="item.technology.icon"
+              [style.color]="item.technology.color"
+            ></i>
             <span class="monospace">{{ item.multi * 100 | format }}%</span>
           </span>
         </div>

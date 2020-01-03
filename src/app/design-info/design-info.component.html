@@ -6,7 +6,12 @@
 >
   <tbody>
     <tr *ngFor="let data of basicTable.data">
-      <td>{{ data.name }}</td>
+      <td fxLayout="row" fxLayoutGap="0.3rem">
+        <span [className]="data.iconClass"
+          ><i nz-icon [nzType]="data.icon"></i
+        ></span>
+        <strong> {{ data.name }}</strong>
+      </td>
       <td>
         {{ data.original | format }}
       </td>

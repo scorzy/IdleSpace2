@@ -46,7 +46,9 @@ export const modules: ModuleData[] = [
     id: "S",
     name: "Solar Panel",
     energy: 2,
-    technologies: [{ technologyId: "e", multi: 1 }],
+    technologies: [
+      { technologyId: TECHNOLOGIES.CivilEngineering.id, multi: 1 }
+    ],
     shape: "my:solar-power"
   },
   {

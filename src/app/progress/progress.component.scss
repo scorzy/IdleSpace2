@@ -4,5 +4,7 @@
   div {
     border-radius: 100px;
     height: 10px;
+    transition: width 0.1s;
+    transition-timing-function: linear;
   }
 }
