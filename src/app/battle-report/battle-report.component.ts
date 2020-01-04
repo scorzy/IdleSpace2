@@ -47,15 +47,15 @@ export class BattleReportComponent implements OnInit, OnDestroy {
   listOfValues: Array<{ label: string; value: string }> = [
     {
       label: "Loses",
-      value: "loses"
+      value: "Loses"
     },
     {
       label: "Kills",
-      value: "kills"
+      value: "Lills"
     },
     {
       label: "Exploded",
-      value: "exploded"
+      value: "Exploded"
     }
   ];
   listOfSelectedValues = [];
@@ -73,14 +73,14 @@ export class BattleReportComponent implements OnInit, OnDestroy {
     const stat = round === "6" ? data.total : data.rounds[parseInt(round, 10)];
     let ret: any = null;
     switch (value) {
-      case "loses":
+      case "Loses":
         ret = stat.lost;
         break;
-      case "kills":
+      case "Kills":
         ret = stat.kills;
         break;
-      case "exploded":
-        ret = stat.kills;
+      case "Exploded":
+        ret = stat.exploded;
         break;
     }
 

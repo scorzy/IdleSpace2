@@ -18,6 +18,7 @@ export class ShipData {
   weapons: WeaponData[];
   quantity: number;
   ships: Ship[];
+  alive: Ship[];
   targets: ShipData[];
   stats: Stats;
 }

@@ -4,6 +4,7 @@ export const TO_DO_COLOR = [245, 79, 71];
 export const DONE_COLOR = [96, 181, 21];
 
 export class Cell {
+  index = 0;
   metal = ZERO;
   alloy = ZERO;
   percent = 100;

@@ -9,15 +9,15 @@ export const FIRST_DRONE: IShipData = {
   modules: [
     {
       moduleID: "A",
-      size: Sizes.Small
+      size: Sizes.ExtraSmall
     },
     {
       moduleID: "S",
-      size: Sizes.Small
+      size: Sizes.ExtraSmall
     },
     {
       moduleID: "L",
-      size: Sizes.Small
+      size: Sizes.ExtraSmall
     }
   ]
 };

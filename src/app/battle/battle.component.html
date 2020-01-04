@@ -39,6 +39,7 @@
       [designs]="ms.game.shipyardManager.shipDesigns"
       [fleetNum]="fleetNum"
       nzSize="small"
+      update="true"
     ></app-ships-view>
 
     <br />
@@ -46,12 +47,22 @@
       {{ ms.game.enemyManager.currentEnemy.name }}
       <small></small>
     </h3>
+    <nz-select [(ngModel)]="cell" nzPlaceHolder="Choose">
+      <nz-option
+        *ngFor="let cell of activeCells; trackBy: getCellId"
+        [nzValue]="cell.value"
+        [nzLabel]="cell.label"
+      ></nz-option>
+      <nz-option nzValue="-1" nzLabel="Design"></nz-option>
+    </nz-select>
     <app-ships-view
       *ngIf="ms.game.enemyManager.currentEnemy"
       [designs]="ms.game.enemyManager.currentEnemy.designs"
       [isEnemy]="true"
       [enemyCell]="true"
+      [fleetNum]="cell"
       nzSize="small"
+      update="true"
     ></app-ships-view>
   </div>
 </div>

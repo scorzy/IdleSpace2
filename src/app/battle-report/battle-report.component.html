@@ -13,6 +13,7 @@
     ></nz-option>
   </nz-select>
   <nz-select
+    class="valueSelect"
     [nzMaxTagCount]="15"
     nzMode="multiple"
     nzPlaceHolder="Please select"
@@ -30,7 +31,10 @@
   <thead>
     <tr>
       <th rowspan="2">Name</th>
-      <th colspan="3" *ngFor="let round of listOfSelectedRounds">
+      <th
+        [attr.colspan]="listOfSelectedValues.length"
+        *ngFor="let round of listOfSelectedRounds"
+      >
         {{ round > 5 ? "Total" : "Round " + round }}
       </th>
     </tr>

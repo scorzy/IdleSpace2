@@ -14,4 +14,4 @@ export const BASE_ARMOUR = 50;
 export const BASE_SHIP_PRICE = 50;
 
 export const SEARCH_JOB_PRICE = 100;
-export const ENEMY_NAVAL_CAP_LEVEL = 200;
+export const ENEMY_NAVAL_CAP_LEVEL = 100;

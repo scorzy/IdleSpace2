@@ -7,7 +7,8 @@ import { sample } from "lodash-es";
 import {
   ENEMY_NAVAL_CAP_LEVEL,
   FLEET_CAPACITY_MULTI,
-  FLEET_CAPACITY
+  FLEET_CAPACITY,
+  BASE_NAVAL_CAPACITY
 } from "../CONSTANTS";
 
 export class Enemy {
@@ -29,16 +30,17 @@ export class Enemy {
     let sum = 0;
     this.level = searchJob.enemyLevel;
     const maxNavalCap = Math.min(
-      ENEMY_NAVAL_CAP_LEVEL * (this.level + 1),
+      BASE_NAVAL_CAPACITY + ENEMY_NAVAL_CAP_LEVEL * this.level,
       FLEET_CAPACITY
     );
+    const modLevel = 1;
 
     if (searchJob.enemyLevel < 1) {
-      this.designs.push(this.generateDesign(FIRST_DRONE));
+      this.designs.push(this.generateDesign(FIRST_DRONE, modLevel));
       sum = 1;
     } else {
       // ToDo
-      this.designs.push(this.generateDesign(FIRST_DRONE));
+      this.designs.push(this.generateDesign(FIRST_DRONE, modLevel));
       sum = 1;
     }
 
@@ -58,6 +60,7 @@ export class Enemy {
     this.cells = new Array<Cell>(100);
     for (let i = 0; i < 100; i++) {
       this.cells[i] = new Cell();
+      this.cells[i].index = 1;
       this.cells[i].ships = this.designs.map(des => des.enemyQuantity);
     }
   }
@@ -84,7 +87,7 @@ export class Enemy {
       this.cells[index].color += ")";
     }
   }
-  private generateDesign(iShipData: IShipData): ShipDesign {
+  private generateDesign(iShipData: IShipData, level: number): ShipDesign {
     const sm = Game.getGame().shipyardManager;
 
     const design = new ShipDesign();
@@ -97,7 +100,7 @@ export class Enemy {
       const module = sm.modules.find(m => m.id === modId);
       design.modules.push({
         module,
-        level: this.level,
+        level: level,
         size: mod.size
       });
     });
@@ -134,9 +137,12 @@ export class Enemy {
         return design;
       });
     }
+    let i = 0;
     if ("c" in data) {
       this.cells = data.c.map(cellData => {
         const cell = new Cell();
+        cell.index = i;
+        i++;
         cell.load(cellData);
         return cell;
       });
