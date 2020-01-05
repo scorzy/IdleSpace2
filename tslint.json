@@ -1,5 +1,9 @@
 {
-  "extends": ["tslint:recommended", "tslint-config-prettier"],
+  "extends": [
+    "tslint:recommended",
+    "tslint-config-prettier",
+    "rxjs-tslint-rules"
+  ],
   "rules": {
     "array-type": false,
     "arrow-parens": false,
@@ -53,7 +57,10 @@
     "variable-name": {
       "options": ["allow-leading-underscore"]
     },
-    "curly": [true, "ignore-same-line"]
+    "curly": [true, "ignore-same-line"],
+    "rxjs-no-internal": {
+      "severity": "error"
+    }
   },
   "rulesDirectory": ["codelyzer"]
 }
