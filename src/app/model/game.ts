@@ -1,9 +1,10 @@
 import { ResourceManager } from "./units/resourceManager";
 import { ResearchManager } from "./researches/researchManager";
 import { ShipyardManager } from "./shipyard/shipyardManager";
-import { BASE_NAVAL_CAPACITY, ZERO } from "./CONSTANTS";
+import { BASE_NAVAL_CAPACITY, ZERO, FLEET_NUMBER } from "./CONSTANTS";
 import { EnemyManager } from "./enemy/enemyManager";
 import { BattleResult, Stats } from "./battle/battleResult";
+import { DatePipe } from "@angular/common";
 
 /**
  * Game is the main class that orchestrate everything game related
@@ -22,7 +23,7 @@ export class Game {
   navalCapacity: number = BASE_NAVAL_CAPACITY;
   updateNavalCapacity = true;
 
-  battleStats = new Array<Stats[]>();
+  battleStats: Array<{ name: string; stats: Stats[] }[]>;
   updateStats = true;
 
   private _gameId = "";
@@ -48,6 +49,10 @@ export class Game {
     this.researchManager.setRelations();
 
     this.setTheme();
+    this.battleStats = Array<{ name: string; stats: Stats[] }[]>();
+    for (let i = 0; i < FLEET_NUMBER; i++) {
+      this.battleStats.push(new Array<{ name: string; stats: Stats[] }>());
+    }
   }
   private generateGameId() {
     this._gameId = Date.now().toString() + Math.random().toString();
@@ -115,8 +120,19 @@ export class Game {
     if (battleResult.gameId !== this.gameId) return;
 
     if (this.updateStats) {
-      this.battleStats.push(battleResult.stats);
-      this.battleStats.splice(3);
+      const toAdd = {
+        name:
+          this.enemyManager.currentEnemy.name +
+          " lv." +
+          this.enemyManager.currentEnemy.level +
+          " cell: " +
+          this.enemyManager.fleetsInBattle[fleetNum].index +
+          " " +
+          new DatePipe("en-US").transform(Date.now(), "HH:mm:sss"),
+        stats: battleResult.stats
+      };
+      this.battleStats[fleetNum].push(toAdd);
+      this.battleStats[fleetNum].splice(3);
     }
 
     this.shipyardManager.onBattleEnd(battleResult, fleetNum);

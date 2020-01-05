@@ -2,7 +2,9 @@ import {
   Component,
   OnInit,
   ChangeDetectionStrategy,
-  OnDestroy
+  OnDestroy,
+  OnChanges,
+  SimpleChanges
 } from "@angular/core";
 import { MainService } from "../main.service";
 import { Stats } from "../model/battle/battleResult";
@@ -14,7 +16,10 @@ import { Stats } from "../model/battle/battleResult";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BattleReportComponent implements OnInit, OnDestroy {
+  fleet: number = -1;
+  report: number = -1;
   stats: Stats[];
+  listOfFleets: Array<{ label: string; value: string }> = [];
 
   listOfRounds: Array<{ label: string; value: string }> = [
     {
@@ -44,33 +49,30 @@ export class BattleReportComponent implements OnInit, OnDestroy {
   ];
   listOfSelectedRounds = [];
 
-  listOfValues: Array<{ label: string; value: string }> = [
-    {
-      label: "Loses",
-      value: "Loses"
-    },
-    {
-      label: "Kills",
-      value: "Kills"
-    },
-    {
-      label: "Exploded",
-      value: "Exploded"
-    }
-  ];
   listOfSelectedValues = [];
 
   constructor(public ms: MainService) {}
 
   ngOnInit() {
     this.ms.game.updateStats = false;
-    this.stats = this.ms.game.battleStats[0];
+    for (let i = 0; i < this.ms.game.shipyardManager.maxFleet; i++) {
+      this.listOfFleets.push({
+        label: "Fleet " + (1 + i),
+        value: "" + i
+      });
+    }
   }
   ngOnDestroy() {
     this.ms.game.updateStats = true;
   }
+  reload(): void {
+    if (this.fleet > -1 && this.report > -1) {
+      this.stats = this.ms.game.battleStats[this.fleet][this.report].stats;
+    }
+  }
   getValue(data: Stats, round: string, value: string) {
-    const stat = round === "6" ? data.total : data.rounds[parseInt(round, 10)];
+    const stat =
+      round === "6" ? data.total : data.rounds[parseInt(round, 10) - 1];
     let ret: any = null;
     switch (value) {
       case "Loses":
@@ -82,8 +84,131 @@ export class BattleReportComponent implements OnInit, OnDestroy {
       case "Exploded":
         ret = stat.exploded;
         break;
+      case "Quantity":
+        ret = stat.quantity;
+        break;
+      case "Quantity_end":
+        ret = stat.quantity_end;
+        break;
+      case "OneShotted":
+        ret = stat.oneShotted;
+        break;
+      case "OneShotDone":
+        ret = stat.oneShotDone;
+        break;
+
+      case "aliveTargets":
+        ret = stat.aliveTargets;
+        break;
+      case "aliveTargetsShield":
+        ret = stat.aliveTargetsShield;
+        break;
+      case "aliveTargetsNoShield":
+        ret = stat.aliveTargetsNoShield;
+        break;
+
+      case "deathTargets":
+        ret = stat.deathTargets;
+        break;
+      case "explosionTriggered":
+        ret = stat.explosionTriggered;
+        break;
+      case "shotTaken":
+        ret = stat.shotTaken;
+        break;
+      case "shotTakenDeath":
+        ret = stat.shotTakenDeath;
+        break;
+
+      case "damageDone":
+        ret = stat.damageDone;
+        break;
+      case "armourDamageDone":
+        ret = stat.armourDamageDone;
+        break;
+      case "shieldDamageDone":
+        ret = stat.shieldDamageDone;
+        break;
+      case "damageTaken":
+        ret = stat.damageTaken;
+        break;
+      case "armourDamageTaken":
+        ret = stat.armourDamageTaken;
+        break;
+      case "shieldDamageTaken":
+        ret = stat.shieldDamageTaken;
+        break;
     }
 
+    return ret;
+  }
+  getValueLabel(key: string) {
+    let ret = key;
+    switch (key) {
+      case "Loses":
+        ret = "Loses";
+        break;
+      case "Kills":
+        ret = "Kills";
+        break;
+      case "Exploded":
+        ret = "Exploded";
+        break;
+      case "Quantity":
+        ret = "Quantity - Round Start";
+        break;
+      case "Quantity_end":
+        ret = "Quantity - Round End";
+        break;
+      case "OneShotted":
+        ret = "One Shotted";
+        break;
+      case "OneShotDone":
+        ret = "One Shot Done";
+        break;
+      case "shotTaken":
+        ret = "Shots Taken";
+        break;
+      case "shotTakenDeath":
+        ret = "Shots Taken when dead";
+        break;
+
+      case "aliveTargets":
+        ret = "Alive Targets";
+        break;
+      case "aliveTargetsShield":
+        ret = "Alive Targets with Shield";
+        break;
+      case "aliveTargetsNoShield":
+        ret = "Alive Targets without Shield";
+        break;
+
+      case "deathTargets":
+        ret = "Death Targets";
+        break;
+      case "explosionTriggered":
+        ret = "Explosion Triggered";
+        break;
+
+      case "damageDone":
+        ret = "Damage Done";
+        break;
+      case "armourDamageDone":
+        ret = "Armour Damage Done";
+        break;
+      case "shieldDamageDone":
+        ret = "Shield Damage Done";
+        break;
+      case "damageTaken":
+        ret = "Damage Taken";
+        break;
+      case "armourDamageTaken":
+        ret = "Armour Damage Taken";
+        break;
+      case "shieldDamageTaken":
+        ret = "Shield Damage Taken";
+        break;
+    }
     return ret;
   }
 }

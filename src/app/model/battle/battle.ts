@@ -19,6 +19,7 @@ export function battle(battleRequest: BattleRequest): any {
       shipData.stats.designId = shipData.designId;
       shipData.stats.player = i === 1;
       shipData.stats.total = new DesignReport();
+      shipData.stats.total.quantity = shipData.quantity;
       shipData.stats.rounds = new Array<DesignReport>(5);
       for (let k = 0; k < 5; k++) {
         shipData.stats.rounds[k] = new DesignReport();
@@ -32,21 +33,29 @@ export function battle(battleRequest: BattleRequest): any {
   }
 
   //  Firing; 5 rounds
-  for (let z = 0; z < 5; z++) {
+  for (let round = 0; round < 5; round++) {
     //  Player and enemy
     for (let i = 0; i < 2; i++) {
       const fleet = fleets[i];
       // Ship designs
       for (let m = 0, n = fleet.length; m < n; m++) {
         const firing = fleet[m];
+        firing.stats.rounds[round].quantity = firing.ships.length;
         //  Ships
         for (let k = 0, n2 = firing.ships.length; k < n2; k++) {
           const currentShip = firing.ships[k];
           //  Weapons
           for (let h = 0; h < firing.weapons.length; h++) {
             const target = getTarget(currentShip.shipData.targets);
-            if (target && target.armour > 0) {
-              dealDamage(firing.weapons[h], target, currentShip, z);
+            if (target) {
+              target.shipData.stats.rounds[round].shotTaken++;
+              if (target.armour > 0) {
+                currentShip.shipData.stats.rounds[round].aliveTargets++;
+                dealDamage(firing.weapons[h], target, currentShip, round);
+              } else {
+                currentShip.shipData.stats.rounds[round].deathTargets++;
+                target.shipData.stats.rounds[round].shotTakenDeath++;
+              }
             }
           }
         }
@@ -60,6 +69,7 @@ export function battle(battleRequest: BattleRequest): any {
       for (let m = 0, n = fleet.length; m < n; m++) {
         const design = fleet[m];
         design.ships = design.alive.slice();
+        design.stats.rounds[round].quantity_end = design.alive.length;
       }
     }
 
@@ -93,6 +103,37 @@ export function battle(battleRequest: BattleRequest): any {
         shipData.stats.total.exploded += shipData.stats.rounds[z].exploded;
         shipData.stats.total.kills += shipData.stats.rounds[z].kills;
         shipData.stats.total.lost += shipData.stats.rounds[z].lost;
+        shipData.stats.total.quantity_end = shipData.alive.length;
+        shipData.stats.total.oneShotted += shipData.stats.rounds[z].oneShotted;
+        shipData.stats.total.shotTaken += shipData.stats.rounds[z].shotTaken;
+        shipData.stats.total.shotTakenDeath +=
+          shipData.stats.rounds[z].shotTakenDeath;
+
+        shipData.stats.total.aliveTargetsShield +=
+          shipData.stats.rounds[z].aliveTargetsShield;
+        shipData.stats.total.aliveTargetsNoShield +=
+          shipData.stats.rounds[z].aliveTargetsNoShield;
+
+        shipData.stats.total.explosionTriggered +=
+          shipData.stats.rounds[z].explosionTriggered;
+        shipData.stats.total.oneShotDone +=
+          shipData.stats.rounds[z].oneShotDone;
+        shipData.stats.total.deathTargets +=
+          shipData.stats.rounds[z].deathTargets;
+        shipData.stats.total.aliveTargets +=
+          shipData.stats.rounds[z].aliveTargets;
+
+        shipData.stats.total.damageDone += shipData.stats.rounds[z].damageDone;
+        shipData.stats.total.armourDamageDone +=
+          shipData.stats.rounds[z].armourDamageDone;
+        shipData.stats.total.shieldDamageDone +=
+          shipData.stats.rounds[z].shieldDamageDone;
+        shipData.stats.total.damageTaken +=
+          shipData.stats.rounds[z].damageTaken;
+        shipData.stats.total.armourDamageTaken +=
+          shipData.stats.rounds[z].armourDamageTaken;
+        shipData.stats.total.shieldDamageTaken +=
+          shipData.stats.rounds[z].shieldDamageTaken;
       }
       battleResult.stats.push(shipData.stats);
     });
@@ -132,22 +173,42 @@ function dealDamage(
   round: number
 ) {
   let damageToDo = weapon.damage;
+  let fullHealth =
+    target.armour >= target.shipData.totalArmour &&
+    target.shield >= target.shipData.totalShield;
 
   //  Damage to shield
   if (target.shield > 0) {
     damageToDo *= weapon.shieldPercent;
+    const shield = target.shield;
     target.shield -= damageToDo;
+    let shieldDamageDone = 0;
     if (target.shield > 0) {
       damageToDo = 0;
+      shieldDamageDone = shield;
     } else {
       damageToDo = (target.shield * -1) / weapon.shieldPercent;
+      shieldDamageDone = shield - target.shield;
     }
+    target.shipData.stats.rounds[round].damageTaken += shieldDamageDone;
+    target.shipData.stats.rounds[round].shieldDamageTaken += shieldDamageDone;
+    attacker.shipData.stats.rounds[round].damageDone += shieldDamageDone;
+    attacker.shipData.stats.rounds[round].shieldDamageDone += shieldDamageDone;
+    attacker.shipData.stats.rounds[round].aliveTargetsShield++;
+  } else {
+    attacker.shipData.stats.rounds[round].aliveTargetsNoShield++;
   }
 
   //  Damage to armour
   if (damageToDo > 0) {
     damageToDo *= weapon.armourPercent;
+    const armour = target.armour;
     target.armour -= damageToDo;
+    const armourDamageDone = Math.max(armour - target.armour, armour);
+    target.shipData.stats.rounds[round].damageTaken += armourDamageDone;
+    target.shipData.stats.rounds[round].armourDamageTaken += armourDamageDone;
+    attacker.shipData.stats.rounds[round].damageDone += armourDamageDone;
+    attacker.shipData.stats.rounds[round].armourDamageDone += armourDamageDone;
   }
 
   //  Explosion
@@ -165,6 +226,7 @@ function dealDamage(
       //  Explode
       target.armour = 0;
       target.shipData.stats.rounds[round].exploded++;
+      attacker.shipData.stats.rounds[round].explosionTriggered++;
     }
   }
 
@@ -174,5 +236,9 @@ function dealDamage(
     target.shipData.alive.splice(index, 1);
     target.shipData.stats.rounds[round].lost++;
     attacker.shipData.stats.rounds[round].kills++;
+    if (fullHealth) {
+      target.shipData.stats.rounds[round].oneShotted++;
+      attacker.shipData.stats.rounds[round].oneShotDone++;
+    }
   }
 }

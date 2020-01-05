@@ -1,33 +1,165 @@
 <h1>Battle Reports</h1>
-<div>
-  <nz-select
-    [nzMaxTagCount]="6"
-    nzMode="multiple"
-    nzPlaceHolder="Please select"
-    [(ngModel)]="listOfSelectedRounds"
-  >
-    <nz-option
-      *ngFor="let option of listOfRounds"
-      [nzLabel]="option.label"
-      [nzValue]="option.value"
-    ></nz-option>
-  </nz-select>
-  <nz-select
-    class="valueSelect"
-    [nzMaxTagCount]="15"
-    nzMode="multiple"
-    nzPlaceHolder="Please select"
-    [(ngModel)]="listOfSelectedValues"
-  >
-    <nz-option
-      *ngFor="let option of listOfValues"
-      [nzLabel]="option.label"
-      [nzValue]="option.value"
-    ></nz-option>
-  </nz-select>
-</div>
+<nz-collapse nzBordered="true">
+  <nz-collapse-panel nzHeader="Options" [nzActive]="true">
+    <form nzLayout="vertical" nz-form>
+      <nz-form-item>
+        <nz-form-label>Fleet and Report</nz-form-label>
+        <nz-select
+          nzPlaceHolder="--- Fleet ---"
+          name="fleet"
+          [(ngModel)]="fleet"
+          (ngModelChange)="reload()"
+        >
+          <nz-option
+            *ngFor="let fleet of listOfFleets"
+            [nzLabel]="fleet.label"
+            [nzValue]="fleet.value"
+          ></nz-option>
+        </nz-select>
+        <nz-select
+          nzPlaceHolder="--- Report ---"
+          name="report"
+          [(ngModel)]="report"
+          (ngModelChange)="reload()"
+        >
+          <nz-option
+            *ngFor="let report of ms.game.battleStats[fleet]; let i = index"
+            [nzLabel]="report.name"
+            [nzValue]="i"
+          ></nz-option>
+        </nz-select>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label>Rounds</nz-form-label>
+        <nz-select
+          [nzMaxTagCount]="6"
+          name="Round"
+          nzMode="multiple"
+          nzPlaceHolder="--- Rounds ---"
+          [(ngModel)]="listOfSelectedRounds"
+        >
+          <nz-option
+            *ngFor="let option of listOfRounds"
+            [nzLabel]="option.label"
+            [nzValue]="option.value"
+          ></nz-option>
+        </nz-select>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label>Values</nz-form-label>
+        <nz-select
+          class="valueSelect"
+          name="Values"
+          [nzMaxTagCount]="15"
+          nzMode="multiple"
+          nzPlaceHolder="--- Values ---"
+          [(ngModel)]="listOfSelectedValues"
+        >
+          <nz-option-group nzLabel="Quantity">
+            <nz-option [nzLabel]="getValueLabel('Quantity')" nzValue="Quantity">
+            </nz-option>
+            <nz-option
+              [nzLabel]="getValueLabel('Quantity_end')"
+              nzValue="Quantity_end"
+            >
+            </nz-option>
+          </nz-option-group>
 
-<nz-table #statsTable [nzData]="stats">
+          <nz-option-group nzLabel="Attacher">
+            <nz-option [nzLabel]="getValueLabel('Kills')" nzValue="Kills">
+            </nz-option>
+            <nz-option
+              [nzLabel]="getValueLabel('OneShotDone')"
+              nzValue="OneShotDone"
+            >
+            </nz-option>
+            <nz-option
+              [nzLabel]="getValueLabel('explosionTriggered')"
+              nzValue="explosionTriggered"
+            >
+            </nz-option>
+
+            <nz-option
+              [nzLabel]="getValueLabel('aliveTargets')"
+              nzValue="aliveTargets"
+            >
+            </nz-option>
+            <nz-option
+              [nzLabel]="getValueLabel('aliveTargetsShield')"
+              nzValue="aliveTargetsShield"
+            >
+            </nz-option>
+            <nz-option
+              [nzLabel]="getValueLabel('aliveTargetsNoShield')"
+              nzValue="aliveTargetsNoShield"
+            >
+            </nz-option>
+            <nz-option
+              [nzLabel]="getValueLabel('deathTargets')"
+              nzValue="deathTargets"
+            >
+            </nz-option>
+
+            <nz-option
+              [nzLabel]="getValueLabel('damageDone')"
+              nzValue="damageDone"
+            >
+            </nz-option>
+            <nz-option
+              [nzLabel]="getValueLabel('armourDamageDone')"
+              nzValue="armourDamageDone"
+            >
+            </nz-option>
+            <nz-option
+              [nzLabel]="getValueLabel('shieldDamageDone')"
+              nzValue="shieldDamageDone"
+            >
+            </nz-option>
+          </nz-option-group>
+
+          <nz-option-group nzLabel="Defender">
+            <nz-option [nzLabel]="getValueLabel('Loses')" nzValue="Loses">
+            </nz-option>
+            <nz-option [nzLabel]="getValueLabel('Exploded')" nzValue="Exploded">
+            </nz-option>
+            <nz-option
+              [nzLabel]="getValueLabel('OneShotted')"
+              nzValue="OneShotted"
+            >
+            </nz-option>
+            <nz-option
+              [nzLabel]="getValueLabel('shotTaken')"
+              nzValue="shotTaken"
+            >
+            </nz-option>
+            <nz-option
+              [nzLabel]="getValueLabel('shotTakenDeath')"
+              nzValue="shotTakenDeath"
+            >
+            </nz-option>
+
+            <nz-option
+              [nzLabel]="getValueLabel('damageTaken')"
+              nzValue="damageTaken"
+            >
+            </nz-option>
+            <nz-option
+              [nzLabel]="getValueLabel('armourDamageTaken')"
+              nzValue="armourDamageTaken"
+            >
+            </nz-option>
+            <nz-option
+              [nzLabel]="getValueLabel('shieldDamageTaken')"
+              nzValue="shieldDamageTaken"
+            >
+            </nz-option>
+          </nz-option-group> </nz-select
+      ></nz-form-item>
+    </form>
+  </nz-collapse-panel>
+</nz-collapse>
+
+<nz-table #statsTable [nzData]="stats" *ngIf="stats" nzShowPagination="false">
   <thead>
     <tr>
       <th rowspan="2">Name</th>
@@ -41,13 +173,13 @@
     <tr>
       <ng-container *ngFor="let option of listOfSelectedRounds">
         <th *ngFor="let value of listOfSelectedValues">
-          {{ value }}
+          {{ getValueLabel(value) }}
         </th>
       </ng-container>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor="let data of statsTable.data">
+    <tr *ngFor="let data of statsTable.data" [class.bg-error]="!data.player">
       <td>{{ data.name }}</td>
       <ng-container *ngFor="let round of listOfSelectedRounds">
         <td *ngFor="let value of listOfSelectedValues">
