@@ -30,14 +30,15 @@
           tech.total | format: true
         }}</span
       >
-      <div>
+      <div fxFlexAlign="start">
         Priority:
         <nz-input-number
           [(ngModel)]="tech.priority"
-          [nzMin]="0"
-          [nzMax]="100"
-          [nzStep]="1"
-          [nzSize]="'small'"
+          nzMin="0"
+          nzMax="100"
+          nzStep="1"
+          nzSize="small"
+          style="max-height: 24px"
         ></nz-input-number>
       </div>
     </div>

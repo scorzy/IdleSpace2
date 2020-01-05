@@ -120,19 +120,22 @@
                   [nzLabel]="size | sizePipe"
                 ></nz-option>
               </nz-select>
-              <input
-                nz-input
-                [(ngModel)]="line.levelUi"
-                [name]="'level-' + i"
-                (ngModelChange)="reload(i)"
-                class="levelNum"
-              />
+              <div style="line-height:0;">
+                <input
+                  nz-input
+                  [(ngModel)]="line.levelUi"
+                  [name]="'level-' + i"
+                  (ngModelChange)="reload(i)"
+                  class="levelNum"
+                />
+              </div>
               <i
                 nz-icon
                 nzType="minus-circle-o"
                 class="dynamic-delete-button"
                 (click)="removeLine(i)"
-              ></i>
+              >
+              </i>
             </div>
           </div>
         </nz-form-control>

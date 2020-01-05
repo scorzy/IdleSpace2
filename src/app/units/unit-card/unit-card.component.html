@@ -1,7 +1,7 @@
 <nz-card
   style="width:100%;"
   nzSize="small"
-  nzTitle="{{ unit.name }}"
+  [nzTitle]="cardTitleTemplate"
   [nzExtra]="extraTemplate"
   [nzActions]="actions"
 >
@@ -20,7 +20,7 @@
   <p *ngIf="unit.description !== ''">
     {{ unit.description }}
   </p>
-  <span nz-text><strong>Operativity:</strong></span>
+  <span nz-text><span>Operativity:</span></span>
   <span class="monospace">{{ unit.operativity | format }}</span
   >%
   <nz-slider
@@ -55,7 +55,9 @@
     ({{ unit.manualBought | format }})
   </span>
 </ng-template>
-
+<ng-template #cardTitleTemplate>
+  <strong>{{ unit.name }}</strong>
+</ng-template>
 <ng-template #titleTemplate>
   <i nz-icon nzType="table"></i> Production</ng-template
 >
