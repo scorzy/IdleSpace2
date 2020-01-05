@@ -3,7 +3,8 @@ import {
   ONE,
   FLEET_NUMBER,
   BASE_ARMOUR,
-  BASE_SHIP_PRICE
+  BASE_SHIP_PRICE,
+  BASE_EXPLOSION
 } from "../CONSTANTS";
 import { Module } from "./module";
 import { Game } from "../game";
@@ -28,7 +29,7 @@ export class ShipDesign {
   totalArmour = 0;
   totalShield = 0;
   totalDamage = 0;
-  explosionChance = 20;
+  explosionChance = BASE_EXPLOSION;
   energy = 0;
   price = ZERO;
   cargo = ZERO;

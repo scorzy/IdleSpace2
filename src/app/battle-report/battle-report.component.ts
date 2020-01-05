@@ -51,7 +51,7 @@ export class BattleReportComponent implements OnInit, OnDestroy {
     },
     {
       label: "Kills",
-      value: "Lills"
+      value: "Kills"
     },
     {
       label: "Exploded",

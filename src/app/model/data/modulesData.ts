@@ -1,5 +1,6 @@
 import { Sizes } from "./sizes";
 import { TECHNOLOGIES } from "./technologyData";
+import { MODULE_ARMOUR, MODULE_SHIELD, MODULE_DAMAGE } from "../CONSTANTS";
 
 export class ModuleData {
   id: string;
@@ -26,14 +27,14 @@ export const modules: ModuleData[] = [
   {
     id: "A",
     name: "Armour",
-    armour: 200,
+    armour: MODULE_ARMOUR,
     technologies: [{ technologyId: "e", multi: 1 }],
     shape: "my:metal-scales"
   },
   {
     id: "s",
     name: "Shield",
-    shield: 200,
+    shield: MODULE_SHIELD,
     energy: -1,
     technologies: [
       { technologyId: TECHNOLOGIES.CivilEngineering.id, multi: 1 }
@@ -76,7 +77,7 @@ export const modules: ModuleData[] = [
   {
     id: "L",
     name: "Laser",
-    damage: 80,
+    damage: MODULE_DAMAGE,
     shieldDamagePercent: 75,
     armourDamagePercent: 125,
     energy: -1,
