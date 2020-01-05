@@ -48,8 +48,9 @@ export class EnemyManager extends JobManager {
     if (
       this.fleetsInBattle[fleetNum] ||
       Game.getGame().shipyardManager.maxFleet <= fleetNum
-    )
+    ) {
       return false;
+    }
     const playerDesign = Game.getGame().shipyardManager.shipDesigns;
 
     const toAttack = this.currentEnemy.cells.find(c => !c.done && !c.inBattle);

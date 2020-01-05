@@ -45,9 +45,11 @@ export class ModulesComponent implements OnInit {
         );
         break;
     }
-    if (this.status === "u")
+    if (this.status === "u") {
       this.modules = this.modules.filter(m => m.unlocked);
-    if (this.status === "l")
+    }
+    if (this.status === "l") {
       this.modules = this.modules.filter(m => !m.unlocked);
+    }
   }
 }

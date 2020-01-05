@@ -3,7 +3,8 @@ import {
   OnInit,
   ChangeDetectionStrategy,
   Input,
-  ChangeDetectorRef
+  ChangeDetectorRef,
+  OnDestroy
 } from "@angular/core";
 import { ShipDesign } from "../model/shipyard/shipDesign";
 import { MainService } from "../main.service";
@@ -15,7 +16,7 @@ import { Subscription } from "rxjs";
   styleUrls: ["./ships-view.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ShipsViewComponent implements OnInit {
+export class ShipsViewComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
 
   @Input() designs: ShipDesign[];

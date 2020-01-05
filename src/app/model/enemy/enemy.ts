@@ -100,7 +100,7 @@ export class Enemy {
       const module = sm.modules.find(m => m.id === modId);
       design.modules.push({
         module,
-        level: level,
+        level,
         size: mod.size
       });
     });
@@ -137,12 +137,12 @@ export class Enemy {
         return design;
       });
     }
-    let i = 0;
+    let k = 0;
     if ("c" in data) {
       this.cells = data.c.map(cellData => {
         const cell = new Cell();
-        cell.index = i;
-        i++;
+        cell.index = k;
+        k++;
         cell.load(cellData);
         return cell;
       });

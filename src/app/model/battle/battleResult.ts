@@ -1,8 +1,8 @@
 export class DesignReport {
-  quantity: number = 0;
-  quantity_end: number = 0;
-  lost: number = 0;
-  exploded: number = 0;
+  quantity = 0;
+  quantityEnd = 0;
+  lost = 0;
+  exploded = 0;
   kills = 0;
   oneShotted = 0;
   oneShotDone = 0;

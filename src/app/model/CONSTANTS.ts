@@ -22,7 +22,7 @@ export const BASE_EXPLOSION = 25;
 export const SEARCH_JOB_PRICE = 100;
 export const ENEMY_NAVAL_CAP_LEVEL = 100;
 
-//Modules
+// Modules
 export const MODULE_ARMOUR = 200;
 export const MODULE_SHIELD = 200;
 export const MODULE_DAMAGE = 65;

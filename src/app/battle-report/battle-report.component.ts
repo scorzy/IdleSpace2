@@ -16,14 +16,14 @@ import { Stats } from "../model/battle/battleResult";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BattleReportComponent implements OnInit, OnDestroy {
-  fleet: number = -1;
-  report: number = -1;
+  fleet = -1;
+  report = -1;
   stats: Stats[];
   listOfFleets: Array<{ label: string; value: string }> = [];
 
   listOfRounds: Array<{ label: string; value: string }> = [
     {
-      label: "All",
+      label: "Total",
       value: "6"
     },
     {
@@ -87,8 +87,8 @@ export class BattleReportComponent implements OnInit, OnDestroy {
       case "Quantity":
         ret = stat.quantity;
         break;
-      case "Quantity_end":
-        ret = stat.quantity_end;
+      case "quantityEnd":
+        ret = stat.quantityEnd;
         break;
       case "OneShotted":
         ret = stat.oneShotted;
@@ -157,7 +157,7 @@ export class BattleReportComponent implements OnInit, OnDestroy {
       case "Quantity":
         ret = "Quantity - Round Start";
         break;
-      case "Quantity_end":
+      case "quantityEnd":
         ret = "Quantity - Round End";
         break;
       case "OneShotted":

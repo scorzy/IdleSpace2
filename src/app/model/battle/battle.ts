@@ -45,7 +45,7 @@ export function battle(battleRequest: BattleRequest): any {
         for (let k = 0, n2 = firing.ships.length; k < n2; k++) {
           const currentShip = firing.ships[k];
           //  Weapons
-          for (let h = 0; h < firing.weapons.length; h++) {
+          for (let h = 0, n3 = firing.weapons.length; h < n3; h++) {
             const target = getTarget(currentShip.shipData.targets);
             if (target) {
               target.shipData.stats.rounds[round].shotTaken++;
@@ -69,7 +69,7 @@ export function battle(battleRequest: BattleRequest): any {
       for (let m = 0, n = fleet.length; m < n; m++) {
         const design = fleet[m];
         design.ships = design.alive.slice();
-        design.stats.rounds[round].quantity_end = design.alive.length;
+        design.stats.rounds[round].quantityEnd = design.alive.length;
       }
     }
 
@@ -103,7 +103,7 @@ export function battle(battleRequest: BattleRequest): any {
         shipData.stats.total.exploded += shipData.stats.rounds[z].exploded;
         shipData.stats.total.kills += shipData.stats.rounds[z].kills;
         shipData.stats.total.lost += shipData.stats.rounds[z].lost;
-        shipData.stats.total.quantity_end = shipData.alive.length;
+        shipData.stats.total.quantityEnd = shipData.alive.length;
         shipData.stats.total.oneShotted += shipData.stats.rounds[z].oneShotted;
         shipData.stats.total.shotTaken += shipData.stats.rounds[z].shotTaken;
         shipData.stats.total.shotTakenDeath +=
@@ -173,7 +173,7 @@ function dealDamage(
   round: number
 ) {
   let damageToDo = weapon.damage;
-  let fullHealth =
+  const fullHealth =
     target.armour >= target.shipData.totalArmour &&
     target.shield >= target.shipData.totalShield;
 
