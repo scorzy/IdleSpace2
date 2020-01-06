@@ -1,0 +1,23 @@
+<nz-table
+  #nzTable
+  [nzData]="weapons"
+  [nzSize]="size"
+  [nzShowPagination]="false"
+>
+  <thead>
+    <th>Name</th>
+    <th>Damage</th>
+    <th>Armour %</th>
+    <th>Shield %</th>
+  </thead>
+  <tbody>
+    <ng-template ngFor let-weapon [ngForOf]="nzTable.data">
+      <tr>
+        <td>{{ weapon.module.name }}</td>
+        <td>{{ weapon.damage | format }}</td>
+        <td>{{ weapon.armourPercent | format }}</td>
+        <td>{{ weapon.shieldPercent | format }}</td>
+      </tr>
+    </ng-template>
+  </tbody>
+</nz-table>

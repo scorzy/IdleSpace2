@@ -5,7 +5,9 @@ export class WeaponData {
   damage: number;
   armourPercent: number;
   shieldPercent: number;
-  initiative: number;
+  aliveThreatGain: number;
+  armourThreatGain: number;
+  shieldThreatGain: number;
 }
 export class ShipData {
   designId: number;
@@ -14,11 +16,12 @@ export class ShipData {
   totalShield: number;
   explosionChance: number;
   threat: number;
-  initiative: number;
   weapons: WeaponData[];
   quantity: number;
   ships: Ship[];
   alive: Ship[];
+  withArmour: Ship[];
+  withShield: Ship[];
   targets: ShipData[];
   stats: Stats;
 }

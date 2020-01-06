@@ -26,3 +26,4 @@ export const ENEMY_NAVAL_CAP_LEVEL = 100;
 export const MODULE_ARMOUR = 200;
 export const MODULE_SHIELD = 200;
 export const MODULE_DAMAGE = 65;
+export const DEFAULT_MODULE_PRICE = 100;

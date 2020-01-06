@@ -51,6 +51,7 @@ import { BattleTableComponent } from "./battle/battle-table/battle-table.compone
 import { ModulesComponent } from "./designer/modules/modules.component";
 import { ModuleInfoComponent } from './designer/module-info/module-info.component';
 import { BattleReportComponent } from './battle-report/battle-report.component';
+import { WeaponViewComponent } from './weapon-view/weapon-view.component';
 
 registerLocaleData(en);
 
@@ -89,7 +90,8 @@ const ngZorroConfig: NzConfig = {
     BattleTableComponent,
     ModulesComponent,
     ModuleInfoComponent,
-    BattleReportComponent
+    BattleReportComponent,
+    WeaponViewComponent
   ],
   imports: [
     BrowserModule,

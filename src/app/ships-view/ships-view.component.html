@@ -46,12 +46,21 @@
                 <tbody>
                   <ng-template ngFor let-mod [ngForOf]="modTable.data">
                     <tr>
-                      <td>{{ mod.module.name }}</td>
+                      <td>
+                        <i nz-icon [nzType]="mod.module.shape"></i>
+                        <span class="modName"> {{ mod.module.name }}</span>
+                      </td>
                       <td>{{ mod.level | number: "1.0-0" }}</td>
                     </tr>
                   </ng-template>
                 </tbody>
               </nz-table>
+            </nz-tab>
+            <nz-tab nzTitle="Weapons">
+              <app-weapon-view
+                [weapons]="data.weapons"
+                size="small"
+              ></app-weapon-view>
             </nz-tab>
           </nz-tabset>
         </td>

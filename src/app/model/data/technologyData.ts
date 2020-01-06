@@ -38,6 +38,22 @@ export const TECHNOLOGIES: { readonly [index: string]: ITechnologyData } = {
     lightColor: "#096DD9",
     price: new Decimal(1e3)
   },
+  Materials: {
+    id: "m",
+    name: "Physics",
+    icon: "my:cube",
+    darkColor: "#FA8C16",
+    lightColor: "#FA8C16",
+    price: new Decimal(1e3)
+  },
+  Propulsion: {
+    id: "o",
+    name: "Propulsion",
+    icon: "my:cube",
+    darkColor: "#FA8C16",
+    lightColor: "#FA8C16",
+    price: new Decimal(1e3)
+  },
   Computing: {
     id: "c",
     name: "Computing",

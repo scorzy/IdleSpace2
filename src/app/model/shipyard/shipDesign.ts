@@ -11,7 +11,8 @@ import { Game } from "../game";
 import { ShipType } from "./ShipType";
 import { MainService } from "src/app/main.service";
 import { FleetShips } from "./fleetShips";
-import { ShipData } from "../battle/shipData";
+import { ShipData, WeaponData } from "../battle/shipData";
+import { Weapon } from "./weapon";
 
 const PRICE_GROW_RATE = 1.05;
 const SIZE_MULTI = 0.2;
@@ -44,6 +45,7 @@ export class ShipDesign {
     validateStatus?: string;
     errorTip?: string;
   }>();
+  weapons = Array<Weapon>();
 
   enemyPriority = 1;
   enemyQuantity = 0;
@@ -60,6 +62,7 @@ export class ShipDesign {
     return (1 + 0.1 * (m.level - 1)) * sizeMultiplier;
   }
   reload(errorCheck = false) {
+    this.weapons = [];
     this.totalArmour = BASE_ARMOUR * (this.type.id + 1);
     this.totalShield = 0;
     this.totalDamage = 0;
@@ -78,13 +81,26 @@ export class ShipDesign {
 
         this.totalArmour += m.module.armour * statsMulti;
         this.totalShield += m.module.shield * statsMulti;
-        this.totalDamage += m.module.damage * statsMulti;
+        const damage = m.module.damage * statsMulti;
+        this.totalDamage += damage;
 
         this.energy += m.module.energy * statsMulti;
         this.price = this.price.plus(priceMulti.times(m.module.price));
         this.cargo = this.cargo.plus(
           Decimal.multiply(m.module.cargo, statsMulti)
         );
+
+        if (m.module.damage > 0) {
+          this.weapons.push({
+            module: m.module,
+            damage: damage,
+            armourPercent: m.module.armourDamagePercent,
+            shieldPercent: m.module.shieldDamagePercent,
+            aliveThreatGain: 0,
+            armourThreatGain: 0,
+            shieldThreatGain: 0
+          });
+        }
       });
 
     this.valid = this.energy >= 0;
@@ -138,16 +154,7 @@ export class ShipDesign {
     ret.totalShield = this.totalShield;
     ret.threat = this.threat;
     ret.explosionChance = this.explosionChance / 100;
-    ret.weapons = this.modules
-      .filter(m => m.module.damage > 0)
-      .map(m => {
-        return {
-          damage: m.module.damage * ShipDesign.getStatsMulti(m),
-          armourPercent: m.module.armourDamagePercent / 100,
-          shieldPercent: m.module.shieldDamagePercent / 100,
-          initiative: 1
-        };
-      });
+    ret.weapons = this.weapons;
     return ret;
   }
 

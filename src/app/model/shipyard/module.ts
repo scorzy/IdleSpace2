@@ -1,11 +1,9 @@
-import { ZERO } from "../CONSTANTS";
+import { ZERO, DEFAULT_MODULE_PRICE } from "../CONSTANTS";
 import { ModuleData } from "../data/modulesData";
 import { IUnlockable } from "../iUnlocable";
 import { ALL_SIZES } from "../data/sizes";
 import { Technology } from "../researches/technology";
 import { Game } from "../game";
-
-const DEFAULT_PRICE = 100;
 
 export class Module implements IUnlockable {
   id = "";
@@ -19,7 +17,7 @@ export class Module implements IUnlockable {
   armourDamagePercent = 100;
   shieldDamagePercent = 100;
   fire = 1;
-  price = DEFAULT_PRICE;
+  price = DEFAULT_MODULE_PRICE;
   explosion = 0;
   unlocked = false;
   sizes = ALL_SIZES;
