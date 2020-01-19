@@ -30,7 +30,7 @@ export class ShipDesign {
   totalArmour = 0;
   totalShield = 0;
   totalDamage = 0;
-  explosionChance = BASE_EXPLOSION;
+  explosionThreshold = BASE_EXPLOSION;
   energy = 0;
   price = ZERO;
   cargo = ZERO;
@@ -153,8 +153,9 @@ export class ShipDesign {
     ret.totalArmour = this.totalArmour;
     ret.totalShield = this.totalShield;
     ret.threat = this.threat;
-    ret.explosionChance = this.explosionChance / 100;
+    ret.explosionThreshold = this.explosionThreshold;
     ret.weapons = this.weapons;
+
     return ret;
   }
 

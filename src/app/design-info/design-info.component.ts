@@ -103,7 +103,23 @@ export class DesignInfoComponent implements OnInit, OnDestroy {
         ? "text-success"
         : ""
     });
-
+    this.comparisonData.push({
+      name: "Explosion",
+      icon: "my:explosion-rays",
+      iconClass: "explosion-color",
+      original: this.original.explosionThreshold,
+      new: !this.design ? null : this.design.explosionThreshold,
+      type: !this.design
+        ? null
+        : this.original.explosionThreshold < this.design.explosionThreshold
+        ? "danger"
+        : "",
+      classes: !this.design
+        ? null
+        : this.original.explosionThreshold > this.design.explosionThreshold
+        ? "text-success"
+        : ""
+    });
     this.comparisonData.push({
       name: "Price",
       icon: "tool",

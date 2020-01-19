@@ -68,7 +68,7 @@ export const modules: ModuleData[] = [
     price: 20,
     shape: "my:mass-driver",
     technologies: [{ technologyId: "e", multi: 1 }],
-    explosion: 15,
+    explosion: 0.15 * MODULE_ARMOUR,
     unlockLevel: 20
   },
   {
@@ -78,7 +78,7 @@ export const modules: ModuleData[] = [
     price: 30,
     shape: "my:reactor",
     technologies: [{ technologyId: "e", multi: 1 }],
-    explosion: 25,
+    explosion: 0.25 * MODULE_ARMOUR,
     unlockLevel: 50
   },
   //#endregion

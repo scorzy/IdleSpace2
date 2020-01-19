@@ -30,17 +30,17 @@ export class ModulesComponent implements OnInit {
         );
         break;
       case "d":
-        this.modules = this.ms.game.shipyardManager.defences.filter(
+        this.modules = this.ms.game.shipyardManager.modules.filter(
           m => m.armour > 0 || m.shield > 0
         );
         break;
       case "g":
-        this.modules = this.ms.game.shipyardManager.generators.filter(
+        this.modules = this.ms.game.shipyardManager.modules.filter(
           m => m.energy > 0
         );
         break;
       case "o":
-        this.modules = this.ms.game.shipyardManager.generators.filter(
+        this.modules = this.ms.game.shipyardManager.modules.filter(
           m => m.damage <= 0 && m.armour <= 0 && m.shield <= 0 && m.energy <= 0
         );
         break;

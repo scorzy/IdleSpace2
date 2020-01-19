@@ -16,7 +16,7 @@ export const FLEET_CAPACITY_MULTI = 10;
 //  Ships
 export const BASE_ARMOUR = 100;
 export const BASE_SHIP_PRICE = 50;
-export const BASE_EXPLOSION = 25;
+export const BASE_EXPLOSION = BASE_ARMOUR;
 
 //  Search and enemies
 export const SEARCH_JOB_PRICE = 100;
