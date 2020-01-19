@@ -70,7 +70,7 @@ export const TECHNOLOGIES: { readonly [index: string]: ITechnologyData } = {
     lightColor: "red",
     price: new Decimal(1e3)
   },
-  SEARCH: {
+  Search: {
     id: "r",
     name: "Search",
     icon: "my:radar-sweep",

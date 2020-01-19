@@ -83,7 +83,7 @@ export const modules: ModuleData[] = [
   },
   //#endregion
   //#region Weapons
-  // Anti Armour
+  //#region Physics
   {
     id: "L",
     name: "Laser",
@@ -127,7 +127,37 @@ export const modules: ModuleData[] = [
     unlockLevel: 50,
     shape: "my:crumbling-ball"
   },
-  //  Anti Shield
+  {
+    id: "g",
+    name: "Ion Cannon",
+    energy: -1,
+    price: DEFAULT_MODULE_PRICE * 1.5,
+    damage: MODULE_DAMAGE,
+    shieldDamagePercent: 175,
+    armourDamagePercent: 25,
+    technologies: [
+      { technologyId: TECHNOLOGIES.MilitaryEngineering.id, multi: 1 },
+      { technologyId: TECHNOLOGIES.Physics.id, multi: 1 }
+    ],
+
+    shape: "my:ion-cannon-blast"
+  },
+  {
+    id: "e",
+    name: "Emp impulse",
+    energy: -1,
+    price: DEFAULT_MODULE_PRICE * 3,
+    damage: MODULE_DAMAGE,
+    shieldDamagePercent: 205,
+    armourDamagePercent: 0,
+    technologies: [
+      { technologyId: TECHNOLOGIES.MilitaryEngineering.id, multi: 1 },
+      { technologyId: TECHNOLOGIES.Physics.id, multi: 1 }
+    ],
+    shape: "my:unstable-orb"
+  },
+  //#endregion
+  //#region Propulsion
   {
     id: "d",
     name: "Mass Driver",
@@ -140,38 +170,53 @@ export const modules: ModuleData[] = [
       { technologyId: TECHNOLOGIES.Propulsion.id, multi: 1 }
     ],
 
-    shape: "mass"
+    shape: "my:clout"
   },
   {
-    id: "g",
-    name: "Gauss rifle",
+    id: "n",
+    name: "Railgun",
     energy: -1,
-    price: DEFAULT_MODULE_PRICE * 1.5,
-    damage: MODULE_DAMAGE,
-    shieldDamagePercent: 170,
-    armourDamagePercent: 30,
+    damage: MODULE_DAMAGE * 1.5,
+    shieldDamagePercent: 140,
+    armourDamagePercent: 60,
     technologies: [
       { technologyId: TECHNOLOGIES.MilitaryEngineering.id, multi: 1 },
       { technologyId: TECHNOLOGIES.Propulsion.id, multi: 1 }
     ],
 
-    shape: "gauss"
+    shape: "my:silver-bullet"
   },
   {
-    id: "e",
-    name: "Emp impulse",
+    id: "c",
+    name: "Coilgun",
     energy: -1,
-    price: DEFAULT_MODULE_PRICE * 3,
-    damage: MODULE_DAMAGE,
-    shieldDamagePercent: 205,
-    armourDamagePercent: 0,
+    damage: MODULE_DAMAGE * 3,
+    shieldDamagePercent: 155,
+    armourDamagePercent: 45,
     technologies: [
       { technologyId: TECHNOLOGIES.MilitaryEngineering.id, multi: 1 },
       { technologyId: TECHNOLOGIES.Propulsion.id, multi: 1 }
     ],
-    shape: "emp"
+
+    shape: "my:supersonic-bullet"
   },
   //#endregion
+  //#region Civil
+  {
+    id: "m",
+    name: "Mining Laser",
+    damage: MODULE_DAMAGE - 5,
+    shieldDamagePercent: 60,
+    armourDamagePercent: 140,
+    energy: -1,
+    technologies: [
+      { technologyId: TECHNOLOGIES.CivilEngineering.id, multi: 1 },
+      { technologyId: TECHNOLOGIES.Physics.id, multi: 1 }
+    ],
+    shape: "my:mining"
+  },
+  //#endregion
+  ////#endregion
   //#region Others
   {
     id: "C",

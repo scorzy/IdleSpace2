@@ -47,7 +47,7 @@ export const RESEARCHES: IResearchData[] = [
     description: "Unlock Searchers",
     price: 100,
     max: 1,
-    type: [TECHNOLOGIES.SEARCH],
+    type: [TECHNOLOGIES.Search],
     unitsToUnlock: ["r", "R"],
     technologiesToUnlock: ["r"]
   }

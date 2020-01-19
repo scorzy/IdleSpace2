@@ -93,7 +93,7 @@ export class ShipDesign {
         if (m.module.damage > 0) {
           this.weapons.push({
             module: m.module,
-            damage: damage,
+            damage,
             armourPercent: m.module.armourDamagePercent,
             shieldPercent: m.module.shieldDamagePercent,
             aliveThreatGain: 0,
