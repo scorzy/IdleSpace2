@@ -29,8 +29,11 @@ export class ShipDesign {
 
   totalArmour = 0;
   totalShield = 0;
+  armourReduction = 0;
+  shieldReduction = 0;
   totalDamage = 0;
   explosionThreshold = BASE_EXPLOSION;
+  explosionDamage = 0;
   energy = 0;
   price = ZERO;
   cargo = ZERO;
@@ -66,10 +69,13 @@ export class ShipDesign {
     this.totalArmour = BASE_ARMOUR * (this.type.id + 1);
     this.totalShield = 0;
     this.totalDamage = 0;
+    this.armourReduction = 0;
+    this.shieldReduction = 0;
     this.price = new Decimal(BASE_SHIP_PRICE * (this.type.id + 1));
     this.cargo = ZERO;
     this.totalPoints = 0;
     this.energy = 0;
+    this.explosionDamage = 0;
     this.modules
       .filter(m => m.module)
       .forEach(m => {
@@ -81,8 +87,11 @@ export class ShipDesign {
 
         this.totalArmour += m.module.armour * statsMulti;
         this.totalShield += m.module.shield * statsMulti;
+        this.armourReduction += m.module.armourDamageReduction * statsMulti;
+        this.shieldReduction += m.module.shieldDamagePercent * statsMulti;
         const damage = m.module.damage * statsMulti;
         this.totalDamage += damage;
+        this.explosionDamage += m.module.explosionDamage * statsMulti;
 
         this.energy += m.module.energy * statsMulti;
         this.price = this.price.plus(priceMulti.times(m.module.price));
@@ -152,8 +161,11 @@ export class ShipDesign {
     ret.name = this.name;
     ret.totalArmour = this.totalArmour;
     ret.totalShield = this.totalShield;
+    ret.armourReduction = this.armourReduction;
+    ret.shieldReduction = this.shieldReduction;
     ret.threat = this.threat;
     ret.explosionThreshold = this.explosionThreshold;
+    ret.explosionDamage = this.explosionDamage;
     ret.weapons = this.weapons;
 
     return ret;

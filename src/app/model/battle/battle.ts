@@ -17,6 +17,12 @@ export function battle(battleRequest: BattleRequest): any {
       shipData.withArmour = [];
       shipData.withShield = [];
       shipData.targets = i === 0 ? fleets[1] : fleets[0];
+      if (shipData.explosionDamage > 0) {
+        shipData.explosionWeapon = new WeaponData();
+        shipData.explosionWeapon.shieldPercent = 1;
+        shipData.explosionWeapon.armourPercent = 1;
+        shipData.explosionWeapon.damage = shipData.explosionDamage;
+      }
       shipData.stats = new Stats();
       shipData.stats.name = shipData.name;
       shipData.stats.designId = shipData.designId;
@@ -220,27 +226,33 @@ function dealDamage(
 
   //  Damage to shield
   if (target.shield > 0) {
-    damageToDo *= weapon.shieldPercent;
-    const shield = target.shield;
-    target.shield -= damageToDo;
     let shieldDamageDone = 0;
-    if (target.shield > 0) {
-      damageToDo = 0;
-      shieldDamageDone = shield;
-    } else {
-      damageToDo = (target.shield * -1) / weapon.shieldPercent;
-      shieldDamageDone = shield - target.shield;
-      const index = target.shipData.withShield.indexOf(target);
-      if (index >= 0) {
-        target.shipData.withShield.splice(index, 1);
+    damageToDo *= weapon.shieldPercent;
+    damageToDo -= target.shipData.shieldReduction;
+    if (damageToDo > 0) {
+      const shield = target.shield;
+      target.shield -= damageToDo;
+
+      if (target.shield > 0) {
+        damageToDo = 0;
+        shieldDamageDone = shield;
+      } else {
+        damageToDo = (target.shield * -1) / weapon.shieldPercent;
+        shieldDamageDone = shield - target.shield;
+        const index = target.shipData.withShield.indexOf(target);
+        if (index >= 0) {
+          target.shipData.withShield.splice(index, 1);
+        }
+        target.shipData.withArmour.push(target);
       }
-      target.shipData.withArmour.push(target);
+      target.shipData.stats.rounds[round].damageTaken += shieldDamageDone;
+      target.shipData.stats.rounds[round].shieldDamageTaken += shieldDamageDone;
+      attacker.shipData.stats.rounds[round].damageDone += shieldDamageDone;
+      attacker.shipData.stats.rounds[
+        round
+      ].shieldDamageDone += shieldDamageDone;
+      attacker.shipData.stats.rounds[round].aliveTargetsShield++;
     }
-    target.shipData.stats.rounds[round].damageTaken += shieldDamageDone;
-    target.shipData.stats.rounds[round].shieldDamageTaken += shieldDamageDone;
-    attacker.shipData.stats.rounds[round].damageDone += shieldDamageDone;
-    attacker.shipData.stats.rounds[round].shieldDamageDone += shieldDamageDone;
-    attacker.shipData.stats.rounds[round].aliveTargetsShield++;
   } else {
     attacker.shipData.stats.rounds[round].aliveTargetsNoShield++;
   }
@@ -248,14 +260,18 @@ function dealDamage(
   //  Damage to armour
   if (damageToDo > 0) {
     damageToDo *= weapon.armourPercent;
-    console.log(damageToDo);
-    const armour = target.armour;
-    target.armour -= damageToDo;
-    const armourDamageDone = Math.max(armour - target.armour, armour);
-    target.shipData.stats.rounds[round].damageTaken += armourDamageDone;
-    target.shipData.stats.rounds[round].armourDamageTaken += armourDamageDone;
-    attacker.shipData.stats.rounds[round].damageDone += armourDamageDone;
-    attacker.shipData.stats.rounds[round].armourDamageDone += armourDamageDone;
+    damageToDo -= target.shipData.armourReduction;
+    if (damageToDo > 0) {
+      const armour = target.armour;
+      target.armour -= damageToDo;
+      const armourDamageDone = Math.max(armour - target.armour, armour);
+      target.shipData.stats.rounds[round].damageTaken += armourDamageDone;
+      target.shipData.stats.rounds[round].armourDamageTaken += armourDamageDone;
+      attacker.shipData.stats.rounds[round].damageDone += armourDamageDone;
+      attacker.shipData.stats.rounds[
+        round
+      ].armourDamageDone += armourDamageDone;
+    }
   }
 
   //  Explosion
@@ -267,6 +283,9 @@ function dealDamage(
       target.armour = 0;
       target.shipData.stats.rounds[round].exploded++;
       attacker.shipData.stats.rounds[round].explosionTriggered++;
+      if (target.shipData.explosionDamage > 0 && attacker.armour > 0) {
+        dealDamage(target.shipData.explosionWeapon, attacker, target, round);
+      }
     }
   }
 

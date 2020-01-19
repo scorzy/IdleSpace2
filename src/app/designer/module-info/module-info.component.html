@@ -40,6 +40,16 @@
     {{ mod.armour | number: "1.0-0" }}
   </span>
   <span
+    *ngIf="mod.armourDamageReduction > 0"
+    class="armour-damage-color"
+    nz-tooltip
+    nzTooltipTitle="Armour Damage Reduction"
+    fxLayout="row"
+  >
+    <i nz-icon nzType="my:shield-reflect"></i>
+    {{ mod.armourDamageReduction | number: "1.0-0" }}
+  </span>
+  <span
     *ngIf="mod.shield > 0"
     class="shield-damage-color"
     nz-tooltip
@@ -48,6 +58,16 @@
   >
     <i nz-icon nzType="my:bubble-field"></i>
     {{ mod.shield | number: "1.0-0" }}
+  </span>
+  <span
+    *ngIf="mod.shieldDamageReduction > 0"
+    class="shield-damage-color"
+    nz-tooltip
+    nzTooltipTitle="Shield Damage Reduction"
+    fxLayout="row"
+  >
+    <i nz-icon nzType="my:shield-reflect"></i>
+    {{ mod.shieldDamageReduction | number: "1.0-0" }}
   </span>
   <span
     *ngIf="mod.energy !== 0"
@@ -62,11 +82,21 @@
     *ngIf="mod.explosion !== 0"
     class="explosion-color"
     nz-tooltip
-    nzTooltipTitle="Explosion %"
+    nzTooltipTitle="Explosion Threshold"
     fxLayout="row"
   >
     <i nz-icon nzType="my:explosion-rays"></i
     >{{ mod.explosion | number: "1.0-0" }}
+  </span>
+  <span
+    *ngIf="mod.explosionDamage !== 0"
+    class="damage-color"
+    nz-tooltip
+    nzTooltipTitle="Explosion Damage"
+    fxLayout="row"
+  >
+    <i nz-icon nzType="my:explosion-rays"></i
+    >{{ mod.explosionDamage | number: "1.0-0" }}
   </span>
   <span
     *ngIf="mod.cargo > 0"

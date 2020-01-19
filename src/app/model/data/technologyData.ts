@@ -40,7 +40,7 @@ export const TECHNOLOGIES: { readonly [index: string]: ITechnologyData } = {
   },
   Materials: {
     id: "m",
-    name: "Physics",
+    name: "Materials",
     icon: "my:cube",
     darkColor: "#FA8C16",
     lightColor: "#FA8C16",
@@ -49,7 +49,7 @@ export const TECHNOLOGIES: { readonly [index: string]: ITechnologyData } = {
   Propulsion: {
     id: "o",
     name: "Propulsion",
-    icon: "my:cube",
+    icon: "my:rocket-thruster",
     darkColor: "#FA8C16",
     lightColor: "#FA8C16",
     price: new Decimal(1e3)
@@ -76,6 +76,14 @@ export const TECHNOLOGIES: { readonly [index: string]: ITechnologyData } = {
     icon: "my:radar-sweep",
     darkColor: "#7CB305",
     lightColor: "#7CB305",
+    price: new Decimal(1e3)
+  },
+  Energy: {
+    id: "t",
+    name: "Energy",
+    icon: "my:electric",
+    darkColor: "#FADB14",
+    lightColor: "#FADB14",
     price: new Decimal(1e3)
   }
 };

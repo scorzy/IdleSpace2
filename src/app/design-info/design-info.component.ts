@@ -70,6 +70,23 @@ export class DesignInfoComponent implements OnInit, OnDestroy {
         : ""
     });
     this.comparisonData.push({
+      name: "Armour dmg. Reduction",
+      icon: "my:shield-reflect",
+      iconClass: "armour-damage-color",
+      original: this.original.armourReduction,
+      new: !this.design ? null : this.design.armourReduction,
+      type: !this.design
+        ? null
+        : this.original.armourReduction > this.design.armourReduction
+        ? "danger"
+        : "",
+      classes: !this.design
+        ? null
+        : this.original.armourReduction < this.design.armourReduction
+        ? "text-success"
+        : ""
+    });
+    this.comparisonData.push({
       name: "Shield",
       icon: "my:bubble-field",
       iconClass: "shield-damage-color",
@@ -83,6 +100,23 @@ export class DesignInfoComponent implements OnInit, OnDestroy {
       classes: !this.design
         ? null
         : this.original.totalShield < this.design.totalShield
+        ? "text-success"
+        : ""
+    });
+    this.comparisonData.push({
+      name: "Shield dmg. Reduction",
+      icon: "my:shield-reflect",
+      iconClass: "shield-damage-color",
+      original: this.original.shieldReduction,
+      new: !this.design ? null : this.design.shieldReduction,
+      type: !this.design
+        ? null
+        : this.original.shieldReduction > this.design.shieldReduction
+        ? "danger"
+        : "",
+      classes: !this.design
+        ? null
+        : this.original.shieldReduction < this.design.shieldReduction
         ? "text-success"
         : ""
     });
@@ -117,6 +151,23 @@ export class DesignInfoComponent implements OnInit, OnDestroy {
       classes: !this.design
         ? null
         : this.original.explosionThreshold > this.design.explosionThreshold
+        ? "text-success"
+        : ""
+    });
+    this.comparisonData.push({
+      name: "Explosion dmg.",
+      icon: "my:explosion-rays",
+      iconClass: "damage-color",
+      original: this.original.explosionDamage,
+      new: !this.design ? null : this.design.explosionDamage,
+      type: !this.design
+        ? null
+        : this.original.explosionDamage > this.design.explosionDamage
+        ? "danger"
+        : "",
+      classes: !this.design
+        ? null
+        : this.original.explosionDamage < this.design.explosionDamage
         ? "text-success"
         : ""
     });

@@ -13,6 +13,8 @@ export class ModuleData {
   armour?: number;
   shield?: number;
   energy?: number;
+  armourDamageReduction?: number;
+  shieldDamageReduction?: number;
   damage?: number;
   armourDamagePercent?: number;
   shieldDamagePercent?: number;
@@ -20,6 +22,7 @@ export class ModuleData {
   price?: number;
   greaterThan?: string[];
   explosion?: number;
+  explosionDamage?: number;
   sizes?: Sizes[];
   shape?: string;
   unlockLevel?: number;
@@ -32,12 +35,49 @@ export const modules: ModuleData[] = [
   {
     id: "A",
     name: "Armour",
+    explosion: 0.1 * MODULE_ARMOUR,
     armour: MODULE_ARMOUR,
     technologies: [
       { technologyId: TECHNOLOGIES.MilitaryEngineering.id, multi: 1 },
       { technologyId: TECHNOLOGIES.Materials.id, multi: 1 }
     ],
     shape: "my:metal-scales"
+  },
+  {
+    id: "B",
+    name: "Ablative Armour",
+    armour: 0.5 * MODULE_ARMOUR,
+    armourDamageReduction: 0.1 * MODULE_ARMOUR,
+    technologies: [
+      { technologyId: TECHNOLOGIES.MilitaryEngineering.id, multi: 1 },
+      { technologyId: TECHNOLOGIES.Materials.id, multi: 1 }
+    ],
+    shape: "my:metal-scales"
+  },
+  {
+    id: "V",
+    name: "Reactive Armour",
+    energy: -1,
+    explosion: -0.1 * MODULE_ARMOUR,
+    armour: 1.5 * MODULE_ARMOUR,
+    armourDamageReduction: 0.2 * MODULE_ARMOUR,
+    technologies: [
+      { technologyId: TECHNOLOGIES.MilitaryEngineering.id, multi: 1 },
+      { technologyId: TECHNOLOGIES.Materials.id, multi: 1 }
+    ],
+    shape: "my:armor-upgrade"
+  },
+  {
+    id: "D",
+    name: "Deflector",
+    energy: -1,
+    armour: 0.5 * MODULE_ARMOUR,
+    armourDamageReduction: 0.4 * MODULE_ARMOUR,
+    technologies: [
+      { technologyId: TECHNOLOGIES.MilitaryEngineering.id, multi: 1 },
+      { technologyId: TECHNOLOGIES.Materials.id, multi: 1 }
+    ],
+    shape: "my:shield-reflect"
   },
   {
     id: "s",
@@ -50,6 +90,17 @@ export const modules: ModuleData[] = [
     ],
     shape: "my:bubble-field"
   },
+  {
+    id: "j",
+    name: "Jammer",
+    energy: -2,
+    shieldDamageReduction: 0.4 * MODULE_ARMOUR,
+    technologies: [
+      { technologyId: TECHNOLOGIES.MilitaryEngineering.id, multi: 1 },
+      { technologyId: TECHNOLOGIES.Physics.id, multi: 1 }
+    ],
+    shape: "my:shield-reflect"
+  },
   //#endregion
   //#region Generators
   {
@@ -57,7 +108,8 @@ export const modules: ModuleData[] = [
     name: "Solar Panel",
     energy: 2,
     technologies: [
-      { technologyId: TECHNOLOGIES.CivilEngineering.id, multi: 1 }
+      { technologyId: TECHNOLOGIES.CivilEngineering.id, multi: 1 },
+      { technologyId: TECHNOLOGIES.Energy.id, multi: 1 }
     ],
     shape: "my:solar-power"
   },
@@ -67,19 +119,54 @@ export const modules: ModuleData[] = [
     energy: 4,
     price: 20,
     shape: "my:mass-driver",
-    technologies: [{ technologyId: "e", multi: 1 }],
-    explosion: 0.15 * MODULE_ARMOUR,
-    unlockLevel: 20
+    technologies: [
+      { technologyId: "e", multi: 1 },
+      { technologyId: TECHNOLOGIES.Energy.id, multi: 1 }
+    ],
+    explosion: 0.25 * MODULE_ARMOUR,
+    unlockLevel: 2
+  },
+  {
+    id: "I",
+    name: "Fission Reactor",
+    energy: 6,
+    price: 30,
+    shape: "my:reactor",
+    technologies: [
+      { technologyId: "e", multi: 1 },
+      { technologyId: TECHNOLOGIES.Energy.id, multi: 1 }
+    ],
+    explosion: 1 * MODULE_ARMOUR,
+    explosionDamage: MODULE_DAMAGE,
+    unlockLevel: 2
   },
   {
     id: "F",
     name: "Fusion Reactor",
-    energy: 6,
+    energy: 7,
     price: 30,
-    shape: "my:reactor",
-    technologies: [{ technologyId: "e", multi: 1 }],
-    explosion: 0.25 * MODULE_ARMOUR,
-    unlockLevel: 50
+    shape: "my:atom",
+    technologies: [
+      { technologyId: "e", multi: 1 },
+      { technologyId: TECHNOLOGIES.Energy.id, multi: 1 }
+    ],
+    explosion: 0.5 * MODULE_ARMOUR,
+    explosionDamage: 0.2 * MODULE_DAMAGE,
+    unlockLevel: 2
+  },
+  {
+    id: "J",
+    name: "Antimatter Reactor",
+    energy: 8,
+    price: 40,
+    shape: "my:materials-science",
+    technologies: [
+      { technologyId: "e", multi: 1 },
+      { technologyId: TECHNOLOGIES.Energy.id, multi: 1 }
+    ],
+    explosion: 2 * MODULE_ARMOUR,
+    explosionDamage: 2 * MODULE_DAMAGE,
+    unlockLevel: 2
   },
   //#endregion
   //#region Weapons
@@ -163,6 +250,7 @@ export const modules: ModuleData[] = [
     name: "Mass Driver",
     energy: -1,
     damage: MODULE_DAMAGE,
+    price: DEFAULT_MODULE_PRICE,
     shieldDamagePercent: 125,
     armourDamagePercent: 75,
     technologies: [
@@ -176,7 +264,8 @@ export const modules: ModuleData[] = [
     id: "n",
     name: "Railgun",
     energy: -1,
-    damage: MODULE_DAMAGE * 1.5,
+    damage: MODULE_DAMAGE,
+    price: DEFAULT_MODULE_PRICE * 1.5,
     shieldDamagePercent: 140,
     armourDamagePercent: 60,
     technologies: [
@@ -190,7 +279,8 @@ export const modules: ModuleData[] = [
     id: "c",
     name: "Coilgun",
     energy: -1,
-    damage: MODULE_DAMAGE * 3,
+    damage: MODULE_DAMAGE,
+    price: DEFAULT_MODULE_PRICE * 3,
     shieldDamagePercent: 155,
     armourDamagePercent: 45,
     technologies: [
@@ -215,6 +305,19 @@ export const modules: ModuleData[] = [
     ],
     shape: "my:mining"
   },
+  {
+    id: "T",
+    name: "Tesla Cannon",
+    damage: MODULE_DAMAGE - 5,
+    shieldDamagePercent: 140,
+    armourDamagePercent: 60,
+    energy: -1,
+    technologies: [
+      { technologyId: TECHNOLOGIES.CivilEngineering.id, multi: 1 },
+      { technologyId: TECHNOLOGIES.Energy.id, multi: 1 }
+    ],
+    shape: "my:focused-lightning"
+  },
   //#endregion
   ////#endregion
   //#region Others
@@ -222,7 +325,8 @@ export const modules: ModuleData[] = [
     id: "C",
     name: "Cargo",
     technologies: [
-      { technologyId: TECHNOLOGIES.CivilEngineering.id, multi: 1 }
+      { technologyId: TECHNOLOGIES.CivilEngineering.id, multi: 1 },
+      { technologyId: TECHNOLOGIES.Materials.id, multi: 1 }
     ],
     cargo: 100,
     shape: "my:cube"

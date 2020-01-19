@@ -12,6 +12,8 @@ export class Module implements IUnlockable {
   armour = 0;
   shield = 0;
   energy = 0;
+  armourDamageReduction = 0;
+  shieldDamageReduction = 0;
   damage = 0;
   cargo = 0;
   armourDamagePercent = 100;
@@ -19,6 +21,7 @@ export class Module implements IUnlockable {
   fire = 1;
   price = DEFAULT_MODULE_PRICE;
   explosion = 0;
+  explosionDamage = 0;
   unlocked = false;
   sizes = ALL_SIZES;
   maxLevel = 0;
@@ -31,6 +34,10 @@ export class Module implements IUnlockable {
     if ("armour" in moduleData) this.armour = moduleData.armour;
     if ("shield" in moduleData) this.shield = moduleData.shield;
     if ("energy" in moduleData) this.energy = moduleData.energy;
+    if ("shieldDamageReduction" in moduleData)
+      this.shieldDamageReduction = moduleData.shieldDamageReduction;
+    if ("armourDamageReduction" in moduleData)
+      this.armourDamageReduction = moduleData.armourDamageReduction;
     if ("damage" in moduleData) this.damage = moduleData.damage;
     if ("price" in moduleData) this.price = moduleData.price;
     if ("cargo" in moduleData) this.cargo = moduleData.cargo;
@@ -42,6 +49,8 @@ export class Module implements IUnlockable {
     }
     if ("fire" in moduleData) this.fire = moduleData.fire;
     if ("explosion" in moduleData) this.explosion = moduleData.explosion;
+    if ("explosionDamage" in moduleData)
+      this.explosionDamage = moduleData.explosionDamage;
     if ("sizes" in moduleData) this.sizes = moduleData.sizes;
     if ("shape" in moduleData) this.shape = moduleData.shape;
     if ("unlockLevel" in moduleData) {

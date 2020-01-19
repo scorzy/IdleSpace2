@@ -14,7 +14,10 @@ export class ShipData {
   name = "";
   totalArmour: number;
   totalShield: number;
+  armourReduction: number;
+  shieldReduction: number;
   explosionThreshold: number;
+  explosionDamage: number;
   threat: number;
   weapons: WeaponData[];
   quantity: number;
@@ -24,4 +27,5 @@ export class ShipData {
   withShield: Ship[];
   targets: ShipData[];
   stats: Stats;
+  explosionWeapon: WeaponData;
 }
