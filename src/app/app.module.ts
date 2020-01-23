@@ -52,6 +52,7 @@ import { ModulesComponent } from "./designer/modules/modules.component";
 import { ModuleInfoComponent } from './designer/module-info/module-info.component';
 import { BattleReportComponent } from './battle-report/battle-report.component';
 import { WeaponViewComponent } from './weapon-view/weapon-view.component';
+import { TechTreeComponent } from './laboratory/tech-tree/tech-tree.component';
 
 registerLocaleData(en);
 
@@ -91,7 +92,8 @@ const ngZorroConfig: NzConfig = {
     ModulesComponent,
     ModuleInfoComponent,
     BattleReportComponent,
-    WeaponViewComponent
+    WeaponViewComponent,
+    TechTreeComponent
   ],
   imports: [
     BrowserModule,

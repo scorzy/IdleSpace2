@@ -27,6 +27,8 @@ export class ResearchManager extends JobManager {
   researchPerSec = ZERO;
   navalCapTech: Technology;
 
+  treeData: any;
+
   constructor() {
     super();
     this.makeResearches();
@@ -90,7 +92,19 @@ export class ResearchManager extends JobManager {
     this.toDo = [this.researches[0]];
     this.done = [];
     this.backlog = [];
+
+    this.treeData = this.getTreeData(this.toDo[0]);
   }
+
+  private getTreeData(research: Research) {
+    const ret: any = { id: research.id, research: research };
+    if (research.researchToUnlock)
+      ret.children = research.researchToUnlock.map(r => {
+        if (r instanceof Research) return this.getTreeData(r);
+      });
+    return ret;
+  }
+
   unlock(res: Research): boolean {
     if (this.toDo.findIndex(r => r.id === res.id) > -1) return false;
     if (this.done.findIndex(r => r.id === res.id) > -1) return false;

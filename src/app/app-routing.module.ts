@@ -15,11 +15,13 @@ import { EnemyDetailComponent } from "./enemy/enemy-detail/enemy-detail.componen
 import { BattleComponent } from "./battle/battle.component";
 import { ModulesComponent } from "./designer/modules/modules.component";
 import { BattleReportComponent } from "./battle-report/battle-report.component";
+import { TechTreeComponent } from "./laboratory/tech-tree/tech-tree.component";
 
 export const routes: Routes = [
   { path: "", pathMatch: "full", redirectTo: "/units/ws" },
   { path: "units/:id", pathMatch: "full", component: UnitsComponent },
   { path: "lab", pathMatch: "full", component: LaboratoryComponent },
+  { path: "tree", pathMatch: "full", component: TechTreeComponent },
   { path: "tech", pathMatch: "full", component: TechnologiesComponent },
   { path: "resPri", pathMatch: "full", component: ResearchPrioritiesComponent },
   { path: "opt", pathMatch: "full", component: OptionsComponent },
