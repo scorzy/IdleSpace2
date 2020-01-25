@@ -32,77 +32,6 @@ const EXPAND_ICON = function EXPAND_ICON(x, y, r) {
   ];
 };
 const TREE_NODE = "tree-node";
-const createNodeBox: any = (
-  group,
-  config,
-  width,
-  height,
-  isRoot,
-  research: Research
-) => {
-  /* Outermost large rectangle */
-  const container = group.addShape("rect", {
-    attrs: {
-      x: 0,
-      y: 0,
-      width,
-      height
-    }
-  });
-  if (!isRoot) {
-    /* Little dot on the left     */
-    group.addShape("circle", {
-      attrs: {
-        x: 3,
-        y: height / 2,
-        r: 6,
-        fill: config.basicColor
-      }
-    });
-  }
-  /* rectangle */
-  group.addShape("rect", {
-    attrs: {
-      x: 3,
-      y: 0,
-      width: width,
-      height,
-      fill: config.bgColor,
-      stroke: config.borderColor,
-      radius: 2,
-      cursor: "pointer"
-    }
-  });
-
-  /* Thick line on the left */
-  group.addShape("rect", {
-    attrs: {
-      x: 3,
-      y: 0,
-      width: 3,
-      height,
-      fill: config.basicColor,
-      radius: 1.5
-    }
-  });
-
-  /* name */
-  group.addShape("text", {
-    attrs: {
-      text: research.name,
-      x: 19,
-      y: 19,
-      fontSize: 14,
-      fontWeight: 700,
-      textAlign: "left",
-      textBaseline: "middle",
-      fill: config.fontColor,
-      cursor: "pointer"
-    }
-  });
-
-  return container;
-};
 
 @Component({
   selector: "app-tech-tree",
@@ -134,19 +63,25 @@ export class TechTreeComponent implements OnInit, AfterViewInit {
     G6.registerNode(
       TREE_NODE,
       {
-        drawShape: function drawShape(cfg, group) {
-          const config = colorConfig;
-          const isRoot = cfg.type === "root";
-          const container = createNodeBox(
-            group,
-            config,
-            243,
-            64,
-            isRoot,
-            cfg.research
-          );
+        draw(cfg, group) {
+          const research: Research = cfg.research;
 
-          return container;
+          const html = G6.Util.createDom(
+            '<div class="bordered light-background" style="padding:10px;"><h2>' +
+              research.name +
+              "</h2><p class='description'>" +
+              research.description +
+              "</p></div>"
+          );
+          return group.addShape("dom", {
+            attrs: {
+              x: 0,
+              y: 0,
+              width: 250,
+              height: 100,
+              html
+            }
+          });
         }
       },
       "single-shape"
@@ -159,6 +94,7 @@ export class TechTreeComponent implements OnInit, AfterViewInit {
     const height = elements[0].offsetHeight;
 
     const treeGraph = new G6.TreeGraph({
+      renderer: "svg",
       container: "mountNode",
       width: width,
       height: height,
