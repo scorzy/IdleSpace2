@@ -28,6 +28,7 @@ export class ResourceManager {
   worker: Unit;
   search: Unit;
   searcher: Unit;
+  components: Unit;
 
   shipyardWork: Unit;
 
@@ -107,8 +108,20 @@ export class ResourceManager {
         u.id === "7"
     );
 
+    this.components = this.units.find(u => u.id === "x");
+
     this.units.forEach(u => u.setRelations());
     this.reloadLists();
+
+    this.components.reloadLimit = () => {
+      this.components.limit = ZERO;
+      for (let i = 0, n = this.unlockedWorkers.length; i < n; i++) {
+        this.components.limit = this.components.limit.plus(
+          this.unlockedWorkers[i].needComponents
+        );
+      }
+      return true;
+    };
   }
 
   reloadLists() {
@@ -260,8 +273,38 @@ export class ResourceManager {
     this.unlockedUnits.forEach(unit => {
       unit.postUpdate();
     });
+    this.deployComponents();
+  }
+  deployComponents() {
+    if (this.components.quantity.lte(1)) return false;
+    let sum = 0;
+    let added = ZERO;
+    for (let i = 0, n = this.unlockedWorkers.length; i < n; i++) {
+      sum += this.unlockedWorkers[i].assemblyPriority;
+    }
+    for (let i = 0, n = this.unlockedWorkers.length; i < n; i++) {
+      const worker = this.unlockedWorkers[i];
+      const toAdd = this.components.quantity
+        .times(worker.assemblyPriority)
+        .div(sum)
+        .min(worker.needComponents);
+      worker.storedComponents = worker.storedComponents.plus(toAdd);
+      added = added.plus(toAdd);
+      const built = worker.storedComponents.div(worker.components).floor();
+
+      if (built.gte(1)) {
+        worker.quantity = worker.quantity.plus(built);
+        worker.storedComponents = worker.storedComponents.minus(
+          built.times(worker.components)
+        );
+        worker.reloadNeedComponent();
+      }
+    }
+    this.components.quantity = this.components.quantity.minus(added);
+    this.components.reloadLimit();
   }
 
+  //#region Save and Load
   getSave(): any {
     return {
       l: this.unlockedUnits.map(u => u.getSave())
@@ -276,4 +319,5 @@ export class ResourceManager {
     }
     this.reloadLists();
   }
+  //#endregion
 }

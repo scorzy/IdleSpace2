@@ -34,6 +34,11 @@ export class Unit implements IBase, IUnlockable {
   buildingLimit: Unit;
   buildingLimitQuantity: Decimal;
 
+  storedComponents = ZERO;
+  needComponents = ZERO;
+  components = ONE;
+  assemblyPriority = 50;
+
   constructor(private unitData: IUnitData) {
     this.id = unitData.id;
     this.name = unitData.name;
@@ -92,7 +97,6 @@ export class Unit implements IBase, IUnlockable {
     this.unlocked = true;
     Game.getGame().resourceManager.reloadLists();
   }
-
   postUpdate() {
     // this.buyPrice.reload(this.manualBought);
 
@@ -117,8 +121,8 @@ export class Unit implements IBase, IUnlockable {
     } else {
       this._oldLimit = this.limit;
     }
+    this.reloadNeedComponent();
   }
-
   buy(quantity: Decimal): boolean {
     if (
       this.buyPrice.buy(
@@ -162,6 +166,13 @@ export class Unit implements IBase, IUnlockable {
       ONE,
       this.limit.minus(this.quantity)
     );
+  }
+  reloadNeedComponent() {
+    this.needComponents = this.limit
+      .minus(this.quantity)
+      .times(this.components)
+      .minus(this.storedComponents)
+      .max(0);
   }
 
   //#region Save and Load
