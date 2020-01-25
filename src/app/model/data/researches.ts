@@ -8,7 +8,7 @@ export const RESEARCHES: IResearchData[] = [
     description: "Unlock Metallurgists",
     price: 100,
     unitsToUnlock: ["A", "a", "w", "W"],
-    researchToUnlock: ["p", "s2", "n", "s"],
+    researchToUnlock: ["p", "s2", "n", "s", "x"],
     max: 1,
     type: [TECHNOLOGIES.MilitaryEngineering],
     technologiesToUnlock: ["e", TECHNOLOGIES.CivilEngineering.id]
@@ -50,5 +50,14 @@ export const RESEARCHES: IResearchData[] = [
     type: [TECHNOLOGIES.Search],
     unitsToUnlock: ["r", "R"],
     technologiesToUnlock: ["r"]
+  },
+  {
+    id: "x",
+    name: "Replication",
+    description: "Unlock Replicators",
+    price: 100,
+    max: 1,
+    type: [TECHNOLOGIES.CivilEngineering],
+    unitsToUnlock: ["x", "X", "7"]
   }
 ];

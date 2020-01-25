@@ -33,7 +33,6 @@ export class UnitsComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.subscriptions.push(
       this.ms.updateEmitter.subscribe(() => {
-        this.getUnits(this.route.params);
         this.cd.markForCheck();
       }),
       this.route.params.subscribe(this.getUnits.bind(this))
@@ -44,6 +43,7 @@ export class UnitsComponent implements OnInit, OnDestroy {
   }
   getUnits(params: any) {
     const param = "" + params.id;
+    console.log(param);
     switch (param) {
       case "b":
         this.units = this.ms.game.resourceManager.unlockedBuildings;

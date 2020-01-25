@@ -33,6 +33,7 @@ export class UnitCardComponent implements OnInit, OnDestroy {
   sliderDisabled = false;
   index1 = 0;
   isVisible = false;
+  Decimal = Decimal;
 
   @ViewChild("buyOne", null)
   private buyOne: TemplateRef<any>;
@@ -69,7 +70,7 @@ export class UnitCardComponent implements OnInit, OnDestroy {
   }
 
   getActions() {
-    this.unit.buyPrice.reload(this.unit.manualBought);
+    this.unit.reloadMaxBuy();
     const newActions = [];
 
     if (this.unit.buyPrice.canBuy) {

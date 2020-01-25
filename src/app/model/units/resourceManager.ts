@@ -31,9 +31,7 @@ export class ResourceManager {
 
   shipyardWork: Unit;
 
-  constructor() {
-    this.makeUnits();
-  }
+  constructor() {}
 
   makeUnits() {
     this.units = new Array<Unit>();
@@ -47,7 +45,8 @@ export class ResourceManager {
         u.id === "A" ||
         u.id === "S" ||
         u.id === "W" ||
-        u.id === "R"
+        u.id === "R" ||
+        u.id === "x"
     );
 
     this.science = this.units.find(u => u.id === "S");
@@ -94,9 +93,21 @@ export class ResourceManager {
         u.id === "a" ||
         u.id === "s" ||
         u.id === "r" ||
-        u.id === "w"
+        u.id === "w" ||
+        u.id === "X"
+    );
+    this.buildings = this.units.filter(
+      u =>
+        u.id === "1" ||
+        u.id === "2" ||
+        u.id === "3" ||
+        u.id === "4" ||
+        u.id === "5" ||
+        u.id === "6" ||
+        u.id === "7"
     );
 
+    this.units.forEach(u => u.setRelations());
     this.reloadLists();
   }
 
@@ -104,7 +115,7 @@ export class ResourceManager {
     this.unlockedUnits = this.units.filter(u => u.unlocked);
     this.unlockedMaterials = this.materials.filter(u => u.unlocked);
     this.unlockedWorkers = this.workers.filter(u => u.unlocked);
-    // this.unlockedBuildings = this.workers.filter(u => u.unlocked);
+    this.unlockedBuildings = this.buildings.filter(u => u.unlocked);
   }
 
   /**

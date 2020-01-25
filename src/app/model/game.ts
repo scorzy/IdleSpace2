@@ -41,6 +41,7 @@ export class Game {
     Game.instance = this;
     this.generateGameId();
     this.resourceManager = new ResourceManager();
+    this.resourceManager.makeUnits();
     this.researchManager = new ResearchManager();
     this.shipyardManager = new ShipyardManager();
     this.enemyManager = new EnemyManager();

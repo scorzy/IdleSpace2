@@ -34,7 +34,7 @@ export const UNITS: IUnitData[] = [
   },
   {
     id: "W",
-    name: "Work",
+    name: "Production",
     icon: "tool",
     description: "",
     color: "#EC8415"
@@ -42,7 +42,14 @@ export const UNITS: IUnitData[] = [
   {
     id: "R",
     name: "Search",
-    icon: "setting",
+    icon: "my:radar-sweep",
+    description: "",
+    color: ""
+  },
+  {
+    id: "x",
+    name: "Components",
+    icon: "my:microchip",
     description: "",
     color: ""
   },
@@ -57,7 +64,9 @@ export const UNITS: IUnitData[] = [
       ["M", 4],
       ["E", -1]
     ],
-    prices: [["M", 10]]
+    prices: [["M", 10]],
+    buildingLimit: "1",
+    buildingLimitQuantity: 10
   },
   {
     id: "e",
@@ -65,7 +74,9 @@ export const UNITS: IUnitData[] = [
     description: "",
     startQuantity: 1,
     production: [["E", 4]],
-    prices: [["M", 10]]
+    prices: [["M", 10]],
+    buildingLimit: "2",
+    buildingLimitQuantity: 10
   },
   {
     id: "s",
@@ -76,7 +87,9 @@ export const UNITS: IUnitData[] = [
       ["M", -5],
       ["E", -2]
     ],
-    prices: [["M", 10]]
+    prices: [["M", 10]],
+    buildingLimit: "3",
+    buildingLimitQuantity: 10
   },
   {
     id: "a",
@@ -87,7 +100,9 @@ export const UNITS: IUnitData[] = [
       ["M", -5],
       ["E", -2]
     ],
-    prices: [["M", 10]]
+    prices: [["M", 10]],
+    buildingLimit: "4",
+    buildingLimitQuantity: 10
   },
   {
     id: "w",
@@ -101,7 +116,9 @@ export const UNITS: IUnitData[] = [
     prices: [
       ["M", 10],
       ["A", 10]
-    ]
+    ],
+    buildingLimit: "5",
+    buildingLimitQuantity: 10
   },
   {
     id: "r",
@@ -115,7 +132,25 @@ export const UNITS: IUnitData[] = [
     prices: [
       ["M", 10],
       ["A", 10]
-    ]
+    ],
+    buildingLimit: "6",
+    buildingLimitQuantity: 10
+  },
+  {
+    id: "X",
+    name: "Replicator",
+    description: "",
+    production: [
+      ["x", 1],
+      ["A", -5],
+      ["E", -2]
+    ],
+    prices: [
+      ["M", 10],
+      ["A", 10]
+    ],
+    buildingLimit: "7",
+    buildingLimitQuantity: 10
   },
   //#endregion
   //#region Districts
@@ -123,19 +158,73 @@ export const UNITS: IUnitData[] = [
     id: "j",
     name: "Habitable Space",
     description: "",
-    startQuantity: 10
+    startQuantity: 10,
+    icon: "global"
   },
   {
     id: "P",
     name: "Mining District",
     description: "",
-    startQuantity: 10
+    startQuantity: 10,
+    icon: "my:mining"
   },
   {
     id: "k",
     name: "Energy District",
     description: "",
-    startQuantity: 10
+    startQuantity: 10,
+    icon: "my:electric"
+  },
+  //#endregion
+  //#region Buildings Information
+  {
+    id: "1",
+    name: "Mine",
+    description: "",
+    startQuantity: 1,
+    prices: [["P", 10]]
+  },
+  {
+    id: "2",
+    name: "Power Plant",
+    description: "",
+    startQuantity: 1,
+    prices: [["k", 10]]
+  },
+  {
+    id: "3",
+    name: "Laboratory",
+    description: "",
+    startQuantity: 1,
+    prices: [["j", 10]]
+  },
+  {
+    id: "4",
+    name: "Foundry",
+    description: "",
+    startQuantity: 1,
+    prices: [["j", 10]]
+  },
+  {
+    id: "5",
+    name: "Factory",
+    description: "",
+    startQuantity: 1,
+    prices: [["j", 10]]
+  },
+  {
+    id: "6",
+    name: "Telescope",
+    description: "",
+    startQuantity: 1,
+    prices: [["j", 10]]
+  },
+  {
+    id: "7",
+    name: "Drone Factory",
+    description: "",
+    startQuantity: 1,
+    prices: [["j", 10]]
   }
   //#endregion
 ];

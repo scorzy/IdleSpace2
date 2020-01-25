@@ -18,13 +18,11 @@
       [nzPopoverTrigger]="popoverTrigger"
       (click)="createModal(item.name, contentTemplate, tplFooter)"
     >
-      <span>
-        <span class="monospace">{{ item.quantity | format }}</span>
+      <span class="monospace">
+        <span>{{ item.quantity | format }}</span>
       </span>
-      <span>
-        <span
-          class="monospace"
-          [class]="item.perSec.gte(0) ? '' : 'text-danger'"
+      <span class="monospace">
+        <span x [class]="item.perSec.gte(0) ? '' : 'text-danger'"
           >{{ item.perSec | format }} /s</span
         >
       </span>

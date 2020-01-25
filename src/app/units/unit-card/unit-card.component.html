@@ -5,7 +5,7 @@
   [nzExtra]="extraTemplate"
   [nzActions]="actions"
 >
-  <span class="infoIcon">
+  <span class="infoIcon" *ngIf="unit.production.length > 0">
     <span
       nz-popover
       [nzPopoverTitle]="titleTemplate"
@@ -20,14 +20,16 @@
   <p *ngIf="unit.description !== ''">
     {{ unit.description }}
   </p>
-  <span nz-text><span>Operativity:</span></span>
-  <span class="monospace">{{ unit.operativity | format }}</span
-  >%
-  <nz-slider
-    [(ngModel)]="unit.operativity"
-    [nzDisabled]="sliderDisabled"
-    [nzStep]="0.1"
-  ></nz-slider>
+  <div *ngIf="unit.production.length > 0">
+    <span nz-text><span>Operativity:</span></span>
+    <span class="monospace">{{ unit.operativity | format }}</span
+    >%
+    <nz-slider
+      [(ngModel)]="unit.operativity"
+      [nzDisabled]="sliderDisabled"
+      [nzStep]="0.1"
+    ></nz-slider>
+  </div>
 
   <span nz-text><strong>Price:</strong></span>
   <span *ngFor="let pri of unit.buyPrice.prices; trackBy: getPriceId">
@@ -53,6 +55,10 @@
   <span class="monospace">
     {{ unit.quantity | format }}
     ({{ unit.manualBought | format }})
+    <span *ngIf="unit.limit.lt(Decimal.MAX_VALUE)">
+      /
+      {{ unit.limit | format }}
+    </span>
   </span>
 </ng-template>
 <ng-template #cardTitleTemplate>

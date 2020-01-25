@@ -3,7 +3,7 @@ import { Production } from "./production";
 import { IBase } from "../iBase";
 import { BonusStack } from "../bonus/bonusStack";
 import { MultiPrice } from "../prices/multiPrice";
-import { ZERO } from "../CONSTANTS";
+import { ZERO, ONE } from "../CONSTANTS";
 import { IUnlockable } from "../iUnlocable";
 import { Game } from "../game";
 
@@ -29,8 +29,12 @@ export class Unit implements IBase, IUnlockable {
   endIn = Number.POSITIVE_INFINITY;
   isEnding = false;
   limit = Decimal.MAX_VALUE;
+  private _oldLimit = Decimal.MAX_VALUE;
 
-  constructor(unitData: IUnitData) {
+  buildingLimit: Unit;
+  buildingLimitQuantity: Decimal;
+
+  constructor(private unitData: IUnitData) {
     this.id = unitData.id;
     this.name = unitData.name;
     this.description = unitData.description;
@@ -40,6 +44,16 @@ export class Unit implements IBase, IUnlockable {
     }
     if ("icon" in unitData) this.icon = unitData.icon;
     if ("color" in unitData) this.color = unitData.color;
+
+    if ("buildingLimitQuantity" in unitData)
+      this.buildingLimitQuantity = new Decimal(unitData.buildingLimitQuantity);
+  }
+  setRelations() {
+    if ("buildingLimit" in this.unitData) {
+      this.buildingLimit = Game.getGame().resourceManager.units.find(
+        u => u.id === this.unitData.buildingLimit
+      );
+    }
   }
 
   private _quantity = new Decimal();
@@ -97,10 +111,22 @@ export class Unit implements IBase, IUnlockable {
     } else {
       this._perSec2Old = this._perSec2;
     }
+    this.reloadLimit();
+    if (this._oldLimit.eq(this.limit)) {
+      this.limit = this._oldLimit;
+    } else {
+      this._oldLimit = this.limit;
+    }
   }
 
   buy(quantity: Decimal): boolean {
-    if (this.buyPrice.buy(quantity, this.manualBought)) {
+    if (
+      this.buyPrice.buy(
+        quantity,
+        this.manualBought,
+        this.limit.minus(this.quantity)
+      )
+    ) {
       this.manualBought = this.manualBought.plus(quantity);
       this.quantity = this.quantity.plus(quantity);
       this.afterBuy();
@@ -123,6 +149,19 @@ export class Unit implements IBase, IUnlockable {
     }
 
     return true;
+  }
+  reloadLimit() {
+    if (!(this.buildingLimit && this.buildingLimitQuantity)) return false;
+    this.limit = this.buildingLimit.quantity
+      .plus(1)
+      .times(this.buildingLimitQuantity);
+  }
+  reloadMaxBuy() {
+    this.buyPrice.reload(
+      this.manualBought,
+      ONE,
+      this.limit.minus(this.quantity)
+    );
   }
 
   //#region Save and Load
