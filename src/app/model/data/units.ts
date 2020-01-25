@@ -116,6 +116,26 @@ export const UNITS: IUnitData[] = [
       ["M", 10],
       ["A", 10]
     ]
+  },
+  //#endregion
+  //#region Districts
+  {
+    id: "j",
+    name: "Habitable Space",
+    description: "",
+    startQuantity: 10
+  },
+  {
+    id: "P",
+    name: "Mining District",
+    description: "",
+    startQuantity: 10
+  },
+  {
+    id: "k",
+    name: "Energy District",
+    description: "",
+    startQuantity: 10
   }
   //#endregion
 ];

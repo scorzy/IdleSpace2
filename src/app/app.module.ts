@@ -49,10 +49,9 @@ import { DesignInfoComponent } from "./design-info/design-info.component";
 import { BattleComponent } from "./battle/battle.component";
 import { BattleTableComponent } from "./battle/battle-table/battle-table.component";
 import { ModulesComponent } from "./designer/modules/modules.component";
-import { ModuleInfoComponent } from './designer/module-info/module-info.component';
-import { BattleReportComponent } from './battle-report/battle-report.component';
-import { WeaponViewComponent } from './weapon-view/weapon-view.component';
-import { TechTreeComponent } from './laboratory/tech-tree/tech-tree.component';
+import { ModuleInfoComponent } from "./designer/module-info/module-info.component";
+import { BattleReportComponent } from "./battle-report/battle-report.component";
+import { WeaponViewComponent } from "./weapon-view/weapon-view.component";
 
 registerLocaleData(en);
 
@@ -92,8 +91,7 @@ const ngZorroConfig: NzConfig = {
     ModulesComponent,
     ModuleInfoComponent,
     BattleReportComponent,
-    WeaponViewComponent,
-    TechTreeComponent
+    WeaponViewComponent
   ],
   imports: [
     BrowserModule,
