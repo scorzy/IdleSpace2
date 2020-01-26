@@ -27,6 +27,7 @@ export class Unit implements IBase, IUnlockable {
   manualBought = ZERO;
 
   endIn = Number.POSITIVE_INFINITY;
+  fullIn = Number.POSITIVE_INFINITY;
   isEnding = false;
   limit = Decimal.MAX_VALUE;
   private _oldLimit = Decimal.MAX_VALUE;
@@ -79,14 +80,14 @@ export class Unit implements IBase, IUnlockable {
     this._perSec = value;
   }
 
-  private _perSec2 = new Decimal();
-  private _perSec2Old = this._perSec2;
-  public get perSec2() {
-    return this._perSec2;
-  }
-  public set perSec2(value) {
-    this._perSec2 = value;
-  }
+  // private _perSec2 = new Decimal();
+  // private _perSec2Old = this._perSec2;
+  // public get perSec2() {
+  //   return this._perSec2;
+  // }
+  // public set perSec2(value) {
+  //   this._perSec2 = value;
+  // }
 
   public getId(): string {
     return this.id;
@@ -110,11 +111,11 @@ export class Unit implements IBase, IUnlockable {
     } else {
       this._perSecOld = this._perSec;
     }
-    if (this._perSec2Old.eq(this._perSec2)) {
-      this._perSec2 = this._perSec2Old;
-    } else {
-      this._perSec2Old = this._perSec2;
-    }
+    // if (this._perSec2Old.eq(this._perSec2)) {
+    //   this._perSec2 = this._perSec2Old;
+    // } else {
+    //   this._perSec2Old = this._perSec2;
+    // }
     this.reloadLimit();
     if (this._oldLimit.eq(this.limit)) {
       this.limit = this._oldLimit;

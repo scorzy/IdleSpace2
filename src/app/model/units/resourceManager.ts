@@ -138,12 +138,12 @@ export class ResourceManager {
     //  Reset
     this.firstEndingUnit = null;
     this.maxTime = Number.POSITIVE_INFINITY;
-    // const time = performance.now();
 
     for (let i = 0, n = this.unlockedUnits.length; i < n; i++) {
       this.unlockedUnits[i].perSec = ZERO;
-      this.unlockedUnits[i].perSec2 = ZERO;
+      // this.unlockedUnits[i].perSec2 = ZERO;
       this.unlockedUnits[i].endIn = Number.POSITIVE_INFINITY;
+      this.unlockedUnits[i].fullIn = Number.POSITIVE_INFINITY;
       this.unlockedUnits[i].isEnding = false;
 
       this.unlockedUnits[i].prodAllBonus.reloadBonus();
@@ -179,35 +179,18 @@ export class ResourceManager {
         this.unlockedUnits[i].perSec = this.unlockedUnits[i].perSec.plus(
           prodX.times(this.unlockedUnits[i].makers[i2].producer.quantity)
         );
-
-        // x^2
-        // for (
-        //   let i3 = 0,
-        //     n3 = this.unlockedUnits[i].makers[i2].producer.makers.length;
-        //   i3 < n3;
-        //   i3++
-        // ) {
-        //   const prod2X = this.unlockedUnits[i].makers[i2].producer.makers[
-        //     i3
-        //   ].prodPerSec.times(prodX);
-        //   this.unlockedUnits[i].perSec2 = this.unlockedUnits[i].perSec2.plus(
-        //     prod2X.times(
-        //       this.unlockedUnits[i].makers[i2].producer.makers[i3].producer
-        //         .quantity
-        //     )
-        //   );
-        // }
       }
 
-      this.unlockedUnits[i].perSec2 = this.unlockedUnits[i].perSec2.div(2);
+      // this.unlockedUnits[i].perSec2 = this.unlockedUnits[i].perSec2.div(2);
 
+      // End times
       if (
-        this.unlockedUnits[i].perSec.lt(0) ||
-        this.unlockedUnits[i].perSec2.lt(0)
+        this.unlockedUnits[i].perSec.lt(0)
+        // || this.unlockedUnits[i].perSec2.lt(0)
       ) {
         const solution = solveEquation(
           ZERO,
-          this.unlockedUnits[i].perSec2,
+          ZERO, //this.unlockedUnits[i].perSec2,
           this.unlockedUnits[i].perSec,
           this.unlockedUnits[i].quantity
         ).filter(s => s.gte(0));
@@ -229,6 +212,23 @@ export class ResourceManager {
           }
         }
       }
+
+      // Full time
+      if (
+        this.unlockedUnits[i].limit.lt(Decimal.MAX_VALUE) &&
+        this.unlockedUnits[i].perSec.gt(0)
+      ) {
+        const sol = this.unlockedUnits[i].limit
+          .minus(this.unlockedUnits[i].quantity)
+          .div(this.unlockedUnits[i].perSec);
+        if (sol.gt(0)) {
+          this.unlockedUnits[i].fullIn = sol.toNumber();
+          if (this.unlockedUnits[i].fullIn < this.maxTime) {
+            this.maxTime = this.unlockedUnits[i].fullIn;
+            this.firstEndingUnit = null;
+          }
+        }
+      }
     }
 
     // const end = performance.now() - time;
@@ -241,9 +241,10 @@ export class ResourceManager {
    */
   update(seconds: DecimalSource) {
     for (let i = 0, n = this.unlockedUnits.length; i < n; i++) {
-      this.unlockedUnits[i].quantity = this.unlockedUnits[i].quantity
-        .plus(this.unlockedUnits[i].perSec2.times(Decimal.pow(seconds, 2)))
-        .plus(this.unlockedUnits[i].perSec.times(seconds));
+      this.unlockedUnits[i].quantity = this.unlockedUnits[i].quantity.plus(
+        this.unlockedUnits[i].perSec.times(seconds)
+      );
+      // .plus(this.unlockedUnits[i].perSec2.times(Decimal.pow(seconds, 2)))
     }
     for (let i = 0, n = this.unlockedUnits.length; i < n; i++) {
       this.unlockedUnits[i].quantity = this.unlockedUnits[i].quantity.max(0);
@@ -276,7 +277,7 @@ export class ResourceManager {
     this.deployComponents();
   }
   deployComponents() {
-    if (this.components.quantity.lte(1)) return false;
+    if (this.components.quantity.lte(0.1)) return false;
     let sum = 0;
     let added = ZERO;
     for (let i = 0, n = this.unlockedWorkers.length; i < n; i++) {
@@ -290,9 +291,13 @@ export class ResourceManager {
         .min(worker.needComponents);
       worker.storedComponents = worker.storedComponents.plus(toAdd);
       added = added.plus(toAdd);
-      const built = worker.storedComponents.div(worker.components).floor();
 
-      if (built.gte(1)) {
+      if (worker.storedComponents.gte(worker.components)) {
+        let built = worker.storedComponents
+          .div(worker.components)
+          .floor()
+          .min(1);
+
         worker.quantity = worker.quantity.plus(built);
         worker.storedComponents = worker.storedComponents.minus(
           built.times(worker.components)

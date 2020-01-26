@@ -20,7 +20,13 @@ import { fadeIn } from "../animations";
   animations: [fadeIn]
 })
 export class UnitsComponent implements OnInit, OnDestroy {
-  units = new Array<Unit>();
+  public get units(): Array<Unit> {
+    if (this.param === "b")
+      return this.ms.game.resourceManager.unlockedBuildings;
+    else return this.ms.game.resourceManager.unlockedWorkers;
+  }
+
+  param = "";
 
   private subscriptions: Subscription[] = [];
 
@@ -42,17 +48,8 @@ export class UnitsComponent implements OnInit, OnDestroy {
     this.subscriptions.forEach((sub: Subscription) => sub.unsubscribe());
   }
   getUnits(params: any) {
-    const param = "" + params.id;
-    console.log(param);
-    switch (param) {
-      case "b":
-        this.units = this.ms.game.resourceManager.unlockedBuildings;
-        break;
-      default:
-        this.units = this.ms.game.resourceManager.unlockedWorkers;
-    }
+    this.param = "" + params.id;
   }
-
   getId(index: number, unit: Unit) {
     return unit.id;
   }
