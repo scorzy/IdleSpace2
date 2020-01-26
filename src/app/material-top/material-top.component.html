@@ -20,6 +20,7 @@
     >
       <span class="monospace">
         <span>{{ item.quantity | format }}</span>
+        <span *ngIf="item.showUiLimit">/ {{ item.uiLimit | format }}</span>
       </span>
       <span class="monospace">
         <span x [class]="item.perSec.gte(0) ? '' : 'text-danger'"

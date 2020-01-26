@@ -7,6 +7,7 @@ export interface IUnitData {
   color?: string;
   buildingLimit?: string;
   buildingLimitQuantity?: DecimalSource;
+  showUiLimit?: boolean;
 
   /**
    * Production [Unit id, quantity /s]

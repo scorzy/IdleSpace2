@@ -16,7 +16,10 @@ export const UNITS: IUnitData[] = [
     icon: "my:electric",
     description: "",
     startQuantity: 100,
-    color: "#FADB14"
+    color: "#FADB14",
+    buildingLimit: "8",
+    buildingLimitQuantity: 1e4,
+    showUiLimit: true
   },
   {
     id: "A",
@@ -51,7 +54,10 @@ export const UNITS: IUnitData[] = [
     name: "Components",
     icon: "my:microchip",
     description: "",
-    color: ""
+    color: "",
+    buildingLimit: "9",
+    buildingLimitQuantity: 1e3,
+    showUiLimit: true
   },
   //#endregion
   //#region Workers
@@ -176,7 +182,7 @@ export const UNITS: IUnitData[] = [
     icon: "my:electric"
   },
   //#endregion
-  //#region Buildings Information
+  //#region Buildings
   {
     id: "1",
     name: "Mine",
@@ -222,6 +228,20 @@ export const UNITS: IUnitData[] = [
   {
     id: "7",
     name: "Drone Factory",
+    description: "",
+    startQuantity: 1,
+    prices: [["j", 10]]
+  },
+  {
+    id: "8",
+    name: "Batteries",
+    description: "",
+    startQuantity: 1,
+    prices: [["j", 10]]
+  },
+  {
+    id: "9",
+    name: "Drone Depot",
     description: "",
     startQuantity: 1,
     prices: [["j", 10]]

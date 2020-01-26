@@ -4,6 +4,7 @@ import { Production } from "./production";
 import { ZERO, UNIT_PRICE_GROW_RATE } from "../CONSTANTS";
 import { solveEquation } from "ant-utils";
 import { Price } from "../prices/price";
+import { Components } from "./components";
 
 export class ResourceManager {
   units = new Array<Unit>();
@@ -20,6 +21,7 @@ export class ResourceManager {
   unlockedBuildings = new Array<Unit>();
 
   //  Units
+  energy: Unit;
   science: Unit;
   technician: Unit;
   miner: Unit;
@@ -28,7 +30,7 @@ export class ResourceManager {
   worker: Unit;
   search: Unit;
   searcher: Unit;
-  components: Unit;
+  components: Components;
 
   shipyardWork: Unit;
 
@@ -37,7 +39,15 @@ export class ResourceManager {
   makeUnits() {
     this.units = new Array<Unit>();
     //  Initialize Units
-    this.units = UNITS.map(unitData => new Unit(unitData));
+    this.units = UNITS.map(unitData => {
+      switch (unitData.id) {
+        case "x":
+          this.components = new Components(unitData);
+          return this.components;
+        default:
+          return new Unit(unitData);
+      }
+    });
     this.shipyardWork = this.units.find(u => u.id === "W");
     this.materials = this.units.filter(
       u =>
@@ -58,6 +68,7 @@ export class ResourceManager {
     this.scientist = this.units.find(u => u.id === "s");
     this.worker = this.units.find(u => u.id === "w");
     this.searcher = this.units.find(u => u.id === "r");
+    this.energy = this.units.find(u => u.id === "E");
 
     //  Production
     this.units.forEach(unit => {
@@ -105,23 +116,13 @@ export class ResourceManager {
         u.id === "4" ||
         u.id === "5" ||
         u.id === "6" ||
-        u.id === "7"
+        u.id === "7" ||
+        u.id === "8" ||
+        u.id === "9"
     );
-
-    this.components = this.units.find(u => u.id === "x");
 
     this.units.forEach(u => u.setRelations());
     this.reloadLists();
-
-    this.components.reloadLimit = () => {
-      this.components.limit = ZERO;
-      for (let i = 0, n = this.unlockedWorkers.length; i < n; i++) {
-        this.components.limit = this.components.limit.plus(
-          this.unlockedWorkers[i].needComponents
-        );
-      }
-      return true;
-    };
   }
 
   reloadLists() {
@@ -138,6 +139,8 @@ export class ResourceManager {
     //  Reset
     this.firstEndingUnit = null;
     this.maxTime = Number.POSITIVE_INFINITY;
+    this.components.reloadLimit();
+    this.energy.reloadLimit();
 
     for (let i = 0, n = this.unlockedUnits.length; i < n; i++) {
       this.unlockedUnits[i].perSec = ZERO;
@@ -154,9 +157,13 @@ export class ResourceManager {
     //  Bonus and operativity
     for (let i = 0, n = this.unlockedUnits.length; i < n; i++) {
       const isLimited =
-        this.unlockedUnits[i].production.findIndex(pro =>
-          pro.product.limit.lte(Number.EPSILON)
+        this.unlockedUnits[i].production.findIndex(
+          pro =>
+            pro.ratio.gt(0) &&
+            (pro.product.limit.lte(Number.EPSILON) ||
+              pro.product.quantity.gte(pro.product.limit))
         ) > -1;
+
       for (
         let k = 0, n2 = this.unlockedUnits[i].production.length;
         k < n2;
@@ -218,14 +225,19 @@ export class ResourceManager {
         this.unlockedUnits[i].limit.lt(Decimal.MAX_VALUE) &&
         this.unlockedUnits[i].perSec.gt(0)
       ) {
+        console.log(this.unlockedUnits[i].name);
         const sol = this.unlockedUnits[i].limit
           .minus(this.unlockedUnits[i].quantity)
           .div(this.unlockedUnits[i].perSec);
+        console.log(sol.toNumber());
         if (sol.gt(0)) {
           this.unlockedUnits[i].fullIn = sol.toNumber();
           if (this.unlockedUnits[i].fullIn < this.maxTime) {
             this.maxTime = this.unlockedUnits[i].fullIn;
             this.firstEndingUnit = null;
+            console.log(
+              this.unlockedUnits[i].name + " " + this.unlockedUnits[i].fullIn
+            );
           }
         }
       }
@@ -281,45 +293,50 @@ export class ResourceManager {
     let sum = 0;
     let added = ZERO;
     for (let i = 0, n = this.unlockedWorkers.length; i < n; i++) {
-      sum +=
-        this.unlockedWorkers[i].production.findIndex(
-          p => p.ratio.gt(0) && p.product.isEnding
-        ) > -1
-          ? this.unlockedWorkers[i].assemblyPriorityEnding
-          : this.unlockedWorkers[i].assemblyPriority;
-    }
-    for (let i = 0, n = this.unlockedWorkers.length; i < n; i++) {
-      const worker = this.unlockedWorkers[i];
-      worker.reloadNeedComponent();
-      const toAdd = this.components.quantity
-        .times(
-          worker.production.findIndex(
+      if (this.unlockedWorkers[i].quantity.lte(this.unlockedWorkers[i].limit)) {
+        sum +=
+          this.unlockedWorkers[i].production.findIndex(
             p => p.ratio.gt(0) && p.product.isEnding
           ) > -1
             ? this.unlockedWorkers[i].assemblyPriorityEnding
-            : this.unlockedWorkers[i].assemblyPriority
-        )
-        .div(sum);
-      worker.storedComponents = worker.storedComponents.plus(toAdd);
-      added = added.plus(toAdd);
-
-      if (worker.storedComponents.gte(worker.components)) {
-        const built = worker.storedComponents
-          .div(worker.components)
-          .floor()
-          .min(1);
-        worker.quantity = worker.quantity.plus(built);
-        if (worker.quantity.gte(worker.limit)) {
-          const diff = worker.quantity.minus(worker.limit);
-          worker.quantity = worker.limit;
-          added = added.minus(diff.times(worker.components));
-          worker.storedComponents = ZERO;
-        } else {
-          worker.storedComponents = worker.storedComponents.minus(
-            built.times(worker.components)
-          );
-        }
+            : this.unlockedWorkers[i].assemblyPriority;
+      }
+    }
+    for (let i = 0, n = this.unlockedWorkers.length; i < n; i++) {
+      if (this.unlockedWorkers[i].quantity.lt(this.unlockedWorkers[i].limit)) {
+        console.log(this.unlockedWorkers[i].name);
+        const worker = this.unlockedWorkers[i];
         worker.reloadNeedComponent();
+        const toAdd = this.components.quantity
+          .times(
+            worker.production.findIndex(
+              p => p.ratio.gt(0) && p.product.isEnding
+            ) > -1
+              ? this.unlockedWorkers[i].assemblyPriorityEnding
+              : this.unlockedWorkers[i].assemblyPriority
+          )
+          .div(sum);
+        worker.storedComponents = worker.storedComponents.plus(toAdd);
+        added = added.plus(toAdd);
+
+        if (worker.storedComponents.gte(worker.components)) {
+          const built = worker.storedComponents
+            .div(worker.components)
+            .floor()
+            .min(1);
+          worker.quantity = worker.quantity.plus(built);
+          if (worker.quantity.gte(worker.limit)) {
+            const diff = worker.quantity.minus(worker.limit);
+            worker.quantity = worker.limit;
+            added = added.minus(diff.times(worker.components));
+            worker.storedComponents = ZERO;
+          } else {
+            worker.storedComponents = worker.storedComponents.minus(
+              built.times(worker.components)
+            );
+          }
+          worker.reloadNeedComponent();
+        }
       }
     }
     this.components.quantity = this.components.quantity.minus(added).max(0);

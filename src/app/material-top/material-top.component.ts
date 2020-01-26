@@ -24,6 +24,7 @@ export class MaterialTopComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
   tplModal: NzModalRef;
   popoverTrigger: string = null;
+  Decimal = Decimal;
 
   constructor(
     public ms: MainService,

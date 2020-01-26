@@ -8,7 +8,6 @@ import { IUnlockable } from "../iUnlocable";
 import { Game } from "../game";
 
 export class Unit implements IBase, IUnlockable {
-
   constructor(private unitData: IUnitData) {
     this.id = unitData.id;
     this.name = unitData.name;
@@ -23,6 +22,9 @@ export class Unit implements IBase, IUnlockable {
     if ("buildingLimitQuantity" in unitData) {
       this.buildingLimitQuantity = new Decimal(unitData.buildingLimitQuantity);
     }
+    if ("showUiLimit" in unitData) {
+      this.showUiLimit = unitData.showUiLimit;
+    }
   }
   public get quantity(): Decimal {
     return this._quantity;
@@ -36,12 +38,18 @@ export class Unit implements IBase, IUnlockable {
   public set perSec(value) {
     this._perSec = value;
   }
+
+  public get uiLimit() {
+    return this.limit;
+  }
+
   id = "";
   name = "";
   description = "";
   unlocked = false;
   icon = "";
   color = "";
+  showUiLimit = false;
 
   operativity = 100;
   production = new Array<Production>();
@@ -162,6 +170,7 @@ export class Unit implements IBase, IUnlockable {
     this.limit = this.buildingLimit.quantity
       .plus(1)
       .times(this.buildingLimitQuantity);
+    this.quantity = this.quantity.min(this.limit);
   }
   reloadMaxBuy() {
     this.buyPrice.reload(

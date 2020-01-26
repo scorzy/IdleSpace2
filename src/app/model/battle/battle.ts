@@ -30,7 +30,7 @@ export function battle(battleRequest: BattleRequest): any {
       shipData.stats.total = new DesignReport();
       shipData.stats.total.quantity = shipData.quantity;
       shipData.stats.rounds = new Array<DesignReport>(5);
-      for (let k = 0; k < shipData.weapons.length; k++) {
+      for (let k = 0, n2 = shipData.weapons.length; k < n2; k++) {
         shipData.weapons[k].armourPercent /= 100;
         shipData.weapons[k].shieldPercent /= 100;
       }
