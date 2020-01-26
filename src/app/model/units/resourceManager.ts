@@ -190,7 +190,7 @@ export class ResourceManager {
       ) {
         const solution = solveEquation(
           ZERO,
-          ZERO, //this.unlockedUnits[i].perSec2,
+          ZERO, // this.unlockedUnits[i].perSec2,
           this.unlockedUnits[i].perSec,
           this.unlockedUnits[i].quantity
         ).filter(s => s.gte(0));
@@ -304,13 +304,13 @@ export class ResourceManager {
       added = added.plus(toAdd);
 
       if (worker.storedComponents.gte(worker.components)) {
-        let built = worker.storedComponents
+        const built = worker.storedComponents
           .div(worker.components)
           .floor()
           .min(1);
         worker.quantity = worker.quantity.plus(built);
         if (worker.quantity.gte(worker.limit)) {
-          let diff = worker.quantity.minus(worker.limit);
+          const diff = worker.quantity.minus(worker.limit);
           worker.quantity = worker.limit;
           added = added.minus(diff.times(worker.components));
           worker.storedComponents = ZERO;

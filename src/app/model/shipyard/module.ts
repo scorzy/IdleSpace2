@@ -34,10 +34,12 @@ export class Module implements IUnlockable {
     if ("armour" in moduleData) this.armour = moduleData.armour;
     if ("shield" in moduleData) this.shield = moduleData.shield;
     if ("energy" in moduleData) this.energy = moduleData.energy;
-    if ("shieldDamageReduction" in moduleData)
+    if ("shieldDamageReduction" in moduleData) {
       this.shieldDamageReduction = moduleData.shieldDamageReduction;
-    if ("armourDamageReduction" in moduleData)
+    }
+    if ("armourDamageReduction" in moduleData) {
       this.armourDamageReduction = moduleData.armourDamageReduction;
+    }
     if ("damage" in moduleData) this.damage = moduleData.damage;
     if ("price" in moduleData) this.price = moduleData.price;
     if ("cargo" in moduleData) this.cargo = moduleData.cargo;
@@ -49,8 +51,9 @@ export class Module implements IUnlockable {
     }
     if ("fire" in moduleData) this.fire = moduleData.fire;
     if ("explosion" in moduleData) this.explosion = moduleData.explosion;
-    if ("explosionDamage" in moduleData)
+    if ("explosionDamage" in moduleData) {
       this.explosionDamage = moduleData.explosionDamage;
+    }
     if ("sizes" in moduleData) this.sizes = moduleData.sizes;
     if ("shape" in moduleData) this.shape = moduleData.shape;
     if ("unlockLevel" in moduleData) {

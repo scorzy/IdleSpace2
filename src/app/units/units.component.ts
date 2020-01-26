@@ -21,8 +21,9 @@ import { fadeIn } from "../animations";
 })
 export class UnitsComponent implements OnInit, OnDestroy {
   public get units(): Array<Unit> {
-    if (this.param === "b")
+    if (this.param === "b") {
       return this.ms.game.resourceManager.unlockedBuildings;
+    }
     else return this.ms.game.resourceManager.unlockedWorkers;
   }
 

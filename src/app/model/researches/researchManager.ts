@@ -97,11 +97,12 @@ export class ResearchManager extends JobManager {
   }
 
   private getTreeData(research: Research) {
-    const ret: any = { id: research.id, research: research };
-    if (research.researchToUnlock)
+    const ret: any = { id: research.id, research };
+    if (research.researchToUnlock) {
       ret.children = research.researchToUnlock.map(r => {
         if (r instanceof Research) return this.getTreeData(r);
       });
+    }
     return ret;
   }
 

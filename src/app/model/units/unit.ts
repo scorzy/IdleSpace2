@@ -8,6 +8,34 @@ import { IUnlockable } from "../iUnlocable";
 import { Game } from "../game";
 
 export class Unit implements IBase, IUnlockable {
+
+  constructor(private unitData: IUnitData) {
+    this.id = unitData.id;
+    this.name = unitData.name;
+    this.description = unitData.description;
+    if ("startQuantity" in unitData) {
+      this.unlocked = true;
+      this.quantity = new Decimal(unitData.startQuantity);
+    }
+    if ("icon" in unitData) this.icon = unitData.icon;
+    if ("color" in unitData) this.color = unitData.color;
+
+    if ("buildingLimitQuantity" in unitData) {
+      this.buildingLimitQuantity = new Decimal(unitData.buildingLimitQuantity);
+    }
+  }
+  public get quantity(): Decimal {
+    return this._quantity;
+  }
+  public set quantity(value: Decimal) {
+    this._quantity = value;
+  }
+  public get perSec() {
+    return this._perSec;
+  }
+  public set perSec(value) {
+    this._perSec = value;
+  }
   id = "";
   name = "";
   description = "";
@@ -41,44 +69,17 @@ export class Unit implements IBase, IUnlockable {
   assemblyPriority = 50;
   assemblyPriorityEnding = 500;
 
-  constructor(private unitData: IUnitData) {
-    this.id = unitData.id;
-    this.name = unitData.name;
-    this.description = unitData.description;
-    if ("startQuantity" in unitData) {
-      this.unlocked = true;
-      this.quantity = new Decimal(unitData.startQuantity);
-    }
-    if ("icon" in unitData) this.icon = unitData.icon;
-    if ("color" in unitData) this.color = unitData.color;
+  private _quantity = new Decimal();
+  private _quantityOld = this._quantity;
 
-    if ("buildingLimitQuantity" in unitData)
-      this.buildingLimitQuantity = new Decimal(unitData.buildingLimitQuantity);
-  }
+  private _perSec = new Decimal();
+  private _perSecOld = this._perSec;
   setRelations() {
     if ("buildingLimit" in this.unitData) {
       this.buildingLimit = Game.getGame().resourceManager.units.find(
         u => u.id === this.unitData.buildingLimit
       );
     }
-  }
-
-  private _quantity = new Decimal();
-  private _quantityOld = this._quantity;
-  public get quantity(): Decimal {
-    return this._quantity;
-  }
-  public set quantity(value: Decimal) {
-    this._quantity = value;
-  }
-
-  private _perSec = new Decimal();
-  private _perSecOld = this._perSec;
-  public get perSec() {
-    return this._perSec;
-  }
-  public set perSec(value) {
-    this._perSec = value;
   }
 
   // private _perSec2 = new Decimal();
