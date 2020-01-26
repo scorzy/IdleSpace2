@@ -70,7 +70,7 @@ export class Research extends Job implements IUnlockable, IBase {
     const science = Game.getGame().resourceManager.science;
     this.timeToEnd = solveEquation(
       ZERO,
-      science.perSec2,
+      ZERO,
       Game.getGame().researchManager.researchPerSec,
       this.total
         .minus(this.progress)

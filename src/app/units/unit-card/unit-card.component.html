@@ -29,6 +29,44 @@
       [nzDisabled]="sliderDisabled"
       [nzStep]="0.1"
     ></nz-slider>
+
+    <!-- Priority -->
+    <div
+      class="priority"
+      fxLayout="row"
+      fxLayoutGap="4px"
+      *ngIf="ms.game.resourceManager.components.unlocked"
+    >
+      <span
+        nz-popover
+        nzPopoverTitle="Assembly Priority"
+        [nzPopoverContent]="priorityTemplate"
+        >Priority:
+      </span>
+
+      <ng-template #priorityTemplate>
+        <p>
+          Priorities for assembling new drones.<br />
+          The first item is the normal priority,<br />the second is used when
+          resources are ending.
+        </p>
+      </ng-template>
+
+      <nz-input-number
+        [(ngModel)]="unit.assemblyPriority"
+        [nzSize]="'small'"
+        [nzMin]="0"
+        [nzMax]="1e3"
+        [nzStep]="1"
+      ></nz-input-number>
+      <nz-input-number
+        [(ngModel)]="unit.assemblyPriorityEnding"
+        [nzSize]="'small'"
+        [nzMin]="0"
+        [nzMax]="1e3"
+        [nzStep]="1"
+      ></nz-input-number>
+    </div>
   </div>
 
   <span nz-text><strong>Price:</strong></span>
@@ -53,11 +91,11 @@
 
 <ng-template #extraTemplate>
   <span class="monospace">
-    {{ unit.quantity | format }}
-    ({{ unit.manualBought | format }})
+    {{ unit.quantity | format: true }}
+    <!-- ({{ unit.manualBought | format }}) -->
     <span *ngIf="unit.limit.lt(Decimal.MAX_VALUE)">
       /
-      {{ unit.limit | format }}
+      {{ unit.limit | format: true }}
     </span>
   </span>
 </ng-template>

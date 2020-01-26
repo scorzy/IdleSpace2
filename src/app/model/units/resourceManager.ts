@@ -281,14 +281,25 @@ export class ResourceManager {
     let sum = 0;
     let added = ZERO;
     for (let i = 0, n = this.unlockedWorkers.length; i < n; i++) {
-      sum += this.unlockedWorkers[i].assemblyPriority;
+      sum +=
+        this.unlockedWorkers[i].production.findIndex(
+          p => p.ratio.gt(0) && p.product.isEnding
+        ) > -1
+          ? this.unlockedWorkers[i].assemblyPriorityEnding
+          : this.unlockedWorkers[i].assemblyPriority;
     }
     for (let i = 0, n = this.unlockedWorkers.length; i < n; i++) {
       const worker = this.unlockedWorkers[i];
+      worker.reloadNeedComponent();
       const toAdd = this.components.quantity
-        .times(worker.assemblyPriority)
-        .div(sum)
-        .min(worker.needComponents);
+        .times(
+          worker.production.findIndex(
+            p => p.ratio.gt(0) && p.product.isEnding
+          ) > -1
+            ? this.unlockedWorkers[i].assemblyPriorityEnding
+            : this.unlockedWorkers[i].assemblyPriority
+        )
+        .div(sum);
       worker.storedComponents = worker.storedComponents.plus(toAdd);
       added = added.plus(toAdd);
 
@@ -297,15 +308,21 @@ export class ResourceManager {
           .div(worker.components)
           .floor()
           .min(1);
-
         worker.quantity = worker.quantity.plus(built);
-        worker.storedComponents = worker.storedComponents.minus(
-          built.times(worker.components)
-        );
+        if (worker.quantity.gte(worker.limit)) {
+          let diff = worker.quantity.minus(worker.limit);
+          worker.quantity = worker.limit;
+          added = added.minus(diff.times(worker.components));
+          worker.storedComponents = ZERO;
+        } else {
+          worker.storedComponents = worker.storedComponents.minus(
+            built.times(worker.components)
+          );
+        }
         worker.reloadNeedComponent();
       }
     }
-    this.components.quantity = this.components.quantity.minus(added);
+    this.components.quantity = this.components.quantity.minus(added).max(0);
     this.components.reloadLimit();
   }
 

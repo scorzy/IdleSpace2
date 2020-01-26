@@ -39,6 +39,7 @@ export class Unit implements IBase, IUnlockable {
   needComponents = ZERO;
   components = ONE;
   assemblyPriority = 50;
+  assemblyPriorityEnding = 500;
 
   constructor(private unitData: IUnitData) {
     this.id = unitData.id;
