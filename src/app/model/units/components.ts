@@ -10,9 +10,7 @@ export class Components extends Unit {
   }
 
   reloadLimit() {
-    this.limit = this.buildingLimit.quantity
-      .plus(1)
-      .times(this.buildingLimitQuantity);
+    this.limit = this.buildingLimit.quantity.times(this.buildingLimitQuantity);
     this._uiLimit = new Decimal(this.limit);
     const unlockedWorkers = Game.getGame().resourceManager.unlockedWorkers;
     for (let i = 0, n = unlockedWorkers.length; i < n; i++) {

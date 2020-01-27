@@ -47,6 +47,7 @@ export class Game {
     this.enemyManager = new EnemyManager();
     this.shipyardManager.init();
     this.researchManager.makeShipsResearches();
+    this.researchManager.makeSpaceStationResearches();
     this.researchManager.setRelations();
 
     this.setTheme();

@@ -20,7 +20,7 @@ toBuild.forEach(function(name) {
         "./src/assets/themes/" + name + "." + hash + ".css",
         css.css,
         function(err) {
-          console.log(name + " done");
+          // console.log(name + " done");
           built.push(name + "." + hash + ".css");
           if (toBuild.length === toBuild.length) {
             fs.writeFile(

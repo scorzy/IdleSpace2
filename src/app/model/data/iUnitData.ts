@@ -1,3 +1,5 @@
+import { UNIT_TYPES } from "./units";
+
 export interface IUnitData {
   id: string;
   name: string;
@@ -8,6 +10,7 @@ export interface IUnitData {
   buildingLimit?: string;
   buildingLimitQuantity?: DecimalSource;
   showUiLimit?: boolean;
+  unitType: UNIT_TYPES;
 
   /**
    * Production [Unit id, quantity /s]

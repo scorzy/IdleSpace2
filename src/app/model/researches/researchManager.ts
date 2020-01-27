@@ -9,8 +9,10 @@ import { ZERO } from "../CONSTANTS";
 import { IResearchData } from "../data/iResearchData";
 
 const SHIP_BASE_PRICE = 1e3;
-const SHIP_PRICE_MULTI = 1e3;
+const SHIP_PRICE_MULTI = 2;
 const SHIP_RESEARCH_NAV_CAP_MULTI = 5;
+const SPACE_STATION_PRICE = 1e9;
+const SPACE_STATION_MULTI = 2;
 
 export class ResearchManager extends JobManager {
   researches: Research[];
@@ -64,6 +66,25 @@ export class ResearchManager extends JobManager {
         shipyard.shipTypes[i].navalCapacity * SHIP_RESEARCH_NAV_CAP_MULTI;
       if (i + 1 < n) {
         resData.researchToUnlock = ["s" + (i + 1)];
+      }
+      this.researches.push(new Research(resData, this));
+    }
+  }
+  makeSpaceStationResearches() {
+    const first = this.researches.find(r => r.id === "s8");
+    first.resData.researchToUnlock.push("i0");
+    const spaceStations = Game.getGame().resourceManager.spaceStations;
+    for (let i = 0, n = spaceStations.length; i < n; i++) {
+      const resData: IResearchData = {
+        id: "i" + i,
+        name: spaceStations[i].name,
+        description: "Unlock " + spaceStations[i].name,
+        price: Decimal.pow(SPACE_STATION_MULTI, i).times(SPACE_STATION_PRICE),
+        type: [TECHNOLOGIES.CivilEngineering],
+        unitsToUnlock: [spaceStations[i].id]
+      };
+      if (i + 1 < n) {
+        resData.researchToUnlock = ["i" + (i + 1)];
       }
       this.researches.push(new Research(resData, this));
     }

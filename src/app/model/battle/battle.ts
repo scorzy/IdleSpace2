@@ -5,7 +5,7 @@ import { BattleResult, Stats, DesignReport } from "./battleResult";
 
 export function battle(battleRequest: BattleRequest): any {
   const fleets = [battleRequest.enemyFleet, battleRequest.playerFleet];
-  console.log(fleets);
+  // console.log(fleets);
   const battleResult = new BattleResult();
 
   //  Data initialization

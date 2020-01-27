@@ -8,7 +8,7 @@ import { IUnlockable } from "../iUnlocable";
 import { Game } from "../game";
 
 export class Unit implements IBase, IUnlockable {
-  constructor(private unitData: IUnitData) {
+  constructor(public unitData: IUnitData) {
     this.id = unitData.id;
     this.name = unitData.name;
     this.description = unitData.description;
@@ -18,25 +18,12 @@ export class Unit implements IBase, IUnlockable {
     }
     if ("icon" in unitData) this.icon = unitData.icon;
     if ("color" in unitData) this.color = unitData.color;
-
     if ("buildingLimitQuantity" in unitData) {
       this.buildingLimitQuantity = new Decimal(unitData.buildingLimitQuantity);
     }
     if ("showUiLimit" in unitData) {
       this.showUiLimit = unitData.showUiLimit;
     }
-  }
-  public get quantity(): Decimal {
-    return this._quantity;
-  }
-  public set quantity(value: Decimal) {
-    this._quantity = value;
-  }
-  public get perSec() {
-    return this._perSec;
-  }
-  public set perSec(value) {
-    this._perSec = value;
   }
 
   public get uiLimit() {
@@ -77,11 +64,11 @@ export class Unit implements IBase, IUnlockable {
   assemblyPriority = 50;
   assemblyPriorityEnding = 500;
 
-  private _quantity = new Decimal();
-  private _quantityOld = this._quantity;
+  quantity = new Decimal();
+  private _quantityOld = this.quantity;
 
-  private _perSec = new Decimal();
-  private _perSecOld = this._perSec;
+  perSec = new Decimal();
+  private _perSecOld = this.perSec;
   setRelations() {
     if ("buildingLimit" in this.unitData) {
       this.buildingLimit = Game.getGame().resourceManager.units.find(
@@ -90,15 +77,6 @@ export class Unit implements IBase, IUnlockable {
     }
   }
 
-  // private _perSec2 = new Decimal();
-  // private _perSec2Old = this._perSec2;
-  // public get perSec2() {
-  //   return this._perSec2;
-  // }
-  // public set perSec2(value) {
-  //   this._perSec2 = value;
-  // }
-
   public getId(): string {
     return this.id;
   }
@@ -106,26 +84,24 @@ export class Unit implements IBase, IUnlockable {
   unlock(): boolean {
     if (this.unlocked) return false;
     this.unlocked = true;
+    if (this.buildingLimit) {
+      this.buildingLimit.unlock();
+      this.buildingLimit.quantity = ONE;
+    }
     Game.getGame().resourceManager.reloadLists();
   }
   postUpdate() {
-    // this.buyPrice.reload(this.manualBought);
+    if (this._quantityOld.eq(this.quantity)) {
+      this.quantity = this._quantityOld;
+    } else {
+      this._quantityOld = this.quantity;
+    }
+    if (this._perSecOld.eq(this.perSec)) {
+      this.perSec = this._perSecOld;
+    } else {
+      this._perSecOld = this.perSec;
+    }
 
-    if (this._quantityOld.eq(this._quantity)) {
-      this._quantity = this._quantityOld;
-    } else {
-      this._quantityOld = this._quantity;
-    }
-    if (this._perSecOld.eq(this._perSec)) {
-      this._perSec = this._perSecOld;
-    } else {
-      this._perSecOld = this._perSec;
-    }
-    // if (this._perSec2Old.eq(this._perSec2)) {
-    //   this._perSec2 = this._perSec2Old;
-    // } else {
-    //   this._perSec2Old = this._perSec2;
-    // }
     this.reloadLimit();
     if (this._oldLimit.eq(this.limit)) {
       this.limit = this._oldLimit;
@@ -167,9 +143,7 @@ export class Unit implements IBase, IUnlockable {
   }
   reloadLimit() {
     if (!(this.buildingLimit && this.buildingLimitQuantity)) return false;
-    this.limit = this.buildingLimit.quantity
-      .plus(1)
-      .times(this.buildingLimitQuantity);
+    this.limit = this.buildingLimit.quantity.times(this.buildingLimitQuantity);
     this.quantity = this.quantity.min(this.limit);
   }
   reloadMaxBuy() {

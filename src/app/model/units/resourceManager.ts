@@ -1,5 +1,5 @@
 import { Unit } from "./unit";
-import { UNITS } from "../data/units";
+import { UNITS, UNIT_TYPES } from "../data/units";
 import { Production } from "./production";
 import { ZERO, UNIT_PRICE_GROW_RATE } from "../CONSTANTS";
 import { solveEquation } from "ant-utils";
@@ -10,6 +10,7 @@ export class ResourceManager {
   units = new Array<Unit>();
   unlockedUnits = new Array<Unit>();
   materials = new Array<Unit>();
+  districts = new Array<Unit>();
   unlockedMaterials = new Array<Unit>();
 
   firstEndingUnit: Unit = null;
@@ -19,6 +20,11 @@ export class ResourceManager {
   unlockedWorkers = new Array<Unit>();
   buildings = new Array<Unit>();
   unlockedBuildings = new Array<Unit>();
+
+  spaceStations = new Array<Unit>();
+  unlockedSpaceStations = new Array<Unit>();
+  megastructures = new Array<Unit>();
+  unlockedMegastructures = new Array<Unit>();
 
   //  Units
   energy: Unit;
@@ -49,16 +55,6 @@ export class ResourceManager {
       }
     });
     this.shipyardWork = this.units.find(u => u.id === "W");
-    this.materials = this.units.filter(
-      u =>
-        u.id === "E" ||
-        u.id === "M" ||
-        u.id === "A" ||
-        u.id === "S" ||
-        u.id === "W" ||
-        u.id === "R" ||
-        u.id === "x"
-    );
 
     this.science = this.units.find(u => u.id === "S");
     this.search = this.units.find(u => u.id === "R");
@@ -97,28 +93,24 @@ export class ResourceManager {
       }
     });
 
+    // Lists
+    this.materials = this.units.filter(
+      u => u.unitData.unitType === UNIT_TYPES.MATERIAL
+    );
+    this.districts = this.units.filter(
+      u => u.unitData.unitType === UNIT_TYPES.DISTRICT
+    );
     this.workers = this.units.filter(
-      u =>
-        u.id === "e" ||
-        u.id === "m" ||
-        u.id === "e" ||
-        u.id === "a" ||
-        u.id === "s" ||
-        u.id === "r" ||
-        u.id === "w" ||
-        u.id === "X"
+      u => u.unitData.unitType === UNIT_TYPES.WORKER
     );
     this.buildings = this.units.filter(
-      u =>
-        u.id === "1" ||
-        u.id === "2" ||
-        u.id === "3" ||
-        u.id === "4" ||
-        u.id === "5" ||
-        u.id === "6" ||
-        u.id === "7" ||
-        u.id === "8" ||
-        u.id === "9"
+      u => u.unitData.unitType === UNIT_TYPES.BUILDING
+    );
+    this.spaceStations = this.units.filter(
+      u => u.unitData.unitType === UNIT_TYPES.SPACE_STATION
+    );
+    this.megastructures = this.units.filter(
+      u => u.unitData.unitType === UNIT_TYPES.MEGASTRUCTURE
     );
 
     this.units.forEach(u => u.setRelations());
@@ -130,6 +122,8 @@ export class ResourceManager {
     this.unlockedMaterials = this.materials.filter(u => u.unlocked);
     this.unlockedWorkers = this.workers.filter(u => u.unlocked);
     this.unlockedBuildings = this.buildings.filter(u => u.unlocked);
+    this.unlockedSpaceStations = this.spaceStations.filter(u => u.unlocked);
+    this.unlockedMegastructures = this.megastructures.filter(u => u.unlocked);
   }
 
   /**
@@ -157,6 +151,7 @@ export class ResourceManager {
     //  Bonus and operativity
     for (let i = 0, n = this.unlockedUnits.length; i < n; i++) {
       const isLimited =
+        this.unlockedUnits[i].id !== "e" &&
         this.unlockedUnits[i].production.findIndex(
           pro =>
             pro.ratio.gt(0) &&
@@ -187,8 +182,6 @@ export class ResourceManager {
           prodX.times(this.unlockedUnits[i].makers[i2].producer.quantity)
         );
       }
-
-      // this.unlockedUnits[i].perSec2 = this.unlockedUnits[i].perSec2.div(2);
 
       // End times
       if (
@@ -225,26 +218,19 @@ export class ResourceManager {
         this.unlockedUnits[i].limit.lt(Decimal.MAX_VALUE) &&
         this.unlockedUnits[i].perSec.gt(0)
       ) {
-        console.log(this.unlockedUnits[i].name);
         const sol = this.unlockedUnits[i].limit
           .minus(this.unlockedUnits[i].quantity)
           .div(this.unlockedUnits[i].perSec);
-        console.log(sol.toNumber());
+
         if (sol.gt(0)) {
           this.unlockedUnits[i].fullIn = sol.toNumber();
           if (this.unlockedUnits[i].fullIn < this.maxTime) {
             this.maxTime = this.unlockedUnits[i].fullIn;
             this.firstEndingUnit = null;
-            console.log(
-              this.unlockedUnits[i].name + " " + this.unlockedUnits[i].fullIn
-            );
           }
         }
       }
     }
-
-    // const end = performance.now() - time;
-    // console.log(end);
   }
 
   /**
@@ -256,7 +242,6 @@ export class ResourceManager {
       this.unlockedUnits[i].quantity = this.unlockedUnits[i].quantity.plus(
         this.unlockedUnits[i].perSec.times(seconds)
       );
-      // .plus(this.unlockedUnits[i].perSec2.times(Decimal.pow(seconds, 2)))
     }
     for (let i = 0, n = this.unlockedUnits.length; i < n; i++) {
       this.unlockedUnits[i].quantity = this.unlockedUnits[i].quantity.max(0);
@@ -277,11 +262,7 @@ export class ResourceManager {
       .forEach(prod => {
         prod.producer.operativity = 0;
       });
-
-    // ToDo
-    // Stop consumers o producers?
   }
-
   postUpdate() {
     this.unlockedUnits.forEach(unit => {
       unit.postUpdate();
@@ -304,7 +285,6 @@ export class ResourceManager {
     }
     for (let i = 0, n = this.unlockedWorkers.length; i < n; i++) {
       if (this.unlockedWorkers[i].quantity.lt(this.unlockedWorkers[i].limit)) {
-        console.log(this.unlockedWorkers[i].name);
         const worker = this.unlockedWorkers[i];
         worker.reloadNeedComponent();
         const toAdd = this.components.quantity
