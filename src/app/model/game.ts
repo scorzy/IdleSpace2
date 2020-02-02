@@ -5,6 +5,7 @@ import { BASE_NAVAL_CAPACITY, ZERO, FLEET_NUMBER } from "./CONSTANTS";
 import { EnemyManager } from "./enemy/enemyManager";
 import { BattleResult, Stats } from "./battle/battleResult";
 import { DatePipe } from "@angular/common";
+import { SpaceStationManager } from "./space/spaceStationManager";
 
 /**
  * Game is the main class that orchestrate everything game related
@@ -19,6 +20,7 @@ export class Game {
   researchManager: ResearchManager;
   shipyardManager: ShipyardManager;
   enemyManager: EnemyManager;
+  spaceStationManager: SpaceStationManager;
 
   navalCapacity: number = BASE_NAVAL_CAPACITY;
   updateNavalCapacity = true;
@@ -45,6 +47,7 @@ export class Game {
     this.researchManager = new ResearchManager();
     this.shipyardManager = new ShipyardManager();
     this.enemyManager = new EnemyManager();
+    this.spaceStationManager = new SpaceStationManager();
     this.shipyardManager.init();
     this.researchManager.makeShipsResearches();
     this.researchManager.makeSpaceStationResearches();
@@ -108,6 +111,7 @@ export class Game {
     }
     this.shipyardManager.postUpdate();
     this.enemyManager.postUpdate();
+    this.spaceStationManager.postUpdate();
   }
   reloadNavalCapacity() {
     this.navalCapacity = BASE_NAVAL_CAPACITY;
@@ -151,7 +155,8 @@ export class Game {
       s: this.resourceManager.getSave(),
       r: this.researchManager.getSave(),
       d: this.shipyardManager.getSave(),
-      e: this.enemyManager.getSave()
+      e: this.enemyManager.getSave(),
+      m: this.spaceStationManager.getSave()
     };
   }
   load(data: any) {
@@ -164,9 +169,11 @@ export class Game {
     if ("d" in data) {
       this.shipyardManager.load(data.d);
     }
-
     if ("e" in data) {
       this.enemyManager.load(data.e);
+    }
+    if ("m" in data) {
+      this.spaceStationManager.load(data.m);
     }
   }
   //#endregion

@@ -12,8 +12,8 @@ export abstract class Job {
   level = 0;
   initialPrice: Decimal;
   growRate = 1.1;
-  description = "";
-  name = "";
+  description: string;
+  name: string;
   progressPercent = 0;
   timeToEnd?: number;
   totalBonus = ONE;

@@ -1,0 +1,45 @@
+<div
+  fxLayout="row wrap"
+  fxLayout.lt-sm="column"
+  fxLayoutAlign="flex-start"
+  fxLayoutGap.gt-sm="10px"
+>
+  <div fxFlex.lt-sm="100%" fxFlex="0 1 calc(55% - 10px)">
+    <h1>Space Stations</h1>
+
+    <button
+      nz-button
+      nzType="default"
+      class="jobButton"
+      *ngFor="
+        let station of ms.game.resourceManager.unlockedSpaceStations;
+        trackBy: getUnitId
+      "
+      (click)="addStation(station)"
+    >
+      {{ station.name }}
+    </button>
+  </div>
+  <div
+    fxFlex.lt-md="100%"
+    fxFlex.md="0 1 calc(40% - 10px)"
+    fxFlex.lg="0 1 calc(35% - 10px)"
+    fxFlex.xl="0 1 calc(30% - 10px)"
+  >
+    <h1>Jobs</h1>
+    <div
+      cdkDropList
+      [cdkDropListData]="ms.game.spaceStationManager.toDo"
+      class="job-list"
+      (cdkDropListDropped)="drop($event)"
+    >
+      <app-job
+        cdkDrag
+        class="job-box"
+        *ngFor="let resToDo of ms.game.spaceStationManager.toDo"
+        [job]="resToDo"
+        [collection]="ms.game.spaceStationManager.toDo"
+      ></app-job>
+    </div>
+  </div>
+</div>

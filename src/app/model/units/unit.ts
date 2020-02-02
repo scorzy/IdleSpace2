@@ -8,28 +8,6 @@ import { IUnlockable } from "../iUnlocable";
 import { Game } from "../game";
 
 export class Unit implements IBase, IUnlockable {
-  constructor(public unitData: IUnitData) {
-    this.id = unitData.id;
-    this.name = unitData.name;
-    this.description = unitData.description;
-    if ("startQuantity" in unitData) {
-      this.unlocked = true;
-      this.quantity = new Decimal(unitData.startQuantity);
-    }
-    if ("icon" in unitData) this.icon = unitData.icon;
-    if ("color" in unitData) this.color = unitData.color;
-    if ("buildingLimitQuantity" in unitData) {
-      this.buildingLimitQuantity = new Decimal(unitData.buildingLimitQuantity);
-    }
-    if ("showUiLimit" in unitData) {
-      this.showUiLimit = unitData.showUiLimit;
-    }
-  }
-
-  public get uiLimit() {
-    return this.limit;
-  }
-
   id = "";
   name = "";
   description = "";
@@ -69,6 +47,30 @@ export class Unit implements IBase, IUnlockable {
 
   perSec = new Decimal();
   private _perSecOld = this.perSec;
+
+  buildPrice = ZERO;
+  habSpace = ZERO;
+
+  constructor(public unitData: IUnitData) {
+    this.id = unitData.id;
+    this.name = unitData.name;
+    this.description = unitData.description;
+    if ("startQuantity" in unitData) {
+      this.unlocked = true;
+      this.quantity = new Decimal(unitData.startQuantity);
+    }
+    if ("icon" in unitData) this.icon = unitData.icon;
+    if ("color" in unitData) this.color = unitData.color;
+    if ("buildingLimitQuantity" in unitData) {
+      this.buildingLimitQuantity = new Decimal(unitData.buildingLimitQuantity);
+    }
+    if ("showUiLimit" in unitData) {
+      this.showUiLimit = unitData.showUiLimit;
+    }
+  }
+  public get uiLimit() {
+    return this.limit;
+  }
   setRelations() {
     if ("buildingLimit" in this.unitData) {
       this.buildingLimit = Game.getGame().resourceManager.units.find(

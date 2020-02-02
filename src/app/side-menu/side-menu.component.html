@@ -27,6 +27,14 @@
       >
         <a [routerLink]="'units/b'">Buildings</a>
       </li>
+      <li
+        nz-menu-item
+        nzMatchRouter
+        *ngIf="ms.game.resourceManager.unlockedSpaceStations.length > 0"
+        @fadeIn
+      >
+        <a [routerLink]="'space'">Space Stations</a>
+      </li>
     </ul>
   </li>
   <li

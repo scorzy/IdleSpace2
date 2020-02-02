@@ -15,6 +15,7 @@ import { EnemyDetailComponent } from "./enemy/enemy-detail/enemy-detail.componen
 import { BattleComponent } from "./battle/battle.component";
 import { ModulesComponent } from "./designer/modules/modules.component";
 import { BattleReportComponent } from "./battle-report/battle-report.component";
+import { SpaceStationsComponent } from "./space-stations/space-stations.component";
 
 export const routes: Routes = [
   { path: "", pathMatch: "full", redirectTo: "/units/ws" },
@@ -32,6 +33,7 @@ export const routes: Routes = [
   { path: "battle", component: BattleComponent },
   { path: "report", component: BattleReportComponent },
   { path: "modules", component: ModulesComponent },
+  { path: "space", component: SpaceStationsComponent },
   {
     path: "enemyList",
     component: EnemiesListComponent,

@@ -1,7 +1,13 @@
 import { Unit } from "./unit";
 import { UNITS, UNIT_TYPES } from "../data/units";
 import { Production } from "./production";
-import { ZERO, UNIT_PRICE_GROW_RATE } from "../CONSTANTS";
+import {
+  ZERO,
+  UNIT_PRICE_GROW_RATE,
+  SPACE_STATION_PRICE,
+  SPACE_STATION_GROW,
+  SPACE_STATION_HAB_SPACE
+} from "../CONSTANTS";
 import { solveEquation } from "ant-utils";
 import { Price } from "../prices/price";
 import { Components } from "./components";
@@ -112,6 +118,17 @@ export class ResourceManager {
     this.megastructures = this.units.filter(
       u => u.unitData.unitType === UNIT_TYPES.MEGASTRUCTURE
     );
+
+    //  Space Stations
+    for (let i = 0, n = this.spaceStations.length; i < n; i++) {
+      const station = this.spaceStations[i];
+      station.buildPrice = Decimal.pow(i + 1, SPACE_STATION_GROW).times(
+        SPACE_STATION_PRICE
+      );
+      station.habSpace = Decimal.pow(i + 1, SPACE_STATION_GROW).times(
+        SPACE_STATION_HAB_SPACE
+      );
+    }
 
     this.units.forEach(u => u.setRelations());
     this.reloadLists();
