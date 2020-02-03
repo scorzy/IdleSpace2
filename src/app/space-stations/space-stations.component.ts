@@ -10,15 +10,18 @@ import { Unit } from "../model/units/unit";
 import { SpaceStationJob } from "../model/space/spaceStationJob";
 import { CdkDragDrop, moveItemInArray } from "@angular/cdk/drag-drop";
 import { Subscription } from "rxjs";
+import { fadeIn } from "../animations";
 
 @Component({
   selector: "app-space-stations",
   templateUrl: "./space-stations.component.html",
   styleUrls: ["./space-stations.component.scss"],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  animations: [fadeIn]
 })
 export class SpaceStationsComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
+  currentUnit: Unit;
 
   constructor(public ms: MainService, private cd: ChangeDetectorRef) {}
 
@@ -32,11 +35,12 @@ export class SpaceStationsComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.subscriptions.forEach((sub: Subscription) => sub.unsubscribe());
   }
-
   addStation(unit: Unit) {
     if (!unit) return false;
-    const job = new SpaceStationJob(unit);
-    this.ms.game.spaceStationManager.toDo.push(job);
+    this.ms.game.spaceStationManager.addJob(unit);
+  }
+  setDetails(unit: Unit) {
+    this.currentUnit = unit;
   }
   drop(event: CdkDragDrop<string[]>): void {
     moveItemInArray(

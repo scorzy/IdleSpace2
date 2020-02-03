@@ -7,6 +7,7 @@ export class SpaceStationJob extends Job {
     super();
     this.canDelete = true;
     this.reload();
+    this.spaceStation.reloadBuildPrice();
   }
   get name(): string {
     return this.spaceStation.name;
@@ -16,23 +17,14 @@ export class SpaceStationJob extends Job {
   }
   reload() {
     const toDoList = Game.getGame().spaceStationManager.toDo;
-    let queued = 0;
     const index = toDoList.indexOf(this);
-    if (toDoList.length > 0) {
-      for (let i = 0, n = Math.min(index, toDoList.length); i < n; i++) {
-        if (toDoList[i].spaceStation === this.spaceStation) queued++;
-      }
-    }
-
-    this.total = Decimal.pow(
-      1.1,
-      this.spaceStation.quantity.plus(queued)
-    ).times(this.spaceStation.buildPrice);
+    this.total = this.spaceStation.getBuildPrice(index);
   }
   delete() {
     const manager = Game.getGame().spaceStationManager;
     manager.toDo.splice(manager.toDo.indexOf(this), 1);
     manager.postUpdate();
+    this.spaceStation.reloadBuildPrice();
   }
   //#region Save and Load
   getSave() {

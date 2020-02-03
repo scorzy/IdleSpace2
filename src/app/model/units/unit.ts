@@ -50,6 +50,7 @@ export class Unit implements IBase, IUnlockable {
 
   buildPrice = ZERO;
   habSpace = ZERO;
+  buildPriceNext = ZERO;
 
   constructor(public unitData: IUnitData) {
     this.id = unitData.id;
@@ -78,11 +79,9 @@ export class Unit implements IBase, IUnlockable {
       );
     }
   }
-
   public getId(): string {
     return this.id;
   }
-
   unlock(): boolean {
     if (this.unlocked) return false;
     this.unlocked = true;
@@ -161,6 +160,21 @@ export class Unit implements IBase, IUnlockable {
       .times(this.components)
       .minus(this.storedComponents)
       .max(0);
+  }
+  getBuildPrice(index = Number.POSITIVE_INFINITY) {
+    const toDoList = Game.getGame().spaceStationManager.toDo;
+    let queued = 0;
+
+    if (toDoList.length > 0) {
+      for (let i = 0, n = Math.min(index, toDoList.length); i < n; i++) {
+        if (toDoList[i].spaceStation === this) queued++;
+      }
+    }
+
+    return Decimal.pow(1.1, this.quantity.plus(queued)).times(this.buildPrice);
+  }
+  reloadBuildPrice() {
+    this.buildPriceNext = this.getBuildPrice();
   }
 
   //#region Save and Load

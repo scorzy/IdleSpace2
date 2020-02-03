@@ -1,6 +1,7 @@
 import { JobManager } from "../job/jobManager";
 import { SpaceStationJob } from "./spaceStationJob";
 import { Game } from "../game";
+import { Unit } from "../units/unit";
 
 export class SpaceStationManager extends JobManager {
   toDo = new Array<SpaceStationJob>();
@@ -30,5 +31,11 @@ export class SpaceStationManager extends JobManager {
         this.toDo.push(job);
       }
     });
+  }
+  addJob(unit: Unit) {
+    if (!unit) return false;
+    const job = new SpaceStationJob(unit);
+    this.toDo.push(job);
+    unit.reloadBuildPrice();
   }
 }

@@ -4,21 +4,68 @@
   fxLayoutAlign="flex-start"
   fxLayoutGap.gt-sm="10px"
 >
-  <div fxFlex.lt-sm="100%" fxFlex="0 1 calc(55% - 10px)">
+  <div fxFlex.lt-sm="100%" fxFlex="0 1 calc(55% - 10px)" fxFlex.lt-md="100%">
     <h1>Space Stations</h1>
 
     <button
       nz-button
       nzType="default"
       class="jobButton"
+      (mouseover)="setDetails(station)"
+      (click)="setDetails(station)"
       *ngFor="
         let station of ms.game.resourceManager.unlockedSpaceStations;
         trackBy: getUnitId
       "
-      (click)="addStation(station)"
     >
       {{ station.name }}
     </button>
+
+    <div *ngIf="currentUnit" class="unit-container">
+      <nz-card
+        style="width:100%;"
+        nzSize="small"
+        [nzTitle]="currentUnit.name"
+        [nzActions]="[actionQueue]"
+        [nzExtra]="extraTemplate"
+      >
+        <ul class="list-unstyled">
+          <li *ngIf="currentUnit.habSpace.gt(0)">
+            <i
+              nz-icon
+              [style.color]="ms.game.resourceManager.habitableSpace.color"
+              [nzType]="ms.game.resourceManager.habitableSpace.icon"
+            ></i>
+            <strong>Habitable Space: </strong>
+            <span>{{ currentUnit.habSpace | format: true }}</span>
+          </li>
+          <li>
+            <i
+              nz-icon
+              [nzType]="ms.game.resourceManager.shipyardWork.icon"
+              [style.color]="ms.game.resourceManager.shipyardWork.color"
+            ></i>
+            <strong>Price: </strong>
+            <span>{{ currentUnit.buildPriceNext | format: true }}</span>
+          </li>
+        </ul>
+      </nz-card>
+      <ng-template #actionQueue>
+        <button
+          nz-button
+          nzType="link"
+          nzSize="small"
+          (click)="addStation(currentUnit)"
+        >
+          Add
+        </button>
+      </ng-template>
+      <ng-template #extraTemplate>
+        <span class="monospace">
+          {{ currentUnit.quantity | format: true }}
+        </span>
+      </ng-template>
+    </div>
   </div>
   <div
     fxFlex.lt-md="100%"

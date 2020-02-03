@@ -26,6 +26,7 @@ export class ShipyardManager extends JobManager {
   groups: { name: string; list: Array<Module> }[];
   toDo = new Array<Job>();
   maxFleet = 0;
+  civilianWorkPercent = 50;
 
   init() {
     this.shipTypes = SHIP_TYPES.map(s => new ShipType(s));

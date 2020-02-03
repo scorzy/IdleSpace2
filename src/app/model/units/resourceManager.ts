@@ -43,6 +43,7 @@ export class ResourceManager {
   search: Unit;
   searcher: Unit;
   components: Components;
+  habitableSpace: Unit;
 
   shipyardWork: Unit;
 
@@ -71,6 +72,7 @@ export class ResourceManager {
     this.worker = this.units.find(u => u.id === "w");
     this.searcher = this.units.find(u => u.id === "r");
     this.energy = this.units.find(u => u.id === "E");
+    this.habitableSpace = this.units.find(u => u.id === "j");
 
     //  Production
     this.units.forEach(unit => {
@@ -125,6 +127,7 @@ export class ResourceManager {
       station.buildPrice = Decimal.pow(i + 1, SPACE_STATION_GROW).times(
         SPACE_STATION_PRICE
       );
+      station.buildPriceNext = station.buildPrice;
       station.habSpace = Decimal.pow(i + 1, SPACE_STATION_GROW).times(
         SPACE_STATION_HAB_SPACE
       );
