@@ -35,13 +35,13 @@ export class UnitCardComponent implements OnInit, OnDestroy {
   isVisible = false;
   Decimal = Decimal;
 
-  @ViewChild("buyOne", null)
+  @ViewChild("buyOne", { static: true })
   private buyOne: TemplateRef<any>;
-  @ViewChild("buyHalf", null)
+  @ViewChild("buyHalf", { static: true })
   private buyHalf: TemplateRef<any>;
-  @ViewChild("buyMax", null)
+  @ViewChild("buyMax", { static: true })
   private buyMax: TemplateRef<any>;
-  @ViewChild("buyNone", null)
+  @ViewChild("buyNone", { static: true })
   private buyNone: TemplateRef<any>;
 
   constructor(

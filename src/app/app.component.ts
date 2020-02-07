@@ -24,9 +24,9 @@ import { fadeIn } from "./animations";
 export class AppComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
 
-  @ViewChild("saveNoti", null)
+  @ViewChild("saveNoti", { static: false })
   private saveNoti: TemplateRef<any>;
-  @ViewChild("loadNoti", null)
+  @ViewChild("loadNoti", { static: false })
   private loadNoti: TemplateRef<any>;
 
   loadMessage = "";
