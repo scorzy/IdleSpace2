@@ -28,6 +28,10 @@ export class Game {
   battleStats: Array<{ name: string; stats: Stats[] }[]>;
   updateStats = true;
 
+  civilianWorkPercent = 50;
+  civWorkPerSec = ZERO;
+  shipWorkPerSec = ZERO;
+
   private _gameId = "";
 
   /**
@@ -76,7 +80,9 @@ export class Game {
     let toUpdate = delta;
 
     while (toUpdate > 0) {
-      this.resourceManager.shipyardWork.limit = this.shipyardManager.getWorkNeeded();
+      this.resourceManager.shipyardWork.limit = this.shipyardManager
+        .getWorkNeeded()
+        .plus(this.spaceStationManager.getWorkNeeded());
       this.resourceManager.search.limit = this.enemyManager.getWorkNeeded();
 
       this.resourceManager.reloadProduction();
@@ -88,15 +94,41 @@ export class Game {
       if (toUpdate > 0) {
         this.resourceManager.stopResources();
       }
-      this.shipyardManager.addProgress(
-        this.resourceManager.shipyardWork.quantity
+
+      const shipWork = this.resourceManager.shipyardWork.quantity.times(
+        (100 - this.civilianWorkPercent) / 100
       );
+      const civWork = this.resourceManager.shipyardWork.quantity.minus(
+        shipWork
+      );
+      const notAdded = this.shipyardManager.addProgress(shipWork).max(0);
+      this.spaceStationManager.addProgress(civWork.plus(notAdded));
+
       this.resourceManager.shipyardWork.quantity = ZERO;
       this.enemyManager.addProgress(this.resourceManager.search.quantity);
       this.resourceManager.search.quantity = ZERO;
     }
   }
+  reloadWorkPerSec() {
+    if (this.shipyardManager.toDo.length === 0) {
+      this.civWorkPerSec = this.resourceManager.shipyardWork.perSec;
+      this.shipWorkPerSec = ZERO;
+    } else {
+      if (this.spaceStationManager.toDo.length === 0) {
+        this.shipWorkPerSec = this.resourceManager.shipyardWork.perSec;
+        this.civWorkPerSec = ZERO;
+      } else {
+        this.shipWorkPerSec = this.resourceManager.shipyardWork.perSec.times(
+          1 - this.civilianWorkPercent / 100
+        );
+        this.civWorkPerSec = this.resourceManager.shipyardWork.perSec.times(
+          this.civilianWorkPercent / 100
+        );
+      }
+    }
+  }
   postUpdate() {
+    this.reloadWorkPerSec();
     this.researchManager.technologies.forEach(t => t.bonus.reloadBonus());
     const resNotAdded = this.researchManager.addProgress(
       this.resourceManager.science.quantity
@@ -156,7 +188,8 @@ export class Game {
       r: this.researchManager.getSave(),
       d: this.shipyardManager.getSave(),
       e: this.enemyManager.getSave(),
-      m: this.spaceStationManager.getSave()
+      m: this.spaceStationManager.getSave(),
+      c: this.civilianWorkPercent
     };
   }
   load(data: any) {
@@ -175,6 +208,7 @@ export class Game {
     if ("m" in data) {
       this.spaceStationManager.load(data.m);
     }
+    if ("c" in data) this.civilianWorkPercent = data.c;
   }
   //#endregion
 }

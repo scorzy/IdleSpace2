@@ -15,6 +15,15 @@ export class SpaceStationManager extends JobManager {
       this.toDo[i].reload();
     }
   }
+  addJob(unit: Unit) {
+    if (!unit) return false;
+    const job = new SpaceStationJob(unit);
+    this.toDo.push(job);
+    Game.getGame().reloadWorkPerSec();
+    unit.reloadBuildPrice();
+    job.reload();
+  }
+  //#region Save and Load
   getSave() {
     return {
       t: this.toDo.map(s => s.getSave())
@@ -24,7 +33,7 @@ export class SpaceStationManager extends JobManager {
     if (!("t" in data)) return false;
     const rs = Game.getGame().resourceManager;
     data.t.forEach(jobData => {
-      const unit = rs.units.find(s => s.id === data.i);
+      const unit = rs.units.find(s => s.id === jobData.i);
       if (unit) {
         const job = new SpaceStationJob(unit);
         job.load(jobData);
@@ -32,10 +41,5 @@ export class SpaceStationManager extends JobManager {
       }
     });
   }
-  addJob(unit: Unit) {
-    if (!unit) return false;
-    const job = new SpaceStationJob(unit);
-    this.toDo.push(job);
-    unit.reloadBuildPrice();
-  }
+  //#endregion
 }

@@ -19,6 +19,11 @@ export class SpaceStationJob extends Job {
     const toDoList = Game.getGame().spaceStationManager.toDo;
     const index = toDoList.indexOf(this);
     this.total = this.spaceStation.getBuildPrice(index);
+
+    this.timeToEnd = this.getRemaining()
+      .div(Game.getGame().civWorkPerSec)
+      .floor()
+      .toNumber();
   }
   delete() {
     const manager = Game.getGame().spaceStationManager;

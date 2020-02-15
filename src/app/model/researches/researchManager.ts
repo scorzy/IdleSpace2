@@ -71,7 +71,8 @@ export class ResearchManager extends JobManager {
     }
   }
   makeSpaceStationResearches() {
-    const first = this.researches.find(r => r.id === "s8");
+    const first = this.researches.find(r => r.id === "s4");
+    const second = this.researches.find(r => r.id === "s5");
     first.resData.researchToUnlock.push("i0");
     const spaceStations = Game.getGame().resourceManager.spaceStations;
     for (let i = 0, n = spaceStations.length; i < n; i++) {
@@ -79,7 +80,7 @@ export class ResearchManager extends JobManager {
         id: "i" + i,
         name: spaceStations[i].name,
         description: "Unlock " + spaceStations[i].name,
-        price: Decimal.pow(SPACE_STATION_MULTI, i).times(SPACE_STATION_PRICE),
+        price: Decimal.pow(SPACE_STATION_MULTI, i).times(second.initialPrice),
         type: [TECHNOLOGIES.CivilEngineering],
         unitsToUnlock: [spaceStations[i].id]
       };

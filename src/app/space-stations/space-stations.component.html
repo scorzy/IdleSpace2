@@ -7,6 +7,13 @@
   <div fxFlex.lt-sm="100%" fxFlex="0 1 calc(55% - 10px)" fxFlex.lt-md="100%">
     <h1>Space Stations</h1>
 
+    <label>Civilian Work Priority: {{ ms.game.civilianWorkPercent }}% </label>
+    <nz-slider
+      [(ngModel)]="ms.game.civilianWorkPercent"
+      nzSize="small"
+      [nzTipFormatter]="formatter"
+    ></nz-slider>
+
     <button
       nz-button
       nzType="default"

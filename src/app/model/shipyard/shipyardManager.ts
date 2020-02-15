@@ -26,7 +26,6 @@ export class ShipyardManager extends JobManager {
   groups: { name: string; list: Array<Module> }[];
   toDo = new Array<Job>();
   maxFleet = 0;
-  civilianWorkPercent = 50;
 
   init() {
     this.shipTypes = SHIP_TYPES.map(s => new ShipType(s));
@@ -138,6 +137,10 @@ export class ShipyardManager extends JobManager {
         }
       }
       this.toDo.push(new UpdateShipJob(newDesign));
+      if (this.toDo.length === 1) {
+        Game.getGame().reloadWorkPerSec();
+        this.toDo[0].reload();
+      }
     }
     oldDesign.old = null;
     const index = this.shipDesigns.indexOf(oldDesign);
@@ -277,6 +280,10 @@ export class ShipyardManager extends JobManager {
       }
       if (toBuild > 0) {
         this.toDo.push(new BuildShipsJob(toBuild, this.shipDesigns[k], i));
+        if (this.toDo.length === 1) {
+          Game.getGame().reloadWorkPerSec();
+          this.toDo[0].reload();
+        }
       }
     }
   }

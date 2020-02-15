@@ -26,6 +26,7 @@ export class SpaceStationsComponent implements OnInit, OnDestroy {
   constructor(public ms: MainService, private cd: ChangeDetectorRef) {}
 
   ngOnInit() {
+    this.currentUnit = this.ms.game.resourceManager.spaceStations[0];
     this.subscriptions.push(
       this.ms.updateEmitter.subscribe(() => {
         this.cd.markForCheck();
@@ -52,5 +53,8 @@ export class SpaceStationsComponent implements OnInit, OnDestroy {
   }
   getUnitId(index: number, unit: Unit) {
     return unit.id;
+  }
+  formatter(value: number): string {
+    return `${value}%`;
   }
 }

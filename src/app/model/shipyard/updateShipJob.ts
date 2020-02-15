@@ -81,7 +81,7 @@ export class UpdateShipJob extends Job {
       }
     }
     this.total = this.diff.times(this.toUpdate + this.updated);
-    const perSec = Game.getGame().resourceManager.shipyardWork.perSec;
+    const perSec = Game.getGame().shipWorkPerSec;
     this.timeToEnd = perSec.lte(0)
       ? Number.POSITIVE_INFINITY
       : this.getRemaining()

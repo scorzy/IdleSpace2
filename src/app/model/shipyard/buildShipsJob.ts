@@ -62,7 +62,7 @@ export class BuildShipsJob extends Job {
       .plus(this.workDone);
 
     this.timeToEnd = this.getRemaining()
-      .div(Game.getGame().resourceManager.shipyardWork.perSec)
+      .div(Game.getGame().shipWorkPerSec)
       .floor()
       .toNumber();
   }
