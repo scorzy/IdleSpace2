@@ -14,6 +14,8 @@ export class SpaceStationJob extends Job {
   }
   onCompleted() {
     this.spaceStation.quantity = this.spaceStation.quantity.plus(1);
+    const habSpace = Game.getGame().resourceManager.habitableSpace;
+    habSpace.quantity = habSpace.quantity.plus(this.spaceStation.habSpace);
   }
   reload() {
     const toDoList = Game.getGame().spaceStationManager.toDo;

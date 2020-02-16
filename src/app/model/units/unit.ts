@@ -171,7 +171,9 @@ export class Unit implements IBase, IUnlockable {
       }
     }
 
-    return Decimal.pow(1.1, this.quantity.plus(queued)).times(this.buildPrice);
+    return Decimal.pow(1.1, this.quantity.plus(queued))
+      .times(this.buildPrice)
+      .floor();
   }
   reloadBuildPrice() {
     this.buildPriceNext = this.getBuildPrice();
