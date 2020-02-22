@@ -23,7 +23,6 @@
         nz-menu-item
         nzMatchRouter
         *ngIf="ms.game.resourceManager.unlockedBuildings.length > 0"
-        @fadeIn
       >
         <a [routerLink]="'units/b'">Buildings</a>
       </li>
@@ -31,7 +30,6 @@
         nz-menu-item
         nzMatchRouter
         *ngIf="ms.game.resourceManager.unlockedSpaceStations.length > 0"
-        @fadeIn
       >
         <a [routerLink]="'space'">Space Stations</a>
       </li>
@@ -39,7 +37,6 @@
   </li>
   <li
     *ngIf="ms.game.resourceManager.science.unlocked"
-    @fadeIn
     nz-submenu
     nzOpen
     nzTitle="Laboratory"
@@ -62,7 +59,6 @@
   </li>
   <li
     *ngIf="ms.game.resourceManager.worker.unlocked"
-    @fadeIn
     nz-submenu
     nzOpen
     nzTitle="Shipyard"
@@ -74,7 +70,7 @@
       </li>
     </ul>
   </li>
-  <li @fadeIn nz-submenu nzOpen nzTitle="Designer" nzIcon="my:pencil-ruler">
+  <li nz-submenu nzOpen nzTitle="Designer" nzIcon="my:pencil-ruler">
     <ul>
       <li nz-menu-item nzMatchRouter>
         <a [routerLink]="'/add'">
