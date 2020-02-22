@@ -76,6 +76,7 @@ export class ResearchManager extends JobManager {
     first.resData.researchToUnlock.push("i0");
     const spaceStations = Game.getGame().resourceManager.spaceStations;
     for (let i = 0, n = spaceStations.length; i < n; i++) {
+      // Space station
       const resData: IResearchData = {
         id: "i" + i,
         name: spaceStations[i].name,
@@ -86,7 +87,28 @@ export class ResearchManager extends JobManager {
       };
       if (i + 1 < n) {
         resData.researchToUnlock = ["i" + (i + 1)];
+      } else {
+        resData.researchToUnlock = [];
       }
+
+      // Upgrade
+      const resDataUp: IResearchData = {
+        id: "u" + i,
+        name: "Upgraded " + spaceStations[i].name,
+        description: "+100% habitable space from " + spaceStations[i].name,
+        price: Decimal.pow(SPACE_STATION_MULTI, i)
+          .times(second.initialPrice)
+          .times(10),
+        type: [TECHNOLOGIES.CivilEngineering],
+        stationToUp: [
+          {
+            stationId: spaceStations[i].id,
+            habSpace: spaceStations[i].habSpace
+          }
+        ]
+      };
+      resData.researchToUnlock.push(resDataUp.id);
+      this.researches.push(new Research(resDataUp, this));
       this.researches.push(new Research(resData, this));
     }
   }

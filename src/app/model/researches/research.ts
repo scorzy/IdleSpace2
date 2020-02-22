@@ -6,6 +6,7 @@ import { IUnlockable } from "../iUnlocable";
 import { Game } from "../game";
 import { IBase } from "../iBase";
 import { ResearchManager } from "./researchManager";
+import { Unit } from "../units/unit";
 
 export class Research extends Job implements IUnlockable, IBase {
   id: string;
@@ -14,6 +15,7 @@ export class Research extends Job implements IUnlockable, IBase {
   unitsToUnlock?: IUnlockable[];
   researchToUnlock?: IUnlockable[];
   technologiesToUnlock?: IUnlockable[];
+  spaceStationsToUp?: { spaceStation: Unit; habSpace: Decimal }[];
 
   quantity: Decimal;
   icon?: string;
@@ -28,6 +30,8 @@ export class Research extends Job implements IUnlockable, IBase {
     this.originalName = this.name;
     this.description = researchData.description;
     this.initialPrice = new Decimal(researchData.price);
+
+    const rs = Game.getGame().resourceManager;
     if ("max" in researchData) {
       this.max = researchData.max;
     }
@@ -37,7 +41,7 @@ export class Research extends Job implements IUnlockable, IBase {
     }
     if ("unitsToUnlock" in researchData) {
       this.unitsToUnlock = researchData.unitsToUnlock.map(uId =>
-        Game.getGame().resourceManager.units.find(a => a.id === uId)
+        rs.units.find(a => a.id === uId)
       );
     }
     if ("technologiesToUnlock" in researchData) {
@@ -47,6 +51,14 @@ export class Research extends Job implements IUnlockable, IBase {
     }
     if ("navalCapacity" in researchData) {
       this.navalCapacity = this.resData.navalCapacity;
+    }
+    if ("stationToUp" in researchData) {
+      this.spaceStationsToUp = researchData.stationToUp.map(stu => {
+        return {
+          spaceStation: rs.units.find(u => u.id === stu.stationId),
+          habSpace: new Decimal(stu.habSpace)
+        };
+      });
     }
     this.types = researchData.type.map(t =>
       researchManager.technologies.find(tec => tec.id === t.id)
@@ -94,6 +106,11 @@ export class Research extends Job implements IUnlockable, IBase {
       }
       if (this.technologiesToUnlock) {
         this.technologiesToUnlock.forEach(tech => tech.unlock());
+      }
+      if (this.spaceStationsToUp) {
+        this.spaceStationsToUp.forEach(stu =>
+          stu.spaceStation.addHabSpace(stu.habSpace)
+        );
       }
       game.navalCapacity += this.navalCapacity;
     }

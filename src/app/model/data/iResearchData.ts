@@ -23,4 +23,5 @@ export interface IResearchData {
   type: IJobType[];
   researchBonus?: { type: IJobType; bonus: DecimalSource }[];
   navalCapacity?: number;
+  stationToUp?: { stationId: string; habSpace: DecimalSource }[];
 }

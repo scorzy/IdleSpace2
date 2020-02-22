@@ -178,6 +178,15 @@ export class Unit implements IBase, IUnlockable {
   reloadBuildPrice() {
     this.buildPriceNext = this.getBuildPrice();
   }
+  addHabSpace(newHabSpace: Decimal) {
+    if (newHabSpace.gt(0) && this.quantity.gt(0)) {
+      const habSpace = Game.getGame().resourceManager.habitableSpace;
+      habSpace.quantity = habSpace.quantity.plus(
+        newHabSpace.times(this.quantity)
+      );
+    }
+    this.habSpace = this.habSpace.plus(newHabSpace);
+  }
 
   //#region Save and Load
   getSave(): any {

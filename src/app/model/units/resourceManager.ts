@@ -44,6 +44,8 @@ export class ResourceManager {
   searcher: Unit;
   components: Components;
   habitableSpace: Unit;
+  miningDistrict: Unit;
+  energyDistrict: Unit;
 
   shipyardWork: Unit;
 
@@ -73,6 +75,8 @@ export class ResourceManager {
     this.searcher = this.units.find(u => u.id === "r");
     this.energy = this.units.find(u => u.id === "E");
     this.habitableSpace = this.units.find(u => u.id === "j");
+    this.miningDistrict = this.units.find(u => u.id === "P");
+    this.energyDistrict = this.units.find(u => u.id === "k");
 
     //  Production
     this.units.forEach(unit => {

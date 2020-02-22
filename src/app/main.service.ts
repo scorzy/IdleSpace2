@@ -101,7 +101,7 @@ export class MainService {
 
     const now = Date.now();
     let diff = now - this.last;
-    diff = diff * 1e3;
+    diff = diff * 1e6;
     this.game.update(diff / 1000);
     this.last = now;
 
