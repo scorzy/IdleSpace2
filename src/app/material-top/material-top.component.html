@@ -44,17 +44,17 @@
       <span class="monospace">{{ ms.game.navalCapacity | format: true }}</span>
     </div>
   </div>
-</div>
 
-<!-- Districts -->
-<div @fadeIn class="mainContainer">
-  <i nz-icon nzType="global"></i>
-  <div class="container">
-    <span class="monospace">
-      {{ ms.game.resourceManager.habitableSpace.quantity | format: true }}
-      {{ ms.game.resourceManager.miningDistrict.quantity | format: true }}
-      {{ ms.game.resourceManager.energyDistrict.quantity | format: true }}
-    </span>
+  <!-- Districts -->
+  <div @fadeIn class="mainContainer">
+    <i nz-icon nzType="global"></i>
+    <div class="container">
+      <span class="monospace">
+        {{ ms.game.resourceManager.habitableSpace.quantity | format: true }}
+        {{ ms.game.resourceManager.miningDistrict.quantity | format: true }}
+        {{ ms.game.resourceManager.energyDistrict.quantity | format: true }}
+      </span>
+    </div>
   </div>
 </div>
 
