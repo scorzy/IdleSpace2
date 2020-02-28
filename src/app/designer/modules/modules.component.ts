@@ -31,7 +31,11 @@ export class ModulesComponent implements OnInit {
         break;
       case "d":
         this.modules = this.ms.game.shipyardManager.modules.filter(
-          m => m.armour > 0 || m.shield > 0
+          m =>
+            m.armour > 0 ||
+            m.shield > 0 ||
+            m.armourDamageReduction > 0 ||
+            m.shieldDamageReduction > 0
         );
         break;
       case "g":
