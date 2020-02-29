@@ -70,8 +70,9 @@ export class Module implements IUnlockable {
         };
       });
     }
-    if ("shieldRecharge" in moduleData)
+    if ("shieldRecharge" in moduleData) {
       this.shieldRecharge = moduleData.shieldRecharge;
+    }
   }
   reloadMaxLevel() {
     this.maxLevel = 0;

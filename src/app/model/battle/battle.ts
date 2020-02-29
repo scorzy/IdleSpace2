@@ -105,8 +105,9 @@ export function battle(battleRequest: BattleRequest): any {
           if (
             design.alive[a].shield > 0 &&
             design.alive[a].shield < design.alive[a].shipData.totalShield
-          )
+          ) {
             woundedShips.push(design.alive[a]);
+          }
         }
       }
       if (toRegenerate > 0 && woundedShips.length > 0) {
