@@ -82,6 +82,7 @@ export class MainService {
   scrollbarTheme: HTMLLinkElement;
   isCollapsed = true;
   sideTheme = "dark";
+  innerContent = true;
   game: Game;
   last: number;
   updateEmitter = new EventEmitter<number>();
