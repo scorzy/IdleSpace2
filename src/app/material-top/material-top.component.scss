@@ -7,10 +7,10 @@ span {
 }
 .container {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   // padding-left: 0.2rem;
-  min-width: 5rem;
-  font-size: 90%;
+  min-width: 7rem;
+  font-size: 95%;
 }
 
 .mainContainer {
@@ -18,15 +18,15 @@ span {
   align-items: center;
   padding-top: 5px;
   padding-bottom: 5px;
-  min-width: 7rem;
-  max-width: 11rem;
+  min-width: 8rem;
+  // max-width: 11rem;
   flex-basis: auto;
   flex-grow: 1;
   cursor: pointer;
   [nz-icon] {
     margin-right: 4px;
     margin-left: 4px;
-    font-size: 24px;
+    // font-size: 24px;
   }
 }
 .matContainer {
@@ -37,12 +37,12 @@ span {
 
 @media only screen and (max-width: 1000px) {
   .mainContainer {
-    width: 7rem;
-    max-width: 7rem;
+    // width: 7rem;
+    // max-width: 7rem;
     [nz-icon] {
       margin-right: 7px;
       margin-left: 7px;
-      font-size: 24px;
+      // font-size: 24px;
     }
   }
 }
