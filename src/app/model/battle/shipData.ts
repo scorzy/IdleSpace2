@@ -28,4 +28,5 @@ export class ShipData {
   targets: ShipData[];
   stats: Stats;
   explosionWeapon: WeaponData;
+  shieldRecharge: number;
 }

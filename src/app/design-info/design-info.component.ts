@@ -121,6 +121,23 @@ export class DesignInfoComponent implements OnInit, OnDestroy {
         : ""
     });
     this.comparisonData.push({
+      name: "Shield Recharge",
+      icon: "my:armor-upgrade",
+      iconClass: "shield-damage-color",
+      original: this.original.shieldRecharge,
+      new: !this.design ? null : this.design.shieldRecharge,
+      type: !this.design
+        ? null
+        : this.original.shieldRecharge > this.design.shieldRecharge
+        ? "danger"
+        : "",
+      classes: !this.design
+        ? null
+        : this.original.shieldRecharge < this.design.shieldRecharge
+        ? "text-success"
+        : ""
+    });
+    this.comparisonData.push({
       name: "Avg. Damage",
       icon: "my:blaster",
       iconClass: "damage-color",
@@ -188,7 +205,6 @@ export class DesignInfoComponent implements OnInit, OnDestroy {
         ? "text-success"
         : ""
     });
-
     this.comparisonData.push({
       name: "Cargo",
       icon: "my:cube",

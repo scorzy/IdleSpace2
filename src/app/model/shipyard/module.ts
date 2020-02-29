@@ -27,6 +27,7 @@ export class Module implements IUnlockable {
   maxLevel = 0;
   technologies: { technology: Technology; multi: number }[];
   unlockLevel = 0;
+  shieldRecharge = 0;
 
   constructor(moduleData: ModuleData) {
     this.id = moduleData.id;
@@ -69,6 +70,8 @@ export class Module implements IUnlockable {
         };
       });
     }
+    if ("shieldRecharge" in moduleData)
+      this.shieldRecharge = moduleData.shieldRecharge;
   }
   reloadMaxLevel() {
     this.maxLevel = 0;

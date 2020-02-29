@@ -37,6 +37,7 @@ export class ShipDesign {
   energy = 0;
   price = ZERO;
   cargo = ZERO;
+  shieldRecharge = 0;
   valid = true;
 
   modules = new Array<{
@@ -76,6 +77,7 @@ export class ShipDesign {
     this.totalPoints = 0;
     this.energy = 0;
     this.explosionDamage = 0;
+    this.shieldRecharge = 0;
     this.modules
       .filter(m => m.module)
       .forEach(m => {
@@ -88,10 +90,11 @@ export class ShipDesign {
         this.totalArmour += m.module.armour * statsMulti;
         this.totalShield += m.module.shield * statsMulti;
         this.armourReduction += m.module.armourDamageReduction * statsMulti;
-        this.shieldReduction += m.module.shieldDamagePercent * statsMulti;
+        this.shieldReduction += m.module.shieldDamageReduction * statsMulti;
         const damage = m.module.damage * statsMulti;
         this.totalDamage += damage;
         this.explosionDamage += m.module.explosionDamage * statsMulti;
+        this.shieldRecharge += m.module.shieldRecharge * statsMulti;
 
         this.energy += m.module.energy * statsMulti;
         this.price = this.price.plus(priceMulti.times(m.module.price));
@@ -167,6 +170,7 @@ export class ShipDesign {
     ret.explosionThreshold = this.explosionThreshold;
     ret.explosionDamage = this.explosionDamage;
     ret.weapons = this.weapons;
+    ret.shieldRecharge = this.shieldRecharge;
 
     return ret;
   }

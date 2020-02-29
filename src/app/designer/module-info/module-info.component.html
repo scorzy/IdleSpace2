@@ -70,6 +70,16 @@
     {{ mod.shieldDamageReduction | number: "1.0-0" }}
   </span>
   <span
+    *ngIf="mod.shieldRecharge > 0"
+    class="shield-damage-color"
+    nz-tooltip
+    nzTooltipTitle="Shield Recharge"
+    fxLayout="row"
+  >
+    <i nz-icon nzType="my:armor-upgrade"></i>
+    {{ mod.shieldRecharge | number: "1.0-0" }}
+  </span>
+  <span
     *ngIf="mod.energy !== 0"
     class="energy-color"
     nz-tooltip

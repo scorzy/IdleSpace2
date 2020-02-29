@@ -138,6 +138,9 @@ export class BattleReportComponent implements OnInit, OnDestroy {
       case "shieldDamageTaken":
         ret = stat.shieldDamageTaken;
         break;
+      case "shieldRegenerationReceived":
+        ret = stat.shieldRegenerationReceived;
+        break;
     }
 
     return ret;
@@ -207,6 +210,10 @@ export class BattleReportComponent implements OnInit, OnDestroy {
         break;
       case "shieldDamageTaken":
         ret = "Shield Damage Taken";
+        break;
+
+      case "shieldRegenerationReceived":
+        ret = "Shield Regeneration Received";
         break;
     }
     return ret;

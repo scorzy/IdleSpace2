@@ -88,7 +88,12 @@ export class ShipyardManager extends JobManager {
   reloadLists() {
     this.weapons = this.modules.filter(mod => mod.unlocked && mod.damage > 0);
     this.defences = this.modules.filter(
-      mod => mod.unlocked && (mod.armour > 0 || mod.shield > 0)
+      mod =>
+        mod.unlocked &&
+        (mod.armour > 0 ||
+          mod.shield > 0 ||
+          mod.armourDamageReduction > 0 ||
+          mod.shieldDamageReduction > 0)
     );
     this.generators = this.modules.filter(
       mod => mod.unlocked && mod.energy > 0

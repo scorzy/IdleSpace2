@@ -47,9 +47,9 @@ export function battle(battleRequest: BattleRequest): any {
     });
   }
 
-  //  Firing; 5 rounds
+  //  5 rounds
   for (let round = 0; round < 5; round++) {
-    //  Player and enemy
+    //#region  Firing
     for (let i = 0; i < 2; i++) {
       const fleet = fleets[i];
       // Ship designs
@@ -79,8 +79,8 @@ export function battle(battleRequest: BattleRequest): any {
         }
       }
     }
-
-    //  Player and enemy
+    //#endregion
+    //#region  Remove dead ships
     for (let i = 0; i < 2; i++) {
       const fleet = fleets[i];
       // Ship designs
@@ -90,8 +90,48 @@ export function battle(battleRequest: BattleRequest): any {
         design.stats.rounds[round].quantityEnd = design.alive.length;
       }
     }
+    //#endregion
+    //#region Shield regeneration
+    for (let i = 0; i < 2; i++) {
+      const fleet = fleets[i];
+      let toRegenerate = 0;
+      let woundedShips = new Array<Ship>();
+      // Ship designs
+      for (let m = 0, n = fleet.length; m < n; m++) {
+        const design = fleet[m];
+        toRegenerate += design.shieldRecharge * design.alive.length;
 
-    postRound();
+        for (let a = 0, n1 = design.alive.length; a < n1; a++) {
+          if (
+            design.alive[a].shield > 0 &&
+            design.alive[a].shield < design.alive[a].shipData.totalShield
+          )
+            woundedShips.push(design.alive[a]);
+        }
+      }
+      if (toRegenerate > 0 && woundedShips.length > 0) {
+        woundedShips = woundedShips.sort(
+          (a, b) =>
+            (a.shipData.totalShield - a.shield) / a.shipData.totalShield -
+            (b.shipData.totalShield - b.shield) / b.shipData.totalShield
+        );
+        for (let w = 0, n2 = woundedShips.length; w < n2; w++) {
+          if (toRegenerate > 0) {
+            const orig = woundedShips[w].shield;
+            woundedShips[w].shield = Math.min(
+              woundedShips[w].shield + toRegenerate,
+              woundedShips[w].shipData.totalShield
+            );
+            const diff = woundedShips[w].shield - orig;
+            toRegenerate -= diff;
+            woundedShips[w].shipData.stats.rounds[
+              round
+            ].shieldRegenerationReceived += diff;
+          }
+        }
+      }
+    }
+    //#endregion
     if (
       battleRequest.enemyFleet.findIndex(s => s.ships.length > 0) < 0 ||
       battleRequest.playerFleet.findIndex(s => s.ships.length > 0) < 0
@@ -152,16 +192,15 @@ export function battle(battleRequest: BattleRequest): any {
           shipData.stats.rounds[z].armourDamageTaken;
         shipData.stats.total.shieldDamageTaken +=
           shipData.stats.rounds[z].shieldDamageTaken;
+
+        shipData.stats.total.shieldRegenerationReceived +=
+          shipData.stats.rounds[z].shieldRegenerationReceived;
       }
       battleResult.stats.push(shipData.stats);
     });
   }
 
   return battleResult;
-}
-function postRound() {
-  //  Regenerate shields
-  //  Recharge Batteries
 }
 
 function getTarget(targets: ShipData[], weapon: WeaponData): Ship {
@@ -234,11 +273,11 @@ function dealDamage(
       target.shield -= damageToDo;
 
       if (target.shield > 0) {
+        shieldDamageDone = damageToDo;
         damageToDo = 0;
-        shieldDamageDone = shield;
       } else {
         damageToDo = (target.shield * -1) / weapon.shieldPercent;
-        shieldDamageDone = shield - target.shield;
+        shieldDamageDone = shield;
         const index = target.shipData.withShield.indexOf(target);
         if (index >= 0) {
           target.shipData.withShield.splice(index, 1);
@@ -264,7 +303,7 @@ function dealDamage(
     if (damageToDo > 0) {
       const armour = target.armour;
       target.armour -= damageToDo;
-      const armourDamageDone = Math.max(armour - target.armour, armour);
+      const armourDamageDone = Math.max(armour - target.armour, 0);
       target.shipData.stats.rounds[round].damageTaken += armourDamageDone;
       target.shipData.stats.rounds[round].armourDamageTaken += armourDamageDone;
       attacker.shipData.stats.rounds[round].damageDone += armourDamageDone;

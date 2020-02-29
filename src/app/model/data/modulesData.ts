@@ -28,6 +28,7 @@ export class ModuleData {
   unlockLevel?: number;
   cargo?: number;
   technologies: { technologyId: string; multi: number }[];
+  shieldRecharge?: number;
 }
 
 export const modules: ModuleData[] = [
@@ -319,7 +320,7 @@ export const modules: ModuleData[] = [
     shape: "my:focused-lightning"
   },
   //#endregion
-  ////#endregion
+  //#endregion
   //#region Others
   {
     id: "C",
@@ -330,6 +331,17 @@ export const modules: ModuleData[] = [
     ],
     cargo: 100,
     shape: "my:cube"
+  },
+  {
+    id: "X",
+    name: "Shield Charger",
+    energy: -2,
+    technologies: [
+      { technologyId: TECHNOLOGIES.MilitaryEngineering.id, multi: 1 },
+      { technologyId: TECHNOLOGIES.Physics.id, multi: 1 }
+    ],
+    shieldRecharge: MODULE_SHIELD / 8,
+    shape: "my:armor-upgrade"
   }
   //#endregion
 ];
