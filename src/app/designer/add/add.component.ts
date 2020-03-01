@@ -28,7 +28,7 @@ export class AddComponent implements OnInit {
 
   ngOnInit(): void {
     this.unlockedTypes = this.ms.game.shipyardManager.shipTypes.filter(
-      t => t.unlocked
+      t => t.unlocked || true
     );
     this.validateForm = this.fb.group({
       name: [null, [Validators.required, this.nameValidator]],

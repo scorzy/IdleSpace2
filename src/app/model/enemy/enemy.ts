@@ -10,6 +10,8 @@ import {
   FLEET_CAPACITY,
   BASE_NAVAL_CAPACITY
 } from "../CONSTANTS";
+import { modules, ModuleData } from "../data/modulesData";
+import { ShipType } from "../shipyard/ShipType";
 
 export class Enemy {
   constructor() {
@@ -24,6 +26,10 @@ export class Enemy {
   designs: Array<ShipDesign>;
   totalNavCap = 0;
 
+  private favouriteWeapons: ModuleData[];
+  private modLevel = 1;
+  private weaponDefenceRatio = 0;
+
   generate(searchJob: SearchJob) {
     this.name = "aaa";
     this.designs = [];
@@ -33,14 +39,34 @@ export class Enemy {
       BASE_NAVAL_CAPACITY + ENEMY_NAVAL_CAP_LEVEL * this.level,
       FLEET_CAPACITY
     );
-    const modLevel = 1;
+    this.modLevel = this.level;
 
     if (searchJob.enemyLevel < 1) {
-      this.designs.push(this.generateDesign(FIRST_DRONE, modLevel));
+      this.designs.push(this.generateDesign(FIRST_DRONE, this.modLevel));
       sum = 1;
     } else {
-      // ToDo
-      this.designs.push(this.generateDesign(FIRST_DRONE, modLevel));
+      this.weaponDefenceRatio = 0.35 + Math.random() * 0.65;
+      const sm = Game.getGame().shipyardManager;
+      const maxShip = Math.floor(
+        1 + (11 * this.level) / ((25 + Math.random() * 20) * this.level)
+      );
+      let designNum = 1 + Math.random() * (2 + Math.min(this.level, 100) / 25);
+      const allowedShipTypes = sm.shipTypes.slice(0, designNum);
+      this.favouriteWeapons = [];
+      const maxWeapons = Math.floor(2 + Math.random() * 3);
+      const zeroPercentWeapons = this.level > 10 && maxWeapons > 4;
+      const allowedWeapons = modules.filter(
+        w =>
+          w.damage > 0 &&
+          (zeroPercentWeapons ||
+            (w.armourDamagePercent > 0 && w.shieldDamagePercent > 0))
+      );
+      for (let i = 0; i < maxWeapons; i++) {
+        this.favouriteWeapons.push(sample(allowedWeapons));
+      }
+      for (let i = 0; i < designNum; i++) {
+        this.designs.push(this.generateRandomDesign(sample(allowedShipTypes)));
+      }
       sum = 1;
     }
 
@@ -113,6 +139,24 @@ export class Enemy {
       this.totalNavCap +=
         this.designs[i].enemyQuantity * this.designs[i].type.navalCapacity;
     }
+  }
+  private generateRandomDesign(type: ShipType): ShipDesign {
+    const sm = Game.getGame().shipyardManager;
+
+    const design = new ShipDesign();
+    design.name = "Pippo";
+    design.type = type;
+    let usedModules = 0;
+    let usedPoints = 0;
+    let energy = 0;
+
+    while (
+      usedPoints < design.type.maxPoints &&
+      usedModules < design.type.maxModule
+    ) {}
+
+    design.reload();
+    return design;
   }
 
   //#region Save and Load
