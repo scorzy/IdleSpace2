@@ -72,7 +72,7 @@ export const modules: ModuleData[] = [
     id: "D",
     name: "Deflector",
     energy: -1,
-    armour: 0.5 * MODULE_ARMOUR,
+    armour: MODULE_ARMOUR / 5,
     armourDamageReduction: 0.4 * MODULE_ARMOUR,
     technologies: [
       { technologyId: TECHNOLOGIES.MilitaryEngineering.id, multi: 1 },
@@ -95,6 +95,7 @@ export const modules: ModuleData[] = [
     id: "j",
     name: "Jammer",
     energy: -2,
+    shield: MODULE_SHIELD / 5,
     shieldDamageReduction: 0.4 * MODULE_ARMOUR,
     technologies: [
       { technologyId: TECHNOLOGIES.MilitaryEngineering.id, multi: 1 },
@@ -117,20 +118,20 @@ export const modules: ModuleData[] = [
   {
     id: "R",
     name: "RTG",
-    energy: 4,
+    energy: 3,
     price: 20,
     shape: "my:mass-driver",
     technologies: [
       { technologyId: "e", multi: 1 },
       { technologyId: TECHNOLOGIES.Energy.id, multi: 1 }
     ],
-    explosion: 0.25 * MODULE_ARMOUR,
+    explosion: 0.35 * MODULE_ARMOUR,
     unlockLevel: 2
   },
   {
     id: "I",
     name: "Fission Reactor",
-    energy: 6,
+    energy: 5,
     price: 30,
     shape: "my:reactor",
     technologies: [
@@ -144,7 +145,7 @@ export const modules: ModuleData[] = [
   {
     id: "F",
     name: "Fusion Reactor",
-    energy: 7,
+    energy: 6,
     price: 30,
     shape: "my:atom",
     technologies: [
@@ -158,7 +159,7 @@ export const modules: ModuleData[] = [
   {
     id: "J",
     name: "Antimatter Reactor",
-    energy: 8,
+    energy: 7,
     price: 40,
     shape: "my:materials-science",
     technologies: [
