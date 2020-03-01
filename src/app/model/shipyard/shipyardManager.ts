@@ -20,16 +20,33 @@ export class ShipyardManager extends JobManager {
   fleetsCapacity = new Array<number>(FLEET_NUMBER);
 
   weapons = new Array<Module>();
+  allWeapons = new Array<Module>();
   defences = new Array<Module>();
+  allDefences = new Array<Module>();
   generators = new Array<Module>();
+  allGenerators = new Array<Module>();
   others = new Array<Module>();
   groups: { name: string; list: Array<Module> }[];
   toDo = new Array<Job>();
   maxFleet = 0;
 
+  armour: Module;
+  shield: Module;
+
   init() {
     this.shipTypes = SHIP_TYPES.map(s => new ShipType(s));
     this.modules = modules.map(m => new Module(m));
+    this.armour = this.modules.find(m => m.id === "A");
+    this.shield = this.modules.find(m => m.id === "s");
+    this.allWeapons = this.modules.filter(mod => mod.damage > 0);
+    this.allGenerators = this.modules.filter(mod => mod.energy > 0);
+    this.allDefences = this.modules.filter(
+      mod =>
+        mod.armour > 0 ||
+        mod.shield > 0 ||
+        mod.armourDamageReduction > 0 ||
+        mod.shieldDamageReduction > 0
+    );
   }
   addDesign(name: string, type: number): number {
     if (this.shipDesigns.length >= MAX_DESIGN) return -1;
@@ -86,18 +103,9 @@ export class ShipyardManager extends JobManager {
     }
   }
   reloadLists() {
-    this.weapons = this.modules.filter(mod => mod.unlocked && mod.damage > 0);
-    this.defences = this.modules.filter(
-      mod =>
-        mod.unlocked &&
-        (mod.armour > 0 ||
-          mod.shield > 0 ||
-          mod.armourDamageReduction > 0 ||
-          mod.shieldDamageReduction > 0)
-    );
-    this.generators = this.modules.filter(
-      mod => mod.unlocked && mod.energy > 0
-    );
+    this.weapons = this.allWeapons.filter(mod => mod.unlocked);
+    this.defences = this.allDefences.filter(mod => mod.unlocked);
+    this.generators = this.allGenerators.filter(mod => mod.unlocked);
     this.others = this.modules.filter(
       mod =>
         mod.unlocked &&

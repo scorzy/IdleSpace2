@@ -41,6 +41,7 @@
               >
                 <thead>
                   <th>Module</th>
+                  <th>Size</th>
                   <th>Level</th>
                 </thead>
                 <tbody>
@@ -50,6 +51,7 @@
                         <i nz-icon [nzType]="mod.module.shape"></i>
                         <span class="modName"> {{ mod.module.name }}</span>
                       </td>
+                      <td>{{ mod.size | number: "1.0-0" }}</td>
                       <td>{{ mod.level | number: "1.0-0" }}</td>
                     </tr>
                   </ng-template>

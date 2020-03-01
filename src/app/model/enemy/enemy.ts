@@ -3,7 +3,7 @@ import { ShipDesign } from "../shipyard/shipDesign";
 import { SearchJob } from "./searchJob";
 import { IShipData, FIRST_DRONE } from "../data/shipsData";
 import { Game } from "../game";
-import { sample } from "lodash-es";
+import { sample, shuffle } from "lodash-es";
 import {
   ENEMY_NAVAL_CAP_LEVEL,
   FLEET_CAPACITY_MULTI,
@@ -12,6 +12,7 @@ import {
 } from "../CONSTANTS";
 import { modules, ModuleData } from "../data/modulesData";
 import { ShipType } from "../shipyard/ShipType";
+import { Module } from "../shipyard/module";
 
 export class Enemy {
   constructor() {
@@ -26,9 +27,13 @@ export class Enemy {
   designs: Array<ShipDesign>;
   totalNavCap = 0;
 
-  private favouriteWeapons: ModuleData[];
+  private favouriteWeapons: Module[];
+  private favouriteDefences: Module[];
+  private basicDefences: Module[];
   private modLevel = 1;
   private weaponDefenceRatio = 0;
+  private maxGenerator = 1;
+  private preferHighLevGen = true;
 
   generate(searchJob: SearchJob) {
     this.name = "aaa";
@@ -48,19 +53,44 @@ export class Enemy {
       this.weaponDefenceRatio = 0.35 + Math.random() * 0.65;
       const sm = Game.getGame().shipyardManager;
       const maxShip = Math.floor(
-        1 + (11 * this.level) / ((25 + Math.random() * 20) * this.level)
+        1 + (11 * this.level) / (25 + Math.random() * 20 + this.level)
       );
       let designNum = 1 + Math.random() * (2 + Math.min(this.level, 100) / 25);
-      const allowedShipTypes = sm.shipTypes.slice(0, designNum);
+      const allowedShipTypes = sm.shipTypes.slice(0, maxShip);
       this.favouriteWeapons = [];
       const maxWeapons = Math.floor(2 + Math.random() * 3);
-      const zeroPercentWeapons = this.level > 10 && maxWeapons > 4;
-      const allowedWeapons = modules.filter(
+      const zeroPercentWeapons = this.level > 10 && maxWeapons > 3;
+      const allowedWeapons = sm.allWeapons.filter(
         w =>
-          w.damage > 0 &&
-          (zeroPercentWeapons ||
-            (w.armourDamagePercent > 0 && w.shieldDamagePercent > 0))
+          zeroPercentWeapons ||
+          (w.armourDamagePercent > 0 && w.shieldDamagePercent > 0)
       );
+      const maxGen = Math.min(
+        Math.floor((6 * this.level) / (35 + Math.random() * 20 + this.level)),
+        sm.allGenerators.length - 1
+      );
+      console.log(maxGen);
+      this.maxGenerator = sm.allGenerators[maxGen].energy;
+      this.favouriteDefences = shuffle(
+        sm.allDefences.filter(
+          d => d.armourDamageReduction > 0 || d.shieldDamageReduction
+        )
+      ).slice(0, 2);
+      this.basicDefences = [sm.armour, sm.shield];
+      const rnd = Math.random();
+      if (rnd > 0.75) {
+        this.basicDefences.push(sm.armour);
+        if (rnd > 0.9) {
+          this.basicDefences.push(sm.armour);
+        }
+      } else if (rnd < 0.25) {
+        this.basicDefences.push(sm.shield);
+        if (rnd < 0.1) {
+          this.basicDefences.push(sm.shield);
+        }
+      }
+      this.preferHighLevGen = Math.random() > 0.5;
+
       for (let i = 0; i < maxWeapons; i++) {
         this.favouriteWeapons.push(sample(allowedWeapons));
       }
@@ -144,18 +174,148 @@ export class Enemy {
     const sm = Game.getGame().shipyardManager;
 
     const design = new ShipDesign();
-    design.name = "Pippo";
+    design.name = type.name;
     design.type = type;
     let usedModules = 0;
     let usedPoints = 0;
     let energy = 0;
+    let hasBasicDefence = false;
+    let nAdd = 0;
+    let lastWasWeapon = false;
+    let notEnergy = false;
 
     while (
       usedPoints < design.type.maxPoints &&
-      usedModules < design.type.maxModule
-    ) {}
+      usedModules <= design.type.maxModule &&
+      nAdd < 30
+    ) {
+      nAdd++;
+      let module: Module;
+      let pointToUse = 1;
 
-    design.reload();
+      if (nAdd < 25) {
+        if (
+          Math.random() + (lastWasWeapon ? 0.2 : 0) >
+          this.weaponDefenceRatio
+        ) {
+          // Add Weapon
+          module = sample(this.favouriteWeapons);
+          lastWasWeapon = true;
+        } else {
+          // Add Defence
+          module = !hasBasicDefence
+            ? sample(this.basicDefences)
+            : sample(this.favouriteDefences.concat(this.basicDefences));
+          lastWasWeapon = false;
+        }
+        if (notEnergy && module.energy < 0) module = sm.armour;
+
+        pointToUse = Math.min(
+          5,
+          Math.max(1, Math.floor((design.type.maxPoints - usedPoints) / 4))
+        );
+      } else {
+        module = sm.armour;
+      }
+
+      let tempEnergy = energy + pointToUse * module.energy;
+      let tempUsedPoint = usedPoints + pointToUse;
+      let copy = design.getCopy(false);
+      let nTry = 0;
+
+      //Energy
+      while (tempEnergy < 0 && nTry < 10) {
+        nTry++;
+        let lastGen =
+          copy.modules.length > 0
+            ? copy.modules.find(
+                m =>
+                  m.module &&
+                  m.module.energy > 0 &&
+                  (m.size < 5 || m.module.energy < this.maxGenerator)
+              )
+            : null;
+        if (lastGen) {
+          if (
+            lastGen.size < 5 &&
+            lastGen.module.energy < this.maxGenerator &&
+            tempUsedPoint < design.type.maxPoints
+          ) {
+            if (this.preferHighLevGen) {
+              lastGen.module = sm.allGenerators.find(
+                g =>
+                  g.energy > lastGen.module.energy &&
+                  lastGen.module.energy < this.maxGenerator
+              );
+            } else {
+              lastGen.size++;
+              tempUsedPoint++;
+              tempEnergy += lastGen.module.energy;
+            }
+          } else {
+            if (lastGen.size < 5 && tempUsedPoint < design.type.maxPoints) {
+              lastGen.size++;
+              tempUsedPoint++;
+              tempEnergy += lastGen.module.energy;
+            } else
+              lastGen.module = sm.allGenerators.find(
+                g =>
+                  g.energy > lastGen.module.energy &&
+                  lastGen.module.energy < this.maxGenerator
+              );
+          }
+        } else {
+          if (
+            copy.modules.length < design.type.maxModule - 1 &&
+            tempUsedPoint < design.type.maxPoints
+          ) {
+            const gen = sm.allGenerators.find(g => g.energy > 0);
+            copy.modules.push({
+              module: gen,
+              level: 1,
+              size: 1
+            });
+            tempUsedPoint++;
+            tempEnergy += gen.energy;
+          }
+        }
+      }
+      notEnergy = tempEnergy < 0;
+      if (tempEnergy >= 0 && tempUsedPoint < design.type.maxPoints) {
+        copy.reload(false);
+        if (copy.valid) {
+          const line = copy.modules.find(
+            m => m.module.id === module.id && m.size < 5
+          );
+          if (line) {
+            line.size++;
+          } else {
+            copy.modules.push({
+              module: module,
+              level: 1,
+              size: pointToUse
+            });
+          }
+        }
+        copy.reload(false);
+        if (copy.valid) {
+          design.modules = copy.modules;
+        }
+        copy = null;
+      }
+
+      usedPoints = 0;
+      usedModules = design.modules.length;
+      for (let i = 0; i < usedModules; i++) {
+        usedPoints += design.modules[i].size;
+      }
+
+      const hasArmour = design.modules.findIndex(m => m.module.id === "A") > -1;
+      const hasShield = design.modules.findIndex(m => m.module.id === "s") > -1;
+      hasBasicDefence = hasArmour && hasShield;
+    }
+
+    design.reload(false);
     return design;
   }
 

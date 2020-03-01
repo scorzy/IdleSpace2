@@ -16,6 +16,15 @@ import { Weapon } from "./weapon";
 
 const PRICE_GROW_RATE = 1.05;
 const SIZE_MULTI = 0.2;
+export interface IShipModule {
+  module: Module;
+  level: number;
+  size: number;
+  moduleId?: string;
+  levelUi?: string;
+  validateStatus?: string;
+  errorTip?: string;
+}
 
 export class ShipDesign {
   id: number;
@@ -40,15 +49,7 @@ export class ShipDesign {
   shieldRecharge = 0;
   valid = true;
 
-  modules = new Array<{
-    module: Module;
-    level: number;
-    size: number;
-    moduleId?: string;
-    levelUi?: string;
-    validateStatus?: string;
-    errorTip?: string;
-  }>();
+  modules = new Array<IShipModule>();
   weapons = Array<Weapon>();
 
   enemyPriority = 1;
@@ -83,7 +84,7 @@ export class ShipDesign {
       .forEach(m => {
         this.totalPoints = this.totalPoints + m.size;
         const statsMulti = ShipDesign.getStatsMulti(m);
-        const priceMulti = Decimal.pow(PRICE_GROW_RATE, m.level).times(
+        const priceMulti = Decimal.pow(m.level, PRICE_GROW_RATE).times(
           statsMulti
         );
 
@@ -96,7 +97,7 @@ export class ShipDesign {
         this.explosionDamage += m.module.explosionDamage * statsMulti;
         this.shieldRecharge += m.module.shieldRecharge * statsMulti;
 
-        this.energy += m.module.energy * statsMulti;
+        this.energy += m.module.energy * m.size;
         this.price = this.price.plus(priceMulti.times(m.module.price));
         this.cargo = this.cargo.plus(
           Decimal.multiply(m.module.cargo, statsMulti)
@@ -133,26 +134,29 @@ export class ShipDesign {
         });
     }
   }
-  getCopy() {
+  getCopy(errorCheck = true) {
     const ret = new ShipDesign();
     ret.name = this.name;
     ret.id = this.id;
     ret.rev = this.rev;
     ret.type = this.type;
-    ret.modules = this.modules
-      .filter(l => l.module)
-      .map(mod => {
-        return {
-          module: mod.module,
-          level: mod.level,
-          size: mod.size,
-          moduleId: mod.module.id,
-          levelUi: MainService.formatPipe.transform(mod.level),
-          validateStatus: "",
-          errorTip: ""
-        };
-      });
-    ret.reload();
+    ret.modules =
+      this.modules.length === 0
+        ? []
+        : this.modules
+            .filter(l => l.module)
+            .map(mod => {
+              return {
+                module: mod.module,
+                level: mod.level,
+                size: mod.size,
+                moduleId: mod.module.id,
+                levelUi: MainService.formatPipe.transform(mod.level),
+                validateStatus: "",
+                errorTip: ""
+              };
+            });
+    ret.reload(errorCheck);
     return ret;
   }
   deleteOutDated() {
