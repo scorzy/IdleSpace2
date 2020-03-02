@@ -4,7 +4,10 @@ import {
   FLEET_NUMBER,
   BASE_ARMOUR,
   BASE_SHIP_PRICE,
-  BASE_EXPLOSION
+  BASE_EXPLOSION,
+  BASE_THREAT,
+  BASE_VELOCITY,
+  MIN_THREAT
 } from "../CONSTANTS";
 import { Module } from "./module";
 import { Game } from "../game";
@@ -47,6 +50,8 @@ export class ShipDesign {
   price = ZERO;
   cargo = ZERO;
   shieldRecharge = 0;
+  velocity = BASE_VELOCITY;
+  acceleration = 0;
   valid = true;
 
   modules = new Array<IShipModule>();
@@ -54,7 +59,7 @@ export class ShipDesign {
 
   enemyPriority = 1;
   enemyQuantity = 0;
-  threat = 1;
+  threat = BASE_THREAT;
 
   constructor() {
     this.fleets = new Array<FleetShips>(FLEET_NUMBER);
@@ -67,6 +72,8 @@ export class ShipDesign {
     return (1 + 0.1 * (m.level - 1)) * sizeMultiplier;
   }
   reload(errorCheck = false) {
+    let avgModLevel = 0;
+    let modSum = 0;
     this.weapons = [];
     this.totalArmour = BASE_ARMOUR * (this.type.id + 1);
     this.totalShield = 0;
@@ -79,9 +86,14 @@ export class ShipDesign {
     this.energy = 0;
     this.explosionDamage = 0;
     this.shieldRecharge = 0;
+    this.velocity = BASE_VELOCITY;
+    this.acceleration = 0;
+    this.threat = 0;
     this.modules
       .filter(m => m.module)
       .forEach(m => {
+        avgModLevel += m.level;
+        modSum++;
         this.totalPoints = this.totalPoints + m.size;
         const statsMulti = ShipDesign.getStatsMulti(m);
         const priceMulti = Decimal.pow(m.level, PRICE_GROW_RATE).times(
@@ -96,6 +108,9 @@ export class ShipDesign {
         this.totalDamage += damage;
         this.explosionDamage += m.module.explosionDamage * statsMulti;
         this.shieldRecharge += m.module.shieldRecharge * statsMulti;
+        this.velocity += m.module.velocity * statsMulti;
+        this.acceleration += m.module.acceleration * statsMulti;
+        this.threat += m.module.threat * statsMulti;
 
         this.energy += m.module.energy * m.size;
         this.price = this.price.plus(priceMulti.times(m.module.price));
@@ -116,10 +131,17 @@ export class ShipDesign {
         }
       });
 
-    this.valid = this.energy >= 0;
+    this.valid =
+      this.energy >= 0 &&
+      modSum <= this.type.maxModule &&
+      avgModLevel <= this.type.maxPoints;
 
-    //  Error check
+    avgModLevel = modSum > 0 ? avgModLevel / modSum : 1;
+    this.threat += this.threat * avgModLevel;
+    this.threat = Math.max(MIN_THREAT, this.threat);
+
     if (errorCheck) {
+      //  Error check
       this.modules
         .filter(m => m.module)
         .forEach(mod => {

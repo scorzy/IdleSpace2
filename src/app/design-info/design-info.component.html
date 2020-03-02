@@ -12,10 +12,10 @@
         ></span>
         <strong> {{ data.name }}</strong>
       </td>
-      <td>
+      <td class="minWidth">
         {{ data.original | format }}
       </td>
-      <td *ngIf="design">
+      <td *ngIf="design" class="minWidth">
         <span nz-text [nzType]="data.type" [className]="data.classes">{{
           data.new | format
         }}</span>

@@ -4,7 +4,10 @@ import {
   MODULE_ARMOUR,
   MODULE_SHIELD,
   MODULE_DAMAGE,
-  DEFAULT_MODULE_PRICE
+  DEFAULT_MODULE_PRICE,
+  BASE_VELOCITY,
+  BASE_ACCELERATION,
+  BASE_THREAT
 } from "../CONSTANTS";
 
 export class ModuleData {
@@ -29,6 +32,12 @@ export class ModuleData {
   cargo?: number;
   technologies: { technologyId: string; multi: number }[];
   shieldRecharge?: number;
+  velocity?: number;
+  acceleration?: number;
+  threat?: number;
+  aliveThreatGain?: 0;
+  armourThreatGain?: 0;
+  shieldThreatGain?: 0;
 }
 
 export const modules: ModuleData[] = [
@@ -343,6 +352,66 @@ export const modules: ModuleData[] = [
     ],
     shieldRecharge: MODULE_SHIELD / 8,
     shape: "my:armor-upgrade"
+  },
+  //#endregion
+  //#region Thrusters
+  {
+    id: "r",
+    name: "Rocket",
+    technologies: [
+      { technologyId: TECHNOLOGIES.CivilEngineering.id, multi: 1 },
+      { technologyId: TECHNOLOGIES.Propulsion.id, multi: 1 }
+    ],
+    velocity: BASE_VELOCITY,
+    shape: "my:rocket-thruster"
+  },
+  {
+    id: "o",
+    name: "Ion Drive",
+    energy: -1,
+    price: 20,
+    technologies: [
+      { technologyId: TECHNOLOGIES.Physics.id, multi: 1 },
+      { technologyId: TECHNOLOGIES.Propulsion.id, multi: 1 }
+    ],
+    acceleration: BASE_ACCELERATION,
+    shape: "my:rocket-thruster"
+  },
+  {
+    id: "a",
+    name: "Antimatter Rocket",
+    price: 40,
+    technologies: [
+      { technologyId: TECHNOLOGIES.MilitaryEngineering.id, multi: 1 },
+      { technologyId: TECHNOLOGIES.Propulsion.id, multi: 1 }
+    ],
+    velocity: BASE_VELOCITY * 10,
+    explosion: 2 * MODULE_ARMOUR,
+    explosionDamage: 1 * MODULE_DAMAGE,
+    shape: "my:rocket-thruster"
+  },
+  {
+    id: "w",
+    name: "Warp Drive",
+    price: 40,
+    energy: -2,
+    technologies: [
+      { technologyId: TECHNOLOGIES.Physics.id, multi: 1 },
+      { technologyId: TECHNOLOGIES.Propulsion.id, multi: 1 }
+    ],
+    acceleration: BASE_ACCELERATION * 5,
+    shape: "my:rocket-thruster"
+  },
+  {
+    id: "l",
+    name: "Solar Sail",
+    technologies: [
+      { technologyId: TECHNOLOGIES.Materials.id, multi: 1 },
+      { technologyId: TECHNOLOGIES.Propulsion.id, multi: 1 }
+    ],
+    acceleration: BASE_ACCELERATION * 0.1,
+    threat: BASE_THREAT,
+    shape: "my:rocket-thruster"
   }
   //#endregion
 ];

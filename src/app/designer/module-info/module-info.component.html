@@ -117,4 +117,32 @@
   >
     <i nz-icon nzType="my:cube"></i>{{ mod.cargo | number: "1.0-0" }}%
   </span>
+  <span
+    *ngIf="mod.velocity > 0"
+    class="velocity-color"
+    nz-tooltip
+    nzTooltipTitle="Velocity"
+    fxLayout="row"
+  >
+    <i nz-icon nzType="my:rocket-thruster"></i
+    >{{ mod.velocity | number: "1.0-0" }}
+  </span>
+  <span
+    *ngIf="mod.acceleration > 0"
+    class="acceleration-color"
+    nz-tooltip
+    nzTooltipTitle="Acceleration"
+    fxLayout="row"
+  >
+    <i nz-icon nzType="forward"></i>{{ mod.acceleration | number: "1.0-4" }}
+  </span>
+  <span
+    *ngIf="mod.threat > 0"
+    class="threat-color"
+    nz-tooltip
+    nzTooltipTitle="Threat"
+    fxLayout="row"
+  >
+    <i nz-icon nzType="my:archery-target"></i>{{ mod.threat | number: "1.0-0" }}
+  </span>
 </span>

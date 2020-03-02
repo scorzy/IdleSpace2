@@ -28,6 +28,12 @@ export class Module implements IUnlockable {
   technologies: { technology: Technology; multi: number }[];
   unlockLevel = 0;
   shieldRecharge = 0;
+  velocity = 0;
+  acceleration = 0;
+  threat = 0;
+  aliveThreatGain: 0;
+  armourThreatGain: 0;
+  shieldThreatGain: 0;
 
   constructor(moduleData: ModuleData) {
     this.id = moduleData.id;
@@ -72,6 +78,24 @@ export class Module implements IUnlockable {
     }
     if ("shieldRecharge" in moduleData) {
       this.shieldRecharge = moduleData.shieldRecharge;
+    }
+    if ("velocity" in moduleData) {
+      this.velocity = moduleData.velocity;
+    }
+    if ("acceleration" in moduleData) {
+      this.acceleration = moduleData.acceleration;
+    }
+    if ("threat" in moduleData) {
+      this.threat = moduleData.threat;
+    }
+    if ("aliveThreatGain" in moduleData) {
+      this.aliveThreatGain = moduleData.aliveThreatGain;
+    }
+    if ("armourThreatGain" in moduleData) {
+      this.armourThreatGain = moduleData.armourThreatGain;
+    }
+    if ("shieldThreatGain" in moduleData) {
+      this.shieldThreatGain = moduleData.shieldThreatGain;
     }
   }
   reloadMaxLevel() {

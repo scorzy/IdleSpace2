@@ -25,28 +25,19 @@ export class ModulesComponent implements OnInit {
         this.modules = this.ms.game.shipyardManager.modules.slice(0);
         break;
       case "w":
-        this.modules = this.ms.game.shipyardManager.modules.filter(
-          m => m.damage > 0
-        );
+        this.modules = this.ms.game.shipyardManager.allWeapons.slice(0);
         break;
       case "d":
-        this.modules = this.ms.game.shipyardManager.modules.filter(
-          m =>
-            m.armour > 0 ||
-            m.shield > 0 ||
-            m.armourDamageReduction > 0 ||
-            m.shieldDamageReduction > 0
-        );
+        this.modules = this.ms.game.shipyardManager.allDefences.slice(0);
         break;
       case "g":
-        this.modules = this.ms.game.shipyardManager.modules.filter(
-          m => m.energy > 0
-        );
+        this.modules = this.ms.game.shipyardManager.allGenerators.slice(0);
+        break;
+      case "t":
+        this.modules = this.ms.game.shipyardManager.allThrusters.slice(0);
         break;
       case "o":
-        this.modules = this.ms.game.shipyardManager.modules.filter(
-          m => m.damage <= 0 && m.armour <= 0 && m.shield <= 0 && m.energy <= 0
-        );
+        this.modules = this.ms.game.shipyardManager.allOthers.slice(0);
         break;
     }
     if (this.status === "u") {

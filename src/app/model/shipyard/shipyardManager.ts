@@ -25,7 +25,10 @@ export class ShipyardManager extends JobManager {
   allDefences = new Array<Module>();
   generators = new Array<Module>();
   allGenerators = new Array<Module>();
+  allOthers = new Array<Module>();
   others = new Array<Module>();
+  allThrusters = new Array<Module>();
+  thrusters = new Array<Module>();
   groups: { name: string; list: Array<Module> }[];
   toDo = new Array<Job>();
   maxFleet = 0;
@@ -46,6 +49,16 @@ export class ShipyardManager extends JobManager {
         mod.shield > 0 ||
         mod.armourDamageReduction > 0 ||
         mod.shieldDamageReduction > 0
+    );
+    this.allThrusters = this.modules.filter(
+      mod => mod.velocity > 0 || mod.acceleration > 0
+    );
+    this.allOthers = this.modules.filter(
+      mod =>
+        this.allWeapons.findIndex(w => w.id === mod.id) < 0 &&
+        this.allDefences.findIndex(w => w.id === mod.id) < 0 &&
+        this.allThrusters.findIndex(w => w.id === mod.id) < 0 &&
+        this.allGenerators.findIndex(w => w.id === mod.id) < 0
     );
   }
   addDesign(name: string, type: number): number {
@@ -106,17 +119,13 @@ export class ShipyardManager extends JobManager {
     this.weapons = this.allWeapons.filter(mod => mod.unlocked);
     this.defences = this.allDefences.filter(mod => mod.unlocked);
     this.generators = this.allGenerators.filter(mod => mod.unlocked);
-    this.others = this.modules.filter(
-      mod =>
-        mod.unlocked &&
-        this.weapons.findIndex(w => w.id === mod.id) < 0 &&
-        this.defences.findIndex(w => w.id === mod.id) < 0 &&
-        this.generators.findIndex(w => w.id === mod.id) < 0
-    );
+    this.thrusters = this.allThrusters.filter(m => m.unlocked);
+    this.others = this.allOthers.filter(mod => mod.unlocked);
     this.groups = [
       { name: "Weapons", list: this.weapons },
       { name: "Defences", list: this.defences },
       { name: "Generators", list: this.generators },
+      { name: "Thrusters", list: this.thrusters },
       { name: "Others", list: this.others }
     ];
   }

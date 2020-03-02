@@ -184,16 +184,22 @@
   </div>
 
   <!-- Comparison Table -->
+
   <div fxFlex="30">
-    <app-design-info
-      [original]="original"
-      [design]="design"
-      [updateEmitter]="changeEmitter"
-    ></app-design-info>
-    <h3>Weapons</h3>
-    <app-weapon-view
-      [weapons]="design.weapons"
-      *ngIf="design.weapons.length > 0"
-    ></app-weapon-view>
+    <nz-tabset>
+      <nz-tab nzTitle="Stats">
+        <app-design-info
+          [original]="original"
+          [design]="design"
+          [updateEmitter]="changeEmitter"
+        ></app-design-info>
+      </nz-tab>
+      <nz-tab nzTitle="Weapons">
+        <app-weapon-view
+          [weapons]="design.weapons"
+          *ngIf="design.weapons.length > 0"
+        ></app-weapon-view>
+      </nz-tab>
+    </nz-tabset>
   </div>
 </div>

@@ -19,7 +19,7 @@ import { Subscription } from "rxjs";
 export class DesignInfoComponent implements OnInit, OnDestroy {
   @Input() original: ShipDesign;
   @Input() design: ShipDesign;
-  @Input() size = "middle";
+  @Input() size = "small";
   @Input() updateEmitter: EventEmitter<number>;
 
   private subscriptions: Subscription[] = [];
@@ -49,7 +49,6 @@ export class DesignInfoComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.subscriptions.forEach((sub: Subscription) => sub.unsubscribe());
   }
-
   makeComparisonData() {
     this.comparisonData = [];
     this.comparisonData.push({
@@ -70,7 +69,7 @@ export class DesignInfoComponent implements OnInit, OnDestroy {
         : ""
     });
     this.comparisonData.push({
-      name: "Armour dmg. Reduction",
+      name: "Armour dmg. red.",
       icon: "my:shield-reflect",
       iconClass: "armour-damage-color",
       original: this.original.armourReduction,
@@ -104,7 +103,7 @@ export class DesignInfoComponent implements OnInit, OnDestroy {
         : ""
     });
     this.comparisonData.push({
-      name: "Shield dmg. Reduction",
+      name: "Shield dmg. red.",
       icon: "my:shield-reflect",
       iconClass: "shield-damage-color",
       original: this.original.shieldReduction,
@@ -219,6 +218,57 @@ export class DesignInfoComponent implements OnInit, OnDestroy {
       classes: !this.design
         ? null
         : this.original.cargo.lt(this.design.cargo)
+        ? "text-success"
+        : ""
+    });
+    this.comparisonData.push({
+      name: "Velocity",
+      icon: "my:rocket-thruster",
+      iconClass: "velocity-color",
+      original: this.original.threat,
+      new: !this.design ? null : this.design.velocity,
+      type: !this.design
+        ? null
+        : this.original.velocity < this.design.velocity
+        ? "danger"
+        : "",
+      classes: !this.design
+        ? null
+        : this.original.velocity > this.design.velocity
+        ? "text-success"
+        : ""
+    });
+    this.comparisonData.push({
+      name: "Acceleration",
+      icon: "forward",
+      iconClass: "acceleration-color",
+      original: this.original.acceleration,
+      new: !this.design ? null : this.design.acceleration,
+      type: !this.design
+        ? null
+        : this.original.acceleration < this.design.acceleration
+        ? "danger"
+        : "",
+      classes: !this.design
+        ? null
+        : this.original.acceleration > this.design.acceleration
+        ? "text-success"
+        : ""
+    });
+    this.comparisonData.push({
+      name: "Threat",
+      icon: "my:archery-target",
+      iconClass: "threat-color",
+      original: this.original.threat,
+      new: !this.design ? null : this.design.threat,
+      type: !this.design
+        ? null
+        : this.original.threat > this.design.threat
+        ? "danger"
+        : "",
+      classes: !this.design
+        ? null
+        : this.original.threat < this.design.threat
         ? "text-success"
         : ""
     });

@@ -13,7 +13,10 @@
   <tbody>
     <ng-template ngFor let-weapon [ngForOf]="nzTable.data">
       <tr>
-        <td>{{ weapon.module.name }}</td>
+        <td>
+          <i nz-icon [nzType]="weapon.module.shape"></i>
+          {{ weapon.module.name }}
+        </td>
         <td>{{ weapon.damage | format }}</td>
         <td>{{ weapon.armourPercent | format }}</td>
         <td>{{ weapon.shieldPercent | format }}</td>

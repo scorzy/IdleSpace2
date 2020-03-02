@@ -30,3 +30,7 @@ export const MODULE_ARMOUR = 200;
 export const MODULE_SHIELD = 200;
 export const MODULE_DAMAGE = 65;
 export const DEFAULT_MODULE_PRICE = 100;
+export const BASE_VELOCITY = 10;
+export const BASE_ACCELERATION = 1;
+export const BASE_THREAT = 100;
+export const MIN_THREAT = 10;
