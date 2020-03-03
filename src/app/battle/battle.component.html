@@ -25,7 +25,9 @@
 
     <app-battle-table></app-battle-table>
   </div>
+
   <div fxFlex="1 1 calc(50% - 10px)">
+    <h3>You</h3>
     <nz-select [(ngModel)]="fleetNum" nzPlaceHolder="Choose">
       <nz-option nzValue="0" nzLabel="Fleet 1"></nz-option>
       <nz-option nzValue="1" nzLabel="Fleet 2"></nz-option>
@@ -34,7 +36,6 @@
       <nz-option nzValue="4" nzLabel="Fleet 5"></nz-option>
     </nz-select>
 
-    <h3>You</h3>
     <app-ships-view
       [designs]="ms.game.shipyardManager.shipDesigns"
       [fleetNum]="fleetNum"

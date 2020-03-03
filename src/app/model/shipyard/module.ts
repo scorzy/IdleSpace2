@@ -31,9 +31,9 @@ export class Module implements IUnlockable {
   velocity = 0;
   acceleration = 0;
   threat = 0;
-  aliveThreatGain: 0;
-  armourThreatGain: 0;
-  shieldThreatGain: 0;
+  precision = 0;
+  adaptivePrecision = 0;
+  threatGainMulti = 1;
 
   constructor(moduleData: ModuleData) {
     this.id = moduleData.id;
@@ -88,14 +88,14 @@ export class Module implements IUnlockable {
     if ("threat" in moduleData) {
       this.threat = moduleData.threat;
     }
-    if ("aliveThreatGain" in moduleData) {
-      this.aliveThreatGain = moduleData.aliveThreatGain;
+    if ("precision" in moduleData) {
+      this.precision = moduleData.precision;
     }
-    if ("armourThreatGain" in moduleData) {
-      this.armourThreatGain = moduleData.armourThreatGain;
+    if ("adaptivePrecision" in moduleData) {
+      this.adaptivePrecision = moduleData.adaptivePrecision;
     }
-    if ("shieldThreatGain" in moduleData) {
-      this.shieldThreatGain = moduleData.shieldThreatGain;
+    if ("threatGainMulti" in moduleData) {
+      this.threatGainMulti = moduleData.threatGainMulti;
     }
   }
   reloadMaxLevel() {

@@ -74,6 +74,7 @@ export class ShipDesign {
   reload(errorCheck = false) {
     let avgModLevel = 0;
     let modSum = 0;
+    let points = 0;
     this.weapons = [];
     this.totalArmour = BASE_ARMOUR * (this.type.id + 1);
     this.totalShield = 0;
@@ -93,6 +94,7 @@ export class ShipDesign {
       .filter(m => m.module)
       .forEach(m => {
         avgModLevel += m.level;
+        points += m.size;
         modSum++;
         this.totalPoints = this.totalPoints + m.size;
         const statsMulti = ShipDesign.getStatsMulti(m);
@@ -124,9 +126,9 @@ export class ShipDesign {
             damage,
             armourPercent: m.module.armourDamagePercent,
             shieldPercent: m.module.shieldDamagePercent,
-            aliveThreatGain: 0,
-            armourThreatGain: 0,
-            shieldThreatGain: 0
+            precision: 0,
+            adaptivePrecision: 0,
+            threatMulti: 1
           });
         }
       });
@@ -134,7 +136,7 @@ export class ShipDesign {
     this.valid =
       this.energy >= 0 &&
       modSum <= this.type.maxModule &&
-      avgModLevel <= this.type.maxPoints;
+      points <= this.type.maxPoints;
 
     avgModLevel = modSum > 0 ? avgModLevel / modSum : 1;
     this.threat += this.threat * avgModLevel;

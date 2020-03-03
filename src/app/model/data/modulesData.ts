@@ -35,9 +35,9 @@ export class ModuleData {
   velocity?: number;
   acceleration?: number;
   threat?: number;
-  aliveThreatGain?: 0;
-  armourThreatGain?: 0;
-  shieldThreatGain?: 0;
+  precision?: number;
+  adaptivePrecision?: number;
+  threatGainMulti?: number;
 }
 
 export const modules: ModuleData[] = [
@@ -223,6 +223,7 @@ export const modules: ModuleData[] = [
       { technologyId: TECHNOLOGIES.Physics.id, multi: 1 }
     ],
     unlockLevel: 50,
+    threatGainMulti: 1.5,
     shape: "my:crumbling-ball"
   },
   {
@@ -252,6 +253,7 @@ export const modules: ModuleData[] = [
       { technologyId: TECHNOLOGIES.MilitaryEngineering.id, multi: 1 },
       { technologyId: TECHNOLOGIES.Physics.id, multi: 1 }
     ],
+    threatGainMulti: 1.5,
     shape: "my:unstable-orb"
   },
   //#endregion
@@ -314,6 +316,7 @@ export const modules: ModuleData[] = [
       { technologyId: TECHNOLOGIES.CivilEngineering.id, multi: 1 },
       { technologyId: TECHNOLOGIES.Physics.id, multi: 1 }
     ],
+    threatGainMulti: 0.7,
     shape: "my:mining"
   },
   {
@@ -327,6 +330,7 @@ export const modules: ModuleData[] = [
       { technologyId: TECHNOLOGIES.CivilEngineering.id, multi: 1 },
       { technologyId: TECHNOLOGIES.Energy.id, multi: 1 }
     ],
+    threatGainMulti: 0.7,
     shape: "my:focused-lightning"
   },
   //#endregion

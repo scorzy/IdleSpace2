@@ -116,7 +116,8 @@ export class EditComponent implements OnInit, OnDestroy {
               Decimal
             })
             .max(ONE)
-        : ONE;
+            .toNumber()
+        : 1;
     }
     if (this.design) {
       this.design.reload(true);
@@ -152,6 +153,7 @@ export class EditComponent implements OnInit, OnDestroy {
     }
   }
   isDisabled(): boolean {
+    // console.log("v " + this.design.valid + " e " + this.isEqual);
     return !this.design.valid || this.isEqual;
   }
   delete() {
