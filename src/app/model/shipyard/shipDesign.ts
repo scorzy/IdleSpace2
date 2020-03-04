@@ -7,7 +7,8 @@ import {
   BASE_EXPLOSION,
   BASE_THREAT,
   BASE_VELOCITY,
-  MIN_THREAT
+  MIN_THREAT,
+  UTILITY_MOD_DECREASE
 } from "../CONSTANTS";
 import { Module } from "./module";
 import { Game } from "../game";
@@ -67,8 +68,9 @@ export class ShipDesign {
       this.fleets[i] = new FleetShips();
     }
   }
-  static getStatsMulti(m: any): number {
+  static getStatsMulti(m: any, noLevel = false): number {
     const sizeMultiplier = m.size + (m.size - 1) * SIZE_MULTI;
+    if (noLevel) return sizeMultiplier;
     return (1 + 0.1 * (m.level - 1)) * sizeMultiplier;
   }
   reload(errorCheck = false) {
@@ -90,48 +92,75 @@ export class ShipDesign {
     this.velocity = BASE_VELOCITY;
     this.acceleration = 0;
     this.threat = 0;
-    this.modules
-      .filter(m => m.module)
-      .forEach(m => {
-        avgModLevel += m.level;
-        points += m.size;
-        modSum++;
-        this.totalPoints = this.totalPoints + m.size;
-        const statsMulti = ShipDesign.getStatsMulti(m);
-        const priceMulti = Decimal.pow(m.level, PRICE_GROW_RATE).times(
-          statsMulti
-        );
+    for (let i = 0, n = this.modules.length; i < n; i++) {
+      const m = this.modules[i];
+      if (!m.module) continue;
 
-        this.totalArmour += m.module.armour * statsMulti;
-        this.totalShield += m.module.shield * statsMulti;
-        this.armourReduction += m.module.armourDamageReduction * statsMulti;
-        this.shieldReduction += m.module.shieldDamageReduction * statsMulti;
-        const damage = m.module.damage * statsMulti;
-        this.totalDamage += damage;
-        this.explosionDamage += m.module.explosionDamage * statsMulti;
-        this.shieldRecharge += m.module.shieldRecharge * statsMulti;
-        this.velocity += m.module.velocity * statsMulti;
-        this.acceleration += m.module.acceleration * statsMulti;
-        this.threat += m.module.threat * statsMulti;
+      avgModLevel += m.level;
+      points += m.size;
+      modSum++;
+      this.totalPoints = this.totalPoints + m.size;
+      const statsMulti = ShipDesign.getStatsMulti(m);
+      const priceMulti = Decimal.pow(m.level, PRICE_GROW_RATE).times(
+        statsMulti
+      );
 
-        this.energy += m.module.energy * m.size * m.level;
-        this.price = this.price.plus(priceMulti.times(m.module.price));
-        this.cargo = this.cargo.plus(
-          Decimal.multiply(m.module.cargo, statsMulti)
-        );
+      this.totalArmour += m.module.armour * statsMulti;
+      this.totalShield += m.module.shield * statsMulti;
+      this.armourReduction += m.module.armourDamageReduction * statsMulti;
+      this.shieldReduction += m.module.shieldDamageReduction * statsMulti;
+      const damage = m.module.damage * statsMulti;
+      this.totalDamage += damage;
+      this.explosionDamage += m.module.explosionDamage * statsMulti;
+      this.shieldRecharge += m.module.shieldRecharge * statsMulti;
+      this.velocity += m.module.velocity * statsMulti;
+      this.acceleration += m.module.acceleration * statsMulti;
+      this.threat += m.module.threat * statsMulti;
 
-        if (m.module.damage > 0) {
-          this.weapons.push({
-            module: m.module,
-            damage,
-            armourPercent: m.module.armourDamagePercent,
-            shieldPercent: m.module.shieldDamagePercent,
-            precision: m.module.precision * statsMulti,
-            adaptivePrecision: m.module.adaptivePrecision * statsMulti,
-            threatMulti: m.module.threatGainMulti
-          });
+      this.energy += m.module.energy * m.size * m.level;
+      this.price = this.price.plus(priceMulti.times(m.module.price));
+      this.cargo = this.cargo.plus(
+        Decimal.multiply(m.module.cargo, statsMulti)
+      );
+
+      if (m.module.damage > 0) {
+        this.weapons.push({
+          module: m.module,
+          level: m.level,
+          damage,
+          armourPercent: m.module.armourDamagePercent,
+          shieldPercent: m.module.shieldDamagePercent,
+          precision: m.module.precision * statsMulti,
+          adaptivePrecision: m.module.adaptivePrecision * statsMulti,
+          threatMulti: m.module.threatGainMulti
+        });
+      }
+    }
+    // Utility
+    for (let i = 0, n = this.modules.length; i < n; i++) {
+      const m = this.modules[i];
+      if (!m || m.module.damage > 0) continue;
+      const statsMulti = ShipDesign.getStatsMulti(m);
+      const statsMultiNoLevel = ShipDesign.getStatsMulti(m, true);
+      this.weapons.forEach(weapon => {
+        weapon.precision += m.module.precision * statsMulti;
+        weapon.adaptivePrecision += m.module.adaptivePrecision * statsMulti;
+        let multi = 1;
+        if (weapon.level > m.level) {
+          multi = Math.pow(UTILITY_MOD_DECREASE, weapon.level - m.level);
+        }
+        if (m.module.armourDamagePercent !== 100) {
+          weapon.armourPercent *=
+            1 +
+            (m.module.armourDamagePercent * statsMultiNoLevel * multi) / 100;
+        }
+        if (m.module.shieldDamagePercent !== 100) {
+          weapon.shieldPercent *=
+            1 +
+            (m.module.shieldDamagePercent * statsMultiNoLevel * multi) / 100;
         }
       });
+    }
 
     this.valid =
       this.energy >= 0 &&

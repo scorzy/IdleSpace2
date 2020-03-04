@@ -34,3 +34,4 @@ export const BASE_VELOCITY = 10;
 export const BASE_ACCELERATION = 1;
 export const BASE_THREAT = 100;
 export const MIN_THREAT = 200;
+export const UTILITY_MOD_DECREASE = 0.96;

@@ -3,4 +3,5 @@ import { Module } from "./module";
 
 export class Weapon extends WeaponData {
   module: Module;
+  level = 0;
 }

@@ -344,6 +344,7 @@ export const modules: ModuleData[] = [
       { technologyId: TECHNOLOGIES.Materials.id, multi: 1 }
     ],
     cargo: 100,
+    explosion: MODULE_ARMOUR * -1,
     shape: "my:cube"
   },
   {
@@ -356,6 +357,20 @@ export const modules: ModuleData[] = [
     ],
     shieldRecharge: MODULE_SHIELD / 8,
     shape: "my:armor-upgrade"
+  },
+  {
+    id: "t",
+    name: "Tracking System",
+    technologies: [
+      { technologyId: TECHNOLOGIES.MilitaryEngineering.id, multi: 1 },
+      { technologyId: TECHNOLOGIES.Computing.id, multi: 1 }
+    ],
+    energy: -1,
+    precision: 500,
+    adaptivePrecision: 500,
+    armourDamagePercent: 8,
+    shieldDamagePercent: 8,
+    shape: "my:targeting"
   },
   //#endregion
   //#region Thrusters
