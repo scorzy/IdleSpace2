@@ -1,26 +1,65 @@
-<nz-table
-  #nzTable
-  [nzData]="weapons"
-  [nzSize]="size"
-  [nzShowPagination]="false"
->
-  <thead>
-    <th>Name</th>
-    <th>Damage</th>
-    <th>Armour %</th>
-    <th>Shield %</th>
-  </thead>
-  <tbody>
-    <ng-template ngFor let-weapon [ngForOf]="nzTable.data">
-      <tr>
-        <td>
-          <i nz-icon [nzType]="weapon.module.shape"></i>
-          {{ weapon.module.name }}
-        </td>
-        <td>{{ weapon.damage | format }}</td>
-        <td>{{ weapon.armourPercent | format }}</td>
-        <td>{{ weapon.shieldPercent | format }}</td>
-      </tr>
-    </ng-template>
-  </tbody>
-</nz-table>
+<span *ngFor="let weapon of weapons">
+  <span font="monospace" fxLayout="row wrap" fxLayoutGap="0.25rem;">
+    <i nz-icon [nzType]="weapon.module.shape"></i>
+    <strong>{{ weapon.module.name }}</strong>
+    <span
+      *ngIf="weapon.damage > 0"
+      class="damage-color"
+      nz-tooltip
+      nzTooltipTitle="Damage"
+      fxLayout="row"
+    >
+      <i nz-icon nzType="my:blaster"></i>
+      <span>{{ weapon.damage | format: true }}</span>
+    </span>
+    <span
+      *ngIf="weapon.armourPercent !== 100"
+      class="armour-damage-color"
+      nz-tooltip
+      nzTooltipTitle="Armour % Damage"
+      fxLayout="row"
+    >
+      <i nz-icon nzType="my:laser-blast"></i>
+      {{ weapon.armourPercent | format: true }}%
+    </span>
+    <span
+      *ngIf="weapon.shieldPercent !== 100"
+      class="shield-damage-color"
+      nz-tooltip
+      nzTooltipTitle="Shield % Damage"
+      fxLayout="row"
+    >
+      <i nz-icon nzType="my:supersonic-bullet"></i>
+      {{ weapon.shieldPercent | format: true }}%
+    </span>
+    <span
+      *ngIf="weapon.threatMulti !== 1"
+      class="threat-color"
+      nz-tooltip
+      nzTooltipTitle="Threat Multi"
+      fxLayout="row"
+    >
+      <i nz-icon nzType="my:target-arrows"></i
+      >{{ weapon.threatMulti * 100 | format }}%
+    </span>
+    <span
+      *ngIf="weapon.precision > 0"
+      class="threat-color"
+      nz-tooltip
+      nzTooltipTitle="Precision"
+      fxLayout="row"
+    >
+      <i nz-icon nzType="my:targeting"></i>{{ weapon.precision | format: true }}
+    </span>
+    <span
+      *ngIf="weapon.adaptivePrecision > 0"
+      class="threat-color"
+      nz-tooltip
+      nzTooltipTitle="Adaptive Precision"
+      fxLayout="row"
+    >
+      <i nz-icon nzType="my:arrow-scope"></i
+      >{{ weapon.adaptivePrecision | format: true }}
+    </span>
+  </span>
+</span>

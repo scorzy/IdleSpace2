@@ -14,7 +14,6 @@ import { Weapon } from "../model/shipyard/weapon";
 })
 export class WeaponViewComponent implements OnInit {
   @Input() weapons: Weapon[];
-  @Input() size = "middle";
 
   constructor() {}
 

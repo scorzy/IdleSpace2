@@ -145,4 +145,33 @@
   >
     <i nz-icon nzType="my:archery-target"></i>{{ mod.threat | number: "1.0-0" }}
   </span>
+  <span
+    *ngIf="mod.threatGainMulti !== 1"
+    class="threat-color"
+    nz-tooltip
+    nzTooltipTitle="Threat Multi"
+    fxLayout="row"
+  >
+    <i nz-icon nzType="my:target-arrows"></i
+    >{{ mod.threatGainMulti * 100 | number: "1.0-0" }}%
+  </span>
+  <span
+    *ngIf="mod.precision > 0"
+    class="threat-color"
+    nz-tooltip
+    nzTooltipTitle="Precision"
+    fxLayout="row"
+  >
+    <i nz-icon nzType="my:targeting"></i>{{ mod.precision | number: "1.0-0" }}
+  </span>
+  <span
+    *ngIf="mod.adaptivePrecision > 0"
+    class="threat-color"
+    nz-tooltip
+    nzTooltipTitle="Adaptive Precision"
+    fxLayout="row"
+  >
+    <i nz-icon nzType="my:arrow-scope"></i
+    >{{ mod.adaptivePrecision | number: "1.0-0" }}
+  </span>
 </span>
