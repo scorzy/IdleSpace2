@@ -4,11 +4,9 @@ import { WeaponData, ShipData } from "./shipData";
 import { BattleResult, Stats, DesignReport } from "./battleResult";
 
 export function battle(battleRequest: BattleRequest): any {
-  const fleets = [battleRequest.enemyFleet, battleRequest.playerFleet];
-  // console.log(fleets);
-  const battleResult = new BattleResult();
-
   //#region Data initialization
+  const battleResult = new BattleResult();
+  const fleets = [battleRequest.enemyFleet, battleRequest.playerFleet];
   for (let i = 0, n = fleets.length; i < n; i++) {
     const fleet = fleets[i];
     fleet.forEach(shipData => {
@@ -84,6 +82,21 @@ export function battle(battleRequest: BattleRequest): any {
       }
     }
     //#endregion
+    //#region Threat Stats
+    for (let i = 0; i < 2; i++) {
+      const fleet = fleets[i];
+      for (let m = 0, n7 = fleet.length; m < n7; m++) {
+        for (let s = 0, n8 = fleet[m].ships.length; s < n8; s++) {
+          const toAdd =
+            fleet[m].ships[s].threat + fleet[m].ships[s].accumulatedThreat;
+          fleet[m].stats.rounds[round].threatAvg += toAdd;
+          fleet[m].stats.total.threatAvg += toAdd;
+        }
+        fleet[m].stats.rounds[round].threatAvg /= fleet[m].ships.length;
+        fleet[m].stats.total.threatQta += fleet[m].ships.length;
+      }
+    }
+    //#endregion
     //#region Remove dead ships
     for (let i = 0; i < 2; i++) {
       const fleet = fleets[i];
@@ -145,6 +158,7 @@ export function battle(battleRequest: BattleRequest): any {
       }
     }
     //#endregion
+    //#region Break
     if (
       battleRequest.enemyFleet.findIndex(s => s.ships.length > 0) < 0 ||
       battleRequest.playerFleet.findIndex(s => s.ships.length > 0) < 0
@@ -152,6 +166,7 @@ export function battle(battleRequest: BattleRequest): any {
       break;
     }
   }
+  //#endregion
   //#endregion
   //#region results
   battleResult.gameId = battleRequest.gameId;
@@ -212,6 +227,8 @@ export function battle(battleRequest: BattleRequest): any {
         shipData.stats.total.shieldRegenerationReceived +=
           shipData.stats.rounds[z].shieldRegenerationReceived;
       }
+      shipData.stats.total.threatAvg =
+        shipData.stats.total.threatAvg / shipData.stats.total.threatQta;
       battleResult.stats.push(shipData.stats);
     });
   }

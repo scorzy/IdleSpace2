@@ -33,4 +33,4 @@ export const DEFAULT_MODULE_PRICE = 100;
 export const BASE_VELOCITY = 10;
 export const BASE_ACCELERATION = 1;
 export const BASE_THREAT = 100;
-export const MIN_THREAT = 10;
+export const MIN_THREAT = 200;

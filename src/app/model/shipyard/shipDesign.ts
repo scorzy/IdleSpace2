@@ -114,7 +114,7 @@ export class ShipDesign {
         this.acceleration += m.module.acceleration * statsMulti;
         this.threat += m.module.threat * statsMulti;
 
-        this.energy += m.module.energy * m.size;
+        this.energy += m.module.energy * m.size * m.level;
         this.price = this.price.plus(priceMulti.times(m.module.price));
         this.cargo = this.cargo.plus(
           Decimal.multiply(m.module.cargo, statsMulti)
@@ -126,9 +126,9 @@ export class ShipDesign {
             damage,
             armourPercent: m.module.armourDamagePercent,
             shieldPercent: m.module.shieldDamagePercent,
-            precision: 0,
-            adaptivePrecision: 0,
-            threatMulti: 1
+            precision: m.module.precision * statsMulti,
+            adaptivePrecision: m.module.adaptivePrecision * statsMulti,
+            threatMulti: m.module.threatGainMulti
           });
         }
       });

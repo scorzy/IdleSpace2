@@ -24,6 +24,8 @@ export class DesignReport {
   shotTakenDeath = 0;
 
   shieldRegenerationReceived = 0;
+  threatAvg = 0;
+  threatQta = 0;
 }
 export class Stats {
   player: boolean;
