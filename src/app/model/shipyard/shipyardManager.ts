@@ -38,7 +38,11 @@ export class ShipyardManager extends JobManager {
 
   init() {
     this.shipTypes = SHIP_TYPES.map(s => new ShipType(s));
-    this.modules = modules.map(m => new Module(m));
+    this.modules = modules.map(m => {
+      const mod = new Module();
+      mod.init(m);
+      return mod;
+    });
     this.armour = this.modules.find(m => m.id === "A");
     this.shield = this.modules.find(m => m.id === "s");
     this.allWeapons = this.modules.filter(mod => mod.damage > 0);

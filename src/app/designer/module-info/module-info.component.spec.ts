@@ -28,7 +28,8 @@ describe("ModuleInfoComponent", () => {
     fixture = TestBed.createComponent(ModuleInfoComponent);
     component = fixture.componentInstance;
     const game = new Game();
-    component.mod = new Module(modules[0]);
+    component.mod = new Module();
+    component.mod.init(modules[0]);
     fixture.detectChanges();
   });
 

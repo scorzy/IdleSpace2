@@ -4,6 +4,7 @@ import { IUnlockable } from "../iUnlocable";
 import { ALL_SIZES } from "../data/sizes";
 import { Technology } from "../researches/technology";
 import { Game } from "../game";
+import forOwn from "lodash-es/forOwn";
 
 export class Module implements IUnlockable {
   id = "";
@@ -35,37 +36,19 @@ export class Module implements IUnlockable {
   adaptivePrecision = 0;
   threatGainMulti = 1;
 
-  constructor(moduleData: ModuleData) {
-    this.id = moduleData.id;
-    this.name = moduleData.name;
-    if ("armour" in moduleData) this.armour = moduleData.armour;
-    if ("shield" in moduleData) this.shield = moduleData.shield;
-    if ("energy" in moduleData) this.energy = moduleData.energy;
-    if ("shieldDamageReduction" in moduleData) {
-      this.shieldDamageReduction = moduleData.shieldDamageReduction;
-    }
-    if ("armourDamageReduction" in moduleData) {
-      this.armourDamageReduction = moduleData.armourDamageReduction;
-    }
-    if ("damage" in moduleData) this.damage = moduleData.damage;
-    if ("price" in moduleData) this.price = moduleData.price;
-    if ("cargo" in moduleData) this.cargo = moduleData.cargo;
-    if ("armourDamagePercent" in moduleData) {
-      this.armourDamagePercent = moduleData.armourDamagePercent;
-    }
-    if ("shieldDamagePercent" in moduleData) {
-      this.shieldDamagePercent = moduleData.shieldDamagePercent;
-    }
-    if ("fire" in moduleData) this.fire = moduleData.fire;
-    if ("explosion" in moduleData) this.explosion = moduleData.explosion;
-    if ("explosionDamage" in moduleData) {
-      this.explosionDamage = moduleData.explosionDamage;
-    }
-    if ("sizes" in moduleData) this.sizes = moduleData.sizes;
-    if ("shape" in moduleData) this.shape = moduleData.shape;
-    if ("unlockLevel" in moduleData) {
-      this.unlockLevel = moduleData.unlockLevel;
-    }
+  constructor() {}
+  init(moduleData: ModuleData) {
+    forOwn(
+      this,
+      function(value: any, key: string) {
+        if (
+          moduleData.hasOwnProperty(key) &&
+          typeof moduleData[key] === typeof this[key]
+        )
+          this[key] = moduleData[key];
+      }.bind(this)
+    );
+
     if ("technologies" in moduleData) {
       this.technologies = moduleData.technologies.map(tec => {
         return {
@@ -75,27 +58,6 @@ export class Module implements IUnlockable {
           multi: tec.multi
         };
       });
-    }
-    if ("shieldRecharge" in moduleData) {
-      this.shieldRecharge = moduleData.shieldRecharge;
-    }
-    if ("velocity" in moduleData) {
-      this.velocity = moduleData.velocity;
-    }
-    if ("acceleration" in moduleData) {
-      this.acceleration = moduleData.acceleration;
-    }
-    if ("threat" in moduleData) {
-      this.threat = moduleData.threat;
-    }
-    if ("precision" in moduleData) {
-      this.precision = moduleData.precision;
-    }
-    if ("adaptivePrecision" in moduleData) {
-      this.adaptivePrecision = moduleData.adaptivePrecision;
-    }
-    if ("threatGainMulti" in moduleData) {
-      this.threatGainMulti = moduleData.threatGainMulti;
     }
   }
   reloadMaxLevel() {
