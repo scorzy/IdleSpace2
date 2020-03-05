@@ -28,6 +28,7 @@ export interface IShipModule {
   levelUi?: string;
   validateStatus?: string;
   errorTip?: string;
+  warningTip?: string;
 }
 
 export class ShipDesign {
@@ -79,6 +80,7 @@ export class ShipDesign {
     let points = 0;
     this.weapons = [];
     this.totalArmour = BASE_ARMOUR * (this.type.id + 1);
+    const baseArmour = this.totalArmour;
     this.totalShield = 0;
     this.totalDamage = 0;
     this.armourReduction = 0;
@@ -92,6 +94,22 @@ export class ShipDesign {
     this.velocity = BASE_VELOCITY;
     this.acceleration = 0;
     this.threat = 0;
+    if (errorCheck) {
+      //  Error check
+      this.modules
+        .filter(m => m.module)
+        .forEach(mod => {
+          mod.errorTip = "";
+          mod.warningTip = "";
+          mod.validateStatus = "";
+
+          if (mod.level >= mod.module.maxLevel) {
+            mod.errorTip = mod.errorTip + "Level is over max level.";
+            mod.validateStatus = "error";
+            this.valid = false;
+          }
+        });
+    }
     for (let i = 0, n = this.modules.length; i < n; i++) {
       const m = this.modules[i];
       if (!m.module) continue;
@@ -123,6 +141,7 @@ export class ShipDesign {
         Decimal.multiply(m.module.cargo, statsMulti)
       );
 
+      // Weapons
       if (m.module.damage > 0) {
         this.weapons.push({
           module: m.module,
@@ -136,12 +155,15 @@ export class ShipDesign {
         });
       }
     }
-    // Utility
+    //#region Utility
     for (let i = 0, n = this.modules.length; i < n; i++) {
       const m = this.modules[i];
       if (!m || m.module.damage > 0) continue;
+
       const statsMulti = ShipDesign.getStatsMulti(m);
       const statsMultiNoLevel = ShipDesign.getStatsMulti(m, true);
+
+      // Weapons
       this.weapons.forEach(weapon => {
         weapon.precision += m.module.precision * statsMulti;
         weapon.adaptivePrecision += m.module.adaptivePrecision * statsMulti;
@@ -162,9 +184,179 @@ export class ShipDesign {
           );
         }
       });
+      // Armour %
+      if (m.module.armourPercent > 0) {
+        const multiGainMax =
+          Math.pow(1 + m.module.armourPercent / 100, statsMultiNoLevel) - 1;
+        this.totalArmour += baseArmour * multiGainMax;
+
+        for (let k = 0, n2 = this.modules.length; k < n2; k++) {
+          if (!this.modules[k].module || this.modules[k].module.armour <= 0) {
+            continue;
+          }
+
+          let multi = 1;
+          let multiGainReal = multiGainMax;
+
+          if (this.modules[k].level > m.level) {
+            multi = Math.pow(
+              UTILITY_MOD_DECREASE,
+              this.modules[k].level - m.level
+            );
+            multiGainReal =
+              Math.pow(
+                1 + (m.module.armourPercent * multi) / 100,
+                statsMultiNoLevel
+              ) - 1;
+            if (errorCheck && this.modules[k].validateStatus !== "error") {
+              this.modules[k].warningTip =
+                this.modules[k].warningTip +
+                (this.modules[k].warningTip !== "" ? "\n" : "") +
+                "Level is over " +
+                m.module.name +
+                " level. Armour % reduced from: " +
+                Math.floor(multiGainMax * 1000) / 10 +
+                "% to " +
+                Math.floor(multiGainReal * 1000) / 10 +
+                "%";
+              this.modules[k].validateStatus = "warning";
+            }
+          }
+          this.totalArmour += this.modules[k].module.armour * multiGainReal;
+        }
+      }
+      //  Shield %
+      if (m.module.shieldPercent > 0) {
+        const multiGainMax =
+          Math.pow(1 + m.module.shieldPercent / 100, statsMultiNoLevel) - 1;
+        this.totalArmour += baseArmour * multiGainMax;
+
+        for (let k = 0, n2 = this.modules.length; k < n2; k++) {
+          if (!this.modules[k].module || this.modules[k].module.shield <= 0) {
+            continue;
+          }
+
+          let multi = 1;
+          let multiGainReal = multiGainMax;
+
+          if (this.modules[k].level > m.level) {
+            multi = Math.pow(
+              UTILITY_MOD_DECREASE,
+              this.modules[k].level - m.level
+            );
+            multiGainReal =
+              Math.pow(
+                1 + (m.module.shieldPercent * multi) / 100,
+                statsMultiNoLevel
+              ) - 1;
+            if (errorCheck && this.modules[k].validateStatus !== "error") {
+              this.modules[k].warningTip =
+                this.modules[k].warningTip +
+                (this.modules[k].warningTip !== "" ? "\n" : "") +
+                "Level is over " +
+                m.module.name +
+                " level. Shield % reduced from: " +
+                Math.floor(multiGainMax * 1000) / 10 +
+                "% to " +
+                Math.floor(multiGainReal * 1000) / 10 +
+                "%";
+              this.modules[k].validateStatus = "warning";
+            }
+          }
+          this.totalShield += this.modules[k].module.shield * multiGainReal;
+        }
+      }
+      if (errorCheck) {
+        // Armour Damage %
+        if (m.module.armourDamagePercent !== 100 && m.module.damage <= 0) {
+          const multiGainMax =
+            Math.pow(
+              1 + m.module.armourDamagePercent / 100,
+              statsMultiNoLevel
+            ) - 1;
+
+          for (let k = 0, n2 = this.modules.length; k < n2; k++) {
+            if (!this.modules[k].module || this.modules[k].module.damage <= 0) {
+              continue;
+            }
+
+            let multi = 1;
+            let multiGainReal = multiGainMax;
+
+            if (this.modules[k].level > m.level) {
+              multi = Math.pow(
+                UTILITY_MOD_DECREASE,
+                this.modules[k].level - m.level
+              );
+              multiGainReal =
+                Math.pow(
+                  1 + (m.module.armourDamagePercent * multi) / 100,
+                  statsMultiNoLevel
+                ) - 1;
+              if (this.modules[k].validateStatus !== "error") {
+                this.modules[k].warningTip =
+                  this.modules[k].warningTip +
+                  (this.modules[k].warningTip !== "" ? "\n" : "") +
+                  "Level is over " +
+                  m.module.name +
+                  " level. Extra Armour Damage % reduced from: " +
+                  Math.floor(multiGainMax * 1000) / 10 +
+                  "% to " +
+                  Math.floor(multiGainReal * 1000) / 10 +
+                  "%";
+                this.modules[k].validateStatus = "warning";
+              }
+            }
+          }
+        }
+        // Shield Damage %
+        if (m.module.shieldDamagePercent !== 100 && m.module.damage <= 0) {
+          const multiGainMax =
+            Math.pow(
+              1 + m.module.shieldDamagePercent / 100,
+              statsMultiNoLevel
+            ) - 1;
+
+          for (let k = 0, n2 = this.modules.length; k < n2; k++) {
+            if (!this.modules[k].module || this.modules[k].module.damage <= 0) {
+              continue;
+            }
+
+            let multi = 1;
+            let multiGainReal = multiGainMax;
+
+            if (this.modules[k].level > m.level) {
+              multi = Math.pow(
+                UTILITY_MOD_DECREASE,
+                this.modules[k].level - m.level
+              );
+              multiGainReal =
+                Math.pow(
+                  1 + (m.module.shieldDamagePercent * multi) / 100,
+                  statsMultiNoLevel
+                ) - 1;
+              if (this.modules[k].validateStatus !== "error") {
+                this.modules[k].warningTip =
+                  this.modules[k].warningTip +
+                  (this.modules[k].warningTip !== "" ? "\n" : "") +
+                  "Level is over " +
+                  m.module.name +
+                  " level. Extra Shield Damage % reduced from: " +
+                  Math.floor(multiGainMax * 1000) / 10 +
+                  "% to " +
+                  Math.floor(multiGainReal * 1000) / 10 +
+                  "%";
+                this.modules[k].validateStatus = "warning";
+              }
+            }
+          }
+        }
+      }
     }
+    //#endregion
 
     this.valid =
+      this.valid &&
       this.energy >= 0 &&
       modSum <= this.type.maxModule &&
       points <= this.type.maxPoints;
@@ -172,22 +364,6 @@ export class ShipDesign {
     avgModLevel = modSum > 0 ? avgModLevel / modSum : 1;
     this.threat += this.threat * avgModLevel;
     this.threat = Math.max(MIN_THREAT, this.threat);
-
-    if (errorCheck) {
-      //  Error check
-      this.modules
-        .filter(m => m.module)
-        .forEach(mod => {
-          mod.errorTip = "";
-          mod.validateStatus = "";
-
-          if (mod.level >= mod.module.maxLevel) {
-            mod.errorTip = mod.errorTip + "Level is over max level.";
-            mod.validateStatus = "error";
-            this.valid = false;
-          }
-        });
-    }
   }
   getCopy(errorCheck = true) {
     const ret = new ShipDesign();

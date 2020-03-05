@@ -40,6 +40,16 @@
     {{ mod.armour | number: "1.0-0" }}
   </span>
   <span
+    *ngIf="mod.armourPercent > 0"
+    class="armour-damage-color"
+    nz-tooltip
+    nzTooltipTitle="+ Armour %"
+    fxLayout="row"
+  >
+    <i nz-icon nzType="my:metal-scales"></i>
+    {{ mod.armourPercent | number: "1.0-0" }}%
+  </span>
+  <span
     *ngIf="mod.armourDamageReduction > 0"
     class="armour-damage-color"
     nz-tooltip
@@ -58,6 +68,16 @@
   >
     <i nz-icon nzType="my:bubble-field"></i>
     {{ mod.shield | number: "1.0-0" }}
+  </span>
+  <span
+    *ngIf="mod.shieldPercent > 0"
+    class="shield-damage-color"
+    nz-tooltip
+    nzTooltipTitle="+ Shield %"
+    fxLayout="row"
+  >
+    <i nz-icon nzType="my:bubble-field"></i>
+    {{ mod.shieldPercent | number: "1.0-0" }}%
   </span>
   <span
     *ngIf="mod.shieldDamageReduction > 0"

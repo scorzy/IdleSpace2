@@ -12,6 +12,8 @@ export class Module implements IUnlockable {
   shape = "";
   armour = 0;
   shield = 0;
+  armourPercent = 0;
+  shieldPercent = 0;
   energy = 0;
   armourDamageReduction = 0;
   shieldDamageReduction = 0;
@@ -44,8 +46,9 @@ export class Module implements IUnlockable {
         if (
           moduleData.hasOwnProperty(key) &&
           typeof moduleData[key] === typeof this[key]
-        )
+        ) {
           this[key] = moduleData[key];
+        }
       }.bind(this)
     );
 

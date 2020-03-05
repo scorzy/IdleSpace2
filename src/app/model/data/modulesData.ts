@@ -15,6 +15,8 @@ export class ModuleData {
   name: string;
   armour?: number;
   shield?: number;
+  armourPercent?: number;
+  shieldPercent?: number;
   energy?: number;
   armourDamageReduction?: number;
   shieldDamageReduction?: number;
@@ -45,7 +47,6 @@ export const modules: ModuleData[] = [
   {
     id: "A",
     name: "Armour",
-    explosion: 0.1 * MODULE_ARMOUR,
     armour: MODULE_ARMOUR,
     technologies: [
       { technologyId: TECHNOLOGIES.MilitaryEngineering.id, multi: 1 },
@@ -56,8 +57,8 @@ export const modules: ModuleData[] = [
   {
     id: "B",
     name: "Ablative Armour",
-    armour: 0.5 * MODULE_ARMOUR,
-    armourDamageReduction: 0.1 * MODULE_ARMOUR,
+    armour: 0.7 * MODULE_ARMOUR,
+    armourDamageReduction: 0.25 * MODULE_ARMOUR,
     technologies: [
       { technologyId: TECHNOLOGIES.MilitaryEngineering.id, multi: 1 },
       { technologyId: TECHNOLOGIES.Materials.id, multi: 1 }
@@ -70,6 +71,7 @@ export const modules: ModuleData[] = [
     energy: -1,
     explosion: -0.1 * MODULE_ARMOUR,
     armour: 1.5 * MODULE_ARMOUR,
+    armourPercent: 5,
     armourDamageReduction: 0.2 * MODULE_ARMOUR,
     technologies: [
       { technologyId: TECHNOLOGIES.MilitaryEngineering.id, multi: 1 },
@@ -83,6 +85,7 @@ export const modules: ModuleData[] = [
     energy: -1,
     armour: MODULE_ARMOUR / 5,
     armourDamageReduction: 0.4 * MODULE_ARMOUR,
+    armourPercent: 8,
     technologies: [
       { technologyId: TECHNOLOGIES.MilitaryEngineering.id, multi: 1 },
       { technologyId: TECHNOLOGIES.Materials.id, multi: 1 }
@@ -105,6 +108,7 @@ export const modules: ModuleData[] = [
     name: "Jammer",
     energy: -2,
     shield: MODULE_SHIELD / 5,
+    shieldPercent: 8,
     shieldDamageReduction: 0.4 * MODULE_ARMOUR,
     technologies: [
       { technologyId: TECHNOLOGIES.MilitaryEngineering.id, multi: 1 },
