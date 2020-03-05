@@ -150,14 +150,16 @@ export class ShipDesign {
           multi = Math.pow(UTILITY_MOD_DECREASE, weapon.level - m.level);
         }
         if (m.module.armourDamagePercent !== 100) {
-          weapon.armourPercent *=
-            1 +
-            (m.module.armourDamagePercent * statsMultiNoLevel * multi) / 100;
+          weapon.armourPercent *= Math.pow(
+            1 + (m.module.armourDamagePercent * multi) / 100,
+            statsMultiNoLevel
+          );
         }
         if (m.module.shieldDamagePercent !== 100) {
-          weapon.shieldPercent *=
-            1 +
-            (m.module.shieldDamagePercent * statsMultiNoLevel * multi) / 100;
+          weapon.shieldPercent *= Math.pow(
+            1 + (m.module.shieldDamagePercent * multi) / 100,
+            statsMultiNoLevel
+          );
         }
       });
     }

@@ -368,8 +368,8 @@ export const modules: ModuleData[] = [
     energy: -1,
     precision: 500,
     adaptivePrecision: 500,
-    armourDamagePercent: 8,
-    shieldDamagePercent: 8,
+    armourDamagePercent: 5,
+    shieldDamagePercent: 5,
     shape: "my:targeting"
   },
   //#endregion
