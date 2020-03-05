@@ -160,4 +160,8 @@ export class EditComponent implements OnInit, OnDestroy {
     this.ms.game.shipyardManager.delete(this.original);
     this.router.navigate(["/add"]);
   }
+  getIcon(id: string): string {
+    const mod = this.ms.game.shipyardManager.modules.find(m => m.id === id);
+    return mod ? mod.shape : "";
+  }
 }

@@ -68,6 +68,7 @@
               [name]="'module' + i"
               [(ngModel)]="line.moduleId"
               (ngModelChange)="moduleChange(i)"
+              [nzCustomTemplate]="custom"
             >
               <nz-option-group
                 [nzLabel]="group.name"
@@ -158,6 +159,13 @@
         </nz-form-control>
       </nz-form-item>
     </form>
+
+    <ng-template #custom let-selected>
+      <span class="modSelect"
+        ><i nz-icon [nzType]="getIcon(selected.nzValue)"></i>
+        {{ selected.nzLabel }}
+      </span>
+    </ng-template>
 
     <!-- Buttons -->
     <nz-button-group>
