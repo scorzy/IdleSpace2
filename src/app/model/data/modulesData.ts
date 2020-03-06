@@ -7,7 +7,8 @@ import {
   DEFAULT_MODULE_PRICE,
   BASE_VELOCITY,
   BASE_ACCELERATION,
-  BASE_THREAT
+  BASE_THREAT,
+  BASE_CARGO
 } from "../CONSTANTS";
 
 export class ModuleData {
@@ -347,8 +348,19 @@ export const modules: ModuleData[] = [
       { technologyId: TECHNOLOGIES.CivilEngineering.id, multi: 1 },
       { technologyId: TECHNOLOGIES.Materials.id, multi: 1 }
     ],
-    cargo: 100,
+    cargo: BASE_CARGO,
     explosion: MODULE_ARMOUR * -1,
+    shape: "my:cube"
+  },
+  {
+    id: "P",
+    name: "Teleporter",
+    technologies: [
+      { technologyId: TECHNOLOGIES.CivilEngineering.id, multi: 1 },
+      { technologyId: TECHNOLOGIES.Physics.id, multi: 1 }
+    ],
+    energy: -1,
+    cargo: BASE_CARGO * 20,
     shape: "my:cube"
   },
   {
@@ -374,6 +386,17 @@ export const modules: ModuleData[] = [
     adaptivePrecision: 500,
     armourDamagePercent: 5,
     shieldDamagePercent: 5,
+    shape: "my:targeting"
+  },
+  {
+    id: "G",
+    name: "Clocking Device",
+    technologies: [
+      { technologyId: TECHNOLOGIES.Physics.id, multi: 1 },
+      { technologyId: TECHNOLOGIES.Materials.id, multi: 1 }
+    ],
+    energy: -1,
+    threatGainMulti: 0.6,
     shape: "my:targeting"
   },
   //#endregion

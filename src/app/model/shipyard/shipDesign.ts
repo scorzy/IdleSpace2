@@ -183,6 +183,12 @@ export class ShipDesign {
             statsMultiNoLevel
           );
         }
+        if (m.module.threatGainMulti !== 1) {
+          weapon.threatMulti *= Math.pow(
+            1 + (m.module.threatGainMulti - 1) * multi,
+            statsMultiNoLevel
+          );
+        }
       });
       // Armour %
       if (m.module.armourPercent > 0) {
@@ -342,6 +348,45 @@ export class ShipDesign {
                   "Level is over " +
                   m.module.name +
                   " level. Extra Shield Damage % reduced from: " +
+                  Math.floor(multiGainMax * 1000) / 10 +
+                  "% to " +
+                  Math.floor(multiGainReal * 1000) / 10 +
+                  "%";
+                this.modules[k].validateStatus = "warning";
+              }
+            }
+          }
+        }
+        // Threat multi %
+        if (m.module.threatGainMulti !== 1 && m.module.damage <= 0) {
+          const multiGainMax =
+            Math.pow(1 + (m.module.threatGainMulti - 1), statsMultiNoLevel) - 1;
+
+          for (let k = 0, n2 = this.modules.length; k < n2; k++) {
+            if (!this.modules[k].module || this.modules[k].module.damage <= 0) {
+              continue;
+            }
+
+            let multi = 1;
+            let multiGainReal = multiGainMax;
+
+            if (this.modules[k].level > m.level) {
+              multi = Math.pow(
+                UTILITY_MOD_DECREASE,
+                this.modules[k].level - m.level
+              );
+              multiGainReal =
+                Math.pow(
+                  1 + (m.module.threatGainMulti - 1) * multi,
+                  statsMultiNoLevel
+                ) - 1;
+              if (this.modules[k].validateStatus !== "error") {
+                this.modules[k].warningTip =
+                  this.modules[k].warningTip +
+                  (this.modules[k].warningTip !== "" ? "\n" : "") +
+                  "Level is over " +
+                  m.module.name +
+                  " level. Threat multi % reduced from: " +
                   Math.floor(multiGainMax * 1000) / 10 +
                   "% to " +
                   Math.floor(multiGainReal * 1000) / 10 +
