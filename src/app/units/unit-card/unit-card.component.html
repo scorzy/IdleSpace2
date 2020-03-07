@@ -75,7 +75,7 @@
       <i
         nz-icon
         [nzType]="pri.spendable.icon"
-        [style.color]="pri?.spendable?.color"
+        [ngClass]="pri?.spendable?.colorClass"
       ></i>
       <span *ngIf="!pri.spendable.icon">{{ pri.spendable.name }}</span>
       <span class="monospace"> {{ pri.singleCost | format }}</span>

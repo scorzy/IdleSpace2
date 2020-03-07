@@ -15,7 +15,7 @@ export const UNITS: IUnitData[] = [
     icon: "my:asteroid",
     description: "",
     startQuantity: 100,
-    color: "#CF1322",
+    colorClass: "metal-color",
     unitType: UNIT_TYPES.MATERIAL
   },
   {
@@ -24,7 +24,7 @@ export const UNITS: IUnitData[] = [
     icon: "my:electric",
     description: "",
     startQuantity: 100,
-    color: "#FADB14",
+    colorClass: "energy-color",
     buildingLimit: "8",
     buildingLimitQuantity: 1e4,
     showUiLimit: true,
@@ -35,7 +35,7 @@ export const UNITS: IUnitData[] = [
     name: "Alloy",
     icon: "my:metal-bar",
     description: "",
-    color: "#531DAB",
+    colorClass: "alloy-color",
     unitType: UNIT_TYPES.MATERIAL
   },
   {
@@ -43,7 +43,7 @@ export const UNITS: IUnitData[] = [
     name: "Science",
     icon: "my:fizzing-flask",
     description: "",
-    color: "#08979C",
+    colorClass: "science-color",
     unitType: UNIT_TYPES.MATERIAL
   },
   {
@@ -51,7 +51,7 @@ export const UNITS: IUnitData[] = [
     name: "Production",
     icon: "tool",
     description: "",
-    color: "#EC8415",
+    colorClass: "production-color",
     unitType: UNIT_TYPES.MATERIAL
   },
   {
@@ -59,7 +59,7 @@ export const UNITS: IUnitData[] = [
     name: "Search",
     icon: "my:radar-sweep",
     description: "",
-    color: "",
+    colorClass: "",
     unitType: UNIT_TYPES.MATERIAL
   },
   {
@@ -67,7 +67,7 @@ export const UNITS: IUnitData[] = [
     name: "Components",
     icon: "my:microchip",
     description: "",
-    color: "",
+    colorClass: "",
     buildingLimit: "9",
     buildingLimitQuantity: 1e3,
     showUiLimit: true,

@@ -6,7 +6,7 @@ export interface IUnitData {
   description: string;
   startQuantity?: DecimalSource;
   icon?: string;
-  color?: string;
+  colorClass?: string;
   buildingLimit?: string;
   buildingLimitQuantity?: DecimalSource;
   showUiLimit?: boolean;

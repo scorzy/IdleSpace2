@@ -13,7 +13,7 @@ export class Unit implements IBase, IUnlockable {
   description = "";
   unlocked = false;
   icon = "";
-  color = "";
+  colorClass = "";
   showUiLimit = false;
 
   operativity = 100;
@@ -61,7 +61,7 @@ export class Unit implements IBase, IUnlockable {
       this.quantity = new Decimal(unitData.startQuantity);
     }
     if ("icon" in unitData) this.icon = unitData.icon;
-    if ("color" in unitData) this.color = unitData.color;
+    if ("colorClass" in unitData) this.colorClass = unitData.colorClass;
     if ("buildingLimitQuantity" in unitData) {
       this.buildingLimitQuantity = new Decimal(unitData.buildingLimitQuantity);
     }

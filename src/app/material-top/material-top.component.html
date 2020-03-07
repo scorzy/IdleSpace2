@@ -6,8 +6,9 @@
     "
     @fadeIn
     class="mainContainer"
+    [class.alt]="os.darkHeader"
   >
-    <i nz-icon [nzType]="item.icon" [style.color]="item.color"></i>
+    <i nz-icon [nzType]="item.icon" [ngClass]="item.colorClass"></i>
 
     <div
       class="container"
@@ -17,7 +18,7 @@
       nzPopoverPlacement="bottom"
       [nzPopoverTrigger]="popoverTrigger"
       (click)="createModal(item.name, contentTemplate, tplFooter)"
-      [style.color]="item.color"
+      [ngClass]="item.colorClass"
     >
       <span class="monospace">
         <span>{{ item.quantity | format }}</span>

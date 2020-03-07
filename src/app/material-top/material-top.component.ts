@@ -12,6 +12,7 @@ import { Subscription } from "rxjs";
 import { fadeIn } from "../animations";
 import { NzModalRef, NzModalService } from "ng-zorro-antd";
 import { BreakpointObserver, BreakpointState } from "@angular/cdk/layout";
+import { OptionsService } from "../options.service";
 
 @Component({
   selector: "app-material-top",
@@ -28,6 +29,7 @@ export class MaterialTopComponent implements OnInit, OnDestroy {
 
   constructor(
     public ms: MainService,
+    public os: OptionsService,
     private cd: ChangeDetectorRef,
     private modalService: NzModalService,
     public breakpointObserver: BreakpointObserver
