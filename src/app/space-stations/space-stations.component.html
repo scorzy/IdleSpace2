@@ -40,7 +40,7 @@
           <li *ngIf="currentUnit.habSpace.gt(0)">
             <i
               nz-icon
-              [style.color]="ms.game.resourceManager.habitableSpace.color"
+              [ngClass]="ms.game.resourceManager.habitableSpace.colorClass"
               [nzType]="ms.game.resourceManager.habitableSpace.icon"
             ></i>
             <strong>Habitable Space: </strong>
@@ -50,7 +50,7 @@
             <i
               nz-icon
               [nzType]="ms.game.resourceManager.shipyardWork.icon"
-              [style.color]="ms.game.resourceManager.shipyardWork.color"
+              [ngClass]="ms.game.resourceManager.shipyardWork.colorClass"
             ></i>
             <strong>Price: </strong>
             <span>{{ currentUnit.buildPriceNext | format: true }}</span>
