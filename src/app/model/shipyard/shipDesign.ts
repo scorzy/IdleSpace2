@@ -93,7 +93,7 @@ export class ShipDesign {
     this.shieldRecharge = 0;
     this.velocity = BASE_VELOCITY;
     this.acceleration = 0;
-    this.threat = 0;
+    this.threat = BASE_THREAT * (this.type.id + 1);
     if (errorCheck) {
       //  Error check
       this.modules
@@ -406,8 +406,8 @@ export class ShipDesign {
       modSum <= this.type.maxModule &&
       points <= this.type.maxPoints;
 
-    avgModLevel = modSum > 0 ? avgModLevel / modSum : 1;
-    this.threat += this.threat * avgModLevel;
+    // avgModLevel = modSum > 0 ? avgModLevel / modSum : 1;
+    // this.threat += this.threat * avgModLevel;
     this.threat = Math.max(MIN_THREAT, this.threat);
   }
   getCopy(errorCheck = true) {

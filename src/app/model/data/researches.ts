@@ -8,7 +8,7 @@ export const RESEARCHES: IResearchData[] = [
     description: "Unlock Metallurgists",
     price: 100,
     unitsToUnlock: ["A", "a", "w", "W"],
-    researchToUnlock: ["p", "s2", "n", "s", "x"],
+    researchToUnlock: ["p", "s2", "n", "s", "x", "M"],
     max: 1,
     type: [TECHNOLOGIES.MilitaryEngineering],
     technologiesToUnlock: ["e", TECHNOLOGIES.CivilEngineering.id]
@@ -20,7 +20,7 @@ export const RESEARCHES: IResearchData[] = [
     price: 100,
     max: 1,
     type: [TECHNOLOGIES.Physics],
-    researchToUnlock: ["c"],
+    researchToUnlock: ["c", "E"],
     technologiesToUnlock: ["p"]
   },
   {
@@ -59,5 +59,23 @@ export const RESEARCHES: IResearchData[] = [
     max: 1,
     type: [TECHNOLOGIES.CivilEngineering],
     unitsToUnlock: ["x", "X", "7"]
+  },
+  {
+    id: "M",
+    name: "Materials",
+    description: "Unlock Materials Technology",
+    price: 100,
+    max: 1,
+    type: [TECHNOLOGIES.Materials],
+    technologiesToUnlock: ["m"]
+  },
+  {
+    id: "E",
+    name: "Energy",
+    description: "Unlock Energy Technology",
+    price: 100,
+    max: 1,
+    type: [TECHNOLOGIES.Energy],
+    technologiesToUnlock: [TECHNOLOGIES.Energy.id]
   }
 ];

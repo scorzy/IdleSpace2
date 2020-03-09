@@ -56,6 +56,18 @@ export const modules: ModuleData[] = [
     shape: "my:metal-scales"
   },
   {
+    id: "E",
+    name: "Stealth Armour",
+    armour: MODULE_ARMOUR * 0.7,
+    threatGainMulti: 0.7,
+    threat: BASE_THREAT * -0.5,
+    technologies: [
+      { technologyId: TECHNOLOGIES.MilitaryEngineering.id, multi: 1 },
+      { technologyId: TECHNOLOGIES.Materials.id, multi: 1 }
+    ],
+    shape: "my:metal-scales"
+  },
+  {
     id: "B",
     name: "Ablative Armour",
     armour: 0.7 * MODULE_ARMOUR,
@@ -98,6 +110,18 @@ export const modules: ModuleData[] = [
     name: "Shield",
     shield: MODULE_SHIELD,
     energy: -1,
+    technologies: [
+      { technologyId: TECHNOLOGIES.MilitaryEngineering.id, multi: 1 },
+      { technologyId: TECHNOLOGIES.Physics.id, multi: 1 }
+    ],
+    shape: "my:bubble-field"
+  },
+  {
+    id: "O",
+    name: "Stealth Shield",
+    shield: MODULE_SHIELD * 0.7,
+    threatGainMulti: 0.7,
+    threat: BASE_THREAT * -0.5,
     technologies: [
       { technologyId: TECHNOLOGIES.MilitaryEngineering.id, multi: 1 },
       { technologyId: TECHNOLOGIES.Physics.id, multi: 1 }
@@ -396,7 +420,8 @@ export const modules: ModuleData[] = [
       { technologyId: TECHNOLOGIES.Materials.id, multi: 1 }
     ],
     energy: -1,
-    threatGainMulti: 0.6,
+    threatGainMulti: 0.4,
+    threat: BASE_THREAT * -1,
     shape: "my:targeting"
   },
   //#endregion
