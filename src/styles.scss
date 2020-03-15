@@ -93,8 +93,7 @@
   }
 }
 .ant-layout-sider-children {
-  overflow: scroll;
-  padding-bottom: 50px;
+  overflow-y: auto;
 }
 .ant-layout-sider-trigger {
   height: 36px;

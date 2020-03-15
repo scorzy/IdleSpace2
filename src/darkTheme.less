@@ -40,6 +40,11 @@
 @primary-9: color(~`colorPalette("@{primary-color}", 2) `); // unused
 @primary-10: color(~`colorPalette("@{primary-color}", 1) `); // unused
 
+@layout-body-background: #000000; //#171717
+@background-color-light: #000000;
+@background-color-base: #434343; // #1f1f1f;
+@body-background: #171717;
+
 // Alert
 // ---
 @alert-success-border-color: ~`colorPalette("@{success-color}", 7) `;
@@ -59,7 +64,7 @@
 
 @input-bg: #1a1a1a;
 @btn-default-bg: #1a1a1a;
-@border-color-base: rgba(255; 255; 255; 0.25);
+@border-color-base: rgba(255, 255, 255, 0.35);
 @border-color-split: #363636;
 @heading-color: #dddddd;
 @text-color: #dddddd;
@@ -81,12 +86,12 @@
 @tag-default-bg: #262628;
 
 @wait-icon-color: fade(#fff; 64%);
-@progress-remaining-color: #1a1a1a;
+@progress-remaining-color: @background-color-base;
 
 // @info-color: #313133;
 
 // Shadow
-@shadow-color: rgba(0, 0, 0, 0.4);
+@shadow-color: rgba(0, 0, 0, 0.6);
 @box-shadow-base: @shadow-1-down;
 @shadow-1-up: 0 -2px 8px @shadow-color;
 @shadow-1-down: 0 2px 8px @shadow-color;
@@ -97,12 +102,8 @@
 @highlight-color: @red-7;
 @warning-color: @gold-9;
 
-@layout-body-background: #000000; //#171717
-@background-color-light: #000000;
-@background-color-base: #1f1f1f;
-@body-background: #171717;
-
-@component-background: lighten(@layout-body-background, 3%); // #323130;
+// @component-background: lighten(@layout-body-background, 3%); // #323130;
+@component-background: #141414;
 @layout-header-background: #000000;
 
 @layout-sider-background: @layout-header-background; // #3b3a39;
@@ -121,7 +122,7 @@
 // dark theme
 @menu-dark-color: @text-color-secondary-dark;
 @menu-dark-bg: @layout-header-background; //#3b3a39;
-@menu-dark-submenu-bg: lighten(@component-background, 9%); //#414242;
+@menu-dark-submenu-bg: lighten(@component-background, 3%); //#414242;
 @menu-dark-item-active-bg: lighten(@menu-dark-submenu-bg, 3%);
 @menu-dark-item-active-bg: @item-active-bg;
 
