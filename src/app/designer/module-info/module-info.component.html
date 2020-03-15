@@ -135,7 +135,7 @@
     nzTooltipTitle="Cargo"
     fxLayout="row"
   >
-    <i nz-icon nzType="my:cube"></i>{{ mod.cargo | number: "1.0-0" }}%
+    <i nz-icon nzType="my:cube"></i>{{ mod.cargo | format }}
   </span>
   <span
     *ngIf="mod.velocity > 0"
@@ -157,7 +157,7 @@
     <i nz-icon nzType="forward"></i>{{ mod.acceleration | number: "1.0-4" }}
   </span>
   <span
-    *ngIf="mod.threat > 0"
+    *ngIf="mod.threat !== 0"
     class="threat-color"
     nz-tooltip
     nzTooltipTitle="Threat"

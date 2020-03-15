@@ -385,7 +385,7 @@ export const modules: ModuleData[] = [
     ],
     energy: -1,
     cargo: BASE_CARGO * 20,
-    shape: "my:cube"
+    shape: "my:star-gate"
   },
   {
     id: "X",
@@ -411,6 +411,20 @@ export const modules: ModuleData[] = [
     armourDamagePercent: 5,
     shieldDamagePercent: 5,
     shape: "my:targeting"
+  },
+  {
+    id: "t",
+    name: "Assistance Drone",
+    technologies: [
+      { technologyId: TECHNOLOGIES.Robotics.id, multi: 1 },
+      { technologyId: TECHNOLOGIES.Computing.id, multi: 1 }
+    ],
+    energy: -1,
+    precision: 500,
+    adaptivePrecision: 500,
+    armourDamagePercent: 5,
+    shieldDamagePercent: 5,
+    shape: "my:vintage-robot"
   },
   {
     id: "G",
