@@ -437,6 +437,16 @@ export const modules: ModuleData[] = [
     threat: BASE_THREAT * -1,
     shape: "my:targeting"
   },
+  {
+    id: "b",
+    name: "Suppressor",
+    technologies: [
+      { technologyId: TECHNOLOGIES.MilitaryEngineering.id, multi: 1 },
+      { technologyId: TECHNOLOGIES.Materials.id, multi: 1 }
+    ],
+    threatGainMulti: 0.65,
+    shape: "my:cube"
+  },
   //#endregion
   //#region Thrusters
   {
