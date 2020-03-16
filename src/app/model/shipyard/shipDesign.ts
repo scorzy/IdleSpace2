@@ -75,7 +75,6 @@ export class ShipDesign {
     return (1 + 0.1 * (m.level - 1)) * sizeMultiplier;
   }
   reload(errorCheck = false) {
-    let avgModLevel = 0;
     let modSum = 0;
     let points = 0;
     this.weapons = [];
@@ -93,6 +92,7 @@ export class ShipDesign {
     this.shieldRecharge = 0;
     this.velocity = BASE_VELOCITY;
     this.acceleration = 0;
+    this.explosionThreshold = BASE_EXPLOSION * (this.type.id + 1);
     this.threat = BASE_THREAT * (this.type.id + 1);
     if (errorCheck) {
       //  Error check
@@ -114,7 +114,6 @@ export class ShipDesign {
       const m = this.modules[i];
       if (!m.module) continue;
 
-      avgModLevel += m.level;
       points += m.size;
       modSum++;
       this.totalPoints = this.totalPoints + m.size;
@@ -134,6 +133,7 @@ export class ShipDesign {
       this.velocity += m.module.velocity * statsMulti;
       this.acceleration += m.module.acceleration * statsMulti;
       this.threat += m.module.threat * statsMulti;
+      this.explosionThreshold += m.module.explosion * statsMulti;
 
       this.energy += m.module.energy * m.size * m.level;
       this.price = this.price.plus(priceMulti.times(m.module.price));
@@ -158,7 +158,7 @@ export class ShipDesign {
     //#region Utility
     for (let i = 0, n = this.modules.length; i < n; i++) {
       const m = this.modules[i];
-      if (!m || m.module.damage > 0) continue;
+      if (!m.module || m.module.damage > 0) continue;
 
       const statsMulti = ShipDesign.getStatsMulti(m);
       const statsMultiNoLevel = ShipDesign.getStatsMulti(m, true);
@@ -400,6 +400,7 @@ export class ShipDesign {
     }
     //#endregion
 
+    this.explosionThreshold = Math.max(this.explosionThreshold, 0);
     this.valid =
       this.valid &&
       this.energy >= 0 &&

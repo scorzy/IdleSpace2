@@ -406,24 +406,23 @@ export const modules: ModuleData[] = [
       { technologyId: TECHNOLOGIES.Computing.id, multi: 1 }
     ],
     energy: -1,
-    precision: 500,
-    adaptivePrecision: 500,
+    precision: 700,
+    adaptivePrecision: 700,
     armourDamagePercent: 5,
     shieldDamagePercent: 5,
     shape: "my:targeting"
   },
   {
-    id: "t",
+    id: "f",
     name: "Assistance Drone",
     technologies: [
       { technologyId: TECHNOLOGIES.Robotics.id, multi: 1 },
       { technologyId: TECHNOLOGIES.Computing.id, multi: 1 }
     ],
-    energy: -1,
     precision: 500,
-    adaptivePrecision: 500,
-    armourDamagePercent: 5,
-    shieldDamagePercent: 5,
+    explosion: MODULE_ARMOUR * -1.5,
+    armourDamagePercent: 2,
+    shieldDamagePercent: 2,
     shape: "my:vintage-robot"
   },
   {
