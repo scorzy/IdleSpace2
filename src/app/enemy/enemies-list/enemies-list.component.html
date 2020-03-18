@@ -22,10 +22,12 @@
         cdkDrag
       >
         <a [routerLink]="'enemyDetail/' + enemy.id">
-          <i nz-icon nzType="file"></i>
-          <strong>{{ enemy.name }}</strong>
-          <span>
-            Lv.
+          <i nz-icon [nzType]="enemy.icon"></i>
+          <strong *ngIf="!isCollapsed">{{ enemy.name }}</strong>
+          <span
+            [class.text-danger]="enemy.level > ms.game.enemyManager.maxLevel"
+          >
+            lv.
             {{ enemy.level | number: "1.0-0" }}
           </span>
         </a>

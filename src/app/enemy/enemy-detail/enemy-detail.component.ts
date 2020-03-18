@@ -47,7 +47,9 @@ export class EnemyDetailComponent implements OnInit, OnDestroy {
     if (!this.enemy) this.enemy = this.ms.game.enemyManager.enemies[0];
   }
   attack() {
-    this.ms.game.enemyManager.attackEnemy(this.enemy);
+    if (this.ms.game.enemyManager.attackEnemy(this.enemy)) {
+      this.router.navigate(["/battle"]);
+    }
   }
   delete() {
     const id = this.ms.game.enemyManager.enemies.indexOf(this.enemy);

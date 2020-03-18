@@ -12,6 +12,10 @@
     fxFlex.xl="0 1 calc(30% - 10px)"
   >
     <h1>Search</h1>
+    Max Level:
+    <strong class="monospace">
+      {{ ms.game.enemyManager.maxLevel | number: "1.0-0" }}</strong
+    >
     <form nz-form>
       <nz-form-item>
         <nz-form-label [nzSpan]="6" nzFor="level">Level</nz-form-label>

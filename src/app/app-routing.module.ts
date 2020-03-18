@@ -37,7 +37,14 @@ export const routes: Routes = [
   {
     path: "enemyList",
     component: EnemiesListComponent,
-    children: [{ path: "enemyDetail/:id", component: EnemyDetailComponent }]
+    children: [
+      {
+        path: "enemyDetail/:id",
+        pathMatch: "full",
+        component: EnemyDetailComponent
+      },
+      { path: "search", pathMatch: "full", component: SearchComponent }
+    ]
   }
 ];
 

@@ -55,7 +55,8 @@ export class Enemy {
       const maxShip = Math.floor(
         1 + (11 * this.level) / (25 + Math.random() * 20 + this.level)
       );
-      const designNum = 1 + Math.random() * (2 + Math.min(this.level, 100) / 25);
+      const designNum =
+        1 + Math.random() * (2 + Math.min(this.level, 100) / 25);
       //#region Generators
       const maxGen = Math.min(
         Math.floor((6 * this.level) / (35 + Math.random() * 20 + this.level)),
@@ -100,12 +101,20 @@ export class Enemy {
         );
       }
       this.favouriteWeapons.push(favouriteWeapon);
+      //#endregion
+      sum = 0;
       for (let i = 0; i < designNum; i++) {
-        this.designs.push(this.generateRandomDesign(sample(allowedShipTypes)));
+        let type = sample(allowedShipTypes);
+        if (this.designs.findIndex(d => d.type.id === type.id)) {
+          type = sample(allowedShipTypes);
+        }
+        const des = this.generateRandomDesign(sample(allowedShipTypes));
+        this.designs.push(des);
+        des.enemyPriority = 2 + Math.floor(Math.random() * 3);
+        sum += des.enemyPriority;
       }
-      sum = 1;
     }
-    //#endregion
+
     this.designs.forEach(des => {
       des.enemyQuantity = Math.floor(
         (maxNavalCap * des.enemyPriority) / sum / des.type.navalCapacity

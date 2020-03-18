@@ -37,12 +37,13 @@ export class EnemyManager extends JobManager {
       this.toDo[i].reload();
     }
   }
-  attackEnemy(enemy: Enemy) {
+  attackEnemy(enemy: Enemy): boolean {
     if (this.currentEnemy || enemy.level > this.maxLevel) return false;
     this.currentEnemy = enemy;
     this.currentEnemy.generateCells();
-    const index = this.enemies.indexOf(this.currentEnemy);
-    if (index > 0) this.enemies.splice(index, 1);
+    const index = this.enemies.indexOf(enemy);
+    if (index >= 0) this.enemies.splice(index, 1);
+    return true;
   }
   attackCell(fleetNum: number) {
     if (

@@ -11,12 +11,12 @@
 @science-color-alt: @cyan-5;
 @production-color-alt: @orange-5;
 
-@info-color: @blue-6;
-@success-color: @green-6;
-@processing-color: @blue-6;
-@error-color: @red-6;
-@highlight-color: @red-6;
-@warning-color: @gold-6;
+@info-color: @blue-7;
+@success-color: @green-7;
+@processing-color: @blue-7;
+@error-color: @red-7;
+@highlight-color: @red-7;
+@warning-color: @gold-7;
 
 @damage-color: @orange-6;
 @armour-damage-color: @green-6;
@@ -90,6 +90,12 @@
 
 // @info-color: #313133;
 
+// Buttons
+@btn-primary-bg: darken(@primary-color, 5%);
+
+@btn-danger-bg: darken(@error-color, 5%);
+@btn-danger-border: @btn-danger-bg;
+
 // Shadow
 @shadow-color: rgba(0, 0, 0, 0.6);
 @box-shadow-base: @shadow-1-down;
@@ -128,7 +134,7 @@
 
 @menu-item-vertical-margin: 0;
 @menu-item-boundary-margin: 0;
-@border-color-split: #5e5e5d;
+@border-color-split: #787878;
 
 @slider-rail-background-color-hover: @border-color-split;
 
@@ -182,6 +188,9 @@
 }
 .light-background {
   background: @layout-header-background;
+}
+.ant-select-dropdown {
+  border: @border-color-split 1px solid;
 }
 
 @import "./src/commonTheme.less";
