@@ -1,6 +1,7 @@
 //  Utility
 export const ZERO = new Decimal(0);
 export const ONE = new Decimal(1);
+export const TEN = new Decimal(10);
 export const INFINITY = new Decimal(Number.POSITIVE_INFINITY);
 
 //  Units

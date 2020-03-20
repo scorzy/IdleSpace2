@@ -2,6 +2,9 @@
   <tr *ngFor="let i of numbers">
     <td
       class="cell"
+      nz-popover
+      [nzPopoverContent]="contentTemplate"
+      nzPopoverPlacement="bottomCenter"
       *ngFor="let k of numbers"
       [ngStyle]="{
         'background-color':
@@ -13,12 +16,15 @@
       <!-- &nbsp; -->
       <!-- {{ ms.game.enemyManager.currentEnemy.cells[i * 10 + k].percent }} -->
       <i
-        *ngIf="ms.game.enemyManager.currentEnemy.cells[i * 10 + k].districts"
+        *ngIf="ms.game.enemyManager.currentEnemy.cells[i * 10 + k].special"
         nz-icon
         [nzType]="
-          ms.game.enemyManager.currentEnemy.cells[i * 10 + k].districts.icon
+          ms.game.enemyManager.currentEnemy.cells[i * 10 + k].special.icon
         "
       ></i>
+      <ng-template #contentTemplate
+        ><i nz-icon nzType="check"></i> Content</ng-template
+      >
     </td>
   </tr>
 </table>

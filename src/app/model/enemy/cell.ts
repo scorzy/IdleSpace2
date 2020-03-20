@@ -14,7 +14,8 @@ export class Cell {
   search = ZERO;
   science = ZERO;
 
-  districts: Unit;
+  special: Unit;
+  specialQuantity = ZERO;
 
   percent = 100;
   done = false;
@@ -31,7 +32,8 @@ export class Cell {
     if (this.components.gt(0)) ret.c = this.components;
     if (this.search.gt(0)) ret.s = this.search;
     if (this.science.gt(0)) ret.e = this.science;
-    if (this.districts) ret.i = this.districts.id;
+    if (this.special) ret.i = this.special.id;
+    if (this.specialQuantity.gt(0)) ret.p = this.specialQuantity;
 
     if (this.ships) ret.s = this.ships;
     if (this.done) ret.d = this.done;
@@ -44,9 +46,10 @@ export class Cell {
     if ("s" in data) this.search = new Decimal(data.s);
     if ("e" in data) this.science = new Decimal(data.e);
     if ("i" in data)
-      this.districts = Game.getGame().resourceManager.districts.find(
+      this.special = Game.getGame().resourceManager.districts.find(
         u => u.id === data.i
       );
+    if ("p" in data) this.specialQuantity = new Decimal(data.p);
 
     if ("s" in data) this.ships = data.s;
     if ("d" in data) this.done = data.d;

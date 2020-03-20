@@ -9,7 +9,8 @@ import {
   FLEET_CAPACITY_MULTI,
   FLEET_CAPACITY,
   BASE_NAVAL_CAPACITY,
-  MOD_LEVEL_EXP
+  MOD_LEVEL_EXP,
+  TEN
 } from "../CONSTANTS";
 import { modules, ModuleData } from "../data/modulesData";
 import { ShipType } from "../shipyard/ShipType";
@@ -141,13 +142,16 @@ export class Enemy {
         switch (k) {
           case 0:
           case 1:
-            cell.districts = rs.habitableSpace;
+            cell.special = rs.habitableSpace;
+            cell.specialQuantity = TEN.plus(this.level - 1);
             break;
           case 2:
-            cell.districts = rs.miningDistrict;
+            cell.special = rs.miningDistrict;
+            cell.specialQuantity = TEN.plus(this.level - 1);
             break;
           case 3:
-            cell.districts = rs.energyDistrict;
+            cell.special = rs.energyDistrict;
+            cell.specialQuantity = TEN.plus(this.level - 1);
             break;
         }
       }
