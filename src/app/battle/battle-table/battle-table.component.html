@@ -1,6 +1,7 @@
 <table>
   <tr *ngFor="let i of numbers">
     <td
+      class="cell"
       *ngFor="let k of numbers"
       [ngStyle]="{
         'background-color':
@@ -9,8 +10,15 @@
             : 'transparent'
       }"
     >
-      &nbsp;
+      <!-- &nbsp; -->
       <!-- {{ ms.game.enemyManager.currentEnemy.cells[i * 10 + k].percent }} -->
+      <i
+        *ngIf="ms.game.enemyManager.currentEnemy.cells[i * 10 + k].districts"
+        nz-icon
+        [nzType]="
+          ms.game.enemyManager.currentEnemy.cells[i * 10 + k].districts.icon
+        "
+      ></i>
     </td>
   </tr>
 </table>

@@ -130,11 +130,32 @@ export class Enemy {
     this.reloadTotalNavalCap();
   }
   generateCells() {
+    const rs = Game.getGame().resourceManager;
     this.cells = new Array<Cell>(100);
-    for (let i = 0; i < 100; i++) {
-      this.cells[i] = new Cell();
-      this.cells[i].index = 1;
-      this.cells[i].ships = this.designs.map(des => des.enemyQuantity);
+    for (let i = 0; i < 10; i++) {
+      let cellRow = new Array<Cell>();
+      for (let k = 0; k < 10; k++) {
+        const cell = new Cell();
+        cellRow.push(cell);
+        cell.ships = this.designs.map(des => des.enemyQuantity);
+        switch (k) {
+          case 0:
+          case 1:
+            cell.districts = rs.habitableSpace;
+            break;
+          case 2:
+            cell.districts = rs.miningDistrict;
+            break;
+          case 3:
+            cell.districts = rs.energyDistrict;
+            break;
+        }
+      }
+      cellRow = shuffle(cellRow);
+      for (let k = 0; k < 10; k++) {
+        cellRow[k].index = i * 10 + k;
+        this.cells[cellRow[k].index] = cellRow[k];
+      }
     }
   }
   reloadCell(index: number) {
