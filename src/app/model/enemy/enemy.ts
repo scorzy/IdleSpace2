@@ -8,7 +8,8 @@ import {
   ENEMY_NAVAL_CAP_LEVEL,
   FLEET_CAPACITY_MULTI,
   FLEET_CAPACITY,
-  BASE_NAVAL_CAPACITY
+  BASE_NAVAL_CAPACITY,
+  MOD_LEVEL_EXP
 } from "../CONSTANTS";
 import { modules, ModuleData } from "../data/modulesData";
 import { ShipType } from "../shipyard/ShipType";
@@ -44,12 +45,13 @@ export class Enemy {
       BASE_NAVAL_CAPACITY + ENEMY_NAVAL_CAP_LEVEL * this.level,
       FLEET_CAPACITY
     );
-    this.modLevel = this.level;
 
     if (searchJob.enemyLevel < 1) {
+      this.modLevel = 1;
       this.designs.push(this.generateDesign(FIRST_DRONE, this.modLevel));
       sum = 1;
     } else {
+      this.modLevel = Math.floor(this.level * MOD_LEVEL_EXP);
       this.weaponDefenceRatio = 0.2 + Math.random() * 0.5;
       const sm = Game.getGame().shipyardManager;
       const maxShip = Math.floor(
@@ -108,7 +110,7 @@ export class Enemy {
         if (this.designs.findIndex(d => d.type.id === type.id)) {
           type = sample(allowedShipTypes);
         }
-        const des = this.generateRandomDesign(sample(allowedShipTypes));
+        const des = this.generateRandomDesign(type);
         this.designs.push(des);
         des.enemyPriority = 2 + Math.floor(Math.random() * 3);
         sum += des.enemyPriority;
@@ -270,11 +272,12 @@ export class Enemy {
             if (this.preferHighLevGen) {
               const last = lastGen.module.id;
               const prevEnergy = lastGen.module.energy;
-              lastGen.module = sm.allGenerators.find(
+              const newGen = sm.allGenerators.find(
                 g =>
                   g.energy > lastGen.module.energy &&
                   lastGen.module.energy < this.maxGenerator
               );
+              if (newGen) lastGen.module = newGen;
               if (last !== lastGen.module.id) {
                 tempEnergy += lastGen.module.energy - prevEnergy;
               }
@@ -291,11 +294,12 @@ export class Enemy {
             } else {
               const last = lastGen.module.id;
               const prevEnergy = lastGen.module.energy;
-              lastGen.module = sm.allGenerators.find(
+              const newGen = sm.allGenerators.find(
                 g =>
                   g.energy > lastGen.module.energy &&
                   lastGen.module.energy < this.maxGenerator
               );
+              if (newGen) lastGen.module = newGen;
               if (last !== lastGen.module.id) {
                 tempEnergy += lastGen.module.energy - prevEnergy;
               }
@@ -309,7 +313,7 @@ export class Enemy {
             const gen = sm.allGenerators.find(g => g.energy > 0);
             copy.modules.push({
               module: gen,
-              level: 1,
+              level: this.modLevel,
               size: 1
             });
             tempUsedPoint++;
@@ -329,7 +333,7 @@ export class Enemy {
           } else {
             copy.modules.push({
               module,
-              level: 1,
+              level: this.modLevel,
               size: pointToUse
             });
           }
