@@ -94,6 +94,7 @@ export class ShipDesign {
     this.acceleration = 0;
     this.explosionThreshold = BASE_EXPLOSION * (this.type.id + 1);
     this.threat = BASE_THREAT * (this.type.id + 1);
+    this.valid = true;
     if (errorCheck) {
       //  Error check
       this.modules
@@ -455,7 +456,12 @@ export class ShipDesign {
 
     return ret;
   }
-
+  maximize() {
+    this.modules.forEach(mod => {
+      if (mod.module) mod.level = Math.floor(mod.module.maxLevel - 1);
+    });
+    this.reload(true);
+  }
   //#region Save and Load
   getSave(): any {
     const ret: any = {

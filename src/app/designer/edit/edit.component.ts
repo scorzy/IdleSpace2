@@ -89,6 +89,13 @@ export class EditComponent implements OnInit, OnDestroy {
     ].module = this.ms.game.shipyardManager.modules.find(
       m => m.id === this.design.modules[index].moduleId
     );
+    if (this.design.modules[index].module)
+      this.design.modules[index].level =
+        this.design.modules[index].module.maxLevel - 1;
+    this.design.modules[index].levelUi = MainService.formatPipe.transform(
+      this.design.modules[index].level,
+      true
+    );
     this.reload();
   }
   getModId(module: Module) {
@@ -151,6 +158,13 @@ export class EditComponent implements OnInit, OnDestroy {
       this.changeEmitter.emit("1");
       this.isEqual = true;
     }
+  }
+  maximize() {
+    this.design.maximize();
+    this.design.modules.forEach(mod => {
+      mod.levelUi = MainService.formatPipe.transform(mod.level, true);
+    });
+    this.changeEmitter.emit("1");
   }
   isDisabled(): boolean {
     // console.log("v " + this.design.valid + " e " + this.isEqual);
