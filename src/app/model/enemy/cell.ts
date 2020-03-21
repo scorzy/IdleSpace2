@@ -45,10 +45,11 @@ export class Cell {
     if ("c" in data) this.components = new Decimal(data.c);
     if ("s" in data) this.search = new Decimal(data.s);
     if ("e" in data) this.science = new Decimal(data.e);
-    if ("i" in data)
+    if ("i" in data) {
       this.special = Game.getGame().resourceManager.districts.find(
         u => u.id === data.i
       );
+    }
     if ("p" in data) this.specialQuantity = new Decimal(data.p);
 
     if ("s" in data) this.ships = data.s;

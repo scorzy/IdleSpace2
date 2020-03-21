@@ -226,6 +226,9 @@ export function battle(battleRequest: BattleRequest): any {
 
         shipData.stats.total.shieldRegenerationReceived +=
           shipData.stats.rounds[z].shieldRegenerationReceived;
+
+        shipData.stats.total.shipHit += shipData.stats.rounds[z].shipHit;
+        shipData.stats.total.defenceHit += shipData.stats.rounds[z].defenceHit;
       }
       shipData.stats.total.threatAvg =
         shipData.stats.total.threatAvg / shipData.stats.total.threatQta;
@@ -241,11 +244,14 @@ function getTarget(targets: ShipData[], weapon: WeaponData): Ship {
   let sum = 0;
   const shieldPrecision = weapon.shieldPercent * weapon.adaptivePrecision;
   const armourPrecision = weapon.armourPercent * weapon.adaptivePrecision;
+  const defencePrecision =
+    (weapon.defencePercent - 1) * weapon.adaptivePrecision;
   for (let i = 0, n = targets.length; i < n; i++) {
     sum += targets[i].totalThreat;
     sum += targets[i].alive.length * weapon.precision;
     sum += shieldPrecision * targets[i].withShield;
     sum += armourPrecision * targets[i].withArmour;
+    if (targets[i].isDefence) sum += defencePrecision * targets[i].alive.length;
   }
   const rand = Math.random() * sum;
   let acc = 0;
@@ -254,6 +260,7 @@ function getTarget(targets: ShipData[], weapon: WeaponData): Ship {
     for (let k = 0, n2 = targets[i].ships.length; k < n2; k++) {
       target = targets[i].ships[k];
       acc += target.threat;
+      if (targets[i].isDefence && target.armour > 0) acc += defencePrecision;
       if (target.shield > 0) {
         acc += shieldPrecision;
       } else if (target.armour > 0) {
@@ -272,6 +279,13 @@ function dealDamage(
 ) {
   let totalDamageDone = 0;
   let damageToDo = weapon.damage;
+  if (target.shipData.isDefence) {
+    damageToDo *= weapon.defencePercent;
+    attacker.shipData.stats.rounds[round].defenceHit++;
+  } else {
+    attacker.shipData.stats.rounds[round].shipHit++;
+  }
+
   const fullHealth =
     target.armour >= target.shipData.totalArmour &&
     target.shield >= target.shipData.totalShield;

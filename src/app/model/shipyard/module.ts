@@ -17,6 +17,7 @@ export class Module implements IUnlockable {
   energy = 0;
   armourDamageReduction = 0;
   shieldDamageReduction = 0;
+  defencePercent = 0;
   damage = 0;
   cargo = 0;
   armourDamagePercent = 100;

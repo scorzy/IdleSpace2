@@ -41,6 +41,7 @@ export class ModuleData {
   precision?: number;
   adaptivePrecision?: number;
   threatGainMulti?: number;
+  defenceDamagePercent?: number;
 }
 
 export const modules: ModuleData[] = [

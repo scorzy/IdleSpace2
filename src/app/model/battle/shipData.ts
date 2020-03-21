@@ -5,6 +5,7 @@ export class WeaponData {
   damage: number;
   armourPercent: number;
   shieldPercent: number;
+  defencePercent: number;
   precision: number;
   adaptivePrecision: number;
   threatMulti: number;
@@ -30,4 +31,6 @@ export class ShipData {
   shieldRecharge: number;
   withShield: number;
   withArmour: number;
+  defences: number;
+  isDefence = false;
 }

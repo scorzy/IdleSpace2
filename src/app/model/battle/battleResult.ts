@@ -26,6 +26,9 @@ export class DesignReport {
   shieldRegenerationReceived = 0;
   threatAvg = 0;
   threatQta = 0;
+
+  shipHit = 0;
+  defenceHit = 0;
 }
 export class Stats {
   player: boolean;

@@ -10,27 +10,16 @@ import {
   MIN_THREAT,
   UTILITY_MOD_DECREASE
 } from "../CONSTANTS";
-import { Module } from "./module";
 import { Game } from "../game";
 import { ShipType } from "./ShipType";
 import { MainService } from "src/app/main.service";
 import { FleetShips } from "./fleetShips";
 import { ShipData, WeaponData } from "../battle/shipData";
 import { Weapon } from "./weapon";
+import { IShipModule } from "./IShipModule";
 
 const PRICE_GROW_RATE = 1.05;
 const SIZE_MULTI = 0.2;
-export interface IShipModule {
-  module: Module;
-  level: number;
-  size: number;
-  moduleId?: string;
-  levelUi?: string;
-  validateStatus?: string;
-  errorTip?: string;
-  warningTip?: string;
-}
-
 export class ShipDesign {
   id: number;
   rev = 0;
@@ -62,6 +51,7 @@ export class ShipDesign {
   enemyPriority = 1;
   enemyQuantity = 0;
   threat = BASE_THREAT;
+  isDefence = false;
 
   constructor() {
     this.fleets = new Array<FleetShips>(FLEET_NUMBER);
@@ -150,6 +140,7 @@ export class ShipDesign {
           damage,
           armourPercent: m.module.armourDamagePercent,
           shieldPercent: m.module.shieldDamagePercent,
+          defencePercent: m.module.defencePercent,
           precision: m.module.precision * statsMulti,
           adaptivePrecision: m.module.adaptivePrecision * statsMulti,
           threatMulti: m.module.threatGainMulti
@@ -181,6 +172,12 @@ export class ShipDesign {
         if (m.module.shieldDamagePercent !== 100) {
           weapon.shieldPercent *= Math.pow(
             1 + (m.module.shieldDamagePercent * multi) / 100,
+            statsMultiNoLevel
+          );
+        }
+        if (m.module.defencePercent !== 100) {
+          weapon.defencePercent *= Math.pow(
+            1 + (m.module.defencePercent * multi) / 100,
             statsMultiNoLevel
           );
         }
@@ -453,6 +450,7 @@ export class ShipDesign {
     ret.explosionDamage = this.explosionDamage;
     ret.weapons = this.weapons;
     ret.shieldRecharge = this.shieldRecharge;
+    ret.isDefence = this.isDefence;
 
     return ret;
   }
@@ -472,6 +470,7 @@ export class ShipDesign {
       m: this.modules.map(mod => [mod.module.id, mod.level, mod.size]),
       f: this.fleets.map(fleet => fleet.getData())
     };
+    if (this.isDefence) ret.d = this.isDefence;
     if (this.old) ret.o = this.old.getSave();
     return ret;
   }
@@ -483,6 +482,7 @@ export class ShipDesign {
     if ("i" in data) this.id = data.i;
     if ("r" in data) this.rev = data.r;
     if ("n" in data) this.name = data.n;
+    if ("d" in data) this.isDefence = data.d;
     if ("t" in data) {
       this.type = Game.getGame().shipyardManager.shipTypes.find(
         t => t.id === data.t

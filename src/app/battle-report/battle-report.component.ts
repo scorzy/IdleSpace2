@@ -144,6 +144,12 @@ export class BattleReportComponent implements OnInit, OnDestroy {
       case "threatAvg":
         ret = stat.threatAvg;
         break;
+      case "shipHit":
+        ret = stat.shipHit;
+        break;
+      case "defenceHit":
+        ret = stat.defenceHit;
+        break;
     }
 
     return ret;
@@ -187,6 +193,13 @@ export class BattleReportComponent implements OnInit, OnDestroy {
         break;
       case "aliveTargetsNoShield":
         ret = "Alive Targets without Shield";
+        break;
+
+      case "shipHit":
+        ret = "Ship Targets";
+        break;
+      case "defenceHit":
+        ret = "Defence Targets";
         break;
 
       case "deathTargets":
