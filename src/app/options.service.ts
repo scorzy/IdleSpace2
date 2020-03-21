@@ -17,7 +17,7 @@ export class OptionsService {
   themeId = 0;
   darkSide = true;
   darkHeader = true;
-  isDark = true;
+  static isDark = true;
 
   constructor() {
     try {
@@ -44,7 +44,7 @@ export class OptionsService {
   }
   setHeaderTheme() {
     this.darkHeader = this.themeId > 1 && this.darkSide;
-    this.isDark = this.themeId < 2;
+    OptionsService.isDark = this.themeId < 2;
   }
 
   getSave(): any {

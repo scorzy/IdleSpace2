@@ -5,6 +5,9 @@ import { Game } from "../game";
 export const TO_DO_COLOR = [245, 79, 71];
 export const DONE_COLOR = [96, 181, 21];
 
+export const TO_DO_COLOR_DARK = [207, 19, 34];
+export const DONE_COLOR_DARK = [56, 158, 13];
+
 export class Cell {
   index = 0;
   metal = ZERO;

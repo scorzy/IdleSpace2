@@ -1,4 +1,10 @@
-import { Cell, TO_DO_COLOR, DONE_COLOR } from "./cell";
+import {
+  Cell,
+  TO_DO_COLOR,
+  DONE_COLOR,
+  TO_DO_COLOR_DARK,
+  DONE_COLOR_DARK
+} from "./cell";
 import { ShipDesign } from "../shipyard/shipDesign";
 import { SearchJob } from "./searchJob";
 import { IShipData, FIRST_DRONE } from "../data/shipsData";
@@ -15,6 +21,8 @@ import {
 import { modules, ModuleData } from "../data/modulesData";
 import { ShipType } from "../shipyard/ShipType";
 import { Module } from "../shipyard/module";
+import { MainService } from "src/app/main.service";
+import { OptionsService } from "src/app/options.service";
 
 export class Enemy {
   constructor() {
@@ -163,10 +171,20 @@ export class Enemy {
     }
   }
   reloadCell(index: number) {
-    if (!this.cells) return;
+    let toDoColor: number[];
+    let doneColor: number[];
+    if (OptionsService.isDark) {
+      toDoColor = TO_DO_COLOR_DARK;
+      doneColor = DONE_COLOR_DARK;
+    } else {
+      toDoColor = TO_DO_COLOR;
+      doneColor = DONE_COLOR;
+    }
+    if (MainService) if (!this.cells) return;
     if (this.cells[index].done) {
       this.cells[index].percent = 0;
-      this.cells[index].color = "rgb(96, 181, 21)";
+      this.cells[index].color =
+        "rgb(" + doneColor[0] + ", " + doneColor[1] + ", " + doneColor[2] + ")";
     } else {
       let cellNavCap = 0;
       for (let i = 0, n = this.designs.length; i < n; i++) {
@@ -178,8 +196,8 @@ export class Enemy {
       this.cells[index].color = "rgb(";
       for (let i = 0; i < 3; i++) {
         const col =
-          TO_DO_COLOR[i] +
-          (DONE_COLOR[i] - TO_DO_COLOR[i]) * (1 - this.cells[index].percent);
+          toDoColor[i] +
+          (doneColor[i] - toDoColor[i]) * (1 - this.cells[index].percent);
         this.cells[index].color += col + (i < 2 ? "," : "");
       }
       this.cells[index].color += ")";
