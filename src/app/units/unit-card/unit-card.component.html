@@ -69,17 +69,19 @@
     </div>
   </div>
 
-  <span nz-text><strong>Price:</strong></span>
+  <!-- <span nz-text><strong>Price:</strong></span> -->
   <span *ngFor="let pri of unit.buyPrice.prices; trackBy: getPriceId">
     <span nz-text [nzType]="pri.canBuy ? '' : 'danger'">
       <i
         nz-icon
+        class="priceIcon"
         [nzType]="pri.spendable.icon"
         [ngClass]="pri?.spendable?.colorClass"
       ></i>
       <span *ngIf="!pri.spendable.icon">{{ pri.spendable.name }}</span>
-      <span class="monospace"> {{ pri.singleCost | format }}</span>
+      <span class="monospace">{{ pri.singleCost | format }}</span>
       <span
+        class="comma"
         *ngIf="
           unit.buyPrice.prices.indexOf(pri) !== unit.buyPrice.prices.length - 1
         "
