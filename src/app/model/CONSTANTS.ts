@@ -26,6 +26,9 @@ export const BASE_EXPLOSION = BASE_ARMOUR;
 export const SEARCH_JOB_PRICE = 100;
 export const ENEMY_NAVAL_CAP_LEVEL = 100;
 export const MOD_LEVEL_EXP = 1.3;
+export const DEFENCE_START_LEVEL = 14;
+export const DEFENCE_FINAL_LEVEL = 65;
+export const DEFENCE_MAX_PERCENT = 0.3;
 
 // Modules
 export const MODULE_ARMOUR = 200;

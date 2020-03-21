@@ -401,7 +401,7 @@ export class ShipDesign {
     this.explosionThreshold = Math.max(this.explosionThreshold, 0);
     this.valid =
       this.valid &&
-      this.energy >= 0 &&
+      (this.energy >= 0 || this.isDefence) &&
       modSum <= this.type.maxModule &&
       points <= this.type.maxPoints;
 
@@ -415,6 +415,7 @@ export class ShipDesign {
     ret.id = this.id;
     ret.rev = this.rev;
     ret.type = this.type;
+    ret.isDefence = this.isDefence;
     ret.modules =
       this.modules.length === 0
         ? []

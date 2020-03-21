@@ -16,7 +16,10 @@ import {
   FLEET_CAPACITY,
   BASE_NAVAL_CAPACITY,
   MOD_LEVEL_EXP,
-  TEN
+  TEN,
+  DEFENCE_START_LEVEL,
+  DEFENCE_FINAL_LEVEL,
+  DEFENCE_MAX_PERCENT
 } from "../CONSTANTS";
 import { modules, ModuleData } from "../data/modulesData";
 import { ShipType } from "../shipyard/ShipType";
@@ -114,6 +117,14 @@ export class Enemy {
       this.favouriteWeapons.push(favouriteWeapon);
       //#endregion
       sum = 0;
+      let defPercent = Math.max(
+        0.1,
+        Math.min(
+          DEFENCE_MAX_PERCENT,
+          (DEFENCE_MAX_PERCENT * (this.level - DEFENCE_START_LEVEL)) /
+            DEFENCE_FINAL_LEVEL
+        )
+      );
       for (let i = 0; i < designNum; i++) {
         let type = sample(allowedShipTypes);
         if (this.designs.findIndex(d => d.type.id === type.id)) {
@@ -122,7 +133,21 @@ export class Enemy {
         const des = this.generateRandomDesign(type);
         this.designs.push(des);
         des.enemyPriority = 2 + Math.floor(Math.random() * 3);
+        des.enemyPriority *= 1 - defPercent;
         sum += des.enemyPriority;
+      }
+      if (this.level > 1 + DEFENCE_START_LEVEL) {
+        const defNum =
+          1 +
+          Math.floor((Math.random() * (this.level - DEFENCE_START_LEVEL)) / 10);
+        for (let k = 0; k < defNum; k++) {
+          let type = sample(allowedShipTypes);
+          const des = this.generateRandomDesign(type, true);
+          this.designs.push(des);
+          des.enemyPriority = 2 + Math.floor(Math.random() * 3);
+          des.enemyPriority *= defPercent;
+          sum += des.enemyPriority;
+        }
       }
     }
 
@@ -230,12 +255,13 @@ export class Enemy {
         this.designs[i].enemyQuantity * this.designs[i].type.navalCapacity;
     }
   }
-  private generateRandomDesign(type: ShipType): ShipDesign {
+  private generateRandomDesign(type: ShipType, isDefence = false): ShipDesign {
     const sm = Game.getGame().shipyardManager;
 
     const design = new ShipDesign();
-    design.name = type.name;
+    design.name = (isDefence ? "def" : "") + type.name;
     design.type = type;
+    design.isDefence = isDefence;
     let usedModules = 0;
     let usedPoints = 0;
     const energy = 0;
@@ -295,76 +321,81 @@ export class Enemy {
       let nTry = 0;
 
       // Energy
-      while (tempEnergy < 0 && nTry < 10) {
-        nTry++;
-        const lastGen =
-          copy.modules.length > 0
-            ? copy.modules.find(
-                m =>
-                  m.module &&
-                  m.module.energy > 0 &&
-                  (m.size < 5 || m.module.energy < this.maxGenerator)
-              )
-            : null;
-        if (lastGen) {
-          if (
-            lastGen.size < 5 &&
-            lastGen.module.energy < this.maxGenerator &&
-            tempUsedPoint < design.type.maxPoints
-          ) {
-            if (this.preferHighLevGen) {
-              const last = lastGen.module.id;
-              const prevEnergy = lastGen.module.energy;
-              const newGen = sm.allGenerators.find(
-                g =>
-                  g.energy > lastGen.module.energy &&
-                  lastGen.module.energy < this.maxGenerator
-              );
-              if (newGen) lastGen.module = newGen;
-              if (last !== lastGen.module.id) {
-                tempEnergy += lastGen.module.energy - prevEnergy;
+      if (!isDefence) {
+        while (tempEnergy < 0 && nTry < 10) {
+          nTry++;
+          const lastGen =
+            copy.modules.length > 0
+              ? copy.modules.find(
+                  m =>
+                    m.module &&
+                    m.module.energy > 0 &&
+                    (m.size < 5 || m.module.energy < this.maxGenerator)
+                )
+              : null;
+          if (lastGen) {
+            if (
+              lastGen.size < 5 &&
+              lastGen.module.energy < this.maxGenerator &&
+              tempUsedPoint < design.type.maxPoints
+            ) {
+              if (this.preferHighLevGen) {
+                const last = lastGen.module.id;
+                const prevEnergy = lastGen.module.energy;
+                const newGen = sm.allGenerators.find(
+                  g =>
+                    g.energy > lastGen.module.energy &&
+                    lastGen.module.energy < this.maxGenerator
+                );
+                if (newGen) lastGen.module = newGen;
+                if (last !== lastGen.module.id) {
+                  tempEnergy += lastGen.module.energy - prevEnergy;
+                }
+              } else {
+                lastGen.size++;
+                tempUsedPoint++;
+                tempEnergy += lastGen.module.energy;
               }
             } else {
-              lastGen.size++;
-              tempUsedPoint++;
-              tempEnergy += lastGen.module.energy;
+              if (lastGen.size < 5 && tempUsedPoint < design.type.maxPoints) {
+                lastGen.size++;
+                tempUsedPoint++;
+                tempEnergy += lastGen.module.energy;
+              } else {
+                const last = lastGen.module.id;
+                const prevEnergy = lastGen.module.energy;
+                const newGen = sm.allGenerators.find(
+                  g =>
+                    g.energy > lastGen.module.energy &&
+                    lastGen.module.energy < this.maxGenerator
+                );
+                if (newGen) lastGen.module = newGen;
+                if (last !== lastGen.module.id) {
+                  tempEnergy += lastGen.module.energy - prevEnergy;
+                }
+              }
             }
           } else {
-            if (lastGen.size < 5 && tempUsedPoint < design.type.maxPoints) {
-              lastGen.size++;
+            if (
+              copy.modules.length < design.type.maxModule - 1 &&
+              tempUsedPoint < design.type.maxPoints
+            ) {
+              const gen = sm.allGenerators.find(g => g.energy > 0);
+              copy.modules.push({
+                module: gen,
+                level: this.modLevel,
+                size: 1
+              });
               tempUsedPoint++;
-              tempEnergy += lastGen.module.energy;
-            } else {
-              const last = lastGen.module.id;
-              const prevEnergy = lastGen.module.energy;
-              const newGen = sm.allGenerators.find(
-                g =>
-                  g.energy > lastGen.module.energy &&
-                  lastGen.module.energy < this.maxGenerator
-              );
-              if (newGen) lastGen.module = newGen;
-              if (last !== lastGen.module.id) {
-                tempEnergy += lastGen.module.energy - prevEnergy;
-              }
+              tempEnergy += gen.energy;
             }
           }
-        } else {
-          if (
-            copy.modules.length < design.type.maxModule - 1 &&
-            tempUsedPoint < design.type.maxPoints
-          ) {
-            const gen = sm.allGenerators.find(g => g.energy > 0);
-            copy.modules.push({
-              module: gen,
-              level: this.modLevel,
-              size: 1
-            });
-            tempUsedPoint++;
-            tempEnergy += gen.energy;
-          }
         }
+        notEnergy = tempEnergy < 0;
+      } else {
+        tempEnergy = 10;
+        notEnergy = false;
       }
-      notEnergy = tempEnergy < 0;
       if (tempEnergy >= 0 && tempUsedPoint <= design.type.maxPoints) {
         copy.reload(false);
         if (copy.valid) {
