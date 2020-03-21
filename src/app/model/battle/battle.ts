@@ -69,6 +69,11 @@ export function battle(battleRequest: BattleRequest): any {
             );
             if (target) {
               target.shipData.stats.rounds[round].shotTaken++;
+              if (target.shipData.isDefence) {
+                currentShip.shipData.stats.rounds[round].defenceHit++;
+              } else {
+                currentShip.shipData.stats.rounds[round].shipHit++;
+              }
               if (target.armour > 0) {
                 currentShip.shipData.stats.rounds[round].aliveTargets++;
                 dealDamage(firing.weapons[h], target, currentShip, round);
@@ -281,9 +286,7 @@ function dealDamage(
   let damageToDo = weapon.damage;
   if (target.shipData.isDefence) {
     damageToDo *= weapon.defencePercent;
-    attacker.shipData.stats.rounds[round].defenceHit++;
   } else {
-    attacker.shipData.stats.rounds[round].shipHit++;
   }
 
   const fullHealth =
