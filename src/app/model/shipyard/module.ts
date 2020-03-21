@@ -17,11 +17,11 @@ export class Module implements IUnlockable {
   energy = 0;
   armourDamageReduction = 0;
   shieldDamageReduction = 0;
-  defencePercent = 0;
   damage = 0;
   cargo = 0;
   armourDamagePercent = 100;
   shieldDamagePercent = 100;
+  defenceDamagePercent = 100;
   fire = 1;
   price = DEFAULT_MODULE_PRICE;
   explosion = 0;

@@ -57,7 +57,7 @@ export class Enemy {
       BASE_NAVAL_CAPACITY + ENEMY_NAVAL_CAP_LEVEL * this.level,
       FLEET_CAPACITY
     );
-
+    let defPercent = 0;
     if (searchJob.enemyLevel < 1) {
       this.modLevel = 1;
       this.designs.push(this.generateDesign(FIRST_DRONE, this.modLevel));
@@ -69,8 +69,32 @@ export class Enemy {
       const maxShip = Math.floor(
         1 + (11 * this.level) / (25 + Math.random() * 20 + this.level)
       );
-      const designNum =
-        1 + Math.random() * (2 + Math.min(this.level, 100) / 25);
+      let designNum = 1 + Math.random() * (2 + Math.min(this.level, 100) / 25);
+      defPercent =
+        this.level <= DEFENCE_START_LEVEL
+          ? 0
+          : Math.max(
+              0.05,
+              Math.min(
+                DEFENCE_MAX_PERCENT,
+                (DEFENCE_MAX_PERCENT * (this.level - DEFENCE_START_LEVEL)) /
+                  DEFENCE_FINAL_LEVEL
+              )
+            );
+      let defNum = 0;
+      if (defPercent > 0) {
+        defNum =
+          1 +
+          Math.floor(
+            Math.min(
+              2,
+              Math.random() *
+                Math.min(2, (this.level - DEFENCE_START_LEVEL) / 10)
+            )
+          );
+        designNum -= defNum;
+        designNum = Math.max(1, designNum);
+      }
       //#region Generators
       const maxGen = Math.min(
         Math.floor((6 * this.level) / (35 + Math.random() * 20 + this.level)),
@@ -117,14 +141,7 @@ export class Enemy {
       this.favouriteWeapons.push(favouriteWeapon);
       //#endregion
       sum = 0;
-      let defPercent = Math.max(
-        0.1,
-        Math.min(
-          DEFENCE_MAX_PERCENT,
-          (DEFENCE_MAX_PERCENT * (this.level - DEFENCE_START_LEVEL)) /
-            DEFENCE_FINAL_LEVEL
-        )
-      );
+      if (defPercent > 0) designNum--;
       for (let i = 0; i < designNum; i++) {
         let type = sample(allowedShipTypes);
         if (this.designs.findIndex(d => d.type.id === type.id)) {
@@ -133,25 +150,22 @@ export class Enemy {
         const des = this.generateRandomDesign(type);
         this.designs.push(des);
         des.enemyPriority = 2 + Math.floor(Math.random() * 3);
-        des.enemyPriority *= 1 - defPercent;
         sum += des.enemyPriority;
       }
-      if (this.level > 1 + DEFENCE_START_LEVEL) {
-        const defNum =
-          1 +
-          Math.floor((Math.random() * (this.level - DEFENCE_START_LEVEL)) / 10);
+      if (defPercent > 0) {
         for (let k = 0; k < defNum; k++) {
-          let type = sample(allowedShipTypes);
+          const type = sample(allowedShipTypes);
           const des = this.generateRandomDesign(type, true);
           this.designs.push(des);
           des.enemyPriority = 2 + Math.floor(Math.random() * 3);
-          des.enemyPriority *= defPercent;
           sum += des.enemyPriority;
         }
       }
     }
 
     this.designs.forEach(des => {
+      const navCap =
+        maxNavalCap * (des.isDefence ? defPercent : 1 - defPercent);
       des.enemyQuantity = Math.floor(
         (maxNavalCap * des.enemyPriority) / sum / des.type.navalCapacity
       );

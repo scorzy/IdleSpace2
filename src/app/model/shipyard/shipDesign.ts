@@ -140,7 +140,7 @@ export class ShipDesign {
           damage,
           armourPercent: m.module.armourDamagePercent,
           shieldPercent: m.module.shieldDamagePercent,
-          defencePercent: m.module.defencePercent,
+          defencePercent: m.module.defenceDamagePercent,
           precision: m.module.precision * statsMulti,
           adaptivePrecision: m.module.adaptivePrecision * statsMulti,
           threatMulti: m.module.threatGainMulti
@@ -175,9 +175,9 @@ export class ShipDesign {
             statsMultiNoLevel
           );
         }
-        if (m.module.defencePercent !== 100) {
+        if (m.module.defenceDamagePercent !== 100) {
           weapon.defencePercent *= Math.pow(
-            1 + (m.module.defencePercent * multi) / 100,
+            1 + (m.module.defenceDamagePercent * multi) / 100,
             statsMultiNoLevel
           );
         }
@@ -427,7 +427,7 @@ export class ShipDesign {
                 level: mod.level,
                 size: mod.size,
                 moduleId: mod.module.id,
-                levelUi: MainService.formatPipe.transform(mod.level),
+                levelUi: MainService.formatPipe.transform(mod.level, true),
                 validateStatus: "",
                 errorTip: ""
               };

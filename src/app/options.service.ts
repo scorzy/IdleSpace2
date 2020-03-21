@@ -7,17 +7,6 @@ export const THEMES = ["dark-green", "dark-blue", "light-green", "light-blue"];
   providedIn: "root"
 })
 export class OptionsService {
-  formatter: any;
-  formatEmitter: EventEmitter<number> = new EventEmitter<number>();
-
-  usaFormat = true;
-  numFormat = "scientific";
-  formatId = 0;
-  timeFormatDetail = true;
-  themeId = 0;
-  darkSide = true;
-  darkHeader = true;
-  static isDark = true;
 
   constructor() {
     try {
@@ -30,6 +19,17 @@ export class OptionsService {
 
     this.generateFormatter();
   }
+  static isDark = true;
+  formatter: any;
+  formatEmitter: EventEmitter<number> = new EventEmitter<number>();
+
+  usaFormat = true;
+  numFormat = "scientific";
+  formatId = 0;
+  timeFormatDetail = true;
+  themeId = 0;
+  darkSide = true;
+  darkHeader = true;
   generateFormatter() {
     this.formatId++;
     try {

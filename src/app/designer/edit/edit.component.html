@@ -1,5 +1,5 @@
 <div fxLayout="row" fxLayout.lt-md="column" *ngIf="design" fxLayoutGap="1rem">
-  <div fxFlex="70">
+  <div fxFlex="65">
     <h1>
       {{ design.name }}
       <small>Rev. {{ design.rev | number }}</small>
@@ -114,7 +114,7 @@
                 [name]="'size' + i"
                 [(ngModel)]="line.size"
                 (ngModelChange)="reload()"
-                style="min-width: 8rem;"
+                style="min-width: 7rem;"
               >
                 <nz-option
                   *ngFor="let size of line.module.sizes; trackBy: getSizeId"
@@ -197,7 +197,7 @@
 
   <!-- Comparison Table -->
 
-  <div fxFlex="30">
+  <div fxFlex="35">
     <nz-tabset>
       <nz-tab nzTitle="Stats">
         <app-design-info

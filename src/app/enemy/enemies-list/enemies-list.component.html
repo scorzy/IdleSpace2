@@ -13,6 +13,8 @@
       [nzTheme]="ms.sideTheme"
       nzMode="inline"
       [nzInlineCollapsed]="isCollapsed"
+      (cdkDropListDropped)="drop($event)"
+      cdkDropList
     >
       <li
         nz-menu-item

@@ -14,11 +14,11 @@ export const ALL_SIZES = [
   Sizes.ExtraLarge
 ];
 const sizeNames = [
-  ["XS", "ExtraSmall"],
+  ["XS", "Extra Small"],
   ["S", "Small"],
   ["M", "Medium"],
   ["L", "Large"],
-  ["XL", "ExtraLarge"],
+  ["XL", "Extra Large"],
   ["T", "Titanic"]
 ];
 export function getSizeName(size: Sizes, short = false): string {

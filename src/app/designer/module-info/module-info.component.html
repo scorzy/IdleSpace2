@@ -30,6 +30,16 @@
     {{ mod.shieldDamagePercent | number: "1.0-0" }}%
   </span>
   <span
+    *ngIf="mod.defenceDamagePercent !== 100"
+    class="defence-damage-color"
+    nz-tooltip
+    nzTooltipTitle="Defence % Damage"
+    fxLayout="row"
+  >
+    <i nz-icon nzType="my:falling-bomb"></i>
+    {{ mod.defenceDamagePercent | number: "1.0-0" }}%
+  </span>
+  <span
     *ngIf="mod.armour > 0"
     class="armour-damage-color"
     nz-tooltip

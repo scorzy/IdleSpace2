@@ -33,6 +33,16 @@
       {{ weapon.shieldPercent | format: true }}%
     </span>
     <span
+      *ngIf="weapon.defencePercent !== 100"
+      class="defence-damage-color"
+      nz-tooltip
+      nzTooltipTitle="Defence % Damage"
+      fxLayout="row"
+    >
+      <i nz-icon nzType="my:falling-bomb"></i>
+      {{ weapon.defencePercent | format: true }}%
+    </span>
+    <span
       *ngIf="weapon.threatMulti !== 1"
       class="threat-color"
       nz-tooltip

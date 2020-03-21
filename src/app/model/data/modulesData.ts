@@ -8,7 +8,8 @@ import {
   BASE_VELOCITY,
   BASE_ACCELERATION,
   BASE_THREAT,
-  BASE_CARGO
+  BASE_CARGO,
+  BASE_ADAPTIVE_PRECISION
 } from "../CONSTANTS";
 
 export class ModuleData {
@@ -286,6 +287,22 @@ export const modules: ModuleData[] = [
     threatGainMulti: 1.5,
     shape: "my:unstable-orb"
   },
+  {
+    id: "H",
+    name: "Nuclear Bomb",
+    energy: -1,
+    price: DEFAULT_MODULE_PRICE * 3,
+    damage: MODULE_DAMAGE / 2,
+    shieldDamagePercent: 80,
+    armourDamagePercent: 120,
+    defenceDamagePercent: 300,
+    technologies: [
+      { technologyId: TECHNOLOGIES.MilitaryEngineering.id, multi: 1 },
+      { technologyId: TECHNOLOGIES.Physics.id, multi: 1 }
+    ],
+    adaptivePrecision: BASE_ADAPTIVE_PRECISION,
+    shape: "my:nuclear-bomb"
+  },
   //#endregion
   //#region Propulsion
   {
@@ -408,7 +425,7 @@ export const modules: ModuleData[] = [
     ],
     energy: -1,
     precision: 700,
-    adaptivePrecision: 700,
+    adaptivePrecision: BASE_ADAPTIVE_PRECISION,
     armourDamagePercent: 5,
     shieldDamagePercent: 5,
     shape: "my:targeting"
