@@ -29,9 +29,7 @@ export class BuildShipsJob extends Job {
   }
 
   addProgress(pro: DecimalSource): Decimal {
-    this.total = this.design.price
-      .times(this.quantity - this.built)
-      .plus(this.workDone);
+    this.reload();
 
     const ret = super.addProgress(pro);
     const toBuild =
