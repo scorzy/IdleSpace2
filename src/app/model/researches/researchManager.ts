@@ -11,7 +11,6 @@ import { IResearchData } from "../data/iResearchData";
 const SHIP_BASE_PRICE = 1e3;
 const SHIP_PRICE_MULTI = 2;
 const SHIP_RESEARCH_NAV_CAP_MULTI = 5;
-const SPACE_STATION_PRICE = 1e9;
 const SPACE_STATION_MULTI = 2;
 
 export class ResearchManager extends JobManager {

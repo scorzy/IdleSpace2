@@ -1,4 +1,4 @@
-import { ZERO, DEFAULT_MODULE_PRICE } from "../CONSTANTS";
+import { DEFAULT_MODULE_PRICE } from "../CONSTANTS";
 import { ModuleData } from "../data/modulesData";
 import { IUnlockable } from "../iUnlocable";
 import { ALL_SIZES } from "../data/sizes";

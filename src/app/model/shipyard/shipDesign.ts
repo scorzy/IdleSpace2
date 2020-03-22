@@ -19,6 +19,7 @@ import { ShipData } from "../battle/shipData";
 import { Weapon } from "./weapon";
 import { IShipModule } from "./IShipModule";
 
+const BASE_VELOCITY_DECIMAL = new Decimal(BASE_VELOCITY);
 export class ShipDesign {
   id: number;
   rev = 0;
@@ -40,8 +41,8 @@ export class ShipDesign {
   price = ZERO;
   cargo = ZERO;
   shieldRecharge = 0;
-  velocity = BASE_VELOCITY;
-  acceleration = 0;
+  velocity = BASE_VELOCITY_DECIMAL;
+  acceleration = ZERO;
   valid = true;
 
   modules = new Array<IShipModule>();
@@ -79,8 +80,8 @@ export class ShipDesign {
     this.energy = 0;
     this.explosionDamage = 0;
     this.shieldRecharge = 0;
-    this.velocity = BASE_VELOCITY;
-    this.acceleration = 0;
+    this.velocity = BASE_VELOCITY_DECIMAL;
+    this.acceleration = ZERO;
     this.explosionThreshold = BASE_EXPLOSION * (this.type.id + 1);
     this.threat = BASE_THREAT * (this.type.id + 1);
     this.valid = true;
@@ -120,8 +121,12 @@ export class ShipDesign {
       this.totalDamage += damage;
       this.explosionDamage += m.module.explosionDamage * statsMulti;
       this.shieldRecharge += m.module.shieldRecharge * statsMulti;
-      this.velocity += m.module.velocity * statsMulti;
-      this.acceleration += m.module.acceleration * statsMulti;
+      this.velocity = this.velocity.plus(
+        Decimal.times(m.module.velocity, statsMulti)
+      );
+      this.acceleration = this.acceleration.plus(
+        Decimal.times(m.module.acceleration, statsMulti)
+      );
       this.threat += m.module.threat * statsMulti;
       this.explosionThreshold += m.module.explosion * statsMulti;
 

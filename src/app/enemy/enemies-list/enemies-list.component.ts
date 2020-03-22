@@ -9,7 +9,6 @@ import { Subscription } from "rxjs";
 import { MainService } from "src/app/main.service";
 import { ActivatedRoute } from "@angular/router";
 import { Enemy } from "src/app/model/enemy/enemy";
-import { Game } from "src/app/model/game";
 import { fadeIn } from "src/app/animations";
 import { CdkDragDrop, moveItemInArray } from "@angular/cdk/drag-drop";
 import { BreakpointObserver, BreakpointState } from "@angular/cdk/layout";

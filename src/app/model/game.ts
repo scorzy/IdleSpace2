@@ -33,6 +33,7 @@ export class Game {
   shipWorkPerSec = ZERO;
 
   private _gameId = "";
+  private battleResults: { result: BattleResult; fleet: number }[] = [];
 
   /**
    * Gets game return instance of game
@@ -42,7 +43,6 @@ export class Game {
   static getGame(): Game {
     return Game.instance;
   }
-
   constructor() {
     Game.instance = this;
     this.generateGameId();
@@ -69,7 +69,6 @@ export class Game {
   get gameId() {
     return this._gameId;
   }
-
   /**
    * Update function.
    * Works only with resource growing at max rate of x^2
@@ -78,7 +77,7 @@ export class Game {
    */
   update(delta: number) {
     let toUpdate = delta;
-
+    this.processBattles();
     while (toUpdate > 0) {
       this.resourceManager.shipyardWork.limit = this.shipyardManager
         .getWorkNeeded()
@@ -156,25 +155,35 @@ export class Game {
   }
   onBattleEnd(battleResult: BattleResult, fleetNum: number) {
     if (battleResult.gameId !== this.gameId) return;
+    this.battleResults.push({ result: battleResult, fleet: fleetNum });
+  }
+  processBattles() {
+    const now = performance.now();
+    for (let i = this.battleResults.length - 1; i >= 0; i--) {
+      const battleResult = this.battleResults[i].result;
+      const fleetNum = this.battleResults[i].fleet;
+      if (now >= battleResult.endTime) {
+        if (this.updateStats) {
+          const toAdd = {
+            name:
+              this.enemyManager.currentEnemy.name +
+              " lv." +
+              this.enemyManager.currentEnemy.level +
+              " cell: " +
+              this.enemyManager.fleetsInBattle[fleetNum].index +
+              " " +
+              new DatePipe("en-US").transform(Date.now(), "HH:mm:sss"),
+            stats: battleResult.stats
+          };
+          this.battleStats[fleetNum].push(toAdd);
+          this.battleStats[fleetNum].splice(3);
+        }
 
-    if (this.updateStats) {
-      const toAdd = {
-        name:
-          this.enemyManager.currentEnemy.name +
-          " lv." +
-          this.enemyManager.currentEnemy.level +
-          " cell: " +
-          this.enemyManager.fleetsInBattle[fleetNum].index +
-          " " +
-          new DatePipe("en-US").transform(Date.now(), "HH:mm:sss"),
-        stats: battleResult.stats
-      };
-      this.battleStats[fleetNum].push(toAdd);
-      this.battleStats[fleetNum].splice(3);
+        this.shipyardManager.onBattleEnd(battleResult, fleetNum);
+        this.enemyManager.onBattleEnd(battleResult, fleetNum);
+        this.battleResults.splice(i, 1);
+      }
     }
-
-    this.shipyardManager.onBattleEnd(battleResult, fleetNum);
-    this.enemyManager.onBattleEnd(battleResult, fleetNum);
   }
   setTheme() {
     this.researchManager.technologies.forEach(tech => {

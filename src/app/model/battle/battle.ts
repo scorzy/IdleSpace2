@@ -242,6 +242,7 @@ export function battle(battleRequest: BattleRequest): any {
   }
   //#endregion
 
+  battleResult.endTime = battleRequest.endTime;
   return battleResult;
 }
 

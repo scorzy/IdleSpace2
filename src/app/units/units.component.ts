@@ -3,8 +3,7 @@ import {
   OnInit,
   ChangeDetectionStrategy,
   OnDestroy,
-  ChangeDetectorRef,
-  Input
+  ChangeDetectorRef
 } from "@angular/core";
 import { Subscription } from "rxjs";
 import { MainService } from "../main.service";

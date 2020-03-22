@@ -7,7 +7,6 @@ import {
 } from "@angular/core";
 import { MainService } from "../main.service";
 import { Unit } from "../model/units/unit";
-import { SpaceStationJob } from "../model/space/spaceStationJob";
 import { CdkDragDrop, moveItemInArray } from "@angular/cdk/drag-drop";
 import { Subscription } from "rxjs";
 import { fadeIn } from "../animations";

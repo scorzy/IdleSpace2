@@ -16,7 +16,6 @@ import { Module } from "src/app/model/shipyard/module";
 import { fadeIn } from "src/app/animations";
 import { OptionsService } from "src/app/options.service";
 declare let numberformat;
-declare let Parser;
 
 @Component({
   selector: "app-edit",

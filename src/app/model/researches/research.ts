@@ -1,7 +1,7 @@
 import { IResearchData } from "../data/iResearchData";
 import { Job, MyIcon } from "../job/job";
 import { convertToRoman, solveEquation } from "ant-utils";
-import { RESEARCH_GROW_RATE, ZERO, ONE, INFINITY } from "../CONSTANTS";
+import { RESEARCH_GROW_RATE, ZERO, INFINITY } from "../CONSTANTS";
 import { IUnlockable } from "../iUnlocable";
 import { Game } from "../game";
 import { IBase } from "../iBase";
@@ -79,7 +79,6 @@ export class Research extends Job implements IUnlockable, IBase {
     const newTotalBonUi = this.totalBonus.minus(1).times(100);
     if (!newTotalBonUi.eq(this.totalBonusUi)) this.totalBonusUi = newTotalBonUi;
 
-    const science = Game.getGame().resourceManager.science;
     this.timeToEnd = solveEquation(
       ZERO,
       ZERO,

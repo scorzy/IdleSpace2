@@ -42,4 +42,5 @@ export class BattleResult {
   enemyLost: { id: number; lost: number }[];
   gameId: string;
   stats: Stats[];
+  endTime: DOMHighResTimeStamp;
 }

@@ -8,10 +8,6 @@ import { TimePipe } from "src/app/time.pipe";
 import { MainService } from "src/app/main.service";
 import { OptionsService } from "src/app/options.service";
 import { Enemy } from "src/app/model/enemy/enemy";
-import { Router } from "@angular/router";
-import { RouterTestingModule } from "@angular/router/testing";
-
-const routes = [{ path: "enemyDetail/:id", component: EnemyDetailComponent }];
 
 describe("EnemyDetailComponent", () => {
   let component: EnemyDetailComponent;

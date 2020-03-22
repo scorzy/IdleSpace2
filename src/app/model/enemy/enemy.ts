@@ -12,7 +12,6 @@ import { Game } from "../game";
 import { sample, shuffle } from "lodash-es";
 import {
   ENEMY_NAVAL_CAP_LEVEL,
-  FLEET_CAPACITY_MULTI,
   FLEET_CAPACITY,
   BASE_NAVAL_CAPACITY,
   MOD_LEVEL_EXP,
@@ -20,11 +19,9 @@ import {
   DEFENCE_START_LEVEL,
   DEFENCE_FINAL_LEVEL,
   DEFENCE_MAX_PERCENT,
-  ONE,
   PRICE_GROW_RATE,
   DEFAULT_MODULE_PRICE
 } from "../CONSTANTS";
-import { modules, ModuleData } from "../data/modulesData";
 import { ShipType } from "../shipyard/ShipType";
 import { Module } from "../shipyard/module";
 import { MainService } from "src/app/main.service";
@@ -170,7 +167,7 @@ export class Enemy {
       const navCap =
         maxNavalCap * (des.isDefence ? defPercent : 1 - defPercent);
       des.enemyQuantity = Math.floor(
-        (maxNavalCap * des.enemyPriority) / sum / des.type.navalCapacity
+        (navCap * des.enemyPriority) / sum / des.type.navalCapacity
       );
     });
 

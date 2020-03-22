@@ -5,7 +5,7 @@ import { SHIP_TYPES } from "../data/shipTypes";
 import { modules } from "../data/modulesData";
 import { JobManager } from "../job/jobManager";
 import { Game } from "../game";
-import { FLEET_CAPACITY_MULTI, FLEET_NUMBER, ZERO } from "../CONSTANTS";
+import { FLEET_CAPACITY_MULTI, FLEET_NUMBER } from "../CONSTANTS";
 import { BuildShipsJob } from "./buildShipsJob";
 import { Job } from "../job/job";
 import { UpdateShipJob } from "./updateShipJob";

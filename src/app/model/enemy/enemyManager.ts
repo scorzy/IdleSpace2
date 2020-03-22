@@ -5,9 +5,8 @@ import { FLEET_NUMBER } from "../CONSTANTS";
 import { MainService } from "src/app/main.service";
 import { BattleRequest } from "../battle/battleRequest";
 import { Game } from "../game";
-import { BattleResult, Stats } from "../battle/battleResult";
+import { BattleResult } from "../battle/battleResult";
 import { Cell } from "./cell";
-import { getWeekYearWithOptions } from "date-fns/fp";
 import { BonusStack } from "../bonus/bonusStack";
 
 export class EnemyManager extends JobManager {
@@ -65,6 +64,7 @@ export class EnemyManager extends JobManager {
       this.fleetsInBattle[fleetNum] = toAttack;
       const battleRequest = new BattleRequest();
       battleRequest.gameId = Game.getGame().gameId;
+      battleRequest.endTime = performance.now() + 1e3;
 
       //  Player Fleet
       for (let i = 0, n = playerDesign.length; i < n; i++) {

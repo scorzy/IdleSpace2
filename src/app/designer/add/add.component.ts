@@ -7,7 +7,7 @@ import {
 } from "@angular/forms";
 import { ShipType } from "src/app/model/shipyard/ShipType";
 import { MainService } from "src/app/main.service";
-import { RouterModule, Router } from "@angular/router";
+import { Router } from "@angular/router";
 import { upperCase } from "lodash-es";
 
 @Component({

@@ -2,9 +2,7 @@ import {
   Component,
   OnInit,
   ChangeDetectionStrategy,
-  OnDestroy,
-  OnChanges,
-  SimpleChanges
+  OnDestroy
 } from "@angular/core";
 import { MainService } from "../main.service";
 import { Stats } from "../model/battle/battleResult";
