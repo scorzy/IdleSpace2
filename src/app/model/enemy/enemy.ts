@@ -19,7 +19,10 @@ import {
   TEN,
   DEFENCE_START_LEVEL,
   DEFENCE_FINAL_LEVEL,
-  DEFENCE_MAX_PERCENT
+  DEFENCE_MAX_PERCENT,
+  ONE,
+  PRICE_GROW_RATE,
+  DEFAULT_MODULE_PRICE
 } from "../CONSTANTS";
 import { modules, ModuleData } from "../data/modulesData";
 import { ShipType } from "../shipyard/ShipType";
@@ -178,7 +181,20 @@ export class Enemy {
     this.reloadTotalNavalCap();
   }
   generateCells() {
+    const em = Game.getGame().enemyManager;
     const rs = Game.getGame().resourceManager;
+    em.districtMultiplier.reloadBonus();
+    em.resourceMultiplier.reloadBonus();
+    em.scienceMultiplier.reloadBonus();
+
+    const districtQuantity = TEN.plus(this.level - 1).times(
+      em.districtMultiplier.totalBonus
+    );
+    const materialQuantity = Decimal.pow(1 + this.level, PRICE_GROW_RATE)
+      .times(DEFAULT_MODULE_PRICE)
+      .times(50)
+      .times(em.resourceMultiplier.totalBonus);
+
     this.cells = new Array<Cell>(100);
     for (let i = 0; i < 10; i++) {
       let cellRow = new Array<Cell>();
@@ -190,15 +206,17 @@ export class Enemy {
           case 0:
           case 1:
             cell.special = rs.habitableSpace;
-            cell.specialQuantity = TEN.plus(this.level - 1);
+            cell.specialQuantity = districtQuantity;
             break;
           case 2:
             cell.special = rs.miningDistrict;
-            cell.specialQuantity = TEN.plus(this.level - 1);
+            cell.addMaterial(rs.metal, materialQuantity);
+            cell.specialQuantity = districtQuantity;
             break;
           case 3:
             cell.special = rs.energyDistrict;
-            cell.specialQuantity = TEN.plus(this.level - 1);
+            cell.addMaterial(rs.energy, materialQuantity.times(0.05));
+            cell.specialQuantity = districtQuantity;
             break;
         }
       }

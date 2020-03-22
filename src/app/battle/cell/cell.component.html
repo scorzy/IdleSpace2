@@ -1,0 +1,26 @@
+<div
+  class="cell"
+  nz-popover
+  [nzPopoverContent]="contentTemplate"
+  nzPopoverPlacement="bottomCenter"
+>
+  <i *ngIf="cell.special" nz-icon [nzType]="cell.special.icon"></i>
+  <ng-template #contentTemplate>
+    <strong
+      ><span class="monospace"># {{ cell.index + 1 }}</span></strong
+    >
+    <ul class="list-unstyled">
+      <li *ngIf="cell.special">
+        <i nz-icon [nzType]="cell.special.icon" class="matIcon"></i>
+        <span class="monospace">{{ cell.specialQuantity | format }}</span>
+      </li>
+      <li
+        *ngFor="let mat of cell.materials"
+        [ngClass]="mat.material.colorClass"
+      >
+        <i nz-icon [nzType]="mat.material.icon" class="matIcon"></i>
+        <span class="monospace">{{ mat.quantity | format }}</span>
+      </li>
+    </ul>
+  </ng-template>
+</div>

@@ -31,6 +31,8 @@ export const DEFENCE_FINAL_LEVEL = 65;
 export const DEFENCE_MAX_PERCENT = 0.3;
 
 // Modules
+export const PRICE_GROW_RATE = 1.05;
+export const SIZE_MULTI = 0.2;
 export const MODULE_ARMOUR = 200;
 export const MODULE_SHIELD = 200;
 export const MODULE_DAMAGE = 65;

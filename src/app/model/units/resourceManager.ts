@@ -32,8 +32,11 @@ export class ResourceManager {
   megastructures = new Array<Unit>();
   unlockedMegastructures = new Array<Unit>();
 
-  //  Units
+  //#region Units
+  metal: Unit;
   energy: Unit;
+  alloy: Unit;
+  components: Components;
   science: Unit;
   technician: Unit;
   miner: Unit;
@@ -42,12 +45,11 @@ export class ResourceManager {
   worker: Unit;
   search: Unit;
   searcher: Unit;
-  components: Components;
   habitableSpace: Unit;
   miningDistrict: Unit;
   energyDistrict: Unit;
-
   shipyardWork: Unit;
+  //#endregion
 
   constructor() {}
 
@@ -64,7 +66,8 @@ export class ResourceManager {
       }
     });
     this.shipyardWork = this.units.find(u => u.id === "W");
-
+    this.metal = this.units.find(u => u.id === "M");
+    this.alloy = this.units.find(u => u.id === "A");
     this.science = this.units.find(u => u.id === "S");
     this.search = this.units.find(u => u.id === "R");
     this.technician = this.units.find(u => u.id === "e");

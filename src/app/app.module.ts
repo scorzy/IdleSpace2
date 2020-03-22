@@ -53,6 +53,7 @@ import { ModuleInfoComponent } from "./designer/module-info/module-info.componen
 import { BattleReportComponent } from "./battle-report/battle-report.component";
 import { WeaponViewComponent } from "./weapon-view/weapon-view.component";
 import { SpaceStationsComponent } from './space-stations/space-stations.component';
+import { CellComponent } from './battle/cell/cell.component';
 
 registerLocaleData(en);
 
@@ -93,7 +94,8 @@ const ngZorroConfig: NzConfig = {
     ModuleInfoComponent,
     BattleReportComponent,
     WeaponViewComponent,
-    SpaceStationsComponent
+    SpaceStationsComponent,
+    CellComponent
   ],
   imports: [
     BrowserModule,

@@ -8,6 +8,7 @@ import { Game } from "../game";
 import { BattleResult, Stats } from "../battle/battleResult";
 import { Cell } from "./cell";
 import { getWeekYearWithOptions } from "date-fns/fp";
+import { BonusStack } from "../bonus/bonusStack";
 
 export class EnemyManager extends JobManager {
   enemies = new Array<Enemy>();
@@ -15,6 +16,10 @@ export class EnemyManager extends JobManager {
   currentEnemy: Enemy;
   fleetsInBattle: Array<Cell>;
   maxLevel = 0;
+
+  districtMultiplier: BonusStack = new BonusStack();
+  resourceMultiplier: BonusStack = new BonusStack();
+  scienceMultiplier: BonusStack = new BonusStack();
 
   constructor() {
     super();

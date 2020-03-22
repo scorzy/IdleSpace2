@@ -202,7 +202,7 @@ export const UNITS: IUnitData[] = [
     name: "Energy District",
     description: "",
     startQuantity: 10,
-    icon: "my:electric",
+    icon: "my:solar-power",
     unitType: UNIT_TYPES.DISTRICT
   },
   //#endregion

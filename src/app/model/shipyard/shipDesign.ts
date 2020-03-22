@@ -1,6 +1,5 @@
 import {
   ZERO,
-  ONE,
   FLEET_NUMBER,
   BASE_ARMOUR,
   BASE_SHIP_PRICE,
@@ -8,18 +7,18 @@ import {
   BASE_THREAT,
   BASE_VELOCITY,
   MIN_THREAT,
-  UTILITY_MOD_DECREASE
+  UTILITY_MOD_DECREASE,
+  SIZE_MULTI,
+  PRICE_GROW_RATE
 } from "../CONSTANTS";
 import { Game } from "../game";
 import { ShipType } from "./ShipType";
 import { MainService } from "src/app/main.service";
 import { FleetShips } from "./fleetShips";
-import { ShipData, WeaponData } from "../battle/shipData";
+import { ShipData } from "../battle/shipData";
 import { Weapon } from "./weapon";
 import { IShipModule } from "./IShipModule";
 
-const PRICE_GROW_RATE = 1.05;
-const SIZE_MULTI = 0.2;
 export class ShipDesign {
   id: number;
   rev = 0;

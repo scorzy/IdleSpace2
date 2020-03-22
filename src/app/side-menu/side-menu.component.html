@@ -103,23 +103,19 @@
       </li>
     </ul>
   </li>
-  <li nz-submenu nzOpen nzTitle="Battle" nzIcon="form">
+  <li nz-submenu nzOpen nzTitle="Enemies" nzIcon="form">
     <ul>
+      <!-- <li nz-menu-item nzMatchRouter routerLink="enemyList/search">
+        <a>Search</a>
+      </li> -->
+      <li nz-menu-item nzMatchRouterExact routerLink="enemyList">
+        <a>Enemies</a>
+      </li>
       <li nz-menu-item nzMatchRouter routerLink="battle">
         <a>Battle</a>
       </li>
       <li nz-menu-item nzMatchRouter routerLink="report">
         <a>Reports</a>
-      </li>
-    </ul>
-  </li>
-  <li nz-submenu nzOpen nzTitle="Enemies" nzIcon="form">
-    <ul>
-      <li nz-menu-item nzMatchRouter routerLink="enemyList/search">
-        <a>Search</a>
-      </li>
-      <li nz-menu-item nzMatchRouterExact routerLink="enemyList">
-        <a>Enemies</a>
       </li>
     </ul>
   </li>

@@ -8,14 +8,13 @@ export const DONE_COLOR = [96, 181, 21];
 export const TO_DO_COLOR_DARK = [207, 19, 34];
 export const DONE_COLOR_DARK = [56, 158, 13];
 
+export interface IMaterial {
+  material: Unit;
+  quantity: Decimal;
+}
 export class Cell {
   index = 0;
-  metal = ZERO;
-  alloy = ZERO;
-  components = ZERO;
-
-  search = ZERO;
-  science = ZERO;
+  materials: IMaterial[] = [];
 
   special: Unit;
   specialQuantity = ZERO;
@@ -27,14 +26,31 @@ export class Cell {
 
   ships: Array<number>;
 
+  addMaterial(material: Unit, quantity: Decimal) {
+    if (!this.materials) this.materials = [];
+    let cellMaterial: IMaterial = this.materials.find(
+      m => m.material === material
+    );
+    if (!cellMaterial) {
+      cellMaterial = {
+        material: material,
+        quantity: ZERO
+      };
+      this.materials.push(cellMaterial);
+    }
+    cellMaterial.quantity = cellMaterial.quantity.plus(quantity);
+  }
+
   //#region Save and Load
   getSave(): any {
     const ret: any = {};
-    if (this.metal.gt(0)) ret.m = this.metal;
-    if (this.alloy.gt(0)) ret.a = this.alloy;
-    if (this.components.gt(0)) ret.c = this.components;
-    if (this.search.gt(0)) ret.s = this.search;
-    if (this.science.gt(0)) ret.e = this.science;
+    if (this.materials && this.materials.length > 0)
+      ret.m = this.materials.map(mat => {
+        return {
+          i: mat.material.id,
+          q: mat.quantity
+        };
+      });
     if (this.special) ret.i = this.special.id;
     if (this.specialQuantity.gt(0)) ret.p = this.specialQuantity;
 
@@ -43,11 +59,18 @@ export class Cell {
     return ret;
   }
   load(data: any) {
-    if ("m" in data) this.metal = new Decimal(data.m);
-    if ("a" in data) this.alloy = new Decimal(data.a);
-    if ("c" in data) this.components = new Decimal(data.c);
-    if ("s" in data) this.search = new Decimal(data.s);
-    if ("e" in data) this.science = new Decimal(data.e);
+    if ("m" in data) {
+      const rs = Game.getGame().resourceManager;
+      for (let i = 0; i < data.m.length; i++) {
+        const mat = rs.units.find(u => u.id === data.m[i].i);
+        if (mat) {
+          this.materials.push({
+            material: mat,
+            quantity: new Decimal(data.q)
+          });
+        }
+      }
+    }
     if ("i" in data) {
       this.special = Game.getGame().resourceManager.districts.find(
         u => u.id === data.i
