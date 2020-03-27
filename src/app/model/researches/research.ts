@@ -10,10 +10,13 @@ import { Unit } from "../units/unit";
 
 export class Research extends Job implements IUnlockable, IBase {
   id: string;
+  visId = 0;
+  visLevel = 0;
+  static lastVisId = 0;
   private originalName: string;
   max = 1; // Number.MAX_SAFE_INTEGER;
   unitsToUnlock?: IUnlockable[];
-  researchToUnlock?: IUnlockable[];
+  researchToUnlock?: Research[];
   technologiesToUnlock?: IUnlockable[];
   spaceStationsToUp?: { spaceStation: Unit; habSpace: Decimal }[];
 
@@ -30,6 +33,7 @@ export class Research extends Job implements IUnlockable, IBase {
     this.originalName = this.name;
     this.description = researchData.description;
     this.initialPrice = new Decimal(researchData.price);
+    this.visId = Research.lastVisId++;
 
     const rs = Game.getGame().resourceManager;
     if ("max" in researchData) {
@@ -125,6 +129,13 @@ export class Research extends Job implements IUnlockable, IBase {
         color: t.color
       };
     });
+  }
+  setLevels() {
+    if (this.researchToUnlock)
+      this.researchToUnlock.forEach(res => {
+        res.visLevel = this.visLevel + 1;
+        res.setLevels();
+      });
   }
   //#region Save and Load
   getSave(): any {

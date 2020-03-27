@@ -33,12 +33,11 @@
                 "output": "/assets/"
               }
             ],
-            "styles": [
-              "src/styles.scss"
-            ],
+            "styles": ["src/styles.scss"],
             "scripts": [
               "node_modules/break_infinity.js/dist/break_infinity.min.js",
-              "node_modules/swarm-numberformat/dist/swarm-numberformat.min.js"
+              "node_modules/swarm-numberformat/dist/swarm-numberformat.min.js",
+              "node_modules/vis-network/standalone/umd/vis-network.min.js"
             ],
             "webWorkerTsConfig": "tsconfig.worker.json"
           },
@@ -106,12 +105,11 @@
                 "output": "/assets/"
               }
             ],
-            "styles": [
-              "src/styles.scss"
-            ],
+            "styles": ["src/styles.scss"],
             "scripts": [
               "node_modules/break_infinity.js/dist/break_infinity.min.js",
-              "node_modules/swarm-numberformat/dist/swarm-numberformat.min.js"
+              "node_modules/swarm-numberformat/dist/swarm-numberformat.min.js",
+              "node_modules/vis-network/standalone/umd/vis-network.min.js"
             ],
             "webWorkerTsConfig": "tsconfig.worker.json"
           }
@@ -125,9 +123,7 @@
               "e2e/tsconfig.json",
               "tsconfig.worker.json"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "exclude": ["**/node_modules/**"]
           }
         },
         "e2e": {
