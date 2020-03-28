@@ -29,25 +29,25 @@ export class TreeComponent implements OnInit, AfterContentInit, OnDestroy {
     setTimeout(this.makeVis.bind(this), 0);
   }
   makeVis(): void {
-    let i = 0;
-    var nodes = new vis.DataSet([]);
-    var edges = new vis.DataSet([]);
+    const nodes = new vis.DataSet([]);
+    const edges = new vis.DataSet([]);
 
     this.ms.game.researchManager.researches.forEach(res => {
       nodes.add([{ id: res.visId, label: res.name, level: res.visLevel }]);
-      if (res.researchToUnlock)
+      if (res.researchToUnlock) {
         res.researchToUnlock.forEach(unl => {
           edges.add([{ from: res.visId, to: unl.visId }]);
         });
+      }
     });
 
     // create a network
-    var container = document.getElementById("techTree");
-    var data = {
-      nodes: nodes,
-      edges: edges
+    const container = document.getElementById("techTree");
+    const data = {
+      nodes,
+      edges
     };
-    var options = {
+    const options = {
       layout: {
         hierarchical: {
           direction: "LR"
@@ -70,12 +70,7 @@ export class TreeComponent implements OnInit, AfterContentInit, OnDestroy {
         dragNodes: false
       }
     };
-    var network = new vis.Network(container, data, options);
-
-    // layout: {
-    //   hierarchical: {
-    //     // direction: "LR"
-    //   }
-    // }
+    // tslint:disable-next-line
+    const network = new vis.Network(container, data, options);
   }
 }

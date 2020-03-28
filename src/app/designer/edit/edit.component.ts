@@ -50,7 +50,6 @@ export class EditComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.subscriptions.forEach((sub: Subscription) => sub.unsubscribe());
   }
-
   getDesign(id: string) {
     const idNum = parseInt(id, 10);
     this.original = this.ms.game.shipyardManager.shipDesigns.find(
@@ -65,7 +64,6 @@ export class EditComponent implements OnInit, OnDestroy {
     }
     this.cd.markForCheck();
   }
-
   addLine(e?: MouseEvent) {
     if (e) {
       e.preventDefault();
@@ -110,7 +108,7 @@ export class EditComponent implements OnInit, OnDestroy {
   reload(index: number = -1) {
     if (index > -1) {
       let levelUi = this.design.modules[index].levelUi;
-      if (!this.os.usaFormat) {
+      if (!OptionsService.usaFormat) {
         levelUi = levelUi.replace(",", "###");
         levelUi = levelUi.replace(".", "@@@");
         levelUi = levelUi.replace("###", ".");
@@ -147,7 +145,6 @@ export class EditComponent implements OnInit, OnDestroy {
       this.cd.markForCheck();
     }
   }
-
   update() {
     if (this.ms.game.shipyardManager.update(this.original, this.design)) {
       this.original = this.design;

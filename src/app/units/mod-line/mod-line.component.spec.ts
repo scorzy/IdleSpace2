@@ -1,28 +1,31 @@
 import { async, ComponentFixture, TestBed } from "@angular/core/testing";
-import { EditComponent } from "./edit.component";
+import { ModLineComponent } from "./mod-line.component";
 import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
 import { testImports } from "src/app/app.component.spec";
 import { FormatPipe } from "src/app/format.pipe";
 import { MainService } from "src/app/main.service";
-import { SizePipe } from "src/app/size.pipe";
 import { OptionsService } from "src/app/options.service";
+import { Game } from "src/app/model/game";
 
-describe("EditComponent", () => {
-  let component: EditComponent;
-  let fixture: ComponentFixture<EditComponent>;
+describe("ModLineComponent", () => {
+  let component: ModLineComponent;
+  let fixture: ComponentFixture<ModLineComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
       imports: testImports,
-      declarations: [EditComponent, FormatPipe, SizePipe],
+      declarations: [ModLineComponent, FormatPipe],
       providers: [MainService, OptionsService, FormatPipe]
     }).compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(EditComponent);
+    fixture = TestBed.createComponent(ModLineComponent);
     component = fixture.componentInstance;
+    const game = new Game();
+    component.mod = game.resourceManager.miner.modStack.prodMultiMod;
+    component.unit = game.resourceManager.miner;
     fixture.detectChanges();
   });
 

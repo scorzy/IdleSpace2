@@ -7,23 +7,22 @@ export const THEMES = ["dark-green", "dark-blue", "light-green", "light-blue"];
   providedIn: "root"
 })
 export class OptionsService {
-
   constructor() {
     try {
       const n = 1.1;
       const separator = n.toLocaleString().substring(1, 2);
       if (separator === ",") {
-        this.usaFormat = false;
+        OptionsService.usaFormat = false;
       }
     } catch (ex) {}
 
     this.generateFormatter();
   }
   static isDark = true;
+
+  static usaFormat = true;
   formatter: any;
   formatEmitter: EventEmitter<number> = new EventEmitter<number>();
-
-  usaFormat = true;
   numFormat = "scientific";
   formatId = 0;
   timeFormatDetail = true;
@@ -49,13 +48,13 @@ export class OptionsService {
 
   getSave(): any {
     return {
-      u: this.usaFormat,
+      u: OptionsService.usaFormat,
       t: this.themeId,
       d: this.darkSide
     };
   }
   load(data: any) {
-    if ("u" in data) this.usaFormat = data.u;
+    if ("u" in data) OptionsService.usaFormat = data.u;
     if ("t" in data) this.themeId = data.t;
     if ("d" in data) this.darkSide = data.d;
   }

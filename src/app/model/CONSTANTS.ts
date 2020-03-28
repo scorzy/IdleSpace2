@@ -10,6 +10,10 @@ export const RESEARCH_GROW_RATE = 1.1;
 export const SPACE_STATION_PRICE = 1e6;
 export const SPACE_STATION_HAB_SPACE = 1e3;
 export const SPACE_STATION_GROW = 10;
+export const MOD_PER_ROBOTICS = 0.2;
+export const MOD_EFFICIENCY_MULTI = 0.05;
+export const MOD_ENERGY_MULTI = 0.05;
+export const MOD_PROD_MULTI = 0.1;
 
 //  FLEETS
 export const BASE_NAVAL_CAPACITY = 100;

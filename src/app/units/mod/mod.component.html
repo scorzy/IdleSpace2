@@ -1,0 +1,40 @@
+<div
+  fxLayout="row"
+  fxLayout.xs="column"
+  fxLayoutGap.xs="1rem"
+  fxLayoutGap="5rem"
+>
+  <div fxLayout="column" fxLayoutGap="1rem">
+    <h1>{{ unit.name }}</h1>
+    <app-mod-line
+      *ngFor="let mod of unit.modStack.mods; trackBy: getModId"
+      [mod]="mod"
+      [uiQuantityString]="mod.uiQuantityString"
+      [unit]="unit"
+    ></app-mod-line>
+    <nz-input-group nzCompact>
+      <button nz-button nzType="primary">Confirm</button>
+      <button nz-button nzType="default" (click)="cancel()">Cancel</button>
+    </nz-input-group>
+  </div>
+  <div>
+    <nz-table nzTemplateMode>
+      <tbody>
+        <tr *ngFor="let prod of unit.production">
+          <td>
+            <strong>{{ prod.product.name }}</strong>
+          </td>
+          <td style="min-width: 4rem;">
+            <span class="monospace">{{ prod.prodPerSecFull | format }}</span>
+          </td>
+          <td style="min-width: 4rem;">
+            <span class="monospace" [ngClass]="getProdClass(prod)">{{
+              prod.prodPerSecMod | format
+            }}</span>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+</div>
+<!-- nzSize="middle" -->

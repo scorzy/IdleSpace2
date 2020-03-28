@@ -17,10 +17,12 @@ import { ModulesComponent } from "./designer/modules/modules.component";
 import { BattleReportComponent } from "./battle-report/battle-report.component";
 import { SpaceStationsComponent } from "./space-stations/space-stations.component";
 import { TreeComponent } from "./laboratory/tree/tree.component";
+import { ModComponent } from "./units/mod/mod.component";
 
 export const routes: Routes = [
   { path: "", pathMatch: "full", redirectTo: "/units/ws" },
   { path: "units/:id", pathMatch: "full", component: UnitsComponent },
+  { path: "mod/:id", pathMatch: "full", component: ModComponent },
   { path: "lab", pathMatch: "full", component: LaboratoryComponent },
   { path: "tech", pathMatch: "full", component: TechnologiesComponent },
   { path: "tree", pathMatch: "full", component: TreeComponent },

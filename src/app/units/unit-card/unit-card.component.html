@@ -20,6 +20,12 @@
   <p *ngIf="unit.description !== ''">
     {{ unit.description }}
   </p>
+  <div *ngIf="unit.modStack">
+    <a [routerLink]="'/mod/' + unit.id"
+      >Mods
+      {{ unit.maxMods | format: true }}
+    </a>
+  </div>
   <div *ngIf="unit.production.length > 0">
     <span nz-text><span>Operativity:</span></span>
     <span class="monospace">{{ unit.operativity | format }}</span

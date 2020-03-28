@@ -27,6 +27,7 @@ export class ResearchManager extends JobManager {
 
   researchPerSec = ZERO;
   navalCapTech: Technology;
+  roboticsTech: Technology;
 
   constructor() {
     super();
@@ -45,6 +46,12 @@ export class ResearchManager extends JobManager {
     this.navalCapTech = this.technologies.find(t => t.id === "n");
     this.navalCapTech.onCompleted = () => {
       Game.getGame().updateNavalCapacity = true;
+    };
+    this.roboticsTech = this.technologies.find(
+      t => t.id === TECHNOLOGIES.Robotics.id
+    );
+    this.roboticsTech.onCompleted = () => {
+      Game.getGame().updateMods = true;
     };
     //  Researches
     this.researches = RESEARCHES.map(resData => new Research(resData, this));

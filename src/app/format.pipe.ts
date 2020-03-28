@@ -49,7 +49,7 @@ export class FormatPipe implements PipeTransform {
       } else {
         num = Math.floor(num);
       }
-      str = num.toLocaleString(this.options.usaFormat ? "en-US" : "it-IT", {
+      str = num.toLocaleString(OptionsService.usaFormat ? "en-US" : "it-IT", {
         minimumFractionDigits: digits,
         maximumFractionDigits: digits
       });
@@ -58,7 +58,7 @@ export class FormatPipe implements PipeTransform {
       if (integer) {
         str = str.replace(/\.0+$/, "");
       }
-      if (!this.options.usaFormat) {
+      if (!OptionsService.usaFormat) {
         str = str.replace(".", ",");
       }
     }

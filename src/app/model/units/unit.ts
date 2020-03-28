@@ -3,9 +3,10 @@ import { Production } from "./production";
 import { IBase } from "../iBase";
 import { BonusStack } from "../bonus/bonusStack";
 import { MultiPrice } from "../prices/multiPrice";
-import { ZERO, ONE } from "../CONSTANTS";
+import { ZERO, ONE, MOD_PER_ROBOTICS } from "../CONSTANTS";
 import { IUnlockable } from "../iUnlocable";
 import { Game } from "../game";
+import { ModStack } from "./modStack";
 
 export class Unit implements IBase, IUnlockable {
   id = "";
@@ -51,6 +52,9 @@ export class Unit implements IBase, IUnlockable {
   buildPrice = ZERO;
   habSpace = ZERO;
   buildPriceNext = ZERO;
+  modStack: ModStack;
+  maxMods: Decimal = ZERO;
+  unusedMods: Decimal = ZERO;
 
   constructor(public unitData: IUnitData) {
     this.id = unitData.id;
@@ -187,6 +191,17 @@ export class Unit implements IBase, IUnlockable {
     }
     this.habSpace = this.habSpace.plus(newHabSpace);
   }
+  //#region Mods
+  makeMods() {
+    this.modStack = new ModStack(this.id !== "e");
+  }
+  reloadMaxMods() {
+    const rs = Game.getGame().researchManager;
+    this.maxMods = rs.roboticsTech.quantity.times(MOD_PER_ROBOTICS);
+
+    this.maxMods = this.maxMods.floor();
+  }
+  //#endregion
 
   //#region Save and Load
   getSave(): any {
@@ -195,6 +210,7 @@ export class Unit implements IBase, IUnlockable {
     if (this.operativity !== 100) ret.o = this.operativity;
     if (!this.quantity.eq(0)) ret.q = this.quantity;
     if (!this.manualBought.eq(0)) ret.m = this.manualBought;
+    if (this.modStack) ret.t = this.modStack.getSave();
     return ret;
   }
   load(save: any) {
@@ -202,6 +218,7 @@ export class Unit implements IBase, IUnlockable {
     if ("o" in save) this.operativity = save.o;
     if ("q" in save) this.quantity = new Decimal(save.q);
     if ("m" in save) this.manualBought = new Decimal(save.m);
+    if ("t" in save) this.modStack.load(save.t);
   }
   //#endregion
 }

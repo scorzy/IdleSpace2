@@ -141,9 +141,12 @@ export class ResourceManager {
     }
 
     this.units.forEach(u => u.setRelations());
+
+    //  Mods
+    this.workers.forEach(w => w.makeMods());
+
     this.reloadLists();
   }
-
   reloadLists() {
     this.unlockedUnits = this.units.filter(u => u.unlocked);
     this.unlockedMaterials = this.materials.filter(u => u.unlocked);
@@ -152,7 +155,6 @@ export class ResourceManager {
     this.unlockedSpaceStations = this.spaceStations.filter(u => u.unlocked);
     this.unlockedMegastructures = this.megastructures.filter(u => u.unlocked);
   }
-
   /**
    * Reload production stats
    */
@@ -349,7 +351,11 @@ export class ResourceManager {
     this.components.quantity = this.components.quantity.minus(added).max(0);
     this.components.reloadLimit();
   }
-
+  reloadMods() {
+    for (let i = 0, n = this.workers.length; i < n; i++) {
+      this.workers[i].reloadMaxMods();
+    }
+  }
   //#region Save and Load
   getSave(): any {
     return {

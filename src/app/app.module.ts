@@ -52,9 +52,11 @@ import { ModulesComponent } from "./designer/modules/modules.component";
 import { ModuleInfoComponent } from "./designer/module-info/module-info.component";
 import { BattleReportComponent } from "./battle-report/battle-report.component";
 import { WeaponViewComponent } from "./weapon-view/weapon-view.component";
-import { SpaceStationsComponent } from './space-stations/space-stations.component';
-import { CellComponent } from './battle/cell/cell.component';
-import { TreeComponent } from './laboratory/tree/tree.component';
+import { SpaceStationsComponent } from "./space-stations/space-stations.component";
+import { CellComponent } from "./battle/cell/cell.component";
+import { TreeComponent } from "./laboratory/tree/tree.component";
+import { ModComponent } from "./units/mod/mod.component";
+import { ModLineComponent } from "./units/mod-line/mod-line.component";
 
 registerLocaleData(en);
 
@@ -97,7 +99,9 @@ const ngZorroConfig: NzConfig = {
     WeaponViewComponent,
     SpaceStationsComponent,
     CellComponent,
-    TreeComponent
+    TreeComponent,
+    ModComponent,
+    ModLineComponent
   ],
   imports: [
     BrowserModule,
