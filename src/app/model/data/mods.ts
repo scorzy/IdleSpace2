@@ -19,3 +19,7 @@ export const DRONE_MOD: IModData = {
   name: "More Drones",
   min: -10
 };
+export const RECYCLABLE_MOD: IModData = {
+  name: "Recyclable",
+  min: 0
+};

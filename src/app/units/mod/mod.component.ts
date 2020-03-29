@@ -64,7 +64,13 @@ export class ModComponent implements OnInit, OnDestroy {
   getProdClass(production: Production): string {
     if (production.prodPerSecFull.eq(production.prodPerSecMod)) return "";
     let ok = production.prodPerSecFull.lt(production.prodPerSecMod);
-    if (production.ratio.lt(0)) ok = !ok;
+    // if (production.ratio.lt(0)) ok = !ok;
     return ok ? "text-success" : "text-danger";
+  }
+  getClass(current: Decimal, newVal: Decimal, rev: boolean = false) {
+    if (current.eq(newVal)) return "";
+    let val = current.lt(newVal);
+    if (rev) val = !val;
+    return val ? "text-success" : "text-danger";
   }
 }

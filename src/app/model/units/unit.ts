@@ -3,7 +3,16 @@ import { Production } from "./production";
 import { IBase } from "../iBase";
 import { BonusStack } from "../bonus/bonusStack";
 import { MultiPrice } from "../prices/multiPrice";
-import { ZERO, ONE, MOD_PER_ROBOTICS } from "../CONSTANTS";
+import {
+  ZERO,
+  ONE,
+  MOD_PER_ROBOTICS,
+  TEN,
+  COMPONENT_PRICE,
+  MOD_COMPONENTS,
+  MOD_RECYCLING,
+  MAX_RECYCLING
+} from "../CONSTANTS";
 import { IUnlockable } from "../iUnlocable";
 import { Game } from "../game";
 import { ModStack } from "./modStack";
@@ -32,6 +41,7 @@ export class Unit implements IBase, IUnlockable {
   fullIn = Number.POSITIVE_INFINITY;
   isEnding = false;
   limit = Decimal.MAX_VALUE;
+  limitTemp = Decimal.MAX_VALUE;
   private _oldLimit = Decimal.MAX_VALUE;
 
   buildingLimit: Unit;
@@ -39,7 +49,10 @@ export class Unit implements IBase, IUnlockable {
 
   storedComponents = ZERO;
   needComponents = ZERO;
-  components = ONE;
+  components = COMPONENT_PRICE;
+  componentsTemp = COMPONENT_PRICE;
+  recycle = ZERO;
+  recycleTemp = ZERO;
   assemblyPriority = 50;
   assemblyPriorityEnding = 500;
 
@@ -149,6 +162,12 @@ export class Unit implements IBase, IUnlockable {
   reloadLimit() {
     if (!(this.buildingLimit && this.buildingLimitQuantity)) return false;
     this.limit = this.buildingLimit.quantity.times(this.buildingLimitQuantity);
+    this.limitTemp = this.limit;
+    if (this.modStack && this.modStack.droneMod) {
+      this.limit = this.limit.times(this.modStack.droneMod.totalBonus);
+      this.limitTemp = this.limit.times(this.modStack.droneMod.totalBonusTemp);
+    }
+
     this.quantity = this.quantity.min(this.limit);
   }
   reloadMaxBuy() {
@@ -156,6 +175,36 @@ export class Unit implements IBase, IUnlockable {
       this.manualBought,
       ONE,
       this.limit.minus(this.quantity)
+    );
+  }
+  reloadComponentPrice() {
+    this.components = COMPONENT_PRICE;
+    this.componentsTemp = COMPONENT_PRICE;
+    if (this.modStack && this.modStack.componentsMod) {
+      this.components = this.components.minus(
+        this.modStack.componentsMod.quantity.times(MOD_COMPONENTS)
+      );
+      this.componentsTemp = this.components.minus(
+        this.modStack.componentsMod.uiQuantity.times(MOD_COMPONENTS)
+      );
+    }
+    this.recycle = ZERO;
+    this.recycleTemp = ZERO;
+    if (this.modStack && this.modStack.recyclingMod) {
+      this.recycle = this.recycle.plus(
+        this.modStack.recyclingMod.quantity.times(MOD_RECYCLING)
+      );
+      this.recycleTemp = this.recycleTemp.plus(
+        this.modStack.recyclingMod.uiQuantity.times(MOD_RECYCLING)
+      );
+    }
+    this.recycle = Decimal.min(
+      this.recycle,
+      this.components.times(MAX_RECYCLING)
+    );
+    this.recycleTemp = Decimal.min(
+      this.recycleTemp,
+      this.componentsTemp.times(MAX_RECYCLING)
     );
   }
   reloadNeedComponent() {

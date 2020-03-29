@@ -20,9 +20,12 @@
   <div>
     <nz-table nzTemplateMode>
       <tbody>
+        <tr>
+          <td colspan="3" class="center"><strong>Production</strong></td>
+        </tr>
         <tr *ngFor="let prod of unit.production">
           <td>
-            <strong>{{ prod.product.name }}</strong>
+            {{ prod.product.name }}
           </td>
           <td style="min-width: 4rem;">
             <span class="monospace">{{ prod.prodPerSecFull | format }}</span>
@@ -31,6 +34,48 @@
             <span class="monospace" [ngClass]="getProdClass(prod)">{{
               prod.prodPerSecMod | format
             }}</span>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="3" class="center"><strong>Other</strong></td>
+        </tr>
+        <tr>
+          <td>Price</td>
+          <td>
+            <span class="monospace">{{ unit.components | format }}</span>
+          </td>
+          <td>
+            <span
+              class="monospace"
+              [ngClass]="getClass(unit.components, unit.componentsTemp, true)"
+              >{{ unit.componentsTemp | format }}</span
+            >
+          </td>
+        </tr>
+        <tr>
+          <td>Recycle</td>
+          <td>
+            <span class="monospace">{{ unit.recycle | format }}</span>
+          </td>
+          <td>
+            <span
+              class="monospace"
+              [ngClass]="getClass(unit.recycle, unit.recycleTemp)"
+              >{{ unit.recycleTemp | format }}</span
+            >
+          </td>
+        </tr>
+        <tr>
+          <td>Max Drones</td>
+          <td>
+            <span class="monospace">{{ unit.limit | format }}</span>
+          </td>
+          <td>
+            <span
+              class="monospace"
+              [ngClass]="getClass(unit.limit, unit.limitTemp)"
+              >{{ unit.limitTemp | format }}</span
+            >
           </td>
         </tr>
       </tbody>

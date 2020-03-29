@@ -31,6 +31,8 @@ export class ModLineComponent implements OnInit {
     this.unit.production.forEach(prod => {
       prod.reloadMod();
     });
+    this.unit.reloadComponentPrice();
+    this.unit.reloadLimit();
   }
   reformat() {
     this.mod.uiQuantityString = MainService.formatPipe.transform(

@@ -10,6 +10,8 @@ export class Mod {
   uiQuantity = ZERO;
   totalBonus = ONE;
   totalBonusTemp = ONE;
+  totalBonusAbs = ONE;
+  totalBonusTempAbs = ONE;
   bonusValue = 0.1;
   constructor(iModData: IModData) {
     this.name = iModData.name;
@@ -21,5 +23,13 @@ export class Mod {
     this.totalBonusTemp = Decimal.times(this.bonusValue, this.uiQuantity).plus(
       1
     );
+    this.totalBonusAbs = Decimal.times(
+      this.bonusValue,
+      this.quantity.abs()
+    ).plus(1);
+    this.totalBonusTempAbs = Decimal.times(
+      this.bonusValue,
+      this.uiQuantity.abs()
+    ).plus(1);
   }
 }

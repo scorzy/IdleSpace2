@@ -12,8 +12,12 @@ export const SPACE_STATION_HAB_SPACE = 1e3;
 export const SPACE_STATION_GROW = 10;
 export const MOD_PER_ROBOTICS = 0.2;
 export const MOD_EFFICIENCY_MULTI = 0.05;
-export const MOD_ENERGY_MULTI = 0.05;
+export const MOD_ENERGY_MULTI = -0.05;
 export const MOD_PROD_MULTI = 0.1;
+export const MOD_COMPONENTS = 1;
+export const MOD_RECYCLING = 0.2;
+export const COMPONENT_PRICE = TEN;
+export const MAX_RECYCLING = 0.9;
 
 //  FLEETS
 export const BASE_NAVAL_CAPACITY = 100;

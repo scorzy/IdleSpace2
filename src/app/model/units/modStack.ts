@@ -4,12 +4,15 @@ import {
   PRODUCTION_MOD,
   ENERGY_MOD,
   COMPONENTS_MOD,
-  DRONE_MOD
+  DRONE_MOD,
+  RECYCLABLE_MOD
 } from "../data/mods";
 import {
   MOD_EFFICIENCY_MULTI,
   MOD_PROD_MULTI,
-  MOD_ENERGY_MULTI
+  MOD_ENERGY_MULTI,
+  MOD_COMPONENTS,
+  MOD_RECYCLING
 } from "../CONSTANTS";
 
 export class ModStack {
@@ -18,6 +21,7 @@ export class ModStack {
   energyMod: Mod;
   componentsMod: Mod;
   droneMod: Mod;
+  recyclingMod: Mod;
 
   mods: Mod[] = [];
 
@@ -34,8 +38,11 @@ export class ModStack {
       this.mods.push(this.prodMultiMod, this.energyMod);
     }
     this.componentsMod = new Mod(COMPONENTS_MOD);
+    this.componentsMod.bonusValue = MOD_COMPONENTS;
     this.droneMod = new Mod(DRONE_MOD);
-    this.mods.push(this.componentsMod, this.droneMod);
+    this.recyclingMod = new Mod(RECYCLABLE_MOD);
+    this.recyclingMod.bonusValue = MOD_RECYCLING;
+    this.mods.push(this.componentsMod, this.recyclingMod, this.droneMod);
     this.mods.forEach(m => m.reloadBonus());
   }
   getSave(): any {
@@ -55,6 +62,9 @@ export class ModStack {
     if (this.droneMod && !this.droneMod.quantity.eq(0)) {
       ret.d = this.droneMod.quantity;
     }
+    if (this.recyclingMod && !this.recyclingMod.quantity.eq(0)) {
+      ret.c = this.recyclingMod.quantity;
+    }
     return ret;
   }
   load(data: any) {
@@ -72,6 +82,9 @@ export class ModStack {
     }
     if ("d" in data && this.droneMod) {
       this.droneMod.quantity = new Decimal(data.d);
+    }
+    if ("c" in data && this.recyclingMod) {
+      this.recyclingMod.quantity = new Decimal(data.d);
     }
     this.mods.forEach(m => m.reloadBonus());
   }

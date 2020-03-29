@@ -327,7 +327,6 @@ export class ResourceManager {
           .div(sum);
         worker.storedComponents = worker.storedComponents.plus(toAdd);
         added = added.plus(toAdd);
-
         if (worker.storedComponents.gte(worker.components)) {
           const built = worker.storedComponents
             .div(worker.components)
@@ -354,6 +353,7 @@ export class ResourceManager {
   reloadMods() {
     for (let i = 0, n = this.workers.length; i < n; i++) {
       this.workers[i].reloadMaxMods();
+      this.workers[i].reloadComponentPrice();
     }
   }
   //#region Save and Load

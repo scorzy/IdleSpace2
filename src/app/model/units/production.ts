@@ -34,12 +34,25 @@ export class Production {
     );
     if (this.ratio.gt(0)) {
       totalBonus = totalBonus.times(this.producer.prodEfficiency.totalBonus);
-      if (modStack && modStack.efficiencyMod) {
+      if (
+        modStack &&
+        modStack.efficiencyMod &&
+        modStack.efficiencyMod.quantity.gt(0)
+      ) {
         totalBonus = totalBonus.times(modStack.efficiencyMod.totalBonus);
       }
+    } else if (
+      modStack &&
+      modStack.efficiencyMod &&
+      modStack.efficiencyMod.quantity.lt(0)
+    ) {
+      totalBonus = totalBonus.times(modStack.efficiencyMod.totalBonusAbs);
     }
     if (modStack && modStack.prodMultiMod) {
       totalBonus = totalBonus.times(modStack.prodMultiMod.totalBonus);
+    }
+    if (this.product.id === "E" && modStack && modStack.energyMod) {
+      totalBonus = totalBonus.times(modStack.energyMod.totalBonus);
     }
     this.prodPerSecFull = this.ratio.times(totalBonus);
   }
@@ -50,12 +63,26 @@ export class Production {
     );
     if (this.ratio.gt(0)) {
       totalBonus = totalBonus.times(this.producer.prodEfficiency.totalBonus);
-      if (modStack && modStack.efficiencyMod) {
+      if (
+        modStack &&
+        modStack.efficiencyMod &&
+        modStack.efficiencyMod.uiQuantity.gt(0)
+      ) {
         totalBonus = totalBonus.times(modStack.efficiencyMod.totalBonusTemp);
       }
+    } else if (
+      modStack &&
+      modStack.efficiencyMod &&
+      modStack.efficiencyMod.uiQuantity.lt(0)
+    ) {
+      totalBonus = totalBonus.times(modStack.efficiencyMod.totalBonusTempAbs);
     }
+
     if (modStack && modStack.prodMultiMod) {
       totalBonus = totalBonus.times(modStack.prodMultiMod.totalBonusTemp);
+    }
+    if (this.product.id === "E" && modStack && modStack.energyMod) {
+      totalBonus = totalBonus.times(modStack.energyMod.totalBonusTemp);
     }
     this.prodPerSecMod = this.ratio.times(totalBonus);
   }
