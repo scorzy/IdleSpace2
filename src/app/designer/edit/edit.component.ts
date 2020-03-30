@@ -41,6 +41,8 @@ export class EditComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
+    this.ms.game.shipyardManager.designerView = true;
+    this.ms.game.shipyardManager.postUpdate();
     this.subscriptions.push(
       this.route.paramMap.subscribe(paramMap =>
         this.getDesign(paramMap.get("id"))
@@ -49,6 +51,7 @@ export class EditComponent implements OnInit, OnDestroy {
   }
   ngOnDestroy() {
     this.subscriptions.forEach((sub: Subscription) => sub.unsubscribe());
+    this.ms.game.shipyardManager.designerView = false;
   }
   getDesign(id: string) {
     const idNum = parseInt(id, 10);

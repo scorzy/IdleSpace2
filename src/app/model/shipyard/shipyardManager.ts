@@ -35,6 +35,7 @@ export class ShipyardManager extends JobManager {
 
   armour: Module;
   shield: Module;
+  designerView = false;
 
   init() {
     this.shipTypes = SHIP_TYPES.map(s => new ShipType(s));
@@ -93,14 +94,16 @@ export class ShipyardManager extends JobManager {
   }
   postUpdate() {
     let unlocked = false;
-    for (let i = 0, n = this.modules.length; i < n; i++) {
-      this.modules[i].reloadMaxLevel();
-      if (
-        !this.modules[i].unlocked &&
-        this.modules[i].maxLevel >= this.modules[i].unlockLevel
-      ) {
-        if (this.modules[i].unlock()) {
-          unlocked = true;
+    if (this.designerView) {
+      for (let i = 0, n = this.modules.length; i < n; i++) {
+        this.modules[i].reloadMaxLevel();
+        if (
+          !this.modules[i].unlocked &&
+          this.modules[i].maxLevel >= this.modules[i].unlockLevel
+        ) {
+          if (this.modules[i].unlock()) {
+            unlocked = true;
+          }
         }
       }
     }

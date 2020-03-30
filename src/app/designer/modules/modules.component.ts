@@ -1,4 +1,9 @@
-import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  OnDestroy
+} from "@angular/core";
 import { MainService } from "src/app/main.service";
 import { Module } from "src/app/model/shipyard/module";
 
@@ -8,7 +13,7 @@ import { Module } from "src/app/model/shipyard/module";
   styleUrls: ["./modules.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ModulesComponent implements OnInit {
+export class ModulesComponent implements OnInit, OnDestroy {
   modules: Module[];
   type = "a";
   status = "u";
@@ -16,9 +21,13 @@ export class ModulesComponent implements OnInit {
   constructor(public ms: MainService) {}
 
   ngOnInit() {
+    this.ms.game.shipyardManager.designerView = true;
+    this.ms.game.shipyardManager.postUpdate();
     this.reload();
   }
-
+  ngOnDestroy(): void {
+    this.ms.game.shipyardManager.designerView = false;
+  }
   reload() {
     switch (this.type) {
       case "a":
