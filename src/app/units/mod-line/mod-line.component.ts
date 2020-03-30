@@ -2,7 +2,10 @@ import {
   Component,
   OnInit,
   ChangeDetectionStrategy,
-  Input
+  Input,
+  Output,
+  EventEmitter,
+  ChangeDetectorRef
 } from "@angular/core";
 import { Mod } from "src/app/model/units/mod";
 import { parseDecimal } from "src/app/model/utility/parseDecimal";
@@ -19,7 +22,7 @@ export class ModLineComponent implements OnInit {
   @Input() mod: Mod;
   @Input() uiQuantityString: string;
   @Input() unit: Unit;
-  constructor() {}
+  constructor(private cd: ChangeDetectorRef) {}
   ngOnInit(): void {}
   valueChange(): void {
     this.mod.uiQuantity = parseDecimal(this.mod.uiQuantityString);
@@ -33,6 +36,7 @@ export class ModLineComponent implements OnInit {
     });
     this.unit.reloadComponentPrice();
     this.unit.reloadLimit();
+    this.unit.modStack.reload();
   }
   reformat() {
     this.mod.uiQuantityString = MainService.formatPipe.transform(
@@ -40,4 +44,19 @@ export class ModLineComponent implements OnInit {
       true
     );
   }
+  max() {
+    this.mod.uiQuantity = Decimal.min(
+      this.mod.max,
+      this.unit.maxMods
+        .plus(this.mod.uiQuantity)
+        .minus(this.unit.modStack.usedTemp)
+    );
+    this.mod.uiQuantityString = MainService.formatPipe.transform(
+      this.mod.uiQuantity,
+      true
+    );
+    this.reload();
+    this.cd.markForCheck();
+  }
+  min() {}
 }

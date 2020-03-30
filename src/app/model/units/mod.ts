@@ -4,8 +4,8 @@ import { ZERO, ONE } from "../CONSTANTS";
 export class Mod {
   name: string;
   quantity = ZERO;
-  max: Decimal;
-  min: Decimal;
+  max: Decimal = Decimal.MAX_VALUE;
+  min: Decimal = Decimal.MIN_VALUE;
   uiQuantityString = "";
   uiQuantity = ZERO;
   totalBonus = ONE;
@@ -16,7 +16,7 @@ export class Mod {
   constructor(iModData: IModData) {
     this.name = iModData.name;
     if ("max" in iModData) this.max = new Decimal(iModData.max);
-    if ("min" in iModData) this.max = new Decimal(iModData.min);
+    if ("min" in iModData) this.min = new Decimal(iModData.min);
   }
   reloadBonus() {
     this.totalBonus = Decimal.times(this.bonusValue, this.quantity).plus(1);

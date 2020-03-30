@@ -12,8 +12,10 @@ import {
   MOD_PROD_MULTI,
   MOD_ENERGY_MULTI,
   MOD_COMPONENTS,
-  MOD_RECYCLING
+  MOD_RECYCLING,
+  ZERO
 } from "../CONSTANTS";
+import { formatISO9075 } from "date-fns";
 
 export class ModStack {
   efficiencyMod: Mod;
@@ -24,6 +26,8 @@ export class ModStack {
   recyclingMod: Mod;
 
   mods: Mod[] = [];
+  used = ZERO;
+  usedTemp = ZERO;
 
   constructor(energyMods = true) {
     //  Initialize common mods
@@ -44,6 +48,14 @@ export class ModStack {
     this.recyclingMod.bonusValue = MOD_RECYCLING;
     this.mods.push(this.componentsMod, this.recyclingMod, this.droneMod);
     this.mods.forEach(m => m.reloadBonus());
+  }
+  reload() {
+    this.used = ZERO;
+    this.usedTemp = ZERO;
+    for (let i = 0, n = this.mods.length; i < n; i++) {
+      this.used = this.used.plus(this.used.plus(this.mods[i].quantity));
+      this.usedTemp = this.usedTemp.plus(this.mods[i].uiQuantity);
+    }
   }
   getSave(): any {
     const ret: any = {};
@@ -86,6 +98,7 @@ export class ModStack {
     if ("c" in data && this.recyclingMod) {
       this.recyclingMod.quantity = new Decimal(data.d);
     }
+    this.reload();
     this.mods.forEach(m => m.reloadBonus());
   }
 }

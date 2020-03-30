@@ -6,6 +6,19 @@
 >
   <div fxLayout="column" fxLayoutGap="1rem">
     <h1>{{ unit.name }}</h1>
+    <span>
+      <span class="used">
+        Used:
+        <span
+          class="monospace"
+          [class.text-danger]="unit.modStack.usedTemp.gt(unit.maxMods)"
+          >{{ unit.modStack.usedTemp | format: true }}
+        </span></span
+      ><span>
+        Total:
+        <span class="monospace">{{ unit.maxMods | format: true }} </span></span
+      >
+    </span>
     <app-mod-line
       *ngFor="let mod of unit.modStack.mods; trackBy: getModId"
       [mod]="mod"

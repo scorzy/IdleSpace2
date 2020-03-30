@@ -49,6 +49,7 @@ export class ModComponent implements OnInit, OnDestroy {
     this.unit.production.forEach(prod => {
       prod.reloadMod();
     });
+    this.unit.modStack.reload();
     this.cd.markForCheck();
   }
   cancel() {

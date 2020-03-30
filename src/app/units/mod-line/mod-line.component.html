@@ -1,6 +1,6 @@
 <strong>{{ mod.name }}</strong>
 <nz-input-group nzCompact>
-  <button nz-button nzType="default">MIN</button>
+  <button nz-button nzType="default" (click)="min()">MIN</button>
   <button nz-button nzType="default">-</button>
   <input
     class="inputBox"
@@ -10,5 +10,5 @@
     (change)="valueChange()"
   />
   <button nz-button nzType="default">+</button>
-  <button nz-button nzType="default">MAX</button>
+  <button nz-button nzType="default" (click)="max()">MAX</button>
 </nz-input-group>
