@@ -12,6 +12,8 @@ import { MainService } from "src/app/main.service";
 import { ActivatedRoute, ParamMap } from "@angular/router";
 import { Mod } from "src/app/model/units/mod";
 import { Production } from "src/app/model/units/production";
+import { BreakpointObserver, BreakpointState } from "@angular/cdk/layout";
+import { ZERO } from "src/app/model/CONSTANTS";
 
 @Component({
   selector: "app-mod",
@@ -22,20 +24,55 @@ import { Production } from "src/app/model/units/production";
 export class ModComponent implements OnInit, OnDestroy {
   @Input() unit: Unit;
   private subscriptions: Subscription[] = [];
+  disabled = false;
+  isLarge = true;
+  componentTotal = ZERO;
+  componentGain = ZERO;
+  componentNeed = ZERO;
+  componentPercent = 0;
+
   constructor(
     public ms: MainService,
     private cd: ChangeDetectorRef,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    public breakpointObserver: BreakpointObserver
   ) {}
   ngOnInit() {
+    this.reloadComp();
     this.subscriptions.push(
+      this.ms.updateEmitter.subscribe(n => {
+        this.reloadComp();
+        this.cd.markForCheck();
+      }),
       this.route.paramMap.subscribe((paramMap: ParamMap) =>
         this.getUnit(paramMap.get("id"))
-      )
+      ),
+      this.breakpointObserver
+        .observe(["(min-width: 899px)"])
+        .subscribe((state: BreakpointState) => {
+          this.isLarge = state.matches;
+          this.cd.markForCheck();
+        })
     );
   }
   ngOnDestroy() {
     this.subscriptions.forEach((sub: Subscription) => sub.unsubscribe());
+  }
+  reloadComp() {
+    if (!this.unit) return false;
+    this.componentGain = this.unit.quantity.times(this.unit.recycle);
+    this.componentTotal = this.ms.game.resourceManager.components.quantity.plus(
+      this.componentGain
+    );
+    this.componentNeed = this.unit.limitTemp
+      .minus(1)
+      .times(this.unit.componentsTemp);
+    this.componentPercent = this.componentTotal
+      .div(this.componentNeed)
+      .times(100)
+      .min(100)
+      .floor()
+      .toNumber();
   }
   getUnit(id: string) {
     this.unit = this.ms.game.resourceManager.units.find(u => id === u.id);
@@ -64,7 +101,7 @@ export class ModComponent implements OnInit, OnDestroy {
   }
   getProdClass(production: Production): string {
     if (production.prodPerSecFull.eq(production.prodPerSecMod)) return "";
-    let ok = production.prodPerSecFull.lt(production.prodPerSecMod);
+    const ok = production.prodPerSecFull.lt(production.prodPerSecMod);
     // if (production.ratio.lt(0)) ok = !ok;
     return ok ? "text-success" : "text-danger";
   }
@@ -73,5 +110,19 @@ export class ModComponent implements OnInit, OnDestroy {
     let val = current.lt(newVal);
     if (rev) val = !val;
     return val ? "text-success" : "text-danger";
+  }
+  onModChange(ok: boolean) {
+    this.reloadComp();
+    if (!ok) {
+      this.disabled = true;
+    } else {
+      this.disabled =
+        this.unit.modStack.usedTemp.gt(this.unit.maxMods) ||
+        this.unit.modStack.mods.findIndex(m => !m.uiOk) > -1;
+    }
+  }
+  confirm() {
+    if (this.disabled) return false;
+    this.unit.confirmMods();
   }
 }

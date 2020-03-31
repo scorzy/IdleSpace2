@@ -15,7 +15,6 @@ import {
   MOD_RECYCLING,
   ZERO
 } from "../CONSTANTS";
-import { formatISO9075 } from "date-fns";
 
 export class ModStack {
   efficiencyMod: Mod;
@@ -53,6 +52,7 @@ export class ModStack {
     this.used = ZERO;
     this.usedTemp = ZERO;
     for (let i = 0, n = this.mods.length; i < n; i++) {
+      this.mods[i].reloadBonus();
       this.used = this.used.plus(this.used.plus(this.mods[i].quantity));
       this.usedTemp = this.usedTemp.plus(this.mods[i].uiQuantity);
     }

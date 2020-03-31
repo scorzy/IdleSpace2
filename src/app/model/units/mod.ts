@@ -5,7 +5,7 @@ export class Mod {
   name: string;
   quantity = ZERO;
   max: Decimal = Decimal.MAX_VALUE;
-  min: Decimal = Decimal.MIN_VALUE;
+  min: Decimal = Decimal.MAX_VALUE.times(-1);
   uiQuantityString = "";
   uiQuantity = ZERO;
   totalBonus = ONE;
@@ -13,6 +13,7 @@ export class Mod {
   totalBonusAbs = ONE;
   totalBonusTempAbs = ONE;
   bonusValue = 0.1;
+  uiOk = true;
   constructor(iModData: IModData) {
     this.name = iModData.name;
     if ("max" in iModData) this.max = new Decimal(iModData.max);

@@ -6,8 +6,8 @@ import { FormatPipe } from "src/app/format.pipe";
 import { MainService } from "src/app/main.service";
 import { OptionsService } from "src/app/options.service";
 import { Game } from "src/app/model/game";
-import { ActivatedRoute, Data, convertToParamMap } from "@angular/router";
-import { Observable, of } from "rxjs";
+import { ActivatedRoute, convertToParamMap } from "@angular/router";
+import { of } from "rxjs";
 
 describe("ModComponent", () => {
   let component: ModComponent;

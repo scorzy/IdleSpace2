@@ -1,11 +1,15 @@
-<div
-  fxLayout="row"
-  fxLayout.xs="column"
-  fxLayoutGap.xs="1rem"
-  fxLayoutGap="5rem"
->
-  <div fxLayout="column" fxLayoutGap="1rem">
-    <h1>{{ unit.name }}</h1>
+<div fxLayout="row" fxLayout.xs="column">
+  <div
+    fxLayout="column"
+    fxLayoutGap="1rem"
+    fxFlex.sm="100%"
+    fxFlex.md="75%"
+    fxFlex.lg="55%"
+    fxFlex.xl="45%"
+  >
+    <h1>
+      {{ unit.name }}
+    </h1>
     <span>
       <span class="used">
         Used:
@@ -19,16 +23,28 @@
         <span class="monospace">{{ unit.maxMods | format: true }} </span></span
       >
     </span>
-    <app-mod-line
-      *ngFor="let mod of unit.modStack.mods; trackBy: getModId"
-      [mod]="mod"
-      [uiQuantityString]="mod.uiQuantityString"
-      [unit]="unit"
-    ></app-mod-line>
+    <form nz-form [nzLayout]="isLarge ? 'horizontal' : 'vertical'">
+      <!-- nzLayout="inline" -->
+      <app-mod-line
+        *ngFor="let mod of unit.modStack.mods; trackBy: getModId"
+        [mod]="mod"
+        [uiQuantityString]="mod.uiQuantityString"
+        [unit]="unit"
+        (modChange)="onModChange($event)"
+      ></app-mod-line>
+    </form>
     <nz-input-group nzCompact>
-      <button nz-button nzType="primary">Confirm</button>
+      <button
+        nz-button
+        nzType="primary"
+        [disabled]="disabled"
+        (click)="confirm()"
+      >
+        Confirm
+      </button>
       <button nz-button nzType="default" (click)="cancel()">Cancel</button>
     </nz-input-group>
+    <nz-alert nzType="warning" nzShowIcon [nzDescription]="infoRef"> </nz-alert>
   </div>
   <div>
     <nz-table nzTemplateMode>
@@ -96,3 +112,20 @@
   </div>
 </div>
 <!-- nzSize="middle" -->
+
+<ng-template #infoRef>
+  <span>You will restart with one Drone.</span>
+  <span *ngIf="componentGain.gt(0)"
+    >You will gain
+    <span class="monospace">{{ componentGain | format }}</span>
+    components.</span
+  >
+  <span>
+    To rebuild all your new Drones you will need
+    <span class="monospace">{{ componentNeed | format }} </span>
+    components. You have
+    <span class="monospace"
+      >{{ componentTotal | format }} ({{ componentPercent }}%)</span
+    >.
+  </span>
+</ng-template>

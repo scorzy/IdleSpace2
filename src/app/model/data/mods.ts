@@ -5,10 +5,10 @@ export const EFFICIENCY_MOD: IModData = {
 };
 export const PRODUCTION_MOD: IModData = {
   name: "Unproductive / Productive",
-  min: -10
+  min: -5
 };
 export const ENERGY_MOD: IModData = {
-  name: "Energy-intensive / Energy-saving",
+  name: "Energy: intensive / saving",
   max: 10
 };
 export const COMPONENTS_MOD: IModData = {

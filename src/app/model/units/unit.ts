@@ -7,7 +7,6 @@ import {
   ZERO,
   ONE,
   MOD_PER_ROBOTICS,
-  TEN,
   COMPONENT_PRICE,
   MOD_COMPONENTS,
   MOD_RECYCLING,
@@ -240,6 +239,14 @@ export class Unit implements IBase, IUnlockable {
     }
     this.habSpace = this.habSpace.plus(newHabSpace);
   }
+  reloadAll() {
+    this.modStack.reload();
+    this.production.forEach(prod => {
+      prod.reloadMod();
+    });
+    this.reloadComponentPrice();
+    this.reloadLimit();
+  }
   //#region Mods
   makeMods() {
     this.modStack = new ModStack(this.id !== "e");
@@ -250,8 +257,19 @@ export class Unit implements IBase, IUnlockable {
 
     this.maxMods = this.maxMods.floor();
   }
+  confirmMods() {
+    const toAdd = this.quantity.times(this.recycle);
+    const components = Game.getGame().resourceManager.components;
+    components.quantity = components.quantity.plus(toAdd);
+    this.quantity = ONE;
+    this.modStack.mods.forEach(mod => {
+      mod.quantity = mod.uiQuantity;
+    });
+    this.reloadAll();
+    Game.getGame().resourceManager.deployComponents();
+    this.reloadAll();
+  }
   //#endregion
-
   //#region Save and Load
   getSave(): any {
     const ret: any = {};

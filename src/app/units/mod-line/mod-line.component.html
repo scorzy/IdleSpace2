@@ -1,14 +1,33 @@
-<strong>{{ mod.name }}</strong>
-<nz-input-group nzCompact>
-  <button nz-button nzType="default" (click)="min()">MIN</button>
-  <button nz-button nzType="default">-</button>
-  <input
-    class="inputBox"
-    type="text"
-    nz-input
-    [(ngModel)]="mod.uiQuantityString"
-    (change)="valueChange()"
-  />
-  <button nz-button nzType="default">+</button>
-  <button nz-button nzType="default" (click)="max()">MAX</button>
-</nz-input-group>
+<nz-form-item>
+  <nz-form-label [nzSpan]="isLarge ? 10 : null">{{ mod.name }}</nz-form-label>
+  <nz-form-control
+    [nzSpan]="isLarge ? 14 : null"
+    [nzValidateStatus]="status"
+    nzErrorTip="Should be between {{ realMin | format: true }} and {{
+      realMax | format: true
+    }}"
+  >
+    <nz-input-group nzCompact>
+      <button nz-button nzType="default" (click)="min()" nzSize="small">
+        MIN
+      </button>
+      <button nz-button nzType="default" (click)="plus(-1)" nzSize="small">
+        -
+      </button>
+      <input
+        class="inputBox monospace"
+        type="text"
+        nzSize="small"
+        nz-input
+        [(ngModel)]="mod.uiQuantityString"
+        (change)="valueChange()"
+      />
+      <button nz-button nzType="default" (click)="plus()" nzSize="small">
+        +
+      </button>
+      <button nz-button nzType="default" (click)="max()" nzSize="small">
+        MAX
+      </button>
+    </nz-input-group>
+  </nz-form-control>
+</nz-form-item>

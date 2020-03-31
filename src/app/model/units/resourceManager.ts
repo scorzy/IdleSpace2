@@ -303,7 +303,7 @@ export class ResourceManager {
     let sum = 0;
     let added = ZERO;
     for (let i = 0, n = this.unlockedWorkers.length; i < n; i++) {
-      if (this.unlockedWorkers[i].quantity.lte(this.unlockedWorkers[i].limit)) {
+      if (this.unlockedWorkers[i].quantity.lt(this.unlockedWorkers[i].limit)) {
         sum +=
           this.unlockedWorkers[i].production.findIndex(
             p => p.ratio.gt(0) && p.product.isEnding
@@ -326,12 +326,13 @@ export class ResourceManager {
           )
           .div(sum);
         worker.storedComponents = worker.storedComponents.plus(toAdd);
+
         added = added.plus(toAdd);
         if (worker.storedComponents.gte(worker.components)) {
           const built = worker.storedComponents
             .div(worker.components)
             .floor()
-            .min(1);
+            .max(1);
           worker.quantity = worker.quantity.plus(built);
           if (worker.quantity.gte(worker.limit)) {
             const diff = worker.quantity.minus(worker.limit);
