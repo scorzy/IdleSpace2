@@ -16,6 +16,7 @@ import { Production } from "src/app/model/units/production";
 import { Price } from "src/app/model/prices/price";
 import { NzModalService, NzModalRef } from "ng-zorro-antd";
 import { BreakpointObserver, BreakpointState } from "@angular/cdk/layout";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-unit-card",
@@ -48,12 +49,11 @@ export class UnitCardComponent implements OnInit, OnDestroy {
     public ms: MainService,
     private cd: ChangeDetectorRef,
     private modalService: NzModalService,
-    public breakpointObserver: BreakpointObserver
+    public breakpointObserver: BreakpointObserver,
+    private router: Router
   ) {}
-
   ngOnInit() {
     this.popoverTrigger = "hover";
-
     this.sliderDisabled = !this.unit.production.find(p => p.ratio.lt(0));
     this.getActions();
     this.subscriptions.push(
@@ -68,7 +68,6 @@ export class UnitCardComponent implements OnInit, OnDestroy {
         })
     );
   }
-
   getActions() {
     this.unit.reloadMaxBuy();
     const newActions = [];
@@ -92,11 +91,9 @@ export class UnitCardComponent implements OnInit, OnDestroy {
       this.actions = newActions;
     }
   }
-
   ngOnDestroy() {
     this.subscriptions.forEach((sub: Subscription) => sub.unsubscribe());
   }
-
   buyOneAct() {
     this.unit.buy(ONE);
   }
@@ -123,5 +120,8 @@ export class UnitCardComponent implements OnInit, OnDestroy {
   }
   destroyTplModal() {
     this.tplModal.destroy();
+  }
+  goModPage() {
+    this.router.navigate(["/mod/" + this.unit.id]);
   }
 }

@@ -53,7 +53,7 @@ export class ModStack {
     this.usedTemp = ZERO;
     for (let i = 0, n = this.mods.length; i < n; i++) {
       this.mods[i].reloadBonus();
-      this.used = this.used.plus(this.used.plus(this.mods[i].quantity));
+      this.used = this.used.plus(this.mods[i].quantity);
       this.usedTemp = this.usedTemp.plus(this.mods[i].uiQuantity);
     }
   }

@@ -5,31 +5,14 @@
   [nzExtra]="extraTemplate"
   [nzActions]="actions"
 >
-  <span class="infoIcon" *ngIf="unit.production.length > 0">
-    <span
-      nz-popover
-      [nzPopoverTitle]="titleTemplate"
-      [nzPopoverContent]="contentTemplate"
-      [nzPopoverTrigger]="popoverTrigger"
-      (click)="createModal(contentTemplate, tplFooter)"
-    >
-      <i nz-icon nzType="info-circle" nzTheme="outline"></i>
-    </span>
-  </span>
-
   <p *ngIf="unit.description !== ''">
     {{ unit.description }}
   </p>
-  <div *ngIf="unit.modStack">
-    <a [routerLink]="'/mod/' + unit.id"
-      >Mods
-      {{ unit.maxMods | format: true }}
-    </a>
-  </div>
+
   <div *ngIf="unit.production.length > 0">
-    <span nz-text><span>Operativity:</span></span>
+    <!-- <span nz-text><span>Operativity:</span></span>
     <span class="monospace">{{ unit.operativity | format }}</span
-    >%
+    >% -->
     <nz-slider
       [(ngModel)]="unit.operativity"
       [nzDisabled]="sliderDisabled"
@@ -42,6 +25,7 @@
       fxLayout="row"
       fxLayoutGap="4px"
       *ngIf="ms.game.resourceManager.components.unlocked"
+      fxLayoutAlign="center"
     >
       <span
         nz-popover
@@ -75,29 +59,59 @@
     </div>
   </div>
 
-  <!-- <span nz-text><strong>Price:</strong></span> -->
-  <span *ngFor="let pri of unit.buyPrice.prices; trackBy: getPriceId">
-    <span nz-text [nzType]="pri.canBuy ? '' : 'danger'">
-      <i
-        nz-icon
-        class="priceIcon"
-        [nzType]="pri.spendable.icon"
-        [ngClass]="pri?.spendable?.colorClass"
-      ></i>
-      <span *ngIf="!pri.spendable.icon">{{ pri.spendable.name }}</span>
-      <span class="monospace">{{ pri.singleCost | format }}</span>
-      <span
-        class="comma"
-        *ngIf="
-          unit.buyPrice.prices.indexOf(pri) !== unit.buyPrice.prices.length - 1
-        "
-        >,</span
-      >
+  <!-- Prices -->
+  <div fxLayoutAlign="center" fxLayout="row">
+    <span *ngFor="let pri of unit.buyPrice.prices; trackBy: getPriceId">
+      <span nz-text [nzType]="pri.canBuy ? '' : 'danger'">
+        <i
+          nz-icon
+          class="priceIcon"
+          [nzType]="pri.spendable.icon"
+          [ngClass]="pri?.spendable?.colorClass"
+        ></i>
+        <span *ngIf="!pri.spendable.icon">{{ pri.spendable.name }}</span>
+        <span class="monospace">{{ pri.singleCost | format }}</span>
+        <span
+          class="comma"
+          *ngIf="
+            unit.buyPrice.prices.indexOf(pri) !==
+            unit.buyPrice.prices.length - 1
+          "
+          >,</span
+        >
+      </span>
     </span>
-  </span>
+  </div>
+  <button
+    nz-button
+    nzType="link"
+    class="mod-button"
+    *ngIf="unit.modStack"
+    (click)="goModPage()"
+  >
+    Mods used:
+    <span class="monospace">
+      {{ unit.modStack.used | format: true }} /
+      {{ unit.maxMods | format: true }}</span
+    >
+  </button>
 </nz-card>
 
 <ng-template #extraTemplate>
+  <span class="infoIcon" *ngIf="unit.production.length > 0">
+    <span
+      nz-popover
+      [nzPopoverTitle]="titleTemplate"
+      [nzPopoverContent]="contentTemplate"
+      [nzPopoverTrigger]="popoverTrigger"
+      (click)="createModal(contentTemplate, tplFooter)"
+    >
+      <i nz-icon nzType="info-circle" nzTheme="outline"></i>
+    </span>
+  </span>
+</ng-template>
+<ng-template #cardTitleTemplate>
+  <strong>{{ unit.name }}</strong>
   <span class="monospace">
     {{ unit.quantity | format: true }}
     <!-- ({{ unit.manualBought | format }}) -->
@@ -106,9 +120,6 @@
       {{ unit.limit | format: true }}
     </span>
   </span>
-</ng-template>
-<ng-template #cardTitleTemplate>
-  <strong>{{ unit.name }}</strong>
 </ng-template>
 <ng-template #titleTemplate>
   <i nz-icon nzType="table"></i> Production</ng-template
