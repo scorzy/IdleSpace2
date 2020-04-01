@@ -9,7 +9,7 @@ import {
 import { Subscription } from "rxjs";
 import { Unit } from "src/app/model/units/unit";
 import { MainService } from "src/app/main.service";
-import { ActivatedRoute, ParamMap } from "@angular/router";
+import { ActivatedRoute, ParamMap, Router } from "@angular/router";
 import { Mod } from "src/app/model/units/mod";
 import { Production } from "src/app/model/units/production";
 import { BreakpointObserver, BreakpointState } from "@angular/cdk/layout";
@@ -35,7 +35,8 @@ export class ModComponent implements OnInit, OnDestroy {
     public ms: MainService,
     private cd: ChangeDetectorRef,
     private route: ActivatedRoute,
-    public breakpointObserver: BreakpointObserver
+    public breakpointObserver: BreakpointObserver,
+    private router: Router
   ) {}
   ngOnInit() {
     this.reloadComp();
@@ -124,5 +125,6 @@ export class ModComponent implements OnInit, OnDestroy {
   confirm() {
     if (this.disabled) return false;
     this.unit.confirmMods();
+    this.router.navigate(["/units/w"]);
   }
 }
