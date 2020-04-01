@@ -21,11 +21,17 @@
       [ngClass]="item.colorClass"
     >
       <span class="monospace">
-        <span>{{ item.quantity | format }}</span>
-        <span *ngIf="item.showUiLimit">/{{ item.uiLimit | format }}</span>
+        <span class="min-width" *ngIf="item.quantity.gt(0)">{{
+          item.quantity | format
+        }}</span>
+        <span class="min-width" *ngIf="item.showUiLimit"
+          >/{{ item.uiLimit | format }}</span
+        >
       </span>
       <span class="monospace">
-        <span x [class]="item.perSec.gte(0) ? '' : 'text-danger'"
+        <span
+          class="min-width"
+          [class]="item.perSec.gte(0) ? '' : 'text-danger'"
           >{{ item.perSec | format }}/s</span
         >
       </span>
