@@ -26,6 +26,12 @@ import { ShipType } from "../shipyard/ShipType";
 import { Module } from "../shipyard/module";
 import { MainService } from "src/app/main.service";
 import { OptionsService } from "src/app/options.service";
+import { Unit } from "../units/unit";
+
+export interface IExtraTile {
+  number: number;
+  unit: Unit;
+}
 
 export class Enemy {
   constructor() {
@@ -39,6 +45,7 @@ export class Enemy {
   cells: Array<Cell>;
   designs: Array<ShipDesign>;
   totalNavCap = 0;
+  extraTiles: Array<IExtraTile>;
 
   private favouriteWeapons: Module[];
   private favouriteDefences: Module[];
@@ -63,6 +70,7 @@ export class Enemy {
       this.designs.push(this.generateDesign(FIRST_DRONE, this.modLevel));
       sum = 1;
     } else {
+      //#region Ships
       this.modLevel = Math.floor(this.level * MOD_LEVEL_EXP);
       this.weaponDefenceRatio = 0.2 + Math.random() * 0.5;
       const sm = Game.getGame().shipyardManager;
@@ -161,6 +169,7 @@ export class Enemy {
           sum += des.enemyPriority;
         }
       }
+      //#endregion
     }
 
     this.designs.forEach(des => {
@@ -468,9 +477,17 @@ export class Enemy {
       d: this.designs.map(des => des.getEnemySave())
     };
     if (this.cells) ret.c = this.cells.map(c => c.getSave());
+    if (this.extraTiles && this.extraTiles.length > 0)
+      ret.e = this.extraTiles.map(extra => {
+        return {
+          n: extra.number,
+          u: extra.unit.id
+        };
+      });
     return ret;
   }
   load(data: any) {
+    const rs = Game.getGame().resourceManager;
     if ("l" in data) this.level = data.l;
     if ("n" in data) this.name = data.n;
     if ("i" in data) this.icon = data.i;
@@ -493,6 +510,15 @@ export class Enemy {
     }
     for (let i = 0, n = this.designs.length; i < n; i++) {
       this.designs[i].id = i;
+    }
+    if ("e" in data) {
+      this.extraTiles = [];
+      for (let i = 0, n = data.e.length; i < n; i++) {
+        const unit = rs.units.find(unit => unit.id === data.e[i].u);
+        if (unit) {
+          this.extraTiles.push({ number: data.e[i].n, unit: unit });
+        }
+      }
     }
     this.reloadTotalNavalCap();
     for (let i = 0; i < 100; i++) {

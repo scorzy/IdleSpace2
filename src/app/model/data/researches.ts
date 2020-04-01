@@ -49,7 +49,8 @@ export const RESEARCHES: IResearchData[] = [
     max: 1,
     type: [TECHNOLOGIES.Search],
     unitsToUnlock: ["r", "R"],
-    technologiesToUnlock: ["r"]
+    technologiesToUnlock: ["r"],
+    researchToUnlock: ["r1"]
   },
   {
     id: "P",
@@ -87,5 +88,22 @@ export const RESEARCHES: IResearchData[] = [
     max: 1,
     type: [TECHNOLOGIES.Energy],
     technologiesToUnlock: [TECHNOLOGIES.Energy.id]
+  },
+  {
+    id: "r1",
+    name: "Optimistic zone",
+    description: "Search 1",
+    price: 100,
+    max: 10,
+    type: [TECHNOLOGIES.Search],
+    researchToUnlock: ["r2"]
+  },
+  {
+    id: "r2",
+    name: "Conservative zone",
+    description: "Search 2",
+    price: 100,
+    max: 10,
+    type: [TECHNOLOGIES.Search]
   }
 ];
