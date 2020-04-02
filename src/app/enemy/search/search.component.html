@@ -7,32 +7,63 @@
   <div
     fxFlex.lt-sm="100%"
     fxFlex.sm="0 1 calc(50% - 10px)"
-    fxFlex.md="0 1 calc(50% - 10px)"
-    fxFlex.lg="0 1 calc(40% - 10px)"
-    fxFlex.xl="0 1 calc(30% - 10px)"
+    fxFlex.md="0 1 calc(55% - 10px)"
+    fxFlex.lg="0 1 calc(60% - 10px)"
+    fxFlex.xl="0 1 calc(70% - 10px)"
   >
     <h1>Search</h1>
+
     Max Level:
-    <strong class="monospace">
+    <strong class="monospace level">
       {{ ms.game.enemyManager.maxLevel | number: "1.0-0" }}</strong
     >
+    Bonus:
+    <strong class="monospace"> {{ pointBalance | number: "1.0-0" }}</strong>
     <form nz-form>
       <nz-form-item>
-        <nz-form-label [nzSpan]="6" nzFor="level">Level</nz-form-label>
-        <nz-form-control [nzSpan]="14">
+        <nz-form-label [nzSpan]="7" nzFor="level">Level</nz-form-label>
+        <nz-form-control [nzSpan]="15">
           <nz-input-number
             [(ngModel)]="searchLevel"
+            (ngModelChange)="reload()"
             [nzMin]="0"
             [nzStep]="1"
             name="searchLevel"
           ></nz-input-number>
         </nz-form-control>
       </nz-form-item>
+
+      <nz-form-item
+        *ngFor="
+          let opt of ms.game.enemyManager.searchOptions;
+          trackBy: getOptId
+        "
+      >
+        <nz-form-label [nzSpan]="7" [nzFor]="opt.id">{{
+          opt.name
+        }}</nz-form-label>
+        <nz-form-control [nzSpan]="15">
+          <nz-slider
+            [(ngModel)]="opt.quantity"
+            (ngModelChange)="reload()"
+            [nzMin]="opt.min"
+            [nzMax]="opt.max"
+            nzStep="1"
+            [name]="opt.id"
+          ></nz-slider>
+        </nz-form-control>
+      </nz-form-item>
     </form>
     <nz-button-group>
-      <button nz-button nzType="primary" (click)="search()">Search</button>
+      <button nz-button nzType="primary" (click)="search()">
+        Search
+      </button>
+      <button nz-button nzType="secondary" (click)="reset()">
+        Reset
+      </button>
     </nz-button-group>
   </div>
+
   <div
     fxFlex.lt-sm="100%"
     fxFlex.sm="0 1 calc(50% - 10px)"
@@ -40,20 +71,62 @@
     fxFlex.lg="0 1 calc(35% - 10px)"
     fxFlex.xl="0 1 calc(25% - 10px)"
   >
-    <h1>Jobs</h1>
-    <div
-      cdkDropList
-      [cdkDropListData]="ms.game.enemyManager.toDo"
-      class="job-list"
-      (cdkDropListDropped)="drop($event)"
-    >
-      <app-job
-        cdkDrag
-        class="job-box"
-        *ngFor="let resToDo of ms.game.enemyManager.toDo; trackBy: getJobId"
-        [job]="resToDo"
-        [collection]="ms.game.enemyManager.toDo"
-      ></app-job>
+    <div fxLayout="column">
+      <!-- Results -->
+      <div>
+        <h1>Results</h1>
+        <nz-table nzTemplateMode nzSize="small">
+          <tbody>
+            <tr *ngFor="let tile of expectedTiles; trackBy: getExpTileId">
+              <td>
+                {{ tile.unit.name }}
+              </td>
+              <td class="monospace col2 center">
+                {{ tile.range.min | number: "1.0-0" }} -
+                {{ tile.range.max | number: "1.0-0" }}
+              </td>
+            </tr>
+            <tr>
+              <td>Fleet Power</td>
+              <td class="monospace col2 center">
+                +{{ fleetPowerRange.min | percent: "1.0-0" }} +{{
+                  fleetPowerRange.max | percent: "1.0-0"
+                }}
+              </td>
+            </tr>
+            <tr>
+              <td>Distance</td>
+              <td class="monospace col2 center">
+                {{ minDistance | format }} - {{ maxDistance | format }}
+              </td>
+            </tr>
+            <tr>
+              <td>Price</td>
+              <td class="monospace col2 center">
+                {{ expectedPrice | format: true }}
+              </td>
+            </tr>
+          </tbody>
+        </nz-table>
+      </div>
+      <!-- Jobs -->
+      <div>
+        <h1>Jobs</h1>
+        <div
+          cdkDropList
+          [cdkDropListData]="ms.game.enemyManager.toDo"
+          class="job-list"
+          (cdkDropListDropped)="drop($event)"
+        >
+          <app-job
+            cdkDrag
+            class="job-box"
+            *ngFor="let resToDo of ms.game.enemyManager.toDo; trackBy: getJobId"
+            [job]="resToDo"
+            [collection]="ms.game.enemyManager.toDo"
+          ></app-job>
+        </div>
+      </div>
     </div>
   </div>
 </div>

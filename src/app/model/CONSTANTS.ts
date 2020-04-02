@@ -32,11 +32,17 @@ export const BASE_EXPLOSION = BASE_ARMOUR;
 
 //  Search and enemies
 export const SEARCH_JOB_PRICE = 100;
+export const EXTRA_OPT_EXP = 1.07;
 export const ENEMY_NAVAL_CAP_LEVEL = 100;
+export const ENEMY_BASE_DISTANCE = new Decimal(1e3);
 export const MOD_LEVEL_EXP = 1.3;
 export const DEFENCE_START_LEVEL = 14;
 export const DEFENCE_FINAL_LEVEL = 65;
 export const DEFENCE_MAX_PERCENT = 0.3;
+export const DISTRICT_MAX_OPT_END = 80;
+export const DISTRICT_MIN_OPT_END = 20;
+export const SCIENCE_DISTRICT_MULTI = 0.6;
+export const COMPONENTS_DISTRICT_MULTI = 0.4;
 
 // Modules
 export const PRICE_GROW_RATE = 1.05;

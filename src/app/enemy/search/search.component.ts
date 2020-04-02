@@ -10,6 +10,10 @@ import { MainService } from "src/app/main.service";
 import { ActivatedRoute } from "@angular/router";
 import { CdkDragDrop, moveItemInArray } from "@angular/cdk/drag-drop";
 import { SearchJob } from "src/app/model/enemy/searchJob";
+import { SearchOption, SearchRange } from "src/app/model/enemy/searchOption";
+import { ZERO } from "src/app/model/CONSTANTS";
+import { Unit } from "src/app/model/units/unit";
+import { Enemy } from "src/app/model/enemy/enemy";
 
 @Component({
   selector: "app-search",
@@ -19,15 +23,43 @@ import { SearchJob } from "src/app/model/enemy/searchJob";
 })
 export class SearchComponent implements OnInit, OnDestroy {
   searchLevel = 0;
+  expectedPrice = ZERO;
+  expectedTiles: { unit: Unit; range: SearchRange }[];
+  fleetPowerRange: SearchRange = new SearchRange();
+  minDistance = ZERO;
+  maxDistance = ZERO;
+  pointBalance = 0;
   private subscriptions: Subscription[] = [];
-
   constructor(
     public ms: MainService,
     private cd: ChangeDetectorRef,
     private route: ActivatedRoute
-  ) {}
-
+  ) {
+    this.expectedTiles = [
+      {
+        unit: this.ms.game.resourceManager.habitableSpace,
+        range: { min: 0, max: 0 }
+      },
+      {
+        unit: this.ms.game.resourceManager.miningDistrict,
+        range: { min: 0, max: 0 }
+      },
+      {
+        unit: this.ms.game.resourceManager.energyDistrict,
+        range: { min: 0, max: 0 }
+      },
+      {
+        unit: this.ms.game.resourceManager.science,
+        range: { min: 0, max: 0 }
+      },
+      {
+        unit: this.ms.game.resourceManager.components,
+        range: { min: 0, max: 0 }
+      }
+    ];
+  }
   ngOnInit() {
+    this.reload();
     this.subscriptions.push(
       this.ms.updateEmitter.subscribe(() => {
         this.cd.markForCheck();
@@ -37,10 +69,16 @@ export class SearchComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.subscriptions.forEach((sub: Subscription) => sub.unsubscribe());
   }
-
   search() {
     const searchJob = new SearchJob();
     searchJob.enemyLevel = this.searchLevel;
+    searchJob.habitabilityOpt = this.ms.game.enemyManager.habitabilityOpt.quantity;
+    searchJob.difficultyOpt = this.ms.game.enemyManager.difficultyOpt.quantity;
+    searchJob.distanceOpt = this.ms.game.enemyManager.distanceOpt.quantity;
+    searchJob.energyOpt = this.ms.game.enemyManager.energyOpt.quantity;
+    searchJob.metalOpt = this.ms.game.enemyManager.metalOpt.quantity;
+    searchJob.scienceOpt = this.ms.game.enemyManager.scienceOpt.quantity;
+    searchJob.componentOpt = this.ms.game.enemyManager.componentOpt.quantity;
     searchJob.init();
     this.ms.game.enemyManager.toDo.push(searchJob);
   }
@@ -53,5 +91,44 @@ export class SearchComponent implements OnInit, OnDestroy {
       event.previousIndex,
       event.currentIndex
     );
+  }
+  getOptId(index: number, opt: SearchOption) {
+    return opt.id;
+  }
+  reset() {
+    this.ms.game.enemyManager.searchOptions.forEach(so => {
+      so.quantity = 0;
+    });
+    this.reload();
+  }
+  reload() {
+    this.pointBalance =
+      this.ms.game.enemyManager.habitabilityOpt.quantity +
+      this.ms.game.enemyManager.difficultyOpt.quantity * -1 +
+      this.ms.game.enemyManager.distanceOpt.quantity * -1 +
+      this.ms.game.enemyManager.energyOpt.quantity +
+      this.ms.game.enemyManager.metalOpt.quantity +
+      this.ms.game.enemyManager.scienceOpt.quantity +
+      this.ms.game.enemyManager.componentOpt.quantity;
+    this.expectedPrice = SearchJob.getPrice(
+      this.searchLevel,
+      this.pointBalance
+    );
+
+    this.expectedTiles[0].range = this.ms.game.enemyManager.habitabilityOpt.getRange();
+    this.expectedTiles[1].range = this.ms.game.enemyManager.metalOpt.getRange();
+    this.expectedTiles[2].range = this.ms.game.enemyManager.energyOpt.getRange();
+    this.expectedTiles[3].range = this.ms.game.enemyManager.scienceOpt.getRange();
+    this.expectedTiles[4].range = this.ms.game.enemyManager.componentOpt.getRange();
+    this.fleetPowerRange = this.ms.game.enemyManager.difficultyOpt.getRange();
+    const distanceRange = Enemy.getDistance(
+      this.searchLevel,
+      this.ms.game.enemyManager.distanceOpt.quantity
+    );
+    this.minDistance = distanceRange.min;
+    this.maxDistance = distanceRange.max;
+  }
+  getExpTileId(index: number, tile: { unit: Unit; range: SearchRange }) {
+    return tile.unit.id;
   }
 }

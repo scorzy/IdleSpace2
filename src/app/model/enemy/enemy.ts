@@ -20,13 +20,22 @@ import {
   DEFENCE_FINAL_LEVEL,
   DEFENCE_MAX_PERCENT,
   PRICE_GROW_RATE,
-  DEFAULT_MODULE_PRICE
+  DEFAULT_MODULE_PRICE,
+  ENEMY_BASE_DISTANCE
 } from "../CONSTANTS";
 import { ShipType } from "../shipyard/ShipType";
 import { Module } from "../shipyard/module";
 import { MainService } from "src/app/main.service";
 import { OptionsService } from "src/app/options.service";
 import { Unit } from "../units/unit";
+import {
+  HABITABILITY_OPT,
+  METAL_OPT,
+  ENERGY_OPT,
+  SCIENCE_OPT,
+  COMPONENT_OPT
+} from "../data/searchOptions";
+import { ENERGY_MOD } from "../data/mods";
 
 export interface IExtraTile {
   number: number;
@@ -46,6 +55,7 @@ export class Enemy {
   designs: Array<ShipDesign>;
   totalNavCap = 0;
   extraTiles: Array<IExtraTile>;
+  distance = ENEMY_BASE_DISTANCE;
 
   private favouriteWeapons: Module[];
   private favouriteDefences: Module[];
@@ -56,10 +66,25 @@ export class Enemy {
   private preferHighLevGen = true;
 
   generate(searchJob: SearchJob) {
+    const rs = Game.getGame().resourceManager;
+    const em = Game.getGame().enemyManager;
     this.name = "aaa";
     this.designs = [];
     let sum = 0;
     this.level = searchJob.enemyLevel;
+    const distanceRange = Enemy.getDistance(this.level, searchJob.distanceOpt);
+    this.distance = distanceRange.min.plus(
+      distanceRange.max.minus(distanceRange.min).times(Math.random())
+    );
+    //#region Tiles
+    let habRange = em.habitabilityOpt.getRange(searchJob.habitabilityOpt);
+    let metalRange = em.habitabilityOpt.getRange(searchJob.metalOpt);
+    let energyRange = em.habitabilityOpt.getRange(searchJob.energyOpt);
+    let scienceRange = em.habitabilityOpt.getRange(searchJob.scienceOpt);
+    let componentRange = em.habitabilityOpt.getRange(searchJob.componentOpt);
+
+    //#endregion
+
     const maxNavalCap = Math.min(
       BASE_NAVAL_CAPACITY + ENEMY_NAVAL_CAP_LEVEL * this.level,
       FLEET_CAPACITY
@@ -265,6 +290,24 @@ export class Enemy {
       }
       this.cells[index].color += ")";
     }
+  }
+  static getDistance(
+    level: number,
+    extra: number
+  ): { min: Decimal; max: Decimal } {
+    const range = Game.getGame().enemyManager.distanceOpt.getRange(extra);
+    let minMulti = range.min;
+    let maxMulti = range.max;
+    if (extra < 0) {
+      minMulti = 1 + (range.max - 1) * 0.03;
+      maxMulti = 1 + (range.min - 1) * 0.02;
+      minMulti = Math.abs(1 / minMulti);
+      maxMulti = Math.abs(1 / maxMulti);
+    }
+    return {
+      min: ENEMY_BASE_DISTANCE.times(level + 1).times(minMulti),
+      max: ENEMY_BASE_DISTANCE.times(level + 1).times(maxMulti)
+    };
   }
   private generateDesign(iShipData: IShipData, level: number): ShipDesign {
     const sm = Game.getGame().shipyardManager;
@@ -474,7 +517,8 @@ export class Enemy {
       l: this.level,
       n: this.name,
       i: this.icon,
-      d: this.designs.map(des => des.getEnemySave())
+      d: this.designs.map(des => des.getEnemySave()),
+      s: this.distance
     };
     if (this.cells) ret.c = this.cells.map(c => c.getSave());
     if (this.extraTiles && this.extraTiles.length > 0)
@@ -491,6 +535,7 @@ export class Enemy {
     if ("l" in data) this.level = data.l;
     if ("n" in data) this.name = data.n;
     if ("i" in data) this.icon = data.i;
+    if ("s" in data) this.distance = new Decimal(data.s);
     if ("d" in data) {
       this.designs = data.d.map(designData => {
         const design = new ShipDesign();
