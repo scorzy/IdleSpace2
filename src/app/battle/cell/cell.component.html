@@ -4,16 +4,16 @@
   [nzPopoverContent]="contentTemplate"
   nzPopoverPlacement="bottomCenter"
 >
-  <i *ngIf="cell.special" nz-icon [nzType]="cell.special.icon"></i>
+  <i
+    *ngIf="cell?.materials?.length > 0"
+    nz-icon
+    [nzType]="cell.materials[0].material.icon"
+  ></i>
   <ng-template #contentTemplate>
     <strong
       ><span class="monospace"># {{ cell.index + 1 }}</span></strong
     >
     <ul class="list-unstyled">
-      <li *ngIf="cell.special">
-        <i nz-icon [nzType]="cell.special.icon" class="matIcon"></i>
-        <span class="monospace">{{ cell.specialQuantity | format }}</span>
-      </li>
       <li
         *ngFor="let mat of cell.materials"
         [ngClass]="mat.material.colorClass"

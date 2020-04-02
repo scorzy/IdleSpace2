@@ -28,20 +28,13 @@ import { Module } from "../shipyard/module";
 import { MainService } from "src/app/main.service";
 import { OptionsService } from "src/app/options.service";
 import { Unit } from "../units/unit";
-import {
-  HABITABILITY_OPT,
-  METAL_OPT,
-  ENERGY_OPT,
-  SCIENCE_OPT,
-  COMPONENT_OPT
-} from "../data/searchOptions";
-import { ENERGY_MOD } from "../data/mods";
+import { SearchRange } from "./searchOption";
+import { UNIT_TYPES } from "../data/units";
 
-export interface IExtraTile {
-  number: number;
-  unit: Unit;
+export class ExtraTile {
+  number = 0;
+  constructor(public unit: Unit) {}
 }
-
 export class Enemy {
   constructor() {
     this.id = Enemy.lastId++;
@@ -54,7 +47,7 @@ export class Enemy {
   cells: Array<Cell>;
   designs: Array<ShipDesign>;
   totalNavCap = 0;
-  extraTiles: Array<IExtraTile>;
+  tiles: Array<ExtraTile> = [];
   distance = ENEMY_BASE_DISTANCE;
 
   private favouriteWeapons: Module[];
@@ -64,6 +57,24 @@ export class Enemy {
   private weaponDefenceRatio = 0;
   private maxGenerator = 1;
   private preferHighLevGen = true;
+  static getDistance(
+    level: number,
+    extra: number
+  ): { min: Decimal; max: Decimal } {
+    const range = Game.getGame().enemyManager.distanceOpt.getRange(extra);
+    let minMulti = range.min;
+    let maxMulti = range.max;
+    if (extra < 0) {
+      minMulti = 1 + (range.max - 1) * 0.03;
+      maxMulti = 1 + (range.min - 1) * 0.02;
+      minMulti = Math.abs(1 / minMulti);
+      maxMulti = Math.abs(1 / maxMulti);
+    }
+    return {
+      min: ENEMY_BASE_DISTANCE.times(level + 1).times(minMulti),
+      max: ENEMY_BASE_DISTANCE.times(level + 1).times(maxMulti)
+    };
+  }
 
   generate(searchJob: SearchJob) {
     const rs = Game.getGame().resourceManager;
@@ -77,14 +88,46 @@ export class Enemy {
       distanceRange.max.minus(distanceRange.min).times(Math.random())
     );
     //#region Tiles
-    let habRange = em.habitabilityOpt.getRange(searchJob.habitabilityOpt);
-    let metalRange = em.habitabilityOpt.getRange(searchJob.metalOpt);
-    let energyRange = em.habitabilityOpt.getRange(searchJob.energyOpt);
-    let scienceRange = em.habitabilityOpt.getRange(searchJob.scienceOpt);
-    let componentRange = em.habitabilityOpt.getRange(searchJob.componentOpt);
-
+    const habRange = em.habitabilityOpt.getRange(searchJob.habitabilityOpt);
+    const metalRange = em.metalOpt.getRange(searchJob.metalOpt);
+    const energyRange = em.energyOpt.getRange(searchJob.energyOpt);
+    const scienceRange = em.scienceOpt.getRange(searchJob.scienceOpt);
+    const componentRange = em.componentOpt.getRange(searchJob.componentOpt);
+    const tileArr: {
+      tile: ExtraTile;
+      range: SearchRange;
+    }[] = [
+      {
+        tile: new ExtraTile(rs.habitableSpace),
+        range: habRange
+      },
+      {
+        tile: new ExtraTile(rs.miningDistrict),
+        range: metalRange
+      },
+      {
+        tile: new ExtraTile(rs.energyDistrict),
+        range: energyRange
+      },
+      {
+        tile: new ExtraTile(rs.science),
+        range: scienceRange
+      },
+      {
+        tile: new ExtraTile(rs.components),
+        range: componentRange
+      }
+    ];
+    tileArr.forEach(elem => {
+      elem.tile.number = Math.floor(
+        elem.range.min + (elem.range.max - elem.range.min) * Math.random()
+      );
+      if (elem.tile.number > 0) {
+        this.tiles.push(elem.tile);
+      }
+    });
     //#endregion
-
+    //#region Naval
     const maxNavalCap = Math.min(
       BASE_NAVAL_CAPACITY + ENEMY_NAVAL_CAP_LEVEL * this.level,
       FLEET_CAPACITY
@@ -196,7 +239,6 @@ export class Enemy {
       }
       //#endregion
     }
-
     this.designs.forEach(des => {
       const navCap =
         maxNavalCap * (des.isDefence ? defPercent : 1 - defPercent);
@@ -208,8 +250,8 @@ export class Enemy {
     for (let i = 0, n = this.designs.length; i < n; i++) {
       this.designs[i].id = i;
     }
-
     this.reloadTotalNavalCap();
+    //#endregion
   }
   generateCells() {
     const em = Game.getGame().enemyManager;
@@ -228,35 +270,55 @@ export class Enemy {
 
     this.cells = new Array<Cell>(100);
     for (let i = 0; i < 10; i++) {
-      let cellRow = new Array<Cell>();
+      const cellRow = new Array<Cell>();
       for (let k = 0; k < 10; k++) {
         const cell = new Cell();
         cellRow.push(cell);
         cell.ships = this.designs.map(des => des.enemyQuantity);
-        switch (k) {
-          case 0:
-          case 1:
-            cell.special = rs.habitableSpace;
-            cell.specialQuantity = districtQuantity;
-            break;
-          case 2:
-            cell.special = rs.miningDistrict;
-            cell.addMaterial(rs.metal, materialQuantity);
-            cell.specialQuantity = districtQuantity;
-            break;
-          case 3:
-            cell.special = rs.energyDistrict;
-            cell.addMaterial(rs.energy, materialQuantity.times(0.05));
-            cell.specialQuantity = districtQuantity;
-            break;
-        }
+        // switch (k) {
+        //   case 0:
+        //   case 1:
+        //     cell.special = rs.habitableSpace;
+        //     cell.specialQuantity = districtQuantity;
+        //     break;
+        //   case 2:
+        //     cell.special = rs.miningDistrict;
+        //     cell.addMaterial(rs.metal, materialQuantity);
+        //     cell.specialQuantity = districtQuantity;
+        //     break;
+        //   case 3:
+        //     cell.special = rs.energyDistrict;
+        //     cell.addMaterial(rs.energy, materialQuantity.times(0.05));
+        //     cell.specialQuantity = districtQuantity;
+        //     break;
+        // }
       }
-      cellRow = shuffle(cellRow);
+      // cellRow = shuffle(cellRow);
       for (let k = 0; k < 10; k++) {
         cellRow[k].index = i * 10 + k;
         this.cells[cellRow[k].index] = cellRow[k];
       }
     }
+    let freeCells = this.cells.filter(c => c.materials.length === 0);
+    this.tiles.forEach(tile => {
+      for (let i = 0; i < tile.number; i++) {
+        const cell = sample(freeCells.length > 0 ? freeCells : this.cells);
+        const num =
+          tile.unit.unitData.unitType === UNIT_TYPES.DISTRICT
+            ? districtQuantity
+            : materialQuantity;
+        cell.addMaterial(tile.unit, num);
+        switch (tile.unit) {
+          case rs.miningDistrict:
+            cell.addMaterial(rs.metal, materialQuantity);
+            break;
+          case rs.energyDistrict:
+            cell.addMaterial(rs.energy, materialQuantity);
+            break;
+        }
+        freeCells = this.cells.filter(c => c.materials.length === 0);
+      }
+    });
   }
   reloadCell(index: number) {
     let toDoColor: number[];
@@ -290,24 +352,6 @@ export class Enemy {
       }
       this.cells[index].color += ")";
     }
-  }
-  static getDistance(
-    level: number,
-    extra: number
-  ): { min: Decimal; max: Decimal } {
-    const range = Game.getGame().enemyManager.distanceOpt.getRange(extra);
-    let minMulti = range.min;
-    let maxMulti = range.max;
-    if (extra < 0) {
-      minMulti = 1 + (range.max - 1) * 0.03;
-      maxMulti = 1 + (range.min - 1) * 0.02;
-      minMulti = Math.abs(1 / minMulti);
-      maxMulti = Math.abs(1 / maxMulti);
-    }
-    return {
-      min: ENEMY_BASE_DISTANCE.times(level + 1).times(minMulti),
-      max: ENEMY_BASE_DISTANCE.times(level + 1).times(maxMulti)
-    };
   }
   private generateDesign(iShipData: IShipData, level: number): ShipDesign {
     const sm = Game.getGame().shipyardManager;
@@ -521,13 +565,14 @@ export class Enemy {
       s: this.distance
     };
     if (this.cells) ret.c = this.cells.map(c => c.getSave());
-    if (this.extraTiles && this.extraTiles.length > 0)
-      ret.e = this.extraTiles.map(extra => {
+    if (this.tiles && this.tiles.length > 0) {
+      ret.e = this.tiles.map(extra => {
         return {
           n: extra.number,
           u: extra.unit.id
         };
       });
+    }
     return ret;
   }
   load(data: any) {
@@ -557,11 +602,11 @@ export class Enemy {
       this.designs[i].id = i;
     }
     if ("e" in data) {
-      this.extraTiles = [];
+      this.tiles = [];
       for (let i = 0, n = data.e.length; i < n; i++) {
-        const unit = rs.units.find(unit => unit.id === data.e[i].u);
+        const unit = rs.units.find(u => u.id === data.e[i].u);
         if (unit) {
-          this.extraTiles.push({ number: data.e[i].n, unit: unit });
+          this.tiles.push({ number: data.e[i].n, unit });
         }
       }
     }

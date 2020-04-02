@@ -115,7 +115,7 @@ export class EnemyManager extends JobManager {
           playerDesign[i].velocity,
           this.currentEnemy.distance.times(-1)
         );
-        for (let sol of tempMax) {
+        for (const sol of tempMax) {
           if (sol.gt(maxTime)) maxTime = sol.toNumber();
         }
 
@@ -130,7 +130,7 @@ export class EnemyManager extends JobManager {
             playerDesign[i].velocity,
             this.currentEnemy.distance.times(-1)
           );
-          for (let sol of tempMax) {
+          for (const sol of tempMax) {
             if (sol.gt(maxTime)) maxTime = sol.toNumber();
           }
         }

@@ -24,28 +24,22 @@ export class Unit implements IBase, IUnlockable {
   icon = "";
   colorClass = "";
   showUiLimit = false;
-
   operativity = 100;
   production = new Array<Production>();
   makers = new Array<Production>();
-
   prodAllBonus = new BonusStack();
   prodEfficiency = new BonusStack();
   prodBy = new BonusStack();
-
   buyPrice = new MultiPrice();
   manualBought = ZERO;
-
   endIn = Number.POSITIVE_INFINITY;
   fullIn = Number.POSITIVE_INFINITY;
   isEnding = false;
   limit = Decimal.MAX_VALUE;
   limitTemp = Decimal.MAX_VALUE;
   private _oldLimit = Decimal.MAX_VALUE;
-
   buildingLimit: Unit;
   buildingLimitQuantity: Decimal;
-
   storedComponents = ZERO;
   needComponents = ZERO;
   components = COMPONENT_PRICE;
@@ -54,20 +48,16 @@ export class Unit implements IBase, IUnlockable {
   recycleTemp = ZERO;
   assemblyPriority = 50;
   assemblyPriorityEnding = 500;
-
   quantity = new Decimal();
   private _quantityOld = this.quantity;
-
   perSec = new Decimal();
   private _perSecOld = this.perSec;
-
   buildPrice = ZERO;
   habSpace = ZERO;
   buildPriceNext = ZERO;
   modStack: ModStack;
   maxMods: Decimal = ZERO;
   unusedMods: Decimal = ZERO;
-
   constructor(public unitData: IUnitData) {
     this.id = unitData.id;
     this.name = unitData.name;

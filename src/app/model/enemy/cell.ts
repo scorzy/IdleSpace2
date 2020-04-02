@@ -15,17 +15,11 @@ export interface IMaterial {
 export class Cell {
   index = 0;
   materials: IMaterial[] = [];
-
-  special: Unit;
-  specialQuantity = ZERO;
-
   percent = 100;
   done = false;
   inBattle = false;
   color = "rgb(245, 79, 71)";
-
   ships: Array<number>;
-
   addMaterial(material: Unit, quantity: Decimal) {
     if (!this.materials) this.materials = [];
     let cellMaterial: IMaterial = this.materials.find(
@@ -52,9 +46,6 @@ export class Cell {
         };
       });
     }
-    if (this.special) ret.i = this.special.id;
-    if (this.specialQuantity.gt(0)) ret.p = this.specialQuantity;
-
     if (this.ships) ret.s = this.ships;
     if (this.done) ret.d = this.done;
     return ret;
@@ -72,13 +63,6 @@ export class Cell {
         }
       }
     }
-    if ("i" in data) {
-      this.special = Game.getGame().resourceManager.districts.find(
-        u => u.id === data.i
-      );
-    }
-    if ("p" in data) this.specialQuantity = new Decimal(data.p);
-
     if ("s" in data) this.ships = data.s;
     if ("d" in data) this.done = data.d;
   }

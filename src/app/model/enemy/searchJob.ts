@@ -3,23 +3,28 @@ import { SEARCH_JOB_PRICE, EXTRA_OPT_EXP } from "../CONSTANTS";
 import { Game } from "../game";
 
 export class SearchJob extends Job {
-  static LAST_ID = 0;
-  enemyLevel = 0;
-  id = 0;
-  //#region Search Options
-  habitabilityOpt: number = 0;
-  difficultyOpt: number = 0;
-  distanceOpt: number = 0;
-  energyOpt: number = 0;
-  metalOpt: number = 0;
-  scienceOpt: number = 0;
-  componentOpt: number = 0;
   //#endregion
   constructor() {
     super();
     this.id = SearchJob.LAST_ID;
     SearchJob.LAST_ID++;
     this.canDelete = true;
+  }
+  static LAST_ID = 0;
+  enemyLevel = 0;
+  id = 0;
+  //#region Search Options
+  habitabilityOpt = 0;
+  difficultyOpt = 0;
+  distanceOpt = 0;
+  energyOpt = 0;
+  metalOpt = 0;
+  scienceOpt = 0;
+  componentOpt = 0;
+  static getPrice(level: number, extraOpt: number): Decimal {
+    return Decimal.multiply(level + 1, SEARCH_JOB_PRICE).times(
+      Decimal.pow(EXTRA_OPT_EXP, Math.max(extraOpt, 0))
+    );
   }
   init() {
     this.name = "Search " + this.enemyLevel;
@@ -32,11 +37,6 @@ export class SearchJob extends Job {
         this.metalOpt +
         this.scienceOpt +
         this.componentOpt
-    );
-  }
-  static getPrice(level: number, extraOpt: number): Decimal {
-    return Decimal.multiply(level + 1, SEARCH_JOB_PRICE).times(
-      Decimal.pow(EXTRA_OPT_EXP, Math.max(extraOpt, 0))
     );
   }
   onCompleted() {

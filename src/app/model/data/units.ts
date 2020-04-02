@@ -187,6 +187,7 @@ export const UNITS: IUnitData[] = [
     description: "",
     startQuantity: 10,
     icon: "global",
+    colorClass: "habSpace-color",
     unitType: UNIT_TYPES.DISTRICT
   },
   {
@@ -195,6 +196,7 @@ export const UNITS: IUnitData[] = [
     description: "",
     startQuantity: 10,
     icon: "my:mining",
+    colorClass: "metal-color",
     unitType: UNIT_TYPES.DISTRICT
   },
   {
@@ -203,6 +205,7 @@ export const UNITS: IUnitData[] = [
     description: "",
     startQuantity: 10,
     icon: "my:solar-power",
+    colorClass: "energy-color",
     unitType: UNIT_TYPES.DISTRICT
   },
   //#endregion

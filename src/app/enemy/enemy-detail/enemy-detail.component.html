@@ -1,17 +1,13 @@
 <div fxLayout="rows" fxLayout.lt-sm="column" style="width:100%">
-  <div fxFlex="50%">
-    <h1>{{ enemy.name }}</h1>
-    <div>
+  <div fxFlex="50%" fxLayout="column" fxLayoutGap="0.6rem">
+    <h1>
       <span
-        >Level:
-        <strong
-          [class.text-danger]="enemy.level > ms.game.enemyManager.maxLevel"
-          class="monospace"
-          >{{ enemy.level | number: "1.0-0" }}</strong
-        ></span
+        [class.text-danger]="enemy.level > ms.game.enemyManager.maxLevel"
+        class="monospace"
+        >{{ enemy.level | number: "1.0-0" }}</span
       >
-      <br />
-    </div>
+      {{ enemy.name }}
+    </h1>
     <div>
       <nz-button-group>
         <button
@@ -29,6 +25,23 @@
           <i nz-icon nzType="delete"></i> Delete
         </button>
       </nz-button-group>
+    </div>
+    <div>
+      <h3>Tiles</h3>
+      <ul class="list-unstyled">
+        <li
+          *ngFor="let tile of enemy.tiles; trackBy: getTileId"
+          [ngClass]="tile.unit.colorClass"
+        >
+          <strong>
+            <span class="monospace">{{
+              tile.number | number: "1.0-0"
+            }}</span></strong
+          >
+          <i nz-icon [nzType]="tile.unit.icon" class="tile-icon"></i>
+          {{ tile.unit.name }}
+        </li>
+      </ul>
     </div>
   </div>
   <div fxFlex="50%">

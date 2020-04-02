@@ -48,6 +48,7 @@ export abstract class Job {
     return this.total
       .minus(this.progress)
       .div(this.totalBonus)
+      .ceil()
       .max(0);
   }
   onCompleted() {}

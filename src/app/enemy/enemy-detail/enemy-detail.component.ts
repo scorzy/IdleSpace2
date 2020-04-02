@@ -8,7 +8,7 @@ import {
 } from "@angular/core";
 import { Subscription } from "rxjs";
 import { ActivatedRoute, Router } from "@angular/router";
-import { Enemy } from "src/app/model/enemy/enemy";
+import { Enemy, ExtraTile } from "src/app/model/enemy/enemy";
 import { MainService } from "src/app/main.service";
 
 @Component({
@@ -65,5 +65,8 @@ export class EnemyDetailComponent implements OnInit, OnDestroy {
         ]);
       } else this.router.navigate(["/search"]);
     }
+  }
+  getTileId(index: number, tile: ExtraTile) {
+    return tile.unit.id + index;
   }
 }
