@@ -4,10 +4,11 @@
   [nzPopoverContent]="contentTemplate"
   nzPopoverPlacement="bottomCenter"
 >
+  <!-- *ngIf="cell?.materials?.length > 0" -->
   <i
-    *ngIf="cell?.materials?.length > 0"
+    *ngFor="let mat of cell?.materials"
     nz-icon
-    [nzType]="cell.materials[0].material.icon"
+    [nzType]="mat.material.icon"
   ></i>
   <ng-template #contentTemplate>
     <strong

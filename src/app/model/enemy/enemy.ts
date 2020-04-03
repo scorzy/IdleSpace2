@@ -128,6 +128,9 @@ export class Enemy {
     });
     //#endregion
     //#region Naval
+    const powerRange = em.difficultyOpt.getRange(searchJob.difficultyOpt);
+    const powerMulti =
+      powerRange.min + (powerRange.max - powerRange.min) * Math.random();
     const maxNavalCap = Math.min(
       BASE_NAVAL_CAPACITY + ENEMY_NAVAL_CAP_LEVEL * this.level,
       FLEET_CAPACITY
@@ -275,34 +278,39 @@ export class Enemy {
         const cell = new Cell();
         cellRow.push(cell);
         cell.ships = this.designs.map(des => des.enemyQuantity);
-        // switch (k) {
-        //   case 0:
-        //   case 1:
-        //     cell.special = rs.habitableSpace;
-        //     cell.specialQuantity = districtQuantity;
-        //     break;
-        //   case 2:
-        //     cell.special = rs.miningDistrict;
-        //     cell.addMaterial(rs.metal, materialQuantity);
-        //     cell.specialQuantity = districtQuantity;
-        //     break;
-        //   case 3:
-        //     cell.special = rs.energyDistrict;
-        //     cell.addMaterial(rs.energy, materialQuantity.times(0.05));
-        //     cell.specialQuantity = districtQuantity;
-        //     break;
-        // }
       }
-      // cellRow = shuffle(cellRow);
       for (let k = 0; k < 10; k++) {
         cellRow[k].index = i * 10 + k;
         this.cells[cellRow[k].index] = cellRow[k];
       }
     }
-    let freeCells = this.cells.filter(c => c.materials.length === 0);
+
+    let rowCell: Cell[] = [];
+    let qta = 0;
     this.tiles.forEach(tile => {
       for (let i = 0; i < tile.number; i++) {
-        const cell = sample(freeCells.length > 0 ? freeCells : this.cells);
+        rowCell = [];
+        qta++;
+        for (let k = 0; k < 10; k++) {
+          let rowCellTemp = this.cells.filter(c => {
+            let len = c.materials.length;
+            if (c.materials.find(m => m.material === rs.metal)) {
+              len--;
+            }
+            if (c.materials.find(m => m.material === rs.energy)) {
+              len--;
+            }
+            return (
+              len < Math.floor(qta / 100) &&
+              c.index >= k * 10 &&
+              c.index < (k + 1) * 10
+            );
+          });
+          if (rowCellTemp.length > rowCell.length) {
+            rowCell = rowCellTemp;
+          }
+        }
+        const cell = sample(rowCell.length > 0 ? rowCell : this.cells);
         const num =
           tile.unit.unitData.unitType === UNIT_TYPES.DISTRICT
             ? districtQuantity
@@ -316,7 +324,6 @@ export class Enemy {
             cell.addMaterial(rs.energy, materialQuantity);
             break;
         }
-        freeCells = this.cells.filter(c => c.materials.length === 0);
       }
     });
   }

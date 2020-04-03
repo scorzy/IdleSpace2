@@ -40,7 +40,7 @@ export const DEFENCE_START_LEVEL = 14;
 export const DEFENCE_FINAL_LEVEL = 65;
 export const DEFENCE_MAX_PERCENT = 0.3;
 export const DISTRICT_MAX_OPT_END = 80;
-export const DISTRICT_MIN_OPT_END = 20;
+export const DISTRICT_MIN_OPT_END = 40;
 export const SCIENCE_DISTRICT_MULTI = 0.6;
 export const COMPONENTS_DISTRICT_MULTI = 0.4;
 
