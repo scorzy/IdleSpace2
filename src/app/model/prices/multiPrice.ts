@@ -17,6 +17,8 @@ export class MultiPrice {
     numWanted = new Decimal(1),
     limit: Decimal = Decimal.MAX_VALUE
   ) {
+    this.canBuy = true;
+    this.canBuyWanted = true;
     for (let i = 0, n = this.prices.length; i < n; i++) {
       this.prices[i].reload(bought, numWanted);
       if (!this.prices[i].canBuy) this.canBuy = false;
@@ -24,8 +26,6 @@ export class MultiPrice {
     }
 
     if (limit.gte(1)) {
-      this.canBuy = true;
-      this.canBuyWanted = true;
       numWanted = new Decimal(numWanted).max(1);
 
       // this.maxBuy = this.canBuy
