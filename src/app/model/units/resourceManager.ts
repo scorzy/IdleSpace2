@@ -6,11 +6,12 @@ import {
   UNIT_PRICE_GROW_RATE,
   SPACE_STATION_PRICE,
   SPACE_STATION_GROW,
-  SPACE_STATION_HAB_SPACE
+  SPACE_STATION_HAB_SPACE,
 } from "../CONSTANTS";
 import { solveEquation } from "ant-utils";
 import { Price } from "../prices/price";
 import { Components } from "./components";
+import { BonusStack } from "../bonus/bonusStack";
 
 export class ResourceManager {
   units = new Array<Unit>();
@@ -56,7 +57,7 @@ export class ResourceManager {
   makeUnits() {
     this.units = new Array<Unit>();
     //  Initialize Units
-    this.units = UNITS.map(unitData => {
+    this.units = UNITS.map((unitData) => {
       switch (unitData.id) {
         case "x":
           this.components = new Components(unitData);
@@ -65,28 +66,28 @@ export class ResourceManager {
           return new Unit(unitData);
       }
     });
-    this.shipyardWork = this.units.find(u => u.id === "W");
-    this.metal = this.units.find(u => u.id === "M");
-    this.alloy = this.units.find(u => u.id === "A");
-    this.science = this.units.find(u => u.id === "S");
-    this.search = this.units.find(u => u.id === "R");
-    this.technician = this.units.find(u => u.id === "e");
-    this.miner = this.units.find(u => u.id === "m");
-    this.metallurgist = this.units.find(u => u.id === "a");
-    this.scientist = this.units.find(u => u.id === "s");
-    this.worker = this.units.find(u => u.id === "w");
-    this.searcher = this.units.find(u => u.id === "r");
-    this.energy = this.units.find(u => u.id === "E");
-    this.habitableSpace = this.units.find(u => u.id === "j");
-    this.miningDistrict = this.units.find(u => u.id === "P");
-    this.energyDistrict = this.units.find(u => u.id === "k");
+    this.shipyardWork = this.units.find((u) => u.id === "W");
+    this.metal = this.units.find((u) => u.id === "M");
+    this.alloy = this.units.find((u) => u.id === "A");
+    this.science = this.units.find((u) => u.id === "S");
+    this.search = this.units.find((u) => u.id === "R");
+    this.technician = this.units.find((u) => u.id === "e");
+    this.miner = this.units.find((u) => u.id === "m");
+    this.metallurgist = this.units.find((u) => u.id === "a");
+    this.scientist = this.units.find((u) => u.id === "s");
+    this.worker = this.units.find((u) => u.id === "w");
+    this.searcher = this.units.find((u) => u.id === "r");
+    this.energy = this.units.find((u) => u.id === "E");
+    this.habitableSpace = this.units.find((u) => u.id === "j");
+    this.miningDistrict = this.units.find((u) => u.id === "P");
+    this.energyDistrict = this.units.find((u) => u.id === "k");
 
     //  Production
-    this.units.forEach(unit => {
-      const unitData = UNITS.find(u => u.id === unit.id);
+    this.units.forEach((unit) => {
+      const unitData = UNITS.find((u) => u.id === unit.id);
       if (unitData && unitData.production) {
-        unitData.production.forEach(prod => {
-          const product = this.units.find(u => u.id === prod[0]);
+        unitData.production.forEach((prod) => {
+          const product = this.units.find((u) => u.id === prod[0]);
           const ratio = new Decimal(prod[1]);
           const production = new Production(unit, product, ratio);
           unit.production.push(production);
@@ -96,11 +97,11 @@ export class ResourceManager {
     });
 
     //  Buy Price
-    this.units.forEach(unit => {
-      const unitData = UNITS.find(u => u.id === unit.id);
+    this.units.forEach((unit) => {
+      const unitData = UNITS.find((u) => u.id === unit.id);
       if (unitData && unitData.prices) {
-        unitData.prices.forEach(price => {
-          const base = this.units.find(u => u.id === price[0]);
+        unitData.prices.forEach((price) => {
+          const base = this.units.find((u) => u.id === price[0]);
           const cost = new Decimal(price[1]);
           const realPrice = new Price(base, cost, UNIT_PRICE_GROW_RATE);
           unit.buyPrice.prices.push(realPrice);
@@ -110,22 +111,22 @@ export class ResourceManager {
 
     // Lists
     this.materials = this.units.filter(
-      u => u.unitData.unitType === UNIT_TYPES.MATERIAL
+      (u) => u.unitData.unitType === UNIT_TYPES.MATERIAL
     );
     this.districts = this.units.filter(
-      u => u.unitData.unitType === UNIT_TYPES.DISTRICT
+      (u) => u.unitData.unitType === UNIT_TYPES.DISTRICT
     );
     this.workers = this.units.filter(
-      u => u.unitData.unitType === UNIT_TYPES.WORKER
+      (u) => u.unitData.unitType === UNIT_TYPES.WORKER
     );
     this.buildings = this.units.filter(
-      u => u.unitData.unitType === UNIT_TYPES.BUILDING
+      (u) => u.unitData.unitType === UNIT_TYPES.BUILDING
     );
     this.spaceStations = this.units.filter(
-      u => u.unitData.unitType === UNIT_TYPES.SPACE_STATION
+      (u) => u.unitData.unitType === UNIT_TYPES.SPACE_STATION
     );
     this.megastructures = this.units.filter(
-      u => u.unitData.unitType === UNIT_TYPES.MEGASTRUCTURE
+      (u) => u.unitData.unitType === UNIT_TYPES.MEGASTRUCTURE
     );
 
     //  Space Stations
@@ -140,20 +141,23 @@ export class ResourceManager {
       );
     }
 
-    this.units.forEach(u => u.setRelations());
+    this.units.forEach((u) => u.setRelations());
 
     //  Mods
-    this.workers.forEach(w => w.makeMods());
+    this.workers.forEach((w) => w.makeMods());
+
+    this.materials.forEach((u) => (u.battleGainMulti = new BonusStack()));
+    this.districts.forEach((u) => (u.battleGainMulti = new BonusStack()));
 
     this.reloadLists();
   }
   reloadLists() {
-    this.unlockedUnits = this.units.filter(u => u.unlocked);
-    this.unlockedMaterials = this.materials.filter(u => u.unlocked);
-    this.unlockedWorkers = this.workers.filter(u => u.unlocked);
-    this.unlockedBuildings = this.buildings.filter(u => u.unlocked);
-    this.unlockedSpaceStations = this.spaceStations.filter(u => u.unlocked);
-    this.unlockedMegastructures = this.megastructures.filter(u => u.unlocked);
+    this.unlockedUnits = this.units.filter((u) => u.unlocked);
+    this.unlockedMaterials = this.materials.filter((u) => u.unlocked);
+    this.unlockedWorkers = this.workers.filter((u) => u.unlocked);
+    this.unlockedBuildings = this.buildings.filter((u) => u.unlocked);
+    this.unlockedSpaceStations = this.spaceStations.filter((u) => u.unlocked);
+    this.unlockedMegastructures = this.megastructures.filter((u) => u.unlocked);
   }
   /**
    * Reload production stats
@@ -182,7 +186,7 @@ export class ResourceManager {
       const isLimited =
         this.unlockedUnits[i].id !== "e" &&
         this.unlockedUnits[i].production.findIndex(
-          pro =>
+          (pro) =>
             pro.ratio.gt(0) &&
             (pro.product.limit.lte(Number.EPSILON) ||
               pro.product.quantity.gte(pro.product.limit))
@@ -222,7 +226,7 @@ export class ResourceManager {
           ZERO, // this.unlockedUnits[i].perSec2,
           this.unlockedUnits[i].perSec,
           this.unlockedUnits[i].quantity
-        ).filter(s => s.gte(0));
+        ).filter((s) => s.gte(0));
 
         if (solution.length > 0) {
           const min = solution.reduce(
@@ -287,13 +291,13 @@ export class ResourceManager {
 
     //  Stop consumers
     this.firstEndingUnit.makers
-      .filter(m => m.prodPerSec.lt(0))
-      .forEach(prod => {
+      .filter((m) => m.prodPerSec.lt(0))
+      .forEach((prod) => {
         prod.producer.operativity = 0;
       });
   }
   postUpdate() {
-    this.unlockedUnits.forEach(unit => {
+    this.unlockedUnits.forEach((unit) => {
       unit.postUpdate();
     });
     this.deployComponents();
@@ -306,7 +310,7 @@ export class ResourceManager {
       if (this.unlockedWorkers[i].quantity.lt(this.unlockedWorkers[i].limit)) {
         sum +=
           this.unlockedWorkers[i].production.findIndex(
-            p => p.ratio.gt(0) && p.product.isEnding
+            (p) => p.ratio.gt(0) && p.product.isEnding
           ) > -1
             ? this.unlockedWorkers[i].assemblyPriorityEnding
             : this.unlockedWorkers[i].assemblyPriority;
@@ -319,7 +323,7 @@ export class ResourceManager {
         const toAdd = this.components.quantity
           .times(
             worker.production.findIndex(
-              p => p.ratio.gt(0) && p.product.isEnding
+              (p) => p.ratio.gt(0) && p.product.isEnding
             ) > -1
               ? this.unlockedWorkers[i].assemblyPriorityEnding
               : this.unlockedWorkers[i].assemblyPriority
@@ -360,13 +364,13 @@ export class ResourceManager {
   //#region Save and Load
   getSave(): any {
     return {
-      l: this.unlockedUnits.map(u => u.getSave())
+      l: this.unlockedUnits.map((u) => u.getSave()),
     };
   }
   load(data: any) {
     if (!("l" in data)) throw new Error("Save not valid! missin units");
     for (const uData of data.l) {
-      const unit = this.units.find(u => u.id === uData.i);
+      const unit = this.units.find((u) => u.id === uData.i);
       unit.unlocked = true;
       unit.load(uData);
     }

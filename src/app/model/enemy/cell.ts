@@ -23,26 +23,30 @@ export class Cell {
   addMaterial(material: Unit, quantity: Decimal) {
     if (!this.materials) this.materials = [];
     let cellMaterial: IMaterial = this.materials.find(
-      m => m.material === material
+      (m) => m.material === material
     );
     if (!cellMaterial) {
       cellMaterial = {
         material,
-        quantity: ZERO
+        quantity: ZERO,
       };
       this.materials.push(cellMaterial);
     }
-    cellMaterial.quantity = cellMaterial.quantity.plus(quantity);
+    cellMaterial.quantity = cellMaterial.quantity.plus(
+      quantity.times(
+        material.battleGainMulti ? material.battleGainMulti.totalBonus : 1
+      )
+    );
   }
 
   //#region Save and Load
   getSave(): any {
     const ret: any = {};
     if (this.materials && this.materials.length > 0) {
-      ret.m = this.materials.map(mat => {
+      ret.m = this.materials.map((mat) => {
         return {
           i: mat.material.id,
-          q: mat.quantity
+          q: mat.quantity,
         };
       });
     }
@@ -54,11 +58,11 @@ export class Cell {
     if ("m" in data) {
       const rs = Game.getGame().resourceManager;
       for (let i = 0, n = data.m.length; i < n; i++) {
-        const mat = rs.units.find(u => u.id === data.m[i].i);
+        const mat = rs.units.find((u) => u.id === data.m[i].i);
         if (mat) {
           this.materials.push({
             material: mat,
-            quantity: new Decimal(data.q)
+            quantity: new Decimal(data.q),
           });
         }
       }

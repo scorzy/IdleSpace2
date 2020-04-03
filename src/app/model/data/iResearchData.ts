@@ -24,4 +24,5 @@ export interface IResearchData {
   researchBonus?: { type: IJobType; bonus: DecimalSource }[];
   navalCapacity?: number;
   stationToUp?: { stationId: string; habSpace: DecimalSource }[];
+  battleMulti?: { materialId: string; multi: DecimalSource }[];
 }

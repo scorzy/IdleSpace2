@@ -3,7 +3,7 @@ import {
   TO_DO_COLOR,
   DONE_COLOR,
   TO_DO_COLOR_DARK,
-  DONE_COLOR_DARK
+  DONE_COLOR_DARK,
 } from "./cell";
 import { ShipDesign } from "../shipyard/shipDesign";
 import { SearchJob } from "./searchJob";
@@ -21,7 +21,7 @@ import {
   DEFENCE_MAX_PERCENT,
   PRICE_GROW_RATE,
   DEFAULT_MODULE_PRICE,
-  ENEMY_BASE_DISTANCE
+  ENEMY_BASE_DISTANCE,
 } from "../CONSTANTS";
 import { ShipType } from "../shipyard/ShipType";
 import { Module } from "../shipyard/module";
@@ -72,7 +72,7 @@ export class Enemy {
     }
     return {
       min: ENEMY_BASE_DISTANCE.times(level + 1).times(minMulti),
-      max: ENEMY_BASE_DISTANCE.times(level + 1).times(maxMulti)
+      max: ENEMY_BASE_DISTANCE.times(level + 1).times(maxMulti),
     };
   }
 
@@ -99,26 +99,26 @@ export class Enemy {
     }[] = [
       {
         tile: new ExtraTile(rs.habitableSpace),
-        range: habRange
+        range: habRange,
       },
       {
         tile: new ExtraTile(rs.miningDistrict),
-        range: metalRange
+        range: metalRange,
       },
       {
         tile: new ExtraTile(rs.energyDistrict),
-        range: energyRange
+        range: energyRange,
       },
       {
         tile: new ExtraTile(rs.science),
-        range: scienceRange
+        range: scienceRange,
       },
       {
         tile: new ExtraTile(rs.components),
-        range: componentRange
-      }
+        range: componentRange,
+      },
     ];
-    tileArr.forEach(elem => {
+    tileArr.forEach((elem) => {
       elem.tile.number = Math.floor(
         elem.range.min + (elem.range.max - elem.range.min) * Math.random()
       );
@@ -131,18 +131,22 @@ export class Enemy {
     const powerRange = em.difficultyOpt.getRange(searchJob.difficultyOpt);
     const powerMulti =
       powerRange.min + (powerRange.max - powerRange.min) * Math.random();
-    const maxNavalCap = Math.min(
-      BASE_NAVAL_CAPACITY + ENEMY_NAVAL_CAP_LEVEL * this.level,
-      FLEET_CAPACITY
-    );
+    const navalCapMulti = 1 + Math.floor(powerMulti * 10 * Math.random()) / 10;
+    const modLevelMulti = Math.floor((10 * powerMulti) / navalCapMulti) / 10;
+    const maxNavalCap =
+      navalCapMulti *
+      Math.min(
+        BASE_NAVAL_CAPACITY + ENEMY_NAVAL_CAP_LEVEL * this.level,
+        FLEET_CAPACITY
+      );
     let defPercent = 0;
     if (searchJob.enemyLevel < 1) {
-      this.modLevel = 1;
+      this.modLevel = modLevelMulti;
       this.designs.push(this.generateDesign(FIRST_DRONE, this.modLevel));
       sum = 1;
     } else {
       //#region Ships
-      this.modLevel = Math.floor(this.level * MOD_LEVEL_EXP);
+      this.modLevel = Math.floor(this.level * MOD_LEVEL_EXP) * modLevelMulti;
       this.weaponDefenceRatio = 0.2 + Math.random() * 0.5;
       const sm = Game.getGame().shipyardManager;
       const maxShip = Math.floor(
@@ -182,7 +186,7 @@ export class Enemy {
       this.maxGenerator = sm.allGenerators[maxGen].energy;
       this.favouriteDefences = shuffle(
         sm.allDefences.filter(
-          d => d.armourDamageReduction > 0 || d.shieldDamageReduction
+          (d) => d.armourDamageReduction > 0 || d.shieldDamageReduction
         )
       ).slice(0, 2);
       this.preferHighLevGen = Math.random() > 0.5;
@@ -202,7 +206,7 @@ export class Enemy {
       const maxWeapons = Math.floor(1 + Math.random() * 4);
       const zeroPercentWeapons = this.level > 10 && maxWeapons > 3;
       const allowedWeapons = sm.allWeapons.filter(
-        w =>
+        (w) =>
           zeroPercentWeapons ||
           (w.armourDamagePercent > 0 && w.shieldDamagePercent > 0)
       );
@@ -210,11 +214,11 @@ export class Enemy {
         this.favouriteWeapons.push(sample(allowedWeapons));
       }
       let favouriteWeapon = this.favouriteWeapons.find(
-        w => w.armourDamagePercent > 0 && w.shieldDamagePercent > 0
+        (w) => w.armourDamagePercent > 0 && w.shieldDamagePercent > 0
       );
       if (favouriteWeapon) {
         favouriteWeapon = sm.weapons.find(
-          w => w.armourDamagePercent > 0 && w.shieldDamagePercent > 0
+          (w) => w.armourDamagePercent > 0 && w.shieldDamagePercent > 0
         );
       }
       this.favouriteWeapons.push(favouriteWeapon);
@@ -223,7 +227,7 @@ export class Enemy {
       if (defPercent > 0) designNum--;
       for (let i = 0; i < designNum; i++) {
         let type = sample(allowedShipTypes);
-        if (this.designs.findIndex(d => d.type.id === type.id)) {
+        if (this.designs.findIndex((d) => d.type.id === type.id)) {
           type = sample(allowedShipTypes);
         }
         const des = this.generateRandomDesign(type);
@@ -242,7 +246,7 @@ export class Enemy {
       }
       //#endregion
     }
-    this.designs.forEach(des => {
+    this.designs.forEach((des) => {
       const navCap =
         maxNavalCap * (des.isDefence ? defPercent : 1 - defPercent);
       des.enemyQuantity = Math.floor(
@@ -262,6 +266,9 @@ export class Enemy {
     em.districtMultiplier.reloadBonus();
     em.resourceMultiplier.reloadBonus();
     em.scienceMultiplier.reloadBonus();
+    rs.units.forEach((u) => {
+      if (u.battleGainMulti) u.battleGainMulti.reloadBonus();
+    });
 
     const districtQuantity = TEN.plus(this.level - 1).times(
       em.districtMultiplier.totalBonus
@@ -277,7 +284,7 @@ export class Enemy {
       for (let k = 0; k < 10; k++) {
         const cell = new Cell();
         cellRow.push(cell);
-        cell.ships = this.designs.map(des => des.enemyQuantity);
+        cell.ships = this.designs.map((des) => des.enemyQuantity);
       }
       for (let k = 0; k < 10; k++) {
         cellRow[k].index = i * 10 + k;
@@ -287,17 +294,17 @@ export class Enemy {
 
     let rowCell: Cell[] = [];
     let qta = 0;
-    this.tiles.forEach(tile => {
+    this.tiles.forEach((tile) => {
       for (let i = 0; i < tile.number; i++) {
         rowCell = [];
         qta++;
         for (let k = 0; k < 10; k++) {
-          let rowCellTemp = this.cells.filter(c => {
+          let rowCellTemp = this.cells.filter((c) => {
             let len = c.materials.length;
-            if (c.materials.find(m => m.material === rs.metal)) {
+            if (c.materials.find((m) => m.material === rs.metal)) {
               len--;
             }
-            if (c.materials.find(m => m.material === rs.energy)) {
+            if (c.materials.find((m) => m.material === rs.energy)) {
               len--;
             }
             return (
@@ -365,16 +372,16 @@ export class Enemy {
 
     const design = new ShipDesign();
     design.name = "Pippo";
-    design.type = sm.shipTypes.find(t => t.id === iShipData.typeId);
-    iShipData.modules.forEach(mod => {
+    design.type = sm.shipTypes.find((t) => t.id === iShipData.typeId);
+    iShipData.modules.forEach((mod) => {
       const modId =
         typeof mod.moduleID === "string" ? mod.moduleID : sample(mod.moduleID);
 
-      const module = sm.modules.find(m => m.id === modId);
+      const module = sm.modules.find((m) => m.id === modId);
       design.modules.push({
         module,
         level,
-        size: mod.size
+        size: mod.size,
       });
     });
     design.reload();
@@ -420,15 +427,15 @@ export class Enemy {
         } else {
           // Add Defence
           const chooseList = this.basicDefences.slice(0);
-          if (design.modules.findIndex(m => m.module.id === "A") > -1) {
-            this.favouriteDefences.forEach(def => {
+          if (design.modules.findIndex((m) => m.module.id === "A") > -1) {
+            this.favouriteDefences.forEach((def) => {
               if (def.armourDamageReduction > 0) {
                 chooseList.push(def);
               }
             });
           }
-          if (design.modules.findIndex(m => m.module.id === "s") > -1) {
-            this.favouriteDefences.forEach(def => {
+          if (design.modules.findIndex((m) => m.module.id === "s") > -1) {
+            this.favouriteDefences.forEach((def) => {
               if (def.shieldDamageReduction > 0) {
                 chooseList.push(def);
               }
@@ -459,7 +466,7 @@ export class Enemy {
           const lastGen =
             copy.modules.length > 0
               ? copy.modules.find(
-                  m =>
+                  (m) =>
                     m.module &&
                     m.module.energy > 0 &&
                     (m.size < 5 || m.module.energy < this.maxGenerator)
@@ -475,7 +482,7 @@ export class Enemy {
                 const last = lastGen.module.id;
                 const prevEnergy = lastGen.module.energy;
                 const newGen = sm.allGenerators.find(
-                  g =>
+                  (g) =>
                     g.energy > lastGen.module.energy &&
                     lastGen.module.energy < this.maxGenerator
                 );
@@ -497,7 +504,7 @@ export class Enemy {
                 const last = lastGen.module.id;
                 const prevEnergy = lastGen.module.energy;
                 const newGen = sm.allGenerators.find(
-                  g =>
+                  (g) =>
                     g.energy > lastGen.module.energy &&
                     lastGen.module.energy < this.maxGenerator
                 );
@@ -512,11 +519,11 @@ export class Enemy {
               copy.modules.length < design.type.maxModule - 1 &&
               tempUsedPoint < design.type.maxPoints
             ) {
-              const gen = sm.allGenerators.find(g => g.energy > 0);
+              const gen = sm.allGenerators.find((g) => g.energy > 0);
               copy.modules.push({
                 module: gen,
                 level: this.modLevel,
-                size: 1
+                size: 1,
               });
               tempUsedPoint++;
               tempEnergy += gen.energy;
@@ -532,7 +539,7 @@ export class Enemy {
         copy.reload(false);
         if (copy.valid) {
           const line = copy.modules.find(
-            m => m.module.id === module.id && m.size < 5
+            (m) => m.module.id === module.id && m.size < 5
           );
           if (line) {
             line.size++;
@@ -540,7 +547,7 @@ export class Enemy {
             copy.modules.push({
               module,
               level: this.modLevel,
-              size: pointToUse
+              size: pointToUse,
             });
           }
         }
@@ -568,15 +575,15 @@ export class Enemy {
       l: this.level,
       n: this.name,
       i: this.icon,
-      d: this.designs.map(des => des.getEnemySave()),
-      s: this.distance
+      d: this.designs.map((des) => des.getEnemySave()),
+      s: this.distance,
     };
-    if (this.cells) ret.c = this.cells.map(c => c.getSave());
+    if (this.cells) ret.c = this.cells.map((c) => c.getSave());
     if (this.tiles && this.tiles.length > 0) {
-      ret.e = this.tiles.map(extra => {
+      ret.e = this.tiles.map((extra) => {
         return {
           n: extra.number,
-          u: extra.unit.id
+          u: extra.unit.id,
         };
       });
     }
@@ -589,7 +596,7 @@ export class Enemy {
     if ("i" in data) this.icon = data.i;
     if ("s" in data) this.distance = new Decimal(data.s);
     if ("d" in data) {
-      this.designs = data.d.map(designData => {
+      this.designs = data.d.map((designData) => {
         const design = new ShipDesign();
         design.loadEnemy(designData);
         return design;
@@ -597,7 +604,7 @@ export class Enemy {
     }
     let k = 0;
     if ("c" in data) {
-      this.cells = data.c.map(cellData => {
+      this.cells = data.c.map((cellData) => {
         const cell = new Cell();
         cell.index = k;
         k++;
@@ -611,7 +618,7 @@ export class Enemy {
     if ("e" in data) {
       this.tiles = [];
       for (let i = 0, n = data.e.length; i < n; i++) {
-        const unit = rs.units.find(u => u.id === data.e[i].u);
+        const unit = rs.units.find((u) => u.id === data.e[i].u);
         if (unit) {
           this.tiles.push({ number: data.e[i].n, unit });
         }

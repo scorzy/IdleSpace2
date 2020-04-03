@@ -9,7 +9,6 @@ import { ResearchManager } from "./researchManager";
 import { Unit } from "../units/unit";
 
 export class Research extends Job implements IUnlockable, IBase {
-
   constructor(researchData: IResearchData, researchManager: ResearchManager) {
     super();
     this.resData = researchData;
@@ -29,28 +28,28 @@ export class Research extends Job implements IUnlockable, IBase {
       this.growRate = researchData.growRate;
     }
     if ("unitsToUnlock" in researchData) {
-      this.unitsToUnlock = researchData.unitsToUnlock.map(uId =>
-        rs.units.find(a => a.id === uId)
+      this.unitsToUnlock = researchData.unitsToUnlock.map((uId) =>
+        rs.units.find((a) => a.id === uId)
       );
     }
     if ("technologiesToUnlock" in researchData) {
       this.technologiesToUnlock = researchData.technologiesToUnlock.map(
-        techId => researchManager.technologies.find(a => a.id === techId)
+        (techId) => researchManager.technologies.find((a) => a.id === techId)
       );
     }
     if ("navalCapacity" in researchData) {
       this.navalCapacity = this.resData.navalCapacity;
     }
     if ("stationToUp" in researchData) {
-      this.spaceStationsToUp = researchData.stationToUp.map(stu => {
+      this.spaceStationsToUp = researchData.stationToUp.map((stu) => {
         return {
-          spaceStation: rs.units.find(u => u.id === stu.stationId),
-          habSpace: new Decimal(stu.habSpace)
+          spaceStation: rs.units.find((u) => u.id === stu.stationId),
+          habSpace: new Decimal(stu.habSpace),
         };
       });
     }
-    this.types = researchData.type.map(t =>
-      researchManager.technologies.find(tec => tec.id === t.id)
+    this.types = researchData.type.map((t) =>
+      researchManager.technologies.find((tec) => tec.id === t.id)
     );
     this.reload();
   }
@@ -87,10 +86,7 @@ export class Research extends Job implements IUnlockable, IBase {
       ZERO,
       ZERO,
       Game.getGame().researchManager.researchPerSec,
-      this.total
-        .minus(this.progress)
-        .times(-1)
-        .div(this.totalBonus)
+      this.total.minus(this.progress).times(-1).div(this.totalBonus)
     )
       .reduce((p, c) => p.min(c), INFINITY)
       .toNumber();
@@ -101,17 +97,17 @@ export class Research extends Job implements IUnlockable, IBase {
     if (this.level < 2 || force) {
       const game = Game.getGame();
       if (this.unitsToUnlock) {
-        this.unitsToUnlock.forEach(u => u.unlock());
+        this.unitsToUnlock.forEach((u) => u.unlock());
         game.resourceManager.reloadLists();
       }
       if (this.researchToUnlock) {
-        this.researchToUnlock.forEach(u => u.unlock());
+        this.researchToUnlock.forEach((u) => u.unlock());
       }
       if (this.technologiesToUnlock) {
-        this.technologiesToUnlock.forEach(tech => tech.unlock());
+        this.technologiesToUnlock.forEach((tech) => tech.unlock());
       }
       if (this.spaceStationsToUp) {
-        this.spaceStationsToUp.forEach(stu =>
+        this.spaceStationsToUp.forEach((stu) =>
           stu.spaceStation.addHabSpace(stu.habSpace)
         );
       }
@@ -123,16 +119,16 @@ export class Research extends Job implements IUnlockable, IBase {
     return resM.unlock(this);
   }
   getIcons(): MyIcon[] {
-    return this.types.map(t => {
+    return this.types.map((t) => {
       return {
         icon: t.icon,
-        color: t.color
+        color: t.color,
       };
     });
   }
   setLevels() {
     if (this.researchToUnlock) {
-      this.researchToUnlock.forEach(res => {
+      this.researchToUnlock.forEach((res) => {
         res.visLevel = this.visLevel + 1;
         res.setLevels();
       });

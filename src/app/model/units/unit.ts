@@ -10,7 +10,7 @@ import {
   COMPONENT_PRICE,
   MOD_COMPONENTS,
   MOD_RECYCLING,
-  MAX_RECYCLING
+  MAX_RECYCLING,
 } from "../CONSTANTS";
 import { IUnlockable } from "../iUnlocable";
 import { Game } from "../game";
@@ -58,6 +58,7 @@ export class Unit implements IBase, IUnlockable {
   modStack: ModStack;
   maxMods: Decimal = ZERO;
   unusedMods: Decimal = ZERO;
+  battleGainMulti: BonusStack;
   constructor(public unitData: IUnitData) {
     this.id = unitData.id;
     this.name = unitData.name;
@@ -81,7 +82,7 @@ export class Unit implements IBase, IUnlockable {
   setRelations() {
     if ("buildingLimit" in this.unitData) {
       this.buildingLimit = Game.getGame().resourceManager.units.find(
-        u => u.id === this.unitData.buildingLimit
+        (u) => u.id === this.unitData.buildingLimit
       );
     }
   }
@@ -231,7 +232,7 @@ export class Unit implements IBase, IUnlockable {
   }
   reloadAll() {
     this.modStack.reload();
-    this.production.forEach(prod => {
+    this.production.forEach((prod) => {
       prod.reloadMod();
     });
     this.reloadComponentPrice();
@@ -252,7 +253,7 @@ export class Unit implements IBase, IUnlockable {
     const components = Game.getGame().resourceManager.components;
     components.quantity = components.quantity.plus(toAdd);
     this.quantity = ONE;
-    this.modStack.mods.forEach(mod => {
+    this.modStack.mods.forEach((mod) => {
       mod.quantity = mod.uiQuantity;
     });
     this.reloadAll();
