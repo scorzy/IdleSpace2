@@ -75,7 +75,6 @@ export class Enemy {
       max: ENEMY_BASE_DISTANCE.times(level + 1).times(maxMulti),
     };
   }
-
   generate(searchJob: SearchJob) {
     const rs = Game.getGame().resourceManager;
     const em = Game.getGame().enemyManager;

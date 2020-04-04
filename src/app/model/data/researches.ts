@@ -40,6 +40,7 @@ export const RESEARCHES: IResearchData[] = [
     max: 1,
     type: [TECHNOLOGIES.Computing],
     technologiesToUnlock: ["n"],
+    researchToUnlock: ["b"],
   },
   {
     id: "s",
@@ -138,5 +139,13 @@ export const RESEARCHES: IResearchData[] = [
     max: 10,
     type: [TECHNOLOGIES.Search],
     battleMulti: [{ materialId: "k", multi: 1 }],
+  },
+  {
+    id: "b",
+    name: "Nuke",
+    description: "Nuke",
+    price: 100,
+    type: [TECHNOLOGIES.MilitaryEngineering],
+    unitsToUnlock: ["b", "B", "10", "11"],
   },
 ];

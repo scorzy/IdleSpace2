@@ -39,6 +39,7 @@ export class ResourceManager {
   alloy: Unit;
   components: Components;
   science: Unit;
+  nuke: Unit;
   technician: Unit;
   miner: Unit;
   metallurgist: Unit;
@@ -81,6 +82,7 @@ export class ResourceManager {
     this.habitableSpace = this.units.find((u) => u.id === "j");
     this.miningDistrict = this.units.find((u) => u.id === "P");
     this.energyDistrict = this.units.find((u) => u.id === "k");
+    this.nuke = this.units.find((u) => u.id === "b");
 
     //  Production
     this.units.forEach((unit) => {

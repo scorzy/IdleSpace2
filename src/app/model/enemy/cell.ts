@@ -38,6 +38,45 @@ export class Cell {
       )
     );
   }
+  getNuke(): Decimal {
+    Game.getGame().enemyManager.reloadNukeDamage();
+    const curEnemy = Game.getGame().enemyManager.currentEnemy;
+    if (!curEnemy) return ZERO;
+    let ret = ZERO;
+    for (let i = 0, n = curEnemy.designs.length; i < n; i++) {
+      if (this.ships[i] > 0 && curEnemy.designs[i].isDefence) {
+        ret = ret.plus(
+          (curEnemy.designs[i].totalArmour +
+            curEnemy.designs[i].totalShield +
+            curEnemy.designs[i].armourReduction +
+            curEnemy.designs[i].shieldReduction) *
+            this.ships[i]
+        );
+      }
+    }
+    return Decimal.ceil(ret);
+  }
+  nuke(totalDamage: number, all: boolean = false) {
+    const curEnemy = Game.getGame().enemyManager.currentEnemy;
+    if (!curEnemy) return;
+    for (let i = 0, n = curEnemy.designs.length; i < n; i++) {
+      if (this.ships[i] > 0 && curEnemy.designs[i].isDefence) {
+        if (!all) {
+          const totalDef =
+            curEnemy.designs[i].totalArmour +
+            curEnemy.designs[i].totalShield +
+            curEnemy.designs[i].armourReduction +
+            curEnemy.designs[i].shieldReduction;
+          const defeated = Math.floor(totalDamage / totalDef);
+          totalDamage = totalDamage - defeated * totalDef;
+          this.ships[i] -= defeated;
+        } else {
+          this.ships[i] = 0;
+        }
+      }
+    }
+    curEnemy.reloadCell(this.index);
+  }
 
   //#region Save and Load
   getSave(): any {

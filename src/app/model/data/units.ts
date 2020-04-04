@@ -5,7 +5,7 @@ export enum UNIT_TYPES {
   DISTRICT,
   BUILDING,
   SPACE_STATION,
-  MEGASTRUCTURE
+  MEGASTRUCTURE,
 }
 export const UNITS: IUnitData[] = [
   //#region Materials
@@ -16,7 +16,7 @@ export const UNITS: IUnitData[] = [
     description: "",
     startQuantity: 100,
     colorClass: "metal-color",
-    unitType: UNIT_TYPES.MATERIAL
+    unitType: UNIT_TYPES.MATERIAL,
   },
   {
     id: "E",
@@ -28,7 +28,7 @@ export const UNITS: IUnitData[] = [
     buildingLimit: "8",
     buildingLimitQuantity: 1e4,
     showUiLimit: true,
-    unitType: UNIT_TYPES.MATERIAL
+    unitType: UNIT_TYPES.MATERIAL,
   },
   {
     id: "A",
@@ -36,7 +36,7 @@ export const UNITS: IUnitData[] = [
     icon: "my:metal-bar",
     description: "",
     colorClass: "alloy-color",
-    unitType: UNIT_TYPES.MATERIAL
+    unitType: UNIT_TYPES.MATERIAL,
   },
   {
     id: "S",
@@ -44,7 +44,7 @@ export const UNITS: IUnitData[] = [
     icon: "my:fizzing-flask",
     description: "",
     colorClass: "science-color",
-    unitType: UNIT_TYPES.MATERIAL
+    unitType: UNIT_TYPES.MATERIAL,
   },
   {
     id: "W",
@@ -52,7 +52,7 @@ export const UNITS: IUnitData[] = [
     icon: "tool",
     description: "",
     colorClass: "production-color",
-    unitType: UNIT_TYPES.MATERIAL
+    unitType: UNIT_TYPES.MATERIAL,
   },
   {
     id: "R",
@@ -60,7 +60,7 @@ export const UNITS: IUnitData[] = [
     icon: "my:radar-sweep",
     description: "",
     colorClass: "",
-    unitType: UNIT_TYPES.MATERIAL
+    unitType: UNIT_TYPES.MATERIAL,
   },
   {
     id: "x",
@@ -71,7 +71,18 @@ export const UNITS: IUnitData[] = [
     buildingLimit: "9",
     buildingLimitQuantity: 1e3,
     showUiLimit: true,
-    unitType: UNIT_TYPES.MATERIAL
+    unitType: UNIT_TYPES.MATERIAL,
+  },
+  {
+    id: "b",
+    name: "Bombs",
+    icon: "my:rocket",
+    description: "",
+    colorClass: "",
+    buildingLimit: "11",
+    buildingLimitQuantity: 100,
+    showUiLimit: true,
+    unitType: UNIT_TYPES.MATERIAL,
   },
   //#endregion
   //#region Workers
@@ -82,12 +93,12 @@ export const UNITS: IUnitData[] = [
     startQuantity: 1,
     production: [
       ["M", 4],
-      ["E", -1]
+      ["E", -1],
     ],
     prices: [["M", 10]],
     buildingLimit: "1",
     buildingLimitQuantity: 10,
-    unitType: UNIT_TYPES.WORKER
+    unitType: UNIT_TYPES.WORKER,
   },
   {
     id: "e",
@@ -98,7 +109,7 @@ export const UNITS: IUnitData[] = [
     prices: [["M", 10]],
     buildingLimit: "2",
     buildingLimitQuantity: 10,
-    unitType: UNIT_TYPES.WORKER
+    unitType: UNIT_TYPES.WORKER,
   },
   {
     id: "s",
@@ -107,12 +118,12 @@ export const UNITS: IUnitData[] = [
     production: [
       ["S", 1],
       ["M", -5],
-      ["E", -2]
+      ["E", -2],
     ],
     prices: [["M", 10]],
     buildingLimit: "3",
     buildingLimitQuantity: 10,
-    unitType: UNIT_TYPES.WORKER
+    unitType: UNIT_TYPES.WORKER,
   },
   {
     id: "a",
@@ -121,12 +132,12 @@ export const UNITS: IUnitData[] = [
     production: [
       ["A", 1],
       ["M", -5],
-      ["E", -2]
+      ["E", -2],
     ],
     prices: [["M", 10]],
     buildingLimit: "4",
     buildingLimitQuantity: 10,
-    unitType: UNIT_TYPES.WORKER
+    unitType: UNIT_TYPES.WORKER,
   },
   {
     id: "w",
@@ -135,15 +146,15 @@ export const UNITS: IUnitData[] = [
     production: [
       ["W", 1],
       ["A", -5],
-      ["E", -2]
+      ["E", -2],
     ],
     prices: [
       ["M", 10],
-      ["A", 10]
+      ["A", 10],
     ],
     buildingLimit: "5",
     buildingLimitQuantity: 10,
-    unitType: UNIT_TYPES.WORKER
+    unitType: UNIT_TYPES.WORKER,
   },
   {
     id: "r",
@@ -152,15 +163,15 @@ export const UNITS: IUnitData[] = [
     production: [
       ["R", 1],
       ["S", -5],
-      ["E", -2]
+      ["E", -2],
     ],
     prices: [
       ["M", 10],
-      ["A", 10]
+      ["A", 10],
     ],
     buildingLimit: "6",
     buildingLimitQuantity: 10,
-    unitType: UNIT_TYPES.WORKER
+    unitType: UNIT_TYPES.WORKER,
   },
   {
     id: "X",
@@ -169,15 +180,32 @@ export const UNITS: IUnitData[] = [
     production: [
       ["x", 1],
       ["A", -5],
-      ["E", -2]
+      ["E", -2],
     ],
     prices: [
       ["M", 10],
-      ["A", 10]
+      ["A", 10],
     ],
     buildingLimit: "7",
     buildingLimitQuantity: 10,
-    unitType: UNIT_TYPES.WORKER
+    unitType: UNIT_TYPES.WORKER,
+  },
+  {
+    id: "B",
+    name: "Nuke Specialist",
+    description: "",
+    production: [
+      ["b", 1],
+      ["A", -5],
+      ["E", -2],
+    ],
+    prices: [
+      ["M", 10],
+      ["A", 10],
+    ],
+    buildingLimit: "7",
+    buildingLimitQuantity: 10,
+    unitType: UNIT_TYPES.WORKER,
   },
   //#endregion
   //#region Districts
@@ -188,7 +216,7 @@ export const UNITS: IUnitData[] = [
     startQuantity: 10,
     icon: "global",
     colorClass: "habSpace-color",
-    unitType: UNIT_TYPES.DISTRICT
+    unitType: UNIT_TYPES.DISTRICT,
   },
   {
     id: "P",
@@ -197,7 +225,7 @@ export const UNITS: IUnitData[] = [
     startQuantity: 10,
     icon: "my:mining",
     colorClass: "metal-color",
-    unitType: UNIT_TYPES.DISTRICT
+    unitType: UNIT_TYPES.DISTRICT,
   },
   {
     id: "k",
@@ -206,7 +234,7 @@ export const UNITS: IUnitData[] = [
     startQuantity: 10,
     icon: "my:solar-power",
     colorClass: "energy-color",
-    unitType: UNIT_TYPES.DISTRICT
+    unitType: UNIT_TYPES.DISTRICT,
   },
   //#endregion
   //#region Buildings
@@ -216,7 +244,7 @@ export const UNITS: IUnitData[] = [
     description: "",
     startQuantity: 1,
     prices: [["P", 10]],
-    unitType: UNIT_TYPES.BUILDING
+    unitType: UNIT_TYPES.BUILDING,
   },
   {
     id: "2",
@@ -224,42 +252,42 @@ export const UNITS: IUnitData[] = [
     description: "",
     startQuantity: 1,
     prices: [["k", 10]],
-    unitType: UNIT_TYPES.BUILDING
+    unitType: UNIT_TYPES.BUILDING,
   },
   {
     id: "3",
     name: "Laboratory",
     description: "",
     prices: [["j", 10]],
-    unitType: UNIT_TYPES.BUILDING
+    unitType: UNIT_TYPES.BUILDING,
   },
   {
     id: "4",
     name: "Foundry",
     description: "",
     prices: [["j", 10]],
-    unitType: UNIT_TYPES.BUILDING
+    unitType: UNIT_TYPES.BUILDING,
   },
   {
     id: "5",
     name: "Factory",
     description: "",
     prices: [["j", 10]],
-    unitType: UNIT_TYPES.BUILDING
+    unitType: UNIT_TYPES.BUILDING,
   },
   {
     id: "6",
     name: "Telescope",
     description: "",
     prices: [["j", 10]],
-    unitType: UNIT_TYPES.BUILDING
+    unitType: UNIT_TYPES.BUILDING,
   },
   {
     id: "7",
     name: "Drone Factory",
     description: "",
     prices: [["j", 10]],
-    unitType: UNIT_TYPES.BUILDING
+    unitType: UNIT_TYPES.BUILDING,
   },
   {
     id: "8",
@@ -267,14 +295,28 @@ export const UNITS: IUnitData[] = [
     description: "",
     startQuantity: 1,
     prices: [["j", 10]],
-    unitType: UNIT_TYPES.BUILDING
+    unitType: UNIT_TYPES.BUILDING,
   },
   {
     id: "9",
     name: "Drone Depot",
     description: "",
     prices: [["j", 10]],
-    unitType: UNIT_TYPES.BUILDING
+    unitType: UNIT_TYPES.BUILDING,
+  },
+  {
+    id: "10",
+    name: "Nuke Factory",
+    description: "",
+    prices: [["j", 10]],
+    unitType: UNIT_TYPES.BUILDING,
+  },
+  {
+    id: "11",
+    name: "Nuke Silos",
+    description: "",
+    prices: [["j", 10]],
+    unitType: UNIT_TYPES.BUILDING,
   },
   //#endregion
   //#region Space Stations
@@ -282,37 +324,37 @@ export const UNITS: IUnitData[] = [
     id: "i1",
     name: "Space Station",
     description: "",
-    unitType: UNIT_TYPES.SPACE_STATION
+    unitType: UNIT_TYPES.SPACE_STATION,
   },
   {
     id: "i2",
     name: "Rotating Space Station",
     description: "",
-    unitType: UNIT_TYPES.SPACE_STATION
+    unitType: UNIT_TYPES.SPACE_STATION,
   },
   {
     id: "i3",
     name: "Torus",
     description: "",
-    unitType: UNIT_TYPES.SPACE_STATION
+    unitType: UNIT_TYPES.SPACE_STATION,
   },
   {
     id: "i4",
     name: "Colony",
     description: "",
-    unitType: UNIT_TYPES.SPACE_STATION
+    unitType: UNIT_TYPES.SPACE_STATION,
   },
   {
     id: "i5",
     name: "Citadel",
     description: "",
-    unitType: UNIT_TYPES.SPACE_STATION
+    unitType: UNIT_TYPES.SPACE_STATION,
   },
   {
     id: "i6",
     name: "Habitat",
     description: "",
-    unitType: UNIT_TYPES.SPACE_STATION
-  }
+    unitType: UNIT_TYPES.SPACE_STATION,
+  },
   //#endregion
 ];

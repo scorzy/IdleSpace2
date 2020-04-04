@@ -1,7 +1,7 @@
 import { Enemy } from "./enemy";
 import { JobManager } from "../job/jobManager";
 import { SearchJob } from "./searchJob";
-import { FLEET_NUMBER, ZERO } from "../CONSTANTS";
+import { FLEET_NUMBER, ZERO, NUKE_DAMAGE } from "../CONSTANTS";
 import { MainService } from "src/app/main.service";
 import { BattleRequest } from "../battle/battleRequest";
 import { Game } from "../game";
@@ -16,7 +16,7 @@ import {
   METAL_OPT,
   ENERGY_OPT,
   SCIENCE_OPT,
-  COMPONENT_OPT
+  COMPONENT_OPT,
 } from "../data/searchOptions";
 import { solveEquation } from "ant-utils";
 
@@ -26,6 +26,8 @@ export class EnemyManager extends JobManager {
   currentEnemy: Enemy;
   fleetsInBattle: Array<Cell>;
   maxLevel = 0;
+  nukeDamageMulti = new BonusStack();
+  nukeDamage = ZERO;
   //#region Bonus
   districtMultiplier: BonusStack = new BonusStack();
   resourceMultiplier: BonusStack = new BonusStack();
@@ -61,7 +63,7 @@ export class EnemyManager extends JobManager {
       this.scienceOpt,
       this.componentOpt,
       this.difficultyOpt,
-      this.distanceOpt
+      this.distanceOpt,
     ];
   }
   search(level: number) {
@@ -96,8 +98,9 @@ export class EnemyManager extends JobManager {
       return false;
     }
     const playerDesign = Game.getGame().shipyardManager.shipDesigns;
-
-    const toAttack = this.currentEnemy.cells.find(c => !c.done && !c.inBattle);
+    const toAttack = this.currentEnemy.cells.find(
+      (c) => !c.done && !c.inBattle
+    );
     if (toAttack) {
       toAttack.inBattle = true;
       this.fleetsInBattle[fleetNum] = toAttack;
@@ -109,12 +112,20 @@ export class EnemyManager extends JobManager {
         const shipData = playerDesign[i].getShipData();
         shipData.quantity = playerDesign[i].fleets[fleetNum].shipsQuantity;
         battleRequest.playerFleet.push(shipData);
+        console.log(
+          playerDesign[i].acceleration.toNumber() +
+            "  - " +
+            playerDesign[i].velocity.toNumber() +
+            " - " +
+            this.currentEnemy.distance.times(-1).toNumber()
+        );
         let tempMax = solveEquation(
           ZERO,
           playerDesign[i].acceleration,
           playerDesign[i].velocity,
           this.currentEnemy.distance.times(-1)
         );
+
         for (const sol of tempMax) {
           if (sol.gt(maxTime)) maxTime = sol.toNumber();
         }
@@ -136,9 +147,10 @@ export class EnemyManager extends JobManager {
         }
       }
       battleRequest.endTime = performance.now() + maxTime * 1e3;
+      console.log(maxTime);
       //#endregion
       //#region Enemy Fleet
-      battleRequest.enemyFleet = this.currentEnemy.designs.map(d =>
+      battleRequest.enemyFleet = this.currentEnemy.designs.map((d) =>
         d.getShipData()
       );
       for (let i = 0, n = toAttack.ships.length; i < n; i++) {
@@ -158,7 +170,7 @@ export class EnemyManager extends JobManager {
     let done = true;
     for (let i = 0, n = this.currentEnemy.designs.length; i < n; i++) {
       const designId = this.currentEnemy.designs[i].id;
-      const lostD = battleResult.enemyLost.find(en => en.id === designId);
+      const lostD = battleResult.enemyLost.find((en) => en.id === designId);
       if (lostD) {
         cell.ships[i] -= lostD.lost;
         cell.ships[i] = Math.floor(Math.max(cell.ships[i], 0));
@@ -171,7 +183,7 @@ export class EnemyManager extends JobManager {
     cell.inBattle = false;
     if (cell.done) {
       this.reward(cell, fleetNum);
-      if (this.currentEnemy.cells.findIndex(c => !c.done) < 0) {
+      if (this.currentEnemy.cells.findIndex((c) => !c.done) < 0) {
         this.defeatEnemy();
       }
     }
@@ -183,31 +195,48 @@ export class EnemyManager extends JobManager {
   }
   reward(cell: Cell, fleetNum: number) {}
   defeatEnemy() {}
+  nuke(cellNum: number) {
+    if (!this.currentEnemy) return false;
+    const cell = this.currentEnemy.cells[cellNum];
+    if (!cell) return false;
+    const nukeNeed = cell.getNuke();
+    const rm = Game.getGame().resourceManager;
+    const dmg = nukeNeed.times(Decimal.min(rm.nuke.quantity, nukeNeed));
+    cell.nuke(dmg.toNumber(), rm.nuke.quantity.gte(nukeNeed));
+    rm.nuke.quantity = rm.nuke.quantity.minus(nukeNeed).max(0);
+  }
+  reloadNukeDamage() {
+    this.nukeDamageMulti.reloadBonus();
+    this.nukeDamage = Decimal.times(
+      NUKE_DAMAGE,
+      this.nukeDamageMulti.totalBonus
+    );
+  }
 
   //#region Save and Load
   getSave(): any {
     const ret: any = {
-      e: this.enemies.map(en => en.getSave()),
-      t: this.toDo.map(t => t.getSave()),
-      m: this.maxLevel
+      e: this.enemies.map((en) => en.getSave()),
+      t: this.toDo.map((t) => t.getSave()),
+      m: this.maxLevel,
     };
     const searchData = this.searchOptions
-      .filter(s => s.quantity !== 0)
-      .map(s => s.getData());
+      .filter((s) => s.quantity !== 0)
+      .map((s) => s.getData());
     if (searchData.length > 0) ret.s = searchData;
     if (this.currentEnemy) ret.c = this.currentEnemy.getSave();
     return ret;
   }
   load(data: any) {
     if ("e" in data) {
-      this.enemies = data.e.map(enemyData => {
+      this.enemies = data.e.map((enemyData) => {
         const enemy = new Enemy();
         enemy.load(enemyData);
         return enemy;
       });
     }
     if ("t" in data) {
-      this.toDo = data.t.map(jobData => {
+      this.toDo = data.t.map((jobData) => {
         const job = new SearchJob();
         job.load(jobData);
         return job;
@@ -219,9 +248,9 @@ export class EnemyManager extends JobManager {
     }
     if ("m" in data) this.maxLevel = data.m;
     if ("s" in data) {
-      data.s.forEach(optionData => {
+      data.s.forEach((optionData) => {
         const searchOption = this.searchOptions.find(
-          so => so.id === optionData.i
+          (so) => so.id === optionData.i
         );
         if (searchOption) {
           searchOption.load(optionData);
