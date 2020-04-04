@@ -5,10 +5,10 @@ export interface IUnitData {
   name: string;
   description: string;
   startQuantity?: DecimalSource;
+  unlockQuantity?: DecimalSource;
   icon?: string;
   colorClass?: string;
-  buildingLimit?: string;
-  buildingLimitQuantity?: DecimalSource;
+  limits?: { buildingLimit: string; buildingLimitQuantity: DecimalSource }[];
   showUiLimit?: boolean;
   unitType: UNIT_TYPES;
 

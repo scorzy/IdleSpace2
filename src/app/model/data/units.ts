@@ -25,8 +25,12 @@ export const UNITS: IUnitData[] = [
     description: "",
     startQuantity: 100,
     colorClass: "energy-color",
-    buildingLimit: "8",
-    buildingLimitQuantity: 1e4,
+    limits: [
+      {
+        buildingLimit: "8",
+        buildingLimitQuantity: 1e4,
+      },
+    ],
     showUiLimit: true,
     unitType: UNIT_TYPES.MATERIAL,
   },
@@ -68,8 +72,12 @@ export const UNITS: IUnitData[] = [
     icon: "my:microchip",
     description: "",
     colorClass: "",
-    buildingLimit: "9",
-    buildingLimitQuantity: 1e3,
+    limits: [
+      {
+        buildingLimit: "9",
+        buildingLimitQuantity: 1e3,
+      },
+    ],
     showUiLimit: true,
     unitType: UNIT_TYPES.MATERIAL,
   },
@@ -79,8 +87,12 @@ export const UNITS: IUnitData[] = [
     icon: "my:rocket",
     description: "",
     colorClass: "",
-    buildingLimit: "11",
-    buildingLimitQuantity: 100,
+    limits: [
+      {
+        buildingLimit: "11",
+        buildingLimitQuantity: 100,
+      },
+    ],
     showUiLimit: true,
     unitType: UNIT_TYPES.MATERIAL,
   },
@@ -96,8 +108,12 @@ export const UNITS: IUnitData[] = [
       ["E", -1],
     ],
     prices: [["M", 10]],
-    buildingLimit: "1",
-    buildingLimitQuantity: 10,
+    limits: [
+      {
+        buildingLimit: "1",
+        buildingLimitQuantity: 10,
+      },
+    ],
     unitType: UNIT_TYPES.WORKER,
   },
   {
@@ -107,8 +123,12 @@ export const UNITS: IUnitData[] = [
     startQuantity: 1,
     production: [["E", 4]],
     prices: [["M", 10]],
-    buildingLimit: "2",
-    buildingLimitQuantity: 10,
+    limits: [
+      {
+        buildingLimit: "2",
+        buildingLimitQuantity: 10,
+      },
+    ],
     unitType: UNIT_TYPES.WORKER,
   },
   {
@@ -121,8 +141,12 @@ export const UNITS: IUnitData[] = [
       ["E", -2],
     ],
     prices: [["M", 10]],
-    buildingLimit: "3",
-    buildingLimitQuantity: 10,
+    limits: [
+      {
+        buildingLimit: "3",
+        buildingLimitQuantity: 10,
+      },
+    ],
     unitType: UNIT_TYPES.WORKER,
   },
   {
@@ -135,8 +159,12 @@ export const UNITS: IUnitData[] = [
       ["E", -2],
     ],
     prices: [["M", 10]],
-    buildingLimit: "4",
-    buildingLimitQuantity: 10,
+    limits: [
+      {
+        buildingLimit: "4",
+        buildingLimitQuantity: 10,
+      },
+    ],
     unitType: UNIT_TYPES.WORKER,
   },
   {
@@ -152,8 +180,12 @@ export const UNITS: IUnitData[] = [
       ["M", 10],
       ["A", 10],
     ],
-    buildingLimit: "5",
-    buildingLimitQuantity: 10,
+    limits: [
+      {
+        buildingLimit: "5",
+        buildingLimitQuantity: 10,
+      },
+    ],
     unitType: UNIT_TYPES.WORKER,
   },
   {
@@ -169,8 +201,12 @@ export const UNITS: IUnitData[] = [
       ["M", 10],
       ["A", 10],
     ],
-    buildingLimit: "6",
-    buildingLimitQuantity: 10,
+    limits: [
+      {
+        buildingLimit: "6",
+        buildingLimitQuantity: 10,
+      },
+    ],
     unitType: UNIT_TYPES.WORKER,
   },
   {
@@ -186,8 +222,12 @@ export const UNITS: IUnitData[] = [
       ["M", 10],
       ["A", 10],
     ],
-    buildingLimit: "7",
-    buildingLimitQuantity: 10,
+    limits: [
+      {
+        buildingLimit: "7",
+        buildingLimitQuantity: 10,
+      },
+    ],
     unitType: UNIT_TYPES.WORKER,
   },
   {
@@ -203,8 +243,12 @@ export const UNITS: IUnitData[] = [
       ["M", 10],
       ["A", 10],
     ],
-    buildingLimit: "7",
-    buildingLimitQuantity: 10,
+    limits: [
+      {
+        buildingLimit: "7",
+        buildingLimitQuantity: 10,
+      },
+    ],
     unitType: UNIT_TYPES.WORKER,
   },
   //#endregion
@@ -259,6 +303,7 @@ export const UNITS: IUnitData[] = [
     name: "Laboratory",
     description: "",
     prices: [["j", 10]],
+    unlockQuantity: 1,
     unitType: UNIT_TYPES.BUILDING,
   },
   {
@@ -266,6 +311,7 @@ export const UNITS: IUnitData[] = [
     name: "Foundry",
     description: "",
     prices: [["j", 10]],
+    unlockQuantity: 1,
     unitType: UNIT_TYPES.BUILDING,
   },
   {
@@ -273,6 +319,7 @@ export const UNITS: IUnitData[] = [
     name: "Factory",
     description: "",
     prices: [["j", 10]],
+    unlockQuantity: 1,
     unitType: UNIT_TYPES.BUILDING,
   },
   {
@@ -280,6 +327,7 @@ export const UNITS: IUnitData[] = [
     name: "Telescope",
     description: "",
     prices: [["j", 10]],
+    unlockQuantity: 1,
     unitType: UNIT_TYPES.BUILDING,
   },
   {
@@ -287,6 +335,7 @@ export const UNITS: IUnitData[] = [
     name: "Drone Factory",
     description: "",
     prices: [["j", 10]],
+    unlockQuantity: 1,
     unitType: UNIT_TYPES.BUILDING,
   },
   {
@@ -295,6 +344,7 @@ export const UNITS: IUnitData[] = [
     description: "",
     startQuantity: 1,
     prices: [["j", 10]],
+    unlockQuantity: 1,
     unitType: UNIT_TYPES.BUILDING,
   },
   {
@@ -302,6 +352,7 @@ export const UNITS: IUnitData[] = [
     name: "Drone Depot",
     description: "",
     prices: [["j", 10]],
+    unlockQuantity: 1,
     unitType: UNIT_TYPES.BUILDING,
   },
   {
@@ -309,6 +360,7 @@ export const UNITS: IUnitData[] = [
     name: "Nuke Factory",
     description: "",
     prices: [["j", 10]],
+    unlockQuantity: 1,
     unitType: UNIT_TYPES.BUILDING,
   },
   {
@@ -316,6 +368,7 @@ export const UNITS: IUnitData[] = [
     name: "Nuke Silos",
     description: "",
     prices: [["j", 10]],
+    unlockQuantity: 1,
     unitType: UNIT_TYPES.BUILDING,
   },
   //#endregion

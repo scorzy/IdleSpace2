@@ -15,6 +15,7 @@ import {
 import { IUnlockable } from "../iUnlocable";
 import { Game } from "../game";
 import { ModStack } from "./modStack";
+import { Bonus } from "../bonus/bonus";
 
 export class Unit implements IBase, IUnlockable {
   id = "";
@@ -38,8 +39,7 @@ export class Unit implements IBase, IUnlockable {
   limit = Decimal.MAX_VALUE;
   limitTemp = Decimal.MAX_VALUE;
   private _oldLimit = Decimal.MAX_VALUE;
-  buildingLimit: Unit;
-  buildingLimitQuantity: Decimal;
+  limitStack: BonusStack;
   storedComponents = ZERO;
   needComponents = ZERO;
   components = COMPONENT_PRICE;
@@ -69,9 +69,6 @@ export class Unit implements IBase, IUnlockable {
     }
     if ("icon" in unitData) this.icon = unitData.icon;
     if ("colorClass" in unitData) this.colorClass = unitData.colorClass;
-    if ("buildingLimitQuantity" in unitData) {
-      this.buildingLimitQuantity = new Decimal(unitData.buildingLimitQuantity);
-    }
     if ("showUiLimit" in unitData) {
       this.showUiLimit = unitData.showUiLimit;
     }
@@ -80,10 +77,15 @@ export class Unit implements IBase, IUnlockable {
     return this.limit;
   }
   setRelations() {
-    if ("buildingLimit" in this.unitData) {
-      this.buildingLimit = Game.getGame().resourceManager.units.find(
-        (u) => u.id === this.unitData.buildingLimit
-      );
+    const rm = Game.getGame().resourceManager;
+    if ("limits" in this.unitData) {
+      this.limitStack = new BonusStack();
+      this.unitData.limits.forEach((limit) => {
+        const other = rm.units.find((u) => u.id === limit.buildingLimit);
+        this.limitStack.bonuses.push(
+          new Bonus(other, new Decimal(limit.buildingLimitQuantity))
+        );
+      });
     }
   }
   public getId(): string {
@@ -92,9 +94,8 @@ export class Unit implements IBase, IUnlockable {
   unlock(): boolean {
     if (this.unlocked) return false;
     this.unlocked = true;
-    if (this.buildingLimit) {
-      this.buildingLimit.unlock();
-      this.buildingLimit.quantity = ONE;
+    if (this.unitData.unlockQuantity) {
+      this.quantity = new Decimal(this.unitData.unlockQuantity);
     }
     Game.getGame().resourceManager.reloadLists();
   }
@@ -140,6 +141,7 @@ export class Unit implements IBase, IUnlockable {
       case "e":
       case "m":
         if (rs.miner.quantity.gte(3) && rs.technician.quantity.gte(3)) {
+          rs.laboratory.unlock();
           rs.scientist.unlock();
           rs.science.unlock();
           rs.reloadLists();
@@ -150,9 +152,13 @@ export class Unit implements IBase, IUnlockable {
     return true;
   }
   reloadLimit() {
-    if (!(this.buildingLimit && this.buildingLimitQuantity)) return false;
-    this.limit = this.buildingLimit.quantity.times(this.buildingLimitQuantity);
+    if (!this.limitStack) return false;
+
+    this.limitStack.reloadBonus();
+    this.limitStack.reloadAdditiveBonus();
+    this.limit = this.limitStack.totalAdditiveBonus;
     this.limitTemp = this.limit;
+
     if (this.modStack && this.modStack.droneMod) {
       this.limit = this.limit.times(this.modStack.droneMod.totalBonus);
       this.limitTemp = this.limit.times(this.modStack.droneMod.totalBonusTemp);

@@ -6,4 +6,7 @@ export class Bonus {
   getBonus(): Decimal {
     return this.unit.quantity.times(this.multiplier).plus(ONE);
   }
+  getAdditiveBonus(): Decimal {
+    return this.unit.quantity.times(this.multiplier);
+  }
 }
