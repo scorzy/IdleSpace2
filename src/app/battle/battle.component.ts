@@ -69,6 +69,12 @@ export class BattleComponent implements OnInit, OnDestroy {
         }
       }
     }
+    if (
+      this.cell > -1 &&
+      this.activeCells.findIndex((c) => c.value === this.cell) < 0
+    ) {
+      this.cell = this.activeCells[0].value;
+    }
   }
   surrender() {
     this.ms.game.enemyManager.surrender();

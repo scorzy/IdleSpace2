@@ -112,13 +112,6 @@ export class EnemyManager extends JobManager {
         const shipData = playerDesign[i].getShipData();
         shipData.quantity = playerDesign[i].fleets[fleetNum].shipsQuantity;
         battleRequest.playerFleet.push(shipData);
-        console.log(
-          playerDesign[i].acceleration.toNumber() +
-            "  - " +
-            playerDesign[i].velocity.toNumber() +
-            " - " +
-            this.currentEnemy.distance.times(-1).toNumber()
-        );
         let tempMax = solveEquation(
           ZERO,
           playerDesign[i].acceleration,
@@ -147,7 +140,6 @@ export class EnemyManager extends JobManager {
         }
       }
       battleRequest.endTime = performance.now() + maxTime * 1e3;
-      console.log(maxTime);
       //#endregion
       //#region Enemy Fleet
       battleRequest.enemyFleet = this.currentEnemy.designs.map((d) =>
