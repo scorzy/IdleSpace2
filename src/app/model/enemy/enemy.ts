@@ -300,8 +300,8 @@ export class Enemy {
           (c) => c.index >= row * 10 && c.index < (1 + row) * 10
         );
         let min = Number.POSITIVE_INFINITY;
-        rowCell.forEach((cell) => {
-          min = Math.min(cell.materials.length, min);
+        rowCell.forEach((c) => {
+          min = Math.min(c.materials.length, min);
         });
         rowCell = rowCell.filter((c) => c.materials.length <= min);
         row = (row + 1) % 10;

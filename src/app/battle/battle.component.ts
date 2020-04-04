@@ -95,8 +95,9 @@ export class BattleComponent implements OnInit, OnDestroy {
         if (
           c.ships[i] > 0 &&
           this.ms.game.enemyManager.currentEnemy.designs[i].isDefence
-        )
+        ) {
           ret = true;
+        }
       }
       return ret;
     });
