@@ -19,6 +19,7 @@ import {
   COMPONENT_OPT,
 } from "../data/searchOptions";
 import { solveEquation } from "ant-utils";
+import { UNIT_TYPES } from "../data/units";
 
 export class EnemyManager extends JobManager {
   enemies = new Array<Enemy>();
@@ -185,7 +186,31 @@ export class EnemyManager extends JobManager {
   surrender() {
     this.currentEnemy = null;
   }
-  reward(cell: Cell, fleetNum: number) {}
+  reward(cell: Cell, fleetNum: number) {
+    if (cell.materials.length < 1) return;
+    let remCargo = ZERO;
+    const playerDesign = Game.getGame().shipyardManager.shipDesigns;
+    for (let i = 0, n = playerDesign.length; i < n; i++) {
+      remCargo = remCargo.plus(
+        playerDesign[i].cargo.times(
+          playerDesign[i].fleets[fleetNum].shipsQuantity
+        )
+      );
+    }
+
+    for (let i = 0, n = cell.materials.length; i < n; i++) {
+      const mat = cell.materials[i];
+      if (mat.material.unitData.unitType === UNIT_TYPES.MATERIAL) {
+        const max = Decimal.min(remCargo, mat.quantity);
+        remCargo = remCargo.minus(max);
+        mat.material.quantity = mat.material.quantity.plus(max);
+        mat.quantity = mat.quantity.minus(max);
+      } else {
+        mat.material.quantity = mat.material.quantity.plus(mat.quantity);
+        mat.quantity = ZERO;
+      }
+    }
+  }
   defeatEnemy() {}
   nuke(cellNum: number) {
     if (!this.currentEnemy) return false;

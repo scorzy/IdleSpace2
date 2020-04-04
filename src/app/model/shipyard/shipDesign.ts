@@ -9,7 +9,8 @@ import {
   MIN_THREAT,
   UTILITY_MOD_DECREASE,
   SIZE_MULTI,
-  PRICE_GROW_RATE
+  PRICE_GROW_RATE,
+  BASE_CARGO,
 } from "../CONSTANTS";
 import { Game } from "../game";
 import { ShipType } from "./ShipType";
@@ -75,7 +76,7 @@ export class ShipDesign {
     this.armourReduction = 0;
     this.shieldReduction = 0;
     this.price = new Decimal(BASE_SHIP_PRICE * (this.type.id + 1));
-    this.cargo = ZERO;
+    this.cargo = new Decimal(BASE_CARGO / 2);
     this.totalPoints = 0;
     this.energy = 0;
     this.explosionDamage = 0;
@@ -88,8 +89,8 @@ export class ShipDesign {
     if (errorCheck) {
       //  Error check
       this.modules
-        .filter(m => m.module)
-        .forEach(mod => {
+        .filter((m) => m.module)
+        .forEach((mod) => {
           mod.errorTip = "";
           mod.warningTip = "";
           mod.validateStatus = "";
@@ -147,7 +148,7 @@ export class ShipDesign {
           defencePercent: m.module.defenceDamagePercent,
           precision: m.module.precision * statsMulti,
           adaptivePrecision: m.module.adaptivePrecision * statsMulti,
-          threatMulti: m.module.threatGainMulti
+          threatMulti: m.module.threatGainMulti,
         });
       }
     }
@@ -160,7 +161,7 @@ export class ShipDesign {
       const statsMultiNoLevel = ShipDesign.getStatsMulti(m, true);
 
       // Weapons
-      this.weapons.forEach(weapon => {
+      this.weapons.forEach((weapon) => {
         weapon.precision += m.module.precision * statsMulti;
         weapon.adaptivePrecision += m.module.adaptivePrecision * statsMulti;
         let multi = 1;
@@ -424,8 +425,8 @@ export class ShipDesign {
       this.modules.length === 0
         ? []
         : this.modules
-            .filter(l => l.module)
-            .map(mod => {
+            .filter((l) => l.module)
+            .map((mod) => {
               return {
                 module: mod.module,
                 level: mod.level,
@@ -433,7 +434,7 @@ export class ShipDesign {
                 moduleId: mod.module.id,
                 levelUi: MainService.formatPipe.transform(mod.level, true),
                 validateStatus: "",
-                errorTip: ""
+                errorTip: "",
               };
             });
     ret.reload(errorCheck);
@@ -460,7 +461,7 @@ export class ShipDesign {
     return ret;
   }
   maximize() {
-    this.modules.forEach(mod => {
+    this.modules.forEach((mod) => {
       if (mod.module) mod.level = Math.floor(mod.module.maxLevel - 1);
     });
     this.reload(true);
@@ -472,8 +473,8 @@ export class ShipDesign {
       r: this.rev,
       n: this.name,
       t: this.type.id,
-      m: this.modules.map(mod => [mod.module.id, mod.level, mod.size]),
-      f: this.fleets.map(fleet => fleet.getData())
+      m: this.modules.map((mod) => [mod.module.id, mod.level, mod.size]),
+      f: this.fleets.map((fleet) => fleet.getData()),
     };
     if (this.isDefence) ret.d = this.isDefence;
     if (this.old) ret.o = this.old.getSave();
@@ -490,7 +491,7 @@ export class ShipDesign {
     if ("d" in data) this.isDefence = data.d;
     if ("t" in data) {
       this.type = Game.getGame().shipyardManager.shipTypes.find(
-        t => t.id === data.t
+        (t) => t.id === data.t
       );
     }
     if (!this.type) return false;
@@ -498,7 +499,7 @@ export class ShipDesign {
     if ("m" in data) {
       for (const mod of data.m) {
         const module = Game.getGame().shipyardManager.modules.find(
-          m => m.id === mod[0]
+          (m) => m.id === mod[0]
         );
 
         if (module) {
@@ -525,22 +526,22 @@ export class ShipDesign {
     return {
       n: this.name,
       t: this.type.id,
-      m: this.modules.map(mod => [mod.module.id, mod.level, mod.size]),
-      q: this.enemyQuantity
+      m: this.modules.map((mod) => [mod.module.id, mod.level, mod.size]),
+      q: this.enemyQuantity,
     };
   }
   loadEnemy(data: any): any {
     if ("n" in data) this.name = data.n;
     if ("t" in data) {
       this.type = Game.getGame().shipyardManager.shipTypes.find(
-        t => t.id === data.t
+        (t) => t.id === data.t
       );
     }
     if (!this.type) return false;
     if ("m" in data) {
       for (const mod of data.m) {
         const module = Game.getGame().shipyardManager.modules.find(
-          m => m.id === mod[0]
+          (m) => m.id === mod[0]
         );
 
         if (module) {

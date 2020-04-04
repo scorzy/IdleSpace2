@@ -292,31 +292,21 @@ export class Enemy {
     }
 
     let rowCell: Cell[] = [];
-    let qta = 0;
+    let row = 0;
     this.tiles.forEach((tile) => {
       for (let i = 0; i < tile.number; i++) {
         rowCell = [];
-        qta++;
-        for (let k = 0; k < 10; k++) {
-          let rowCellTemp = this.cells.filter((c) => {
-            let len = c.materials.length;
-            if (c.materials.find((m) => m.material === rs.metal)) {
-              len--;
-            }
-            if (c.materials.find((m) => m.material === rs.energy)) {
-              len--;
-            }
-            return (
-              len < Math.floor(qta / 100) &&
-              c.index >= k * 10 &&
-              c.index < (k + 1) * 10
-            );
-          });
-          if (rowCellTemp.length > rowCell.length) {
-            rowCell = rowCellTemp;
-          }
-        }
-        const cell = sample(rowCell.length > 0 ? rowCell : this.cells);
+        rowCell = this.cells.filter(
+          (c) => c.index >= row * 10 && c.index < (1 + row) * 10
+        );
+        let min = Number.POSITIVE_INFINITY;
+        rowCell.forEach((cell) => {
+          min = Math.min(cell.materials.length, min);
+        });
+        rowCell = rowCell.filter((c) => c.materials.length <= min);
+        row = (row + 1) % 10;
+        // const cell = sample(rowCell.length > 0 ? rowCell : this.cells);
+        const cell = sample(rowCell);
         const num =
           tile.unit.unitData.unitType === UNIT_TYPES.DISTRICT
             ? districtQuantity
