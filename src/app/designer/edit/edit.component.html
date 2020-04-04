@@ -88,13 +88,9 @@
                     fxLayout="row"
                     fxLayoutAlign="start center"
                     fxLayoutGap="15px"
-                    ><span nz-text>
-                      <i
-                        nz-icon
-                        [nzType]="mod.shape"
-                        style="font-size: 200%"
-                      ></i>
-                    </span>
+                  >
+                    <i nz-icon [nzType]="mod.shape" style="font-size: 200%;">
+                    </i>
                     <span
                       fxLayout="row"
                       fxLayout.xs="column"
@@ -102,7 +98,10 @@
                       fxFlex="100%"
                     >
                       <span fxFlex="100%"> {{ mod.name }}</span>
-                      <app-module-info [mod]="mod"></app-module-info>
+                      <app-module-info
+                        *ngIf="loaded"
+                        [mod]="mod"
+                      ></app-module-info>
                     </span>
                   </span>
                 </nz-option>
@@ -122,7 +121,7 @@
                   [nzLabel]="size | sizePipe"
                 ></nz-option>
               </nz-select>
-              <div style="line-height:0;">
+              <div style="line-height: 0;">
                 <input
                   nz-input
                   [(ngModel)]="line.levelUi"
@@ -145,7 +144,7 @@
 
       <nz-form-item>
         <nz-form-control>
-          <div fxLayout="row" fxLayoutAlign="center" style="width:100%">
+          <div fxLayout="row" fxLayoutAlign="center" style="width: 100%;">
             <button
               nz-button
               nzType="dashed"

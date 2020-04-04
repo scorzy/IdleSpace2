@@ -5,7 +5,8 @@ import {
   Input,
   ChangeDetectorRef,
   OnDestroy,
-  EventEmitter
+  EventEmitter,
+  AfterViewInit,
 } from "@angular/core";
 import { ShipDesign } from "src/app/model/shipyard/shipDesign";
 import { MainService } from "src/app/main.service";
@@ -22,14 +23,14 @@ declare let numberformat;
   templateUrl: "./edit.component.html",
   styleUrls: ["./edit.component.scss"],
   animations: [fadeIn],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class EditComponent implements OnInit, OnDestroy {
+export class EditComponent implements OnInit, OnDestroy, AfterViewInit {
   @Input() design: ShipDesign;
   original: ShipDesign;
   isEqual = true;
   changeEmitter = new EventEmitter();
-
+  loaded = false;
   private subscriptions: Subscription[] = [];
 
   constructor(
@@ -39,12 +40,17 @@ export class EditComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private router: Router
   ) {}
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      this.loaded = true;
+    }, 1);
+  }
 
   ngOnInit() {
     this.ms.game.shipyardManager.designerView = true;
     this.ms.game.shipyardManager.postUpdate();
     this.subscriptions.push(
-      this.route.paramMap.subscribe(paramMap =>
+      this.route.paramMap.subscribe((paramMap) =>
         this.getDesign(paramMap.get("id"))
       )
     );
@@ -56,7 +62,7 @@ export class EditComponent implements OnInit, OnDestroy {
   getDesign(id: string) {
     const idNum = parseInt(id, 10);
     this.original = this.ms.game.shipyardManager.shipDesigns.find(
-      des => idNum === des.id
+      (des) => idNum === des.id
     );
     if (this.original) {
       this.design = this.original.getCopy();
@@ -76,7 +82,7 @@ export class EditComponent implements OnInit, OnDestroy {
       module: null,
       level: 1,
       size: 1,
-      levelUi: "1"
+      levelUi: "1",
     });
   }
   removeLine(index: number) {
@@ -87,7 +93,7 @@ export class EditComponent implements OnInit, OnDestroy {
     this.design.modules[
       index
     ].module = this.ms.game.shipyardManager.modules.find(
-      m => m.id === this.design.modules[index].moduleId
+      (m) => m.id === this.design.modules[index].moduleId
     );
     if (this.design.modules[index].module) {
       this.design.modules[index].level =
@@ -121,7 +127,7 @@ export class EditComponent implements OnInit, OnDestroy {
         ? numberformat
             .parse(levelUi, {
               backend: "decimal.js",
-              Decimal
+              Decimal,
             })
             .max(ONE)
             .toNumber()
@@ -130,8 +136,8 @@ export class EditComponent implements OnInit, OnDestroy {
     if (this.design) {
       this.design.reload(true);
       this.isEqual = true;
-      const lines1 = this.design.modules.filter(l => l.module);
-      const lines2 = this.original.modules.filter(l => l.module);
+      const lines1 = this.design.modules.filter((l) => l.module);
+      const lines2 = this.original.modules.filter((l) => l.module);
       if (lines1.length === lines2.length) {
         for (let i = 0, n = lines1.length; i < n; i++) {
           if (
@@ -161,7 +167,7 @@ export class EditComponent implements OnInit, OnDestroy {
   }
   maximize() {
     this.design.maximize();
-    this.design.modules.forEach(mod => {
+    this.design.modules.forEach((mod) => {
       mod.levelUi = MainService.formatPipe.transform(mod.level, true);
     });
     this.changeEmitter.emit("1");
@@ -175,7 +181,7 @@ export class EditComponent implements OnInit, OnDestroy {
     this.router.navigate(["/add"]);
   }
   getIcon(id: string): string {
-    const mod = this.ms.game.shipyardManager.modules.find(m => m.id === id);
+    const mod = this.ms.game.shipyardManager.modules.find((m) => m.id === id);
     return mod ? mod.shape : "";
   }
 }
