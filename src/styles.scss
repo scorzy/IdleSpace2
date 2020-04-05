@@ -192,3 +192,9 @@
 .fullWidth {
   width: 100%;
 }
+.no-transition {
+  transition: none;
+}
+.transition {
+  transition: all 0.2;
+}

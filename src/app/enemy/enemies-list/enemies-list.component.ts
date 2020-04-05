@@ -3,7 +3,8 @@ import {
   OnInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
-  OnDestroy
+  OnDestroy,
+  AfterViewInit
 } from "@angular/core";
 import { Subscription } from "rxjs";
 import { MainService } from "src/app/main.service";
@@ -21,9 +22,9 @@ import { BreakpointObserver, BreakpointState } from "@angular/cdk/layout";
 
   animations: [fadeIn]
 })
-export class EnemiesListComponent implements OnInit, OnDestroy {
-  isCollapsed = false;
+export class EnemiesListComponent implements OnInit, OnDestroy, AfterViewInit {
   isLarge = true;
+  sideClass = "no-transition";
   private subscriptions: Subscription[] = [];
 
   constructor(
@@ -32,7 +33,11 @@ export class EnemiesListComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     public breakpointObserver: BreakpointObserver
   ) {}
-
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      this.sideClass = "transition";
+    }, 500);
+  }
   ngOnInit() {
     this.ms.innerContent = false;
 

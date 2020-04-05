@@ -5,15 +5,16 @@
 >
   <nz-sider
     [nzCollapsible]="isLarge"
-    [(nzCollapsed)]="isCollapsed"
+    [(nzCollapsed)]="ms.designListCollapsed"
     nzBreakpoint="xl"
     nzCollapsedWidth="50"
+    [ngClass]="sideClass"
   >
     <ul
       nz-menu
       [nzTheme]="ms.sideTheme"
       nzMode="inline"
-      [nzInlineCollapsed]="isCollapsed"
+      [nzInlineCollapsed]="ms.designListCollapsed"
       (cdkDropListDropped)="drop($event)"
       cdkDropList
     >

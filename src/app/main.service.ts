@@ -87,7 +87,8 @@ export class MainService {
   last: number;
   updateEmitter = new EventEmitter<number>();
   lzWorker: Worker;
-
+  enemyListCollapsed = false;
+  designListCollapsed = false;
   notificationEmitter = new EventEmitter<{
     type: number;
     title?: string;
@@ -162,7 +163,7 @@ export class MainService {
         ? THEMES[this.options.themeId]
         : THEMES[0];
 
-    const file = compiledCss.find(n => n.startsWith(name));
+    const file = compiledCss.find((n) => n.startsWith(name));
 
     const myTheme = "assets/themes/" + file;
     if (myTheme !== this.theme.href) this.theme.href = myTheme;

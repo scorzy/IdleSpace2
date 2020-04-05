@@ -4,6 +4,7 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   OnDestroy,
+  AfterViewInit
 } from "@angular/core";
 import { Subscription } from "rxjs";
 import { MainService } from "src/app/main.service";
@@ -16,11 +17,11 @@ import { ShipDesign } from "src/app/model/shipyard/shipDesign";
   selector: "app-list",
   templateUrl: "./list.component.html",
   styleUrls: ["./list.component.scss"],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ListComponent implements OnInit, OnDestroy {
-  isCollapsed = false;
+export class ListComponent implements OnInit, OnDestroy, AfterViewInit {
   isLarge = true;
+  sideClass = "no-transition";
   private subscriptions: Subscription[] = [];
 
   constructor(
@@ -47,6 +48,11 @@ export class ListComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.ms.innerContent = true;
     this.subscriptions.forEach((sub: Subscription) => sub.unsubscribe());
+  }
+  ngAfterViewInit(): void {
+    setTimeout(() => {
+      this.sideClass = "transition";
+    }, 500);
   }
   drop(event: CdkDragDrop<string[]>): void {
     moveItemInArray(
