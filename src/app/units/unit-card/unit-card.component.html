@@ -133,10 +133,11 @@
     nzSize="middle"
     [nzData]="unit.production"
     [nzShowPagination]="false"
+    class="prod-table"
   >
     <thead>
       <tr>
-        <th nzShowExpand></th>
+        <!-- <th nzShowExpand></th> -->
         <th>Product</th>
         <th>Ratio</th>
         <th>Total</th>
@@ -150,8 +151,8 @@
         [ngForTrackBy]="getProdId"
       >
         <tr>
-          <td nzShowExpand [(nzExpand)]="data.expand"></td>
-          <td>
+          <!-- <td nzShowExpand [(nzExpand)]="data.expand"></td> -->
+          <td [ngClass]="data.product.colorClass">
             <i
               nz-icon
               [nzType]="data.product.icon"
@@ -167,7 +168,7 @@
               >{{ data.ratio | format }}</span
             >
           </td>
-          <td>
+          <td class="total">
             <span
               nz-text
               class="monospace"
@@ -177,8 +178,9 @@
           </td>
         </tr>
 
-        <tr [nzExpand]="data.expand">
-          <td colspan="4" *ngIf="data.expand">
+        <!-- <tr [nzExpand]="data.expand"> -->
+        <tr>
+          <td colspan="4">
             <app-sub-table [data]="data" [unit]="unit"></app-sub-table>
           </td>
         </tr>

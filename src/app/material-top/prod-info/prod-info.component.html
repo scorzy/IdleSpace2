@@ -1,21 +1,25 @@
-<h4>
+<span class="top-line">
   Production:
-  <span nz-text class="monospace" [nzType]="unit.perSec.gte(0) ? '' : 'danger'">
+  <span
+    nz-text
+    class="monospace qta"
+    [nzType]="unit.perSec.gte(0) ? '' : 'danger'"
+  >
     {{ unit.perSec | format }}
   </span>
-</h4>
-<h4>
+</span>
+<span class="top-line">
   Total Production:
-  <span class="monospace">
+  <span class="monospace qta">
     {{ totalProd | format }}
   </span>
-</h4>
-<h4>
+</span>
+<span class="top-line">
   Total Consumed:
-  <span nz-text nzType="danger" class="monospace">
+  <span nz-text nzType="danger" class="monospace qta">
     {{ totalConsumed | format }}
   </span>
-</h4>
+</span>
 
 <nz-table
   *ngIf="showTable"
@@ -23,6 +27,7 @@
   nzSize="middle"
   [nzData]="data"
   [nzShowPagination]="false"
+  class="prod-table"
 >
   <thead (nzSortChange)="sort($event)" nzSingleSort>
     <tr>
