@@ -11,7 +11,7 @@ export const RESEARCHES: IResearchData[] = [
     researchToUnlock: ["p", "s1", "n", "s", "x", "M", "P"],
     max: 1,
     type: [TECHNOLOGIES.MilitaryEngineering],
-    technologiesToUnlock: ["e", TECHNOLOGIES.CivilEngineering.id],
+    technologiesToUnlock: ["e", TECHNOLOGIES.CivilEngineering.id]
   },
   {
     id: "p",
@@ -21,7 +21,7 @@ export const RESEARCHES: IResearchData[] = [
     max: 1,
     type: [TECHNOLOGIES.Physics],
     researchToUnlock: ["c", "E"],
-    technologiesToUnlock: ["p"],
+    technologiesToUnlock: ["p"]
   },
   {
     id: "c",
@@ -30,7 +30,7 @@ export const RESEARCHES: IResearchData[] = [
     price: 100,
     max: 1,
     type: [TECHNOLOGIES.Computing],
-    technologiesToUnlock: ["c"],
+    technologiesToUnlock: ["c"]
   },
   {
     id: "n",
@@ -40,7 +40,7 @@ export const RESEARCHES: IResearchData[] = [
     max: 1,
     type: [TECHNOLOGIES.Computing],
     technologiesToUnlock: ["n"],
-    researchToUnlock: ["b"],
+    researchToUnlock: ["b"]
   },
   {
     id: "s",
@@ -51,7 +51,7 @@ export const RESEARCHES: IResearchData[] = [
     type: [TECHNOLOGIES.Search],
     unitsToUnlock: ["r", "R", "6"],
     technologiesToUnlock: ["r"],
-    researchToUnlock: ["r1"],
+    researchToUnlock: ["r1"]
   },
   {
     id: "P",
@@ -60,7 +60,7 @@ export const RESEARCHES: IResearchData[] = [
     price: 100,
     max: 1,
     type: [TECHNOLOGIES.Propulsion],
-    technologiesToUnlock: [TECHNOLOGIES.Propulsion.id],
+    technologiesToUnlock: [TECHNOLOGIES.Propulsion.id]
   },
   {
     id: "x",
@@ -70,7 +70,7 @@ export const RESEARCHES: IResearchData[] = [
     max: 1,
     type: [TECHNOLOGIES.Robotics],
     unitsToUnlock: ["x", "X", "7"],
-    technologiesToUnlock: [TECHNOLOGIES.Robotics.id],
+    technologiesToUnlock: [TECHNOLOGIES.Robotics.id]
   },
   {
     id: "M",
@@ -79,7 +79,7 @@ export const RESEARCHES: IResearchData[] = [
     price: 100,
     max: 1,
     type: [TECHNOLOGIES.Materials],
-    technologiesToUnlock: ["m"],
+    technologiesToUnlock: ["m"]
   },
   {
     id: "E",
@@ -88,57 +88,52 @@ export const RESEARCHES: IResearchData[] = [
     price: 100,
     max: 1,
     type: [TECHNOLOGIES.Energy],
-    technologiesToUnlock: [TECHNOLOGIES.Energy.id],
+    technologiesToUnlock: [TECHNOLOGIES.Energy.id]
   },
   {
     id: "r1",
     name: "Optimistic zone",
     description: "Search 1",
     price: 100,
-    max: 10,
     type: [TECHNOLOGIES.Search],
     researchToUnlock: ["r2", "r3"],
-    battleMulti: [{ materialId: "j", multi: 0.5 }],
+    battleMulti: [{ materialId: "j", multi: 0.5 }]
   },
   {
     id: "r2",
     name: "Conservative zone",
     description: "Search 2",
     price: 100,
-    max: 10,
     type: [TECHNOLOGIES.Search],
-    battleMulti: [{ materialId: "j", multi: 1 }],
+    battleMulti: [{ materialId: "j", multi: 1 }]
   },
   {
     id: "r3",
     name: "Astrogeology",
     description: "Astrogeology",
     price: 100,
-    max: 10,
     type: [TECHNOLOGIES.Search],
     researchToUnlock: ["r4", "r5"],
     battleMulti: [
       { materialId: "P", multi: 0.5 },
-      { materialId: "k", multi: 0.5 },
-    ],
+      { materialId: "k", multi: 0.5 }
+    ]
   },
   {
     id: "r4",
     name: "Asteroid Mining",
     description: "Asteroid Mining",
     price: 100,
-    max: 10,
     type: [TECHNOLOGIES.Search],
-    battleMulti: [{ materialId: "P", multi: 1 }],
+    battleMulti: [{ materialId: "P", multi: 1 }]
   },
   {
     id: "r5",
     name: "Renewable energy",
     description: "Renewable energy",
     price: 100,
-    max: 10,
     type: [TECHNOLOGIES.Search],
-    battleMulti: [{ materialId: "k", multi: 1 }],
+    battleMulti: [{ materialId: "k", multi: 1 }]
   },
   {
     id: "b",
@@ -146,6 +141,6 @@ export const RESEARCHES: IResearchData[] = [
     description: "Nuke",
     price: 100,
     type: [TECHNOLOGIES.MilitaryEngineering],
-    unitsToUnlock: ["b", "B", "10", "11"],
-  },
+    unitsToUnlock: ["b", "B", "10", "11"]
+  }
 ];

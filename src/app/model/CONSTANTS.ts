@@ -60,3 +60,7 @@ export const BASE_CARGO = 500;
 export const BASE_ADAPTIVE_PRECISION = 700;
 
 export const NUKE_DAMAGE = MODULE_ARMOUR * 100;
+
+//  Researches
+export const RESEARCH_BASE_PRICE = 100;
+export const RESEARCH_LEVEL_MULTI = 1e3;

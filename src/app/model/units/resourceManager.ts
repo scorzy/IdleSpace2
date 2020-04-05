@@ -6,7 +6,7 @@ import {
   UNIT_PRICE_GROW_RATE,
   SPACE_STATION_PRICE,
   SPACE_STATION_GROW,
-  SPACE_STATION_HAB_SPACE,
+  SPACE_STATION_HAB_SPACE
 } from "../CONSTANTS";
 import { solveEquation } from "ant-utils";
 import { Price } from "../prices/price";
@@ -136,13 +136,15 @@ export class ResourceManager {
     //  Space Stations
     for (let i = 0, n = this.spaceStations.length; i < n; i++) {
       const station = this.spaceStations[i];
+      station.habSpaceStack = new BonusStack();
       station.buildPrice = Decimal.pow(i + 1, SPACE_STATION_GROW).times(
         SPACE_STATION_PRICE
       );
       station.buildPriceNext = station.buildPrice;
-      station.habSpace = Decimal.pow(i + 1, SPACE_STATION_GROW).times(
+      station.habSpaceOriginal = Decimal.pow(i + 1, SPACE_STATION_GROW).times(
         SPACE_STATION_HAB_SPACE
       );
+      station.habSpace = station.habSpaceOriginal;
     }
 
     this.units.forEach((u) => u.setRelations());
@@ -305,6 +307,7 @@ export class ResourceManager {
       unit.postUpdate();
     });
     this.deployComponents();
+    this.spaceStations.forEach((st) => st.reloadHabSpace());
   }
   deployComponents() {
     if (this.components.quantity.lte(0.1)) return false;
@@ -368,7 +371,7 @@ export class ResourceManager {
   //#region Save and Load
   getSave(): any {
     return {
-      l: this.unlockedUnits.map((u) => u.getSave()),
+      l: this.unlockedUnits.map((u) => u.getSave())
     };
   }
   load(data: any) {

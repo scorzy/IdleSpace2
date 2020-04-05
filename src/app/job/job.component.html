@@ -14,7 +14,7 @@
       </div>
     </div>
     <div>
-      <p class="description">{{ job.description }}</p>
+      <p *ngIf="showDescription" class="description">{{ job.description }}</p>
     </div>
     <span
       class="monospace"

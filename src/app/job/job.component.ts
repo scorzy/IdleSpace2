@@ -21,6 +21,7 @@ export class JobComponent implements OnInit, OnDestroy {
 
   @Input() job: Job;
   @Input() collection: Job[];
+  @Input() showDescription = true;
 
   icons: MyIcon[];
   isResearch = false;
@@ -52,14 +53,14 @@ export class JobComponent implements OnInit, OnDestroy {
   moveUp() {
     moveItemInArray(
       this.collection,
-      this.collection.findIndex(e => e === this.job),
+      this.collection.findIndex((e) => e === this.job),
       0
     );
   }
   moveDown() {
     moveItemInArray(
       this.collection,
-      this.collection.findIndex(e => e === this.job),
+      this.collection.findIndex((e) => e === this.job),
       this.collection.length - 1
     );
   }

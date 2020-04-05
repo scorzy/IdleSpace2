@@ -1,14 +1,36 @@
 import { IResearchData } from "../data/iResearchData";
 import { Job, MyIcon } from "../job/job";
 import { convertToRoman, solveEquation } from "ant-utils";
-import { RESEARCH_GROW_RATE, ZERO, INFINITY } from "../CONSTANTS";
+import {
+  RESEARCH_GROW_RATE,
+  ZERO,
+  INFINITY,
+  RESEARCH_BASE_PRICE,
+  RESEARCH_LEVEL_MULTI
+} from "../CONSTANTS";
 import { IUnlockable } from "../iUnlocable";
 import { Game } from "../game";
 import { IBase } from "../iBase";
 import { ResearchManager } from "./researchManager";
 import { Unit } from "../units/unit";
+import { Bonus } from "../bonus/bonus";
 
 export class Research extends Job implements IUnlockable, IBase {
+  static lastVisId = 0;
+  id: string;
+  visId = 0;
+  visLevel = 0;
+  private originalName: string;
+  max = Number.MAX_SAFE_INTEGER;
+  unitsToUnlock?: IUnlockable[];
+  researchToUnlock?: Research[];
+  technologiesToUnlock?: IUnlockable[];
+  spaceStationsToUp?: { spaceStation: Unit; habSpace: Decimal }[];
+  quantity: Decimal;
+  icon?: string;
+  resData: IResearchData;
+  navalCapacity = 0;
+  available = false;
   constructor(researchData: IResearchData, researchManager: ResearchManager) {
     super();
     this.resData = researchData;
@@ -41,11 +63,11 @@ export class Research extends Job implements IUnlockable, IBase {
       this.navalCapacity = this.resData.navalCapacity;
     }
     if ("stationToUp" in researchData) {
-      this.spaceStationsToUp = researchData.stationToUp.map((stu) => {
-        return {
-          spaceStation: rs.units.find((u) => u.id === stu.stationId),
-          habSpace: new Decimal(stu.habSpace),
-        };
+      researchData.stationToUp.forEach((stu) => {
+        const station = rs.units.find((u) => u.id === stu.stationId);
+        station.habSpaceStack.bonuses.push(
+          new Bonus(this, new Decimal(stu.habSpace))
+        );
       });
     }
     this.types = researchData.type.map((t) =>
@@ -53,21 +75,6 @@ export class Research extends Job implements IUnlockable, IBase {
     );
     this.reload();
   }
-  static lastVisId = 0;
-  id: string;
-  visId = 0;
-  visLevel = 0;
-  private originalName: string;
-  max = 1; // Number.MAX_SAFE_INTEGER;
-  unitsToUnlock?: IUnlockable[];
-  researchToUnlock?: Research[];
-  technologiesToUnlock?: IUnlockable[];
-  spaceStationsToUp?: { spaceStation: Unit; habSpace: Decimal }[];
-
-  quantity: Decimal;
-  icon?: string;
-  resData: IResearchData;
-  navalCapacity = 0;
   reload(): void {
     super.reload();
     this.name =
@@ -106,11 +113,6 @@ export class Research extends Job implements IUnlockable, IBase {
       if (this.technologiesToUnlock) {
         this.technologiesToUnlock.forEach((tech) => tech.unlock());
       }
-      if (this.spaceStationsToUp) {
-        this.spaceStationsToUp.forEach((stu) =>
-          stu.spaceStation.addHabSpace(stu.habSpace)
-        );
-      }
       game.navalCapacity += this.navalCapacity;
     }
   }
@@ -122,7 +124,7 @@ export class Research extends Job implements IUnlockable, IBase {
     return this.types.map((t) => {
       return {
         icon: t.icon,
-        color: t.color,
+        color: t.color
       };
     });
   }
@@ -130,7 +132,18 @@ export class Research extends Job implements IUnlockable, IBase {
     if (this.researchToUnlock) {
       this.researchToUnlock.forEach((res) => {
         res.visLevel = this.visLevel + 1;
+        this.initialPrice = new Decimal(RESEARCH_BASE_PRICE).times(
+          Decimal.pow(RESEARCH_LEVEL_MULTI, res.visLevel - 1)
+        );
         res.setLevels();
+      });
+    }
+  }
+  setAvailability() {
+    if (this.researchToUnlock && this.level > 0) {
+      this.researchToUnlock.forEach((res) => {
+        res.available = true;
+        res.setAvailability();
       });
     }
   }

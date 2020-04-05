@@ -10,7 +10,7 @@ import {
   COMPONENT_PRICE,
   MOD_COMPONENTS,
   MOD_RECYCLING,
-  MAX_RECYCLING,
+  MAX_RECYCLING
 } from "../CONSTANTS";
 import { IUnlockable } from "../iUnlocable";
 import { Game } from "../game";
@@ -54,6 +54,8 @@ export class Unit implements IBase, IUnlockable {
   private _perSecOld = this.perSec;
   buildPrice = ZERO;
   habSpace = ZERO;
+  habSpaceOriginal = ZERO;
+  habSpaceStack: BonusStack;
   buildPriceNext = ZERO;
   modStack: ModStack;
   maxMods: Decimal = ZERO;
@@ -210,6 +212,7 @@ export class Unit implements IBase, IUnlockable {
       .minus(this.storedComponents)
       .max(0);
   }
+  //#region Space stations & Megastructures
   getBuildPrice(index = Number.POSITIVE_INFINITY) {
     const toDoList = Game.getGame().spaceStationManager.toDo;
     let queued = 0;
@@ -227,14 +230,26 @@ export class Unit implements IBase, IUnlockable {
   reloadBuildPrice() {
     this.buildPriceNext = this.getBuildPrice();
   }
-  addHabSpace(newHabSpace: Decimal) {
-    if (newHabSpace.gt(0) && this.quantity.gt(0)) {
-      const habSpace = Game.getGame().resourceManager.habitableSpace;
-      habSpace.quantity = habSpace.quantity.plus(
-        newHabSpace.times(this.quantity)
-      );
-    }
-    this.habSpace = this.habSpace.plus(newHabSpace);
+  // addHabSpace(newHabSpace: Decimal) {
+  //   if (newHabSpace.gt(0) && this.quantity.gt(0)) {
+  //     const habSpace = Game.getGame().resourceManager.habitableSpace;
+  //     habSpace.quantity = habSpace.quantity.plus(
+  //       newHabSpace.times(this.quantity)
+  //     );
+  //   }
+  //   this.habSpace = this.habSpace.plus(newHabSpace);
+  // }
+  reloadHabSpace() {
+    if (!this.habSpaceStack) return false;
+    const habSpace = Game.getGame().resourceManager.habitableSpace;
+    const old = this.habSpace;
+    this.habSpaceStack.reloadAdditiveBonus();
+    this.habSpace = this.habSpaceOriginal.plus(
+      this.habSpaceStack.totalAdditiveBonus
+    );
+    habSpace.quantity = habSpace.quantity.plus(
+      Decimal.minus(this.habSpace, old).times(this.quantity)
+    );
   }
   reloadAll() {
     this.modStack.reload();
@@ -244,6 +259,7 @@ export class Unit implements IBase, IUnlockable {
     this.reloadComponentPrice();
     this.reloadLimit();
   }
+  //#endregion
   //#region Mods
   makeMods() {
     this.modStack = new ModStack(this.id !== "e");

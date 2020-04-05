@@ -20,15 +20,12 @@ export class ResearchManager extends JobManager {
   backlog: Research[];
   technologies: Technology[];
   unlockedTechnologies: Technology[];
-
   researchPriority = 50;
   technologiesPriority = 50;
   specialProjectsPriority = 50;
-
   researchPerSec = ZERO;
   navalCapTech: Technology;
   roboticsTech: Technology;
-
   constructor() {
     super();
     this.makeResearches();
@@ -64,7 +61,7 @@ export class ResearchManager extends JobManager {
         name: shipyard.shipTypes[i].name,
         description: "Unlock " + shipyard.shipTypes[i].name,
         price: Decimal.pow(SHIP_PRICE_MULTI, i).times(SHIP_BASE_PRICE),
-        type: [TECHNOLOGIES.MilitaryEngineering],
+        type: [TECHNOLOGIES.MilitaryEngineering]
       };
       resData.navalCapacity =
         shipyard.shipTypes[i].navalCapacity * SHIP_RESEARCH_NAV_CAP_MULTI;
@@ -87,7 +84,7 @@ export class ResearchManager extends JobManager {
         description: "Unlock " + spaceStations[i].name,
         price: Decimal.pow(SPACE_STATION_MULTI, i).times(second.initialPrice),
         type: [TECHNOLOGIES.CivilEngineering],
-        unitsToUnlock: [spaceStations[i].id],
+        unitsToUnlock: [spaceStations[i].id]
       };
       if (i + 1 < n) {
         resData.researchToUnlock = ["i" + (i + 1)];
@@ -107,9 +104,9 @@ export class ResearchManager extends JobManager {
         stationToUp: [
           {
             stationId: spaceStations[i].id,
-            habSpace: spaceStations[i].habSpace,
-          },
-        ],
+            habSpace: spaceStations[i].habSpace
+          }
+        ]
       };
       resData.researchToUnlock.push(resDataUp.id);
       this.researches.push(new Research(resDataUp, this));
@@ -202,7 +199,7 @@ export class ResearchManager extends JobManager {
       e: this.unlockedTechnologies.map((t) => t.getSave()),
       p: this.technologiesPriority,
       r: this.researchPriority,
-      s: this.specialProjectsPriority,
+      s: this.specialProjectsPriority
     };
   }
   load(data: any) {

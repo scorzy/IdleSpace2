@@ -25,7 +25,7 @@ export const TECHNOLOGIES: { readonly [index: string]: ITechnologyData } = {
   CivilEngineering: {
     id: "i",
     name: "Civil Engineering",
-    icon: "setting",
+    icon: "fa-s:cog",
     darkColor: "#FA8C16",
     lightColor: "#FA8C16",
     price: new Decimal(1e3)
@@ -33,7 +33,7 @@ export const TECHNOLOGIES: { readonly [index: string]: ITechnologyData } = {
   Physics: {
     id: "p",
     name: "Physics",
-    icon: "my:atom",
+    icon: "fa-s:atom",
     darkColor: "#5298E4",
     lightColor: "#096DD9",
     price: new Decimal(1e3)

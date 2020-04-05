@@ -14,65 +14,52 @@
       [nzTipFormatter]="formatter"
     ></nz-slider>
 
-    <button
-      nz-button
-      nzType="default"
-      class="jobButton"
-      (mouseover)="setDetails(station)"
-      (click)="setDetails(station)"
-      *ngFor="
-        let station of ms.game.resourceManager.unlockedSpaceStations;
-        trackBy: getUnitId
-      "
-    >
-      {{ station.name }}
-    </button>
-
-    <div *ngIf="currentUnit" class="unit-container">
-      <nz-card
-        style="width:100%;"
-        nzSize="small"
-        [nzTitle]="currentUnit.name"
-        [nzActions]="[actionQueue]"
-        [nzExtra]="extraTemplate"
-      >
-        <ul class="list-unstyled">
-          <li *ngIf="currentUnit.habSpace.gt(0)">
-            <i
-              nz-icon
-              [ngClass]="ms.game.resourceManager.habitableSpace.colorClass"
-              [nzType]="ms.game.resourceManager.habitableSpace.icon"
-            ></i>
-            <strong>Habitable Space: </strong>
-            <span>{{ currentUnit.habSpace | format: true }}</span>
-          </li>
-          <li>
+    <nz-table nzTemplateMode nzSize="middle">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>
             <i
               nz-icon
               [nzType]="ms.game.resourceManager.shipyardWork.icon"
               [ngClass]="ms.game.resourceManager.shipyardWork.colorClass"
             ></i>
-            <strong>Price: </strong>
-            <span>{{ currentUnit.buildPriceNext | format: true }}</span>
-          </li>
-        </ul>
-      </nz-card>
-      <ng-template #actionQueue>
-        <button
-          nz-button
-          nzType="link"
-          nzSize="small"
-          (click)="addStation(currentUnit)"
+            Price
+          </th>
+          <th>
+            <i
+              nz-icon
+              [ngClass]="ms.game.resourceManager.habitableSpace.colorClass"
+              [nzType]="ms.game.resourceManager.habitableSpace.icon"
+            ></i>
+            Hab. Space
+          </th>
+          <th>Queue?</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="
+            let station of ms.game.resourceManager.unlockedSpaceStations;
+            trackBy: getUnitId
+          "
         >
-          Add
-        </button>
-      </ng-template>
-      <ng-template #extraTemplate>
-        <span class="monospace">
-          {{ currentUnit.quantity | format: true }}
-        </span>
-      </ng-template>
-    </div>
+          <td>{{ station.name }}</td>
+          <td class="monospace">{{ station.buildPriceNext | format }}</td>
+          <td class="monospace">{{ station.habSpace | format }}</td>
+          <td>
+            <button
+              nz-button
+              nzType="primary"
+              nzSize="small"
+              (click)="addStation(station)"
+            >
+              Queue
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
   </div>
   <div
     fxFlex.lt-md="100%"
