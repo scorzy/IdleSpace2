@@ -16,7 +16,7 @@
 }
 
 .levelNum {
-  min-width: 6rem;
+  width: 4rem;
 }
 .modSelect {
   i {
@@ -25,4 +25,8 @@
 }
 form {
   white-space: pre-line;
+}
+.module-select {
+  min-width: 30rem;
+  width: auto;
 }

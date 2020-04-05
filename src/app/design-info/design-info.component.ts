@@ -19,7 +19,7 @@ import { Subscription } from "rxjs";
 export class DesignInfoComponent implements OnInit, OnDestroy {
   @Input() original: ShipDesign;
   @Input() design: ShipDesign;
-  @Input() size = "small";
+  @Input() size = "middle";
   @Input() updateEmitter: EventEmitter<number>;
 
   private subscriptions: Subscription[] = [];

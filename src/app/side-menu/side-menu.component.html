@@ -59,10 +59,9 @@
       <li nz-menu-item nzMatchRouter>
         <a [routerLink]="'fleet'">Fleet</a>
       </li>
-      <li nz-menu-item nzMatchRouter>
-        <a [routerLink]="'/add'">
-          <i nz-icon nzType="plus-circle" nzTheme="outline"></i>
-          <span>Add</span>
+      <li nz-menu-item nzMatchRouterExact>
+        <a [routerLink]="'/des/add'">
+          <span>Designs</span>
         </a>
       </li>
       <li nz-menu-item nzMatchRouter>
@@ -70,7 +69,7 @@
           <span>Modules</span>
         </a>
       </li>
-      <li
+      <!-- <li
         nz-menu-item
         nzMatchRouter
         *ngFor="
@@ -86,7 +85,7 @@
             ><span>{{ design.name }}</span></ng-template
           >
         </a>
-      </li>
+      </li> -->
     </ul>
   </li>
   <li nz-submenu nzOpen nzTitle="Enemies" nzIcon="my:strafe">

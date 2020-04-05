@@ -18,6 +18,7 @@ import { BattleReportComponent } from "./battle-report/battle-report.component";
 import { SpaceStationsComponent } from "./space-stations/space-stations.component";
 import { TreeComponent } from "./laboratory/tree/tree.component";
 import { ModComponent } from "./units/mod/mod.component";
+import { ListComponent } from "./designer/list/list.component";
 
 export const routes: Routes = [
   { path: "", pathMatch: "full", redirectTo: "/units/ws" },
@@ -30,9 +31,14 @@ export const routes: Routes = [
   { path: "opt", pathMatch: "full", component: OptionsComponent },
   { path: "save", pathMatch: "full", component: SaveComponent },
   { path: "fleet", pathMatch: "full", component: ShipyardComponent },
-  { path: "des", pathMatch: "full", redirectTo: "/des/add" },
-  { path: "add", component: AddComponent },
-  { path: "edit/:id", component: EditComponent },
+  {
+    path: "des",
+    component: ListComponent,
+    children: [
+      { path: "edit/:id", component: EditComponent },
+      { path: "add", component: AddComponent },
+    ],
+  },
   { path: "search", component: SearchComponent },
   { path: "battle", component: BattleComponent },
   { path: "report", component: BattleReportComponent },
@@ -45,15 +51,15 @@ export const routes: Routes = [
       {
         path: "enemyDetail/:id",
         pathMatch: "full",
-        component: EnemyDetailComponent
+        component: EnemyDetailComponent,
       },
-      { path: "search", pathMatch: "full", component: SearchComponent }
-    ]
-  }
+      { path: "search", pathMatch: "full", component: SearchComponent },
+    ],
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
 export class AppRoutingModule {}

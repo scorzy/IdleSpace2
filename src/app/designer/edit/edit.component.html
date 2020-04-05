@@ -1,5 +1,10 @@
-<div fxLayout="row" fxLayout.lt-md="column" *ngIf="design" fxLayoutGap="1rem">
-  <div fxFlex="65">
+<div
+  fxLayout="row wrap"
+  fxLayout.lt-md="column"
+  *ngIf="design"
+  fxLayoutGap="1rem"
+>
+  <div fxFlex="65 1 0">
     <h1>
       {{ design.name }}
       <small>Rev. {{ design.rev | number }}</small>
@@ -59,17 +64,14 @@
           [nzErrorTip]="' ' + line.errorTip"
           [nzWarningTip]="' ' + line.warningTip"
         >
-          <div
-            fxLayout="row"
-            fxLayoutGap="0.5rem"
-            fxLayout="row"
-            fxLayout.lt-sm="column"
-          >
+          <div fxLayout="row wrap" fxLayoutGap="0.5rem" fxLayout.lt-sm="column">
             <nz-select
+              fxFlex="1 1 0"
               [name]="'module' + i"
               [(ngModel)]="line.moduleId"
               (ngModelChange)="moduleChange(i)"
               [nzCustomTemplate]="custom"
+              class="module-select"
             >
               <nz-option-group
                 [nzLabel]="group.name"
@@ -93,7 +95,7 @@
                     </i>
                     <span
                       fxLayout="row"
-                      fxLayout.xs="column"
+                      fxLayout.lt-xl="column"
                       fxLayoutAlign="space-between center"
                       fxFlex="100%"
                     >
@@ -113,7 +115,7 @@
                 [name]="'size' + i"
                 [(ngModel)]="line.size"
                 (ngModelChange)="reload()"
-                style="min-width: 7rem;"
+                style="width: 7rem;"
               >
                 <nz-option
                   *ngFor="let size of line.module.sizes; trackBy: getSizeId"
@@ -196,7 +198,7 @@
 
   <!-- Comparison Table -->
 
-  <div fxFlex="35">
+  <div fxFlex="35 1 0">
     <nz-tabset>
       <nz-tab nzTitle="Stats">
         <app-design-info

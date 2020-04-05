@@ -3,7 +3,7 @@ import {
   FormBuilder,
   Validators,
   FormGroup,
-  FormControl
+  FormControl,
 } from "@angular/forms";
 import { ShipType } from "src/app/model/shipyard/ShipType";
 import { MainService } from "src/app/main.service";
@@ -14,7 +14,7 @@ import { upperCase } from "lodash-es";
   selector: "app-add",
   templateUrl: "./add.component.html",
   styleUrls: ["./add.component.scss"],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AddComponent implements OnInit {
   validateForm: FormGroup;
@@ -28,11 +28,11 @@ export class AddComponent implements OnInit {
 
   ngOnInit(): void {
     this.unlockedTypes = this.ms.game.shipyardManager.shipTypes.filter(
-      t => t.unlocked || true
+      (t) => t.unlocked || true
     );
     this.validateForm = this.fb.group({
       name: [null, [Validators.required, this.nameValidator]],
-      type: [1, [Validators.required]]
+      type: [1, [Validators.required]],
     });
     this.getRandomName();
   }
@@ -49,7 +49,7 @@ export class AddComponent implements OnInit {
         this.getName(),
         this.validateForm.get("type").value
       );
-      if (id > -1) this.router.navigate(["/edit/" + id]);
+      if (id > -1) this.router.navigate(["/des/edit/" + id]);
     }
   }
 
@@ -72,8 +72,8 @@ export class AddComponent implements OnInit {
       return { error: true, required: true };
     } else if (
       this.ms.game.shipyardManager.shipDesigns
-        .map(s => upperCase(s.name))
-        .findIndex(n => n === upperCase(control.value)) > -1
+        .map((s) => upperCase(s.name))
+        .findIndex((n) => n === upperCase(control.value)) > -1
     ) {
       return { error: true, duplicated: true };
     }

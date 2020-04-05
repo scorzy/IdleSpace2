@@ -6,7 +6,7 @@
   <nz-sider
     [nzCollapsible]="isLarge"
     [(nzCollapsed)]="isCollapsed"
-    nzWidth="200px"
+    nzBreakpoint="xl"
     nzCollapsedWidth="50"
   >
     <ul
@@ -17,30 +17,24 @@
       (cdkDropListDropped)="drop($event)"
       cdkDropList
     >
-      <li nz-menu-item routerLink="/enemyList/search">
+      <li nz-menu-item routerLink="/des/add">
         <i nz-icon nzType="plus-circle"></i>
-        <span>Search</span>
+        <span>Add</span>
       </li>
       <li
         nz-menu-item
         nzMatchRouter
-        @fadeIn
-        *ngFor="let enemy of ms.game.enemyManager.enemies; trackBy: getEnemyId"
+        *ngFor="
+          let des of ms.game.shipyardManager.shipDesigns;
+          trackBy: getDesignId
+        "
         cdkDrag
       >
-        <a [routerLink]="'enemyDetail/' + enemy.id">
-          <i nz-icon [nzType]="enemy.icon"></i>
-          <strong *ngIf="!isCollapsed">{{ enemy.name }}</strong>
-          <span
-            [class.text-danger]="enemy.level > ms.game.enemyManager.maxLevel"
-          >
-            lv.
-            {{ enemy.level | number: "1.0-0" }}
-          </span>
+        <a [routerLink]="'edit/' + des.id">
+          <strong *ngIf="!isCollapsed">{{ des.name }}</strong>
         </a>
       </li>
     </ul>
   </nz-sider>
-
   <div class="inner-content"><router-outlet></router-outlet></div>
 </div>
