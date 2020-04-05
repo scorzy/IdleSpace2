@@ -45,7 +45,7 @@ export const UNITS: IUnitData[] = [
   {
     id: "S",
     name: "Science",
-    icon: "my:fizzing-flask",
+    icon: "fa-s:flask", //"my:fizzing-flask",
     description: "",
     colorClass: "science-color",
     unitType: UNIT_TYPES.MATERIAL,
@@ -53,7 +53,7 @@ export const UNITS: IUnitData[] = [
   {
     id: "W",
     name: "Production",
-    icon: "tool",
+    icon: "fa-s:wrench",
     description: "",
     colorClass: "production-color",
     unitType: UNIT_TYPES.MATERIAL,
@@ -69,7 +69,7 @@ export const UNITS: IUnitData[] = [
   {
     id: "x",
     name: "Components",
-    icon: "my:microchip",
+    icon: "fa-s:microchip",
     description: "",
     colorClass: "",
     limits: [
@@ -258,7 +258,7 @@ export const UNITS: IUnitData[] = [
     name: "Habitable Space",
     description: "",
     startQuantity: 10,
-    icon: "global",
+    icon: "fa-s:globe",
     colorClass: "habSpace-color",
     unitType: UNIT_TYPES.DISTRICT,
   },

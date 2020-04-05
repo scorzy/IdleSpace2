@@ -1,33 +1,24 @@
 span {
-  // display: block;
   line-height: 1rem;
-  // margin-left: 0.1rem;
-  // margin-right: 0.3rem;
   white-space: nowrap;
 }
 .container {
   display: flex;
   flex-direction: row;
-  // padding-left: 0.2rem;
-  // min-width: 5rem;
-  // font-size: 95%;
 }
 
 .mainContainer {
   display: flex;
   align-items: center;
-  font-weight: 600;
+  font-weight: 700;
   padding-top: 5px;
   padding-bottom: 5px;
-  // min-width: 8rem;
-  // max-width: 11rem;
   flex-basis: auto;
   flex-grow: 1;
   cursor: pointer;
   [nz-icon] {
     margin-right: 4px;
     margin-left: 4px;
-    // font-size: 24px;
   }
 }
 .matContainer {
@@ -38,16 +29,14 @@ span {
 
 @media only screen and (max-width: 1000px) {
   .mainContainer {
-    // width: 7rem;
-    // max-width: 7rem;
     [nz-icon] {
       margin-right: 7px;
       margin-left: 7px;
-      // font-size: 24px;
     }
   }
 }
 .min-width {
-  min-width: 4rem;
+  min-width: 3rem;
   display: inline-block;
+  margin-right: 0.5rem;
 }
