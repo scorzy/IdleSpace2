@@ -45,7 +45,7 @@ export const UNITS: IUnitData[] = [
   {
     id: "S",
     name: "Science",
-    icon: "fa-s:flask", //"my:fizzing-flask",
+    icon: "fa-s:flask", // "my:fizzing-flask",
     description: "",
     colorClass: "science-color",
     unitType: UNIT_TYPES.MATERIAL,

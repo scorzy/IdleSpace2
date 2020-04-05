@@ -32,7 +32,7 @@
         cdkDrag
       >
         <a [routerLink]="'edit/' + des.id">
-          <strong *ngIf="!isCollapsed">{{ des.name }}</strong>
+          <strong *ngIf="!ms.designListCollapsed">{{ des.name }}</strong>
         </a>
       </li>
     </ul>
