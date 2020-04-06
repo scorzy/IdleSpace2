@@ -58,6 +58,8 @@ import { TreeComponent } from "./laboratory/tree/tree.component";
 import { ModComponent } from "./units/mod/mod.component";
 import { ModLineComponent } from "./units/mod-line/mod-line.component";
 import { ListComponent } from './designer/list/list.component';
+import { BiComponent } from './units/bi/bi.component';
+import { ProdTableComponent } from './units/prod-table/prod-table.component';
 
 registerLocaleData(en);
 
@@ -103,7 +105,9 @@ const ngZorroConfig: NzConfig = {
     TreeComponent,
     ModComponent,
     ModLineComponent,
-    ListComponent
+    ListComponent,
+    BiComponent,
+    ProdTableComponent
   ],
   imports: [
     BrowserModule,

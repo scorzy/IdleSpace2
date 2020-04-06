@@ -1,0 +1,41 @@
+<div fxLayout="row wrap" fxLayoutGap="1rem">
+  <nz-card nzSize="small" class="my-card" [nzTitle]="cardTitleTemplate">
+    <p *ngIf="unit.description">{{ unit.description }}</p>
+    <ul class="list-unstyled">
+      <li>
+        Quantity: <span class="monospace">{{ unit.quantity | format }}</span>
+      </li>
+      <li *ngIf="unit.uiLimit.lt(Number.POSITIVE_INFINITY)">
+        Limit: <span class="monospace">{{ unit.uiLimit | format }}</span>
+      </li>
+    </ul>
+  </nz-card>
+
+  <ng-template #cardTitleTemplate>
+    <i
+      nz-icon
+      [nzType]="unit.icon"
+      [ngClass]="unit.colorClass"
+      class="icon"
+    ></i>
+    <strong class="title">{{ unit.name }}</strong>
+  </ng-template>
+
+  <nz-card
+    nzSize="small"
+    class="my-card"
+    nzTitle="Producers"
+    *ngIf="unit.makers.length > 0"
+  >
+    <app-prod-info [unit]="unit"></app-prod-info>
+  </nz-card>
+
+  <nz-card
+    nzSize="small"
+    class="my-card"
+    nzTitle="Production"
+    *ngIf="unit.production.length > 0"
+  >
+    <app-prod-table [unit]="unit"></app-prod-table>
+  </nz-card>
+</div>

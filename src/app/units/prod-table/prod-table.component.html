@@ -1,0 +1,56 @@
+<nz-table
+  #nestedTable
+  #middleTable
+  nzSize="middle"
+  [nzData]="unit.production"
+  [nzShowPagination]="false"
+  class="prod-table"
+>
+  <thead>
+    <tr>
+      <th>Product</th>
+      <th>Ratio</th>
+      <th>Total</th>
+    </tr>
+  </thead>
+  <tbody>
+    <ng-template
+      ngFor
+      let-data
+      [ngForOf]="nestedTable.data"
+      [ngForTrackBy]="getProdId"
+    >
+      <tr>
+        <td [ngClass]="data.product.colorClass">
+          <i
+            nz-icon
+            [nzType]="data.product.icon"
+            [style.color]="data.product.color"
+          ></i>
+          {{ data.product.name }}
+        </td>
+        <td>
+          <span
+            nz-text
+            class="monospace"
+            [nzType]="data.ratio.gte(0) ? '' : 'danger'"
+            >{{ data.ratio | format }}</span
+          >
+        </td>
+        <td class="total">
+          <span
+            nz-text
+            class="monospace"
+            [nzType]="data.prodPerSec.gte(0) ? '' : 'danger'"
+            >{{ data.prodPerSec.times(unit.quantity) | format }}</span
+          >
+        </td>
+      </tr>
+      <tr>
+        <td colspan="4">
+          <app-sub-table [data]="data" [unit]="unit"></app-sub-table>
+        </td>
+      </tr>
+    </ng-template>
+  </tbody>
+</nz-table>

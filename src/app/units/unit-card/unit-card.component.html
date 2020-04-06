@@ -101,11 +101,11 @@
   <span class="infoIcon" *ngIf="unit.production.length > 0">
     <span
       nz-popover
-      [nzPopoverTitle]="titleTemplate"
       [nzPopoverContent]="contentTemplate"
       [nzPopoverTrigger]="popoverTrigger"
       (click)="createModal(contentTemplate, tplFooter)"
     >
+      <!-- [nzPopoverTitle]="titleTemplate" -->
       <i nz-icon nzType="info-circle" nzTheme="outline"></i>
     </span>
   </span>
@@ -127,66 +127,8 @@
 
 <!-- Production Table -->
 <ng-template #contentTemplate>
-  <nz-table
-    #nestedTable
-    #middleTable
-    nzSize="middle"
-    [nzData]="unit.production"
-    [nzShowPagination]="false"
-    class="prod-table"
-  >
-    <thead>
-      <tr>
-        <!-- <th nzShowExpand></th> -->
-        <th>Product</th>
-        <th>Ratio</th>
-        <th>Total</th>
-      </tr>
-    </thead>
-    <tbody>
-      <ng-template
-        ngFor
-        let-data
-        [ngForOf]="nestedTable.data"
-        [ngForTrackBy]="getProdId"
-      >
-        <tr>
-          <!-- <td nzShowExpand [(nzExpand)]="data.expand"></td> -->
-          <td [ngClass]="data.product.colorClass">
-            <i
-              nz-icon
-              [nzType]="data.product.icon"
-              [style.color]="data.product.color"
-            ></i>
-            {{ data.product.name }}
-          </td>
-          <td>
-            <span
-              nz-text
-              class="monospace"
-              [nzType]="data.ratio.gte(0) ? '' : 'danger'"
-              >{{ data.ratio | format }}</span
-            >
-          </td>
-          <td class="total">
-            <span
-              nz-text
-              class="monospace"
-              [nzType]="data.prodPerSec.gte(0) ? '' : 'danger'"
-              >{{ data.prodPerSec.times(unit.quantity) | format }}</span
-            >
-          </td>
-        </tr>
-
-        <!-- <tr [nzExpand]="data.expand"> -->
-        <tr>
-          <td colspan="4">
-            <app-sub-table [data]="data" [unit]="unit"></app-sub-table>
-          </td>
-        </tr>
-      </ng-template>
-    </tbody> </nz-table
-></ng-template>
+  <app-prod-table [unit]="unit"></app-prod-table>
+</ng-template>
 
 <!-- Buttons -->
 <ng-template #buyOne>

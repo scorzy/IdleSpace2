@@ -6,6 +6,7 @@ import { testImports } from "../app.component.spec";
 import { FormatPipe } from "../format.pipe";
 import { MainService } from "../main.service";
 import { OptionsService } from "../options.service";
+import { Game } from "../model/game";
 
 describe("SpaceStationsComponent", () => {
   let component: SpaceStationsComponent;
@@ -23,6 +24,7 @@ describe("SpaceStationsComponent", () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(SpaceStationsComponent);
     component = fixture.componentInstance;
+    component.ms.game = new Game();
     fixture.detectChanges();
   });
 

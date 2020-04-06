@@ -10,7 +10,6 @@ import { Unit } from "../model/units/unit";
 import { CdkDragDrop, moveItemInArray } from "@angular/cdk/drag-drop";
 import { Subscription } from "rxjs";
 import { fadeIn } from "../animations";
-import { SearchComponent } from "../enemy/search/search.component";
 
 @Component({
   selector: "app-space-stations",
@@ -61,6 +60,7 @@ export class SpaceStationsComponent implements OnInit, OnDestroy {
     this.search();
   }
   search() {
+    if (this.ms.game.resourceManager.unlockedSpaceStations.length < 1) return;
     if (this.sortName && this.sortValue) {
       if (
         this.ms.game.resourceManager.unlockedSpaceStations[0][

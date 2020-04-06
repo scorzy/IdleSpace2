@@ -84,13 +84,13 @@ export class TreeComponent implements OnInit, AfterViewInit, OnDestroy {
 
     // create a network
     const container = document.getElementById("techTree");
-    var x = -container.clientWidth / 2 + 50;
-    var y = -container.clientHeight / 2 + 50;
-    var step = 10;
+    let x = -container.clientWidth / 2 + 50;
+    let y = -container.clientHeight / 2 + 50;
+    let step = 10;
     nodes.add({
       id: 10000,
-      x: x,
-      y: y,
+      x,
+      y,
       label: "Done",
       color: doneColor,
       value: 1,
@@ -100,8 +100,8 @@ export class TreeComponent implements OnInit, AfterViewInit, OnDestroy {
     });
     nodes.add({
       id: 10001,
-      x: x,
-      y: y,
+      x,
+      y,
       label: "Available",
       color: notAvailableColor,
       value: 1,
@@ -111,8 +111,8 @@ export class TreeComponent implements OnInit, AfterViewInit, OnDestroy {
     });
     nodes.add({
       id: 10002,
-      x: x,
-      y: y,
+      x,
+      y,
       label: "Not Available",
       color: toDoColor,
       value: 1,

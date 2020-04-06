@@ -24,6 +24,9 @@
       >
         <a [routerLink]="'space'">Space Stations</a>
       </li>
+      <li nz-menu-item nzMatchRouter>
+        <a [routerLink]="'bi'">Bi</a>
+      </li>
     </ul>
   </li>
   <li
@@ -69,30 +72,10 @@
           <span>Modules</span>
         </a>
       </li>
-      <!-- <li
-        nz-menu-item
-        nzMatchRouter
-        *ngFor="
-          let design of ms.game.shipyardManager.shipDesigns;
-          trackBy: getDesignId
-        "
-      >
-        <a [routerLink]="'/edit/' + design.id">
-          <span *ngIf="isCollapsed; else allName">{{
-            design.name.substring(0, 3)
-          }}</span>
-          <ng-template #allName
-            ><span>{{ design.name }}</span></ng-template
-          >
-        </a>
-      </li> -->
     </ul>
   </li>
   <li nz-submenu nzOpen nzTitle="Enemies" nzIcon="my:strafe">
     <ul>
-      <!-- <li nz-menu-item nzMatchRouter routerLink="enemyList/search">
-        <a>Search</a>
-      </li> -->
       <li nz-menu-item nzMatchRouterExact routerLink="enemyList/search">
         <a>Enemies</a>
       </li>
@@ -104,7 +87,6 @@
       </li>
     </ul>
   </li>
-
   <li nz-submenu nzOpen nzTitle="Setting" nzIcon="fa-s:sliders-h">
     <ul>
       <li nz-menu-item nzMatchRouter>
