@@ -158,15 +158,15 @@ export class Unit implements IBase, IUnlockable {
 
     this.limitStack.reloadBonus();
     this.limitStack.reloadAdditiveBonus();
-    this.limit = this.limitStack.totalAdditiveBonus;
+    let newLimit = this.limitStack.totalAdditiveBonus;
     this.limitTemp = this.limit;
 
     if (this.modStack && this.modStack.droneMod) {
-      this.limit = this.limit.times(this.modStack.droneMod.totalBonus);
+      newLimit = newLimit.times(this.modStack.droneMod.totalBonus);
       this.limitTemp = this.limit.times(this.modStack.droneMod.totalBonusTemp);
     }
-
-    this.quantity = this.quantity.min(this.limit);
+    if (!newLimit.eq(this.limit)) this.limit = newLimit;
+    // this.quantity = this.quantity.min(this.limit);
   }
   reloadMaxBuy() {
     this.buyPrice.reload(

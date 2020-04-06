@@ -16,7 +16,7 @@ export class FormatPipe implements PipeTransform {
 
   transform(value1: any, integer?: boolean): any {
     if (!(value1 instanceof Decimal)) value1 = new Decimal(value1);
-    // console.log(value);
+    // console.log(value1);
 
     // let index = "";
     const formatter = this.options.formatter;

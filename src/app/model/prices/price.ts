@@ -21,7 +21,8 @@ export class Price {
   reload(bought: Decimal, numWanted: Decimal = ONE) {
     const tempMultiCost = this.getPrice(numWanted, bought);
     if (!tempMultiCost.eq(this.multiCost)) this.multiCost = tempMultiCost;
-    this.singleCost = this.getPrice(ONE, bought);
+    const newCost = this.getPrice(ONE, bought);
+    if (!this.singleCost.eq(newCost)) this.singleCost = newCost;
 
     if (this.spendable.quantity.lte(0)) {
       this.maxBuy = new Decimal(0);
