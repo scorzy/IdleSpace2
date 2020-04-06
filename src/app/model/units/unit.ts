@@ -56,6 +56,7 @@ export class Unit implements IBase, IUnlockable {
   habSpace = ZERO;
   habSpaceOriginal = ZERO;
   habSpaceStack: BonusStack;
+  habSpaceDivPrice = ZERO;
   buildPriceNext = ZERO;
   modStack: ModStack;
   maxMods: Decimal = ZERO;
@@ -250,6 +251,7 @@ export class Unit implements IBase, IUnlockable {
     habSpace.quantity = habSpace.quantity.plus(
       Decimal.minus(this.habSpace, old).times(this.quantity)
     );
+    this.habSpaceDivPrice = this.habSpace.div(this.buildPriceNext).times(1e12);
   }
   reloadAll() {
     this.modStack.reload();

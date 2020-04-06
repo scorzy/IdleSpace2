@@ -14,11 +14,16 @@
       [nzTipFormatter]="formatter"
     ></nz-slider>
 
-    <nz-table nzTemplateMode nzSize="middle">
-      <thead>
+    <nz-table
+      #stationsTable
+      nzSize="middle"
+      [nzData]="listOfStations"
+      [nzShowPagination]="false"
+    >
+      <thead (nzSortChange)="sort($event)" nzSingleSort>
         <tr>
-          <th>Name</th>
-          <th>
+          <th nzShowSort nzSortKey="id">Name</th>
+          <th nzShowSort nzSortKey="buildPriceNext">
             <i
               nz-icon
               [nzType]="ms.game.resourceManager.shipyardWork.icon"
@@ -26,7 +31,7 @@
             ></i>
             Price
           </th>
-          <th>
+          <th nzShowSort nzSortKey="habSpace">
             <i
               nz-icon
               [ngClass]="ms.game.resourceManager.habitableSpace.colorClass"
@@ -34,25 +39,24 @@
             ></i>
             Hab. Space
           </th>
+          <th nzShowSort nzSortKey="habSpaceDivPrice">
+            1e12 Space/Price
+          </th>
           <th>Queue?</th>
         </tr>
       </thead>
       <tbody>
-        <tr
-          *ngFor="
-            let station of ms.game.resourceManager.unlockedSpaceStations;
-            trackBy: getUnitId
-          "
-        >
-          <td>{{ station.name }}</td>
-          <td class="monospace">{{ station.buildPriceNext | format }}</td>
-          <td class="monospace">{{ station.habSpace | format }}</td>
+        <tr *ngFor="let data of stationsTable.data; trackBy: getUnitId">
+          <td>{{ data.name }}</td>
+          <td class="monospace">{{ data.buildPriceNext | format }}</td>
+          <td class="monospace">{{ data.habSpace | format }}</td>
+          <td class="monospace">{{ data.habSpaceDivPrice | format }}</td>
           <td>
             <button
               nz-button
               nzType="primary"
               nzSize="small"
-              (click)="addStation(station)"
+              (click)="addStation(data)"
             >
               Queue
             </button>

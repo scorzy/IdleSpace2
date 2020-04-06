@@ -10,6 +10,7 @@ import { Unit } from "../model/units/unit";
 import { CdkDragDrop, moveItemInArray } from "@angular/cdk/drag-drop";
 import { Subscription } from "rxjs";
 import { fadeIn } from "../animations";
+import { SearchComponent } from "../enemy/search/search.component";
 
 @Component({
   selector: "app-space-stations",
@@ -20,12 +21,13 @@ import { fadeIn } from "../animations";
 })
 export class SpaceStationsComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
-  currentUnit: Unit;
-
+  sortName: string | null = "id";
+  sortValue: string | null = "ascend";
+  listOfStations: Unit[];
   constructor(public ms: MainService, private cd: ChangeDetectorRef) {}
 
   ngOnInit() {
-    this.currentUnit = this.ms.game.resourceManager.spaceStations[0];
+    this.search();
     this.subscriptions.push(
       this.ms.updateEmitter.subscribe(() => {
         this.cd.markForCheck();
@@ -38,9 +40,6 @@ export class SpaceStationsComponent implements OnInit, OnDestroy {
   addStation(unit: Unit) {
     if (!unit) return false;
     this.ms.game.spaceStationManager.addJob(unit);
-  }
-  setDetails(unit: Unit) {
-    this.currentUnit = unit;
   }
   drop(event: CdkDragDrop<string[]>): void {
     moveItemInArray(
@@ -55,5 +54,39 @@ export class SpaceStationsComponent implements OnInit, OnDestroy {
   }
   formatter(value: number): string {
     return `${value}%`;
+  }
+  sort(sort: { key: string; value: string }): void {
+    this.sortName = sort.key;
+    this.sortValue = sort.value;
+    this.search();
+  }
+  search() {
+    if (this.sortName && this.sortValue) {
+      if (
+        this.ms.game.resourceManager.unlockedSpaceStations[0][
+          this.sortName!
+        ] instanceof Decimal
+      ) {
+        this.listOfStations = this.ms.game.resourceManager.unlockedSpaceStations
+          .slice()
+          .sort((a, b) =>
+            this.sortValue === "ascend"
+              ? a[this.sortName!].cmp(b[this.sortName!])
+              : b[this.sortName!].cmp(a[this.sortName!])
+          );
+      } else {
+        this.listOfStations = this.ms.game.resourceManager.unlockedSpaceStations
+          .slice()
+          .sort((a, b) =>
+            this.sortValue === "ascend"
+              ? a[this.sortName!] > b[this.sortName!]
+                ? 1
+                : -1
+              : b[this.sortName!] > a[this.sortName!]
+              ? 1
+              : -1
+          );
+      }
+    }
   }
 }
