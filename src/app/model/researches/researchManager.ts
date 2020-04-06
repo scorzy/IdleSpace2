@@ -58,6 +58,7 @@ export class ResearchManager extends JobManager {
     for (let i = 1, n = shipyard.shipTypes.length; i < n; i++) {
       const resData: IResearchData = {
         id: "s" + i,
+        max: 1,
         name: shipyard.shipTypes[i].name,
         description: "Unlock " + shipyard.shipTypes[i].name,
         price: Decimal.pow(SHIP_PRICE_MULTI, i).times(SHIP_BASE_PRICE),
@@ -80,6 +81,7 @@ export class ResearchManager extends JobManager {
       // Space station
       const resData: IResearchData = {
         id: "i" + i,
+        max: 1,
         name: spaceStations[i].name,
         description: "Unlock " + spaceStations[i].name,
         price: Decimal.pow(SPACE_STATION_MULTI, i).times(second.initialPrice),

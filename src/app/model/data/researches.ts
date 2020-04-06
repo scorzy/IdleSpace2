@@ -139,6 +139,7 @@ export const RESEARCHES: IResearchData[] = [
     id: "b",
     name: "Nuke",
     description: "Nuke",
+    max: 1,
     price: 100,
     type: [TECHNOLOGIES.MilitaryEngineering],
     unitsToUnlock: ["b", "B", "10", "11"]
