@@ -21,7 +21,7 @@ export class Research extends Job implements IUnlockable, IBase {
   visId = 0;
   visLevel = 0;
   private originalName: string;
-  max = Number.MAX_SAFE_INTEGER;
+  max = 1;
   unitsToUnlock?: IUnlockable[];
   researchToUnlock?: Research[];
   technologiesToUnlock?: IUnlockable[];
@@ -44,6 +44,8 @@ export class Research extends Job implements IUnlockable, IBase {
     const rs = Game.getGame().resourceManager;
     if ("max" in researchData) {
       this.max = researchData.max;
+    } else {
+      this.max = 10;
     }
     this.growRate = RESEARCH_GROW_RATE;
     if ("growRate" in researchData) {

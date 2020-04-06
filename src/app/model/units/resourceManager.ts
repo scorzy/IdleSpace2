@@ -303,11 +303,13 @@ export class ResourceManager {
       });
   }
   postUpdate() {
-    this.unlockedUnits.forEach((unit) => {
-      unit.postUpdate();
-    });
+    for (let i = 0, n = this.unlockedUnits.length; i < n; i++) {
+      this.unlockedUnits[i].postUpdate();
+    }
     this.deployComponents();
-    this.spaceStations.forEach((st) => st.reloadHabSpace());
+    for (let i = 0, n = this.spaceStations.length; i < n; i++) {
+      this.spaceStations[i].reloadHabSpace();
+    }
   }
   deployComponents() {
     if (this.components.quantity.lte(0.1)) return false;

@@ -8,9 +8,13 @@ export abstract class JobManager {
   addProgress(prog: Decimal): Decimal {
     let toAdd = prog;
     while (toAdd.gt(0) && this.toDo.length > 0) {
+      // console.log(this.toDo[0].name + " " + this.toDo[0].level);
       const prevLevel = this.toDo[0].level;
       toAdd = this.toDo[0].addProgress(toAdd);
-      if (this.toDo[0].level > prevLevel) {
+      if (
+        this.toDo[0].level > prevLevel ||
+        this.toDo[0].level >= this.toDo[0].max
+      ) {
         this.onJobComplete();
       }
     }

@@ -79,7 +79,9 @@ export class Game {
   update(delta: number) {
     let toUpdate = delta;
     this.processBattles();
+    let n = 0;
     while (toUpdate > 0) {
+      n++;
       this.resourceManager.shipyardWork.limit = this.shipyardManager
         .getWorkNeeded()
         .plus(this.spaceStationManager.getWorkNeeded());
@@ -107,6 +109,7 @@ export class Game {
       this.resourceManager.shipyardWork.quantity = ZERO;
       this.enemyManager.addProgress(this.resourceManager.search.quantity);
       this.resourceManager.search.quantity = ZERO;
+      // console.log(n + " " + toUpdate);
     }
   }
   reloadWorkPerSec() {
@@ -129,15 +132,21 @@ export class Game {
   }
   postUpdate() {
     this.reloadWorkPerSec();
-    this.researchManager.technologies.forEach(t => t.bonus.reloadBonus());
+    for (let i = 0, n = this.researchManager.technologies.length; i < n; i++) {
+      this.researchManager.technologies[i].bonus.reloadBonus();
+    }
     const resNotAdded = this.researchManager.addProgress(
       this.resourceManager.science.quantity
     );
     this.resourceManager.science.quantity = resNotAdded;
     this.resourceManager.reloadProduction();
     this.resourceManager.postUpdate();
-    this.researchManager.toDo.forEach(r => r.reloadTotalBonus());
-    this.researchManager.backlog.forEach(r => r.reloadTotalBonus());
+    for (let i = 0, n = this.researchManager.toDo.length; i < n; i++) {
+      this.researchManager.toDo[i].reloadTotalBonus();
+    }
+    for (let i = 0, n = this.researchManager.backlog.length; i < n; i++) {
+      this.researchManager.backlog[i].reloadTotalBonus();
+    }
     if (this.updateNavalCapacity) {
       this.reloadNavalCapacity();
       this.updateNavalCapacity = false;
@@ -192,7 +201,7 @@ export class Game {
     }
   }
   setTheme() {
-    this.researchManager.technologies.forEach(tech => {
+    this.researchManager.technologies.forEach((tech) => {
       tech.setTheme();
     });
   }
