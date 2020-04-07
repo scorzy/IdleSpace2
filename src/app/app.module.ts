@@ -60,6 +60,7 @@ import { ModLineComponent } from "./units/mod-line/mod-line.component";
 import { ListComponent } from './designer/list/list.component';
 import { BiComponent } from './units/bi/bi.component';
 import { ProdTableComponent } from './units/prod-table/prod-table.component';
+import { AutoAttackOptionsComponent } from './battle/auto-attack-options/auto-attack-options.component';
 
 registerLocaleData(en);
 
@@ -107,7 +108,8 @@ const ngZorroConfig: NzConfig = {
     ModLineComponent,
     ListComponent,
     BiComponent,
-    ProdTableComponent
+    ProdTableComponent,
+    AutoAttackOptionsComponent
   ],
   imports: [
     BrowserModule,

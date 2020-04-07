@@ -3,7 +3,7 @@ import {
   OnInit,
   ChangeDetectionStrategy,
   OnDestroy,
-  ChangeDetectorRef,
+  ChangeDetectorRef
 } from "@angular/core";
 import { Subscription } from "rxjs";
 import { MainService } from "../main.service";
@@ -14,7 +14,7 @@ import { Cell } from "../model/enemy/cell";
   selector: "app-battle",
   templateUrl: "./battle.component.html",
   styleUrls: ["./battle.component.scss"],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BattleComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
@@ -23,6 +23,7 @@ export class BattleComponent implements OnInit, OnDestroy {
   activeCells = new Array<{ label: string; value: number }>();
   needNuke = ZERO;
   nukePercent = 0;
+  autoAttackOptions = false;
 
   constructor(public ms: MainService, private cd: ChangeDetectorRef) {}
 
@@ -62,7 +63,7 @@ export class BattleComponent implements OnInit, OnDestroy {
       if (!cell.done) {
         this.activeCells.push({
           label: "" + (1 + cell.index),
-          value: cell.index,
+          value: cell.index
         });
         if (this.activeCells.length >= this.ms.game.shipyardManager.maxFleet) {
           break;

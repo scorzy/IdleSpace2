@@ -16,10 +16,11 @@ import {
   METAL_OPT,
   ENERGY_OPT,
   SCIENCE_OPT,
-  COMPONENT_OPT,
+  COMPONENT_OPT
 } from "../data/searchOptions";
 import { solveEquation } from "ant-utils";
 import { UNIT_TYPES } from "../data/units";
+import { AutoAttackOption } from "./autoAttackOptions";
 
 export class EnemyManager extends JobManager {
   enemies = new Array<Enemy>();
@@ -29,6 +30,8 @@ export class EnemyManager extends JobManager {
   maxLevel = 0;
   nukeDamageMulti = new BonusStack();
   nukeDamage = ZERO;
+  autoAttackEnabled = false;
+  autoAttackOptions: AutoAttackOption[];
   //#region Bonus
   districtMultiplier: BonusStack = new BonusStack();
   resourceMultiplier: BonusStack = new BonusStack();
@@ -48,6 +51,10 @@ export class EnemyManager extends JobManager {
   constructor() {
     super();
     this.fleetsInBattle = new Array(FLEET_NUMBER);
+    this.autoAttackOptions = new Array<AutoAttackOption>();
+    for (let i = 0; i < 5; i++) {
+      this.autoAttackOptions[i] = new AutoAttackOption();
+    }
 
     this.habitabilityOpt = new SearchOption(HABITABILITY_OPT);
     this.metalOpt = new SearchOption(METAL_OPT);
@@ -64,7 +71,7 @@ export class EnemyManager extends JobManager {
       this.scienceOpt,
       this.componentOpt,
       this.difficultyOpt,
-      this.distanceOpt,
+      this.distanceOpt
     ];
   }
   search(level: number) {
@@ -236,7 +243,11 @@ export class EnemyManager extends JobManager {
       e: this.enemies.map((en) => en.getSave()),
       t: this.toDo.map((t) => t.getSave()),
       m: this.maxLevel,
+      a: this.autoAttackOptions
     };
+    if (this.autoAttackEnabled) {
+      ret.p = this.autoAttackEnabled;
+    }
     const searchData = this.searchOptions
       .filter((s) => s.quantity !== 0)
       .map((s) => s.getData());

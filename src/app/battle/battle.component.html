@@ -29,6 +29,26 @@
       <button nz-button nzType="primary" (click)="attack(4)">Attack 5</button>
     </nz-button-group>
 
+    <form nz-form [nzLayout]="'inline'">
+      <nz-form-item>
+        <nz-form-label nzFor="auto">Auto Attack</nz-form-label>
+        <nz-form-control>
+          <nz-switch
+            name="auto"
+            id="auto"
+            [(ngModel)]="ms.game.enemyManager.autoAttackEnabled"
+          ></nz-switch>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-control>
+          <button nz-button nzType="primary" (click)="autoAttackOptions = true">
+            Options
+          </button>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+
     <app-battle-table></app-battle-table>
   </div>
 
@@ -73,3 +93,18 @@
     ></app-ships-view>
   </div>
 </div>
+
+<nz-drawer
+  [nzBodyStyle]="{
+    height: 'calc(100% - 55px)',
+    overflow: 'auto',
+    'padding-bottom': '53px'
+  }"
+  [nzMaskClosable]="true"
+  [nzWidth]="720"
+  [nzVisible]="autoAttackOptions"
+  nzTitle="Auto Attack Option"
+  (nzOnClose)="autoAttackOptions = false"
+>
+  <app-auto-attack-options></app-auto-attack-options>
+</nz-drawer>
