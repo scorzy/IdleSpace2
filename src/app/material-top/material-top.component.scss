@@ -10,11 +10,13 @@ span {
 .mainContainer {
   display: flex;
   align-items: center;
+  align-content: center;
   font-weight: 600;
   padding-top: 5px;
   padding-bottom: 5px;
   flex-basis: auto;
   flex-grow: 1;
+
   cursor: pointer;
   [nz-icon] {
     margin-right: 4px;
@@ -25,6 +27,7 @@ span {
   display: flex;
   justify-content: flex-start;
   flex-wrap: wrap;
+  height: 100%;
 }
 
 @media only screen and (max-width: 1000px) {

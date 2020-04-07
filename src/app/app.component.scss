@@ -8,25 +8,15 @@
 .headerRow {
   display: flex;
   flex-flow: row wrap;
-  align-items: stretch;
+  align-items: center;
+  align-content: center;
 }
 app-material-top {
   flex: 1 0;
   line-height: 1rem;
 }
 
-.app-layout {
-  height: 100vh;
-}
-
-.menu-sidebar {
-  position: relative;
-  z-index: 10;
-  min-height: 100vh;
-}
-
 .header-trigger {
-  height: 64px;
   font-size: 20px;
   cursor: pointer;
   transition: all 0.3s, padding 0s;
@@ -68,13 +58,6 @@ nz-header {
   }
   .headerRow {
     justify-content: space-between;
-  }
-  header-right {
-    flex-basis: 100%;
-  }
-  app-material-top {
-    order: 3;
-    flex-basis: 100%;
   }
 }
 

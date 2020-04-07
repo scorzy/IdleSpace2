@@ -1,50 +1,54 @@
-<nz-layout *ngIf="ms.game && ms.ready" class="app-layout" @fadeIn>
-  <nz-sider
-    class="menu-sidebar"
-    nzCollapsible
-    nzBreakpoint="xl"
-    [(nzCollapsed)]="ms.isCollapsed"
-    [nzTheme]="ms.sideTheme"
-    nzCollapsedWidth="50"
-  >
-    <!-- nzWidth="256px" -->
-    <app-side-menu [isCollapsed]="ms.isCollapsed"></app-side-menu>
-  </nz-sider>
-  <nz-layout>
-    <nz-header>
-      <div
-        class="app-header"
-        [ngClass]="os.darkHeader ? 'dark-background' : 'light-background'"
-      >
-        <div class="headerRow">
-          <span class="header-trigger t2" (click)="visible = !visible">
-            <i
-              class="trigger"
-              nz-icon
-              [nzType]="ms.isCollapsed ? 'menu-unfold' : 'menu-fold'"
-            ></i>
-          </span>
+<nz-layout
+  *ngIf="ms.game && ms.ready"
+  class="app-layout"
+  @fadeIn
+  style="height: 100vh;"
+>
+  <nz-header>
+    <div
+      class="app-header"
+      [ngClass]="os.darkHeader ? 'dark-background' : 'light-background'"
+    >
+      <div class="headerRow">
+        <span class="header-trigger t2" (click)="visible = !visible">
+          <i
+            class="trigger"
+            nz-icon
+            [nzType]="ms.isCollapsed ? 'menu-unfold' : 'menu-fold'"
+          ></i>
+        </span>
+        <app-material-top></app-material-top>
+        <div class="header-right">
+          <a>
+            <nz-badge [nzCount]="5">
+              <i nz-icon nzType="bell" nzTheme="outline"></i> </nz-badge
+          ></a>
 
-          <app-material-top></app-material-top>
-
-          <div class="header-right">
-            <!-- <nz-badge [nzCount]="5">
-              <i nz-icon nzType="bell" nzTheme="outline"></i>
-            </nz-badge> -->
-
-            <!-- <button nz-button nzType="default" class="pad">
-              <i nz-icon nzType="setting"></i>
-            </button> -->
-          </div>
+          <!-- <button nz-button nzType="default" class="pad">
+            <i nz-icon nzType="setting"></i>
+          </button> -->
         </div>
       </div>
-    </nz-header>
+    </div>
+  </nz-header>
+  <nz-layout>
+    <nz-sider
+      class="menu-sidebar"
+      nzCollapsible
+      nzBreakpoint="xl"
+      [(nzCollapsed)]="ms.isCollapsed"
+      [nzTheme]="ms.sideTheme"
+      nzCollapsedWidth="50"
+    >
+      <!-- nzWidth="256px" -->
+      <app-side-menu [isCollapsed]="ms.isCollapsed"></app-side-menu>
+    </nz-sider>
+
     <nz-content>
       <div [class.inner-content]="ms.innerContent" class="full-height">
         <router-outlet></router-outlet>
       </div>
     </nz-content>
-    <!-- <nz-footer><app-material-top></app-material-top></nz-footer> -->
   </nz-layout>
 </nz-layout>
 
