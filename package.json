@@ -11,7 +11,7 @@
     "lint:fix": "ng lint --fix",
     "e2e": "ng e2e",
     "tslint-check": "tslint-config-prettier-check ./tslint.json",
-    "make-themes2": "lessc --js ./src/darkTheme.less ./src/assets/darkTheme.css",
+    "make-themes2": "lessc --js ./src/themes/dark-green.less ./src/darkThemeGreen.css",
     "make-themes": "node ./src/makeThemes.js"
   },
   "private": true,
@@ -31,6 +31,7 @@
     "@types/lodash-es": "^4.17.3",
     "@types/lz-string": "^1.3.34",
     "ant-utils": "^1.2.0",
+    "antd": "^4.1.1",
     "break_infinity.js": "^1.1.0",
     "date-fns": "^2.11.1",
     "lodash-es": "^4.17.15",
