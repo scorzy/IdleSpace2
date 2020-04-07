@@ -49,6 +49,7 @@ export class EnemiesListComponent implements OnInit, OnDestroy, AfterViewInit {
         .observe(["(min-width: 599px)"])
         .subscribe((state: BreakpointState) => {
           this.isLarge = state.matches;
+          if (!this.isLarge) this.ms.enemyListCollapsed = false;
           this.cd.markForCheck();
         })
     );
