@@ -40,12 +40,13 @@ export class MaterialTopComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.ms.updateEmitter.subscribe(() => {
         this.cd.markForCheck();
-      }),
-      this.breakpointObserver
-        .observe(["(min-width: 959px)"])
-        .subscribe((state: BreakpointState) => {
-          this.popoverTrigger = state.matches ? "hover" : "null";
-        })
+      })
+      // ,
+      // this.breakpointObserver
+      //   .observe(["(min-width: 959px)"])
+      //   .subscribe((state: BreakpointState) => {
+      //     this.popoverTrigger = state.matches ? "hover" : "null";
+      //   })
     );
   }
   ngOnDestroy() {
