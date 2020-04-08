@@ -89,10 +89,19 @@
     *ngIf="unit.modStack"
     (click)="goModPage()"
   >
-    Mods used:
+    <i
+      *ngIf="unit.modStack.used < unit.maxMods"
+      nz-icon
+      nzType="info-circle"
+      nzTheme="fill"
+      class="text-info"
+    ></i>
+
+    Mods used: &nbsp;
     <span class="monospace">
-      {{ unit.modStack.used | format: true }} /
-      {{ unit.maxMods | format: true }}</span
+      {{ unit.modStack.used | format: true }} /{{
+        unit.maxMods | format: true
+      }}</span
     >
   </button>
 </nz-card>
