@@ -89,6 +89,18 @@ export class EnemyManager extends JobManager {
     for (let i = 0, n = this.toDo.length; i < n; i++) {
       this.toDo[i].reload();
     }
+    //  Auto Attack
+    if (this.currentEnemy && this.autoAttackEnabled) {
+      const sm = Game.getGame().shipyardManager;
+      for (let i = 0; i < sm.maxFleet; i++) {
+        if (
+          this.autoAttackOptions[i].autoAttack &&
+          sm.fleetsPercent[i] >= this.autoAttackOptions[i].minPercent
+        ) {
+          this.attackCell(i);
+        }
+      }
+    }
   }
   attackEnemy(enemy: Enemy): boolean {
     if (this.currentEnemy || enemy.level > this.maxLevel) return false;
@@ -168,20 +180,21 @@ export class EnemyManager extends JobManager {
       return;
     }
     let done = true;
-    for (let i = 0, n = this.currentEnemy.designs.length; i < n; i++) {
-      const designId = this.currentEnemy.designs[i].id;
-      const lostD = battleResult.enemyLost.find((en) => en.id === designId);
-      if (lostD) {
-        cell.ships[i] -= lostD.lost;
-        cell.ships[i] = Math.floor(Math.max(cell.ships[i], 0));
+    if (this.currentEnemy)
+      for (let i = 0, n = this.currentEnemy.designs.length; i < n; i++) {
+        const designId = this.currentEnemy.designs[i].id;
+        const lostD = battleResult.enemyLost.find((en) => en.id === designId);
+        if (lostD) {
+          cell.ships[i] -= lostD.lost;
+          cell.ships[i] = Math.floor(Math.max(cell.ships[i], 0));
+        }
+        if (cell.ships[i] > 0) {
+          done = false;
+        }
       }
-      if (cell.ships[i] > 0) {
-        done = false;
-      }
-    }
     cell.done = done;
     cell.inBattle = false;
-    if (cell.done) {
+    if (cell.done && this.currentEnemy) {
       this.reward(cell, fleetNum);
       if (this.currentEnemy.cells.findIndex((c) => !c.done) < 0) {
         this.defeatEnemy();
@@ -243,7 +256,7 @@ export class EnemyManager extends JobManager {
       e: this.enemies.map((en) => en.getSave()),
       t: this.toDo.map((t) => t.getSave()),
       m: this.maxLevel,
-      a: this.autoAttackOptions
+      a: this.autoAttackOptions.map((auto) => auto.getSave())
     };
     if (this.autoAttackEnabled) {
       ret.p = this.autoAttackEnabled;
@@ -285,6 +298,14 @@ export class EnemyManager extends JobManager {
         }
       });
     }
+    if ("a" in data) {
+      for (let i = 0; i < FLEET_NUMBER; i++) {
+        const optData = data.a[i];
+        const opt = this.autoAttackOptions[i];
+        if (optData && opt) opt.load(optData);
+      }
+    }
+    if ("p" in data) this.autoAttackEnabled = data.p;
   }
   //#endregion
 }

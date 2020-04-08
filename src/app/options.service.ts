@@ -42,8 +42,9 @@ export class OptionsService {
     this.formatEmitter.emit(1);
   }
   setHeaderTheme() {
-    OptionsService.isDark =
-      typeof this.themeId == "string" && this.themeId.includes("dark");
+    OptionsService.isDark = !(
+      typeof this.themeId == "string" && this.themeId.includes("light")
+    );
     this.darkHeader = !OptionsService.isDark && this.darkSide;
   }
 

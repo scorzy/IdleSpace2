@@ -18,6 +18,7 @@ export class ShipyardManager extends JobManager {
   modules = new Array<Module>();
   shipTypes = new Array<ShipType>();
   fleetsCapacity = new Array<number>(FLEET_NUMBER);
+  fleetsPercent = new Array<number>(FLEET_NUMBER);
 
   weapons = new Array<Module>();
   allWeapons = new Array<Module>();
@@ -38,38 +39,38 @@ export class ShipyardManager extends JobManager {
   designerView = false;
 
   init() {
-    this.shipTypes = SHIP_TYPES.map(s => new ShipType(s));
-    this.modules = modules.map(m => {
+    this.shipTypes = SHIP_TYPES.map((s) => new ShipType(s));
+    this.modules = modules.map((m) => {
       const mod = new Module();
       mod.init(m);
       return mod;
     });
-    this.armour = this.modules.find(m => m.id === "A");
-    this.shield = this.modules.find(m => m.id === "s");
-    this.allWeapons = this.modules.filter(mod => mod.damage > 0);
-    this.allGenerators = this.modules.filter(mod => mod.energy > 0);
+    this.armour = this.modules.find((m) => m.id === "A");
+    this.shield = this.modules.find((m) => m.id === "s");
+    this.allWeapons = this.modules.filter((mod) => mod.damage > 0);
+    this.allGenerators = this.modules.filter((mod) => mod.energy > 0);
     this.allDefences = this.modules.filter(
-      mod =>
+      (mod) =>
         mod.armour > 0 ||
         mod.shield > 0 ||
         mod.armourDamageReduction > 0 ||
         mod.shieldDamageReduction > 0
     );
     this.allThrusters = this.modules.filter(
-      mod => mod.velocity > 0 || mod.acceleration > 0
+      (mod) => mod.velocity > 0 || mod.acceleration > 0
     );
     this.allOthers = this.modules.filter(
-      mod =>
-        this.allWeapons.findIndex(w => w.id === mod.id) < 0 &&
-        this.allDefences.findIndex(w => w.id === mod.id) < 0 &&
-        this.allThrusters.findIndex(w => w.id === mod.id) < 0 &&
-        this.allGenerators.findIndex(w => w.id === mod.id) < 0
+      (mod) =>
+        this.allWeapons.findIndex((w) => w.id === mod.id) < 0 &&
+        this.allDefences.findIndex((w) => w.id === mod.id) < 0 &&
+        this.allThrusters.findIndex((w) => w.id === mod.id) < 0 &&
+        this.allGenerators.findIndex((w) => w.id === mod.id) < 0
     );
   }
   addDesign(name: string, type: number): number {
     if (this.shipDesigns.length >= MAX_DESIGN) return -1;
 
-    const shipType = this.shipTypes.find(t => t.id === type);
+    const shipType = this.shipTypes.find((t) => t.id === type);
     if (!shipType) return -1;
 
     const shipDesign = new ShipDesign();
@@ -80,7 +81,7 @@ export class ShipyardManager extends JobManager {
       }
     }
     if (shipDesign.id !== 1) {
-      shipDesign.fleets.forEach(fl => {
+      shipDesign.fleets.forEach((fl) => {
         fl.navalCapPercent = 0;
         fl.navalCapPercentUi = 0;
       });
@@ -93,6 +94,8 @@ export class ShipyardManager extends JobManager {
     return shipDesign.id;
   }
   postUpdate() {
+    this.reloadFleetPercent();
+
     let unlocked = false;
     if (this.designerView) {
       for (let i = 0, n = this.modules.length; i < n; i++) {
@@ -111,7 +114,6 @@ export class ShipyardManager extends JobManager {
     for (let i = 0, n = this.toDo.length; i < n; i++) {
       this.toDo[i].reload();
     }
-
     for (let i = this.toDo.length - 1; i > 0; i--) {
       const job = this.toDo[i];
       if (
@@ -123,11 +125,11 @@ export class ShipyardManager extends JobManager {
     }
   }
   reloadLists() {
-    this.weapons = this.allWeapons.filter(mod => mod.unlocked);
-    this.defences = this.allDefences.filter(mod => mod.unlocked);
-    this.generators = this.allGenerators.filter(mod => mod.unlocked);
-    this.thrusters = this.allThrusters.filter(m => m.unlocked);
-    this.others = this.allOthers.filter(mod => mod.unlocked);
+    this.weapons = this.allWeapons.filter((mod) => mod.unlocked);
+    this.defences = this.allDefences.filter((mod) => mod.unlocked);
+    this.generators = this.allGenerators.filter((mod) => mod.unlocked);
+    this.thrusters = this.allThrusters.filter((m) => m.unlocked);
+    this.others = this.allOthers.filter((mod) => mod.unlocked);
     this.groups = [
       { name: "Weapons", list: this.weapons },
       { name: "Defences", list: this.defences },
@@ -140,13 +142,13 @@ export class ShipyardManager extends JobManager {
     if (!(newDesign && oldDesign)) return false;
     if (oldDesign.old) return false;
 
-    newDesign.modules = newDesign.modules.filter(line => line.module);
+    newDesign.modules = newDesign.modules.filter((line) => line.module);
     newDesign.id = oldDesign.id;
     newDesign.rev = oldDesign.rev + 1;
 
     if (
       newDesign.price.lte(oldDesign.price) ||
-      oldDesign.fleets.findIndex(fl => fl.shipsQuantity > 0) < 0
+      oldDesign.fleets.findIndex((fl) => fl.shipsQuantity > 0) < 0
     ) {
       //  Lower price
       //  Instant update
@@ -327,14 +329,14 @@ export class ShipyardManager extends JobManager {
       }
     }
     this.shipDesigns.splice(
-      this.shipDesigns.findIndex(d => d === design),
+      this.shipDesigns.findIndex((d) => d === design),
       1
     );
   }
   onBattleEnd(battleResult: BattleResult, fleetNum: number) {
     for (let i = 0, n = this.shipDesigns.length; i < n; i++) {
       const id = Math.abs(battleResult.playerLost[i].id);
-      let design = this.shipDesigns.find(des => des.id === id);
+      let design = this.shipDesigns.find((des) => des.id === id);
       if (battleResult.playerLost[i].id < 0) {
         design = design.old;
       }
@@ -347,17 +349,33 @@ export class ShipyardManager extends JobManager {
       }
     }
   }
+  reloadFleetPercent() {
+    let total = 0;
+    let used = 0;
+    for (let fleet = 0; fleet < FLEET_NUMBER; fleet++) {
+      for (let i = 0, n = this.shipDesigns.length; i < n; i++) {
+        const navCap = this.shipDesigns[i].type.navalCapacity;
+        total += this.shipDesigns[i].fleets[fleet].wantedShips * navCap;
+        used += this.shipDesigns[i].fleets[fleet].shipsQuantity * navCap;
+        if (this.shipDesigns[i].old) {
+          total += this.shipDesigns[i].old.fleets[fleet].wantedShips * navCap;
+          used += this.shipDesigns[i].old.fleets[fleet].shipsQuantity * navCap;
+        }
+      }
+      this.fleetsPercent[fleet] = 100 * (total > 0 ? used / total : 0);
+    }
+  }
 
   //#region Save and Load
   getSave(): any {
     return {
-      d: this.shipDesigns.map(des => des.getSave()),
-      t: this.toDo.map(j => j.getSave())
+      d: this.shipDesigns.map((des) => des.getSave()),
+      t: this.toDo.map((j) => j.getSave())
     };
   }
   load(data: any) {
     if ("d" in data) {
-      this.shipDesigns = data.d.map(d => {
+      this.shipDesigns = data.d.map((d) => {
         const design = new ShipDesign();
         design.load(d);
         return design;
@@ -367,7 +385,7 @@ export class ShipyardManager extends JobManager {
     if ("t" in data) {
       for (let i = 0, n = data.t.length; i < n; i++) {
         if ("t" in data.t[i]) {
-          const design = this.shipDesigns.find(d => d.id === data.t[i].d);
+          const design = this.shipDesigns.find((d) => d.id === data.t[i].d);
 
           //  Build ship Job
           if (data.t[i].t === "b") {

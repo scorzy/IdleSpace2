@@ -28,7 +28,7 @@ export class Cell {
     if (!cellMaterial) {
       cellMaterial = {
         material,
-        quantity: ZERO,
+        quantity: ZERO
       };
       this.materials.push(cellMaterial);
     }
@@ -85,7 +85,7 @@ export class Cell {
       ret.m = this.materials.map((mat) => {
         return {
           i: mat.material.id,
-          q: mat.quantity,
+          q: mat.quantity
         };
       });
     }
@@ -101,7 +101,7 @@ export class Cell {
         if (mat) {
           this.materials.push({
             material: mat,
-            quantity: new Decimal(data.q),
+            quantity: new Decimal(data.m[i].q)
           });
         }
       }

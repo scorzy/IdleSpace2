@@ -178,7 +178,7 @@ export class Game {
       const battleResult = this.battleResults[i].result;
       const fleetNum = this.battleResults[i].fleet;
       if (now >= battleResult.endTime) {
-        if (this.updateStats) {
+        if (this.enemyManager.currentEnemy && this.updateStats) {
           const toAdd = {
             name:
               this.enemyManager.currentEnemy.name +
@@ -195,6 +195,7 @@ export class Game {
         }
 
         this.shipyardManager.onBattleEnd(battleResult, fleetNum);
+
         this.enemyManager.onBattleEnd(battleResult, fleetNum);
         this.battleResults.splice(i, 1);
       }

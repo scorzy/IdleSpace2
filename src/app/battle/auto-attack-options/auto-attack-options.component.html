@@ -1,14 +1,28 @@
 <form nz-form>
-  <nz-form-item>
-    <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="email"
-      >E-mail</nz-form-label
+  <ng-container
+    *ngFor="let opt of ms.game.enemyManager.autoAttackOptions; let i = index"
+  >
+    <label
+      nz-checkbox
+      [(ngModel)]="opt.autoAttack"
+      [name]="'en' + i"
+      [id]="'en' + i"
+      >Enable Fleet {{ i + 1 }}</label
     >
-    <nz-form-control
-      [nzSm]="14"
-      [nzXs]="24"
-      nzErrorTip="The input is not valid E-mail!"
-    >
-      <input nz-input id="email" />
-    </nz-form-control>
-  </nz-form-item>
+
+    <nz-form-item>
+      <nz-form-label [nzFor]="'minP' + i">Min ships %</nz-form-label>
+      <nz-form-control>
+        <nz-input-number
+          [nzSize]="'small'"
+          [(ngModel)]="opt.minPercent"
+          [nzMin]="0"
+          [nzMax]="100"
+          [nzStep]="1"
+          [name]="'minP' + i"
+          [id]="'minP' + i"
+        ></nz-input-number>
+      </nz-form-control>
+    </nz-form-item>
+  </ng-container>
 </form>

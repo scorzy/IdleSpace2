@@ -1,5 +1,5 @@
 export class AutoAttackOption {
-  autoAttack = false;
+  autoAttack = true;
   minPercent = 0;
 
   getSave(): any {
