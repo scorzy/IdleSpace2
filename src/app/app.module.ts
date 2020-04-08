@@ -3,11 +3,38 @@ import { NgModule } from "@angular/core";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
 import {
-  NgZorroAntdModule,
   NZ_I18N,
   en_US,
   NzConfig,
-  NZ_CONFIG
+  NZ_CONFIG,
+  NzAlertModule,
+  NzBadgeModule,
+  NzButtonModule,
+  NzCheckboxModule,
+  NzCollapseModule,
+  NzIconModule,
+  NzInputModule,
+  NzLayoutModule,
+  NzListModule,
+  NzMenuModule,
+  NzMessageModule,
+  NzNotificationModule,
+  NzPageHeaderModule,
+  NzPaginationModule,
+  NzPopconfirmModule,
+  NzPopoverModule,
+  NzProgressModule,
+  NzRadioModule,
+  NzModalModule,
+  NzSelectModule,
+  NzSliderModule,
+  NzSwitchModule,
+  NzTableModule,
+  NzTabsModule,
+  NzTagModule,
+  NzToolTipModule,
+  NzTypographyModule,
+  NzDrawerModule
 } from "ng-zorro-antd";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http";
@@ -57,10 +84,10 @@ import { CellComponent } from "./battle/cell/cell.component";
 import { TreeComponent } from "./laboratory/tree/tree.component";
 import { ModComponent } from "./units/mod/mod.component";
 import { ModLineComponent } from "./units/mod-line/mod-line.component";
-import { ListComponent } from './designer/list/list.component';
-import { BiComponent } from './units/bi/bi.component';
-import { ProdTableComponent } from './units/prod-table/prod-table.component';
-import { AutoAttackOptionsComponent } from './battle/auto-attack-options/auto-attack-options.component';
+import { ListComponent } from "./designer/list/list.component";
+import { BiComponent } from "./units/bi/bi.component";
+import { ProdTableComponent } from "./units/prod-table/prod-table.component";
+import { AutoAttackOptionsComponent } from "./battle/auto-attack-options/auto-attack-options.component";
 
 registerLocaleData(en);
 
@@ -114,7 +141,6 @@ const ngZorroConfig: NzConfig = {
   imports: [
     BrowserModule,
     AppRoutingModule,
-    NgZorroAntdModule,
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
@@ -124,7 +150,38 @@ const ngZorroConfig: NzConfig = {
     FlexLayoutModule,
     NzFormModule,
     ReactiveFormsModule,
-    NzInputNumberModule
+    NzInputNumberModule,
+    NzAlertModule,
+    NzBadgeModule,
+    NzButtonModule,
+    NzCardModule,
+    NzCheckboxModule,
+    NzCollapseModule,
+    NzFormModule,
+    NzIconModule,
+    NzInputModule,
+    NzInputNumberModule,
+    NzLayoutModule,
+    NzListModule,
+    NzMenuModule,
+    NzMessageModule,
+    NzModalModule,
+    NzNotificationModule,
+    NzDrawerModule,
+    NzPageHeaderModule,
+    NzPaginationModule,
+    NzPopconfirmModule,
+    NzPopoverModule,
+    NzProgressModule,
+    NzRadioModule,
+    NzSelectModule,
+    NzSliderModule,
+    NzSwitchModule,
+    NzTableModule,
+    NzTabsModule,
+    NzTagModule,
+    NzToolTipModule,
+    NzTypographyModule
   ],
   providers: [
     { provide: NZ_I18N, useValue: en_US },

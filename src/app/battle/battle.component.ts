@@ -72,6 +72,7 @@ export class BattleComponent implements OnInit, OnDestroy {
     }
     if (
       this.cell > -1 &&
+      this.activeCells.length > 0 &&
       this.activeCells.findIndex((c) => c.value === this.cell) < 0
     ) {
       this.cell = this.activeCells[0].value;
