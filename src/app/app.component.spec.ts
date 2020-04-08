@@ -5,7 +5,6 @@ import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
 import { MainService } from "./main.service";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import {
-  NgZorroAntdModule,
   NzGridModule,
   NzCardModule,
   NzFormModule,

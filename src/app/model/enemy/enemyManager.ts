@@ -52,6 +52,7 @@ export class EnemyManager extends JobManager {
   constructor() {
     super();
     this.fleetsInBattle = new Array(FLEET_NUMBER);
+
     this.autoAttackOptions = new Array<AutoAttackOption>();
     for (let i = 0; i < 5; i++) {
       this.autoAttackOptions[i] = new AutoAttackOption();
@@ -169,6 +170,7 @@ export class EnemyManager extends JobManager {
         }
       }
       battleRequest.endTime = performance.now() + maxTime * 1e3;
+      toAttack.eta = battleRequest.endTime;
       //#endregion
       //#region Enemy Fleet
       battleRequest.enemyFleet = this.currentEnemy.designs.map((d) =>
@@ -189,7 +191,7 @@ export class EnemyManager extends JobManager {
       return;
     }
     let done = true;
-    if (this.currentEnemy)
+    if (this.currentEnemy) {
       for (let i = 0, n = this.currentEnemy.designs.length; i < n; i++) {
         const designId = this.currentEnemy.designs[i].id;
         const lostD = battleResult.enemyLost.find((en) => en.id === designId);
@@ -201,6 +203,7 @@ export class EnemyManager extends JobManager {
           done = false;
         }
       }
+    }
     cell.done = done;
     cell.inBattle = false;
     if (cell.done && this.currentEnemy) {
@@ -209,8 +212,9 @@ export class EnemyManager extends JobManager {
         this.defeatEnemy();
       }
     }
-    if (this.currentEnemy)
+    if (this.currentEnemy) {
       this.currentEnemy.reloadCell(this.currentEnemy.cells.indexOf(cell));
+    }
     this.fleetsInBattle[fleetNum] = null;
   }
   surrender() {

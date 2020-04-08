@@ -11,7 +11,7 @@ import { Unit } from "../model/units/unit";
 import { Subscription } from "rxjs";
 import { fadeIn } from "../animations";
 import { NzModalRef, NzModalService } from "ng-zorro-antd";
-import { BreakpointObserver, BreakpointState } from "@angular/cdk/layout";
+import { BreakpointObserver } from "@angular/cdk/layout";
 import { OptionsService } from "../options.service";
 
 @Component({

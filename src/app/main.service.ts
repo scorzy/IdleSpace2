@@ -2,10 +2,9 @@ import { Injectable, EventEmitter, Inject } from "@angular/core";
 import { Game } from "./model/game";
 import { formatDate, DOCUMENT } from "@angular/common";
 import { FormatPipe } from "./format.pipe";
-import { OptionsService, THEMES } from "./options.service";
+import { OptionsService } from "./options.service";
 import compiledCss from "./model/data/themes.json";
 import { FLEET_NUMBER } from "./model/CONSTANTS";
-import { Enemy } from "./model/enemy/enemy";
 
 export const SAVE_ID = "IA3_save";
 
@@ -103,8 +102,8 @@ export class MainService {
     }
 
     const now = Date.now();
-    let diff = now - this.last;
-    diff = diff * 1e20;
+    const diff = now - this.last;
+    // diff = diff * 1e20;
     this.game.update(diff / 1000);
     this.last = now;
 

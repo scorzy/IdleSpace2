@@ -70,8 +70,9 @@ export class CellComponent implements OnInit, OnDestroy, OnChanges {
               this.cell.materials.findIndex(
                 (m) => m.material === rm.habitableSpace
               ) < 0)
-          )
+          ) {
             this.icons.push(this.cell.materials[i].material.icon);
+          }
         } else if (
           this.cell.materials[i].material.unitData.unitType !==
           UNIT_TYPES.DISTRICT

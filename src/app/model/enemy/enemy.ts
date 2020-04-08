@@ -25,7 +25,6 @@ import {
 } from "../CONSTANTS";
 import { ShipType } from "../shipyard/ShipType";
 import { Module } from "../shipyard/module";
-import { MainService } from "src/app/main.service";
 import { OptionsService } from "src/app/options.service";
 import { Unit } from "../units/unit";
 import { SearchRange } from "./searchOption";
@@ -367,7 +366,7 @@ export class Enemy {
     }
     this.cells[index].enemyStrength =
       this.totalStrength > 0 ? sum / this.totalStrength : 0;
-    //endregion
+    // endregion
   }
   private generateDesign(iShipData: IShipData, level: number): ShipDesign {
     const sm = Game.getGame().shipyardManager;

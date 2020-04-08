@@ -67,21 +67,27 @@
   </div>
 
   <div fxFlex="1 1 calc(50% - 10px)">
-    <h3>You</h3>
-    <nz-select [(ngModel)]="fleetNum" nzPlaceHolder="Choose">
-      <nz-option nzValue="0" nzLabel="Fleet 1"></nz-option>
-      <nz-option nzValue="1" nzLabel="Fleet 2"></nz-option>
-      <nz-option nzValue="2" nzLabel="Fleet 3"></nz-option>
-      <nz-option nzValue="3" nzLabel="Fleet 4"></nz-option>
-      <nz-option nzValue="4" nzLabel="Fleet 5"></nz-option>
-    </nz-select>
+    <!-- <h3>You</h3> -->
 
-    <app-ships-view
-      [designs]="ms.game.shipyardManager.shipDesigns"
-      [fleetNum]="fleetNum"
-      nzSize="small"
-      update="true"
-    ></app-ships-view>
+    <nz-tabset nzSize="small">
+      <nz-tab nzTitle="Fleets"><app-fleets-view></app-fleets-view> </nz-tab>
+      <nz-tab nzTitle="Ships">
+        <nz-select [(ngModel)]="fleetNum" nzPlaceHolder="Choose">
+          <nz-option nzValue="0" nzLabel="Fleet 1"></nz-option>
+          <nz-option nzValue="1" nzLabel="Fleet 2"></nz-option>
+          <nz-option nzValue="2" nzLabel="Fleet 3"></nz-option>
+          <nz-option nzValue="3" nzLabel="Fleet 4"></nz-option>
+          <nz-option nzValue="4" nzLabel="Fleet 5"></nz-option>
+        </nz-select>
+
+        <app-ships-view
+          [designs]="ms.game.shipyardManager.shipDesigns"
+          [fleetNum]="fleetNum"
+          nzSize="small"
+          update="true"
+        ></app-ships-view
+      ></nz-tab>
+    </nz-tabset>
 
     <br />
     <ng-container *ngIf="ms.game.enemyManager.currentEnemy">

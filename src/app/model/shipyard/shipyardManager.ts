@@ -358,7 +358,7 @@ export class ShipyardManager extends JobManager {
         total += this.shipDesigns[i].fleets[fleet].wantedShips * navCap;
         used += this.shipDesigns[i].fleets[fleet].shipsQuantity * navCap;
         if (this.shipDesigns[i].old) {
-          total += this.shipDesigns[i].old.fleets[fleet].wantedShips * navCap;
+          // total += this.shipDesigns[i].old.fleets[fleet].wantedShips * navCap;
           used += this.shipDesigns[i].old.fleets[fleet].shipsQuantity * navCap;
         }
       }

@@ -195,7 +195,6 @@ export class Game {
         }
 
         this.shipyardManager.onBattleEnd(battleResult, fleetNum);
-
         this.enemyManager.onBattleEnd(battleResult, fleetNum);
         this.battleResults.splice(i, 1);
       }
