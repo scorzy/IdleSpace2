@@ -1,62 +1,95 @@
-@import "./src/antd/dark.less"; // Introduce the official dark less style entry file
-@import "./src/antd/compact.less"; // Introduce the official compact less style entry file
+@layout-body-background: #252423;
+@layout-header-background: #000000;
+@text-color: fade(@white, 90%);
+@text-color-secondary: fade(@white, 55%);
+@text-color-inverse: @white;
+@icon-color-hover: fade(@white, 80%);
+@heading-color: fade(@white, 90%);
+@component-background: #161616;
+@layout-trigger-background-light: @layout-trigger-background;
+@btn-primary-bg: darken(@primary-color, 9%);
+@btn-danger-bg: darken(@error-color, 6%);
+@btn-danger-border: @btn-danger-bg;
 
-// -------- Colors -----------
-@habSpace-color: @blue-5;
-@metal-color: @red-5;
-@energy-color: @yellow-5;
-@alloy-color: @purple-4;
-@science-color: @cyan-5;
-@production-color: @orange-5;
+@layout-sider-background-light: @menu-bg;
+@menu-dark-item-active-bg: darken(@primary-color, 25%);
 
-@metal-color-alt: @red-5;
-@energy-color-alt: @yellow-5;
-@alloy-color-alt: @purple-4;
-@science-color-alt: @cyan-5;
-@production-color-alt: @orange-5;
+@menu-dark-bg: @layout-header-background; //#3b3a39;
+@menu-dark-submenu-bg: lighten(@component-background, 6%); //#414242;
+@menu-dark-item-active-bg: lighten(@item-active-bg, 10%);
 
-// @info-color: @blue-7;
-// @success-color: @green-7;
-// @processing-color: @blue-7;
-// @error-color: @red-7;
-// @highlight-color: @red-7;
-// @warning-color: @gold-7;
+@input-bg: #1a1a1a;
+@btn-default-bg: #1a1a1a;
+@select-background: @input-bg;
+@select-dropdown-bg: @input-bg;
+@border-color-split: #3f3f3f;
 
-@damage-color: @orange-6;
-@armour-damage-color: @green-6;
-@shield-damage-color: @blue-5;
-@energy-color: @yellow-6;
-@explosion-color: @purple-5;
-@cargo-color: @magenta-5;
-@velocity-color: @geekblue-4;
-@acceleration-color: @red-5;
-@defence-damage-color: @lime-5;
+@table-selected-row-bg: lighten(@table-header-bg, 5%); // #414242;
+@table-expanded-row-bg: @table-selected-row-bg; // #414242;
 
-// light
-@habSpace-color: @blue-7;
-@metal-color: @red-7;
-@energy-color: @yellow-7;
-@alloy-color: @purple-7;
-@science-color: @cyan-7;
-@production-color: @orange-7;
+.ant-layout-header {
+  border-bottom: @border-color-split 1px solid;
+}
+// .mainContainer {
+//   border-right: @border-color-split 1px solid;
+// }
+.ant-layout-sider-children {
+  box-shadow: @border-color-split 1px 0 0;
+}
+.ant-menu-dark .ant-menu-inline.ant-menu-sub {
+  box-shadow: none;
+}
 
-@metal-color-alt: @red-5;
-@energy-color-alt: @yellow-5;
-@alloy-color-alt: @purple-4;
-@science-color-alt: @cyan-5;
-@production-color-alt: @orange-5;
+.ant-layout-sider-trigger::before {
+  content: "";
+  display: block;
+  background-color: rgba(255, 255, 255, 0.18);
+  height: 1px;
+  margin: 0 10px;
+}
+.sidebar-logo {
+  background-color: @layout-header-background;
+}
+.ant-menu ul,
+.ant-menu ol {
+  .ant-menu-item::before {
+    background-color: #848483;
+    bottom: 0;
+    content: "";
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 4px;
+  }
+  .ant-menu-item-selected::before {
+    background-color: @primary-color;
+    bottom: 0;
+    content: "";
+    left: 0;
+    position: absolute;
+    top: 0;
+    width: 4px;
+  }
+}
 
-@damage-color: @orange-7;
-@armour-damage-color: @green-7;
-@shield-damage-color: @blue-7;
-@energy-color: @yellow-7;
-@explosion-color: @purple-7;
-@cargo-color: @magenta-7;
-@velocity-color: @geekblue-7;
-@acceleration-color: @red-7;
-@defence-damage-color: @lime-7;
+.dark-background {
+  background: @component-background;
+}
+.light-background {
+  background: @layout-header-background;
+}
+.ant-select-dropdown {
+  border: @border-color-split 1px solid;
+}
+@slider-rail-background-color-hover: @border-color-split;
+@layout-trigger-background: @menu-dark-bg; // #3b3a39;
+@layout-trigger-color: fade(#fff; 80%);
 
-@progress-default-color: @primary-color;
+nz-sider {
+  z-index: 2;
+  border-top: 1px solid black;
+  margin-top: -1px;
+}
 
 // @layout-body-background: #252423; //#171717
 // @background-color-light: #181818;
@@ -96,7 +129,6 @@
 //@layout-trigger-background: @table-header-bg; // #3b3a39;
 //@layout-trigger-color: fade(#fff; 80%);
 
-@layout-trigger-background-light: @layout-trigger-background;
 // @layout-trigger-color-light: @layout-trigger-color;
 
 // @alert-message-color: fade(#000; 67%);
@@ -107,11 +139,6 @@
 // @progress-remaining-color: @background-color-base;
 
 // // @info-color: #313133;
-
-// // Buttons
-@btn-primary-bg: darken(@primary-color, 15%);
-@btn-danger-bg: darken(@error-color, 8%);
-@btn-danger-border: @btn-danger-bg;
 
 // // Shadow
 // @shadow-color: rgba(0, 0, 0, 0.6);
@@ -132,7 +159,6 @@
 //@layout-sider-background: @layout-header-background; // #3b3a39;
 // @menu-submenu-bg: @component-background; //#323130;
 // @menu-bg: @layout-header-background; // #3b3a39;
-@layout-sider-background-light: @menu-bg;
 
 // // Menu
 // @menu-popup-bg: @menu-bg;
@@ -147,7 +173,6 @@
 // @menu-dark-bg: @layout-header-background; //#3b3a39;
 //@menu-dark-submenu-bg: lighten(@component-background, 6%); //#414242;
 // @menu-dark-item-active-bg: lighten(@item-active-bg, 5%);
-@menu-dark-item-active-bg: darken(@primary-color, 25%);
 
 // @menu-item-vertical-margin: 0;
 // @menu-item-boundary-margin: 0;
@@ -166,48 +191,6 @@
 // }
 // .ant-menu-dark .ant-menu-inline.ant-menu-sub {
 //   box-shadow: none;
-// }
-
-// .ant-layout-sider-trigger::before {
-//   content: "";
-//   display: block;
-//   background-color: rgba(255, 255, 255, 0.18);
-//   height: 1px;
-//   margin: 0 10px;
-// }
-// .sidebar-logo {
-//   background-color: @layout-header-background;
-// }
-// .ant-menu ul,
-// .ant-menu ol {
-//   .ant-menu-item::before {
-//     background-color: #848483;
-//     bottom: 0;
-//     content: "";
-//     left: 0;
-//     position: absolute;
-//     top: 0;
-//     width: 4px;
-//   }
-//   .ant-menu-item-selected::before {
-//     background-color: @primary-color;
-//     bottom: 0;
-//     content: "";
-//     left: 0;
-//     position: absolute;
-//     top: 0;
-//     width: 4px;
-//   }
-// }
-
-// .dark-background {
-//   background: @component-background;
-// }
-// .light-background {
-//   background: @layout-header-background;
-// }
-// .ant-select-dropdown {
-//   border: @border-color-split 1px solid;
 // }
 
 @import "./src/commonTheme.less";
