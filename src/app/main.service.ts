@@ -158,13 +158,10 @@ export class MainService {
     this.game = new Game();
   }
   setTheme() {
-    const name =
-      this.options.themeId < THEMES.length
-        ? THEMES[this.options.themeId]
-        : THEMES[0];
-
-    const file = compiledCss.find((n) => n.startsWith(name));
-
+    let file = compiledCss.find((n) =>
+      n.startsWith(this.options.themeId + ".")
+    );
+    if (typeof file !== "string" || file === "") file = compiledCss[0];
     const myTheme = "assets/themes/" + file;
     if (myTheme !== this.theme.href) this.theme.href = myTheme;
     this.options.setHeaderTheme();
@@ -178,7 +175,7 @@ export class MainService {
   }
   setScrollbarTheme() {
     const myTheme =
-      this.options.darkSide && this.options.themeId >= THEMES.length / 2
+      this.options.darkSide && OptionsService.isDark
         ? "assets/dark-scrollbar.css"
         : "";
     if (myTheme !== this.scrollbarTheme.href) {

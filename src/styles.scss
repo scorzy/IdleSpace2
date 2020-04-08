@@ -1,9 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
 
-.ant-btn {
-  transition: none;
-}
-
 @media only screen and (min-width: 700px) {
   nz-header {
     position: -webkit-sticky;
@@ -149,19 +145,13 @@
   }
 }
 
-.ant-input-number-input {
-  transition: none;
-}
-
 .full-height {
   height: 100%;
 }
 .ant-layout-content {
   min-height: auto;
 }
-.ant-btn .anticon {
-  transition: none;
-}
+
 .center {
   text-align: center;
 }
@@ -193,9 +183,19 @@
 .fullWidth {
   width: 100%;
 }
-.no-transition {
-  transition: none;
-}
 .transition {
   transition: all 0.2;
+}
+
+.no-transition,
+a,
+.ant-input-number,
+.ant-input-number-input,
+.ant-collapse > .ant-collapse-item > .ant-collapse-header,
+.ant-btn,
+.ant-btn .anticon,
+.ant-select-single:not(.ant-select-customize-input) .ant-select-selector,
+.ant-select-multiple .ant-select-selection-placeholder,
+.ant-select-multiple .ant-select-selector {
+  transition: none;
 }

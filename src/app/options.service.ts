@@ -26,7 +26,7 @@ export class OptionsService {
   numFormat = "scientific";
   formatId = 0;
   timeFormatDetail = true;
-  themeId = 0;
+  themeId = "";
   darkSide = true;
   darkHeader = true;
   generateFormatter() {
@@ -42,8 +42,9 @@ export class OptionsService {
     this.formatEmitter.emit(1);
   }
   setHeaderTheme() {
-    this.darkHeader = this.themeId > 1 && this.darkSide;
-    OptionsService.isDark = this.themeId < 2;
+    OptionsService.isDark =
+      typeof this.themeId == "string" && this.themeId.includes("dark");
+    this.darkHeader = !OptionsService.isDark && this.darkSide;
   }
 
   getSave(): any {
