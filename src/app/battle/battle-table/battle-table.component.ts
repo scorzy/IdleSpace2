@@ -3,10 +3,12 @@ import {
   OnInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
-  OnDestroy
+  OnDestroy,
+  Input
 } from "@angular/core";
 import { Subscription } from "rxjs";
 import { MainService } from "src/app/main.service";
+import { Enemy } from "src/app/model/enemy/enemy";
 
 @Component({
   selector: "app-battle-table",
@@ -16,6 +18,7 @@ import { MainService } from "src/app/main.service";
 })
 export class BattleTableComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
+  @Input() currentEnemy: Enemy;
   numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
 
   constructor(public ms: MainService, private cd: ChangeDetectorRef) {}
@@ -29,5 +32,8 @@ export class BattleTableComponent implements OnInit, OnDestroy {
   }
   ngOnDestroy() {
     this.subscriptions.forEach((sub: Subscription) => sub.unsubscribe());
+  }
+  getNumId(index: number, num: number) {
+    return "" + num + (this.currentEnemy ? this.currentEnemy.id : "");
   }
 }

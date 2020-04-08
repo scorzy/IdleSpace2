@@ -31,6 +31,7 @@ export class EnemyManager extends JobManager {
   nukeDamageMulti = new BonusStack();
   nukeDamage = ZERO;
   autoAttackEnabled = false;
+  autoNext = false;
   autoAttackOptions: AutoAttackOption[];
   //#region Bonus
   districtMultiplier: BonusStack = new BonusStack();
@@ -101,6 +102,11 @@ export class EnemyManager extends JobManager {
         }
       }
     }
+    //  Auto Next
+    if (this.autoNext && !this.currentEnemy) {
+      const next = this.enemies.find((n) => n.level <= this.maxLevel);
+      if (next) this.attackEnemy(next);
+    }
   }
   attackEnemy(enemy: Enemy): boolean {
     if (this.currentEnemy || enemy.level > this.maxLevel) return false;
@@ -119,14 +125,17 @@ export class EnemyManager extends JobManager {
     }
     const playerDesign = Game.getGame().shipyardManager.shipDesigns;
     const toAttack = this.currentEnemy.cells.find(
-      (c) => !c.done && !c.inBattle
+      (c) =>
+        !c.inBattle &&
+        (!c.done ||
+          (c.materials && c.materials.findIndex((m) => m.quantity.gt(0)) > -1))
     );
     if (toAttack) {
       toAttack.inBattle = true;
       this.fleetsInBattle[fleetNum] = toAttack;
       const battleRequest = new BattleRequest();
       battleRequest.gameId = Game.getGame().gameId;
-      //#region  Player Fleet
+      //#region Player Fleet
       let maxTime = 0;
       for (let i = 0, n = playerDesign.length; i < n; i++) {
         const shipData = playerDesign[i].getShipData();
@@ -169,7 +178,7 @@ export class EnemyManager extends JobManager {
         battleRequest.enemyFleet[i].quantity = toAttack.ships[i];
       }
       //#endregion
-      //  Battle
+      // Battle
       MainService.battleWorkers[fleetNum].postMessage(battleRequest);
     }
   }
@@ -200,7 +209,8 @@ export class EnemyManager extends JobManager {
         this.defeatEnemy();
       }
     }
-    this.currentEnemy.reloadCell(this.currentEnemy.cells.indexOf(cell));
+    if (this.currentEnemy)
+      this.currentEnemy.reloadCell(this.currentEnemy.cells.indexOf(cell));
     this.fleetsInBattle[fleetNum] = null;
   }
   surrender() {
@@ -231,7 +241,9 @@ export class EnemyManager extends JobManager {
       }
     }
   }
-  defeatEnemy() {}
+  defeatEnemy() {
+    this.currentEnemy = null;
+  }
   nuke(cellNum: number) {
     if (!this.currentEnemy) return false;
     const cell = this.currentEnemy.cells[cellNum];
@@ -258,6 +270,7 @@ export class EnemyManager extends JobManager {
       m: this.maxLevel,
       a: this.autoAttackOptions.map((auto) => auto.getSave())
     };
+    if (this.autoNext) ret.x = this.autoNext;
     if (this.autoAttackEnabled) {
       ret.p = this.autoAttackEnabled;
     }
@@ -306,6 +319,7 @@ export class EnemyManager extends JobManager {
       }
     }
     if ("p" in data) this.autoAttackEnabled = data.p;
+    if ("x" in data) this.autoNext = data.x;
   }
   //#endregion
 }

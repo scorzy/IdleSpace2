@@ -1,13 +1,13 @@
 <div fxLayout="rows" fxLayout.lt-sm="column" fxLayoutGap="10px">
-  <div *ngIf="ms.game.enemyManager.currentEnemy" fxFlex="1 1 calc(50% - 10px)">
-    <h1>
+  <div fxFlex="1 1 calc(50% - 10px)">
+    <h1 *ngIf="ms.game.enemyManager.currentEnemy">
       {{ ms.game.enemyManager.currentEnemy.name }}
       <small
         >lv.
         {{ ms.game.enemyManager.currentEnemy.level | number: "1.0-0" }}</small
       >
     </h1>
-    <nz-button-group>
+    <nz-button-group *ngIf="ms.game.enemyManager.currentEnemy">
       <button nz-button nzType="primary" (click)="attack(-1)">
         Attack All
       </button>
@@ -42,14 +42,28 @@
       </nz-form-item>
       <nz-form-item>
         <nz-form-control>
-          <button nz-button nzType="primary" (click)="autoAttackOptions = true">
+          <button nz-button nzType="default" (click)="autoAttackOptions = true">
+            <i nz-icon nzType="setting" nzTheme="outline"></i>
             Options
           </button>
         </nz-form-control>
       </nz-form-item>
+      <nz-form-item>
+        <nz-form-label nzFor="autoNext">Auto Next</nz-form-label>
+        <nz-form-control>
+          <nz-switch
+            name="autoNext"
+            id="autoNext"
+            [(ngModel)]="ms.game.enemyManager.autoNext"
+          ></nz-switch>
+        </nz-form-control>
+      </nz-form-item>
     </form>
 
-    <app-battle-table></app-battle-table>
+    <app-battle-table
+      *ngIf="ms.game.enemyManager.currentEnemy"
+      [currentEnemy]="ms.game.enemyManager.currentEnemy"
+    ></app-battle-table>
   </div>
 
   <div fxFlex="1 1 calc(50% - 10px)">
@@ -70,27 +84,29 @@
     ></app-ships-view>
 
     <br />
-    <h3 *ngIf="ms.game.enemyManager.currentEnemy">
-      {{ ms.game.enemyManager.currentEnemy.name }}
-      <small></small>
-    </h3>
-    <nz-select [(ngModel)]="cell" nzPlaceHolder="Choose">
-      <nz-option
-        *ngFor="let cell of activeCells; trackBy: getCellId"
-        [nzValue]="cell.value"
-        [nzLabel]="cell.label"
-      ></nz-option>
-      <nz-option nzValue="-1" nzLabel="Design"></nz-option>
-    </nz-select>
-    <app-ships-view
-      *ngIf="ms.game.enemyManager.currentEnemy"
-      [designs]="ms.game.enemyManager.currentEnemy.designs"
-      [isEnemy]="true"
-      [enemyCell]="true"
-      [fleetNum]="cell"
-      nzSize="small"
-      update="true"
-    ></app-ships-view>
+    <ng-container *ngIf="ms.game.enemyManager.currentEnemy">
+      <h3>
+        {{ ms.game.enemyManager.currentEnemy.name }}
+        <small></small>
+      </h3>
+      <nz-select [(ngModel)]="cell" nzPlaceHolder="Choose">
+        <nz-option
+          *ngFor="let cell of activeCells; trackBy: getCellId"
+          [nzValue]="cell.value"
+          [nzLabel]="cell.label"
+        ></nz-option>
+        <nz-option nzValue="-1" nzLabel="Design"></nz-option>
+      </nz-select>
+      <app-ships-view
+        *ngIf="ms.game.enemyManager.currentEnemy"
+        [designs]="ms.game.enemyManager.currentEnemy.designs"
+        [isEnemy]="true"
+        [enemyCell]="true"
+        [fleetNum]="cell"
+        nzSize="small"
+        update="true"
+      ></app-ships-view
+    ></ng-container>
   </div>
 </div>
 

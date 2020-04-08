@@ -10,37 +10,30 @@
 @btn-primary-bg: darken(@primary-color, 9%);
 @btn-danger-bg: darken(@error-color, 6%);
 @btn-danger-border: @btn-danger-bg;
-
 @layout-sider-background-light: @menu-bg;
 @menu-dark-item-active-bg: darken(@primary-color, 25%);
-
 @menu-dark-bg: @layout-header-background; //#3b3a39;
 @menu-dark-submenu-bg: lighten(@component-background, 6%); //#414242;
 @menu-dark-item-active-bg: lighten(@item-active-bg, 10%);
-
 @input-bg: #1a1a1a;
 @btn-default-bg: #1a1a1a;
 @select-background: @input-bg;
 @select-dropdown-bg: @input-bg;
 @border-color-split: #3f3f3f;
-
 @table-selected-row-bg: @menu-dark-item-active-bg; //lighten(@table-header-bg, 5%); // #414242;
 @table-row-hover-bg: @menu-dark-item-active-bg;
 @table-expanded-row-bg: @input-bg; // #414242;
+@shadow-color: rgba(0, 0, 0, 0.75);
 
 .ant-layout-header {
   border-bottom: @border-color-split 1px solid;
 }
-// .mainContainer {
-//   border-right: @border-color-split 1px solid;
-// }
 .ant-layout-sider-children {
   box-shadow: @border-color-split 1px 0 0;
 }
 .ant-menu-dark .ant-menu-inline.ant-menu-sub {
   box-shadow: none;
 }
-
 .ant-layout-sider-trigger::before {
   content: "";
   display: block;
@@ -72,7 +65,6 @@
     width: 4px;
   }
 }
-
 .dark-background {
   background: @component-background;
 }

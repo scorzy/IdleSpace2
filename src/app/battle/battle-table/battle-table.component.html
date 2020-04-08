@@ -1,17 +1,16 @@
 <table>
-  <tr *ngFor="let i of numbers">
+  <tr *ngFor="let i of numbers; trackBy: getNumId">
     <td
       class="cell"
-      *ngFor="let k of numbers"
+      *ngFor="let k of numbers; trackBy: getNumId"
       [ngStyle]="{
         'background-color':
-          ms.game.enemyManager.currentEnemy.cells[i * 10 + k].percent < 1
-            ? ms.game.enemyManager.currentEnemy.cells[i * 10 + k].color
+          currentEnemy.cells[i * 10 + k].percent < 1
+            ? currentEnemy.cells[i * 10 + k].color
             : 'transparent'
       }"
     >
-      <app-cell [cell]="ms.game.enemyManager.currentEnemy.cells[i * 10 + k]">
-      </app-cell>
+      <app-cell [cell]="currentEnemy.cells[i * 10 + k]"> </app-cell>
     </td>
   </tr>
 </table>

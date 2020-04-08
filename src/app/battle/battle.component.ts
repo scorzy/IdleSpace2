@@ -60,7 +60,7 @@ export class BattleComponent implements OnInit, OnDestroy {
 
     for (let i = 0; i < 100; i++) {
       const cell = this.ms.game.enemyManager.currentEnemy.cells[i];
-      if (!cell.done) {
+      if (cell.enemyStrength > 0) {
         this.activeCells.push({
           label: "" + (1 + cell.index),
           value: cell.index
@@ -87,7 +87,7 @@ export class BattleComponent implements OnInit, OnDestroy {
   findNextNuke(): Cell {
     if (!this.ms.game.enemyManager.currentEnemy) return null;
     return this.ms.game.enemyManager.currentEnemy.cells.find((c) => {
-      if (c.done) return false;
+      if (c.enemyStrength <= 0) return false;
       let ret = false;
       for (
         let i = 0, n = this.ms.game.enemyManager.currentEnemy.designs.length;

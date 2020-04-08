@@ -4,17 +4,19 @@
   [nzPopoverContent]="contentTemplate"
   nzPopoverPlacement="bottomCenter"
 >
-  <!-- *ngIf="cell?.materials?.length > 0" -->
-  <i
-    *ngFor="let mat of cell?.materials"
-    nz-icon
-    [nzType]="mat.material.icon"
-  ></i>
+  <i *ngFor="let mat of icons" nz-icon [nzType]="mat"></i>
   <ng-template #contentTemplate>
     <strong
       ><span class="monospace"># {{ cell.index + 1 }}</span></strong
     >
     <ul class="list-unstyled">
+      <li>
+        <i nz-icon nzType="my:strafe"></i>
+        Strength:
+        <span class="monospace">
+          {{ cell.enemyStrength | percent }}
+        </span>
+      </li>
       <li
         *ngFor="let mat of cell.materials"
         [ngClass]="mat.material.colorClass"

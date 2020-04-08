@@ -20,6 +20,7 @@ export class Cell {
   inBattle = false;
   color = "rgb(245, 79, 71)";
   ships: Array<number>;
+  enemyStrength = 1;
   addMaterial(material: Unit, quantity: Decimal) {
     if (!this.materials) this.materials = [];
     let cellMaterial: IMaterial = this.materials.find(

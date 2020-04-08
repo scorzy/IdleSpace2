@@ -3,7 +3,7 @@ import {
   TO_DO_COLOR,
   DONE_COLOR,
   TO_DO_COLOR_DARK,
-  DONE_COLOR_DARK,
+  DONE_COLOR_DARK
 } from "./cell";
 import { ShipDesign } from "../shipyard/shipDesign";
 import { SearchJob } from "./searchJob";
@@ -21,7 +21,7 @@ import {
   DEFENCE_MAX_PERCENT,
   PRICE_GROW_RATE,
   DEFAULT_MODULE_PRICE,
-  ENEMY_BASE_DISTANCE,
+  ENEMY_BASE_DISTANCE
 } from "../CONSTANTS";
 import { ShipType } from "../shipyard/ShipType";
 import { Module } from "../shipyard/module";
@@ -49,7 +49,7 @@ export class Enemy {
   totalNavCap = 0;
   tiles: Array<ExtraTile> = [];
   distance = ENEMY_BASE_DISTANCE;
-
+  totalStrength = 1;
   private favouriteWeapons: Module[];
   private favouriteDefences: Module[];
   private basicDefences: Module[];
@@ -72,7 +72,7 @@ export class Enemy {
     }
     return {
       min: ENEMY_BASE_DISTANCE.times(level + 1).times(minMulti),
-      max: ENEMY_BASE_DISTANCE.times(level + 1).times(maxMulti),
+      max: ENEMY_BASE_DISTANCE.times(level + 1).times(maxMulti)
     };
   }
   generate(searchJob: SearchJob) {
@@ -98,24 +98,24 @@ export class Enemy {
     }[] = [
       {
         tile: new ExtraTile(rs.habitableSpace),
-        range: habRange,
+        range: habRange
       },
       {
         tile: new ExtraTile(rs.miningDistrict),
-        range: metalRange,
+        range: metalRange
       },
       {
         tile: new ExtraTile(rs.energyDistrict),
-        range: energyRange,
+        range: energyRange
       },
       {
         tile: new ExtraTile(rs.science),
-        range: scienceRange,
+        range: scienceRange
       },
       {
         tile: new ExtraTile(rs.components),
-        range: componentRange,
-      },
+        range: componentRange
+      }
     ];
     tileArr.forEach((elem) => {
       elem.tile.number = Math.floor(
@@ -319,11 +319,16 @@ export class Enemy {
           case rs.energyDistrict:
             cell.addMaterial(rs.energy, materialQuantity);
             break;
+          case rs.habitableSpace:
+            cell.addMaterial(rs.science, materialQuantity);
+            break;
         }
       }
     });
   }
   reloadCell(index: number) {
+    if (!this.cells) return;
+    //#region Color
     let toDoColor: number[];
     let doneColor: number[];
     if (OptionsService.isDark) {
@@ -333,7 +338,6 @@ export class Enemy {
       toDoColor = TO_DO_COLOR;
       doneColor = DONE_COLOR;
     }
-    if (MainService) if (!this.cells) return;
     if (this.cells[index].done) {
       this.cells[index].percent = 0;
       this.cells[index].color =
@@ -355,6 +359,15 @@ export class Enemy {
       }
       this.cells[index].color += ")";
     }
+    //#endregion
+    //#region Strength
+    let sum = 0;
+    for (let i = 0, n = this.cells[index].ships.length; i < n; i++) {
+      sum += this.cells[index].ships[i] * this.designs[i].type.navalCapacity;
+    }
+    this.cells[index].enemyStrength =
+      this.totalStrength > 0 ? sum / this.totalStrength : 0;
+    //endregion
   }
   private generateDesign(iShipData: IShipData, level: number): ShipDesign {
     const sm = Game.getGame().shipyardManager;
@@ -370,7 +383,7 @@ export class Enemy {
       design.modules.push({
         module,
         level,
-        size: mod.size,
+        size: mod.size
       });
     });
     design.reload();
@@ -378,9 +391,12 @@ export class Enemy {
   }
   private reloadTotalNavalCap() {
     this.totalNavCap = 0;
+    this.totalStrength = 0;
     for (let i = 0, n = this.designs.length; i < n; i++) {
       this.totalNavCap +=
         this.designs[i].enemyQuantity * this.designs[i].type.navalCapacity;
+      this.totalStrength +=
+        this.designs[i].type.navalCapacity * this.designs[i].enemyQuantity;
     }
   }
   private generateRandomDesign(type: ShipType, isDefence = false): ShipDesign {
@@ -512,7 +528,7 @@ export class Enemy {
               copy.modules.push({
                 module: gen,
                 level: this.modLevel,
-                size: 1,
+                size: 1
               });
               tempUsedPoint++;
               tempEnergy += gen.energy;
@@ -536,7 +552,7 @@ export class Enemy {
             copy.modules.push({
               module,
               level: this.modLevel,
-              size: pointToUse,
+              size: pointToUse
             });
           }
         }
@@ -565,14 +581,14 @@ export class Enemy {
       n: this.name,
       i: this.icon,
       d: this.designs.map((des) => des.getEnemySave()),
-      s: this.distance,
+      s: this.distance
     };
     if (this.cells) ret.c = this.cells.map((c) => c.getSave());
     if (this.tiles && this.tiles.length > 0) {
       ret.e = this.tiles.map((extra) => {
         return {
           n: extra.number,
-          u: extra.unit.id,
+          u: extra.unit.id
         };
       });
     }

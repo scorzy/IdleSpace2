@@ -5,6 +5,7 @@ import { FormatPipe } from "./format.pipe";
 import { OptionsService, THEMES } from "./options.service";
 import compiledCss from "./model/data/themes.json";
 import { FLEET_NUMBER } from "./model/CONSTANTS";
+import { Enemy } from "./model/enemy/enemy";
 
 export const SAVE_ID = "IA3_save";
 
