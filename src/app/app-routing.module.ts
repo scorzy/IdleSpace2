@@ -23,6 +23,8 @@ import { BiComponent } from "./units/bi/bi.component";
 
 export const routes: Routes = [
   { path: "", pathMatch: "full", redirectTo: "/units/ws" },
+  { path: "des", pathMatch: "full", redirectTo: "/des/add" },
+  { path: "enemyList", pathMatch: "full", redirectTo: "/enemyList/search" },
   { path: "units/:id", pathMatch: "full", component: UnitsComponent },
   { path: "bi", pathMatch: "full", component: BiComponent },
   { path: "mod/:id", pathMatch: "full", component: ModComponent },

@@ -62,8 +62,8 @@
       <li nz-menu-item nzMatchRouter>
         <a [routerLink]="'fleet'">Fleet</a>
       </li>
-      <li nz-menu-item nzMatchRouterExact>
-        <a [routerLink]="'/des/add'">
+      <li nz-menu-item nzMatchRouter>
+        <a [routerLink]="'/des'">
           <span>Designs</span>
         </a>
       </li>
@@ -76,7 +76,7 @@
   </li>
   <li nz-submenu nzOpen nzTitle="Enemies" nzIcon="my:strafe">
     <ul>
-      <li nz-menu-item nzMatchRouterExact routerLink="enemyList/search">
+      <li nz-menu-item nzMatchRouter routerLink="enemyList">
         <a>Enemies</a>
       </li>
       <li nz-menu-item nzMatchRouter routerLink="battle">
