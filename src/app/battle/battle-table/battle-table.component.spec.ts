@@ -29,6 +29,7 @@ describe("BattleTableComponent", () => {
     component.ms.game.enemyManager.currentEnemy = new Enemy();
     component.ms.game.enemyManager.currentEnemy.generate(new SearchJob());
     component.ms.game.enemyManager.currentEnemy.generateCells();
+    component.currentEnemy = new Enemy();
     fixture.detectChanges();
   });
 
