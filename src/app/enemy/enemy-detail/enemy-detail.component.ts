@@ -2,7 +2,10 @@ import {
   Component,
   ChangeDetectionStrategy,
   Input,
-  ChangeDetectorRef
+  ChangeDetectorRef,
+  OnInit,
+  OnDestroy,
+  AfterViewInit
 } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Enemy, ExtraTile } from "src/app/model/enemy/enemy";

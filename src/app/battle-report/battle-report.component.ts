@@ -1,4 +1,10 @@
-import { Component, ChangeDetectionStrategy } from "@angular/core";
+import {
+  Component,
+  ChangeDetectionStrategy,
+  OnInit,
+  OnDestroy,
+  AfterViewInit
+} from "@angular/core";
 import { Stats } from "../model/battle/battleResult";
 import { BaseComponentComponent } from "../base-component/base-component.component";
 

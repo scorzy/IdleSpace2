@@ -1,4 +1,10 @@
-import { Component, ChangeDetectionStrategy } from "@angular/core";
+import {
+  Component,
+  ChangeDetectionStrategy,
+  OnInit,
+  OnDestroy,
+  AfterViewInit
+} from "@angular/core";
 import { FLEET_NUMBER, ZERO } from "../model/CONSTANTS";
 import { Cell } from "../model/enemy/cell";
 import { BaseComponentComponent } from "../base-component/base-component.component";

@@ -1,4 +1,11 @@
-import { Component, ChangeDetectionStrategy, Input } from "@angular/core";
+import {
+  Component,
+  ChangeDetectionStrategy,
+  Input,
+  OnInit,
+  OnDestroy,
+  AfterViewInit
+} from "@angular/core";
 import { Enemy } from "src/app/model/enemy/enemy";
 import { BaseComponentComponent } from "src/app/base-component/base-component.component";
 
