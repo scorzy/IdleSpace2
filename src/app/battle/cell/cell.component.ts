@@ -1,15 +1,13 @@
 import {
   Component,
-  OnInit,
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  OnDestroy,
   Input,
+  OnInit,
+  OnDestroy,
+  AfterViewInit,
   OnChanges
 } from "@angular/core";
 import { Cell } from "src/app/model/enemy/cell";
-import { Subscription } from "rxjs";
-import { MainService } from "src/app/main.service";
 import { UNIT_TYPES } from "src/app/model/data/units";
 import { Game } from "src/app/model/game";
 import { BaseComponentComponent } from "src/app/base-component/base-component.component";
@@ -20,7 +18,8 @@ import { BaseComponentComponent } from "src/app/base-component/base-component.co
   styleUrls: ["./cell.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CellComponent extends BaseComponentComponent implements OnChanges {
+export class CellComponent extends BaseComponentComponent
+  implements OnInit, OnDestroy, AfterViewInit, OnChanges {
   @Input() cell: Cell;
   icons: string[];
 

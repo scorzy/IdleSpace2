@@ -68,10 +68,14 @@ export class ShipyardManager extends JobManager {
     );
   }
   addDesign(name: string, type: number): number {
-    if (this.shipDesigns.length >= MAX_DESIGN) return -1;
+    if (this.shipDesigns.length >= MAX_DESIGN) {
+      return -1;
+    }
 
     const shipType = this.shipTypes.find((t) => t.id === type);
-    if (!shipType) return -1;
+    if (!shipType) {
+      return -1;
+    }
 
     const shipDesign = new ShipDesign();
     shipDesign.id = 1;
@@ -110,7 +114,9 @@ export class ShipyardManager extends JobManager {
         }
       }
     }
-    if (unlocked) this.reloadLists();
+    if (unlocked) {
+      this.reloadLists();
+    }
     for (let i = 0, n = this.toDo.length; i < n; i++) {
       this.toDo[i].reload();
     }
@@ -139,8 +145,12 @@ export class ShipyardManager extends JobManager {
     ];
   }
   update(oldDesign: ShipDesign, newDesign: ShipDesign): boolean {
-    if (!(newDesign && oldDesign)) return false;
-    if (oldDesign.old) return false;
+    if (!(newDesign && oldDesign)) {
+      return false;
+    }
+    if (oldDesign.old) {
+      return false;
+    }
 
     newDesign.modules = newDesign.modules.filter((line) => line.module);
     newDesign.id = oldDesign.id;
@@ -175,7 +185,9 @@ export class ShipyardManager extends JobManager {
     }
     oldDesign.old = null;
     const index = this.shipDesigns.indexOf(oldDesign);
-    if (index > -1) this.shipDesigns[index] = newDesign;
+    if (index > -1) {
+      this.shipDesigns[index] = newDesign;
+    }
     return true;
   }
   /**
@@ -208,7 +220,10 @@ export class ShipyardManager extends JobManager {
         let remainingNavCapUi = this.fleetsCapacity[i];
         for (let k = 0, n = this.shipDesigns.length; k < n; k++) {
           prioritySum += this.shipDesigns[k].fleets[i].navalCapPercent;
-          prioritySumUi += this.shipDesigns[k].fleets[i].navalCapPercentUi;
+          prioritySumUi += Math.max(
+            0,
+            this.shipDesigns[k].fleets[i].navalCapPercentUi
+          );
         }
         prioritySum = Math.max(1, prioritySum);
         prioritySumUi = Math.max(1, prioritySumUi);
@@ -220,7 +235,7 @@ export class ShipyardManager extends JobManager {
           );
           this.shipDesigns[k].fleets[i].wantedShipsUi = Math.floor(
             (this.fleetsCapacity[i] *
-              this.shipDesigns[k].fleets[i].navalCapPercentUi) /
+              Math.max(0, this.shipDesigns[k].fleets[i].navalCapPercentUi)) /
               (prioritySumUi * this.shipDesigns[k].type.navalCapacity)
           );
           remainingNavCap -= Math.floor(
@@ -249,7 +264,6 @@ export class ShipyardManager extends JobManager {
             }
           }
         }
-
         if (remainingNavCapUi > 0) {
           const ordered = this.shipDesigns
             .slice(0)

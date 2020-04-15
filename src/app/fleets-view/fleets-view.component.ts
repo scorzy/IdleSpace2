@@ -1,10 +1,11 @@
 import {
   Component,
-  OnInit,
   ChangeDetectionStrategy,
-  ChangeDetectorRef
+  ChangeDetectorRef,
+  OnInit,
+  OnDestroy,
+  AfterViewInit
 } from "@angular/core";
-import { Subscription } from "rxjs";
 import { MainService } from "../main.service";
 import { BaseComponentComponent } from "../base-component/base-component.component";
 
@@ -14,7 +15,8 @@ import { BaseComponentComponent } from "../base-component/base-component.compone
   styleUrls: ["./fleets-view.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class FleetsViewComponent extends BaseComponentComponent {
+export class FleetsViewComponent extends BaseComponentComponent
+  implements OnInit, OnDestroy, AfterViewInit {
   fleets = [0, 1, 2, 3, 4, 5];
   constructor(ms: MainService, cd: ChangeDetectorRef) {
     super(ms, cd);

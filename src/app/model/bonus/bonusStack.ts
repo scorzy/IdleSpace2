@@ -15,7 +15,7 @@ export class BonusStack {
   }
   reloadBonusUi() {
     const newBonus = this.totalBonus.minus(1).times(100);
-    if (!newBonus.eq(this.totalBonusUi)) this.totalBonusUi = newBonus;
+    if (!newBonus.eq(this.totalBonusUi)) { this.totalBonusUi = newBonus; }
   }
   reloadAdditiveBonus() {
     this.totalAdditiveBonus = ZERO;

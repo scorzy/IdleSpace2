@@ -1,16 +1,16 @@
 import {
   Component,
-  OnInit,
   Input,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
-  OnDestroy
+  OnInit,
+  OnDestroy,
+  AfterViewInit
 } from "@angular/core";
 import { MainService } from "../main.service";
 import { fadeIn } from "../animations";
 import { ShipDesign } from "../model/shipyard/shipDesign";
 import { OptionsService } from "../options.service";
-import { Subscription } from "rxjs";
 import { BaseComponentComponent } from "../base-component/base-component.component";
 
 @Component({
@@ -20,7 +20,8 @@ import { BaseComponentComponent } from "../base-component/base-component.compone
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [fadeIn]
 })
-export class SideMenuComponent extends BaseComponentComponent {
+export class SideMenuComponent extends BaseComponentComponent
+  implements OnInit, OnDestroy, AfterViewInit {
   @Input() isCollapsed = false;
   @Input() notCollapsed = false;
 

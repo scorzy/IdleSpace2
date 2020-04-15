@@ -1,13 +1,11 @@
 import {
   Component,
-  OnInit,
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  HostBinding
+  OnInit,
+  OnDestroy,
+  AfterViewInit
 } from "@angular/core";
-import { MainService } from "../main.service";
 import { Technology } from "../model/researches/technology";
-import { Subscription } from "rxjs";
 import { BaseComponentComponent } from "../base-component/base-component.component";
 
 @Component({
@@ -16,7 +14,8 @@ import { BaseComponentComponent } from "../base-component/base-component.compone
   styleUrls: ["./technologies.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TechnologiesComponent extends BaseComponentComponent {
+export class TechnologiesComponent extends BaseComponentComponent
+  implements OnInit, OnDestroy, AfterViewInit {
   ngOnInit() {
     this.reloadUi();
     this.subscriptions.push(

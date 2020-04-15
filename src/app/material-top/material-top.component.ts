@@ -1,14 +1,14 @@
 import {
   Component,
-  OnInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
+  TemplateRef,
+  OnInit,
   OnDestroy,
-  TemplateRef
+  AfterViewInit
 } from "@angular/core";
 import { MainService } from "../main.service";
 import { Unit } from "../model/units/unit";
-import { Subscription } from "rxjs";
 import { fadeIn } from "../animations";
 import { NzModalRef, NzModalService } from "ng-zorro-antd";
 import { BreakpointObserver } from "@angular/cdk/layout";
@@ -22,7 +22,8 @@ import { BaseComponentComponent } from "../base-component/base-component.compone
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [fadeIn]
 })
-export class MaterialTopComponent extends BaseComponentComponent {
+export class MaterialTopComponent extends BaseComponentComponent
+  implements OnInit, OnDestroy, AfterViewInit {
   tplModal: NzModalRef;
   popoverTrigger: string = null;
   Decimal = Decimal;

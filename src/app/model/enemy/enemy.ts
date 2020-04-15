@@ -222,7 +222,7 @@ export class Enemy {
       this.favouriteWeapons.push(favouriteWeapon);
       //#endregion
       sum = 0;
-      if (defPercent > 0) designNum--;
+      if (defPercent > 0) { designNum--; }
       for (let i = 0; i < designNum; i++) {
         let type = sample(allowedShipTypes);
         if (this.designs.findIndex((d) => d.type.id === type.id)) {
@@ -265,7 +265,7 @@ export class Enemy {
     em.resourceMultiplier.reloadBonus();
     em.scienceMultiplier.reloadBonus();
     rs.units.forEach((u) => {
-      if (u.battleGainMulti) u.battleGainMulti.reloadBonus();
+      if (u.battleGainMulti) { u.battleGainMulti.reloadBonus(); }
     });
 
     const districtQuantity = TEN.plus(this.level - 1).times(
@@ -326,7 +326,7 @@ export class Enemy {
     });
   }
   reloadCell(index: number) {
-    if (!this.cells) return;
+    if (!this.cells) { return; }
     //#region Color
     let toDoColor: number[];
     let doneColor: number[];
@@ -448,7 +448,7 @@ export class Enemy {
           module = sample(chooseList);
           lastWasWeapon = false;
         }
-        if (notEnergy && module.energy < 0) module = sm.armour;
+        if (notEnergy && module.energy < 0) { module = sm.armour; }
 
         pointToUse = Math.min(
           5,
@@ -490,7 +490,7 @@ export class Enemy {
                     g.energy > lastGen.module.energy &&
                     lastGen.module.energy < this.maxGenerator
                 );
-                if (newGen) lastGen.module = newGen;
+                if (newGen) { lastGen.module = newGen; }
                 if (last !== lastGen.module.id) {
                   tempEnergy += lastGen.module.energy - prevEnergy;
                 }
@@ -512,7 +512,7 @@ export class Enemy {
                     g.energy > lastGen.module.energy &&
                     lastGen.module.energy < this.maxGenerator
                 );
-                if (newGen) lastGen.module = newGen;
+                if (newGen) { lastGen.module = newGen; }
                 if (last !== lastGen.module.id) {
                   tempEnergy += lastGen.module.energy - prevEnergy;
                 }
@@ -582,7 +582,7 @@ export class Enemy {
       d: this.designs.map((des) => des.getEnemySave()),
       s: this.distance
     };
-    if (this.cells) ret.c = this.cells.map((c) => c.getSave());
+    if (this.cells) { ret.c = this.cells.map((c) => c.getSave()); }
     if (this.tiles && this.tiles.length > 0) {
       ret.e = this.tiles.map((extra) => {
         return {
@@ -595,10 +595,10 @@ export class Enemy {
   }
   load(data: any) {
     const rs = Game.getGame().resourceManager;
-    if ("l" in data) this.level = data.l;
-    if ("n" in data) this.name = data.n;
-    if ("i" in data) this.icon = data.i;
-    if ("s" in data) this.distance = new Decimal(data.s);
+    if ("l" in data) { this.level = data.l; }
+    if ("n" in data) { this.name = data.n; }
+    if ("i" in data) { this.icon = data.i; }
+    if ("s" in data) { this.distance = new Decimal(data.s); }
     if ("d" in data) {
       this.designs = data.d.map((designData) => {
         const design = new ShipDesign();

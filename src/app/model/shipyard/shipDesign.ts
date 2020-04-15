@@ -62,7 +62,7 @@ export class ShipDesign {
   }
   static getStatsMulti(m: any, noLevel = false): number {
     const sizeMultiplier = m.size + (m.size - 1) * SIZE_MULTI;
-    if (noLevel) return sizeMultiplier;
+    if (noLevel) { return sizeMultiplier; }
     return (1 + 0.1 * (m.level - 1)) * sizeMultiplier;
   }
   reload(errorCheck = false) {
@@ -104,7 +104,7 @@ export class ShipDesign {
     }
     for (let i = 0, n = this.modules.length; i < n; i++) {
       const m = this.modules[i];
-      if (!m.module) continue;
+      if (!m.module) { continue; }
 
       points += m.size;
       modSum++;
@@ -155,7 +155,7 @@ export class ShipDesign {
     //#region Utility
     for (let i = 0, n = this.modules.length; i < n; i++) {
       const m = this.modules[i];
-      if (!m.module || m.module.damage > 0) continue;
+      if (!m.module || m.module.damage > 0) { continue; }
 
       const statsMulti = ShipDesign.getStatsMulti(m);
       const statsMultiNoLevel = ShipDesign.getStatsMulti(m, true);
@@ -462,7 +462,7 @@ export class ShipDesign {
   }
   maximize() {
     this.modules.forEach((mod) => {
-      if (mod.module) mod.level = Math.floor(mod.module.maxLevel - 1);
+      if (mod.module) { mod.level = Math.floor(mod.module.maxLevel - 1); }
     });
     this.reload(true);
   }
@@ -476,8 +476,8 @@ export class ShipDesign {
       m: this.modules.map((mod) => [mod.module.id, mod.level, mod.size]),
       f: this.fleets.map((fleet) => fleet.getData()),
     };
-    if (this.isDefence) ret.d = this.isDefence;
-    if (this.old) ret.o = this.old.getSave();
+    if (this.isDefence) { ret.d = this.isDefence; }
+    if (this.old) { ret.o = this.old.getSave(); }
     return ret;
   }
   load(data: any) {
@@ -485,16 +485,16 @@ export class ShipDesign {
     for (let i = 0; i < FLEET_NUMBER; i++) {
       this.fleets[i] = new FleetShips();
     }
-    if ("i" in data) this.id = data.i;
-    if ("r" in data) this.rev = data.r;
-    if ("n" in data) this.name = data.n;
-    if ("d" in data) this.isDefence = data.d;
+    if ("i" in data) { this.id = data.i; }
+    if ("r" in data) { this.rev = data.r; }
+    if ("n" in data) { this.name = data.n; }
+    if ("d" in data) { this.isDefence = data.d; }
     if ("t" in data) {
       this.type = Game.getGame().shipyardManager.shipTypes.find(
         (t) => t.id === data.t
       );
     }
-    if (!this.type) return false;
+    if (!this.type) { return false; }
 
     if ("m" in data) {
       for (const mod of data.m) {
@@ -531,13 +531,13 @@ export class ShipDesign {
     };
   }
   loadEnemy(data: any): any {
-    if ("n" in data) this.name = data.n;
+    if ("n" in data) { this.name = data.n; }
     if ("t" in data) {
       this.type = Game.getGame().shipyardManager.shipTypes.find(
         (t) => t.id === data.t
       );
     }
-    if (!this.type) return false;
+    if (!this.type) { return false; }
     if ("m" in data) {
       for (const mod of data.m) {
         const module = Game.getGame().shipyardManager.modules.find(
@@ -551,7 +551,7 @@ export class ShipDesign {
         }
       }
     }
-    if ("q" in data) this.enemyQuantity = data.q;
+    if ("q" in data) { this.enemyQuantity = data.q; }
     this.reload();
   }
   //#endregion

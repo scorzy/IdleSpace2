@@ -105,9 +105,9 @@ export class UpdateShipJob extends Job {
         des => des.id === data.d
       );
     }
-    if (!this.design) return false;
-    if ("p" in data) this.progress = new Decimal(data.p);
-    if ("u" in data) this.updated = data.u;
+    if (!this.design) { return false; }
+    if ("p" in data) { this.progress = new Decimal(data.p); }
+    if ("u" in data) { this.updated = data.u; }
     this.reload();
   }
   //#endregion

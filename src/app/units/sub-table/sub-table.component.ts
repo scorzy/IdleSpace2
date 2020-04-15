@@ -1,8 +1,10 @@
 import {
   Component,
-  OnInit,
   ChangeDetectionStrategy,
-  Input
+  Input,
+  OnInit,
+  OnDestroy,
+  AfterViewInit
 } from "@angular/core";
 import { Production } from "src/app/model/units/production";
 import { ONE } from "src/app/model/CONSTANTS";
@@ -15,7 +17,8 @@ import { BaseComponentComponent } from "src/app/base-component/base-component.co
   styleUrls: ["./sub-table.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SubTableComponent extends BaseComponentComponent {
+export class SubTableComponent extends BaseComponentComponent
+  implements OnInit, OnDestroy, AfterViewInit {
   @Input() data: Production;
   @Input() unit: Unit;
   subData: Array<{

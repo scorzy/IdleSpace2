@@ -1,5 +1,10 @@
-import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
-import { MainService } from "src/app/main.service";
+import {
+  Component,
+  ChangeDetectionStrategy,
+  OnInit,
+  OnDestroy,
+  AfterViewInit
+} from "@angular/core";
 import { BaseComponentComponent } from "src/app/base-component/base-component.component";
 
 @Component({
@@ -8,4 +13,5 @@ import { BaseComponentComponent } from "src/app/base-component/base-component.co
   styleUrls: ["./auto-attack-options.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AutoAttackOptionsComponent extends BaseComponentComponent {}
+export class AutoAttackOptionsComponent extends BaseComponentComponent
+  implements OnInit, OnDestroy, AfterViewInit {}

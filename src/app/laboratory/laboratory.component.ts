@@ -1,17 +1,16 @@
 import {
   Component,
-  OnInit,
   ChangeDetectionStrategy,
-  ChangeDetectorRef
+  OnInit,
+  OnDestroy,
+  AfterViewInit
 } from "@angular/core";
-import { MainService } from "../main.service";
 import { Research } from "../model/researches/research";
 import {
   CdkDragDrop,
   moveItemInArray,
   transferArrayItem
 } from "@angular/cdk/drag-drop";
-import { Subscription } from "rxjs";
 import { IJobType } from "../model/data/iResearchData";
 import { BaseComponentComponent } from "../base-component/base-component.component";
 
@@ -21,7 +20,8 @@ import { BaseComponentComponent } from "../base-component/base-component.compone
   styleUrls: ["./laboratory.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class LaboratoryComponent extends BaseComponentComponent {
+export class LaboratoryComponent extends BaseComponentComponent
+  implements OnInit, OnDestroy, AfterViewInit {
   ngOnInit() {
     this.reloadUi();
     this.subscriptions.push(

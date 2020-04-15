@@ -257,7 +257,7 @@ function getTarget(targets: ShipData[], weapon: WeaponData): Ship {
     sum += targets[i].alive.length * weapon.precision;
     sum += shieldPrecision * targets[i].withShield;
     sum += armourPrecision * targets[i].withArmour;
-    if (targets[i].isDefence) sum += defencePrecision * targets[i].alive.length;
+    if (targets[i].isDefence) { sum += defencePrecision * targets[i].alive.length; }
   }
   const rand = Math.random() * sum;
   let acc = 0;
@@ -266,14 +266,14 @@ function getTarget(targets: ShipData[], weapon: WeaponData): Ship {
     for (let k = 0, n2 = targets[i].ships.length; k < n2; k++) {
       target = targets[i].ships[k];
       acc += target.threat;
-      if (targets[i].isDefence && target.armour > 0) acc += defencePrecision;
+      if (targets[i].isDefence && target.armour > 0) { acc += defencePrecision; }
       if (target.shield > 0) {
         acc += shieldPrecision;
       } else if (target.armour > 0) {
         acc += armourPrecision;
         acc += weapon.precision;
       }
-      if (acc >= rand) return target;
+      if (acc >= rand) { return target; }
     }
   }
 }
@@ -366,7 +366,7 @@ function dealDamage(
   //  Remove
   if (target.armour <= 0) {
     const index = target.shipData.alive.indexOf(target);
-    if (index >= 0) target.shipData.alive.splice(index, 1);
+    if (index >= 0) { target.shipData.alive.splice(index, 1); }
     target.shipData.withArmour--;
     target.shipData.stats.rounds[round].lost++;
     attacker.shipData.stats.rounds[round].kills++;

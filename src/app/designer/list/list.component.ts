@@ -1,12 +1,11 @@
 import {
   Component,
-  OnInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
+  OnInit,
   OnDestroy,
   AfterViewInit
 } from "@angular/core";
-import { Subscription } from "rxjs";
 import { MainService } from "src/app/main.service";
 import { ActivatedRoute } from "@angular/router";
 import { BreakpointObserver, BreakpointState } from "@angular/cdk/layout";
@@ -20,7 +19,8 @@ import { BaseComponentComponent } from "src/app/base-component/base-component.co
   styleUrls: ["./list.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ListComponent extends BaseComponentComponent {
+export class ListComponent extends BaseComponentComponent
+  implements OnInit, OnDestroy, AfterViewInit {
   isLarge = true;
   constructor(
     ms: MainService,

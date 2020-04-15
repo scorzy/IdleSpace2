@@ -20,9 +20,9 @@ export class Price {
 
   reload(bought: Decimal, numWanted: Decimal = ONE) {
     const tempMultiCost = this.getPrice(numWanted, bought);
-    if (!tempMultiCost.eq(this.multiCost)) this.multiCost = tempMultiCost;
+    if (!tempMultiCost.eq(this.multiCost)) { this.multiCost = tempMultiCost; }
     const newCost = this.getPrice(ONE, bought);
-    if (!this.singleCost.eq(newCost)) this.singleCost = newCost;
+    if (!this.singleCost.eq(newCost)) { this.singleCost = newCost; }
 
     if (this.spendable.quantity.lte(0)) {
       this.maxBuy = new Decimal(0);
@@ -45,7 +45,7 @@ export class Price {
   }
   buy(toBuy: Decimal, bought: Decimal): boolean {
     const price = this.getPrice(toBuy, bought);
-    if (price.gt(this.spendable.quantity)) return false;
+    if (price.gt(this.spendable.quantity)) { return false; }
 
     this.spendable.quantity = this.spendable.quantity.minus(price);
     return true;

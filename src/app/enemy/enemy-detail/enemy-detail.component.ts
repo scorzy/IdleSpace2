@@ -1,12 +1,9 @@
 import {
   Component,
-  OnInit,
   ChangeDetectionStrategy,
   Input,
-  ChangeDetectorRef,
-  OnDestroy
+  ChangeDetectorRef
 } from "@angular/core";
-import { Subscription } from "rxjs";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Enemy, ExtraTile } from "src/app/model/enemy/enemy";
 import { MainService } from "src/app/main.service";
@@ -18,7 +15,8 @@ import { BaseComponentComponent } from "src/app/base-component/base-component.co
   styleUrls: ["./enemy-detail.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class EnemyDetailComponent extends BaseComponentComponent {
+export class EnemyDetailComponent extends BaseComponentComponent
+  implements OnInit, OnDestroy, AfterViewInit {
   @Input() enemy: Enemy;
 
   constructor(

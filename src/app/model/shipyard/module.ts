@@ -74,7 +74,7 @@ export class Module implements IUnlockable {
     this.maxLevel = Math.floor(this.maxLevel);
   }
   unlock(): boolean {
-    if (this.unlocked) return false;
+    if (this.unlocked) { return false; }
     this.unlocked = true;
     return true;
   }

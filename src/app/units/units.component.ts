@@ -1,11 +1,11 @@
 import {
   Component,
-  OnInit,
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  OnInit,
   OnDestroy,
-  ChangeDetectorRef
+  AfterViewInit
 } from "@angular/core";
-import { Subscription } from "rxjs";
 import { MainService } from "../main.service";
 import { Unit } from "../model/units/unit";
 import { ActivatedRoute } from "@angular/router";
@@ -19,7 +19,8 @@ import { BaseComponentComponent } from "../base-component/base-component.compone
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [fadeIn]
 })
-export class UnitsComponent extends BaseComponentComponent {
+export class UnitsComponent extends BaseComponentComponent
+  implements OnInit, OnDestroy, AfterViewInit {
   public get units(): Array<Unit> {
     if (this.param === "b") {
       return this.ms.game.resourceManager.unlockedBuildings;

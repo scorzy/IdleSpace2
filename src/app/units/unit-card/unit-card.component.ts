@@ -1,14 +1,14 @@
 import {
   Component,
-  OnInit,
   ChangeDetectionStrategy,
-  OnDestroy,
   ChangeDetectorRef,
   Input,
   ViewChild,
-  TemplateRef
+  TemplateRef,
+  OnInit,
+  OnDestroy,
+  AfterViewInit
 } from "@angular/core";
-import { Subscription } from "rxjs";
 import { MainService } from "src/app/main.service";
 import { Unit } from "src/app/model/units/unit";
 import { ONE } from "src/app/model/CONSTANTS";
@@ -25,7 +25,8 @@ import { BaseComponentComponent } from "src/app/base-component/base-component.co
   styleUrls: ["./unit-card.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class UnitCardComponent extends BaseComponentComponent {
+export class UnitCardComponent extends BaseComponentComponent
+  implements OnInit, OnDestroy, AfterViewInit {
   @Input() unit: Unit;
   tplModal: NzModalRef;
   popoverTrigger: string = null;

@@ -89,13 +89,14 @@ export class Research extends Job implements IUnlockable, IBase {
   reloadUi() {
     super.reloadUi();
     const newTotalBonUi = this.totalBonus.minus(1).times(100);
-    if (!newTotalBonUi.eq(this.totalBonusUi)) this.totalBonusUi = newTotalBonUi;
-
+    if (!newTotalBonUi.eq(this.totalBonusUi)) {
+      this.totalBonusUi = newTotalBonUi;
+    }
     this.timeToEnd = solveEquation(
       ZERO,
       ZERO,
-      Game.getGame().researchManager.researchPerSec,
-      this.total.minus(this.progress).times(-1).div(this.totalBonus)
+      Game.getGame().researchManager.researchPerSec.times(this.totalBonus),
+      this.total.minus(this.progress).times(-1)
     )
       .reduce((p, c) => p.min(c), INFINITY)
       .toNumber();
@@ -134,9 +135,10 @@ export class Research extends Job implements IUnlockable, IBase {
     if (this.researchToUnlock) {
       this.researchToUnlock.forEach((res) => {
         res.visLevel = this.visLevel + 1;
-        this.initialPrice = new Decimal(RESEARCH_BASE_PRICE).times(
+        res.initialPrice = new Decimal(RESEARCH_BASE_PRICE).times(
           Decimal.pow(RESEARCH_LEVEL_MULTI, res.visLevel - 1)
         );
+        res.reload();
         res.setLevels();
       });
     }
@@ -162,9 +164,15 @@ export class Research extends Job implements IUnlockable, IBase {
     return ret;
   }
   load(data: any) {
-    if (!("i" in data) || data.i !== this.id) return false;
-    if ("p" in data) this.progress = new Decimal(data.p);
-    if ("l" in data) this.level = data.l;
+    if (!("i" in data) || data.i !== this.id) {
+      return false;
+    }
+    if ("p" in data) {
+      this.progress = new Decimal(data.p);
+    }
+    if ("l" in data) {
+      this.level = data.l;
+    }
     this.reload();
   }
   //#endregion

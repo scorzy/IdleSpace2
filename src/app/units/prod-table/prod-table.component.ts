@@ -1,8 +1,10 @@
 import {
   Component,
-  OnInit,
   ChangeDetectionStrategy,
-  Input
+  Input,
+  OnInit,
+  OnDestroy,
+  AfterViewInit
 } from "@angular/core";
 import { Unit } from "src/app/model/units/unit";
 import { Production } from "src/app/model/units/production";
@@ -14,7 +16,8 @@ import { BaseComponentComponent } from "src/app/base-component/base-component.co
   styleUrls: ["./prod-table.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProdTableComponent extends BaseComponentComponent {
+export class ProdTableComponent extends BaseComponentComponent
+  implements OnInit, OnDestroy, AfterViewInit {
   @Input() unit: Unit;
   ngOnInit(): void {}
   getProdId(index: number, production: Production) {

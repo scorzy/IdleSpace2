@@ -43,7 +43,7 @@ export class OptionsService {
   }
   setHeaderTheme() {
     OptionsService.isDark = !(
-      typeof this.themeId == "string" && this.themeId.includes("light")
+      typeof this.themeId === "string" && this.themeId.includes("light")
     );
     this.darkHeader = !OptionsService.isDark && this.darkSide;
   }

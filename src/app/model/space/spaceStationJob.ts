@@ -43,8 +43,8 @@ export class SpaceStationJob extends Job {
     return ret;
   }
   load(data: any) {
-    if (!("i" in data)) return false;
-    if ("p" in data) this.progress = new Decimal(data.p);
+    if (!("i" in data)) { return false; }
+    if ("p" in data) { this.progress = new Decimal(data.p); }
     this.reload();
   }
   //#endregion

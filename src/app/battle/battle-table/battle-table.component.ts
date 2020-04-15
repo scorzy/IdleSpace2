@@ -1,13 +1,4 @@
-import {
-  Component,
-  OnInit,
-  ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  OnDestroy,
-  Input
-} from "@angular/core";
-import { Subscription } from "rxjs";
-import { MainService } from "src/app/main.service";
+import { Component, ChangeDetectionStrategy, Input } from "@angular/core";
 import { Enemy } from "src/app/model/enemy/enemy";
 import { BaseComponentComponent } from "src/app/base-component/base-component.component";
 
@@ -17,7 +8,8 @@ import { BaseComponentComponent } from "src/app/base-component/base-component.co
   styleUrls: ["./battle-table.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class BattleTableComponent extends BaseComponentComponent {
+export class BattleTableComponent extends BaseComponentComponent
+  implements OnInit, OnDestroy, AfterViewInit {
   @Input() currentEnemy: Enemy;
   numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
   getNumId(index: number, num: number) {

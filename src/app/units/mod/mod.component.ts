@@ -1,12 +1,12 @@
 import {
   Component,
-  OnInit,
   ChangeDetectionStrategy,
-  OnDestroy,
   Input,
-  ChangeDetectorRef
+  ChangeDetectorRef,
+  OnInit,
+  OnDestroy,
+  AfterViewInit
 } from "@angular/core";
-import { Subscription } from "rxjs";
 import { Unit } from "src/app/model/units/unit";
 import { MainService } from "src/app/main.service";
 import { ActivatedRoute, ParamMap, Router } from "@angular/router";
@@ -22,7 +22,8 @@ import { BaseComponentComponent } from "src/app/base-component/base-component.co
   styleUrls: ["./mod.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ModComponent extends BaseComponentComponent {
+export class ModComponent extends BaseComponentComponent
+  implements OnInit, OnDestroy, AfterViewInit {
   @Input() unit: Unit;
   disabled = false;
   isLarge = true;

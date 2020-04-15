@@ -1,14 +1,12 @@
 import {
   Component,
-  OnInit,
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
-  OnDestroy
+  OnInit,
+  OnDestroy,
+  AfterViewInit
 } from "@angular/core";
-import { MainService } from "../main.service";
 import { Unit } from "../model/units/unit";
 import { CdkDragDrop, moveItemInArray } from "@angular/cdk/drag-drop";
-import { Subscription } from "rxjs";
 import { fadeIn } from "../animations";
 import { BaseComponentComponent } from "../base-component/base-component.component";
 
@@ -19,7 +17,8 @@ import { BaseComponentComponent } from "../base-component/base-component.compone
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [fadeIn]
 })
-export class SpaceStationsComponent extends BaseComponentComponent {
+export class SpaceStationsComponent extends BaseComponentComponent
+  implements OnInit, OnDestroy, AfterViewInit {
   sortName: string | null = "id";
   sortValue: string | null = "ascend";
   listOfStations: Unit[];

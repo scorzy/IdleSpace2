@@ -1,11 +1,11 @@
 import {
   Component,
-  OnInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
-  OnDestroy
+  OnInit,
+  OnDestroy,
+  AfterViewInit
 } from "@angular/core";
-import { Subscription } from "rxjs";
 import { MainService } from "src/app/main.service";
 import { ActivatedRoute } from "@angular/router";
 import { CdkDragDrop, moveItemInArray } from "@angular/cdk/drag-drop";
@@ -22,7 +22,8 @@ import { BaseComponentComponent } from "src/app/base-component/base-component.co
   styleUrls: ["./search.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SearchComponent extends BaseComponentComponent {
+export class SearchComponent extends BaseComponentComponent
+  implements OnInit, OnDestroy, AfterViewInit {
   searchLevel = 0;
   expectedPrice = ZERO;
   expectedTiles: { unit: Unit; range: SearchRange }[];

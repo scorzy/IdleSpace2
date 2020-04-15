@@ -45,11 +45,7 @@ export abstract class Job {
     return ret;
   }
   getRemaining(): Decimal {
-    return this.total
-      .minus(this.progress)
-      .div(this.totalBonus)
-      .ceil()
-      .max(0);
+    return this.total.minus(this.progress).div(this.totalBonus).ceil().max(0);
   }
   onCompleted() {}
   reload() {
@@ -68,10 +64,10 @@ export abstract class Job {
     return [];
   }
   reloadTotalBonus() {
-    const newBonus = this.types
-      .map(t => t.bonus.totalBonus)
-      .reduce((p, c) => p.times(c), ONE);
-    if (!newBonus.eq(this.total)) this.totalBonus = newBonus;
+    this.totalBonus = ONE;
+    for (let i = 0, n = this.types.length; i < n; i++) {
+      this.totalBonus = this.totalBonus.times(this.types[i].bonus.totalBonus);
+    }
   }
   abstract getSave(): any;
   delete() {}

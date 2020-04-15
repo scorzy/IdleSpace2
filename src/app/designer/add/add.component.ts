@@ -1,8 +1,10 @@
 import {
   Component,
-  OnInit,
   ChangeDetectionStrategy,
-  ChangeDetectorRef
+  ChangeDetectorRef,
+  OnInit,
+  OnDestroy,
+  AfterViewInit
 } from "@angular/core";
 import {
   FormBuilder,
@@ -22,7 +24,8 @@ import { BaseComponentComponent } from "src/app/base-component/base-component.co
   styleUrls: ["./add.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AddComponent extends BaseComponentComponent {
+export class AddComponent extends BaseComponentComponent
+  implements OnInit, OnDestroy, AfterViewInit {
   validateForm: FormGroup;
   unlockedTypes = new Array<ShipType>();
 

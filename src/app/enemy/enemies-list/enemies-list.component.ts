@@ -1,12 +1,11 @@
 import {
   Component,
-  OnInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   OnDestroy,
+  OnInit,
   AfterViewInit
 } from "@angular/core";
-import { Subscription } from "rxjs";
 import { MainService } from "src/app/main.service";
 import { ActivatedRoute } from "@angular/router";
 import { Enemy } from "src/app/model/enemy/enemy";
@@ -23,7 +22,8 @@ import { BaseComponentComponent } from "src/app/base-component/base-component.co
 
   animations: [fadeIn]
 })
-export class EnemiesListComponent extends BaseComponentComponent {
+export class EnemiesListComponent extends BaseComponentComponent
+  implements OnInit, OnDestroy, AfterViewInit {
   isLarge = true;
   constructor(
     ms: MainService,

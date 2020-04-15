@@ -1,15 +1,15 @@
 import {
   Component,
-  OnInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
-  OnDestroy
+  OnInit,
+  OnDestroy,
+  AfterViewInit
 } from "@angular/core";
 import { MainService } from "../main.service";
 import { ShipDesign } from "../model/shipyard/shipDesign";
 import { CdkDragDrop, moveItemInArray } from "@angular/cdk/drag-drop";
 import { ActivatedRoute } from "@angular/router";
-import { Subscription } from "rxjs";
 import { FleetShips } from "../model/shipyard/fleetShips";
 import { fadeIn } from "../animations";
 import { BaseComponentComponent } from "../base-component/base-component.component";
@@ -21,7 +21,8 @@ import { BaseComponentComponent } from "../base-component/base-component.compone
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [fadeIn]
 })
-export class ShipyardComponent extends BaseComponentComponent {
+export class ShipyardComponent extends BaseComponentComponent
+  implements OnInit, OnDestroy, AfterViewInit {
   fleetNum = 0;
   fleetNames = [];
   panels = [

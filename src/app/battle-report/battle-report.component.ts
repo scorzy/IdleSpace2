@@ -1,10 +1,4 @@
-import {
-  Component,
-  OnInit,
-  ChangeDetectionStrategy,
-  OnDestroy
-} from "@angular/core";
-import { MainService } from "../main.service";
+import { Component, ChangeDetectionStrategy } from "@angular/core";
 import { Stats } from "../model/battle/battleResult";
 import { BaseComponentComponent } from "../base-component/base-component.component";
 
@@ -14,7 +8,8 @@ import { BaseComponentComponent } from "../base-component/base-component.compone
   styleUrls: ["./battle-report.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class BattleReportComponent extends BaseComponentComponent {
+export class BattleReportComponent extends BaseComponentComponent
+  implements OnInit, OnDestroy, AfterViewInit {
   fleet = -1;
   report = -1;
   stats: Stats[];

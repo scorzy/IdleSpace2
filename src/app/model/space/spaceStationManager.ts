@@ -16,7 +16,7 @@ export class SpaceStationManager extends JobManager {
     }
   }
   addJob(unit: Unit) {
-    if (!unit) return false;
+    if (!unit) { return false; }
     const job = new SpaceStationJob(unit);
     this.toDo.push(job);
     Game.getGame().reloadWorkPerSec();
@@ -30,7 +30,7 @@ export class SpaceStationManager extends JobManager {
     };
   }
   load(data: any) {
-    if (!("t" in data)) return false;
+    if (!("t" in data)) { return false; }
     const rs = Game.getGame().resourceManager;
     data.t.forEach(jobData => {
       const unit = rs.units.find(s => s.id === jobData.i);

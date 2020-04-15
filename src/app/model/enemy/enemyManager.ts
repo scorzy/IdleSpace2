@@ -106,15 +106,15 @@ export class EnemyManager extends JobManager {
     //  Auto Next
     if (this.autoNext && !this.currentEnemy) {
       const next = this.enemies.find((n) => n.level <= this.maxLevel);
-      if (next) this.attackEnemy(next);
+      if (next) { this.attackEnemy(next); }
     }
   }
   attackEnemy(enemy: Enemy): boolean {
-    if (this.currentEnemy || enemy.level > this.maxLevel) return false;
+    if (this.currentEnemy || enemy.level > this.maxLevel) { return false; }
     this.currentEnemy = enemy;
     this.currentEnemy.generateCells();
     const index = this.enemies.indexOf(enemy);
-    if (index >= 0) this.enemies.splice(index, 1);
+    if (index >= 0) { this.enemies.splice(index, 1); }
     return true;
   }
   attackCell(fleetNum: number) {
@@ -150,7 +150,7 @@ export class EnemyManager extends JobManager {
         );
 
         for (const sol of tempMax) {
-          if (sol.gt(maxTime)) maxTime = sol.toNumber();
+          if (sol.gt(maxTime)) { maxTime = sol.toNumber(); }
         }
 
         if (playerDesign[i].old) {
@@ -165,7 +165,7 @@ export class EnemyManager extends JobManager {
             this.currentEnemy.distance.times(-1)
           );
           for (const sol of tempMax) {
-            if (sol.gt(maxTime)) maxTime = sol.toNumber();
+            if (sol.gt(maxTime)) { maxTime = sol.toNumber(); }
           }
         }
       }
@@ -221,7 +221,7 @@ export class EnemyManager extends JobManager {
     this.currentEnemy = null;
   }
   reward(cell: Cell, fleetNum: number) {
-    if (cell.materials.length < 1) return;
+    if (cell.materials.length < 1) { return; }
     let remCargo = ZERO;
     const playerDesign = Game.getGame().shipyardManager.shipDesigns;
     for (let i = 0, n = playerDesign.length; i < n; i++) {
@@ -249,9 +249,9 @@ export class EnemyManager extends JobManager {
     this.currentEnemy = null;
   }
   nuke(cellNum: number) {
-    if (!this.currentEnemy) return false;
+    if (!this.currentEnemy) { return false; }
     const cell = this.currentEnemy.cells[cellNum];
-    if (!cell) return false;
+    if (!cell) { return false; }
     const nukeNeed = cell.getNuke();
     const rm = Game.getGame().resourceManager;
     const dmg = nukeNeed.times(Decimal.min(rm.nuke.quantity, nukeNeed));
@@ -274,15 +274,15 @@ export class EnemyManager extends JobManager {
       m: this.maxLevel,
       a: this.autoAttackOptions.map((auto) => auto.getSave())
     };
-    if (this.autoNext) ret.x = this.autoNext;
+    if (this.autoNext) { ret.x = this.autoNext; }
     if (this.autoAttackEnabled) {
       ret.p = this.autoAttackEnabled;
     }
     const searchData = this.searchOptions
       .filter((s) => s.quantity !== 0)
       .map((s) => s.getData());
-    if (searchData.length > 0) ret.s = searchData;
-    if (this.currentEnemy) ret.c = this.currentEnemy.getSave();
+    if (searchData.length > 0) { ret.s = searchData; }
+    if (this.currentEnemy) { ret.c = this.currentEnemy.getSave(); }
     return ret;
   }
   load(data: any) {
@@ -304,7 +304,7 @@ export class EnemyManager extends JobManager {
       this.currentEnemy = new Enemy();
       this.currentEnemy.load(data.c);
     }
-    if ("m" in data) this.maxLevel = data.m;
+    if ("m" in data) { this.maxLevel = data.m; }
     if ("s" in data) {
       data.s.forEach((optionData) => {
         const searchOption = this.searchOptions.find(
@@ -319,11 +319,11 @@ export class EnemyManager extends JobManager {
       for (let i = 0; i < FLEET_NUMBER; i++) {
         const optData = data.a[i];
         const opt = this.autoAttackOptions[i];
-        if (optData && opt) opt.load(optData);
+        if (optData && opt) { opt.load(optData); }
       }
     }
-    if ("p" in data) this.autoAttackEnabled = data.p;
-    if ("x" in data) this.autoNext = data.x;
+    if ("p" in data) { this.autoAttackEnabled = data.p; }
+    if ("x" in data) { this.autoNext = data.x; }
   }
   //#endregion
 }

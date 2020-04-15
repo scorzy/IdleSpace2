@@ -1,13 +1,11 @@
 import {
   Component,
-  OnInit,
   Input,
-  ChangeDetectorRef,
-  OnDestroy
+  OnInit,
+  OnDestroy,
+  AfterViewInit
 } from "@angular/core";
 import { Job, MyIcon } from "../model/job/job";
-import { Subscription } from "rxjs";
-import { MainService } from "../main.service";
 import { Research } from "../model/researches/research";
 import { moveItemInArray } from "@angular/cdk/drag-drop";
 import { BaseComponentComponent } from "../base-component/base-component.component";
@@ -17,7 +15,8 @@ import { BaseComponentComponent } from "../base-component/base-component.compone
   templateUrl: "./job.component.html",
   styleUrls: ["./job.component.scss"]
 })
-export class JobComponent extends BaseComponentComponent {
+export class JobComponent extends BaseComponentComponent
+  implements OnInit, OnDestroy, AfterViewInit {
   @Input() job: Job;
   @Input() collection: Job[];
   @Input() showDescription = true;

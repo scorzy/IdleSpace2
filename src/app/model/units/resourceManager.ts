@@ -8,7 +8,6 @@ import {
   SPACE_STATION_GROW,
   SPACE_STATION_HAB_SPACE
 } from "../CONSTANTS";
-import { solveEquation } from "ant-utils";
 import { Price } from "../prices/price";
 import { Components } from "./components";
 import { BonusStack } from "../bonus/bonusStack";
@@ -19,6 +18,7 @@ export class ResourceManager {
   materials = new Array<Unit>();
   districts = new Array<Unit>();
   unlockedMaterials = new Array<Unit>();
+  unlockedProductionUnits = new Array<Unit>();
 
   firstEndingUnit: Unit = null;
   maxTime = Number.POSITIVE_INFINITY;
@@ -164,6 +164,9 @@ export class ResourceManager {
     this.unlockedBuildings = this.buildings.filter((u) => u.unlocked);
     this.unlockedSpaceStations = this.spaceStations.filter((u) => u.unlocked);
     this.unlockedMegastructures = this.megastructures.filter((u) => u.unlocked);
+    this.unlockedProductionUnits = this.unlockedUnits.filter(
+      (u) => u.production.length > 0 || u.makers.length > 0
+    );
   }
   /**
    * Reload production stats
@@ -175,23 +178,22 @@ export class ResourceManager {
     this.components.reloadLimit();
     this.energy.reloadLimit();
 
-    for (let i = 0, n = this.unlockedUnits.length; i < n; i++) {
-      this.unlockedUnits[i].perSec = ZERO;
-      // this.unlockedUnits[i].perSec2 = ZERO;
-      this.unlockedUnits[i].endIn = Number.POSITIVE_INFINITY;
-      this.unlockedUnits[i].fullIn = Number.POSITIVE_INFINITY;
-      this.unlockedUnits[i].isEnding = false;
+    for (let i = 0, n = this.unlockedProductionUnits.length; i < n; i++) {
+      this.unlockedProductionUnits[i].perSec = ZERO;
+      this.unlockedProductionUnits[i].endIn = Number.POSITIVE_INFINITY;
+      this.unlockedProductionUnits[i].fullIn = Number.POSITIVE_INFINITY;
+      this.unlockedProductionUnits[i].isEnding = false;
 
-      this.unlockedUnits[i].prodAllBonus.reloadBonus();
-      this.unlockedUnits[i].prodBy.reloadBonus();
-      this.unlockedUnits[i].prodEfficiency.reloadBonus();
+      this.unlockedProductionUnits[i].prodAllBonus.reloadBonus();
+      this.unlockedProductionUnits[i].prodBy.reloadBonus();
+      this.unlockedProductionUnits[i].prodEfficiency.reloadBonus();
     }
 
     //  Bonus and operativity
-    for (let i = 0, n = this.unlockedUnits.length; i < n; i++) {
+    for (let i = 0, n = this.unlockedProductionUnits.length; i < n; i++) {
       const isLimited =
-        this.unlockedUnits[i].id !== "e" &&
-        this.unlockedUnits[i].production.findIndex(
+        this.unlockedProductionUnits[i].id !== "e" &&
+        this.unlockedProductionUnits[i].production.findIndex(
           (pro) =>
             pro.ratio.gt(0) &&
             (pro.product.limit.lte(Number.EPSILON) ||
@@ -199,72 +201,65 @@ export class ResourceManager {
         ) > -1;
 
       for (
-        let k = 0, n2 = this.unlockedUnits[i].production.length;
+        let k = 0, n2 = this.unlockedProductionUnits[i].production.length;
         k < n2;
         k++
       ) {
-        if (!isLimited) this.unlockedUnits[i].production[k].reload();
-        else this.unlockedUnits[i].production[k].prodPerSec = ZERO;
+        if (!isLimited) {
+          this.unlockedProductionUnits[i].production[k].reload();
+        } else {
+          this.unlockedProductionUnits[i].production[k].prodPerSec = ZERO;
+        }
       }
     }
 
     //  Calculate times
-    for (let i = 0, n = this.unlockedUnits.length; i < n; i++) {
+    for (let i = 0, n = this.unlockedProductionUnits.length; i < n; i++) {
       // x
       for (
-        let i2 = 0, n2 = this.unlockedUnits[i].makers.length;
+        let i2 = 0, n2 = this.unlockedProductionUnits[i].makers.length;
         i2 < n2;
         i2++
       ) {
-        const prodX = this.unlockedUnits[i].makers[i2].prodPerSec;
-        this.unlockedUnits[i].perSec = this.unlockedUnits[i].perSec.plus(
-          prodX.times(this.unlockedUnits[i].makers[i2].producer.quantity)
+        const prodX = this.unlockedProductionUnits[i].makers[i2].prodPerSec;
+        this.unlockedProductionUnits[i].perSec = this.unlockedProductionUnits[
+          i
+        ].perSec.plus(
+          prodX.times(
+            this.unlockedProductionUnits[i].makers[i2].producer.quantity
+          )
         );
       }
 
       // End times
-      if (
-        this.unlockedUnits[i].perSec.lt(0)
-        // || this.unlockedUnits[i].perSec2.lt(0)
-      ) {
-        const solution = solveEquation(
-          ZERO,
-          ZERO, // this.unlockedUnits[i].perSec2,
-          this.unlockedUnits[i].perSec,
-          this.unlockedUnits[i].quantity
-        ).filter((s) => s.gte(0));
-
-        if (solution.length > 0) {
-          const min = solution.reduce(
-            (p, c) => p.min(c),
-            new Decimal(Number.POSITIVE_INFINITY)
-          );
-          this.unlockedUnits[i].endIn = Math.min(
-            min.toNumber(),
-            this.unlockedUnits[i].endIn
-          );
-          this.unlockedUnits[i].isEnding = true;
-
-          if (this.unlockedUnits[i].endIn < this.maxTime) {
-            this.maxTime = this.unlockedUnits[i].endIn;
-            this.firstEndingUnit = this.unlockedUnits[i];
-          }
+      if (this.unlockedProductionUnits[i].perSec.lt(0)) {
+        const min = this.unlockedProductionUnits[i].quantity
+          .div(this.unlockedProductionUnits[i].perSec)
+          .times(-1);
+        this.unlockedProductionUnits[i].endIn = Math.min(
+          min.toNumber(),
+          this.unlockedProductionUnits[i].endIn
+        );
+        this.unlockedProductionUnits[i].isEnding = true;
+        if (this.unlockedProductionUnits[i].endIn < this.maxTime) {
+          this.maxTime = this.unlockedProductionUnits[i].endIn;
+          this.firstEndingUnit = this.unlockedProductionUnits[i];
         }
       }
+      // }
 
       // Full time
       if (
-        this.unlockedUnits[i].limit.lt(Decimal.MAX_VALUE) &&
-        this.unlockedUnits[i].perSec.gt(0)
+        this.unlockedProductionUnits[i].limit.lt(Decimal.MAX_VALUE) &&
+        this.unlockedProductionUnits[i].perSec.gt(0)
       ) {
-        const sol = this.unlockedUnits[i].limit
-          .minus(this.unlockedUnits[i].quantity)
-          .div(this.unlockedUnits[i].perSec);
-
+        const sol = this.unlockedProductionUnits[i].limit
+          .minus(this.unlockedProductionUnits[i].quantity)
+          .div(this.unlockedProductionUnits[i].perSec);
         if (sol.gt(0)) {
-          this.unlockedUnits[i].fullIn = sol.toNumber();
-          if (this.unlockedUnits[i].fullIn < this.maxTime) {
-            this.maxTime = this.unlockedUnits[i].fullIn;
+          this.unlockedProductionUnits[i].fullIn = sol.toNumber();
+          if (this.unlockedProductionUnits[i].fullIn < this.maxTime) {
+            this.maxTime = this.unlockedProductionUnits[i].fullIn;
             this.firstEndingUnit = null;
           }
         }
@@ -277,13 +272,15 @@ export class ResourceManager {
    * @param seconds time in seconds
    */
   update(seconds: DecimalSource) {
-    for (let i = 0, n = this.unlockedUnits.length; i < n; i++) {
-      this.unlockedUnits[i].quantity = this.unlockedUnits[i].quantity.plus(
-        this.unlockedUnits[i].perSec.times(seconds)
-      );
+    for (let i = 0, n = this.unlockedProductionUnits.length; i < n; i++) {
+      this.unlockedProductionUnits[i].quantity = this.unlockedProductionUnits[
+        i
+      ].quantity.plus(this.unlockedProductionUnits[i].perSec.times(seconds));
     }
-    for (let i = 0, n = this.unlockedUnits.length; i < n; i++) {
-      this.unlockedUnits[i].quantity = this.unlockedUnits[i].quantity.max(0);
+    for (let i = 0, n = this.unlockedProductionUnits.length; i < n; i++) {
+      this.unlockedProductionUnits[i].quantity = this.unlockedProductionUnits[
+        i
+      ].quantity.max(0);
     }
   }
 
@@ -312,7 +309,9 @@ export class ResourceManager {
     }
   }
   deployComponents() {
-    if (this.components.quantity.lte(0.1)) return false;
+    if (this.components.quantity.lte(0.1)) {
+      return false;
+    }
     let sum = 0;
     let added = ZERO;
     for (let i = 0, n = this.unlockedWorkers.length; i < n; i++) {
@@ -377,7 +376,9 @@ export class ResourceManager {
     };
   }
   load(data: any) {
-    if (!("l" in data)) throw new Error("Save not valid! missin units");
+    if (!("l" in data)) {
+      throw new Error("Save not valid! missin units");
+    }
     for (const uData of data.l) {
       const unit = this.units.find((u) => u.id === uData.i);
       unit.unlocked = true;

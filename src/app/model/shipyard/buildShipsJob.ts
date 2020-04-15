@@ -90,11 +90,11 @@ export class BuildShipsJob extends Job {
         des => des.id === data.d
       );
     }
-    if (!this.design) return false;
-    if ("n" in data) this.fleetNum = data.n;
-    if ("p" in data) this.progress = new Decimal(data.p);
-    if ("b" in data) this.built = data.b;
-    if ("w" in data) this.workDone = new Decimal(data.w);
+    if (!this.design) { return false; }
+    if ("n" in data) { this.fleetNum = data.n; }
+    if ("p" in data) { this.progress = new Decimal(data.p); }
+    if ("b" in data) { this.built = data.b; }
+    if ("w" in data) { this.workDone = new Decimal(data.w); }
     this.total = this.design.price.times(this.quantity);
   }
   //#endregion

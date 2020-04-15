@@ -7,7 +7,7 @@ import { ITechnologyData } from "../data/technologyData";
 import assign from "lodash-es/assign";
 import { Game } from "../game";
 
-const RESEARCH_BONUS = new Decimal(1.1);
+const RESEARCH_BONUS = new Decimal(0.1);
 
 export class Technology implements IBase, IUnlockable, ITechnologyData {
   id = "";
@@ -32,7 +32,9 @@ export class Technology implements IBase, IUnlockable, ITechnologyData {
     this.bonus.bonuses.push(new Bonus(this, RESEARCH_BONUS));
   }
   addProgress(progress: Decimal) {
-    if (progress.lte(0)) return;
+    if (progress.lte(0)) {
+      return;
+    }
 
     this.progress = this.progress.plus(progress);
     const toBuy = Decimal.affordGeometricSeries(
@@ -51,7 +53,9 @@ export class Technology implements IBase, IUnlockable, ITechnologyData {
   }
   onCompleted() {}
   unlock(): boolean {
-    if (this.unlocked) return false;
+    if (this.unlocked) {
+      return false;
+    }
 
     this.unlocked = true;
     this.quantity = ONE;
@@ -80,10 +84,18 @@ export class Technology implements IBase, IUnlockable, ITechnologyData {
     };
   }
   load(data: any): boolean {
-    if (!("i" in data) || this.id !== data.i) return false;
-    if ("q" in data) this.quantity = new Decimal(data.q);
-    if ("p" in data) this.progress = new Decimal(data.p);
-    if ("r" in data) this.priority = data.r;
+    if (!("i" in data) || this.id !== data.i) {
+      return false;
+    }
+    if ("q" in data) {
+      this.quantity = new Decimal(data.q);
+    }
+    if ("p" in data) {
+      this.progress = new Decimal(data.p);
+    }
+    if ("r" in data) {
+      this.priority = data.r;
+    }
     return true;
   }
   //#endregion

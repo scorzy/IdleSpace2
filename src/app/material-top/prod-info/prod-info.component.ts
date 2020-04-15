@@ -1,8 +1,10 @@
 import {
   Component,
-  OnInit,
   ChangeDetectionStrategy,
-  Input
+  Input,
+  OnInit,
+  OnDestroy,
+  AfterViewInit
 } from "@angular/core";
 import { Unit } from "src/app/model/units/unit";
 import { ZERO } from "src/app/model/CONSTANTS";
@@ -15,7 +17,8 @@ import { BaseComponentComponent } from "src/app/base-component/base-component.co
   styleUrls: ["./prod-info.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProdInfoComponent extends BaseComponentComponent {
+export class ProdInfoComponent extends BaseComponentComponent
+  implements OnInit, OnDestroy, AfterViewInit {
   @Input() unit: Unit;
   totalProd: Decimal;
   totalConsumed: Decimal;

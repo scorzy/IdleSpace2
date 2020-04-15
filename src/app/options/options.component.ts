@@ -1,4 +1,10 @@
-import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
+import {
+  Component,
+  ChangeDetectionStrategy,
+  OnInit,
+  OnDestroy,
+  AfterViewInit
+} from "@angular/core";
 import { BaseComponentComponent } from "../base-component/base-component.component";
 
 @Component({
@@ -7,6 +13,7 @@ import { BaseComponentComponent } from "../base-component/base-component.compone
   styleUrls: ["./options.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class OptionsComponent extends BaseComponentComponent {
+export class OptionsComponent extends BaseComponentComponent
+  implements OnInit, OnDestroy, AfterViewInit {
   ngOnInit() {}
 }

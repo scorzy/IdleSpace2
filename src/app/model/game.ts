@@ -86,8 +86,11 @@ export class Game {
         .getWorkNeeded()
         .plus(this.spaceStationManager.getWorkNeeded());
       this.resourceManager.search.limit = this.enemyManager.getWorkNeeded();
-
       this.resourceManager.reloadProduction();
+      if (this.resourceManager.maxTime > 0) {
+        // Avoid problems with js number rounding
+        this.resourceManager.maxTime = this.resourceManager.maxTime + 0.05;
+      }
       const maxUp = Math.min(toUpdate, this.resourceManager.maxTime);
       if (maxUp > 0) {
         this.resourceManager.update(maxUp);
@@ -105,7 +108,6 @@ export class Game {
       );
       const notAdded = this.shipyardManager.addProgress(shipWork).max(0);
       this.spaceStationManager.addProgress(civWork.plus(notAdded));
-
       this.resourceManager.shipyardWork.quantity = ZERO;
       this.enemyManager.addProgress(this.resourceManager.search.quantity);
       this.resourceManager.search.quantity = ZERO;
@@ -169,7 +171,9 @@ export class Game {
     this.shipyardManager.reloadFleetCapacity();
   }
   onBattleEnd(battleResult: BattleResult, fleetNum: number) {
-    if (battleResult.gameId !== this.gameId) return;
+    if (battleResult.gameId !== this.gameId) {
+      return;
+    }
     this.battleResults.push({ result: battleResult, fleet: fleetNum });
   }
   processBattles() {
@@ -232,7 +236,9 @@ export class Game {
     if ("m" in data) {
       this.spaceStationManager.load(data.m);
     }
-    if ("c" in data) this.civilianWorkPercent = data.c;
+    if ("c" in data) {
+      this.civilianWorkPercent = data.c;
+    }
   }
   //#endregion
 }

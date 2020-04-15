@@ -70,8 +70,8 @@ export class Unit implements IBase, IUnlockable {
       this.unlocked = true;
       this.quantity = new Decimal(unitData.startQuantity);
     }
-    if ("icon" in unitData) this.icon = unitData.icon;
-    if ("colorClass" in unitData) this.colorClass = unitData.colorClass;
+    if ("icon" in unitData) { this.icon = unitData.icon; }
+    if ("colorClass" in unitData) { this.colorClass = unitData.colorClass; }
     if ("showUiLimit" in unitData) {
       this.showUiLimit = unitData.showUiLimit;
     }
@@ -95,7 +95,7 @@ export class Unit implements IBase, IUnlockable {
     return this.id;
   }
   unlock(): boolean {
-    if (this.unlocked) return false;
+    if (this.unlocked) { return false; }
     this.unlocked = true;
     if (this.unitData.unlockQuantity) {
       this.quantity = new Decimal(this.unitData.unlockQuantity);
@@ -155,7 +155,7 @@ export class Unit implements IBase, IUnlockable {
     return true;
   }
   reloadLimit() {
-    if (!this.limitStack) return false;
+    if (!this.limitStack) { return false; }
 
     this.limitStack.reloadBonus();
     this.limitStack.reloadAdditiveBonus();
@@ -166,7 +166,7 @@ export class Unit implements IBase, IUnlockable {
       newLimit = newLimit.times(this.modStack.droneMod.totalBonus);
       this.limitTemp = this.limit.times(this.modStack.droneMod.totalBonusTemp);
     }
-    if (!newLimit.eq(this.limit)) this.limit = newLimit;
+    if (!newLimit.eq(this.limit)) { this.limit = newLimit; }
     // this.quantity = this.quantity.min(this.limit);
   }
   reloadMaxBuy() {
@@ -220,7 +220,7 @@ export class Unit implements IBase, IUnlockable {
 
     if (toDoList.length > 0) {
       for (let i = 0, n = Math.min(index, toDoList.length); i < n; i++) {
-        if (toDoList[i].spaceStation === this) queued++;
+        if (toDoList[i].spaceStation === this) { queued++; }
       }
     }
 
@@ -241,7 +241,7 @@ export class Unit implements IBase, IUnlockable {
   //   this.habSpace = this.habSpace.plus(newHabSpace);
   // }
   reloadHabSpace() {
-    if (!this.habSpaceStack) return false;
+    if (!this.habSpaceStack) { return false; }
     const habSpace = Game.getGame().resourceManager.habitableSpace;
     const old = this.habSpace;
     this.habSpaceStack.reloadAdditiveBonus();
@@ -289,18 +289,18 @@ export class Unit implements IBase, IUnlockable {
   getSave(): any {
     const ret: any = {};
     ret.i = this.id;
-    if (this.operativity !== 100) ret.o = this.operativity;
-    if (!this.quantity.eq(0)) ret.q = this.quantity;
-    if (!this.manualBought.eq(0)) ret.m = this.manualBought;
-    if (this.modStack) ret.t = this.modStack.getSave();
+    if (this.operativity !== 100) { ret.o = this.operativity; }
+    if (!this.quantity.eq(0)) { ret.q = this.quantity; }
+    if (!this.manualBought.eq(0)) { ret.m = this.manualBought; }
+    if (this.modStack) { ret.t = this.modStack.getSave(); }
     return ret;
   }
   load(save: any) {
-    if (!("i" in save) || save.i !== this.id) return false;
-    if ("o" in save) this.operativity = save.o;
-    if ("q" in save) this.quantity = new Decimal(save.q);
-    if ("m" in save) this.manualBought = new Decimal(save.m);
-    if ("t" in save) this.modStack.load(save.t);
+    if (!("i" in save) || save.i !== this.id) { return false; }
+    if ("o" in save) { this.operativity = save.o; }
+    if ("q" in save) { this.quantity = new Decimal(save.q); }
+    if ("m" in save) { this.manualBought = new Decimal(save.m); }
+    if ("t" in save) { this.modStack.load(save.t); }
   }
   //#endregion
 }

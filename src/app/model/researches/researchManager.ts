@@ -26,6 +26,7 @@ export class ResearchManager extends JobManager {
   researchPerSec = ZERO;
   navalCapTech: Technology;
   roboticsTech: Technology;
+  drag = false;
   constructor() {
     super();
     this.makeResearches();
@@ -37,7 +38,9 @@ export class ResearchManager extends JobManager {
     for (const key in TECHNOLOGIES) {
       if (key) {
         const tech = TECHNOLOGIES[key];
-        if (tech) this.technologies.push(new Technology(tech));
+        if (tech) {
+          this.technologies.push(new Technology(tech));
+        }
       }
     }
     this.navalCapTech = this.technologies.find((t) => t.id === "n");
@@ -154,9 +157,15 @@ export class ResearchManager extends JobManager {
     this.researches[0].setLevels();
   }
   unlock(res: Research): boolean {
-    if (this.toDo.findIndex((r) => r.id === res.id) > -1) return false;
-    if (this.done.findIndex((r) => r.id === res.id) > -1) return false;
-    if (this.backlog.findIndex((r) => r.id === res.id) > -1) return false;
+    if (this.toDo.findIndex((r) => r.id === res.id) > -1) {
+      return false;
+    }
+    if (this.done.findIndex((r) => r.id === res.id) > -1) {
+      return false;
+    }
+    if (this.backlog.findIndex((r) => r.id === res.id) > -1) {
+      return false;
+    }
 
     this.toDo.push(res);
     return true;
@@ -167,7 +176,7 @@ export class ResearchManager extends JobManager {
   addProgress(prog: Decimal): Decimal {
     if (this.unlockedTechnologies.length < 1) {
       this.researchPerSec = Game.getGame().resourceManager.science.perSec;
-      return super.addProgress(prog);
+      return this.drag ? prog : super.addProgress(prog);
     }
 
     const resPercent =
@@ -178,8 +187,13 @@ export class ResearchManager extends JobManager {
       resPercent
     );
 
-    const notAdded = super.addProgress(resProg);
-    if (this.technologiesPriority <= 0) return notAdded;
+    let notAdded = prog;
+    if (!this.drag) {
+      notAdded = super.addProgress(resProg);
+      if (this.technologiesPriority <= 0) {
+        return notAdded;
+      }
+    }
 
     const techProg = prog.minus(resProg).plus(notAdded);
     let sum = 0;

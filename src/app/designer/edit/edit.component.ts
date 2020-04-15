@@ -1,17 +1,16 @@
 import {
   Component,
-  OnInit,
   ChangeDetectionStrategy,
   Input,
   ChangeDetectorRef,
-  OnDestroy,
   EventEmitter,
+  OnInit,
+  OnDestroy,
   AfterViewInit
 } from "@angular/core";
 import { ShipDesign } from "src/app/model/shipyard/shipDesign";
 import { MainService } from "src/app/main.service";
 import { ActivatedRoute, Router } from "@angular/router";
-import { Subscription } from "rxjs";
 import { ONE } from "src/app/model/CONSTANTS";
 import { Module } from "src/app/model/shipyard/module";
 import { fadeIn } from "src/app/animations";
@@ -26,7 +25,8 @@ declare let numberformat;
   animations: [fadeIn],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class EditComponent extends BaseComponentComponent {
+export class EditComponent extends BaseComponentComponent
+  implements OnInit, OnDestroy, AfterViewInit {
   @Input() design: ShipDesign;
   original: ShipDesign;
   isEqual = true;

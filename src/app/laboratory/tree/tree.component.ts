@@ -86,7 +86,7 @@ export class TreeComponent implements OnInit, AfterViewInit, OnDestroy {
     const container = document.getElementById("techTree");
     const x = -container.clientWidth / 2 + 50;
     const y = -container.clientHeight / 2 + 50;
-    const step = 10;
+
     nodes.add({
       id: 10000,
       x,

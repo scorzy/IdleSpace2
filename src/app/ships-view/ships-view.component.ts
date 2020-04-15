@@ -1,14 +1,12 @@
 import {
   Component,
-  OnInit,
   ChangeDetectionStrategy,
   Input,
-  ChangeDetectorRef,
-  OnDestroy
+  OnInit,
+  OnDestroy,
+  AfterViewInit
 } from "@angular/core";
 import { ShipDesign } from "../model/shipyard/shipDesign";
-import { MainService } from "../main.service";
-import { Subscription } from "rxjs";
 import { BaseComponentComponent } from "../base-component/base-component.component";
 
 @Component({
@@ -17,7 +15,8 @@ import { BaseComponentComponent } from "../base-component/base-component.compone
   styleUrls: ["./ships-view.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ShipsViewComponent extends BaseComponentComponent {
+export class ShipsViewComponent extends BaseComponentComponent
+  implements OnInit, OnDestroy, AfterViewInit {
   @Input() designs: ShipDesign[];
   @Input() isEnemy = false;
   @Input() enemyCell = false;

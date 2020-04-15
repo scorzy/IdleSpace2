@@ -1,12 +1,4 @@
-import {
-  Component,
-  OnInit,
-  ChangeDetectionStrategy,
-  OnDestroy,
-  ChangeDetectorRef
-} from "@angular/core";
-import { Subscription } from "rxjs";
-import { MainService } from "../main.service";
+import { Component, ChangeDetectionStrategy } from "@angular/core";
 import { FLEET_NUMBER, ZERO } from "../model/CONSTANTS";
 import { Cell } from "../model/enemy/cell";
 import { BaseComponentComponent } from "../base-component/base-component.component";
@@ -17,7 +9,8 @@ import { BaseComponentComponent } from "../base-component/base-component.compone
   styleUrls: ["./battle.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class BattleComponent extends BaseComponentComponent {
+export class BattleComponent extends BaseComponentComponent
+  implements OnInit, OnDestroy, AfterViewInit {
   fleetNum = 0;
   cell = 0;
   activeCells = new Array<{ label: string; value: number }>();

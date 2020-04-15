@@ -1,8 +1,10 @@
 import {
   Component,
-  OnInit,
   ChangeDetectionStrategy,
-  Input
+  Input,
+  OnInit,
+  OnDestroy,
+  AfterViewInit
 } from "@angular/core";
 import { Module } from "src/app/model/shipyard/module";
 import { BaseComponentComponent } from "src/app/base-component/base-component.component";
@@ -13,7 +15,8 @@ import { BaseComponentComponent } from "src/app/base-component/base-component.co
   styleUrls: ["./module-info.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ModuleInfoComponent extends BaseComponentComponent {
+export class ModuleInfoComponent extends BaseComponentComponent
+  implements OnInit, OnDestroy, AfterViewInit {
   @Input() mod: Module;
   ngOnInit() {}
 }

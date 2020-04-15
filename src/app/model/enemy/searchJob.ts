@@ -63,24 +63,24 @@ export class SearchJob extends Job {
     const ret: any = {
       l: this.enemyLevel
     };
-    if (this.habitabilityOpt !== 0) ret.h = this.habitabilityOpt;
-    if (this.difficultyOpt !== 0) ret.d = this.difficultyOpt;
-    if (this.distanceOpt !== 0) ret.i = this.distanceOpt;
-    if (this.energyOpt !== 0) ret.e = this.energyOpt;
-    if (this.metalOpt !== 0) ret.m = this.metalOpt;
-    if (this.scienceOpt !== 0) ret.s = this.scienceOpt;
-    if (this.componentOpt !== 0) ret.c = this.componentOpt;
+    if (this.habitabilityOpt !== 0) { ret.h = this.habitabilityOpt; }
+    if (this.difficultyOpt !== 0) { ret.d = this.difficultyOpt; }
+    if (this.distanceOpt !== 0) { ret.i = this.distanceOpt; }
+    if (this.energyOpt !== 0) { ret.e = this.energyOpt; }
+    if (this.metalOpt !== 0) { ret.m = this.metalOpt; }
+    if (this.scienceOpt !== 0) { ret.s = this.scienceOpt; }
+    if (this.componentOpt !== 0) { ret.c = this.componentOpt; }
     return ret;
   }
   load(data: any) {
-    if ("l" in data) this.enemyLevel = data.l;
-    if ("h" in data) this.habitabilityOpt = data.h;
-    if ("d" in data) this.difficultyOpt = data.d;
-    if ("i" in data) this.distanceOpt = data.i;
-    if ("e" in data) this.energyOpt = data.e;
-    if ("m" in data) this.scienceOpt = data.m;
-    if ("s" in data) this.metalOpt = data.s;
-    if ("c" in data) this.componentOpt = data.c;
+    if ("l" in data) { this.enemyLevel = data.l; }
+    if ("h" in data) { this.habitabilityOpt = data.h; }
+    if ("d" in data) { this.difficultyOpt = data.d; }
+    if ("i" in data) { this.distanceOpt = data.i; }
+    if ("e" in data) { this.energyOpt = data.e; }
+    if ("m" in data) { this.scienceOpt = data.m; }
+    if ("s" in data) { this.metalOpt = data.s; }
+    if ("c" in data) { this.componentOpt = data.c; }
     this.init();
   }
   //#endregion

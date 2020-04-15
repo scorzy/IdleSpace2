@@ -1,16 +1,17 @@
 import {
   Component,
-  OnInit,
   ChangeDetectionStrategy,
   Input,
-  ChangeDetectorRef
+  ChangeDetectorRef,
+  OnInit,
+  OnDestroy,
+  AfterViewInit
 } from "@angular/core";
 import { Unit } from "src/app/model/units/unit";
 import { MainService } from "src/app/main.service";
 import { NzModalService } from "ng-zorro-antd";
 import { BreakpointObserver } from "@angular/cdk/layout";
 import { Router } from "@angular/router";
-import { Subscription } from "rxjs";
 import { BaseComponentComponent } from "src/app/base-component/base-component.component";
 
 @Component({
@@ -19,7 +20,8 @@ import { BaseComponentComponent } from "src/app/base-component/base-component.co
   styleUrls: ["./bi.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class BiComponent extends BaseComponentComponent {
+export class BiComponent extends BaseComponentComponent
+  implements OnInit, OnDestroy, AfterViewInit {
   @Input() unit: Unit;
   Number = Number;
   constructor(

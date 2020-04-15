@@ -1,20 +1,20 @@
 import {
   Component,
-  OnInit,
   ChangeDetectionStrategy,
   Input,
   Output,
   EventEmitter,
   ChangeDetectorRef,
+  SimpleChanges,
+  OnInit,
   OnDestroy,
-  OnChanges,
-  SimpleChanges
+  AfterViewInit,
+  OnChanges
 } from "@angular/core";
 import { Mod } from "src/app/model/units/mod";
 import { parseDecimal } from "src/app/model/utility/parseDecimal";
 import { MainService } from "src/app/main.service";
 import { Unit } from "src/app/model/units/unit";
-import { Subscription } from "rxjs";
 import { BreakpointObserver, BreakpointState } from "@angular/cdk/layout";
 import { ZERO } from "src/app/model/CONSTANTS";
 import { BaseComponentComponent } from "src/app/base-component/base-component.component";
@@ -25,7 +25,8 @@ import { BaseComponentComponent } from "src/app/base-component/base-component.co
   styleUrls: ["./mod-line.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ModLineComponent extends BaseComponentComponent {
+export class ModLineComponent extends BaseComponentComponent
+  implements OnInit, OnDestroy, AfterViewInit, OnChanges {
   @Input() mod: Mod;
   @Input() uiQuantityString: string;
   @Input() unit: Unit;
