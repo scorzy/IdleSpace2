@@ -1,35 +1,37 @@
-@layout-body-background: #252423;
-@layout-header-background: #000000;
-@text-color: fade(@white, 75%);
+@layout-body-background: #252423; // #303030;
+@layout-header-background: #201f1e;
+@text-color: fade(@white, 90%);
 @text-color-secondary: fade(@white, 55%);
 @text-color-inverse: @white;
 @icon-color-hover: fade(@white, 80%);
 @heading-color: fade(@white, 90%);
-@component-background: #161616;
+@component-background: #323130; // #3b3b3b;
 @layout-trigger-background-light: @layout-trigger-background;
 @btn-primary-bg: darken(@primary-color, 9%);
 @btn-danger-bg: darken(@error-color, 6%);
 @btn-danger-border: @btn-danger-bg;
 @layout-sider-background-light: @menu-bg;
-@menu-dark-item-active-bg: darken(@primary-color, 25%);
 @menu-dark-bg: @layout-header-background; //#3b3a39;
-@menu-dark-submenu-bg: lighten(@component-background, 6%); //#414242;
-@menu-dark-item-active-bg: lighten(@item-active-bg, 10%);
-@input-bg: #1a1a1a;
-@btn-default-bg: #1a1a1a;
-@select-background: @input-bg;
-@select-dropdown-bg: @input-bg;
-@border-color-split: #3f3f3f;
+@menu-dark-submenu-bg: @component-background; //lighten(@component-background, 3%); //#414242;
+@menu-dark-item-active-bg: fade(@primary-color, 30%);
+@input-bg: #201f1ec4;
+@btn-default-bg: @input-bg;
+@select-background: #201f1e;
+@select-dropdown-bg: #201f1e;
+// @border-color-split: #3f3f3f;
 @table-selected-row-bg: @menu-dark-item-active-bg; //lighten(@table-header-bg, 5%); // #414242;
 @table-row-hover-bg: @menu-dark-item-active-bg;
 @table-expanded-row-bg: @input-bg; // #414242;
 @shadow-color: rgba(0, 0, 0, 0.8);
+@border-radius-base: 4px;
+@popover-background: @component-background;
+@table-header-bg: @component-background;
 
 .ant-layout-header {
-  border-bottom: @border-color-split 1px solid;
+  border-bottom: #3f3f3f 1px solid;
 }
 .ant-layout-sider-children {
-  box-shadow: @border-color-split 1px 0 0;
+  box-shadow: #3f3f3f 1px 0 0;
 }
 .ant-menu-dark .ant-menu-inline.ant-menu-sub {
   box-shadow: none;
@@ -80,8 +82,19 @@
 
 nz-sider {
   z-index: 2;
-  border-top: 1px solid black;
+  border-top: 1px solid @layout-header-background;
   margin-top: -1px;
+}
+
+nz-card {
+  box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.14),
+    0 1px 3px 0 rgba(0, 0, 0, 0.12);
+}
+.ant-card-bordered {
+  border-radius: 4px;
+  border: none;
+  box-shadow: rgba(0, 0, 0, 0.4) 0px 3.2px 7.2px 0px,
+    rgba(0, 0, 0, 0.32) 0px 0.6px 1.8px 0px;
 }
 
 // @layout-body-background: #252423; //#171717
