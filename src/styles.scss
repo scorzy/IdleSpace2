@@ -191,3 +191,13 @@ body {
 .disableAnimation * {
   transition: none !important;
 }
+
+nz-card-meta {
+  .ant-card-meta-detail > div:not(:last-child) {
+    margin-bottom: -6px;
+  }
+  i {
+    font-size: 28px;
+    margin-top: 4px;
+  }
+}

@@ -21,9 +21,11 @@
       <!-- (click)="createModal(item.name, contentTemplate, tplFooter)" -->
       <!-- nzPopoverPlacement="bottom" -->
       <span class="monospace">
-        <span class="min-width" *ngIf="item.quantity.gt(0)">{{
-          item.quantity | format
-        }}</span>
+        <span
+          class="min-width"
+          *ngIf="item.quantity.gt(0) || item.id === 'x'"
+          >{{ item.quantity | format }}</span
+        >
         <span class="min-width" *ngIf="item.showUiLimit"
           >/{{ item.uiLimit | format }}</span
         >

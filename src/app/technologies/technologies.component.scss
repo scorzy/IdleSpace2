@@ -1,12 +1,6 @@
-i {
-  font-size: 30px;
-}
 .tech-container {
   margin-bottom: 0.5rem;
 }
 [fxFlex]:last-of-type {
   margin-right: 0.5rem;
-}
-::ng-deep .ant-card-meta-detail > div:not(:last-child) {
-  margin-bottom: -4px;
 }
