@@ -48,7 +48,7 @@ export class SubTableComponent extends BaseComponentComponent {
     ret.push({
       what: "Operativity",
       quantity: ONE,
-      effect: ONE,
+      effect: new Decimal(this.unit.operativity),
       total: new Decimal(this.unit.operativity)
     });
 

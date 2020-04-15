@@ -1,9 +1,4 @@
-<nz-table
-  #innerTable
-  [nzData]="subData"
-  nzSize="middle"
-  [nzShowPagination]="false"
->
+<table>
   <!-- <thead>
     <tr>
       <th></th>
@@ -26,32 +21,34 @@
         >
       </td>
     </tr>
-    <tr *ngFor="let data of innerTable.data; trackBy: getIndex">
-      <td>{{ data.what }}</td>
+    <tr *ngFor="let d of subData; trackBy: getIndex">
+      <td>{{ d.what }}</td>
       <td>
         <span
           class="monospace"
           nz-text
-          [nzType]="data.quantity.gte(0) ? '' : 'danger'"
-          >{{ data.quantity | format }}</span
+          [nzType]="d.quantity.gte(0) ? '' : 'danger'"
+          >{{ d.quantity | format }}</span
         >
       </td>
       <td>
+        x
         <span
           class="monospace"
           nz-text
-          [nzType]="data.effect.gte(0) ? '' : 'danger'"
-          >{{ data.effect | format }}</span
+          [nzType]="d.effect.gte(0) ? '' : 'danger'"
+          >{{ d.effect | format }}</span
         >
       </td>
       <td>
+        =
         <span
           class="monospace"
           nz-text
-          [nzType]="data.total.gte(0) ? '' : 'danger'"
-          >{{ data.total | format }}</span
+          [nzType]="d.total.gte(0) ? '' : 'danger'"
+          >{{ d.total | format }}</span
         >%
       </td>
     </tr>
   </tbody>
-</nz-table>
+</table>
