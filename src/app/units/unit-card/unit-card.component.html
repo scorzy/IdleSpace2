@@ -3,16 +3,12 @@
   nzSize="small"
   [nzTitle]="cardTitleTemplate"
   [nzExtra]="extraTemplate"
-  [nzActions]="actions"
+  [nzActions]="[buyOne, buyMax]"
 >
   <p *ngIf="unit.description !== ''">
     {{ unit.description }}
   </p>
-
   <div *ngIf="unit.production.length > 0">
-    <!-- <span nz-text><span>Operativity:</span></span>
-    <span class="monospace">{{ unit.operativity | format }}</span
-    >% -->
     <nz-slider
       [(ngModel)]="unit.operativity"
       [nzDisabled]="sliderDisabled"
@@ -57,30 +53,6 @@
         [nzStep]="1"
       ></nz-input-number>
     </div>
-  </div>
-
-  <!-- Prices -->
-  <div fxLayoutAlign="center" fxLayout="row">
-    <span *ngFor="let pri of unit.buyPrice.prices; trackBy: getPriceId">
-      <span nz-text [nzType]="pri.canBuy ? '' : 'danger'">
-        <i
-          nz-icon
-          class="priceIcon"
-          [nzType]="pri.spendable.icon"
-          [ngClass]="pri?.spendable?.colorClass"
-        ></i>
-        <span *ngIf="!pri.spendable.icon">{{ pri.spendable.name }}</span>
-        <span class="monospace">{{ pri.singleCost | format }}</span>
-        <span
-          class="comma"
-          *ngIf="
-            unit.buyPrice.prices.indexOf(pri) !==
-            unit.buyPrice.prices.length - 1
-          "
-          >,</span
-        >
-      </span>
-    </span>
   </div>
   <button
     nz-button
@@ -139,28 +111,83 @@
   <app-prod-table [unit]="unit"></app-prod-table>
 </ng-template>
 
+<!-- Prices -->
+<!-- <ng-template #priceTemplate>
+  <div fxLayoutAlign="center" fxLayout="row">
+    <span *ngFor="let pri of unit.buyPrice.prices; trackBy: getPriceId">
+      <span nz-text [nzType]="pri.canBuy ? '' : 'danger'">
+        <i
+          nz-icon
+          class="priceIcon"
+          [nzType]="pri.spendable.icon"
+          [ngClass]="pri?.spendable?.colorClass"
+        ></i>
+        <span *ngIf="!pri.spendable.icon">{{ pri.spendable.name }}</span>
+        <span class="monospace">{{ pri.singleCost | format }}</span>
+        <span
+          class="comma"
+          *ngIf="
+            unit.buyPrice.prices.indexOf(pri) !==
+            unit.buyPrice.prices.length - 1
+          "
+          >,</span
+        >
+      </span>
+    </span>
+  </div>
+</ng-template> -->
+<ng-template #priceTemplateOne>
+  <app-prices [unit]="unit" [quantity]="ONE"></app-prices>
+</ng-template>
+<ng-template #priceTemplateMax>
+  <app-prices [unit]="unit" [quantity]="unit.buyPrice.maxBuy"></app-prices>
+</ng-template>
+
 <!-- Buttons -->
 <ng-template #buyOne>
-  <button (click)="buyOneAct()" nz-button nzType="link" nzSize="small">
-    Buy
-    <span class="monospace">1</span>
-  </button>
+  <div
+    nz-popover
+    [nzPopoverContent]="priceTemplateOne"
+    nzPopoverTrigger="hover"
+    nzPopoverPlacement="bottom"
+  >
+    <button
+      (click)="buyOneAct()"
+      nz-button
+      nzType="link"
+      nzSize="small"
+      [disabled]="!unit.buyPrice.canBuy"
+    >
+      Buy &nbsp;
+      <span class="monospace">1</span>
+    </button>
+  </div>
 </ng-template>
-<ng-template #buyHalf>
+<!-- <ng-template #buyHalf>
   <button (click)="buyHalfAct()" nz-button nzType="link" nzSize="small">
-    Buy
+    Buy &nbsp;
     <span class="monospace">{{ unit.buyPrice.halfBuy | format: true }}</span>
   </button>
-</ng-template>
+</ng-template> -->
 <ng-template #buyMax>
-  <button (click)="buyMaxAct()" nz-button nzType="link" nzSize="small">
-    Buy <span class="monospace">{{ unit.buyPrice.maxBuy | format: true }}</span>
-  </button>
-</ng-template>
-<ng-template #buyNone>
-  <button nz-button nzType="link" disabled="true" nzSize="small">
-    Can't buy
-  </button>
+  <div
+    nz-popover
+    [nzPopoverContent]="priceTemplateMax"
+    nzPopoverTrigger="hover"
+    nzPopoverPlacement="bottom"
+  >
+    <button
+      (click)="buyMaxAct()"
+      nz-button
+      nzType="link"
+      nzSize="small"
+      [disabled]="!unit.buyPrice.canBuy"
+    >
+      Buy &nbsp;<span class="monospace">{{
+        unit.buyPrice.maxBuy | format: true
+      }}</span>
+    </button>
+  </div>
 </ng-template>
 <ng-template #tplFooter>
   <button nz-button nzType="primary" (click)="destroyTplModal()" nzSize="small">

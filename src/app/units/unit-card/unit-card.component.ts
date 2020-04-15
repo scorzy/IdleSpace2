@@ -35,6 +35,7 @@ export class UnitCardComponent extends BaseComponentComponent
   index1 = 0;
   isVisible = false;
   Decimal = Decimal;
+  ONE = ONE;
 
   @ViewChild("buyOne", { static: true })
   private buyOne: TemplateRef<any>;
@@ -42,9 +43,6 @@ export class UnitCardComponent extends BaseComponentComponent
   private buyHalf: TemplateRef<any>;
   @ViewChild("buyMax", { static: true })
   private buyMax: TemplateRef<any>;
-  @ViewChild("buyNone", { static: true })
-  private buyNone: TemplateRef<any>;
-
   constructor(
     ms: MainService,
     cd: ChangeDetectorRef,
@@ -57,10 +55,12 @@ export class UnitCardComponent extends BaseComponentComponent
   ngOnInit() {
     this.popoverTrigger = "hover";
     this.sliderDisabled = !this.unit.production.find((p) => p.ratio.lt(0));
-    this.getActions();
+    // this.getActions();
+    this.unit.reloadMaxBuy();
     this.subscriptions.push(
       this.ms.updateEmitter.subscribe(() => {
-        this.getActions();
+        // this.getActions();
+        this.unit.reloadMaxBuy();
         this.cd.markForCheck();
       }),
       this.breakpointObserver
@@ -70,29 +70,26 @@ export class UnitCardComponent extends BaseComponentComponent
         })
     );
   }
-  getActions() {
-    this.unit.reloadMaxBuy();
-    const newActions = [];
+  // getActions() {
+  //   this.unit.reloadMaxBuy();
+  //   const newActions = [this.buyOne];
 
-    if (this.unit.buyPrice.canBuy) {
-      newActions.push(this.buyOne);
-      if (this.unit.buyPrice.maxBuy.gte(4)) {
-        newActions.push(this.buyHalf);
-      }
-      if (this.unit.buyPrice.maxBuy.gte(2)) {
-        newActions.push(this.buyMax);
-      }
-    } else {
-      newActions.push(this.buyNone);
-    }
+  //   if (this.unit.buyPrice.canBuy) {
+  //     if (this.unit.buyPrice.maxBuy.gte(4)) {
+  //       newActions.push(this.buyHalf);
+  //     }
+  //     if (this.unit.buyPrice.maxBuy.gte(2)) {
+  //       newActions.push(this.buyMax);
+  //     }
+  //   }
 
-    if (
-      newActions.length !== this.actions.length ||
-      this.actions[0] !== newActions[0]
-    ) {
-      this.actions = newActions;
-    }
-  }
+  //   if (
+  //     newActions.length !== this.actions.length ||
+  //     this.actions[0] !== newActions[0]
+  //   ) {
+  //     this.actions = newActions;
+  //   }
+  // }
   buyOneAct() {
     this.unit.buy(ONE);
   }

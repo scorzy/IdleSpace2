@@ -8,7 +8,6 @@ export class Price {
   avIn = new Decimal(Number.POSITIVE_INFINITY);
   multiCost = new Decimal(0);
   singleCost = new Decimal(0);
-  canBuyMulti = false;
 
   constructor(
     public spendable: IBase,
@@ -19,15 +18,18 @@ export class Price {
   }
 
   reload(bought: Decimal, numWanted: Decimal = ONE) {
-    const tempMultiCost = this.getPrice(numWanted, bought);
-    if (!tempMultiCost.eq(this.multiCost)) { this.multiCost = tempMultiCost; }
-    const newCost = this.getPrice(ONE, bought);
-    if (!this.singleCost.eq(newCost)) { this.singleCost = newCost; }
+    // const tempMultiCost = this.getPrice(numWanted, bought);
+    // if (!tempMultiCost.eq(this.multiCost)) {
+    //   this.multiCost = tempMultiCost;
+    // }
+    // const newCost = this.getPrice(ONE, bought);
+    // if (!this.singleCost.eq(newCost)) {
+    //   this.singleCost = newCost;
+    // }
 
     if (this.spendable.quantity.lte(0)) {
       this.maxBuy = new Decimal(0);
       this.canBuy = false;
-      this.canBuyMulti = false;
       return;
     }
     this.maxBuy =
@@ -41,11 +43,25 @@ export class Price {
           );
 
     this.canBuy = this.maxBuy.gte(1);
-    this.canBuyMulti = this.multiCost.lte(this.spendable.quantity);
+  }
+  reloadOne(bought: Decimal, numWanted: Decimal = ONE) {
+    const newCost = this.getPrice(ONE, bought);
+    if (!this.singleCost.eq(newCost)) {
+      this.singleCost = newCost;
+    }
+  }
+  reloadNum(bought: Decimal, numWanted: Decimal = ONE) {
+    numWanted = numWanted.max(1);
+    const tempMultiCost = this.getPrice(numWanted, bought);
+    if (!tempMultiCost.eq(this.multiCost)) {
+      this.multiCost = tempMultiCost;
+    }
   }
   buy(toBuy: Decimal, bought: Decimal): boolean {
     const price = this.getPrice(toBuy, bought);
-    if (price.gt(this.spendable.quantity)) { return false; }
+    if (price.gt(this.spendable.quantity)) {
+      return false;
+    }
 
     this.spendable.quantity = this.spendable.quantity.minus(price);
     return true;

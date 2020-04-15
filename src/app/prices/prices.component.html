@@ -1,0 +1,24 @@
+<div fxLayoutAlign="center" fxLayout="row">
+  <span *ngFor="let pri of unit.buyPrice.prices; trackBy: getPriceId">
+    <span
+      nz-text
+      [nzType]="pri.multiCost.gte(pri.spendable.quantity) ? '' : 'danger'"
+    >
+      <i
+        nz-icon
+        class="priceIcon"
+        [nzType]="pri.spendable.icon"
+        [ngClass]="pri?.spendable?.colorClass"
+      ></i>
+      <span *ngIf="!pri.spendable.icon">{{ pri.spendable.name }}</span>
+      <span class="monospace">{{ pri.multiCost | format }}</span>
+      <span
+        class="comma"
+        *ngIf="
+          unit.buyPrice.prices.indexOf(pri) !== unit.buyPrice.prices.length - 1
+        "
+        >,</span
+      >
+    </span>
+  </span>
+</div>

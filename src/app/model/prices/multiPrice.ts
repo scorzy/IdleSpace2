@@ -21,8 +21,10 @@ export class MultiPrice {
     this.canBuyWanted = true;
     for (let i = 0, n = this.prices.length; i < n; i++) {
       this.prices[i].reload(bought, numWanted);
-      if (!this.prices[i].canBuy) { this.canBuy = false; }
-      if (!this.prices[i].canBuyMulti) { this.canBuyWanted = false; }
+      if (!this.prices[i].canBuy) {
+        this.canBuy = false;
+      }
+      // if (!this.prices[i].canBuyMulti) { this.canBuyWanted = false; }
     }
 
     if (limit.gte(1)) {
@@ -60,8 +62,10 @@ export class MultiPrice {
   }
   buy(quantity: Decimal, bought: Decimal, limit: Decimal): boolean {
     this.reload(bought, quantity, limit);
-    if (!this.canBuy) { return false; }
-    this.prices.forEach(pr => pr.buy(quantity, bought));
+    if (!this.canBuy) {
+      return false;
+    }
+    this.prices.forEach((pr) => pr.buy(quantity, bought));
     this.reload(bought.plus(quantity), quantity, limit);
     return true;
   }
@@ -74,7 +78,7 @@ export class MultiPrice {
   // }
   getMaxBuy(bought: Decimal, percentToUse: number): Decimal {
     return this.prices
-      .map(pr => pr.getMaxBuy(bought, percentToUse))
+      .map((pr) => pr.getMaxBuy(bought, percentToUse))
       .reduce((p, c) => p.min(c), new Decimal(Number.POSITIVE_INFINITY));
   }
 }
