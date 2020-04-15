@@ -42,6 +42,8 @@
         <app-job
           cdkDrag
           class="job-box"
+          (cdkDragStarted)="start($event)"
+          (cdkDragEnded)="end($event)"
           *ngFor="
             let resToDo of ms.game.researchManager.toDo;
             trackBy: getResId

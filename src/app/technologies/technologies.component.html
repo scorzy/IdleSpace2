@@ -1,48 +1,54 @@
 <h1>Technologies</h1>
 
-<div fxLayout="row wrap">
-  <div
+<div fxLayout="row wrap" fxLayoutGap="0.5rem">
+  <nz-card
+    [nzTitle]="cardTitle"
+    [nzExtra]="extraTemplate"
+    nzSize="small"
     class="tech-container"
     fxFlex="100%"
-    fxFlex.gt-md="0.5 1 50%"
+    fxFlex.gt-sm="0 0 calc(50% -0.5rem)"
+    fxFlex.gt-md="0 0 calc(33% -0.5rem)"
     *ngFor="
       let tech of ms.game.researchManager.unlockedTechnologies;
       trackBy: getTechId
     "
   >
-    <div
-      fxLayout="row"
-      fxLayout.lt-sm="column"
-      class="zero"
-      fxLayoutAlign="space-between"
-    >
-      <h3 fxLayout="row" fxLayoutGap="0.1rem">
-        <i nz-icon [nzType]="tech.icon" [style.color]="tech.color"></i>
-        <span>
-          {{ tech.name }}:
-          <span class="monospace">{{
-            tech.quantity | format: true
-          }}</span></span
-        >
-      </h3>
+    <ng-template #cardTitle>
+      <nz-card-meta
+        [nzAvatar]="avatarTemplate"
+        [nzTitle]="title"
+        [nzDescription]="description"
+      ></nz-card-meta>
+    </ng-template>
+    <ng-template #avatarTemplate>
+      <i nz-icon [nzType]="tech.icon" [style.color]="tech.color"></i>
+    </ng-template>
+    <ng-template #title>
+      <span>
+        {{ tech.name }}:
+        <span class="monospace">{{ tech.quantity | format: true }}</span></span
+      >
+    </ng-template>
+    <ng-template #description>
       <span class="monospace"
         >{{ tech.progress | format: true }}/{{
           tech.total | format: true
         }}</span
       >
-      <div fxFlexAlign="start">
-        Priority:
-        <nz-input-number
-          [(ngModel)]="tech.priority"
-          nzMin="0"
-          nzMax="100"
-          nzStep="1"
-          nzSize="small"
-          style="max-height: 24px;"
-        ></nz-input-number>
-      </div>
-    </div>
+    </ng-template>
+    <ng-template #extraTemplate>
+      <span class="text-secondary">Priority</span><br />
+      <nz-input-number
+        [(ngModel)]="tech.priority"
+        nzMin="0"
+        nzMax="100"
+        nzStep="1"
+        nzSize="small"
+        style="max-height: 24px;"
+      ></nz-input-number>
+    </ng-template>
 
     <app-progress [progress]="tech.progressPercent"></app-progress>
-  </div>
+  </nz-card>
 </div>

@@ -4,7 +4,7 @@
       <span
         *ngFor="let item of icons; trackBy: getIconId"
         [style.color]="item.color"
-        ><i nz-icon [nzType]="item.icon"></i
+        ><i nz-icon [nzType]="item.icon" class="icon"></i
       ></span>
       <strong class="title">{{ job.name }}</strong>
       <div>
@@ -26,7 +26,7 @@
         <i nz-icon nzType="clock-circle" nzTheme="outline" class="space"></i>
         <span> {{ job.timeToEnd | time }}</span>
       </span>
-      <span>
+      <span class="text-secondary">
         {{ job.progress | format }}/{{ job.total | format }}
         {{ job.progressPercent }}%</span
       >

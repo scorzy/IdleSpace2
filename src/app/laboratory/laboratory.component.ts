@@ -9,7 +9,9 @@ import { Research } from "../model/researches/research";
 import {
   CdkDragDrop,
   moveItemInArray,
-  transferArrayItem
+  transferArrayItem,
+  CdkDragStart,
+  CdkDragEnd
 } from "@angular/cdk/drag-drop";
 import { IJobType } from "../model/data/iResearchData";
 import { BaseComponentComponent } from "../base-component/base-component.component";
@@ -58,8 +60,13 @@ export class LaboratoryComponent extends BaseComponentComponent
       );
     }
   }
-
   getTypeId(num: number, data: IJobType) {
     return data.id;
+  }
+  start(event: CdkDragStart) {
+    this.ms.game.researchManager.drag = true;
+  }
+  end(event: CdkDragEnd) {
+    this.ms.game.researchManager.drag = false;
   }
 }

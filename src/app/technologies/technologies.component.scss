@@ -1,9 +1,12 @@
-.tech-container {
-  padding-right: 30px;
+i {
+  font-size: 30px;
 }
-
-h3 {
-  i {
-    font-size: 150%;
-  }
+.tech-container {
+  margin-bottom: 0.5rem;
+}
+[fxFlex]:last-of-type {
+  margin-right: 0.5rem;
+}
+::ng-deep .ant-card-meta-detail > div:not(:last-child) {
+  margin-bottom: -4px;
 }

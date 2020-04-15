@@ -179,9 +179,6 @@ body {
 .ant-card-small > .ant-card-head {
   min-height: 24px;
 }
-// .ant-menu-inline-collapsed > .ant-menu-submenu > .ant-menu-submenu-title {
-//   padding: 0 10px;
-// }
 .ant-card-small > .ant-card-head > .ant-card-head-wrapper > .ant-card-extra {
   padding: 6px 0 0 0;
 }
@@ -191,19 +188,6 @@ body {
 .transition {
   transition: all 0.2;
 }
-
-// .no-transition,
-// a,
-// .ant-input-number,
-// .ant-input-number-input,
-// .ant-collapse > .ant-collapse-item > .ant-collapse-header,
-// .ant-btn,
-// .ant-btn .anticon,
-// .ant-select-single:not(.ant-select-customize-input) .ant-select-selector,
-// .ant-select-multiple .ant-select-selection-placeholder,
-// .ant-select-multiple .ant-select-selector {
-//   transition: none;
-// }
 .disableAnimation * {
   transition: none !important;
 }
