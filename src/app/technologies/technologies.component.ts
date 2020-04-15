@@ -2,11 +2,13 @@ import {
   Component,
   OnInit,
   ChangeDetectionStrategy,
-  ChangeDetectorRef
+  ChangeDetectorRef,
+  HostBinding
 } from "@angular/core";
 import { MainService } from "../main.service";
 import { Technology } from "../model/researches/technology";
 import { Subscription } from "rxjs";
+import { BaseComponentComponent } from "../base-component/base-component.component";
 
 @Component({
   selector: "app-technologies",
@@ -14,14 +16,9 @@ import { Subscription } from "rxjs";
   styleUrls: ["./technologies.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TechnologiesComponent implements OnInit {
-  private subscriptions: Subscription[] = [];
-
-  constructor(public ms: MainService, private cd: ChangeDetectorRef) {}
-
+export class TechnologiesComponent extends BaseComponentComponent {
   ngOnInit() {
     this.reloadUi();
-
     this.subscriptions.push(
       this.ms.updateEmitter.subscribe(() => {
         this.reloadUi();
@@ -30,7 +27,7 @@ export class TechnologiesComponent implements OnInit {
     );
   }
   reloadUi() {
-    this.ms.game.researchManager.unlockedTechnologies.forEach(t =>
+    this.ms.game.researchManager.unlockedTechnologies.forEach((t) =>
       t.reloadUi()
     );
   }

@@ -89,6 +89,7 @@ import { BiComponent } from "./units/bi/bi.component";
 import { ProdTableComponent } from "./units/prod-table/prod-table.component";
 import { AutoAttackOptionsComponent } from "./battle/auto-attack-options/auto-attack-options.component";
 import { FleetsViewComponent } from './fleets-view/fleets-view.component';
+import { BaseComponentComponent } from './base-component/base-component.component';
 
 registerLocaleData(en);
 
@@ -138,7 +139,8 @@ const ngZorroConfig: NzConfig = {
     BiComponent,
     ProdTableComponent,
     AutoAttackOptionsComponent,
-    FleetsViewComponent
+    FleetsViewComponent,
+    BaseComponentComponent
   ],
   imports: [
     BrowserModule,

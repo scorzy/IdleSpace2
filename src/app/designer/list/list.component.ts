@@ -12,6 +12,7 @@ import { ActivatedRoute } from "@angular/router";
 import { BreakpointObserver, BreakpointState } from "@angular/cdk/layout";
 import { CdkDragDrop, moveItemInArray } from "@angular/cdk/drag-drop";
 import { ShipDesign } from "src/app/model/shipyard/shipDesign";
+import { BaseComponentComponent } from "src/app/base-component/base-component.component";
 
 @Component({
   selector: "app-list",
@@ -19,20 +20,18 @@ import { ShipDesign } from "src/app/model/shipyard/shipDesign";
   styleUrls: ["./list.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ListComponent implements OnInit, OnDestroy, AfterViewInit {
+export class ListComponent extends BaseComponentComponent {
   isLarge = true;
-  sideClass = "no-transition";
-  private subscriptions: Subscription[] = [];
-
   constructor(
-    public ms: MainService,
-    private cd: ChangeDetectorRef,
+    ms: MainService,
+    cd: ChangeDetectorRef,
     private route: ActivatedRoute,
     public breakpointObserver: BreakpointObserver
-  ) {}
+  ) {
+    super(ms, cd);
+  }
   ngOnInit() {
     this.ms.innerContent = false;
-
     this.subscriptions.push(
       this.ms.updateEmitter.subscribe(() => {
         this.cd.markForCheck();
@@ -47,13 +46,8 @@ export class ListComponent implements OnInit, OnDestroy, AfterViewInit {
     );
   }
   ngOnDestroy() {
+    super.ngOnDestroy();
     this.ms.innerContent = true;
-    this.subscriptions.forEach((sub: Subscription) => sub.unsubscribe());
-  }
-  ngAfterViewInit(): void {
-    setTimeout(() => {
-      this.sideClass = "transition";
-    }, 500);
   }
   drop(event: CdkDragDrop<string[]>): void {
     moveItemInArray(

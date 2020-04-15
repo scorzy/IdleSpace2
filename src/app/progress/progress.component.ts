@@ -13,8 +13,6 @@ import {
 })
 export class ProgressComponent implements OnInit {
   @Input() progress = 0;
-
   constructor() {}
-
   ngOnInit() {}
 }

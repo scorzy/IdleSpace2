@@ -13,6 +13,7 @@ import { Enemy } from "src/app/model/enemy/enemy";
 import { fadeIn } from "src/app/animations";
 import { CdkDragDrop, moveItemInArray } from "@angular/cdk/drag-drop";
 import { BreakpointObserver, BreakpointState } from "@angular/cdk/layout";
+import { BaseComponentComponent } from "src/app/base-component/base-component.component";
 
 @Component({
   selector: "app-enemies-list",
@@ -22,21 +23,15 @@ import { BreakpointObserver, BreakpointState } from "@angular/cdk/layout";
 
   animations: [fadeIn]
 })
-export class EnemiesListComponent implements OnInit, OnDestroy, AfterViewInit {
+export class EnemiesListComponent extends BaseComponentComponent {
   isLarge = true;
-  sideClass = "no-transition";
-  private subscriptions: Subscription[] = [];
-
   constructor(
-    public ms: MainService,
-    private cd: ChangeDetectorRef,
+    ms: MainService,
+    cd: ChangeDetectorRef,
     private route: ActivatedRoute,
     public breakpointObserver: BreakpointObserver
-  ) {}
-  ngAfterViewInit(): void {
-    setTimeout(() => {
-      this.sideClass = "transition";
-    }, 500);
+  ) {
+    super(ms, cd);
   }
   ngOnInit() {
     this.ms.innerContent = false;
@@ -55,8 +50,8 @@ export class EnemiesListComponent implements OnInit, OnDestroy, AfterViewInit {
     );
   }
   ngOnDestroy() {
+    super.ngOnDestroy();
     this.ms.innerContent = true;
-    this.subscriptions.forEach((sub: Subscription) => sub.unsubscribe());
   }
   drop(event: CdkDragDrop<string[]>): void {
     moveItemInArray(
@@ -71,7 +66,6 @@ export class EnemiesListComponent implements OnInit, OnDestroy, AfterViewInit {
       1
     );
   }
-
   getEnemyId(index: number, enemy: Enemy) {
     return enemy.id;
   }

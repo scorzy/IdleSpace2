@@ -1,5 +1,6 @@
 import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
 import { MainService } from "src/app/main.service";
+import { BaseComponentComponent } from "src/app/base-component/base-component.component";
 
 @Component({
   selector: "app-auto-attack-options",
@@ -7,7 +8,4 @@ import { MainService } from "src/app/main.service";
   styleUrls: ["./auto-attack-options.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AutoAttackOptionsComponent implements OnInit {
-  constructor(public ms: MainService) {}
-  ngOnInit(): void {}
-}
+export class AutoAttackOptionsComponent extends BaseComponentComponent {}

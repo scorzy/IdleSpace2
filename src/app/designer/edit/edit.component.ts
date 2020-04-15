@@ -6,7 +6,7 @@ import {
   ChangeDetectorRef,
   OnDestroy,
   EventEmitter,
-  AfterViewInit,
+  AfterViewInit
 } from "@angular/core";
 import { ShipDesign } from "src/app/model/shipyard/shipDesign";
 import { MainService } from "src/app/main.service";
@@ -16,6 +16,7 @@ import { ONE } from "src/app/model/CONSTANTS";
 import { Module } from "src/app/model/shipyard/module";
 import { fadeIn } from "src/app/animations";
 import { OptionsService } from "src/app/options.service";
+import { BaseComponentComponent } from "src/app/base-component/base-component.component";
 declare let numberformat;
 
 @Component({
@@ -23,27 +24,29 @@ declare let numberformat;
   templateUrl: "./edit.component.html",
   styleUrls: ["./edit.component.scss"],
   animations: [fadeIn],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class EditComponent implements OnInit, OnDestroy, AfterViewInit {
+export class EditComponent extends BaseComponentComponent {
   @Input() design: ShipDesign;
   original: ShipDesign;
   isEqual = true;
   changeEmitter = new EventEmitter();
   loaded = false;
-  private subscriptions: Subscription[] = [];
 
   constructor(
-    public ms: MainService,
+    ms: MainService,
     public os: OptionsService,
-    private cd: ChangeDetectorRef,
+    cd: ChangeDetectorRef,
     private route: ActivatedRoute,
     private router: Router
-  ) {}
+  ) {
+    super(ms, cd);
+  }
   ngAfterViewInit(): void {
     setTimeout(() => {
       this.loaded = true;
-    }, 1);
+      this.animationDisabled = false;
+    });
   }
 
   ngOnInit() {
@@ -56,7 +59,7 @@ export class EditComponent implements OnInit, OnDestroy, AfterViewInit {
     );
   }
   ngOnDestroy() {
-    this.subscriptions.forEach((sub: Subscription) => sub.unsubscribe());
+    super.ngOnDestroy();
     this.ms.game.shipyardManager.designerView = false;
   }
   getDesign(id: string) {
@@ -82,7 +85,7 @@ export class EditComponent implements OnInit, OnDestroy, AfterViewInit {
       module: null,
       level: 1,
       size: 1,
-      levelUi: "1",
+      levelUi: "1"
     });
   }
   removeLine(index: number) {
@@ -127,7 +130,7 @@ export class EditComponent implements OnInit, OnDestroy, AfterViewInit {
         ? numberformat
             .parse(levelUi, {
               backend: "decimal.js",
-              Decimal,
+              Decimal
             })
             .max(ONE)
             .toNumber()

@@ -9,6 +9,7 @@ import {
 import { ShipDesign } from "../model/shipyard/shipDesign";
 import { MainService } from "../main.service";
 import { Subscription } from "rxjs";
+import { BaseComponentComponent } from "../base-component/base-component.component";
 
 @Component({
   selector: "app-ships-view",
@@ -16,9 +17,7 @@ import { Subscription } from "rxjs";
   styleUrls: ["./ships-view.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ShipsViewComponent implements OnInit, OnDestroy {
-  private subscriptions: Subscription[] = [];
-
+export class ShipsViewComponent extends BaseComponentComponent {
   @Input() designs: ShipDesign[];
   @Input() isEnemy = false;
   @Input() enemyCell = false;
@@ -26,9 +25,6 @@ export class ShipsViewComponent implements OnInit, OnDestroy {
   @Input() nzSize = "middle";
   @Input() update = false;
   mapOfExpandData: { [key: string]: boolean } = {};
-
-  constructor(public ms: MainService, private cd: ChangeDetectorRef) {}
-
   ngOnInit() {
     if (this.update) {
       this.subscriptions.push(
@@ -38,10 +34,6 @@ export class ShipsViewComponent implements OnInit, OnDestroy {
       );
     }
   }
-  ngOnDestroy() {
-    this.subscriptions.forEach((sub: Subscription) => sub.unsubscribe());
-  }
-
   getQuantity(design: ShipDesign, index: number): number {
     return this.isEnemy
       ? this.enemyCell && this.fleetNum >= 0

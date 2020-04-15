@@ -10,26 +10,21 @@ import { Subscription } from "rxjs";
 import { MainService } from "../main.service";
 import { Research } from "../model/researches/research";
 import { moveItemInArray } from "@angular/cdk/drag-drop";
+import { BaseComponentComponent } from "../base-component/base-component.component";
 
 @Component({
   selector: "app-job",
   templateUrl: "./job.component.html",
   styleUrls: ["./job.component.scss"]
 })
-export class JobComponent implements OnInit, OnDestroy {
-  private subscriptions: Subscription[] = [];
-
+export class JobComponent extends BaseComponentComponent {
   @Input() job: Job;
   @Input() collection: Job[];
   @Input() showDescription = true;
-
   icons: MyIcon[];
   isResearch = false;
   research: Research;
   totalResearchBonus: Decimal;
-
-  constructor(public ms: MainService, private cd: ChangeDetectorRef) {}
-
   ngOnInit() {
     this.job.reloadUi();
     if (this.job instanceof Research) {
@@ -43,9 +38,6 @@ export class JobComponent implements OnInit, OnDestroy {
         this.cd.markForCheck();
       })
     );
-  }
-  ngOnDestroy() {
-    this.subscriptions.forEach((sub: Subscription) => sub.unsubscribe());
   }
   getIconId(index: number, myIcon: MyIcon) {
     return myIcon.icon + myIcon.color;

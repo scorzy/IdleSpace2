@@ -1,30 +1,39 @@
-import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef
+} from "@angular/core";
 import {
   FormBuilder,
   Validators,
   FormGroup,
-  FormControl,
+  FormControl
 } from "@angular/forms";
 import { ShipType } from "src/app/model/shipyard/ShipType";
 import { MainService } from "src/app/main.service";
 import { Router } from "@angular/router";
 import { upperCase } from "lodash-es";
+import { BaseComponentComponent } from "src/app/base-component/base-component.component";
 
 @Component({
   selector: "app-add",
   templateUrl: "./add.component.html",
   styleUrls: ["./add.component.scss"],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AddComponent implements OnInit {
+export class AddComponent extends BaseComponentComponent {
   validateForm: FormGroup;
   unlockedTypes = new Array<ShipType>();
 
   constructor(
-    private fb: FormBuilder,
-    public ms: MainService,
-    private router: Router
-  ) {}
+    ms: MainService,
+    cd: ChangeDetectorRef,
+    private router: Router,
+    private fb: FormBuilder
+  ) {
+    super(ms, cd);
+  }
 
   ngOnInit(): void {
     this.unlockedTypes = this.ms.game.shipyardManager.shipTypes.filter(
@@ -32,11 +41,10 @@ export class AddComponent implements OnInit {
     );
     this.validateForm = this.fb.group({
       name: [null, [Validators.required, this.nameValidator]],
-      type: [1, [Validators.required]],
+      type: [1, [Validators.required]]
     });
     this.getRandomName();
   }
-
   submitForm(): void {
     for (const i in this.validateForm.controls) {
       if (this.validateForm.controls[i]) {

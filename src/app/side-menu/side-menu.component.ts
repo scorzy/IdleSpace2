@@ -11,6 +11,7 @@ import { fadeIn } from "../animations";
 import { ShipDesign } from "../model/shipyard/shipDesign";
 import { OptionsService } from "../options.service";
 import { Subscription } from "rxjs";
+import { BaseComponentComponent } from "../base-component/base-component.component";
 
 @Component({
   selector: "app-side-menu",
@@ -19,29 +20,17 @@ import { Subscription } from "rxjs";
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [fadeIn]
 })
-export class SideMenuComponent implements OnInit, OnDestroy {
-  private subscriptions: Subscription[] = [];
-
+export class SideMenuComponent extends BaseComponentComponent {
   @Input() isCollapsed = false;
   @Input() notCollapsed = false;
 
   constructor(
-    public ms: MainService,
+    ms: MainService,
     public os: OptionsService,
-    private cd: ChangeDetectorRef
-  ) {}
-
-  ngOnInit() {
-    this.subscriptions.push(
-      this.ms.updateEmitter.subscribe(() => {
-        this.cd.markForCheck();
-      })
-    );
+    cd: ChangeDetectorRef
+  ) {
+    super(ms, cd);
   }
-  ngOnDestroy() {
-    this.subscriptions.forEach((sub: Subscription) => sub.unsubscribe());
-  }
-
   getDesignId(index: number, shipDesign: ShipDesign) {
     return shipDesign.id;
   }

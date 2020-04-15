@@ -10,6 +10,7 @@ import { Unit } from "../model/units/unit";
 import { CdkDragDrop, moveItemInArray } from "@angular/cdk/drag-drop";
 import { Subscription } from "rxjs";
 import { fadeIn } from "../animations";
+import { BaseComponentComponent } from "../base-component/base-component.component";
 
 @Component({
   selector: "app-space-stations",
@@ -18,13 +19,10 @@ import { fadeIn } from "../animations";
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [fadeIn]
 })
-export class SpaceStationsComponent implements OnInit, OnDestroy {
-  private subscriptions: Subscription[] = [];
+export class SpaceStationsComponent extends BaseComponentComponent {
   sortName: string | null = "id";
   sortValue: string | null = "ascend";
   listOfStations: Unit[];
-  constructor(public ms: MainService, private cd: ChangeDetectorRef) {}
-
   ngOnInit() {
     this.search();
     this.subscriptions.push(
@@ -32,9 +30,6 @@ export class SpaceStationsComponent implements OnInit, OnDestroy {
         this.cd.markForCheck();
       })
     );
-  }
-  ngOnDestroy() {
-    this.subscriptions.forEach((sub: Subscription) => sub.unsubscribe());
   }
   addStation(unit: Unit) {
     if (!unit) return false;

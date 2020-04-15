@@ -10,6 +10,7 @@ import { MainService } from "../main.service";
 import { Unit } from "../model/units/unit";
 import { ActivatedRoute } from "@angular/router";
 import { fadeIn } from "../animations";
+import { BaseComponentComponent } from "../base-component/base-component.component";
 
 @Component({
   selector: "app-units",
@@ -18,24 +19,20 @@ import { fadeIn } from "../animations";
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [fadeIn]
 })
-export class UnitsComponent implements OnInit, OnDestroy {
+export class UnitsComponent extends BaseComponentComponent {
   public get units(): Array<Unit> {
     if (this.param === "b") {
       return this.ms.game.resourceManager.unlockedBuildings;
-    }
-    else return this.ms.game.resourceManager.unlockedWorkers;
+    } else return this.ms.game.resourceManager.unlockedWorkers;
   }
-
   param = "";
-
-  private subscriptions: Subscription[] = [];
-
   constructor(
-    public ms: MainService,
-    private cd: ChangeDetectorRef,
+    ms: MainService,
+    cd: ChangeDetectorRef,
     private route: ActivatedRoute
-  ) {}
-
+  ) {
+    super(ms, cd);
+  }
   ngOnInit() {
     this.subscriptions.push(
       this.ms.updateEmitter.subscribe(() => {
@@ -43,9 +40,6 @@ export class UnitsComponent implements OnInit, OnDestroy {
       }),
       this.route.params.subscribe(this.getUnits.bind(this))
     );
-  }
-  ngOnDestroy() {
-    this.subscriptions.forEach((sub: Subscription) => sub.unsubscribe());
   }
   getUnits(params: any) {
     this.param = "" + params.id;

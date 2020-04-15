@@ -5,6 +5,7 @@ import {
   Input
 } from "@angular/core";
 import { Weapon } from "../model/shipyard/weapon";
+import { BaseComponentComponent } from "../base-component/base-component.component";
 
 @Component({
   selector: "app-weapon-view",
@@ -12,10 +13,7 @@ import { Weapon } from "../model/shipyard/weapon";
   styleUrls: ["./weapon-view.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class WeaponViewComponent implements OnInit {
+export class WeaponViewComponent extends BaseComponentComponent {
   @Input() weapons: Weapon[];
-
-  constructor() {}
-
   ngOnInit() {}
 }

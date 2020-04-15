@@ -12,6 +12,7 @@ import { Subscription } from "rxjs";
 import { MainService } from "src/app/main.service";
 import { UNIT_TYPES } from "src/app/model/data/units";
 import { Game } from "src/app/model/game";
+import { BaseComponentComponent } from "src/app/base-component/base-component.component";
 
 @Component({
   selector: "app-cell",
@@ -19,23 +20,10 @@ import { Game } from "src/app/model/game";
   styleUrls: ["./cell.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CellComponent implements OnInit, OnDestroy, OnChanges {
-  private subscriptions: Subscription[] = [];
+export class CellComponent extends BaseComponentComponent implements OnChanges {
   @Input() cell: Cell;
   icons: string[];
-  constructor(public ms: MainService, private cd: ChangeDetectorRef) {}
 
-  ngOnInit() {
-    this.loadIcons();
-    this.subscriptions.push(
-      this.ms.updateEmitter.subscribe(() => {
-        this.cd.markForCheck();
-      })
-    );
-  }
-  ngOnDestroy() {
-    this.subscriptions.forEach((sub: Subscription) => sub.unsubscribe());
-  }
   ngOnChanges(changes: import("@angular/core").SimpleChanges): void {
     this.loadIcons();
   }

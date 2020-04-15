@@ -11,6 +11,7 @@ import { NzModalService } from "ng-zorro-antd";
 import { BreakpointObserver } from "@angular/cdk/layout";
 import { Router } from "@angular/router";
 import { Subscription } from "rxjs";
+import { BaseComponentComponent } from "src/app/base-component/base-component.component";
 
 @Component({
   selector: "app-bi",
@@ -18,18 +19,18 @@ import { Subscription } from "rxjs";
   styleUrls: ["./bi.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class BiComponent implements OnInit {
+export class BiComponent extends BaseComponentComponent {
   @Input() unit: Unit;
   Number = Number;
-  private subscriptions: Subscription[] = [];
   constructor(
-    public ms: MainService,
-    private cd: ChangeDetectorRef,
+    ms: MainService,
+    cd: ChangeDetectorRef,
     private modalService: NzModalService,
     public breakpointObserver: BreakpointObserver,
     private router: Router
-  ) {}
-
+  ) {
+    super(ms, cd);
+  }
   ngOnInit(): void {
     this.unit = this.ms.game.resourceManager.unlockedUnits[0];
     this.subscriptions.push(
@@ -37,8 +38,5 @@ export class BiComponent implements OnInit {
         this.cd.markForCheck();
       })
     );
-  }
-  ngOnDestroy() {
-    this.subscriptions.forEach((sub: Subscription) => sub.unsubscribe());
   }
 }

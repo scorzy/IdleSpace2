@@ -5,25 +5,23 @@ import {
   Input,
   EventEmitter,
   ChangeDetectorRef,
-  OnDestroy,
+  OnDestroy
 } from "@angular/core";
 import { ShipDesign } from "../model/shipyard/shipDesign";
 import { Subscription } from "rxjs";
+import { BaseComponentComponent } from "../base-component/base-component.component";
 
 @Component({
   selector: "app-design-info",
   templateUrl: "./design-info.component.html",
   styleUrls: ["./design-info.component.scss"],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DesignInfoComponent implements OnInit, OnDestroy {
+export class DesignInfoComponent extends BaseComponentComponent {
   @Input() original: ShipDesign;
   @Input() design: ShipDesign;
   @Input() size = "middle";
   @Input() updateEmitter: EventEmitter<number>;
-
-  private subscriptions: Subscription[] = [];
-
   comparisonData: {
     name: string;
     original: Decimal | number;
@@ -33,7 +31,6 @@ export class DesignInfoComponent implements OnInit, OnDestroy {
     icon?: string;
     iconClass?: string;
   }[] = [];
-  constructor(private cd: ChangeDetectorRef) {}
 
   ngOnInit() {
     if (this.updateEmitter) {
@@ -45,9 +42,6 @@ export class DesignInfoComponent implements OnInit, OnDestroy {
       );
     }
     this.makeComparisonData();
-  }
-  ngOnDestroy() {
-    this.subscriptions.forEach((sub: Subscription) => sub.unsubscribe());
   }
   makeComparisonData() {
     this.comparisonData = [];
@@ -66,7 +60,7 @@ export class DesignInfoComponent implements OnInit, OnDestroy {
         ? null
         : this.original.totalArmour < this.design.totalArmour
         ? "text-success"
-        : "",
+        : ""
     });
     this.comparisonData.push({
       name: "Armour dmg. red.",
@@ -83,7 +77,7 @@ export class DesignInfoComponent implements OnInit, OnDestroy {
         ? null
         : this.original.armourReduction < this.design.armourReduction
         ? "text-success"
-        : "",
+        : ""
     });
     this.comparisonData.push({
       name: "Shield",
@@ -100,7 +94,7 @@ export class DesignInfoComponent implements OnInit, OnDestroy {
         ? null
         : this.original.totalShield < this.design.totalShield
         ? "text-success"
-        : "",
+        : ""
     });
     this.comparisonData.push({
       name: "Shield dmg. red.",
@@ -117,7 +111,7 @@ export class DesignInfoComponent implements OnInit, OnDestroy {
         ? null
         : this.original.shieldReduction < this.design.shieldReduction
         ? "text-success"
-        : "",
+        : ""
     });
     this.comparisonData.push({
       name: "Shield Recharge",
@@ -134,7 +128,7 @@ export class DesignInfoComponent implements OnInit, OnDestroy {
         ? null
         : this.original.shieldRecharge < this.design.shieldRecharge
         ? "text-success"
-        : "",
+        : ""
     });
     this.comparisonData.push({
       name: "Avg. Damage",
@@ -151,7 +145,7 @@ export class DesignInfoComponent implements OnInit, OnDestroy {
         ? null
         : this.original.totalDamage < this.design.totalDamage
         ? "text-success"
-        : "",
+        : ""
     });
     this.comparisonData.push({
       name: "Explosion",
@@ -168,7 +162,7 @@ export class DesignInfoComponent implements OnInit, OnDestroy {
         ? null
         : this.original.explosionThreshold > this.design.explosionThreshold
         ? "text-success"
-        : "",
+        : ""
     });
     this.comparisonData.push({
       name: "Explosion dmg.",
@@ -185,7 +179,7 @@ export class DesignInfoComponent implements OnInit, OnDestroy {
         ? null
         : this.original.explosionDamage < this.design.explosionDamage
         ? "text-success"
-        : "",
+        : ""
     });
     this.comparisonData.push({
       name: "Price",
@@ -202,7 +196,7 @@ export class DesignInfoComponent implements OnInit, OnDestroy {
         ? null
         : this.original.price.gt(this.design.price)
         ? "text-success"
-        : "",
+        : ""
     });
     this.comparisonData.push({
       name: "Cargo",
@@ -219,7 +213,7 @@ export class DesignInfoComponent implements OnInit, OnDestroy {
         ? null
         : this.original.cargo.lt(this.design.cargo)
         ? "text-success"
-        : "",
+        : ""
     });
     this.comparisonData.push({
       name: "Velocity",
@@ -236,7 +230,7 @@ export class DesignInfoComponent implements OnInit, OnDestroy {
         ? null
         : this.original.velocity > this.design.velocity
         ? "text-success"
-        : "",
+        : ""
     });
     this.comparisonData.push({
       name: "Acceleration",
@@ -253,7 +247,7 @@ export class DesignInfoComponent implements OnInit, OnDestroy {
         ? null
         : this.original.acceleration > this.design.acceleration
         ? "text-success"
-        : "",
+        : ""
     });
     this.comparisonData.push({
       name: "Threat",
@@ -270,7 +264,7 @@ export class DesignInfoComponent implements OnInit, OnDestroy {
         ? null
         : this.original.threat < this.design.threat
         ? "text-success"
-        : "",
+        : ""
     });
   }
 }

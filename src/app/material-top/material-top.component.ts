@@ -13,6 +13,7 @@ import { fadeIn } from "../animations";
 import { NzModalRef, NzModalService } from "ng-zorro-antd";
 import { BreakpointObserver } from "@angular/cdk/layout";
 import { OptionsService } from "../options.service";
+import { BaseComponentComponent } from "../base-component/base-component.component";
 
 @Component({
   selector: "app-material-top",
@@ -21,19 +22,20 @@ import { OptionsService } from "../options.service";
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [fadeIn]
 })
-export class MaterialTopComponent implements OnInit, OnDestroy {
-  private subscriptions: Subscription[] = [];
+export class MaterialTopComponent extends BaseComponentComponent {
   tplModal: NzModalRef;
   popoverTrigger: string = null;
   Decimal = Decimal;
 
   constructor(
-    public ms: MainService,
+    ms: MainService,
     public os: OptionsService,
-    private cd: ChangeDetectorRef,
+    cd: ChangeDetectorRef,
     private modalService: NzModalService,
     public breakpointObserver: BreakpointObserver
-  ) {}
+  ) {
+    super(ms, cd);
+  }
 
   ngOnInit() {
     this.popoverTrigger = "hover";
@@ -49,14 +51,9 @@ export class MaterialTopComponent implements OnInit, OnDestroy {
       //   })
     );
   }
-  ngOnDestroy() {
-    this.subscriptions.forEach((sub: Subscription) => sub.unsubscribe());
-  }
-
   getId(index: number, mat: Unit) {
     return mat.id;
   }
-
   createModal(
     title: string,
     tplContent: TemplateRef<{}>,

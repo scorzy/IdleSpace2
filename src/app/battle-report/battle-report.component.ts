@@ -6,6 +6,7 @@ import {
 } from "@angular/core";
 import { MainService } from "../main.service";
 import { Stats } from "../model/battle/battleResult";
+import { BaseComponentComponent } from "../base-component/base-component.component";
 
 @Component({
   selector: "app-battle-report",
@@ -13,7 +14,7 @@ import { Stats } from "../model/battle/battleResult";
   styleUrls: ["./battle-report.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class BattleReportComponent implements OnInit, OnDestroy {
+export class BattleReportComponent extends BaseComponentComponent {
   fleet = -1;
   report = -1;
   stats: Stats[];
@@ -49,8 +50,6 @@ export class BattleReportComponent implements OnInit, OnDestroy {
 
   listOfSelectedValues = [];
 
-  constructor(public ms: MainService) {}
-
   ngOnInit() {
     this.ms.game.updateStats = false;
     for (let i = 0; i < this.ms.game.shipyardManager.maxFleet; i++) {
@@ -59,9 +58,6 @@ export class BattleReportComponent implements OnInit, OnDestroy {
         value: "" + i
       });
     }
-  }
-  ngOnDestroy() {
-    this.ms.game.updateStats = true;
   }
   reload(): void {
     if (this.fleet > -1 && this.report > -1) {

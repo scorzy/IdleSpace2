@@ -10,6 +10,7 @@ import { Subscription } from "rxjs";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Enemy, ExtraTile } from "src/app/model/enemy/enemy";
 import { MainService } from "src/app/main.service";
+import { BaseComponentComponent } from "src/app/base-component/base-component.component";
 
 @Component({
   selector: "app-enemy-detail",
@@ -17,33 +18,28 @@ import { MainService } from "src/app/main.service";
   styleUrls: ["./enemy-detail.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class EnemyDetailComponent implements OnInit, OnDestroy {
+export class EnemyDetailComponent extends BaseComponentComponent {
   @Input() enemy: Enemy;
 
-  private subscriptions: Subscription[] = [];
-
   constructor(
-    public ms: MainService,
+    ms: MainService,
     private route: ActivatedRoute,
-    private cd: ChangeDetectorRef,
+    cd: ChangeDetectorRef,
     private router: Router
-  ) {}
-
+  ) {
+    super(ms, cd);
+  }
   ngOnInit() {
     this.subscriptions.push(
-      this.route.paramMap.subscribe(paramMap => {
+      this.route.paramMap.subscribe((paramMap) => {
         this.getEnemy(paramMap.get("id"));
         this.cd.markForCheck();
       })
     );
   }
-  ngOnDestroy() {
-    this.subscriptions.forEach((sub: Subscription) => sub.unsubscribe());
-  }
-
   getEnemy(idString: string) {
     const id = parseInt(idString, 10);
-    this.enemy = this.ms.game.enemyManager.enemies.find(e => e.id === id);
+    this.enemy = this.ms.game.enemyManager.enemies.find((e) => e.id === id);
     if (!this.enemy) this.enemy = this.ms.game.enemyManager.enemies[0];
   }
   attack() {

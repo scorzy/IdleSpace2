@@ -14,6 +14,7 @@ import { SearchOption, SearchRange } from "src/app/model/enemy/searchOption";
 import { ZERO } from "src/app/model/CONSTANTS";
 import { Unit } from "src/app/model/units/unit";
 import { Enemy } from "src/app/model/enemy/enemy";
+import { BaseComponentComponent } from "src/app/base-component/base-component.component";
 
 @Component({
   selector: "app-search",
@@ -21,7 +22,7 @@ import { Enemy } from "src/app/model/enemy/enemy";
   styleUrls: ["./search.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SearchComponent implements OnInit, OnDestroy {
+export class SearchComponent extends BaseComponentComponent {
   searchLevel = 0;
   expectedPrice = ZERO;
   expectedTiles: { unit: Unit; range: SearchRange }[];
@@ -29,12 +30,12 @@ export class SearchComponent implements OnInit, OnDestroy {
   minDistance = ZERO;
   maxDistance = ZERO;
   pointBalance = 0;
-  private subscriptions: Subscription[] = [];
   constructor(
-    public ms: MainService,
-    private cd: ChangeDetectorRef,
+    ms: MainService,
+    cd: ChangeDetectorRef,
     private route: ActivatedRoute
   ) {
+    super(ms, cd);
     this.expectedTiles = [
       {
         unit: this.ms.game.resourceManager.habitableSpace,
@@ -66,9 +67,6 @@ export class SearchComponent implements OnInit, OnDestroy {
       })
     );
   }
-  ngOnDestroy() {
-    this.subscriptions.forEach((sub: Subscription) => sub.unsubscribe());
-  }
   search() {
     const searchJob = new SearchJob();
     searchJob.enemyLevel = this.searchLevel;
@@ -96,7 +94,7 @@ export class SearchComponent implements OnInit, OnDestroy {
     return opt.id;
   }
   reset() {
-    this.ms.game.enemyManager.searchOptions.forEach(so => {
+    this.ms.game.enemyManager.searchOptions.forEach((so) => {
       so.quantity = 0;
     });
     this.reload();

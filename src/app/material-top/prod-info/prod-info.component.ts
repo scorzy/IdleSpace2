@@ -7,6 +7,7 @@ import {
 import { Unit } from "src/app/model/units/unit";
 import { ZERO } from "src/app/model/CONSTANTS";
 import { Production } from "src/app/model/units/production";
+import { BaseComponentComponent } from "src/app/base-component/base-component.component";
 
 @Component({
   selector: "app-prod-info",
@@ -14,32 +15,28 @@ import { Production } from "src/app/model/units/production";
   styleUrls: ["./prod-info.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProdInfoComponent implements OnInit {
+export class ProdInfoComponent extends BaseComponentComponent {
   @Input() unit: Unit;
-
   totalProd: Decimal;
   totalConsumed: Decimal;
   data: Array<Production>;
   sortName: string | null = null;
   sortValue: string | null = null;
   showTable = true;
-
-  constructor() {}
-
   ngOnInit() {
-    this.showTable = !!this.unit.makers.find(m => m.producer.quantity.gt(0));
+    this.showTable = !!this.unit.makers.find((m) => m.producer.quantity.gt(0));
     this.getData();
   }
 
   getData() {
     this.totalProd = this.unit.makers
-      .filter(p => p.ratio.gt(0))
-      .map(p => p.prodPerSec.times(p.producer.quantity))
+      .filter((p) => p.ratio.gt(0))
+      .map((p) => p.prodPerSec.times(p.producer.quantity))
       .reduce((p, c) => p.plus(c), ZERO);
 
     this.totalConsumed = this.unit.makers
-      .filter(p => p.ratio.lt(0))
-      .map(p => p.prodPerSec.times(p.producer.quantity))
+      .filter((p) => p.ratio.lt(0))
+      .map((p) => p.prodPerSec.times(p.producer.quantity))
       .reduce((p, c) => p.plus(c), ZERO);
 
     this.search();
@@ -53,7 +50,7 @@ export class ProdInfoComponent implements OnInit {
   search(): void {
     if (this.sortName === "prodPerSec") {
       this.data = this.unit.makers
-        .filter(m => m.producer.quantity.gt(0))
+        .filter((m) => m.producer.quantity.gt(0))
         .sort((a, b) =>
           this.sortValue === "ascend"
             ? a.prodPerSec.cmp(b.prodPerSec)
@@ -61,7 +58,7 @@ export class ProdInfoComponent implements OnInit {
         );
     } else {
       this.data = this.unit.makers
-        .filter(m => m.producer.quantity.gt(0))
+        .filter((m) => m.producer.quantity.gt(0))
         .sort((a, b) =>
           this.sortValue === "ascend"
             ? a.producer.name > b.producer.name

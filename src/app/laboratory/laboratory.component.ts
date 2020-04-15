@@ -13,6 +13,7 @@ import {
 } from "@angular/cdk/drag-drop";
 import { Subscription } from "rxjs";
 import { IJobType } from "../model/data/iResearchData";
+import { BaseComponentComponent } from "../base-component/base-component.component";
 
 @Component({
   selector: "app-laboratory",
@@ -20,14 +21,9 @@ import { IJobType } from "../model/data/iResearchData";
   styleUrls: ["./laboratory.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class LaboratoryComponent implements OnInit {
-  private subscriptions: Subscription[] = [];
-
-  constructor(public ms: MainService, private cd: ChangeDetectorRef) {}
-
+export class LaboratoryComponent extends BaseComponentComponent {
   ngOnInit() {
     this.reloadUi();
-
     this.subscriptions.push(
       this.ms.updateEmitter.subscribe(() => {
         this.reloadUi();
@@ -37,7 +33,7 @@ export class LaboratoryComponent implements OnInit {
   }
 
   reloadUi() {
-    this.ms.game.researchManager.technologies.forEach(t =>
+    this.ms.game.researchManager.technologies.forEach((t) =>
       t.bonus.reloadBonusUi()
     );
   }

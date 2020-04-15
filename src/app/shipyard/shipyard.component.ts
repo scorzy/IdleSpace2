@@ -12,6 +12,7 @@ import { ActivatedRoute } from "@angular/router";
 import { Subscription } from "rxjs";
 import { FleetShips } from "../model/shipyard/fleetShips";
 import { fadeIn } from "../animations";
+import { BaseComponentComponent } from "../base-component/base-component.component";
 
 @Component({
   selector: "app-shipyard",
@@ -20,7 +21,7 @@ import { fadeIn } from "../animations";
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [fadeIn]
 })
-export class ShipyardComponent implements OnInit, OnDestroy {
+export class ShipyardComponent extends BaseComponentComponent {
   fleetNum = 0;
   fleetNames = [];
   panels = [
@@ -31,13 +32,14 @@ export class ShipyardComponent implements OnInit, OnDestroy {
       fleet: 0
     }
   ];
-  private subscriptions: Subscription[] = [];
 
   constructor(
-    public ms: MainService,
-    private cd: ChangeDetectorRef,
+    ms: MainService,
+    cd: ChangeDetectorRef,
     private route: ActivatedRoute
-  ) {}
+  ) {
+    super(ms, cd);
+  }
 
   ngOnInit() {
     this.fleetNames = ["Fleet 1", "Fleet 2", "Fleet 3", "Fleet 4", "Fleet 5"];
@@ -54,13 +56,10 @@ export class ShipyardComponent implements OnInit, OnDestroy {
         this.ms.game.reloadNavalCapacity();
         this.cd.markForCheck();
       }),
-      this.route.paramMap.subscribe(paramMap =>
+      this.route.paramMap.subscribe((paramMap) =>
         this.getFleet(paramMap.get("id"))
       )
     );
-  }
-  ngOnDestroy() {
-    this.subscriptions.forEach((sub: Subscription) => sub.unsubscribe());
   }
   getFleet(id: string): void {
     this.fleetNum = parseInt(id, 10);
@@ -85,8 +84,8 @@ export class ShipyardComponent implements OnInit, OnDestroy {
     return index;
   }
   confirm() {
-    this.ms.game.shipyardManager.shipDesigns.forEach(des => {
-      des.fleets.forEach(fl => {
+    this.ms.game.shipyardManager.shipDesigns.forEach((des) => {
+      des.fleets.forEach((fl) => {
         fl.navalCapPercent = fl.navalCapPercentUi;
       });
     });

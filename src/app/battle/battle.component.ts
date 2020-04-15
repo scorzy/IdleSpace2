@@ -9,6 +9,7 @@ import { Subscription } from "rxjs";
 import { MainService } from "../main.service";
 import { FLEET_NUMBER, ZERO } from "../model/CONSTANTS";
 import { Cell } from "../model/enemy/cell";
+import { BaseComponentComponent } from "../base-component/base-component.component";
 
 @Component({
   selector: "app-battle",
@@ -16,16 +17,13 @@ import { Cell } from "../model/enemy/cell";
   styleUrls: ["./battle.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class BattleComponent implements OnInit, OnDestroy {
-  private subscriptions: Subscription[] = [];
+export class BattleComponent extends BaseComponentComponent {
   fleetNum = 0;
   cell = 0;
   activeCells = new Array<{ label: string; value: number }>();
   needNuke = ZERO;
   nukePercent = 0;
   autoAttackOptions = false;
-
-  constructor(public ms: MainService, private cd: ChangeDetectorRef) {}
 
   ngOnInit() {
     this.selectActiveCells();
@@ -44,9 +42,7 @@ export class BattleComponent implements OnInit, OnDestroy {
       })
     );
   }
-  ngOnDestroy() {
-    this.subscriptions.forEach((sub: Subscription) => sub.unsubscribe());
-  }
+
   attack(num = -1) {
     if (num === -1) {
       for (let i = 0; i < FLEET_NUMBER; i++) {

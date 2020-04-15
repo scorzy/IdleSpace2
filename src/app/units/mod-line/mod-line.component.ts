@@ -17,6 +17,7 @@ import { Unit } from "src/app/model/units/unit";
 import { Subscription } from "rxjs";
 import { BreakpointObserver, BreakpointState } from "@angular/cdk/layout";
 import { ZERO } from "src/app/model/CONSTANTS";
+import { BaseComponentComponent } from "src/app/base-component/base-component.component";
 
 @Component({
   selector: "app-mod-line",
@@ -24,7 +25,7 @@ import { ZERO } from "src/app/model/CONSTANTS";
   styleUrls: ["./mod-line.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ModLineComponent implements OnInit, OnChanges, OnDestroy {
+export class ModLineComponent extends BaseComponentComponent {
   @Input() mod: Mod;
   @Input() uiQuantityString: string;
   @Input() unit: Unit;
@@ -33,13 +34,13 @@ export class ModLineComponent implements OnInit, OnChanges, OnDestroy {
   isLarge = true;
   realMin = ZERO;
   realMax = ZERO;
-
-  private subscriptions: Subscription[] = [];
-
   constructor(
-    private cd: ChangeDetectorRef,
+    ms: MainService,
+    cd: ChangeDetectorRef,
     public breakpointObserver: BreakpointObserver
-  ) {}
+  ) {
+    super(ms, cd);
+  }
   ngOnInit() {
     this.subscriptions.push(
       this.breakpointObserver
@@ -49,9 +50,6 @@ export class ModLineComponent implements OnInit, OnChanges, OnDestroy {
           this.cd.markForCheck();
         })
     );
-  }
-  ngOnDestroy() {
-    this.subscriptions.forEach((sub: Subscription) => sub.unsubscribe());
   }
   ngOnChanges(changes: SimpleChanges): void {
     this.reload(true);

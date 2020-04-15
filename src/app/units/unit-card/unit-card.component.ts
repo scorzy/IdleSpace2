@@ -17,6 +17,7 @@ import { Price } from "src/app/model/prices/price";
 import { NzModalService, NzModalRef } from "ng-zorro-antd";
 import { BreakpointObserver, BreakpointState } from "@angular/cdk/layout";
 import { Router } from "@angular/router";
+import { BaseComponentComponent } from "src/app/base-component/base-component.component";
 
 @Component({
   selector: "app-unit-card",
@@ -24,13 +25,11 @@ import { Router } from "@angular/router";
   styleUrls: ["./unit-card.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class UnitCardComponent implements OnInit, OnDestroy {
+export class UnitCardComponent extends BaseComponentComponent {
   @Input() unit: Unit;
   tplModal: NzModalRef;
   popoverTrigger: string = null;
-
   actions = [];
-  private subscriptions: Subscription[] = [];
   sliderDisabled = false;
   index1 = 0;
   isVisible = false;
@@ -46,15 +45,17 @@ export class UnitCardComponent implements OnInit, OnDestroy {
   private buyNone: TemplateRef<any>;
 
   constructor(
-    public ms: MainService,
-    private cd: ChangeDetectorRef,
+    ms: MainService,
+    cd: ChangeDetectorRef,
     private modalService: NzModalService,
     public breakpointObserver: BreakpointObserver,
     private router: Router
-  ) {}
+  ) {
+    super(ms, cd);
+  }
   ngOnInit() {
     this.popoverTrigger = "hover";
-    this.sliderDisabled = !this.unit.production.find(p => p.ratio.lt(0));
+    this.sliderDisabled = !this.unit.production.find((p) => p.ratio.lt(0));
     this.getActions();
     this.subscriptions.push(
       this.ms.updateEmitter.subscribe(() => {
@@ -90,9 +91,6 @@ export class UnitCardComponent implements OnInit, OnDestroy {
     ) {
       this.actions = newActions;
     }
-  }
-  ngOnDestroy() {
-    this.subscriptions.forEach((sub: Subscription) => sub.unsubscribe());
   }
   buyOneAct() {
     this.unit.buy(ONE);

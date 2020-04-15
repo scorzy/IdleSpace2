@@ -14,6 +14,7 @@ import { Mod } from "src/app/model/units/mod";
 import { Production } from "src/app/model/units/production";
 import { BreakpointObserver, BreakpointState } from "@angular/cdk/layout";
 import { ZERO } from "src/app/model/CONSTANTS";
+import { BaseComponentComponent } from "src/app/base-component/base-component.component";
 
 @Component({
   selector: "app-mod",
@@ -21,9 +22,8 @@ import { ZERO } from "src/app/model/CONSTANTS";
   styleUrls: ["./mod.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ModComponent implements OnInit, OnDestroy {
+export class ModComponent extends BaseComponentComponent {
   @Input() unit: Unit;
-  private subscriptions: Subscription[] = [];
   disabled = false;
   isLarge = true;
   componentTotal = ZERO;
@@ -32,16 +32,18 @@ export class ModComponent implements OnInit, OnDestroy {
   componentPercent = 0;
 
   constructor(
-    public ms: MainService,
-    private cd: ChangeDetectorRef,
+    ms: MainService,
+    cd: ChangeDetectorRef,
     private route: ActivatedRoute,
     public breakpointObserver: BreakpointObserver,
     private router: Router
-  ) {}
+  ) {
+    super(ms, cd);
+  }
   ngOnInit() {
     this.reloadComp();
     this.subscriptions.push(
-      this.ms.updateEmitter.subscribe(n => {
+      this.ms.updateEmitter.subscribe((n) => {
         this.reloadComp();
         this.cd.markForCheck();
       }),
@@ -55,9 +57,6 @@ export class ModComponent implements OnInit, OnDestroy {
           this.cd.markForCheck();
         })
     );
-  }
-  ngOnDestroy() {
-    this.subscriptions.forEach((sub: Subscription) => sub.unsubscribe());
   }
   reloadComp() {
     if (!this.unit) return false;
@@ -76,22 +75,22 @@ export class ModComponent implements OnInit, OnDestroy {
       .toNumber();
   }
   getUnit(id: string) {
-    this.unit = this.ms.game.resourceManager.units.find(u => id === u.id);
-    this.unit.modStack.mods.forEach(m => {
+    this.unit = this.ms.game.resourceManager.units.find((u) => id === u.id);
+    this.unit.modStack.mods.forEach((m) => {
       m.uiQuantity = m.quantity;
       m.uiQuantityString = m.uiQuantity.eq(0)
         ? ""
         : MainService.formatPipe.transform(m.uiQuantity, true);
     });
-    this.unit.modStack.mods.forEach(m => m.reloadBonus());
-    this.unit.production.forEach(prod => {
+    this.unit.modStack.mods.forEach((m) => m.reloadBonus());
+    this.unit.production.forEach((prod) => {
       prod.reloadMod();
     });
     this.unit.modStack.reload();
     this.cd.markForCheck();
   }
   cancel() {
-    this.unit.modStack.mods.forEach(m => {
+    this.unit.modStack.mods.forEach((m) => {
       m.uiQuantity = m.quantity;
       m.uiQuantityString = MainService.formatPipe.transform(m.uiQuantity, true);
     });
@@ -119,7 +118,7 @@ export class ModComponent implements OnInit, OnDestroy {
     } else {
       this.disabled =
         this.unit.modStack.usedTemp.gt(this.unit.maxMods) ||
-        this.unit.modStack.mods.findIndex(m => !m.uiOk) > -1;
+        this.unit.modStack.mods.findIndex((m) => !m.uiOk) > -1;
     }
   }
   confirm() {
