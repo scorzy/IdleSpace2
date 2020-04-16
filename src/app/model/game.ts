@@ -195,7 +195,7 @@ export class Game {
             stats: battleResult.stats
           };
           this.battleStats[fleetNum].push(toAdd);
-          this.battleStats[fleetNum].splice(3);
+          this.battleStats[fleetNum].splice(30);
         }
 
         this.shipyardManager.onBattleEnd(battleResult, fleetNum);

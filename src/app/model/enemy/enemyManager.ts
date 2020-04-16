@@ -127,6 +127,13 @@ export class EnemyManager extends JobManager {
     if (this.fleetsInBattle[fleetNum]) {
       return false;
     }
+    let playerShip = false;
+    const sd = Game.getGame().shipyardManager.shipDesigns;
+    for (let k = 0, n = sd.length; k < n; k++) {
+      if (sd[k].fleets[fleetNum].shipsQuantity > 0) playerShip = true;
+    }
+    if (!playerShip) return false;
+
     const playerDesign = Game.getGame().shipyardManager.shipDesigns;
     const toAttack = this.currentEnemy.cells.find(
       (c) =>

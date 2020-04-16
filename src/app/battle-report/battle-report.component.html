@@ -1,10 +1,11 @@
 <h2>Battle Reports</h2>
 <nz-collapse nzBordered="true">
   <nz-collapse-panel nzHeader="Options" [nzActive]="true">
-    <form nzLayout="vertical" nz-form>
+    <form nzLayout="horizontal" nz-form>
       <nz-form-item>
         <nz-form-label>Fleet and Report</nz-form-label>
         <nz-select
+          class="select-fleet"
           nzPlaceHolder="--- Fleet ---"
           name="fleet"
           [(ngModel)]="fleet"
@@ -17,6 +18,7 @@
           ></nz-option>
         </nz-select>
         <nz-select
+          class="select-battle"
           nzPlaceHolder="--- Report ---"
           name="report"
           [(ngModel)]="report"
