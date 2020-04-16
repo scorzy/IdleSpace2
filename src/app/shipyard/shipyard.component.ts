@@ -13,6 +13,8 @@ import { ActivatedRoute } from "@angular/router";
 import { FleetShips } from "../model/shipyard/fleetShips";
 import { fadeIn } from "../animations";
 import { BaseComponentComponent } from "../base-component/base-component.component";
+import { FLEET_NUMBER, FLEET_CAPACITY } from "../model/CONSTANTS";
+import { sum } from "lodash-es";
 
 @Component({
   selector: "app-shipyard",
@@ -24,6 +26,7 @@ import { BaseComponentComponent } from "../base-component/base-component.compone
 export class ShipyardComponent extends BaseComponentComponent
   implements OnInit, OnDestroy, AfterViewInit {
   fleetNum = 0;
+  warning = false;
   fleetNames = [];
   panels = [
     {
@@ -42,6 +45,8 @@ export class ShipyardComponent extends BaseComponentComponent
     super(ms, cd);
   }
   ngOnInit() {
+    this.ms.game.shipyardManager.shipyardPage = true;
+    this.ms.game.shipyardManager.reloadFleetCapacity();
     this.fleetNames = ["Fleet 1", "Fleet 2", "Fleet 3", "Fleet 4", "Fleet 5"];
     this.panels = [];
     for (let i = 0; i < 5; i++) {
@@ -55,12 +60,25 @@ export class ShipyardComponent extends BaseComponentComponent
     this.subscriptions.push(
       this.ms.updateEmitter.subscribe(() => {
         this.ms.game.reloadNavalCapacity();
+        this.checkWarning();
         this.cd.markForCheck();
       }),
       this.route.paramMap.subscribe((paramMap) =>
         this.getFleet(paramMap.get("id"))
       )
     );
+  }
+  checkWarning() {
+    this.warning = false;
+    this.ms.game.shipyardManager.shipDesigns.forEach((des) => {
+      des.fleets.forEach((fl) => {
+        if (fl.wantedShipsUi < fl.wantedShips) this.warning = true;
+      });
+    });
+  }
+  ngOnDestroy() {
+    this.ms.game.shipyardManager.shipyardPage = false;
+    super.ngOnDestroy();
   }
   getFleet(id: string): void {
     this.fleetNum = parseInt(id, 10);
@@ -85,6 +103,12 @@ export class ShipyardComponent extends BaseComponentComponent
     return index;
   }
   confirm() {
+    for (let i = 0; i < FLEET_NUMBER; i++) {
+      this.ms.game.shipyardManager.fleetNavCapPriority[i] = Math.min(
+        FLEET_CAPACITY,
+        Math.max(this.ms.game.shipyardManager.fleetNavCapPriorityUi[i], 0)
+      );
+    }
     this.ms.game.shipyardManager.shipDesigns.forEach((des) => {
       des.fleets.forEach((fl) => {
         fl.navalCapPercent = fl.navalCapPercentUi;

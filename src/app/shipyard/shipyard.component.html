@@ -4,7 +4,7 @@
   fxLayoutAlign="flex-start"
   fxLayoutGap.gt-sm="10px"
 >
-  <div fxFlex.lt-sm="100%" fxFlex="0 1 calc(55% - 10px)">
+  <div fxFlex.lt-sm="100%" fxFlex="0 1 calc(60% - 10px)">
     <h2>Fleets</h2>
 
     <nz-collapse>
@@ -18,13 +18,33 @@
         <nz-input-number
           nzSize="small"
           class="fleet-priority"
-          [(ngModel)]="ms.game.shipyardManager.fleetNavCapPriority[i]"
+          nzMin="0"
+          nzMax="5000"
+          [(ngModel)]="ms.game.shipyardManager.fleetNavCapPriorityUi[i]"
         ></nz-input-number>
         <span>Fleet Capacity: </span>
         <span class="monospace">{{
           ms.game.shipyardManager.fleetsCapacity[i] | format
         }}</span>
-        <nz-table #basicTable nzTemplateMode nzSize="middle">
+        <span class="new-cap">New Fleet Capacity: </span>
+        <span
+          class="monospace"
+          [class.text-success]="
+            ms.game.shipyardManager.fleetsCapacityUi[i] >
+            ms.game.shipyardManager.fleetsCapacity[i]
+          "
+          [class.text-danger]="
+            ms.game.shipyardManager.fleetsCapacityUi[i] <
+            ms.game.shipyardManager.fleetsCapacity[i]
+          "
+          >{{ ms.game.shipyardManager.fleetsCapacityUi[i] | format }}</span
+        >
+        <nz-table
+          #basicTable
+          nzTemplateMode
+          nzSize="middle"
+          nzTableLayout="fixed"
+        >
           <thead>
             <tr>
               <th>Design</th>
@@ -118,6 +138,13 @@
         Reinforce All
       </button>
     </nz-button-group>
+
+    <nz-alert
+      *ngIf="warning"
+      nzType="warning"
+      nzMessage="Some ships will destroyed!"
+      nzShowIcon
+    ></nz-alert>
   </div>
   <div
     fxFlex.lt-md="100%"
