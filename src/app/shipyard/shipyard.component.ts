@@ -27,7 +27,7 @@ export class ShipyardComponent extends BaseComponentComponent
   fleetNames = [];
   panels = [
     {
-      active: true,
+      active: false,
       name: "Fleet 1",
       disabled: false,
       fleet: 0
@@ -41,13 +41,12 @@ export class ShipyardComponent extends BaseComponentComponent
   ) {
     super(ms, cd);
   }
-
   ngOnInit() {
     this.fleetNames = ["Fleet 1", "Fleet 2", "Fleet 3", "Fleet 4", "Fleet 5"];
     this.panels = [];
     for (let i = 0; i < 5; i++) {
       this.panels.push({
-        active: true,
+        active: false,
         name: this.fleetNames[i],
         disabled: false,
         fleet: i
