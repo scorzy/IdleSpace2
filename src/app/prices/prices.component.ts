@@ -32,7 +32,6 @@ export class PricesComponent extends BaseComponentComponent
         this.unit.buyPrice.prices.forEach((pri) =>
           pri.reloadNum(this.unit.manualBought, this.quantity)
         );
-        console.log("ciao");
         this.cd.markForCheck();
       })
     );

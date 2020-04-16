@@ -5,11 +5,7 @@ import { SHIP_TYPES } from "../data/shipTypes";
 import { modules } from "../data/modulesData";
 import { JobManager } from "../job/jobManager";
 import { Game } from "../game";
-import {
-  FLEET_CAPACITY_MULTI,
-  FLEET_NUMBER,
-  FLEET_CAPACITY
-} from "../CONSTANTS";
+import { FLEET_NUMBER, FLEET_CAPACITY } from "../CONSTANTS";
 import { BuildShipsJob } from "./buildShipsJob";
 import { Job } from "../job/job";
 import { UpdateShipJob } from "./updateShipJob";
@@ -154,7 +150,6 @@ export class ShipyardManager extends JobManager {
       { name: "Thrusters", list: this.thrusters, id: 4 },
       { name: "Others", list: this.others, id: 5 }
     ];
-    console.log(this.groups);
   }
   update(oldDesign: ShipDesign, newDesign: ShipDesign): boolean {
     if (!(newDesign && oldDesign)) {
@@ -208,7 +203,7 @@ export class ShipyardManager extends JobManager {
   reloadFleetCapacity() {
     //#region Reload ships number
     //  Reload Fleet capacity
-    let navalCapacity = Game.getGame().navalCapacity;
+    const navalCapacity = Game.getGame().navalCapacity;
     let sum = 0;
     for (let i = 0; i < FLEET_NUMBER; i++) {
       sum += Math.max(this.fleetNavCapPriority[i], 0);
@@ -250,22 +245,22 @@ export class ShipyardManager extends JobManager {
                 (a, b) =>
                   b.fleets[i].navalCapPercent - a.fleets[i].navalCapPercent
               );
-            for (let k = 0, n = ordered.length; k < n; k++) {
-              if (ordered[k].type.navalCapacity <= remainingNavCap) {
+            for (let z = 0, n2 = ordered.length; z < n2; z++) {
+              if (ordered[z].type.navalCapacity <= remainingNavCap) {
                 const toAdd = Math.floor(
-                  remainingNavCap / ordered[k].type.navalCapacity
+                  remainingNavCap / ordered[z].type.navalCapacity
                 );
-                ordered[k].fleets[i].wantedShips += toAdd;
-                remainingNavCap -= toAdd * ordered[k].type.navalCapacity;
+                ordered[z].fleets[i].wantedShips += toAdd;
+                remainingNavCap -= toAdd * ordered[z].type.navalCapacity;
               }
             }
           }
         }
       }
-      for (let k = 0, n = this.shipDesigns.length; k < n; k++) {
-        this.shipDesigns[k].fleets[i].shipsQuantity = Math.min(
-          this.shipDesigns[k].fleets[i].shipsQuantity,
-          this.shipDesigns[k].fleets[i].wantedShips
+      for (let p = 0, n = this.shipDesigns.length; p < n; p++) {
+        this.shipDesigns[p].fleets[i].shipsQuantity = Math.min(
+          this.shipDesigns[p].fleets[i].shipsQuantity,
+          this.shipDesigns[p].fleets[i].wantedShips
         );
       }
     }

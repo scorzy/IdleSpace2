@@ -54,6 +54,7 @@ export class SpaceStationsComponent extends BaseComponentComponent
     this.search();
   }
   search() {
+    /* tslint:disable */
     if (this.ms.game.resourceManager.unlockedSpaceStations.length < 1) return;
     if (this.sortName && this.sortValue) {
       if (
@@ -82,5 +83,6 @@ export class SpaceStationsComponent extends BaseComponentComponent
           );
       }
     }
+    /* tslint:enable */
   }
 }

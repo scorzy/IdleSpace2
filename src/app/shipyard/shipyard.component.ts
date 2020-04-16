@@ -14,7 +14,6 @@ import { FleetShips } from "../model/shipyard/fleetShips";
 import { fadeIn } from "../animations";
 import { BaseComponentComponent } from "../base-component/base-component.component";
 import { FLEET_NUMBER, FLEET_CAPACITY } from "../model/CONSTANTS";
-import { sum } from "lodash-es";
 
 @Component({
   selector: "app-shipyard",
