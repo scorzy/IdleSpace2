@@ -1,12 +1,12 @@
 <div fxLayout="rows" fxLayout.lt-sm="column" fxLayoutGap="10px">
   <div fxFlex="1 1 calc(50% - 10px)">
-    <h1 *ngIf="ms.game.enemyManager.currentEnemy">
+    <h2 *ngIf="ms.game.enemyManager.currentEnemy">
       {{ ms.game.enemyManager.currentEnemy.name }}
       <small
         >lv.
         {{ ms.game.enemyManager.currentEnemy.level | number: "1.0-0" }}</small
       >
-    </h1>
+    </h2>
     <nz-button-group *ngIf="ms.game.enemyManager.currentEnemy">
       <button nz-button nzType="primary" (click)="attack(-1)">
         Attack All

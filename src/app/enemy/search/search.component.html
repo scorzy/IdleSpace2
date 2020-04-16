@@ -11,7 +11,7 @@
     fxFlex.lg="0 1 calc(60% - 10px)"
     fxFlex.xl="0 1 calc(70% - 10px)"
   >
-    <h1>Search</h1>
+    <h2>Search</h2>
 
     Max Level:
     <strong class="monospace level">
@@ -74,7 +74,7 @@
     <div fxLayout="column">
       <!-- Results -->
       <div>
-        <h1>Results</h1>
+        <h2>Results</h2>
         <nz-table nzTemplateMode nzSize="small">
           <tbody>
             <tr *ngFor="let tile of expectedTiles; trackBy: getExpTileId">
@@ -111,7 +111,7 @@
       </div>
       <!-- Jobs -->
       <div>
-        <h1>Jobs</h1>
+        <h2>Jobs</h2>
         <div
           cdkDropList
           [cdkDropListData]="ms.game.enemyManager.toDo"
