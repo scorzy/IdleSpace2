@@ -1,17 +1,17 @@
 <nz-table nzTemplateMode nzSize="middle">
   <thead>
     <tr>
-      <th></th>
-      <th>Fleet 1</th>
-      <th>Fleet 2</th>
-      <th>Fleet 3</th>
-      <th>Fleet 4</th>
-      <th>Fleet 5</th>
+      <th nzWidth="5em" class="fleet-th-1"></th>
+      <th class="fleet-th">Fleet 1</th>
+      <th class="fleet-th">Fleet 2</th>
+      <th class="fleet-th">Fleet 3</th>
+      <th class="fleet-th">Fleet 4</th>
+      <th class="fleet-th">Fleet 5</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <td>Cell</td>
+      <td class="fleet-td-1"><span>Cell</span></td>
       <td *ngFor="let i of fleets">
         <span *ngIf="ms.game.enemyManager.fleetsInBattle[i]" class="monospace">
           {{ ms.game.enemyManager.fleetsInBattle[i].index + 1 | number }}</span
@@ -19,7 +19,7 @@
       </td>
     </tr>
     <tr>
-      <td>Eta</td>
+      <td class="fleet-td-1"><span>Eta</span></td>
       <td *ngFor="let i of fleets">
         <span *ngIf="ms.game.enemyManager.fleetsInBattle[i]" class="monospace">
           {{ getEta(i) | date: "mm:ss:S" }}
@@ -27,9 +27,9 @@
       </td>
     </tr>
     <tr>
-      <td>Strength</td>
+      <td class="fleet-td-1"><span>Strength</span></td>
       <td *ngFor="let i of fleets">
-        <span *ngIf="ms.game.enemyManager.fleetsInBattle[i]" class="monospace">
+        <span class="monospace">
           {{
             ms.game.shipyardManager.fleetsPercent[i] / 100 | percent: "1.0-0"
           }}

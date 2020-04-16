@@ -44,10 +44,11 @@ export class ShipyardComponent extends BaseComponentComponent
 
   ngOnInit() {
     this.fleetNames = ["Fleet 1", "Fleet 2", "Fleet 3", "Fleet 4", "Fleet 5"];
-    for (let i = 1; i < this.ms.game.shipyardManager.maxFleet; i++) {
+    this.panels = [];
+    for (let i = 0; i < 5; i++) {
       this.panels.push({
         active: true,
-        name: "Fleet " + i,
+        name: this.fleetNames[i],
         disabled: false,
         fleet: i
       });

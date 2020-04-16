@@ -60,7 +60,7 @@ export class BattleComponent extends BaseComponentComponent
           label: "" + (1 + cell.index),
           value: cell.index
         });
-        if (this.activeCells.length >= this.ms.game.shipyardManager.maxFleet) {
+        if (this.activeCells.length >= FLEET_NUMBER) {
           break;
         }
       }

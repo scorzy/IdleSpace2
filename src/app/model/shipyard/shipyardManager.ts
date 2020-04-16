@@ -19,7 +19,7 @@ export class ShipyardManager extends JobManager {
   shipTypes = new Array<ShipType>();
   fleetsCapacity = new Array<number>(FLEET_NUMBER);
   fleetsPercent = new Array<number>(FLEET_NUMBER);
-
+  fleetNavCapPriority = new Array<number>(FLEET_NUMBER);
   weapons = new Array<Module>();
   allWeapons = new Array<Module>();
   defences = new Array<Module>();
@@ -32,12 +32,13 @@ export class ShipyardManager extends JobManager {
   thrusters = new Array<Module>();
   groups: { name: string; list: Array<Module>; id: number }[];
   toDo = new Array<Job>();
-  maxFleet = 0;
-
   armour: Module;
   shield: Module;
   designerView = false;
-
+  constructor() {
+    super();
+    this.fleetNavCapPriority.fill(50);
+  }
   init() {
     this.shipTypes = SHIP_TYPES.map((s) => new ShipType(s));
     this.modules = modules.map((m) => {
@@ -195,16 +196,15 @@ export class ShipyardManager extends JobManager {
    * Calculate fleets capacity and num of ships to build
    */
   reloadFleetCapacity() {
-    this.maxFleet = 0;
     //  Reload Fleet capacity
     let navalCapacity = Game.getGame().navalCapacity;
+    let sum = 0;
     for (let i = 0; i < FLEET_NUMBER; i++) {
-      navalCapacity /= 1 + i * FLEET_CAPACITY_MULTI;
-      this.fleetsCapacity[i] = Math.max(0, Math.floor(navalCapacity));
-      navalCapacity -= this.fleetsCapacity[i];
-      if (this.fleetsCapacity[i] > 1) {
-        this.maxFleet++;
-      }
+      sum += Math.max(this.fleetNavCapPriority[i], 0);
+    }
+    for (let i = 0; i < FLEET_NUMBER; i++) {
+      this.fleetsCapacity[i] =
+        (navalCapacity * Math.max(this.fleetNavCapPriority[i], 0)) / sum;
     }
 
     //  Reload ships number
@@ -385,7 +385,8 @@ export class ShipyardManager extends JobManager {
   getSave(): any {
     return {
       d: this.shipDesigns.map((des) => des.getSave()),
-      t: this.toDo.map((j) => j.getSave())
+      t: this.toDo.map((j) => j.getSave()),
+      n: this.fleetNavCapPriority
     };
   }
   load(data: any) {
@@ -395,6 +396,11 @@ export class ShipyardManager extends JobManager {
         design.load(d);
         return design;
       });
+    }
+    if ("n" in data) {
+      for (let i = 0; i < data.n; i++) {
+        this.fleetNavCapPriority[i] = data.n[i];
+      }
     }
 
     if ("t" in data) {

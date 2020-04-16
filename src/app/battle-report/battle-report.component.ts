@@ -7,6 +7,7 @@ import {
 } from "@angular/core";
 import { Stats } from "../model/battle/battleResult";
 import { BaseComponentComponent } from "../base-component/base-component.component";
+import { FLEET_NUMBER } from "../model/CONSTANTS";
 
 @Component({
   selector: "app-battle-report",
@@ -53,7 +54,7 @@ export class BattleReportComponent extends BaseComponentComponent
 
   ngOnInit() {
     this.ms.game.updateStats = false;
-    for (let i = 0; i < this.ms.game.shipyardManager.maxFleet; i++) {
+    for (let i = 0; i < FLEET_NUMBER; i++) {
       this.listOfFleets.push({
         label: "Fleet " + (1 + i),
         value: "" + i
