@@ -64,7 +64,6 @@ import { AddComponent } from "./designer/add/add.component";
 import { NzFormModule } from "ng-zorro-antd/form";
 import { TechnologiesComponent } from "./technologies/technologies.component";
 import { NzInputNumberModule } from "ng-zorro-antd/input-number";
-import { ResearchPrioritiesComponent } from "./research-priorities/research-priorities.component";
 import { EditComponent } from "./designer/edit/edit.component";
 import { SizePipe } from "./size.pipe";
 import { ShipyardComponent } from "./shipyard/shipyard.component";
@@ -88,9 +87,9 @@ import { ListComponent } from "./designer/list/list.component";
 import { BiComponent } from "./units/bi/bi.component";
 import { ProdTableComponent } from "./units/prod-table/prod-table.component";
 import { AutoAttackOptionsComponent } from "./battle/auto-attack-options/auto-attack-options.component";
-import { FleetsViewComponent } from './fleets-view/fleets-view.component';
-import { BaseComponentComponent } from './base-component/base-component.component';
-import { PricesComponent } from './prices/prices.component';
+import { FleetsViewComponent } from "./fleets-view/fleets-view.component";
+import { BaseComponentComponent } from "./base-component/base-component.component";
+import { PricesComponent } from "./prices/prices.component";
 
 registerLocaleData(en);
 
@@ -116,7 +115,6 @@ const ngZorroConfig: NzConfig = {
     TimePipe,
     AddComponent,
     TechnologiesComponent,
-    ResearchPrioritiesComponent,
     EditComponent,
     SizePipe,
     ShipyardComponent,

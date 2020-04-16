@@ -1,9 +1,15 @@
-<div fxLayout="row wrap" fxLayoutAlign="stretch" fxLayout.lt-md="column">
+<div
+  fxLayout="row wrap"
+  fxLayoutAlign="stretch"
+  fxLayout.lt-md="column"
+  class="height100"
+>
   <div
     fxLayout="row wrap"
     fxLayoutAlign="stretch"
     fxLayout.lt-md="column"
     fxFlex="75"
+    class="height100"
   >
     <div fxFlex="50" class="research-container">
       <h2>Backlog</h2>
@@ -57,8 +63,32 @@
   </div>
 
   <div fxFlex="25" class="info-div">
-    <strong>Research /s: </strong>
-    <span>{{ ms.game.researchManager.researchPerSec | format }}</span>
+    <div>
+      <strong>Research /s: </strong>
+      <span class="monospace">{{
+        ms.game.researchManager.researchPerSec | format
+      }}</span>
+    </div>
+    <div>
+      <strong>Technology /s: </strong>
+      <span class="monospace">{{
+        ms.game.researchManager.techPerSec | format
+      }}</span>
+    </div>
+    <div>
+      Research Priority:
+      <nz-input-number
+        [(ngModel)]="ms.game.researchManager.researchPriority"
+        [nzMin]="0"
+        [nzMax]="100"
+        [nzStep]="1"
+        [nzSize]="'small'"
+      ></nz-input-number>
+      <nz-slider
+        [(ngModel)]="ms.game.researchManager.researchPriority"
+      ></nz-slider>
+    </div>
+
     <ul class="list-unstyled technology-list">
       <li
         *ngFor="

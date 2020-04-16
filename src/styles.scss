@@ -51,7 +51,7 @@ body {
 }
 
 .job-list {
-  min-height: 60px;
+  min-height: 200px;
   border-radius: 4px;
   overflow: hidden;
   display: block;
@@ -200,4 +200,7 @@ nz-card-meta {
     font-size: 28px;
     margin-top: 4px;
   }
+}
+.height100 {
+  height: 100%;
 }

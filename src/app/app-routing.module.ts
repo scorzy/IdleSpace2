@@ -6,7 +6,6 @@ import { OptionsComponent } from "./options/options.component";
 import { SaveComponent } from "./save/save.component";
 import { AddComponent } from "./designer/add/add.component";
 import { TechnologiesComponent } from "./technologies/technologies.component";
-import { ResearchPrioritiesComponent } from "./research-priorities/research-priorities.component";
 import { EditComponent } from "./designer/edit/edit.component";
 import { ShipyardComponent } from "./shipyard/shipyard.component";
 import { SearchComponent } from "./enemy/search/search.component";
@@ -31,7 +30,6 @@ export const routes: Routes = [
   { path: "lab", pathMatch: "full", component: LaboratoryComponent },
   { path: "tech", pathMatch: "full", component: TechnologiesComponent },
   { path: "tree", pathMatch: "full", component: TreeComponent },
-  { path: "resPri", pathMatch: "full", component: ResearchPrioritiesComponent },
   { path: "opt", pathMatch: "full", component: OptionsComponent },
   { path: "save", pathMatch: "full", component: SaveComponent },
   { path: "fleet", pathMatch: "full", component: ShipyardComponent },

@@ -21,9 +21,8 @@ export class ResearchManager extends JobManager {
   technologies: Technology[];
   unlockedTechnologies: Technology[];
   researchPriority = 50;
-  technologiesPriority = 50;
-  specialProjectsPriority = 50;
   researchPerSec = ZERO;
+  techPerSec = ZERO;
   navalCapTech: Technology;
   roboticsTech: Technology;
   drag = false;
@@ -174,23 +173,25 @@ export class ResearchManager extends JobManager {
     this.unlockedTechnologies = this.technologies.filter((t) => t.unlocked);
   }
   addProgress(prog: Decimal): Decimal {
+    this.techPerSec = ZERO;
     if (this.unlockedTechnologies.length < 1) {
       this.researchPerSec = Game.getGame().resourceManager.science.perSec;
       return this.drag ? prog : super.addProgress(prog);
     }
 
-    const resPercent =
-      this.researchPriority /
-      (this.researchPriority + this.technologiesPriority);
+    const resPercent = this.researchPriority / 100;
     const resProg = prog.times(resPercent);
     this.researchPerSec = Game.getGame().resourceManager.science.perSec.times(
       resPercent
+    );
+    this.techPerSec = Game.getGame().resourceManager.science.perSec.times(
+      1 - resPercent
     );
 
     let notAdded = prog;
     if (!this.drag) {
       notAdded = super.addProgress(resProg);
-      if (this.technologiesPriority <= 0) {
+      if (this.researchPriority >= 100) {
         return notAdded;
       }
     }
@@ -213,9 +214,7 @@ export class ResearchManager extends JobManager {
       t: this.toDo.map((r) => r.getSave()),
       b: this.backlog.map((r) => r.getSave()),
       e: this.unlockedTechnologies.map((t) => t.getSave()),
-      p: this.technologiesPriority,
-      r: this.researchPriority,
-      s: this.specialProjectsPriority
+      r: this.researchPriority
     };
   }
   load(data: any) {
@@ -245,14 +244,8 @@ export class ResearchManager extends JobManager {
         tech.load(techData);
       }
     }
-    if ("p" in data) {
-      this.technologiesPriority = data.p;
-    }
     if ("r" in data) {
       this.researchPriority = data.r;
-    }
-    if ("s" in data) {
-      this.specialProjectsPriority = data.s;
     }
     this.done.forEach((res) => {
       res.onCompleted(true);

@@ -29,7 +29,7 @@ export class TimePipe implements PipeTransform {
         );
       }
     } else {
-      return "never";
+      return "∞";
     }
   }
 }
