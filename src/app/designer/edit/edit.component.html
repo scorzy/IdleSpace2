@@ -73,41 +73,65 @@
               [nzCustomTemplate]="custom"
               class="module-select"
             >
-              <nz-option-group
+              <nz-option
+                *ngFor="let mod of ms.game.shipyardManager.groups[0].list"
+                [nzValue]="mod.id"
+                [nzLabel]="mod.name"
+                nzCustomContent
+              >
+                <i nz-icon [nzType]="mod.shape"></i>
+                <span> {{ mod.name }}</span>
+              </nz-option>
+              <nz-option
+                *ngFor="let mod of ms.game.shipyardManager.groups[1].list"
+                [nzValue]="mod.id"
+                [nzLabel]="mod.name"
+                nzCustomContent
+              >
+                <i nz-icon [nzType]="mod.shape"></i>
+                <span> {{ mod.name }}</span></nz-option
+              >
+              <nz-option
+                *ngFor="let mod of ms.game.shipyardManager.groups[2].list"
+                [nzValue]="mod.id"
+                [nzLabel]="mod.name"
+                nzCustomContent
+              >
+                <i nz-icon [nzType]="mod.shape"></i>
+                <span> {{ mod.name }}</span></nz-option
+              >
+              <nz-option
+                *ngFor="let mod of ms.game.shipyardManager.groups[3].list"
+                [nzValue]="mod.id"
+                [nzLabel]="mod.name"
+                nzCustomContent
+              >
+                <i nz-icon [nzType]="mod.shape"></i>
+                <span> {{ mod.name }}</span></nz-option
+              >
+              <nz-option
+                *ngFor="let mod of ms.game.shipyardManager.groups[4].list"
+                [nzValue]="mod.id"
+                [nzLabel]="mod.name"
+                nzCustomContent
+              >
+                <i nz-icon [nzType]="mod.shape"></i>
+                <span> {{ mod.name }}</span></nz-option
+              >
+
+              <!-- <nz-option-group
                 [nzLabel]="group.name"
-                *ngFor="
-                  let group of ms.game.shipyardManager.groups;
-                  trackBy: getGroupId
-                "
+                *ngFor="let group of ms.game.shipyardManager.groups"
               >
                 <nz-option
-                  *ngFor="let mod of group.list; trackBy: getModId"
-                  nzCustomContent
+                  *ngFor="let mod of group.list"
                   [nzValue]="mod.id"
                   [nzLabel]="mod.name"
-                >
-                  <span
-                    fxLayout="row"
-                    fxLayoutAlign="start center"
-                    fxLayoutGap="15px"
-                  >
-                    <i nz-icon [nzType]="mod.shape" style="font-size: 200%;">
-                    </i>
-                    <span
-                      fxLayout="row"
-                      fxLayout.lt-xl="column"
-                      fxLayoutAlign="space-between center"
-                      fxFlex="100%"
-                    >
-                      <span fxFlex="100%"> {{ mod.name }}</span>
-                      <!-- <app-module-info
-                        *ngIf="loaded"
-                        [mod]="mod"
-                      ></app-module-info> -->
-                    </span>
-                  </span>
-                </nz-option>
-              </nz-option-group>
+                > -->
+              <!-- <i nz-icon [nzType]="mod.shape" style="font-size: 200%;"></i> -->
+              <!-- <span fxFlex="100%"> {{ mod.name }}</span> -->
+              <!-- </nz-option>
+              </nz-option-group> -->
             </nz-select>
             <div fxLayout="row" fxLayoutGap="0.5rem">
               <nz-select

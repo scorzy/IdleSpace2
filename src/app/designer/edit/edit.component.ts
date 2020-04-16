@@ -114,8 +114,8 @@ export class EditComponent extends BaseComponentComponent
   getSizeId(size: number) {
     return size;
   }
-  getGroupId(index: number) {
-    return index;
+  getGroupId(index: number, group: any) {
+    return group.id;
   }
   reload(index: number = -1) {
     if (index > -1) {

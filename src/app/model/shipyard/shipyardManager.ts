@@ -30,7 +30,7 @@ export class ShipyardManager extends JobManager {
   others = new Array<Module>();
   allThrusters = new Array<Module>();
   thrusters = new Array<Module>();
-  groups: { name: string; list: Array<Module> }[];
+  groups: { name: string; list: Array<Module>; id: number }[];
   toDo = new Array<Job>();
   maxFleet = 0;
 
@@ -137,12 +137,13 @@ export class ShipyardManager extends JobManager {
     this.thrusters = this.allThrusters.filter((m) => m.unlocked);
     this.others = this.allOthers.filter((mod) => mod.unlocked);
     this.groups = [
-      { name: "Weapons", list: this.weapons },
-      { name: "Defences", list: this.defences },
-      { name: "Generators", list: this.generators },
-      { name: "Thrusters", list: this.thrusters },
-      { name: "Others", list: this.others }
+      { name: "Weapons", list: this.weapons, id: 1 },
+      { name: "Defences", list: this.defences, id: 2 },
+      { name: "Generators", list: this.generators, id: 3 },
+      { name: "Thrusters", list: this.thrusters, id: 4 },
+      { name: "Others", list: this.others, id: 5 }
     ];
+    console.log(this.groups);
   }
   update(oldDesign: ShipDesign, newDesign: ShipDesign): boolean {
     if (!(newDesign && oldDesign)) {
