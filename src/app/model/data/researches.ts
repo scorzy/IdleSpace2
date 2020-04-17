@@ -18,7 +18,7 @@ export const RESEARCHES: IResearchData[] = [
     description: "Unlock Physics Technology",
     max: 1,
     type: [TECHNOLOGIES.Physics],
-    researchToUnlock: ["c", "E"],
+    researchToUnlock: ["c", "E", "p1"],
     technologiesToUnlock: ["p"]
   },
   {
@@ -27,14 +27,15 @@ export const RESEARCHES: IResearchData[] = [
     description: "Unlock Computing Technology",
     max: 1,
     type: [TECHNOLOGIES.Computing],
-    technologiesToUnlock: ["c"]
+    technologiesToUnlock: ["c"],
+    researchToUnlock: ["c1"]
   },
   {
     id: "n",
     name: "Naval Logistics",
     description: "Unlock Naval Capacity Technology",
     max: 1,
-    type: [TECHNOLOGIES.Computing],
+    type: [TECHNOLOGIES.Naval],
     technologiesToUnlock: ["n"],
     researchToUnlock: ["n1"]
   },
@@ -142,5 +143,19 @@ export const RESEARCHES: IResearchData[] = [
       { materialId: "A", multi: 1 },
       { materialId: "x", multi: 1 }
     ]
+  },
+  {
+    id: "c1",
+    name: "Algorithms",
+    description: "Improve research",
+    type: [TECHNOLOGIES.Computing],
+    effMulti: [{ unitId: "s", multi: 0.1 }]
+  },
+  {
+    id: "p1",
+    name: "Research initiative",
+    description: "Researchers yields and consume more",
+    type: [TECHNOLOGIES.Physics],
+    prodMulti: [{ unitId: "s", multi: 0.2 }]
   }
 ];

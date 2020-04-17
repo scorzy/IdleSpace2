@@ -161,7 +161,7 @@ export class ResearchManager extends JobManager {
             unit.prodAllBonus.bonuses.push(
               new Bonus(res, new Decimal(multi.multi))
             );
-            if (!res.battleMulti) res.battleMulti = [];
+            if (!res.prodMulti) res.prodMulti = [];
             res.prodMulti.push({
               unit,
               multi: multi.multi
@@ -176,7 +176,7 @@ export class ResearchManager extends JobManager {
             unit.prodEfficiency.bonuses.push(
               new Bonus(res, new Decimal(multi.multi))
             );
-            if (!res.battleMulti) res.battleMulti = [];
+            if (!res.effMulti) res.effMulti = [];
             res.effMulti.push({
               unit,
               multi: multi.multi

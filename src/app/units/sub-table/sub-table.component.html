@@ -10,14 +10,14 @@
   <tbody>
     <tr>
       <td>Base</td>
-      <td></td>
-      <td></td>
+      <td class="monospace">{{ this.data.ratio }}</td>
+      <td class="monospace">{{ this.unit.operativity | format }}%</td>
       <td>
         <span
           class="monospace"
           nz-text
           [nzType]="data.ratio.gte(0) ? '' : 'danger'"
-          >{{ data.ratio | format }}</span
+          >{{ data.ratio.times(this.unit.operativity).div(100) | format }}</span
         >
       </td>
     </tr>
@@ -46,8 +46,8 @@
           class="monospace"
           nz-text
           [nzType]="d.total.gte(0) ? '' : 'danger'"
-          >{{ d.total | format }}</span
-        >%
+          >x {{ d.total | format }}%</span
+        >
       </td>
     </tr>
   </tbody>

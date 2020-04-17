@@ -42,8 +42,8 @@ export const TECHNOLOGIES: { readonly [index: string]: ITechnologyData } = {
     id: "m",
     name: "Materials",
     icon: "my:cube",
-    darkColor: "#FA8C16",
-    lightColor: "#FA8C16",
+    darkColor: "#5cdbd3",
+    lightColor: "#08979c",
     price: new Decimal(1e3)
   },
   Propulsion: {
@@ -58,8 +58,8 @@ export const TECHNOLOGIES: { readonly [index: string]: ITechnologyData } = {
     id: "c",
     name: "Computing",
     icon: "my:computing",
-    darkColor: "#F2F6FF",
-    lightColor: "#85A5FF",
+    darkColor: "#ffffff",
+    lightColor: "#000000",
     price: new Decimal(1e3)
   },
   Robotics: {
@@ -74,8 +74,8 @@ export const TECHNOLOGIES: { readonly [index: string]: ITechnologyData } = {
     id: "n",
     name: "Naval",
     icon: "my:medal",
-    darkColor: "red",
-    lightColor: "red",
+    darkColor: "#b37feb",
+    lightColor: "#722ed1",
     price: new Decimal(1e3)
   },
   Search: {

@@ -24,8 +24,8 @@ export class SubTableComponent extends BaseComponentComponent
   subData: Array<{
     what: string;
     quantity: Decimal;
-    effect: DecimalSource;
-    total: DecimalSource;
+    effect: Decimal;
+    total: Decimal;
   }>;
   ngOnInit() {
     this.subData = this.getSubData(this.data);
@@ -48,23 +48,28 @@ export class SubTableComponent extends BaseComponentComponent
       total: Decimal;
     }>();
 
-    ret.push({
-      what: "Operativity",
-      quantity: ONE,
-      effect: new Decimal(this.unit.operativity),
-      total: new Decimal(this.unit.operativity)
-    });
+    // ret.push({
+    //   what: "Base",
+    //   quantity: this.data.ratio,
+    //   effect: new Decimal(this.unit.operativity),
+    //   total: new Decimal(this.unit.operativity).times(this.data.ratio)
+    // });
 
     ret = ret.concat(
-      prod.producer.prodEfficiency.bonuses
+      prod.product.prodBy.bonuses
         .concat(prod.producer.prodAllBonus.bonuses)
-        .concat(prod.product.prodBy.bonuses)
+        .concat(
+          this.data.ratio.gt(0) ? prod.producer.prodEfficiency.bonuses : []
+        )
         .map((bonus) => {
           return {
             what: bonus.unit.name,
             quantity: bonus.unit.quantity,
-            effect: bonus.multiplier,
-            total: bonus.multiplier.times(bonus.unit.quantity)
+            effect: bonus.multiplier.times(100),
+            total: bonus.multiplier
+              .times(bonus.unit.quantity)
+              .times(100)
+              .plus(100)
           };
         })
     );
