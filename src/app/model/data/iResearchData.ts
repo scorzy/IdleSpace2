@@ -15,7 +15,7 @@ export interface IResearchData {
   name: string;
   description: string;
   max?: number;
-  price: DecimalSource;
+  price?: DecimalSource;
   growRate?: number;
   unitsToUnlock?: string[];
   researchToUnlock?: string[];
