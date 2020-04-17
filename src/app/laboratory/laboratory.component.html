@@ -32,10 +32,11 @@
           [collection]="ms.game.researchManager.backlog"
           [showDescription]="false"
         >
-          <app-research-preview
-            *cdkDragPreview
-            [research]="resToDo"
-          ></app-research-preview>
+          <div *cdkDragPreview>
+            <nz-card style="width: 300px;" nzSize="small">
+              <app-research-preview [research]="resToDo"></app-research-preview>
+            </nz-card>
+          </div>
         </app-job>
       </div>
     </div>
@@ -63,10 +64,11 @@
           [collection]="ms.game.researchManager.toDo"
           [showDescription]="false"
         >
-          <app-research-preview
-            *cdkDragPreview
-            [research]="resToDo"
-          ></app-research-preview>
+          <div *cdkDragPreview>
+            <nz-card style="width: 300px;" nzSize="small">
+              <app-research-preview [research]="resToDo"></app-research-preview>
+            </nz-card>
+          </div>
         </app-job>
       </div>
     </div>

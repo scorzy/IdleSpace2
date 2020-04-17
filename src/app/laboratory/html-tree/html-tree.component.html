@@ -1,0 +1,26 @@
+<div class="tree">
+  <div id="wrapper">
+    <div class="entry">
+      <span class="label" nz-popover [nzPopoverContent]="contentTemplate">
+        <i
+          nz-icon
+          [nzType]="ms.game.researchManager.researches[0].types[0].icon"
+          [style.color]="ms.game.researchManager.researches[0].types[0].color"
+        ></i>
+        {{ ms.game.researchManager.researches[0].name }}</span
+      >
+      <div class="branch">
+        <app-tree-node
+          [research]="ms.game.researchManager.researches[0]"
+        ></app-tree-node>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #contentTemplate>
+  <app-research-preview
+    [noProgress]="true"
+    [research]="ms.game.researchManager.researches[0]"
+  ></app-research-preview>
+</ng-template>

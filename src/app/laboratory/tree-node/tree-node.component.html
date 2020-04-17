@@ -1,0 +1,24 @@
+<div
+  class="entry"
+  [class.sole]="research.researchToUnlock?.length == 1"
+  *ngFor="let res of research.researchToUnlock"
+>
+  <span class="label" nz-popover [nzPopoverContent]="contentTemplate">
+    <i
+      nz-icon
+      [nzType]="res.types[0].icon"
+      [style.color]="res.types[0].color"
+    ></i>
+    {{ res.name }}</span
+  >
+
+  <ng-template #contentTemplate>
+    <app-research-preview
+      [noProgress]="true"
+      [research]="res"
+    ></app-research-preview>
+  </ng-template>
+  <div class="branch" *ngIf="res.researchToUnlock?.length > 0">
+    <app-tree-node [research]="res"></app-tree-node>
+  </div>
+</div>

@@ -80,7 +80,6 @@ import { BattleReportComponent } from "./battle-report/battle-report.component";
 import { WeaponViewComponent } from "./weapon-view/weapon-view.component";
 import { SpaceStationsComponent } from "./space-stations/space-stations.component";
 import { CellComponent } from "./battle/cell/cell.component";
-import { TreeComponent } from "./laboratory/tree/tree.component";
 import { ModComponent } from "./units/mod/mod.component";
 import { ModLineComponent } from "./units/mod-line/mod-line.component";
 import { ListComponent } from "./designer/list/list.component";
@@ -90,7 +89,9 @@ import { AutoAttackOptionsComponent } from "./battle/auto-attack-options/auto-at
 import { FleetsViewComponent } from "./fleets-view/fleets-view.component";
 import { BaseComponentComponent } from "./base-component/base-component.component";
 import { PricesComponent } from "./prices/prices.component";
-import { ResearchPreviewComponent } from './laboratory/research-preview/research-preview.component';
+import { ResearchPreviewComponent } from "./laboratory/research-preview/research-preview.component";
+import { HtmlTreeComponent } from "./laboratory/html-tree/html-tree.component";
+import { TreeNodeComponent } from "./laboratory/tree-node/tree-node.component";
 
 registerLocaleData(en);
 
@@ -132,7 +133,6 @@ const ngZorroConfig: NzConfig = {
     WeaponViewComponent,
     SpaceStationsComponent,
     CellComponent,
-    TreeComponent,
     ModComponent,
     ModLineComponent,
     ListComponent,
@@ -142,7 +142,9 @@ const ngZorroConfig: NzConfig = {
     FleetsViewComponent,
     BaseComponentComponent,
     PricesComponent,
-    ResearchPreviewComponent
+    ResearchPreviewComponent,
+    HtmlTreeComponent,
+    TreeNodeComponent
   ],
   imports: [
     BrowserModule,

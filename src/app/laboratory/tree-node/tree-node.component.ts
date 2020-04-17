@@ -2,19 +2,20 @@ import {
   Component,
   OnInit,
   ChangeDetectionStrategy,
-  Input
+  Input,
+  HostBinding
 } from "@angular/core";
 import { Research } from "src/app/model/researches/research";
 
 @Component({
-  selector: "app-research-preview",
-  templateUrl: "./research-preview.component.html",
-  styleUrls: ["./research-preview.component.scss"],
+  selector: "app-tree-node",
+  templateUrl: "./tree-node.component.html",
+  styleUrls: ["./tree-node.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ResearchPreviewComponent implements OnInit {
+export class TreeNodeComponent implements OnInit {
   @Input() research: Research;
-  @Input() noProgress = false;
   constructor() {}
+
   ngOnInit(): void {}
 }

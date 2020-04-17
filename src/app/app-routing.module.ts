@@ -15,10 +15,10 @@ import { BattleComponent } from "./battle/battle.component";
 import { ModulesComponent } from "./designer/modules/modules.component";
 import { BattleReportComponent } from "./battle-report/battle-report.component";
 import { SpaceStationsComponent } from "./space-stations/space-stations.component";
-import { TreeComponent } from "./laboratory/tree/tree.component";
 import { ModComponent } from "./units/mod/mod.component";
 import { ListComponent } from "./designer/list/list.component";
 import { BiComponent } from "./units/bi/bi.component";
+import { HtmlTreeComponent } from "./laboratory/html-tree/html-tree.component";
 
 export const routes: Routes = [
   { path: "", pathMatch: "full", redirectTo: "/units/ws" },
@@ -29,7 +29,7 @@ export const routes: Routes = [
   { path: "mod/:id", pathMatch: "full", component: ModComponent },
   { path: "lab", pathMatch: "full", component: LaboratoryComponent },
   { path: "tech", pathMatch: "full", component: TechnologiesComponent },
-  { path: "tree", pathMatch: "full", component: TreeComponent },
+  { path: "tree", pathMatch: "full", component: HtmlTreeComponent },
   { path: "opt", pathMatch: "full", component: OptionsComponent },
   { path: "save", pathMatch: "full", component: SaveComponent },
   { path: "fleet", pathMatch: "full", component: ShipyardComponent },
