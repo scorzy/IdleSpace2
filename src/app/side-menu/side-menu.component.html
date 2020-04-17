@@ -5,90 +5,61 @@
   [nzInlineCollapsed]="isCollapsed && !notCollapsed"
   class="first"
 >
-  <li nz-submenu nzOpen nzTitle="Units" nzIcon="fa-s:tachometer-alt">
-    <ul>
-      <li nz-menu-item nzMatchRouter>
-        <a [routerLink]="'units/w'">Workers</a>
-      </li>
-      <li
-        nz-menu-item
-        nzMatchRouter
-        *ngIf="ms.game.resourceManager.unlockedBuildings.length > 0"
-      >
-        <a [routerLink]="'units/b'">Buildings</a>
-      </li>
-      <li
-        nz-menu-item
-        nzMatchRouter
-        *ngIf="ms.game.resourceManager.unlockedSpaceStations.length > 0"
-      >
-        <a [routerLink]="'space'">Space Stations</a>
-      </li>
-      <li nz-menu-item nzMatchRouter>
-        <a [routerLink]="'bi'">Bi</a>
-      </li>
-    </ul>
+  <li nz-menu-item nzMatchRouter [routerLink]="'units/w'">
+    <i nz-icon nzType="my:vintage-robot"></i>
+    <span>Workers</span>
+  </li>
+  <li nz-menu-item nzMatchRouter [routerLink]="'units/b'">
+    <i nz-icon nzType="fa-s:globe"></i>
+    <span>Buildings</span>
   </li>
   <li
-    *ngIf="ms.game.resourceManager.science.unlocked"
-    nz-submenu
-    nzOpen
-    nzTitle="Laboratory"
-    nzIcon="fa-s:flask"
+    nz-menu-item
+    nzMatchRouter
+    *ngIf="ms.game.resourceManager.unlockedSpaceStations.length > 0"
+    [routerLink]="'space'"
   >
-    <ul>
-      <li nz-menu-item nzMatchRouter>
-        <a [routerLink]="'lab'">Laboratory</a>
-      </li>
-      <li nz-menu-item nzMatchRouter>
-        <a [routerLink]="'tech'">Technologies</a>
-      </li>
-      <li nz-menu-item nzMatchRouter>
-        <a [routerLink]="'tree'">Tree</a>
-      </li>
-    </ul>
+    <i nz-icon nzType="my:vintage-robot"></i>
+    <span>Space Stations</span>
   </li>
-  <li
-    *ngIf="ms.game.resourceManager.worker.unlocked"
-    nz-submenu
-    nzOpen
-    nzTitle="Shipyard"
-    nzIcon="fa-s:wrench"
-  >
-    <ul>
-      <li nz-menu-item nzMatchRouter>
-        <a [routerLink]="'fleet'">Fleet</a>
-      </li>
-      <li nz-menu-item nzMatchRouter>
-        <a [routerLink]="'/des'">
-          <span>Designs</span>
-        </a>
-      </li>
-      <li nz-menu-item nzMatchRouter>
-        <a [routerLink]="'/modules'">
-          <span>Modules</span>
-        </a>
-      </li>
-    </ul>
+  <li nz-menu-item nzMatchRouter [routerLink]="'lab'">
+    <i nz-icon nzType="my:vintage-robot"></i>
+    <span>Laboratory</span>
   </li>
-  <li nz-submenu nzOpen nzTitle="Enemies" nzIcon="my:strafe">
-    <ul>
-      <li nz-menu-item nzMatchRouter routerLink="enemyList">
-        <a>Enemies</a>
-      </li>
-      <li nz-menu-item nzMatchRouter routerLink="battle">
-        <a>Battle</a>
-      </li>
-      <li nz-menu-item nzMatchRouter routerLink="report">
-        <a>Reports</a>
-      </li>
-    </ul>
+  <li nz-menu-item nzMatchRouter [routerLink]="'tech'">
+    <i nz-icon nzType="my:vintage-robot"></i>
+    <span>Technologies</span>
   </li>
-  <li nz-submenu nzOpen nzTitle="Setting" nzIcon="fa-s:sliders-h">
-    <ul>
-      <li nz-menu-item nzMatchRouter>
-        <a [routerLink]="'save'">Save</a>
-      </li>
-    </ul>
+  <li nz-menu-item nzMatchRouter [routerLink]="'tree'">
+    <i nz-icon nzType="my:vintage-robot"></i>
+    <span>Tree</span>
+  </li>
+  <li nz-menu-item nzMatchRouter [routerLink]="'fleet'">
+    <i nz-icon nzType="my:vintage-robot"></i>
+    <span>Fleet</span>
+  </li>
+  <li nz-menu-item nzMatchRouter [routerLink]="'/des'">
+    <i nz-icon nzType="my:vintage-robot"></i>
+    <span>Designs</span>
+  </li>
+  <li nz-menu-item nzMatchRouter [routerLink]="'/modules'">
+    <i nz-icon nzType="my:vintage-robot"></i>
+    <span>Modules</span>
+  </li>
+  <li nz-menu-item nzMatchRouter routerLink="enemyList">
+    <i nz-icon nzType="my:vintage-robot"></i>
+    <span>Enemies</span>
+  </li>
+  <li nz-menu-item nzMatchRouter routerLink="battle">
+    <i nz-icon nzType="my:vintage-robot"></i>
+    <span>Battle</span>
+  </li>
+  <li nz-menu-item nzMatchRouter routerLink="report">
+    <i nz-icon nzType="my:vintage-robot"></i>
+    <span>Reports</span>
+  </li>
+  <li nz-menu-item nzMatchRouter>
+    <i nz-icon nzType="my:vintage-robot"></i>
+    <span [routerLink]="'save'">Save</span>
   </li>
 </ul>
