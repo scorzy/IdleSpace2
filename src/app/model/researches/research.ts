@@ -14,6 +14,7 @@ import { IBase } from "../iBase";
 import { ResearchManager } from "./researchManager";
 import { Unit } from "../units/unit";
 import { Bonus } from "../bonus/bonus";
+import { Technology } from "./technology";
 
 export class Research extends Job implements IUnlockable, IBase {
   static lastVisId = 0;
@@ -22,10 +23,13 @@ export class Research extends Job implements IUnlockable, IBase {
   visLevel = 0;
   private originalName: string;
   max = 1;
-  unitsToUnlock?: IUnlockable[];
+  unitsToUnlock?: Unit[];
   researchToUnlock?: Research[];
-  technologiesToUnlock?: IUnlockable[];
-  spaceStationsToUp?: { spaceStation: Unit; habSpace: Decimal }[];
+  technologiesToUnlock?: Technology[];
+  spaceStationsToUp?: { spaceStation: Unit; multi: number }[];
+  battleMulti?: { material: Unit; multi: number }[];
+  prodMulti?: { unit: Unit; multi: number }[];
+  effMulti?: { unit: Unit; multi: number }[];
   quantity: Decimal;
   icon?: string;
   resData: IResearchData;
@@ -63,14 +67,6 @@ export class Research extends Job implements IUnlockable, IBase {
     }
     if ("navalCapacity" in researchData) {
       this.navalCapacity = this.resData.navalCapacity;
-    }
-    if ("stationToUp" in researchData) {
-      researchData.stationToUp.forEach((stu) => {
-        const station = rs.units.find((u) => u.id === stu.stationId);
-        station.habSpaceStack.bonuses.push(
-          new Bonus(this, new Decimal(stu.habSpace))
-        );
-      });
     }
     this.types = researchData.type.map((t) =>
       researchManager.technologies.find((tec) => tec.id === t.id)

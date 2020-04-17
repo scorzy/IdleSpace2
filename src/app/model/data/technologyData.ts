@@ -67,7 +67,7 @@ export const TECHNOLOGIES: { readonly [index: string]: ITechnologyData } = {
     name: "Robotics",
     icon: "my:vintage-robot",
     darkColor: "#F2F6FF",
-    lightColor: "#85A5FF",
+    lightColor: "#354266",
     price: new Decimal(1e3)
   },
   Naval: {

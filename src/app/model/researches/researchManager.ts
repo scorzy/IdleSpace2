@@ -26,6 +26,7 @@ export class ResearchManager extends JobManager {
   navalCapTech: Technology;
   roboticsTech: Technology;
   drag = false;
+  sort = true;
   constructor() {
     super();
     this.makeResearches();
@@ -100,7 +101,7 @@ export class ResearchManager extends JobManager {
       const resDataUp: IResearchData = {
         id: "u" + i,
         name: "Upgraded " + spaceStations[i].name,
-        description: "+100% habitable space from " + spaceStations[i].name,
+        description: "+30% habitable space from " + spaceStations[i].name,
         price: Decimal.pow(SPACE_STATION_MULTI, i)
           .times(second.initialPrice)
           .times(10),
@@ -108,7 +109,7 @@ export class ResearchManager extends JobManager {
         stationToUp: [
           {
             stationId: spaceStations[i].id,
-            habSpace: spaceStations[i].habSpace
+            habSpace: 0.5
           }
         ]
       };
@@ -145,7 +146,53 @@ export class ResearchManager extends JobManager {
             material.battleGainMulti.bonuses.push(
               new Bonus(res, new Decimal(multi.multi))
             );
+            if (!res.battleMulti) res.battleMulti = [];
+            res.battleMulti.push({
+              material,
+              multi: new Decimal(multi.multi).toNumber()
+            });
           }
+        });
+      }
+      if ("prodMulti" in resData) {
+        resData.prodMulti.forEach((multi) => {
+          const unit = rs.units.find((u) => u.id === multi.unitId);
+          if (unit) {
+            unit.prodAllBonus.bonuses.push(
+              new Bonus(res, new Decimal(multi.multi))
+            );
+            if (!res.battleMulti) res.battleMulti = [];
+            res.prodMulti.push({
+              unit,
+              multi: multi.multi
+            });
+          }
+        });
+      }
+      if ("effMulti" in resData) {
+        resData.effMulti.forEach((multi) => {
+          const unit = rs.units.find((u) => u.id === multi.unitId);
+          if (unit) {
+            unit.prodEfficiency.bonuses.push(
+              new Bonus(res, new Decimal(multi.multi))
+            );
+            if (!res.battleMulti) res.battleMulti = [];
+            res.effMulti.push({
+              unit,
+              multi: multi.multi
+            });
+          }
+        });
+      }
+      if ("stationToUp" in resData) {
+        resData.stationToUp.forEach((stu) => {
+          const station = rs.units.find((u) => u.id === stu.stationId);
+          if (!res.spaceStationsToUp) res.spaceStationsToUp = [];
+          res.spaceStationsToUp.push({
+            spaceStation: station,
+            multi: 0.3
+          });
+          station.habSpaceStack.bonuses.push(new Bonus(res, new Decimal(0.3)));
         });
       }
     });
@@ -206,6 +253,14 @@ export class ResearchManager extends JobManager {
     });
     return ZERO;
   }
+  sortJobs() {
+    this.toDo.sort((a, b) =>
+      a.total
+        .minus(a.progress)
+        .div(a.totalBonus)
+        .cmp(b.total.minus(b.progress).div(b.totalBonus))
+    );
+  }
 
   //#region Save and Load
   getSave(): any {
@@ -214,13 +269,17 @@ export class ResearchManager extends JobManager {
       t: this.toDo.map((r) => r.getSave()),
       b: this.backlog.map((r) => r.getSave()),
       e: this.unlockedTechnologies.map((t) => t.getSave()),
-      r: this.researchPriority
+      r: this.researchPriority,
+      s: this.sort
     };
   }
   load(data: any) {
     this.toDo = [];
     this.done = [];
     this.backlog = [];
+    if ("s" in data) {
+      this.sort = data.s;
+    }
 
     for (const resData of data.t) {
       const res = this.researches.find((r) => r.id === resData.i);

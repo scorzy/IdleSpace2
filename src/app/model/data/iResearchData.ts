@@ -25,4 +25,6 @@ export interface IResearchData {
   navalCapacity?: number;
   stationToUp?: { stationId: string; habSpace: DecimalSource }[];
   battleMulti?: { materialId: string; multi: DecimalSource }[];
+  prodMulti?: { unitId: string; multi: number }[];
+  effMulti?: { unitId: string; multi: number }[];
 }

@@ -6,6 +6,7 @@ import { BonusStack } from "../bonus/bonusStack";
 import { ITechnologyData } from "../data/technologyData";
 import assign from "lodash-es/assign";
 import { Game } from "../game";
+import { OptionsService } from "src/app/options.service";
 
 const RESEARCH_BONUS = new Decimal(0.1);
 
@@ -71,8 +72,8 @@ export class Technology implements IBase, IUnlockable, ITechnologyData {
       this.progress.div(this.total).toNumber() * 100
     );
   }
-  setTheme(dark = true) {
-    this.color = dark ? this.darkColor : this.lightColor;
+  setTheme() {
+    this.color = OptionsService.isDark ? this.darkColor : this.lightColor;
   }
   //#region
   getSave(): any {

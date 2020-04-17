@@ -4,6 +4,7 @@ import { ZERO } from "../CONSTANTS";
 export abstract class JobManager {
   toDo: Job[];
   done: Job[];
+  sort = false;
 
   addProgress(prog: Decimal): Decimal {
     let toAdd = prog;
@@ -33,7 +34,9 @@ export abstract class JobManager {
     } else if (this.done) {
       this.done.push(job);
     }
+    if (this.sort) this.sortJobs();
   }
+  sortJobs() {}
 
   getWorkNeeded(): Decimal {
     let work = ZERO;

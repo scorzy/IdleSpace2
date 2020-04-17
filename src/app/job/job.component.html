@@ -1,5 +1,5 @@
 <div fxLayout="rows" class="bordered job-card light-background">
-  <div fxLayout="column" fxFlex="100%" fxLayoutGap="5px" class="job-content">
+  <div fxLayout="column" fxFlex="100%" fxLayoutGap="1px" class="job-content">
     <div fxLayout="rows">
       <span
         *ngFor="let item of icons; trackBy: getIconId"
@@ -14,7 +14,7 @@
       </div>
     </div>
     <div>
-      <p *ngIf="showDescription" class="description">{{ job.description }}</p>
+      <!-- <p *ngIf="showDescription" class="description">{{ job.description }}</p> -->
     </div>
     <span
       class="monospace"

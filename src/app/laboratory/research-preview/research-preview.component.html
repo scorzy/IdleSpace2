@@ -1,0 +1,56 @@
+<nz-card style="width: 300px;" nzSize="small">
+  <nz-card-meta
+    [nzTitle]="research.name"
+    [nzDescription]="research.description"
+    [nzAvatar]="avatarTemplate"
+  ></nz-card-meta>
+
+  <ul class="list-unstyled">
+    <li *ngFor="let unit of research.unitsToUnlock">
+      <span class="text-secondary">Unlock unit:</span> {{ unit.name }}
+    </li>
+    <li *ngFor="let res of research.researchToUnlock">
+      <span class="text-secondary">Unlock research:</span> {{ res.name }}
+    </li>
+    <li *ngFor="let tech of research.technologiesToUnlock">
+      <span class="text-secondary">Unlock technology:</span>{{ tech.name }}
+    </li>
+    <li *ngFor="let hsbBonus of research.spaceStationsToUp">
+      <span class="text-secondary">{{ hsbBonus.spaceStation.name }}</span> +
+      {{ hsbBonus.multi | percent }} habitable space
+    </li>
+    <li *ngFor="let battleMulti of research.battleMulti">
+      + {{ battleMulti.multi | percent }}
+      {{ battleMulti.material.name }}
+      <span class="text-secondary">from battles</span>
+    </li>
+    <li *ngIf="research.navalCapacity > 0">
+      + {{ research.navalCapacity | format: true }} naval capacity
+    </li>
+  </ul>
+
+  <span
+    class="monospace"
+    fxLayout="row"
+    fxLayout.xs="column"
+    fxLayoutAlign="space-between"
+  >
+    <span>
+      <i nz-icon nzType="clock-circle" nzTheme="outline" class="space"></i>
+      <span> {{ research.timeToEnd | time }}</span>
+    </span>
+    <span class="text-secondary">
+      {{ research.progress | format }}/{{ research.total | format }}
+      {{ research.progressPercent }}%</span
+    >
+  </span>
+  <app-progress [progress]="research.progressPercent"></app-progress>
+</nz-card>
+
+<ng-template #avatarTemplate>
+  <i
+    nz-icon
+    [nzType]="research.types[0].icon"
+    [style.color]="research.types[0].color"
+  ></i>
+</ng-template>

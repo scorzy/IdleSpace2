@@ -31,7 +31,12 @@
           [job]="resToDo"
           [collection]="ms.game.researchManager.backlog"
           [showDescription]="false"
-        ></app-job>
+        >
+          <app-research-preview
+            *cdkDragPreview
+            [research]="resToDo"
+          ></app-research-preview>
+        </app-job>
       </div>
     </div>
 
@@ -57,7 +62,12 @@
           [job]="resToDo"
           [collection]="ms.game.researchManager.toDo"
           [showDescription]="false"
-        ></app-job>
+        >
+          <app-research-preview
+            *cdkDragPreview
+            [research]="resToDo"
+          ></app-research-preview>
+        </app-job>
       </div>
     </div>
   </div>
@@ -88,6 +98,12 @@
         [(ngModel)]="ms.game.researchManager.researchPriority"
       ></nz-slider>
     </div>
+
+    <nz-switch
+      nzSize="small"
+      [(ngModel)]="ms.game.researchManager.sort"
+    ></nz-switch>
+    Auto Sort
 
     <ul class="list-unstyled technology-list">
       <li
