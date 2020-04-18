@@ -60,7 +60,7 @@ export class EnemyDetailComponent extends BaseComponentComponent
         this.router.navigate([
           "/enemyList/enemyDetail/" + this.ms.game.enemyManager.enemies[0].id
         ]);
-      } else this.router.navigate(["/search"]);
+      } else this.router.navigate(["/enemyList/search"]);
     }
   }
   getTileId(index: number, tile: ExtraTile) {

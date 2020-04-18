@@ -43,7 +43,7 @@ export class Module implements IUnlockable {
   init(moduleData: ModuleData) {
     forOwn(
       this,
-      function(value: any, key: string) {
+      function (value: any, key: string) {
         if (
           moduleData.hasOwnProperty(key) &&
           typeof moduleData[key] === typeof this[key]
@@ -54,10 +54,10 @@ export class Module implements IUnlockable {
     );
 
     if ("technologies" in moduleData) {
-      this.technologies = moduleData.technologies.map(tec => {
+      this.technologies = moduleData.technologies.map((tec) => {
         return {
           technology: Game.getGame().researchManager.technologies.find(
-            t => t.id === tec.technologyId
+            (t) => t.id === tec.technologyId
           ),
           multi: tec.multi
         };
@@ -65,7 +65,7 @@ export class Module implements IUnlockable {
     }
   }
   reloadMaxLevel() {
-    this.maxLevel = 0;
+    this.maxLevel = 10;
     for (let i = 0, n = this.technologies.length; i < n; i++) {
       this.maxLevel += this.technologies[i].technology.quantity
         .times(this.technologies[i].multi)
@@ -74,7 +74,9 @@ export class Module implements IUnlockable {
     this.maxLevel = Math.floor(this.maxLevel);
   }
   unlock(): boolean {
-    if (this.unlocked) { return false; }
+    if (this.unlocked) {
+      return false;
+    }
     this.unlocked = true;
     return true;
   }
