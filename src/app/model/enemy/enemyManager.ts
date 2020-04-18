@@ -238,30 +238,30 @@ export class EnemyManager extends JobManager {
     if (cell.materials.length < 1) {
       return;
     }
-    let remCargo = ZERO;
+    let cargo = ZERO;
     const playerDesign = Game.getGame().shipyardManager.shipDesigns;
     for (let i = 0, n = playerDesign.length; i < n; i++) {
-      remCargo = remCargo.plus(
+      cargo = cargo.plus(
         playerDesign[i].cargo.times(
           playerDesign[i].fleets[fleetNum].shipsQuantity
         )
       );
     }
-
+    cargo = cargo.div(100).plus(1);
     for (let i = 0, n = cell.materials.length; i < n; i++) {
       const mat = cell.materials[i];
       if (mat.material.unitData.unitType === UNIT_TYPES.MATERIAL) {
-        const max = Decimal.min(remCargo, mat.quantity);
-        remCargo = remCargo.minus(max);
-        mat.material.quantity = mat.material.quantity.plus(max);
-        mat.quantity = mat.quantity.minus(max);
+        mat.material.quantity = mat.material.quantity.times(cargo);
       } else {
         mat.material.quantity = mat.material.quantity.plus(mat.quantity);
-        mat.quantity = ZERO;
       }
+      mat.quantity = ZERO;
     }
   }
   defeatEnemy() {
+    if (this.currentEnemy.level >= this.maxLevel) {
+      this.maxLevel++;
+    }
     this.currentEnemy = null;
   }
   nuke(cellNum: number) {
