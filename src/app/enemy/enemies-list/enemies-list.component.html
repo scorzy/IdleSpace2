@@ -31,13 +31,13 @@
       >
         <a [routerLink]="'enemyDetail/' + enemy.id">
           <i nz-icon [nzType]="enemy.icon"></i>
-          <strong *ngIf="!ms.enemyListCollapsed">{{ enemy.name }}</strong>
           <span
             [class.text-danger]="enemy.level > ms.game.enemyManager.maxLevel"
           >
             lv.
             {{ enemy.level | number: "1.0-0" }}
           </span>
+          <span *ngIf="!ms.enemyListCollapsed">{{ enemy.name }}</span>
         </a>
       </li>
     </ul>

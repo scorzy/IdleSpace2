@@ -1,6 +1,7 @@
 <div fxLayout="rows" fxLayout.lt-sm="column" fxLayoutGap="10px">
   <div fxFlex="1 1 calc(50% - 10px)">
     <h2 *ngIf="ms.game.enemyManager.currentEnemy">
+      <i nz-icon [nzType]="ms.game.enemyManager.currentEnemy.icon"></i>
       {{ ms.game.enemyManager.currentEnemy.name }}
       <small
         >lv.

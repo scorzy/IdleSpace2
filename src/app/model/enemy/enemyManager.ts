@@ -259,6 +259,7 @@ export class EnemyManager extends JobManager {
     }
   }
   defeatEnemy() {
+    //TODO:
     if (this.currentEnemy.level >= this.maxLevel) {
       this.maxLevel++;
     }

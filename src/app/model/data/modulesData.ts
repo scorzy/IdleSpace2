@@ -165,7 +165,7 @@ export const modules: ModuleData[] = [
       { technologyId: "e", multi: 1 },
       { technologyId: TECHNOLOGIES.Energy.id, multi: 1 }
     ],
-    explosion: 0.35 * MODULE_ARMOUR,
+    explosion: 0.3 * MODULE_ARMOUR,
     unlockLevel: 2
   },
   {
@@ -178,7 +178,7 @@ export const modules: ModuleData[] = [
       { technologyId: "e", multi: 1 },
       { technologyId: TECHNOLOGIES.Energy.id, multi: 1 }
     ],
-    explosion: 1 * MODULE_ARMOUR,
+    explosion: 0.8 * MODULE_ARMOUR,
     explosionDamage: MODULE_DAMAGE,
     unlockLevel: 2
   },
@@ -192,7 +192,7 @@ export const modules: ModuleData[] = [
       { technologyId: "e", multi: 1 },
       { technologyId: TECHNOLOGIES.Energy.id, multi: 1 }
     ],
-    explosion: 0.5 * MODULE_ARMOUR,
+    explosion: 0.4 * MODULE_ARMOUR,
     explosionDamage: 0.2 * MODULE_DAMAGE,
     unlockLevel: 2
   },
@@ -206,7 +206,7 @@ export const modules: ModuleData[] = [
       { technologyId: "e", multi: 1 },
       { technologyId: TECHNOLOGIES.Energy.id, multi: 1 }
     ],
-    explosion: 2 * MODULE_ARMOUR,
+    explosion: 1.5 * MODULE_ARMOUR,
     explosionDamage: 2 * MODULE_DAMAGE,
     unlockLevel: 2
   },

@@ -1,12 +1,13 @@
 <div fxLayout="rows" fxLayout.lt-sm="column" style="width: 100%;">
   <div fxFlex="50%" fxLayout="column" fxLayoutGap="0.6rem">
     <h2>
+      <i nz-icon [nzType]="enemy.icon"></i>
+      {{ enemy.name }}
       <span
         [class.text-danger]="enemy.level > ms.game.enemyManager.maxLevel"
         class="monospace"
         >{{ enemy.level | number: "1.0-0" }}</span
       >
-      {{ enemy.name }}
     </h2>
     <div>
       <nz-button-group>

@@ -12,7 +12,8 @@
     "e2e": "ng e2e",
     "tslint-check": "tslint-config-prettier-check ./tslint.json",
     "make-themes2": "lessc --js ./src/themes/dark-green.less ./src/darkThemeGreen.css",
-    "make-themes": "node ./src/makeThemes.js"
+    "make-themes": "node ./src/makeThemes.js",
+    "make-icons": "node ./src/makeIcons.js"
   },
   "private": true,
   "dependencies": {

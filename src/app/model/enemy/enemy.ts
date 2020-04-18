@@ -29,15 +29,15 @@ import { OptionsService } from "src/app/options.service";
 import { Unit } from "../units/unit";
 import { SearchRange } from "./searchOption";
 import { UNIT_TYPES } from "../data/units";
+import { enemyNames } from "../data/enemyNames";
+import { enemySuffixes } from "../data/enemySuffixes";
+import icons from "../data/icons.json";
 
 export class ExtraTile {
   number = 0;
   constructor(public unit: Unit) {}
 }
 export class Enemy {
-  constructor() {
-    this.id = Enemy.lastId++;
-  }
   static lastId = 0;
   id = 0;
   level = 0;
@@ -56,6 +56,9 @@ export class Enemy {
   private weaponDefenceRatio = 0;
   private maxGenerator = 1;
   private preferHighLevGen = true;
+  constructor() {
+    this.id = Enemy.lastId++;
+  }
   static getDistance(
     level: number,
     extra: number
@@ -77,7 +80,7 @@ export class Enemy {
   generate(searchJob: SearchJob) {
     const rs = Game.getGame().resourceManager;
     const em = Game.getGame().enemyManager;
-    this.name = "aaa";
+    this.generateName();
     this.designs = [];
     let sum = 0;
     this.level = searchJob.enemyLevel;
@@ -586,6 +589,11 @@ export class Enemy {
 
     design.reload(false);
     return design;
+  }
+  generateName() {
+    this.name = sample(enemyNames) + " " + sample(enemySuffixes);
+    this.icon = sample(icons);
+    this.icon = this.icon.replace(".svg", "");
   }
 
   //#region Save and Load
