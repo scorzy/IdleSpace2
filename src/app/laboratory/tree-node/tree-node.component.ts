@@ -18,4 +18,7 @@ export class TreeNodeComponent implements OnInit {
   constructor() {}
 
   ngOnInit(): void {}
+  getResId(index: number, res: Research) {
+    return res.id;
+  }
 }

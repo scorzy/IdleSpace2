@@ -17,4 +17,8 @@ export class ResearchPreviewComponent implements OnInit {
   @Input() noProgress = false;
   constructor() {}
   ngOnInit(): void {}
+
+  getId(index: number, aaa: any) {
+    return "id" in aaa ? aaa.id : index;
+  }
 }

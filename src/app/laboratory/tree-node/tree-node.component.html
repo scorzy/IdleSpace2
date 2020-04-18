@@ -1,7 +1,7 @@
 <div
   class="entry"
   [class.sole]="research.researchToUnlock?.length == 1"
-  *ngFor="let res of research.researchToUnlock"
+  *ngFor="let res of research.researchToUnlock; trackBy: getResId"
 >
   <span class="label" nz-popover [nzPopoverContent]="contentTemplate">
     <i

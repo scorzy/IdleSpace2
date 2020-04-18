@@ -2,7 +2,7 @@
   <span *ngFor="let pri of unit.buyPrice.prices; trackBy: getPriceId">
     <span
       nz-text
-      [nzType]="pri.multiCost.gte(pri.spendable.quantity) ? '' : 'danger'"
+      [class.text-danger]="pri.multiCost.gte(pri.spendable.quantity)"
     >
       <i
         nz-icon
