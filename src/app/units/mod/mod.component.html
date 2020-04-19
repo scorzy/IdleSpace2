@@ -19,13 +19,12 @@
             class="monospace"
             [class.text-danger]="unit.modStack.usedTemp.gt(unit.maxMods)"
             >{{ unit.modStack.usedTemp | format: true }}
-          </span></span
-        ><span>
+          </span>
+        </span>
+        <span nz-popover [nzPopoverContent]="maxTemplate">
           Total:
-          <span class="monospace"
-            >{{ unit.maxMods | format: true }}
-          </span></span
-        >
+          <span class="monospace">{{ unit.maxMods | format: true }} </span>
+        </span>
       </span>
       <form nz-form [nzLayout]="isLarge ? 'horizontal' : 'vertical'">
         <!-- nzLayout="inline" -->
@@ -134,4 +133,24 @@
       >{{ componentTotal | format }} ({{ componentPercent }}%)</span
     >.
   </span>
+</ng-template>
+
+<ng-template #maxTemplate>
+  <table nzTemplateMode nzSize="small">
+    <tr *ngFor="let tech of unit.maxTechMods; trackBy: getTechId">
+      <td>
+        <span [style.color]="tech.technology.color">
+          <i nz-icon [nzType]="tech.technology.icon"></i>
+          {{ tech.technology.name }}</span
+        >
+      </td>
+      <td class="monospace text-right">
+        {{ tech.technology.quantity | format: true }}
+      </td>
+      <td class="monospace">x{{ tech.multi | number }}</td>
+      <td class="monospace">
+        ={{ tech.technology.quantity.times(tech.multi) | format }}
+      </td>
+    </tr>
+  </table>
 </ng-template>

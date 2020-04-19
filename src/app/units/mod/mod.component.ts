@@ -15,6 +15,7 @@ import { Production } from "src/app/model/units/production";
 import { BreakpointObserver, BreakpointState } from "@angular/cdk/layout";
 import { ZERO } from "src/app/model/CONSTANTS";
 import { BaseComponentComponent } from "src/app/base-component/base-component.component";
+import { Technology } from "src/app/model/researches/technology";
 
 @Component({
   selector: "app-mod",
@@ -126,5 +127,8 @@ export class ModComponent extends BaseComponentComponent
     if (this.disabled) return false;
     this.unit.confirmMods();
     this.router.navigate(["/units/w"]);
+  }
+  getTechId(index: number, tech: Technology) {
+    return tech.id;
   }
 }

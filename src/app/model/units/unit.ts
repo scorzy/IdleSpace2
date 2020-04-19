@@ -166,7 +166,6 @@ export class Unit implements IBase, IUnlockable {
     if (!this.limitStack) {
       return false;
     }
-
     this.limitStack.reloadBonus();
     this.limitStack.reloadAdditiveBonus();
     let newLimit = this.limitStack.totalAdditiveBonus;
@@ -272,7 +271,6 @@ export class Unit implements IBase, IUnlockable {
     this.modStack = new ModStack(this.id !== "e");
   }
   reloadMaxMods() {
-    const rs = Game.getGame().researchManager;
     for (let i = 0, n = this.maxTechMods.length; i < n; i++) {
       this.maxMods = this.maxMods.plus(
         this.maxTechMods[i].technology.quantity.times(this.maxTechMods[i].multi)
