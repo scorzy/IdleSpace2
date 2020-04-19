@@ -8,14 +8,13 @@ export const THEMES = ["dark-green", "dark-blue", "light-green", "light-blue"];
 })
 export class OptionsService {
   static isDark = true;
-
   static usaFormat = true;
   formatter: any;
   formatEmitter: EventEmitter<number> = new EventEmitter<number>();
   numFormat = "scientific";
   formatId = 0;
   timeFormatDetail = true;
-  themeId = "";
+  themeId = "light-blue";
   darkSide = true;
   darkHeader = true;
   constructor() {
