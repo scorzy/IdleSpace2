@@ -13,7 +13,6 @@ import { Game } from "../game";
 import { IBase } from "../iBase";
 import { ResearchManager } from "./researchManager";
 import { Unit } from "../units/unit";
-import { Bonus } from "../bonus/bonus";
 import { Technology } from "./technology";
 import { ShipType } from "../shipyard/ShipType";
 

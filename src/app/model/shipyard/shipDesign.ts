@@ -9,8 +9,7 @@ import {
   MIN_THREAT,
   UTILITY_MOD_DECREASE,
   SIZE_MULTI,
-  PRICE_GROW_RATE,
-  BASE_CARGO
+  PRICE_GROW_RATE
 } from "../CONSTANTS";
 import { Game } from "../game";
 import { ShipType } from "./ShipType";

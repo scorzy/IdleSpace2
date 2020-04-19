@@ -6,7 +6,6 @@ import { MultiPrice } from "../prices/multiPrice";
 import {
   ZERO,
   ONE,
-  MOD_PER_ROBOTICS,
   COMPONENT_PRICE,
   MOD_COMPONENTS,
   MOD_RECYCLING,

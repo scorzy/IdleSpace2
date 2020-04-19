@@ -2,8 +2,7 @@ import {
   Component,
   OnInit,
   ChangeDetectionStrategy,
-  Input,
-  HostBinding
+  Input
 } from "@angular/core";
 import { Research } from "src/app/model/researches/research";
 

@@ -7,7 +7,6 @@ import {
   AfterViewInit
 } from "@angular/core";
 import { Production } from "src/app/model/units/production";
-import { ONE } from "src/app/model/CONSTANTS";
 import { Unit } from "src/app/model/units/unit";
 import { BaseComponentComponent } from "src/app/base-component/base-component.component";
 

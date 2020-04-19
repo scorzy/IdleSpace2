@@ -1,5 +1,4 @@
 import { IUnitData } from "./iUnitData";
-import { Technology } from "../researches/technology";
 import { TECHNOLOGIES } from "./technologyData";
 import { MOD_PER_ROBOTICS, MOD_PER_OTHERS } from "../CONSTANTS";
 export enum UNIT_TYPES {

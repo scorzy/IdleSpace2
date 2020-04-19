@@ -415,7 +415,7 @@ export class ShipyardManager extends JobManager {
     for (let i = 0, n = this.shipDesigns.length; i < n; i++) {
       const id = Math.abs(battleResult.playerLost[i].id);
       let design = this.shipDesigns.find((des) => des.id === id);
-      let designNoOld = design;
+      const designNoOld = design;
       let lost = battleResult.playerLost[i].lost;
       if (battleResult.playerLost[i].id < 0) {
         design = design.old;

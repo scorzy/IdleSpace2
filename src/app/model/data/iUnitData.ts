@@ -1,5 +1,4 @@
 import { UNIT_TYPES } from "./units";
-import { Technology } from "../researches/technology";
 
 export interface IUnitData {
   id: string;
