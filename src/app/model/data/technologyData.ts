@@ -93,5 +93,13 @@ export const TECHNOLOGIES: { readonly [index: string]: ITechnologyData } = {
     darkColor: "#FADB14",
     lightColor: "#FADB14",
     price: new Decimal(1e3)
+  },
+  Mining: {
+    id: "l",
+    name: "Mining",
+    icon: "my:mining",
+    darkColor: "#D4380D",
+    lightColor: "#D4380D",
+    price: new Decimal(1e3)
   }
 };

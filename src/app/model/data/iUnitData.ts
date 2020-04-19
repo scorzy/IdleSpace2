@@ -1,4 +1,5 @@
 import { UNIT_TYPES } from "./units";
+import { Technology } from "../researches/technology";
 
 export interface IUnitData {
   id: string;
@@ -21,4 +22,5 @@ export interface IUnitData {
    * Price [Unit id, quantity]
    */
   prices?: [string, DecimalSource][];
+  mods?: { technologyId: string; multi: number }[];
 }

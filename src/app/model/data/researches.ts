@@ -73,7 +73,15 @@ export const RESEARCHES: IResearchData[] = [
     max: 1,
     type: [TECHNOLOGIES.Materials],
     technologiesToUnlock: ["m"],
-    researchToUnlock: ["x"]
+    researchToUnlock: ["x", "N"]
+  },
+  {
+    id: "N",
+    name: "Mining",
+    description: "Unlock Mining Technology",
+    max: 1,
+    type: [TECHNOLOGIES.Mining],
+    technologiesToUnlock: [TECHNOLOGIES.Mining.id]
   },
   {
     id: "E",

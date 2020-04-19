@@ -11,6 +11,8 @@ import {
 import { Price } from "../prices/price";
 import { Components } from "./components";
 import { BonusStack } from "../bonus/bonusStack";
+import { Technology } from "../researches/technology";
+import { Game } from "../game";
 
 export class ResourceManager {
   units = new Array<Unit>();
@@ -368,6 +370,25 @@ export class ResourceManager {
       this.workers[i].reloadMaxMods();
       this.workers[i].reloadComponentPrice();
     }
+  }
+  makeUnitsMods() {
+    const rm = Game.getGame().researchManager;
+    this.units.forEach((unit) => {
+      if ("mods" in unit.unitData) {
+        unit.maxTechMods = [];
+        for (let row of unit.unitData.mods) {
+          const technology = rm.technologies.find(
+            (t) => t.id === row.technologyId
+          );
+          if (technology) {
+            unit.maxTechMods.push({
+              technology,
+              multi: row.multi
+            });
+          }
+        }
+      }
+    });
   }
   //#region Save and Load
   getSave(): any {

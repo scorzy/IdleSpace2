@@ -1,4 +1,7 @@
 import { IUnitData } from "./iUnitData";
+import { Technology } from "../researches/technology";
+import { TECHNOLOGIES } from "./technologyData";
+import { MOD_PER_ROBOTICS, MOD_PER_OTHERS } from "../CONSTANTS";
 export enum UNIT_TYPES {
   MATERIAL,
   WORKER,
@@ -116,7 +119,11 @@ export const UNITS: IUnitData[] = [
         buildingLimitQuantity: 10
       }
     ],
-    unitType: UNIT_TYPES.WORKER
+    unitType: UNIT_TYPES.WORKER,
+    mods: [
+      { technologyId: TECHNOLOGIES.Robotics.id, multi: MOD_PER_ROBOTICS },
+      { technologyId: TECHNOLOGIES.Mining.id, multi: MOD_PER_OTHERS }
+    ]
   },
   {
     id: "e",
@@ -133,7 +140,11 @@ export const UNITS: IUnitData[] = [
         buildingLimitQuantity: 10
       }
     ],
-    unitType: UNIT_TYPES.WORKER
+    unitType: UNIT_TYPES.WORKER,
+    mods: [
+      { technologyId: TECHNOLOGIES.Robotics.id, multi: MOD_PER_ROBOTICS },
+      { technologyId: TECHNOLOGIES.Energy.id, multi: MOD_PER_OTHERS }
+    ]
   },
   {
     id: "s",
@@ -153,7 +164,11 @@ export const UNITS: IUnitData[] = [
         buildingLimitQuantity: 10
       }
     ],
-    unitType: UNIT_TYPES.WORKER
+    unitType: UNIT_TYPES.WORKER,
+    mods: [
+      { technologyId: TECHNOLOGIES.Robotics.id, multi: MOD_PER_ROBOTICS },
+      { technologyId: TECHNOLOGIES.Computing.id, multi: MOD_PER_OTHERS }
+    ]
   },
   {
     id: "a",
@@ -173,7 +188,11 @@ export const UNITS: IUnitData[] = [
         buildingLimitQuantity: 10
       }
     ],
-    unitType: UNIT_TYPES.WORKER
+    unitType: UNIT_TYPES.WORKER,
+    mods: [
+      { technologyId: TECHNOLOGIES.Robotics.id, multi: MOD_PER_ROBOTICS },
+      { technologyId: TECHNOLOGIES.Materials.id, multi: MOD_PER_OTHERS }
+    ]
   },
   {
     id: "w",
@@ -196,7 +215,18 @@ export const UNITS: IUnitData[] = [
         buildingLimitQuantity: 10
       }
     ],
-    unitType: UNIT_TYPES.WORKER
+    unitType: UNIT_TYPES.WORKER,
+    mods: [
+      { technologyId: TECHNOLOGIES.Robotics.id, multi: MOD_PER_ROBOTICS },
+      {
+        technologyId: TECHNOLOGIES.MilitaryEngineering.id,
+        multi: MOD_PER_OTHERS / 2
+      },
+      {
+        technologyId: TECHNOLOGIES.CivilEngineering.id,
+        multi: MOD_PER_OTHERS / 2
+      }
+    ]
   },
   {
     id: "r",
@@ -219,7 +249,11 @@ export const UNITS: IUnitData[] = [
         buildingLimitQuantity: 10
       }
     ],
-    unitType: UNIT_TYPES.WORKER
+    unitType: UNIT_TYPES.WORKER,
+    mods: [
+      { technologyId: TECHNOLOGIES.Robotics.id, multi: MOD_PER_ROBOTICS },
+      { technologyId: TECHNOLOGIES.Search.id, multi: MOD_PER_OTHERS }
+    ]
   },
   {
     id: "X",
@@ -242,7 +276,13 @@ export const UNITS: IUnitData[] = [
         buildingLimitQuantity: 10
       }
     ],
-    unitType: UNIT_TYPES.WORKER
+    unitType: UNIT_TYPES.WORKER,
+    mods: [
+      {
+        technologyId: TECHNOLOGIES.Robotics.id,
+        multi: MOD_PER_ROBOTICS + MOD_PER_OTHERS + 0.1
+      }
+    ]
   },
   {
     id: "B",
@@ -265,7 +305,12 @@ export const UNITS: IUnitData[] = [
         buildingLimitQuantity: 10
       }
     ],
-    unitType: UNIT_TYPES.WORKER
+    unitType: UNIT_TYPES.WORKER,
+    mods: [
+      { technologyId: TECHNOLOGIES.Robotics.id, multi: MOD_PER_ROBOTICS },
+      { technologyId: TECHNOLOGIES.Naval.id, multi: MOD_PER_OTHERS / 2 },
+      { technologyId: TECHNOLOGIES.Propulsion.id, multi: MOD_PER_OTHERS / 2 }
+    ]
   },
   //#endregion
   //#region Districts

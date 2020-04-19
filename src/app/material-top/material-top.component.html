@@ -1,4 +1,4 @@
-<div class="matContainer">
+<div class="matContainer" [class.alt]="os.darkHeader">
   <div
     *ngFor="
       let item of ms.game.resourceManager.unlockedMaterials;
@@ -6,7 +6,6 @@
     "
     @fadeIn
     class="mainContainer"
-    [class.alt]="os.darkHeader"
   >
     <i nz-icon [nzType]="item.icon" [ngClass]="item.colorClass"></i>
     <div

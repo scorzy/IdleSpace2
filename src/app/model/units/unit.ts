@@ -16,6 +16,7 @@ import { IUnlockable } from "../iUnlocable";
 import { Game } from "../game";
 import { ModStack } from "./modStack";
 import { Bonus } from "../bonus/bonus";
+import { Technology } from "../researches/technology";
 
 export class Unit implements IBase, IUnlockable {
   id = "";
@@ -62,6 +63,7 @@ export class Unit implements IBase, IUnlockable {
   maxMods: Decimal = ZERO;
   unusedMods: Decimal = ZERO;
   battleGainMulti: BonusStack;
+  maxTechMods: { technology: Technology; multi: number }[];
   constructor(public unitData: IUnitData) {
     this.id = unitData.id;
     this.name = unitData.name;
@@ -271,8 +273,11 @@ export class Unit implements IBase, IUnlockable {
   }
   reloadMaxMods() {
     const rs = Game.getGame().researchManager;
-    this.maxMods = rs.roboticsTech.quantity.times(MOD_PER_ROBOTICS);
-
+    for (let i = 0, n = this.maxTechMods.length; i < n; i++) {
+      this.maxMods = this.maxMods.plus(
+        this.maxTechMods[i].technology.quantity.times(this.maxTechMods[i].multi)
+      );
+    }
     this.maxMods = this.maxMods.floor();
   }
   confirmMods() {
