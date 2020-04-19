@@ -5,3 +5,5 @@ dist/
 break_infinity.d.ts
 index.html
 /src/assets
+*.svg
+unit.ts

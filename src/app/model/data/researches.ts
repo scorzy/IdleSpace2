@@ -63,7 +63,7 @@ export const RESEARCHES: IResearchData[] = [
     description: "Unlock Replicators",
     max: 1,
     type: [TECHNOLOGIES.Robotics],
-    unitsToUnlock: ["x", "X", "7"],
+    unitsToUnlock: ["x", "X", "7", "9"],
     technologiesToUnlock: [TECHNOLOGIES.Robotics.id],
     researchToUnlock: ["x1"],
     prodMulti: [

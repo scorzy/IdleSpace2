@@ -12,6 +12,8 @@ export enum UNIT_TYPES {
 }
 const BUILDING_TIER_2_PRICE = 20;
 const BUILDING_TIER_2_UNIT = 20;
+const ENERGY_STORAGE = 1e4;
+
 export const UNITS: IUnitData[] = [
   //#region Materials
   {
@@ -33,7 +35,7 @@ export const UNITS: IUnitData[] = [
     limits: [
       {
         buildingLimit: "8",
-        buildingLimitQuantity: 1e4
+        buildingLimitQuantity: ENERGY_STORAGE
       }
     ],
     showUiLimit: true,
@@ -353,8 +355,8 @@ export const UNITS: IUnitData[] = [
     id: "1",
     name: "Mine",
     description: "+10 miners",
-    icon:"my:gold-mine",
-    colorClass:"metal-color",
+    icon: "my:gold-mine",
+    colorClass: "metal-color",
     startQuantity: 1,
     prices: [["P", 10]],
     unitType: UNIT_TYPES.BUILDING
@@ -362,7 +364,9 @@ export const UNITS: IUnitData[] = [
   {
     id: "2",
     name: "Power Plant",
-    description: "",
+    icon: "my:solar-power_2",
+    description: "+10 technicians",
+    colorClass: "energy-color",
     startQuantity: 1,
     prices: [["k", 10]],
     unitType: UNIT_TYPES.BUILDING
@@ -370,7 +374,9 @@ export const UNITS: IUnitData[] = [
   {
     id: "3",
     name: "Laboratory",
-    description: "",
+    icon: "fa-s:microscope",
+    colorClass: "science-color",
+    description: "+10 scientists",
     prices: [["j", 10]],
     unlockQuantity: 1,
     unitType: UNIT_TYPES.BUILDING
@@ -378,7 +384,9 @@ export const UNITS: IUnitData[] = [
   {
     id: "4",
     name: "Foundry",
-    description: "",
+    description: "+10 metallurgists",
+    icon: "my:foundry-bucket",
+    colorClass: "alloy-color",
     prices: [["j", 10]],
     unlockQuantity: 1,
     unitType: UNIT_TYPES.BUILDING
@@ -386,7 +394,9 @@ export const UNITS: IUnitData[] = [
   {
     id: "5",
     name: "Factory",
-    description: "",
+    description: "+10 workers",
+    icon: "my:factory",
+    colorClass: "production-color",
     prices: [["j", 10]],
     unlockQuantity: 1,
     unitType: UNIT_TYPES.BUILDING
@@ -394,7 +404,9 @@ export const UNITS: IUnitData[] = [
   {
     id: "6",
     name: "Telescope",
-    description: "",
+    description: "+10 searchers",
+    icon: "my:observatory",
+    colorClass: "search-color",
     prices: [["j", 10]],
     unlockQuantity: 1,
     unitType: UNIT_TYPES.BUILDING
@@ -402,7 +414,9 @@ export const UNITS: IUnitData[] = [
   {
     id: "7",
     name: "Drone Factory",
-    description: "",
+    description: "+10 replicators",
+    icon: "my:factory-arm",
+    colorClass: "component-color",
     prices: [["j", 10]],
     unlockQuantity: 1,
     unitType: UNIT_TYPES.BUILDING
@@ -410,7 +424,9 @@ export const UNITS: IUnitData[] = [
   {
     id: "8",
     name: "Batteries",
-    description: "",
+    description: "+ " + ENERGY_STORAGE + " energy storage",
+    colorClass: "energy-color",
+    icon: "my:battery-pack",
     startQuantity: 1,
     prices: [["j", 10]],
     unlockQuantity: 1,
@@ -419,7 +435,9 @@ export const UNITS: IUnitData[] = [
   {
     id: "9",
     name: "Drone Depot",
-    description: "",
+    description: "+ 1000 components storage",
+    icon: "fa-s:warehouse",
+    colorClass: "component-color",
     prices: [["j", 10]],
     unlockQuantity: 1,
     unitType: UNIT_TYPES.BUILDING
@@ -427,7 +445,9 @@ export const UNITS: IUnitData[] = [
   {
     id: "10",
     name: "Nuke Factory",
-    description: "",
+    description: "+10 nuke specialists",
+    icon: "my:factory",
+    colorClass: "nuke-color",
     prices: [["j", 10]],
     unlockQuantity: 1,
     unitType: UNIT_TYPES.BUILDING
@@ -435,7 +455,9 @@ export const UNITS: IUnitData[] = [
   {
     id: "11",
     name: "Nuke Silos",
-    description: "",
+    description: "+100 nuke storage",
+    icon: "fa-s:warehouse",
+    colorClass: "nuke-color",
     prices: [["j", 10]],
     unlockQuantity: 1,
     unitType: UNIT_TYPES.BUILDING
@@ -443,7 +465,9 @@ export const UNITS: IUnitData[] = [
   {
     id: "12",
     name: "Super computing center",
-    description: "",
+    description: "+ " + BUILDING_TIER_2_UNIT + " scientists",
+    icon: "my:circuitry",
+    colorClass: "science-color",
     prices: [["j", BUILDING_TIER_2_PRICE]],
     unitType: UNIT_TYPES.BUILDING
   },
