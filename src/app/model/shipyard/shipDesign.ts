@@ -53,6 +53,8 @@ export class ShipDesign {
   enemyQuantity = 0;
   threat = BASE_THREAT;
   isDefence = false;
+  next: ShipDesign;
+  available = false;
 
   constructor() {
     this.fleets = new Array<FleetShips>(FLEET_NUMBER);
@@ -474,6 +476,20 @@ export class ShipDesign {
     });
     this.reload(true);
   }
+  reloadAvailability() {
+    let ok = true;
+    if (!this.type.unlocked) {
+      ok = false;
+    } else {
+      for (let i = 0, n = this.modules.length; i < n; i++) {
+        if (!this.modules[i].module.unlocked) {
+          ok = false;
+          break;
+        }
+      }
+    }
+    if (ok) this.available = true;
+  }
   //#region Save and Load
   getSave(): any {
     const ret: any = {
@@ -490,6 +506,7 @@ export class ShipDesign {
     if (this.old) {
       ret.o = this.old.getSave();
     }
+    if (this.next) ret.x = this.next.id;
     return ret;
   }
   load(data: any) {

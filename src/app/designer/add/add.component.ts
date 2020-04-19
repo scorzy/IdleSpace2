@@ -27,7 +27,7 @@ import { BaseComponentComponent } from "src/app/base-component/base-component.co
 export class AddComponent extends BaseComponentComponent
   implements OnInit, OnDestroy, AfterViewInit {
   validateForm: FormGroup;
-  unlockedTypes = new Array<ShipType>();
+  // unlockedTypes = new Array<ShipType>();
 
   constructor(
     ms: MainService,
@@ -39,9 +39,9 @@ export class AddComponent extends BaseComponentComponent
   }
 
   ngOnInit(): void {
-    this.unlockedTypes = this.ms.game.shipyardManager.shipTypes.filter(
-      (t) => t.unlocked || true
-    );
+    // this.unlockedTypes = this.ms.game.shipyardManager.shipTypes.filter(
+    //   (t) => t.unlocked || true
+    // );
     this.validateForm = this.fb.group({
       name: [null, [Validators.required, this.nameValidator]],
       type: [1, [Validators.required]]

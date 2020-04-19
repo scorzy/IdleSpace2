@@ -27,4 +27,5 @@ export interface IResearchData {
   battleMulti?: { materialId: string; multi: DecimalSource }[];
   prodMulti?: { unitId: string; multi: number }[];
   effMulti?: { unitId: string; multi: number }[];
+  shipTypeToUnlock?: number;
 }

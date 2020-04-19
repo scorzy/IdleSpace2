@@ -149,10 +149,10 @@ export class Game {
     for (let i = 0, n = this.researchManager.backlog.length; i < n; i++) {
       this.researchManager.backlog[i].reloadTotalBonus();
     }
-    if (this.updateNavalCapacity) {
-      this.reloadNavalCapacity();
-      this.updateNavalCapacity = false;
-    }
+    // if (this.updateNavalCapacity) {
+    this.reloadNavalCapacity();
+    //   this.updateNavalCapacity = false;
+    // }
     if (this.updateMods) {
       this.resourceManager.reloadMods();
       this.updateMods = false;
@@ -227,6 +227,8 @@ export class Game {
 
     this.resourceManager.load(data.s);
     this.researchManager.load(data.r);
+    //  Reload module status
+    this.shipyardManager.postUpdate();
     if ("d" in data) {
       this.shipyardManager.load(data.d);
     }

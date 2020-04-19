@@ -29,10 +29,18 @@
     <nz-form-control [nzSpan]="14" nzErrorTip="Please select a ship type!">
       <nz-select formControlName="type">
         <nz-option
-          *ngFor="let shipType of unlockedTypes; trackBy: getTypeId"
+          *ngFor="
+            let shipType of ms.game.shipyardManager.shipTypes;
+            trackBy: getTypeId
+          "
           [nzLabel]="shipType.name"
           [nzValue]="shipType.id"
-        ></nz-option>
+          nzCustomContent
+        >
+          <span nz-typography [nzType]="!shipType.unlocked ? 'warning' : ''">{{
+            shipType.name
+          }}</span>
+        </nz-option>
       </nz-select>
     </nz-form-control>
   </nz-form-item>

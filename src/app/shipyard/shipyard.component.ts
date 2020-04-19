@@ -14,6 +14,7 @@ import { FleetShips } from "../model/shipyard/fleetShips";
 import { fadeIn } from "../animations";
 import { BaseComponentComponent } from "../base-component/base-component.component";
 import { FLEET_NUMBER, FLEET_CAPACITY } from "../model/CONSTANTS";
+import { inNextTick } from "ng-zorro-antd";
 
 @Component({
   selector: "app-shipyard",
@@ -90,7 +91,7 @@ export class ShipyardComponent extends BaseComponentComponent
     );
   }
   getDesignId(index: number, design: ShipDesign) {
-    return design.id;
+    return design.id + (design.available ? "A" : "");
   }
   getNameId(index: number, name: string) {
     return index + name;
@@ -119,5 +120,15 @@ export class ShipyardComponent extends BaseComponentComponent
   }
   reinforce(i: number) {
     this.ms.game.shipyardManager.reinforce(i);
+  }
+  getTooltip(design: ShipDesign): string {
+    let ret = "";
+    if (!design.available) {
+      ret = "This is a blueprint. Not available yet.";
+    } else if (design.next && design.next.available) {
+      ret =
+        "This design is obsolete. " + design.next.name + " is used instead.";
+    }
+    return ret;
   }
 }

@@ -108,19 +108,19 @@ export class ShipyardManager extends JobManager {
     this.reloadFleetPercent();
 
     let unlocked = false;
-    if (this.designerView) {
-      for (let i = 0, n = this.modules.length; i < n; i++) {
-        this.modules[i].reloadMaxLevel();
-        if (
-          !this.modules[i].unlocked &&
-          this.modules[i].maxLevel >= this.modules[i].unlockLevel
-        ) {
-          if (this.modules[i].unlock()) {
-            unlocked = true;
-          }
+    // if (this.designerView) {
+    for (let i = 0, n = this.modules.length; i < n; i++) {
+      this.modules[i].reloadMaxLevel();
+      if (
+        !this.modules[i].unlocked &&
+        this.modules[i].maxLevel >= this.modules[i].unlockLevel
+      ) {
+        if (this.modules[i].unlock()) {
+          unlocked = true;
         }
       }
     }
+    // }
     if (unlocked) {
       this.reloadLists();
     }
@@ -162,6 +162,8 @@ export class ShipyardManager extends JobManager {
     newDesign.modules = newDesign.modules.filter((line) => line.module);
     newDesign.id = oldDesign.id;
     newDesign.rev = oldDesign.rev + 1;
+    newDesign.next = oldDesign.next;
+    oldDesign.next = null;
 
     if (
       newDesign.price.lte(oldDesign.price) ||
@@ -201,6 +203,9 @@ export class ShipyardManager extends JobManager {
    * Calculate fleets capacity and num of ships to build
    */
   reloadFleetCapacity() {
+    for (let k = 0, n = this.shipDesigns.length; k < n; k++) {
+      this.shipDesigns[k].reloadAvailability();
+    }
     //#region Reload ships number
     //  Reload Fleet capacity
     const navalCapacity = Game.getGame().navalCapacity;
@@ -216,43 +221,51 @@ export class ShipyardManager extends JobManager {
     for (let i = 0; i < FLEET_NUMBER; i++) {
       if (this.fleetsCapacity[i] < 1) {
         for (let k = 0, n = this.shipDesigns.length; k < n; k++) {
-          this.shipDesigns[k].fleets[i].navalCapPercent = 0;
+          this.shipDesigns[k].fleets[i].wantedShips = 0;
         }
       } else {
         let prioritySum = 0;
         let remainingNavCap = this.fleetsCapacity[i];
         for (let k = 0, n = this.shipDesigns.length; k < n; k++) {
-          prioritySum += Math.max(
-            0,
-            this.shipDesigns[k].fleets[i].navalCapPercent
-          );
+          prioritySum +=
+            this.shipDesigns[k].available &&
+            (!this.shipDesigns[k].next || !this.shipDesigns[k].next.available)
+              ? Math.max(0, this.shipDesigns[k].fleets[i].navalCapPercent)
+              : 0;
         }
         prioritySum = Math.max(1, prioritySum);
         for (let k = 0, n = this.shipDesigns.length; k < n; k++) {
-          this.shipDesigns[k].fleets[i].wantedShips = Math.floor(
-            (this.fleetsCapacity[i] *
-              this.shipDesigns[k].fleets[i].navalCapPercent) /
-              (prioritySum * this.shipDesigns[k].type.navalCapacity)
-          );
+          if (
+            this.shipDesigns[k].available &&
+            (!this.shipDesigns[k].next || !this.shipDesigns[k].next.available)
+          ) {
+            this.shipDesigns[k].fleets[i].wantedShips = Math.floor(
+              (this.fleetsCapacity[i] *
+                this.shipDesigns[k].fleets[i].navalCapPercent) /
+                (prioritySum * this.shipDesigns[k].type.navalCapacity)
+            );
+          } else {
+            this.shipDesigns[k].fleets[i].wantedShips = 0;
+          }
           remainingNavCap -= Math.floor(
             this.shipDesigns[k].fleets[i].wantedShips *
               this.shipDesigns[k].type.navalCapacity
           );
-          if (remainingNavCap > 0) {
-            const ordered = this.shipDesigns
-              .slice(0)
-              .sort(
-                (a, b) =>
-                  b.fleets[i].navalCapPercent - a.fleets[i].navalCapPercent
+        }
+        if (remainingNavCap > 0) {
+          const ordered = this.shipDesigns
+            .filter((s) => s.available && !(s.next && s.next.available))
+            .sort(
+              (a, b) =>
+                b.fleets[i].navalCapPercent - a.fleets[i].navalCapPercent
+            );
+          for (let z = 0, n2 = ordered.length; z < n2; z++) {
+            if (ordered[z].type.navalCapacity <= remainingNavCap) {
+              const toAdd = Math.floor(
+                remainingNavCap / ordered[z].type.navalCapacity
               );
-            for (let z = 0, n2 = ordered.length; z < n2; z++) {
-              if (ordered[z].type.navalCapacity <= remainingNavCap) {
-                const toAdd = Math.floor(
-                  remainingNavCap / ordered[z].type.navalCapacity
-                );
-                ordered[z].fleets[i].wantedShips += toAdd;
-                remainingNavCap -= toAdd * ordered[z].type.navalCapacity;
-              }
+              ordered[z].fleets[i].wantedShips += toAdd;
+              remainingNavCap -= toAdd * ordered[z].type.navalCapacity;
             }
           }
         }
@@ -283,24 +296,32 @@ export class ShipyardManager extends JobManager {
     for (let i = 0; i < FLEET_NUMBER; i++) {
       if (this.fleetsCapacityUi[i] < 1) {
         for (let k = 0, n = this.shipDesigns.length; k < n; k++) {
-          this.shipDesigns[k].fleets[i].navalCapPercentUi = 0;
+          this.shipDesigns[k].fleets[i].wantedShipsUi = 0;
         }
       } else {
         let prioritySumUi = 0;
         let remainingNavCapUi = this.fleetsCapacityUi[i];
         for (let k = 0, n = this.shipDesigns.length; k < n; k++) {
-          prioritySumUi += Math.max(
-            0,
-            this.shipDesigns[k].fleets[i].navalCapPercentUi
-          );
+          prioritySumUi +=
+            this.shipDesigns[k].available &&
+            (!this.shipDesigns[k].next || !this.shipDesigns[k].next.available)
+              ? Math.max(0, this.shipDesigns[k].fleets[i].navalCapPercentUi)
+              : 0;
         }
         prioritySumUi = Math.max(1, prioritySumUi);
         for (let k = 0, n = this.shipDesigns.length; k < n; k++) {
-          this.shipDesigns[k].fleets[i].wantedShipsUi = Math.floor(
-            (this.fleetsCapacityUi[i] *
-              Math.max(0, this.shipDesigns[k].fleets[i].navalCapPercentUi)) /
-              (prioritySumUi * this.shipDesigns[k].type.navalCapacity)
-          );
+          if (
+            this.shipDesigns[k].available &&
+            (!this.shipDesigns[k].next || !this.shipDesigns[k].next.available)
+          ) {
+            this.shipDesigns[k].fleets[i].wantedShipsUi = Math.floor(
+              (this.fleetsCapacityUi[i] *
+                Math.max(0, this.shipDesigns[k].fleets[i].navalCapPercentUi)) /
+                (prioritySumUi * this.shipDesigns[k].type.navalCapacity)
+            );
+          } else {
+            this.shipDesigns[k].fleets[i].wantedShipsUi = 0;
+          }
           remainingNavCapUi -= Math.floor(
             this.shipDesigns[k].fleets[i].wantedShipsUi *
               this.shipDesigns[k].type.navalCapacity
@@ -308,7 +329,7 @@ export class ShipyardManager extends JobManager {
         }
         if (remainingNavCapUi > 0) {
           const ordered = this.shipDesigns
-            .slice(0)
+            .filter((s) => s.available && !(s.next && s.next.available))
             .sort(
               (a, b) =>
                 b.fleets[i].navalCapPercentUi - a.fleets[i].navalCapPercentUi
@@ -446,7 +467,17 @@ export class ShipyardManager extends JobManager {
         design.load(d);
         return design;
       });
+      for (const d of data.d) {
+        if ("x" in d) {
+          const design = this.shipDesigns.find((des) => des.id === d.i);
+          const next = this.shipDesigns.find((des) => des.id === d.x);
+          if (design && next) {
+            design.next = next;
+          }
+        }
+      }
     }
+
     if ("n" in data) {
       for (let i = 0; i < data.n; i++) {
         this.fleetNavCapPriority[i] = data.n[i];

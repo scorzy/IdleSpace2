@@ -15,6 +15,7 @@ import { ResearchManager } from "./researchManager";
 import { Unit } from "../units/unit";
 import { Bonus } from "../bonus/bonus";
 import { Technology } from "./technology";
+import { ShipType } from "../shipyard/ShipType";
 
 export class Research extends Job implements IUnlockable, IBase {
   static lastVisId = 0;
@@ -35,6 +36,7 @@ export class Research extends Job implements IUnlockable, IBase {
   resData: IResearchData;
   navalCapacity = 0;
   available = false;
+  shipTypeToUnlock: ShipType;
   constructor(researchData: IResearchData, researchManager: ResearchManager) {
     super();
     this.resData = researchData;
@@ -46,6 +48,7 @@ export class Research extends Job implements IUnlockable, IBase {
     this.visId = Research.lastVisId++;
 
     const rs = Game.getGame().resourceManager;
+    const sm = Game.getGame().shipyardManager;
     if ("max" in researchData) {
       this.max = researchData.max;
     } else {
@@ -67,6 +70,11 @@ export class Research extends Job implements IUnlockable, IBase {
     }
     if ("navalCapacity" in researchData) {
       this.navalCapacity = this.resData.navalCapacity;
+    }
+    if ("shipTypeToUnlock" in researchData) {
+      this.shipTypeToUnlock = sm.shipTypes.find(
+        (t) => t.id === this.resData.shipTypeToUnlock
+      );
     }
     this.types = researchData.type.map((t) =>
       researchManager.technologies.find((tec) => tec.id === t.id)
@@ -111,6 +119,9 @@ export class Research extends Job implements IUnlockable, IBase {
       }
       if (this.technologiesToUnlock) {
         this.technologiesToUnlock.forEach((tech) => tech.unlock());
+      }
+      if (this.shipTypeToUnlock) {
+        this.shipTypeToUnlock.unlocked = true;
       }
       game.navalCapacity += this.navalCapacity;
     }

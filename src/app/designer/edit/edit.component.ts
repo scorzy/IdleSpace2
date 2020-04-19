@@ -32,6 +32,7 @@ export class EditComponent extends BaseComponentComponent
   isEqual = true;
   changeEmitter = new EventEmitter();
   loaded = false;
+  otherDesigns: Array<ShipDesign>;
 
   constructor(
     ms: MainService,
@@ -48,7 +49,6 @@ export class EditComponent extends BaseComponentComponent
       this.animationDisabled = false;
     });
   }
-
   ngOnInit() {
     this.ms.game.shipyardManager.designerView = true;
     this.ms.game.shipyardManager.postUpdate();
@@ -74,6 +74,10 @@ export class EditComponent extends BaseComponentComponent
       }
       this.changeEmitter.emit("1");
     }
+    this.otherDesigns = this.ms.game.shipyardManager.shipDesigns.filter(
+      (d) => d !== this.original
+    );
+
     this.cd.markForCheck();
   }
   addLine(e?: MouseEvent) {
@@ -186,5 +190,8 @@ export class EditComponent extends BaseComponentComponent
   getIcon(id: string): string {
     const mod = this.ms.game.shipyardManager.modules.find((m) => m.id === id);
     return mod ? mod.shape : "";
+  }
+  getDesId(index: number, des: ShipDesign) {
+    return des.id;
   }
 }

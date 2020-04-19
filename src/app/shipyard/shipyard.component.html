@@ -69,7 +69,17 @@
                 trackBy: getDesignId
               "
             >
-              <td>{{ design.name }}</td>
+              <td class="design-name" [routerLink]="'/des/edit/' + design.id">
+                <span
+                  [class.text-info]="!design.available"
+                  nz-typography
+                  [nzType]="design.next?.available ? 'warning' : ''"
+                  nz-tooltip
+                  [nzTooltipTitle]="getTooltip(design)"
+                >
+                  {{ design.name }}
+                </span>
+              </td>
               <td>
                 <nz-input-number
                   nzSize="small"

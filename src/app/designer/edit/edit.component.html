@@ -74,50 +74,16 @@
               class="module-select"
             >
               <nz-option
-                *ngFor="let mod of ms.game.shipyardManager.groups[0].list"
+                *ngFor="let mod of ms.game.shipyardManager.modules"
                 [nzValue]="mod.id"
                 [nzLabel]="mod.name"
                 nzCustomContent
               >
-                <i nz-icon [nzType]="mod.shape"></i>
-                <span> {{ mod.name }}</span>
+                <span nz-typography [nzType]="!mod.unlocked ? 'warning' : ''">
+                  <i nz-icon [nzType]="mod.shape"></i>
+                  <span> {{ mod.name }}</span></span
+                >
               </nz-option>
-              <nz-option
-                *ngFor="let mod of ms.game.shipyardManager.groups[1].list"
-                [nzValue]="mod.id"
-                [nzLabel]="mod.name"
-                nzCustomContent
-              >
-                <i nz-icon [nzType]="mod.shape"></i>
-                <span> {{ mod.name }}</span></nz-option
-              >
-              <nz-option
-                *ngFor="let mod of ms.game.shipyardManager.groups[2].list"
-                [nzValue]="mod.id"
-                [nzLabel]="mod.name"
-                nzCustomContent
-              >
-                <i nz-icon [nzType]="mod.shape"></i>
-                <span> {{ mod.name }}</span></nz-option
-              >
-              <nz-option
-                *ngFor="let mod of ms.game.shipyardManager.groups[3].list"
-                [nzValue]="mod.id"
-                [nzLabel]="mod.name"
-                nzCustomContent
-              >
-                <i nz-icon [nzType]="mod.shape"></i>
-                <span> {{ mod.name }}</span></nz-option
-              >
-              <nz-option
-                *ngFor="let mod of ms.game.shipyardManager.groups[4].list"
-                [nzValue]="mod.id"
-                [nzLabel]="mod.name"
-                nzCustomContent
-              >
-                <i nz-icon [nzType]="mod.shape"></i>
-                <span> {{ mod.name }}</span></nz-option
-              >
 
               <!-- <nz-option-group
                 [nzLabel]="group.name"
@@ -218,6 +184,22 @@
         Delete Design
       </button>
     </nz-button-group>
+    <div style="margin-top: 0.5rem;">
+      <nz-form-label>Next Design</nz-form-label>
+      <nz-select
+        class="next-select"
+        [(ngModel)]="original.next"
+        *ngIf="otherDesigns.length > 0"
+        nzAllowClear="true"
+      >
+        <nz-option
+          *ngFor="let des of otherDesigns; trackBy: getDesId"
+          [nzValue]="des"
+          [nzLabel]="des.name"
+        >
+        </nz-option>
+      </nz-select>
+    </div>
   </div>
 
   <!-- Comparison Table -->
