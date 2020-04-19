@@ -23,7 +23,7 @@
       <span class="monospace">
         <span
           class="min-width"
-          *ngIf="item.quantity.gt(0) || item.id === 'x'"
+          *ngIf="item.quantity.gt(0) || item.id === 'x' || item.id === 'b'"
           >{{ item.quantity | format }}</span
         >
         <span class="min-width" *ngIf="item.showUiLimit"
@@ -53,17 +53,33 @@
   <div @fadeIn class="mainContainer">
     <i nz-icon nzType="my:strafe"></i>
     <div class="container">
-      <span class="monospace">{{ ms.game.navalCapacity | format: true }}</span>
+      <span class="monospace min-width">{{
+        ms.game.navalCapacity | format: true
+      }}</span>
     </div>
   </div>
 
   <!-- Districts -->
-  <div @fadeIn class="mainContainer">
+  <div @fadeIn class="mainContainer habSpace-color">
     <i nz-icon nzType="fa-s:globe"></i>
     <div class="container">
-      <span class="monospace">
+      <span class="monospace min-width">
         {{ ms.game.resourceManager.habitableSpace.quantity | format: true }}
+      </span>
+    </div>
+  </div>
+  <div @fadeIn class="mainContainer metal-color">
+    <i nz-icon nzType="my:mining"></i>
+    <div class="container">
+      <span class="monospace min-width">
         {{ ms.game.resourceManager.miningDistrict.quantity | format: true }}
+      </span>
+    </div>
+  </div>
+  <div @fadeIn class="mainContainer energy-color">
+    <i nz-icon nzType="my:solar-power"></i>
+    <div class="container">
+      <span class="monospace min-width">
         {{ ms.game.resourceManager.energyDistrict.quantity | format: true }}
       </span>
     </div>
