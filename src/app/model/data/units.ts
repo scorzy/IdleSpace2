@@ -63,7 +63,7 @@ export const UNITS: IUnitData[] = [
     name: "Search",
     icon: "my:radar-sweep",
     description: "",
-    colorClass: "",
+    colorClass: "search-color",
     unitType: UNIT_TYPES.MATERIAL
   },
   {
@@ -71,7 +71,7 @@ export const UNITS: IUnitData[] = [
     name: "Components",
     icon: "fa-s:microchip",
     description: "",
-    colorClass: "",
+    colorClass: "component-color",
     limits: [
       {
         buildingLimit: "9",
@@ -83,10 +83,10 @@ export const UNITS: IUnitData[] = [
   },
   {
     id: "b",
-    name: "Bombs",
+    name: "Nuke",
     icon: "my:rocket",
     description: "",
-    colorClass: "",
+    colorClass: "nuke-color",
     limits: [
       {
         buildingLimit: "11",
@@ -203,6 +203,7 @@ export const UNITS: IUnitData[] = [
     name: "Searcher",
     icon: "my:radar-sweep",
     description: "",
+    colorClass: "search-color",
     production: [
       ["R", 1],
       ["S", -5],
@@ -225,6 +226,7 @@ export const UNITS: IUnitData[] = [
     name: "Replicator",
     icon: "fa-s:microchip",
     description: "",
+    colorClass: "component-color",
     production: [
       ["x", 1],
       ["A", -5],
@@ -247,6 +249,7 @@ export const UNITS: IUnitData[] = [
     name: "Nuke Specialist",
     icon: "my:rocket",
     description: "",
+    colorClass: "nuke-color",
     production: [
       ["b", 1],
       ["A", -5],

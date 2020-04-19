@@ -74,7 +74,10 @@
               class="module-select"
             >
               <nz-option
-                *ngFor="let mod of ms.game.shipyardManager.modules"
+                *ngFor="
+                  let mod of ms.game.shipyardManager.modules;
+                  trackBy: getModId
+                "
                 [nzValue]="mod.id"
                 [nzLabel]="mod.name"
                 nzCustomContent

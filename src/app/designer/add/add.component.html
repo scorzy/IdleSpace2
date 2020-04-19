@@ -4,23 +4,23 @@
   <nz-form-item>
     <nz-form-label [nzSpan]="4" nzFor="name" nzRequired>Name</nz-form-label>
     <nz-form-control [nzSpan]="14" [nzErrorTip]="nameErrorTpl">
-      <nz-input-group nzCompact nzSearch [nzAddOnAfter]="suffixIconButton">
-        <input
-          nz-input
-          type="text"
-          name="name"
-          id="name"
-          formControlName="name"
-        />
-        <ng-template #nameErrorTpl let-control>
-          <ng-container *ngIf="control.hasError('required')">
-            Please input a name!
-          </ng-container>
-          <ng-container *ngIf="control.hasError('duplicated')">
-            The name is redundant!
-          </ng-container>
-        </ng-template>
-      </nz-input-group>
+      <!-- <nz-input-group nzCompact nzSearch [nzAddOnAfter]="suffixIconButton"> -->
+      <input
+        nz-input
+        type="text"
+        name="name"
+        id="name"
+        formControlName="name"
+      />
+      <ng-template #nameErrorTpl let-control>
+        <ng-container *ngIf="control.hasError('required')">
+          Please input a name!
+        </ng-container>
+        <ng-container *ngIf="control.hasError('duplicated')">
+          The name is redundant!
+        </ng-container>
+      </ng-template>
+      <!-- </nz-input-group> -->
     </nz-form-control>
   </nz-form-item>
 

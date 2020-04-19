@@ -187,9 +187,6 @@ body {
 .fullWidth {
   width: 100%;
 }
-.transition {
-  transition: all 0.2;
-}
 .disableAnimation * {
   transition: none !important;
 }
@@ -205,4 +202,10 @@ nz-card-meta {
 }
 .height100 {
   height: 100%;
+}
+
+.ant-select-single:not(.ant-select-customize-input) .ant-select-selector,
+.ant-select-multiple .ant-select-selection-placeholder,
+.ant-select-multiple .ant-select-selector * {
+  transition: none !important;
 }
