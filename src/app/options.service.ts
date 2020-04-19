@@ -7,17 +7,6 @@ export const THEMES = ["dark-green", "dark-blue", "light-green", "light-blue"];
   providedIn: "root"
 })
 export class OptionsService {
-  constructor() {
-    try {
-      const n = 1.1;
-      const separator = n.toLocaleString().substring(1, 2);
-      if (separator === ",") {
-        OptionsService.usaFormat = false;
-      }
-    } catch (ex) {}
-
-    this.generateFormatter();
-  }
   static isDark = true;
 
   static usaFormat = true;
@@ -29,6 +18,17 @@ export class OptionsService {
   themeId = "";
   darkSide = true;
   darkHeader = true;
+  constructor() {
+    try {
+      const n = 1.1;
+      const separator = n.toLocaleString().substring(1, 2);
+      if (separator === ",") {
+        OptionsService.usaFormat = false;
+      }
+    } catch (ex) {}
+
+    this.generateFormatter();
+  }
   generateFormatter() {
     this.formatId++;
     try {

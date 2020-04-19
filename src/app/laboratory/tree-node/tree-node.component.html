@@ -9,8 +9,8 @@
       [nzType]="res.types[0].icon"
       [style.color]="res.types[0].color"
     ></i>
-    {{ res.name }}</span
-  >
+    <span [class.text-success]="res.quantity.gte(1)"> {{ res.name }} </span>
+  </span>
 
   <ng-template #contentTemplate>
     <app-research-preview

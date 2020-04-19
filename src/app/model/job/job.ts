@@ -54,6 +54,9 @@ export abstract class Job {
         Decimal.pow(this.growRate, this.level)
       );
     }
+    if (this.max <= 1) {
+      this.total = this.initialPrice;
+    }
   }
   reloadUi() {
     this.progressPercent = Math.floor(

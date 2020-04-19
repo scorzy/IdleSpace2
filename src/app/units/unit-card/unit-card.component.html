@@ -5,7 +5,7 @@
   [nzExtra]="extraTemplate"
   [nzActions]="unit.modStack ? [buyOne, buyMax, mod] : [buyOne, buyMax]"
 >
-  <p *ngIf="unit.description !== ''">
+  <p *ngIf="unit.description !== ''" class="text-secondary">
     {{ unit.description }}
   </p>
   <div *ngIf="unit.production.length > 0">

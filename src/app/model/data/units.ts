@@ -10,6 +10,8 @@ export enum UNIT_TYPES {
   SPACE_STATION,
   MEGASTRUCTURE
 }
+const BUILDING_TIER_2_PRICE = 20;
+const BUILDING_TIER_2_UNIT = 20;
 export const UNITS: IUnitData[] = [
   //#region Materials
   {
@@ -109,7 +111,7 @@ export const UNITS: IUnitData[] = [
     description: "",
     startQuantity: 1,
     production: [
-      ["M", 4],
+      ["M", 2],
       ["E", -1]
     ],
     prices: [["M", 10]],
@@ -132,7 +134,7 @@ export const UNITS: IUnitData[] = [
     colorClass: "energy-color",
     description: "",
     startQuantity: 1,
-    production: [["E", 4]],
+    production: [["E", 2]],
     prices: [["M", 10]],
     limits: [
       {
@@ -162,6 +164,10 @@ export const UNITS: IUnitData[] = [
       {
         buildingLimit: "3",
         buildingLimitQuantity: 10
+      },
+      {
+        buildingLimit: "12",
+        buildingLimitQuantity: BUILDING_TIER_2_UNIT
       }
     ],
     unitType: UNIT_TYPES.WORKER,
@@ -346,7 +352,9 @@ export const UNITS: IUnitData[] = [
   {
     id: "1",
     name: "Mine",
-    description: "",
+    description: "+10 miners",
+    icon:"my:gold-mine",
+    colorClass:"metal-color",
     startQuantity: 1,
     prices: [["P", 10]],
     unitType: UNIT_TYPES.BUILDING
@@ -430,6 +438,13 @@ export const UNITS: IUnitData[] = [
     description: "",
     prices: [["j", 10]],
     unlockQuantity: 1,
+    unitType: UNIT_TYPES.BUILDING
+  },
+  {
+    id: "12",
+    name: "Super computing center",
+    description: "",
+    prices: [["j", BUILDING_TIER_2_PRICE]],
     unitType: UNIT_TYPES.BUILDING
   },
   //#endregion

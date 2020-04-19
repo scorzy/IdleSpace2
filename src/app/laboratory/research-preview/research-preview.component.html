@@ -15,17 +15,41 @@
   <li *ngFor="let tech of research.technologiesToUnlock; trackBy: getId">
     <span class="text-secondary">Unlock technology:</span>{{ tech.name }}
   </li>
+  <li *ngFor="let effMulti of research.effMulti; trackBy: getId">
+    {{ effMulti.unit.name }}
+    <span class="text-secondary">
+      yields
+    </span>
+    <span class="monospace">{{ effMulti.multi | percent }}</span>
+    <span class="text-secondary">
+      more
+    </span>
+  </li>
+  <li *ngFor="let prodMulti of research.prodMulti; trackBy: getId">
+    {{ prodMulti.unit.name }}
+    <span class="text-secondary">
+      yields and consume
+    </span>
+    <span class="monospace">{{ prodMulti.multi | percent }}</span>
+    <span class="text-secondary">
+      more
+    </span>
+  </li>
   <li *ngFor="let hsbBonus of research.spaceStationsToUp">
     <span class="text-secondary">{{ hsbBonus.spaceStation.name }}</span> +
     {{ hsbBonus.multi | percent }} habitable space
   </li>
   <li *ngFor="let battleMulti of research.battleMulti">
-    + {{ battleMulti.multi | percent }}
+    +{{ battleMulti.multi | percent }}
     {{ battleMulti.material.name }}
     <span class="text-secondary">from battles</span>
   </li>
   <li *ngIf="research.navalCapacity > 0">
     + {{ research.navalCapacity | format: true }} naval capacity
+  </li>
+  <li *ngFor="let lim of research.limitMulti">
+    +{{ lim.multi | percent }} {{ lim.unit.name }}
+    <span class="text-secondary">storage</span>
   </li>
 </ul>
 

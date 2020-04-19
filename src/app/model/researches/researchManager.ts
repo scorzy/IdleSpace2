@@ -7,6 +7,7 @@ import { Technology } from "./technology";
 import { TECHNOLOGIES } from "../data/technologyData";
 import { ZERO } from "../CONSTANTS";
 import { IResearchData } from "../data/iResearchData";
+import { BonusStack } from "../bonus/bonusStack";
 
 const SHIP_BASE_PRICE = 1e3;
 const SHIP_PRICE_MULTI = 2;
@@ -196,7 +197,19 @@ export class ResearchManager extends JobManager {
           station.habSpaceStack.bonuses.push(new Bonus(res, new Decimal(0.3)));
         });
       }
+      if ("limitMulti" in resData) {
+        resData.limitMulti.forEach((lim) => {
+          const unit = rs.units.find((u) => u.id === lim.unitId);
+          if (!unit.limitStackMulti) unit.limitStackMulti = new BonusStack();
+          unit.limitStackMulti.bonuses.push(
+            new Bonus(res, new Decimal(lim.multi))
+          );
+          if (!res.limitMulti) res.limitMulti = [];
+          res.limitMulti.push({ unit, multi: lim.multi });
+        });
+      }
     });
+
     this.toDo = [this.researches[0]];
     this.done = [];
     this.backlog = [];

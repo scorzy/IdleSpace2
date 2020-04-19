@@ -37,6 +37,7 @@ export class Research extends Job implements IUnlockable, IBase {
   navalCapacity = 0;
   available = false;
   shipTypeToUnlock: ShipType;
+  limitMulti?: { unit: Unit; multi: number }[];
   constructor(researchData: IResearchData, researchManager: ResearchManager) {
     super();
     this.resData = researchData;
@@ -142,22 +143,15 @@ export class Research extends Job implements IUnlockable, IBase {
     if (this.researchToUnlock) {
       this.researchToUnlock.forEach((res) => {
         res.visLevel = this.visLevel + 1;
-        res.initialPrice = new Decimal(RESEARCH_BASE_PRICE).times(
-          Decimal.pow(RESEARCH_LEVEL_MULTI, res.visLevel - 1)
-        );
-        res.reload();
         res.setLevels();
       });
     }
+    this.initialPrice = new Decimal(RESEARCH_BASE_PRICE).times(
+      Decimal.pow(RESEARCH_LEVEL_MULTI, this.visLevel)
+    );
+    this.reload();
   }
-  setAvailability() {
-    if (this.researchToUnlock && this.level > 0) {
-      this.researchToUnlock.forEach((res) => {
-        res.available = true;
-        res.setAvailability();
-      });
-    }
-  }
+
   //#region Save and Load
   getSave(): any {
     const ret: any = {};

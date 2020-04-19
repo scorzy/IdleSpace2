@@ -28,4 +28,5 @@ export interface IResearchData {
   prodMulti?: { unitId: string; multi: number }[];
   effMulti?: { unitId: string; multi: number }[];
   shipTypeToUnlock?: number;
+  limitMulti?: { unitId: string; multi: number }[];
 }

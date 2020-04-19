@@ -7,8 +7,14 @@
           [nzType]="ms.game.researchManager.researches[0].types[0].icon"
           [style.color]="ms.game.researchManager.researches[0].types[0].color"
         ></i>
-        {{ ms.game.researchManager.researches[0].name }}</span
-      >
+        <span
+          [class.text-success]="
+            ms.game.researchManager.researches[0].quantity.gte(1)
+          "
+        >
+          {{ ms.game.researchManager.researches[0].name }}
+        </span>
+      </span>
       <div class="branch">
         <app-tree-node
           [research]="ms.game.researchManager.researches[0]"

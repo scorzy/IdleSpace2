@@ -1,6 +1,6 @@
 import { IResearchData } from "./iResearchData";
 import { TECHNOLOGIES } from "./technologyData";
-
+const INITIATIVE_MULTI = 0.3;
 export const RESEARCHES: IResearchData[] = [
   {
     id: "m",
@@ -47,7 +47,7 @@ export const RESEARCHES: IResearchData[] = [
     type: [TECHNOLOGIES.Search],
     unitsToUnlock: ["r", "R", "6"],
     technologiesToUnlock: ["r"],
-    researchToUnlock: ["r1"]
+    researchToUnlock: ["r0"]
   },
   {
     id: "P",
@@ -64,7 +64,35 @@ export const RESEARCHES: IResearchData[] = [
     max: 1,
     type: [TECHNOLOGIES.Robotics],
     unitsToUnlock: ["x", "X", "7"],
-    technologiesToUnlock: [TECHNOLOGIES.Robotics.id]
+    technologiesToUnlock: [TECHNOLOGIES.Robotics.id],
+    researchToUnlock: ["x1"],
+    prodMulti: [
+      { unitId: "m", multi: 0.3 },
+      { unitId: "e", multi: 0.1 },
+      { unitId: "s", multi: 0.3 },
+      { unitId: "a", multi: 0.3 },
+      { unitId: "w", multi: 0.3 },
+      { unitId: "r", multi: 0.3 },
+      { unitId: "X", multi: 0.3 },
+      { unitId: "B", multi: 0.3 }
+    ]
+  },
+  {
+    id: "x1",
+    name: "Improved drones",
+    description: "Drone yields and consume more",
+    max: 10,
+    type: [TECHNOLOGIES.Robotics],
+    prodMulti: [
+      { unitId: "m", multi: 0.1 },
+      { unitId: "e", multi: 0.04 },
+      { unitId: "s", multi: 0.1 },
+      { unitId: "a", multi: 0.1 },
+      { unitId: "w", multi: 0.1 },
+      { unitId: "r", multi: 0.1 },
+      { unitId: "X", multi: 0.1 },
+      { unitId: "B", multi: 0.1 }
+    ]
   },
   {
     id: "M",
@@ -81,7 +109,8 @@ export const RESEARCHES: IResearchData[] = [
     description: "Unlock Mining Technology",
     max: 1,
     type: [TECHNOLOGIES.Mining],
-    technologiesToUnlock: [TECHNOLOGIES.Mining.id]
+    technologiesToUnlock: [TECHNOLOGIES.Mining.id],
+    prodMulti: [{ unitId: "m", multi: 0.5 }]
   },
   {
     id: "E",
@@ -89,7 +118,16 @@ export const RESEARCHES: IResearchData[] = [
     description: "Unlock Energy Technology",
     max: 1,
     type: [TECHNOLOGIES.Energy],
-    technologiesToUnlock: [TECHNOLOGIES.Energy.id]
+    technologiesToUnlock: [TECHNOLOGIES.Energy.id],
+    limitMulti: [{ unitId: "E", multi: 1 }]
+  },
+  {
+    id: "r0",
+    name: "Searching initiative",
+    description: "Improve searching",
+    type: [TECHNOLOGIES.Search],
+    researchToUnlock: ["r1"],
+    prodMulti: [{ unitId: "r", multi: INITIATIVE_MULTI }]
   },
   {
     id: "r1",
@@ -157,13 +195,23 @@ export const RESEARCHES: IResearchData[] = [
     name: "Algorithms",
     description: "Improve research",
     type: [TECHNOLOGIES.Computing],
-    effMulti: [{ unitId: "s", multi: 0.1 }]
+    effMulti: [{ unitId: "s", multi: 0.1 }],
+    researchToUnlock: ["c2"]
+  },
+  {
+    id: "c2",
+    name: "Super computing",
+    description: "Unlock super computing center",
+    type: [TECHNOLOGIES.Computing],
+    effMulti: [{ unitId: "s", multi: 0.1 }],
+    max: 1,
+    unitsToUnlock: ["12"]
   },
   {
     id: "p1",
     name: "Research initiative",
     description: "Researchers yields and consume more",
     type: [TECHNOLOGIES.Physics],
-    prodMulti: [{ unitId: "s", multi: 0.2 }]
+    prodMulti: [{ unitId: "s", multi: INITIATIVE_MULTI }]
   }
 ];

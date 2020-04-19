@@ -41,6 +41,7 @@ export class Unit implements IBase, IUnlockable {
   limitTemp = Decimal.MAX_VALUE;
   private _oldLimit = Decimal.MAX_VALUE;
   limitStack: BonusStack;
+  limitStackMulti: BonusStack;
   storedComponents = ZERO;
   needComponents = ZERO;
   components = COMPONENT_PRICE;
@@ -170,7 +171,10 @@ export class Unit implements IBase, IUnlockable {
     this.limitStack.reloadAdditiveBonus();
     let newLimit = this.limitStack.totalAdditiveBonus;
     this.limitTemp = this.limit;
-
+    if (this.limitStackMulti) {
+      this.limitStackMulti.reloadBonus();
+      newLimit = newLimit.times(this.limitStackMulti.totalBonus);
+    }
     if (this.modStack && this.modStack.droneMod) {
       newLimit = newLimit.times(this.modStack.droneMod.totalBonus);
       this.limitTemp = this.limit.times(this.modStack.droneMod.totalBonusTemp);

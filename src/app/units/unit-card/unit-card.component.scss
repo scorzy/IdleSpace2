@@ -27,3 +27,9 @@ button {
   font-weight: 700;
   // text-align: right;
 }
+::ng-deep .ant-card-body{
+  padding-bottom:0.5rem !important;
+}
+p{
+  margin-bottom:0;
+}
