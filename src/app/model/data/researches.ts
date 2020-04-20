@@ -81,7 +81,7 @@ export const RESEARCHES: IResearchData[] = [
   {
     id: "x1",
     name: "Improved drones",
-    description: "Drone yields and consume more",
+    description: "Drones yield and consume more",
     max: 10,
     type: [TECHNOLOGIES.Robotics],
     researchToUnlock: ["x2"],
@@ -127,7 +127,7 @@ export const RESEARCHES: IResearchData[] = [
   {
     id: "N1",
     name: "Mining initiative",
-    description: "Miners yields and consume more",
+    description: "Miners yield and consume more",
     max: 10,
     type: [TECHNOLOGIES.Mining],
     researchToUnlock: ["N2"],
@@ -149,7 +149,27 @@ export const RESEARCHES: IResearchData[] = [
     max: 1,
     type: [TECHNOLOGIES.Energy],
     technologiesToUnlock: [TECHNOLOGIES.Energy.id],
-    limitMulti: [{ unitId: "E", multi: 1 }]
+    researchToUnlock: ["E1"],
+    limitMulti: [{ unitId: "E", multi: 1 }],
+    effMulti: [{ unitId: "e", multi: 0.05 }]
+  },
+  {
+    id: "E1",
+    name: "Energy initiative",
+    description: "Technicians consume and yield more",
+    max: 10,
+    type: [TECHNOLOGIES.Energy],
+    effMulti: [{ unitId: "e", multi: INITIATIVE_MULTI / 6 }],
+    researchToUnlock: ["E2"]
+  },
+  {
+    id: "E2",
+    name: "Mega power plant",
+    description: "Unlock mega power plant",
+    max: 1,
+    type: [TECHNOLOGIES.Energy],
+    effMulti: [{ unitId: "e", multi: 0.05 }],
+    unitsToUnlock: ["16"]
   },
   {
     id: "r0",
@@ -164,7 +184,7 @@ export const RESEARCHES: IResearchData[] = [
     name: "Optimistic zone",
     description: "Search 1",
     type: [TECHNOLOGIES.Search],
-    researchToUnlock: ["r2", "r3"],
+    researchToUnlock: ["r2", "r3", "r6"],
     battleMulti: [{ materialId: "j", multi: 0.5 }]
   },
   {
@@ -198,6 +218,15 @@ export const RESEARCHES: IResearchData[] = [
     description: "Renewable energy",
     type: [TECHNOLOGIES.Search],
     battleMulti: [{ materialId: "k", multi: 1 }]
+  },
+  {
+    id: "r6",
+    name: "Mega observatory",
+    description: "Unlock mega observatory",
+    type: [TECHNOLOGIES.Search],
+    max: 1,
+    effMulti: [{ unitId: "r", multi: 0.1 }],
+    unitsToUnlock: ["15"]
   },
   {
     id: "b",
@@ -240,8 +269,27 @@ export const RESEARCHES: IResearchData[] = [
   {
     id: "p1",
     name: "Research initiative",
-    description: "Researchers yields and consume more",
+    description: "Researchers yield and consume more",
     type: [TECHNOLOGIES.Physics],
-    prodMulti: [{ unitId: "s", multi: INITIATIVE_MULTI }]
+    prodMulti: [{ unitId: "s", multi: INITIATIVE_MULTI }],
+    researchToUnlock: ["p2"]
+  },
+  {
+    id: "p2",
+    name: "Quantum gravity",
+    description: "Researchers yield more",
+    type: [TECHNOLOGIES.Physics],
+    max: 1,
+    researchToUnlock: ["p3"],
+    effMulti: [{ unitId: "s", multi: 0.3 }]
+  },
+  {
+    id: "p3",
+    name: "Mega science lab",
+    description: "Unlock mega science lab",
+    type: [TECHNOLOGIES.Physics],
+    max: 1,
+    unitsToUnlock: ["17"],
+    effMulti: [{ unitId: "s", multi: 0.1 }]
   }
 ];

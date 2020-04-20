@@ -145,6 +145,10 @@ export const UNITS: IUnitData[] = [
       {
         buildingLimit: "2",
         buildingLimitQuantity: 10
+      },
+      {
+        buildingLimit: "16",
+        buildingLimitQuantity: BUILDING_TIER_2_UNIT
       }
     ],
     unitType: UNIT_TYPES.WORKER,
@@ -258,6 +262,10 @@ export const UNITS: IUnitData[] = [
       {
         buildingLimit: "6",
         buildingLimitQuantity: 10
+      },
+      {
+        buildingLimit: "15",
+        buildingLimitQuantity: BUILDING_TIER_2_UNIT
       }
     ],
     unitType: UNIT_TYPES.WORKER,
@@ -410,7 +418,7 @@ export const UNITS: IUnitData[] = [
   },
   {
     id: "6",
-    name: "Telescope",
+    name: "Observatory",
     description: "+10 searchers",
     icon: "my:observatory",
     colorClass: "search-color",
@@ -485,7 +493,6 @@ export const UNITS: IUnitData[] = [
     icon: "my:factory-arm",
     colorClass: "component-color",
     prices: [["j", BUILDING_TIER_2_PRICE]],
-    unlockQuantity: 1,
     unitType: UNIT_TYPES.BUILDING
   },
   {
@@ -495,7 +502,33 @@ export const UNITS: IUnitData[] = [
     icon: "my:gold-mine",
     colorClass: "metal-color",
     prices: [["P", BUILDING_TIER_2_PRICE]],
-    unlockQuantity: 1,
+    unitType: UNIT_TYPES.BUILDING
+  },
+  {
+    id: "15",
+    name: "Mega observatory",
+    description: "+" + BUILDING_TIER_2_UNIT + " searchers",
+    icon: "my:observatory",
+    colorClass: "search-color",
+    prices: [["j", BUILDING_TIER_2_PRICE]],
+    unitType: UNIT_TYPES.BUILDING
+  },
+  {
+    id: "16",
+    name: "Mega power plant",
+    description: "+" + BUILDING_TIER_2_UNIT + " technicians",
+    icon: "my:solar-power_2",
+    colorClass: "energy-color",
+    prices: [["k", BUILDING_TIER_2_PRICE]],
+    unitType: UNIT_TYPES.BUILDING
+  },
+  {
+    id: "17",
+    name: "Mega science lab",
+    description: "+" + BUILDING_TIER_2_UNIT + " scientists",
+    icon: "fa-s:microscope",
+    colorClass: "science-color",
+    prices: [["j", BUILDING_TIER_2_PRICE]],
     unitType: UNIT_TYPES.BUILDING
   },
   //#endregion
