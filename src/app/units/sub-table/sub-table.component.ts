@@ -18,8 +18,9 @@ import { BaseComponentComponent } from "src/app/base-component/base-component.co
 })
 export class SubTableComponent extends BaseComponentComponent
   implements OnInit, OnDestroy, AfterViewInit {
-  @Input() data: Production;
+  // @Input() data: Production;
   @Input() unit: Unit;
+  @Input() positiveOnly = false;
   subData: Array<{
     what: string;
     quantity: Decimal;
@@ -27,14 +28,12 @@ export class SubTableComponent extends BaseComponentComponent
     total: Decimal;
   }>;
   ngOnInit() {
-    this.subData = this.getSubData(this.data);
+    this.subData = this.getSubData();
   }
   getIndex(index: number, a: any) {
     return index;
   }
-  getSubData(
-    prod: Production
-  ): Array<{
+  getSubData(): Array<{
     what: string;
     quantity: Decimal;
     effect: Decimal;
@@ -47,31 +46,19 @@ export class SubTableComponent extends BaseComponentComponent
       total: Decimal;
     }>();
 
-    // ret.push({
-    //   what: "Base",
-    //   quantity: this.data.ratio,
-    //   effect: new Decimal(this.unit.operativity),
-    //   total: new Decimal(this.unit.operativity).times(this.data.ratio)
-    // });
-
-    ret = ret.concat(
-      prod.product.prodBy.bonuses
-        .concat(prod.producer.prodAllBonus.bonuses)
-        .concat(
-          this.data.ratio.gt(0) ? prod.producer.prodEfficiency.bonuses : []
-        )
-        .map((bonus) => {
-          return {
-            what: bonus.unit.name,
-            quantity: bonus.unit.quantity,
-            effect: bonus.multiplier.times(100),
-            total: bonus.multiplier
-              .times(bonus.unit.quantity)
-              .times(100)
-              .plus(100)
-          };
-        })
-    );
+    ret = this.unit.prodAllBonus.bonuses
+      .concat(this.positiveOnly ? [] : this.unit.prodEfficiency.bonuses)
+      .map((bonus) => {
+        return {
+          what: bonus.unit.name,
+          quantity: bonus.unit.quantity,
+          effect: bonus.multiplier.times(100),
+          total: bonus.multiplier
+            .times(bonus.unit.quantity)
+            .times(100)
+            .plus(100)
+        };
+      });
 
     return ret;
   }

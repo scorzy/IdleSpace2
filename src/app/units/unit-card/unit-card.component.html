@@ -76,7 +76,7 @@
     [nzTitle]="title"
     [nzDescription]="description"
     nz-popover
-    [nzPopoverContent]="unit.description"
+    [nzPopoverContent]="limitPopover"
   ></nz-card-meta>
 </ng-template>
 <ng-template #avatarTemplate>
@@ -173,5 +173,43 @@
         }}</span
       >
     </button>
+  </div>
+</ng-template>
+
+<ng-template #limitPopover>
+  <p *ngIf="unit.description !== ''">{{ unit.description }}</p>
+  <div *ngIf="unit.limitStack">
+    <h4>Storage - Additive</h4>
+    <nz-table nzTemplateMode>
+      <tbody>
+        <tr *ngFor="let limit of unit.limitStack.bonuses">
+          <ng-container *ngIf="limit.unit.quantity.gt(0)">
+            <td>{{ limit.unit.name }}</td>
+            <td>{{ limit.unit.quantity | format }}</td>
+            <td>x{{ limit.multiplier | format: true }}</td>
+            <td>
+              = {{ limit.unit.quantity.times(limit.multiplier) | format }}
+            </td>
+          </ng-container>
+        </tr>
+      </tbody>
+    </nz-table>
+    <h4>Storage - Multiplicative</h4>
+    <nz-table nzTemplateMode>
+      <tbody>
+        <tr *ngFor="let limit of unit.limitStackMulti.bonuses">
+          <ng-container *ngIf="limit.unit.quantity.gt(0)">
+            <td>{{ limit.unit.name }}</td>
+            <td>{{ limit.unit.quantity | format }}</td>
+            <td>x{{ limit.multiplier.times(100) | format }}%</td>
+            <td>
+              = x{{
+                limit.unit.quantity.times(limit.multiplier).times(100) | format
+              }}%
+            </td>
+          </ng-container>
+        </tr>
+      </tbody>
+    </nz-table>
   </div>
 </ng-template>

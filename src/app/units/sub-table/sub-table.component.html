@@ -1,4 +1,4 @@
-<table>
+<nz-table nzTemplateMode>
   <!-- <thead>
     <tr>
       <th></th>
@@ -8,7 +8,7 @@
     </tr>
   </thead> -->
   <tbody>
-    <tr>
+    <!-- <tr>
       <td>Base</td>
       <td class="monospace">{{ this.data.ratio }}</td>
       <td class="monospace">{{ this.unit.operativity | format }}%</td>
@@ -20,7 +20,7 @@
           >{{ data.ratio.times(this.unit.operativity).div(100) | format }}</span
         >
       </td>
-    </tr>
+    </tr> -->
     <tr *ngFor="let d of subData; trackBy: getIndex">
       <td>{{ d.what }}</td>
       <td>
@@ -37,7 +37,7 @@
           class="monospace"
           nz-text
           [nzType]="d.effect.gte(0) ? '' : 'danger'"
-          >{{ d.effect | format }}</span
+          >{{ d.effect | format }}%</span
         >
       </td>
       <td>
@@ -46,9 +46,9 @@
           class="monospace"
           nz-text
           [nzType]="d.total.gte(0) ? '' : 'danger'"
-          >x {{ d.total | format }}%</span
+          >x{{ d.total | format }}%</span
         >
       </td>
     </tr>
   </tbody>
-</table>
+</nz-table>
