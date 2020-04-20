@@ -1,0 +1,9 @@
+<div fxLayout="column" fxLayout.gt-xs="row wrap" fxLayoutGap="10px">
+  <div
+    fxFlex="1 1 230px"
+    class="flex-item"
+    *ngFor="let unit of units; trackBy: getId"
+  >
+    <app-unit-card [unit]="unit"> </app-unit-card>
+  </div>
+</div>

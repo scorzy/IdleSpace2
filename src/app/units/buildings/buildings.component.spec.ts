@@ -1,0 +1,34 @@
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
+
+import { BuildingsComponent } from "./buildings.component";
+import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import { testImports } from "src/app/app.component.spec";
+import { FormatPipe } from "src/app/format.pipe";
+import { MainService } from "src/app/main.service";
+import { OptionsService } from "src/app/options.service";
+import { Game } from "src/app/model/game";
+
+describe("BuildingsComponent", () => {
+  let component: BuildingsComponent;
+  let fixture: ComponentFixture<BuildingsComponent>;
+
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
+      imports: testImports,
+      declarations: [BuildingsComponent, FormatPipe],
+      providers: [MainService, OptionsService, FormatPipe]
+    }).compileComponents();
+  }));
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(BuildingsComponent);
+    component = fixture.componentInstance;
+    component.ms.game = new Game();
+    fixture.detectChanges();
+  });
+
+  it("should create", () => {
+    expect(component).toBeTruthy();
+  });
+});
