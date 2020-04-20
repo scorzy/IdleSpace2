@@ -120,6 +120,10 @@ export const UNITS: IUnitData[] = [
       {
         buildingLimit: "1",
         buildingLimitQuantity: 10
+      },
+      {
+        buildingLimit: "14",
+        buildingLimitQuantity: BUILDING_TIER_2_UNIT
       }
     ],
     unitType: UNIT_TYPES.WORKER,
@@ -281,6 +285,10 @@ export const UNITS: IUnitData[] = [
       {
         buildingLimit: "7",
         buildingLimitQuantity: 10
+      },
+      {
+        buildingLimit: "13",
+        buildingLimitQuantity: BUILDING_TIER_2_UNIT
       }
     ],
     unitType: UNIT_TYPES.WORKER,
@@ -468,6 +476,26 @@ export const UNITS: IUnitData[] = [
     icon: "my:circuitry",
     colorClass: "science-color",
     prices: [["j", BUILDING_TIER_2_PRICE]],
+    unitType: UNIT_TYPES.BUILDING
+  },
+  {
+    id: "13",
+    name: "Mega Drone Factory",
+    description: "+" + BUILDING_TIER_2_UNIT + " replicators",
+    icon: "my:factory-arm",
+    colorClass: "component-color",
+    prices: [["j", BUILDING_TIER_2_PRICE]],
+    unlockQuantity: 1,
+    unitType: UNIT_TYPES.BUILDING
+  },
+  {
+    id: "14",
+    name: "Mega Mine",
+    description: "+" + BUILDING_TIER_2_UNIT + " miners",
+    icon: "my:gold-mine",
+    colorClass: "metal-color",
+    prices: [["P", BUILDING_TIER_2_PRICE]],
+    unlockQuantity: 1,
     unitType: UNIT_TYPES.BUILDING
   },
   //#endregion
