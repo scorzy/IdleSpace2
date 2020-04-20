@@ -180,9 +180,9 @@
   <p *ngIf="unit.description !== ''">{{ unit.description }}</p>
   <div *ngIf="unit.limitStack">
     <h4>Storage - Additive</h4>
-    <nz-table nzTemplateMode>
+    <nz-table nzTemplateMode nzSize="middle">
       <tbody>
-        <tr *ngFor="let limit of unit.limitStack.bonuses">
+        <tr *ngFor="let limit of unit.limitStack.bonuses; trackBy: getBonusId">
           <ng-container *ngIf="limit.unit.quantity.gt(0)">
             <td>{{ limit.unit.name }}</td>
             <td>{{ limit.unit.quantity | format }}</td>
@@ -195,9 +195,14 @@
       </tbody>
     </nz-table>
     <h4>Storage - Multiplicative</h4>
-    <nz-table nzTemplateMode>
+    <nz-table nzTemplateMode nzSize="middle">
       <tbody>
-        <tr *ngFor="let limit of unit.limitStackMulti.bonuses">
+        <tr
+          *ngFor="
+            let limit of unit.limitStackMulti.bonuses;
+            trackBy: getBonusId
+          "
+        >
           <ng-container *ngIf="limit.unit.quantity.gt(0)">
             <td>{{ limit.unit.name }}</td>
             <td>{{ limit.unit.quantity | format }}</td>

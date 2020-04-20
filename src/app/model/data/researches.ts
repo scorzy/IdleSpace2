@@ -1,7 +1,7 @@
 import { IResearchData } from "./iResearchData";
 import { TECHNOLOGIES } from "./technologyData";
 const INITIATIVE_MULTI = 0.5;
-const MEGA_BUILDING_LIMIT = 0.1;
+const MEGA_BUILDING_LIMIT = 0.3;
 const MEGA_BUILDING_STORAGE = 10;
 export const RESEARCHES: IResearchData[] = [
   {
@@ -118,7 +118,16 @@ export const RESEARCHES: IResearchData[] = [
     max: 1,
     type: [TECHNOLOGIES.Materials],
     technologiesToUnlock: ["m"],
-    researchToUnlock: ["x", "N", "g1"]
+    researchToUnlock: ["x", "N", "g1", "su"]
+  },
+  {
+    id: "su",
+    name: "Superconductors",
+    description: "Improve energy generation",
+    max: 10,
+    type: [TECHNOLOGIES.Materials],
+    effMulti: [{ unitId: "e", multi: 0.2 }],
+    limitMulti: [{ unitId: "E", multi: 1 }]
   },
   {
     id: "N",

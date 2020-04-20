@@ -18,6 +18,7 @@ import { NzModalService, NzModalRef } from "ng-zorro-antd";
 import { BreakpointObserver, BreakpointState } from "@angular/cdk/layout";
 import { Router } from "@angular/router";
 import { BaseComponentComponent } from "src/app/base-component/base-component.component";
+import { Bonus } from "src/app/model/bonus/bonus";
 
 @Component({
   selector: "app-unit-card",
@@ -119,5 +120,8 @@ export class UnitCardComponent extends BaseComponentComponent
   }
   goModPage() {
     this.router.navigate(["/mod/" + this.unit.id]);
+  }
+  getBonusId(index: number, bonus: Bonus) {
+    return bonus.unit.id;
   }
 }

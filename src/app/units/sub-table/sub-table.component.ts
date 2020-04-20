@@ -6,7 +6,6 @@ import {
   OnDestroy,
   AfterViewInit
 } from "@angular/core";
-import { Production } from "src/app/model/units/production";
 import { Unit } from "src/app/model/units/unit";
 import { BaseComponentComponent } from "src/app/base-component/base-component.component";
 
@@ -46,19 +45,17 @@ export class SubTableComponent extends BaseComponentComponent
       total: Decimal;
     }>();
 
-    ret = this.unit.prodAllBonus.bonuses
-      .concat(this.positiveOnly ? [] : this.unit.prodEfficiency.bonuses)
-      .map((bonus) => {
-        return {
-          what: bonus.unit.name,
-          quantity: bonus.unit.quantity,
-          effect: bonus.multiplier.times(100),
-          total: bonus.multiplier
-            .times(bonus.unit.quantity)
-            .times(100)
-            .plus(100)
-        };
-      });
+    ret = (this.positiveOnly
+      ? this.unit.prodEfficiency.bonuses
+      : this.unit.prodAllBonus.bonuses
+    ).map((bonus) => {
+      return {
+        what: bonus.unit.name,
+        quantity: bonus.unit.quantity,
+        effect: bonus.multiplier.times(100),
+        total: bonus.multiplier.times(bonus.unit.quantity).times(100).plus(100)
+      };
+    });
 
     return ret;
   }

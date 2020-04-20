@@ -3,12 +3,10 @@ import {
   OnInit,
   ChangeDetectionStrategy,
   OnDestroy,
-  AfterViewInit,
-  ChangeDetectorRef
+  AfterViewInit
 } from "@angular/core";
 import { BaseComponentComponent } from "src/app/base-component/base-component.component";
 import { Unit } from "src/app/model/units/unit";
-import { MainService } from "src/app/main.service";
 
 @Component({
   selector: "app-buildings",
