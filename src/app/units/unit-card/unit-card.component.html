@@ -5,9 +5,9 @@
   [nzExtra]="extraTemplate"
   [nzActions]="unit.modStack ? [buyOne, buyMax, mod] : [buyOne, buyMax]"
 >
-  <p *ngIf="unit.description !== ''" class="text-secondary">
+  <!-- <p *ngIf="unit.description !== ''" class="text-secondary">
     {{ unit.description }}
-  </p>
+  </p> -->
   <div *ngIf="unit.production.length > 0">
     <nz-slider
       [(ngModel)]="unit.operativity"
@@ -75,6 +75,8 @@
     [nzAvatar]="avatarTemplate"
     [nzTitle]="title"
     [nzDescription]="description"
+    nz-popover
+    [nzPopoverContent]="unit.description"
   ></nz-card-meta>
 </ng-template>
 <ng-template #avatarTemplate>

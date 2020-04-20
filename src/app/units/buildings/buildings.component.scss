@@ -1,3 +1,6 @@
 .flex-item {
   margin-bottom: 10px;
 }
+::ng-deep .ant-card-head {
+  padding: 0 12px !important;
+}
