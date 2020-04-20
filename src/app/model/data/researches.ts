@@ -1,6 +1,8 @@
 import { IResearchData } from "./iResearchData";
 import { TECHNOLOGIES } from "./technologyData";
-const INITIATIVE_MULTI = 0.3;
+const INITIATIVE_MULTI = 0.5;
+const MEGA_BUILDING_LIMIT = 0.1;
+const MEGA_BUILDING_STORAGE = 10;
 export const RESEARCHES: IResearchData[] = [
   {
     id: "m",
@@ -20,7 +22,7 @@ export const RESEARCHES: IResearchData[] = [
     type: [TECHNOLOGIES.Physics],
     researchToUnlock: ["c", "E", "p1"],
     technologiesToUnlock: ["p"],
-    effMulti: [{ unitId: "s", multi: 0.3 }]
+    effMulti: [{ unitId: "s", multi: 0.5 }]
   },
   {
     id: "c",
@@ -100,10 +102,14 @@ export const RESEARCHES: IResearchData[] = [
     id: "x2",
     name: "Mega Drone Factory",
     description: "Unlock mega drone factory",
-    max: 10,
+    max: 1,
     type: [TECHNOLOGIES.Robotics],
     unitsToUnlock: ["13"],
-    effMulti: [{ unitId: "r", multi: 0.1 }]
+    effMulti: [{ unitId: "X", multi: 0.1 }],
+    limitMulti: [
+      { unitId: "X", multi: MEGA_BUILDING_LIMIT },
+      { unitId: "x", multi: MEGA_BUILDING_STORAGE }
+    ]
   },
   {
     id: "M",
@@ -112,7 +118,7 @@ export const RESEARCHES: IResearchData[] = [
     max: 1,
     type: [TECHNOLOGIES.Materials],
     technologiesToUnlock: ["m"],
-    researchToUnlock: ["x", "N"]
+    researchToUnlock: ["x", "N", "g1"]
   },
   {
     id: "N",
@@ -140,7 +146,8 @@ export const RESEARCHES: IResearchData[] = [
     max: 1,
     type: [TECHNOLOGIES.Mining],
     effMulti: [{ unitId: "m", multi: 0.1 }],
-    unitsToUnlock: ["14"]
+    unitsToUnlock: ["14"],
+    limitMulti: [{ unitId: "m", multi: MEGA_BUILDING_LIMIT }]
   },
   {
     id: "E",
@@ -164,12 +171,16 @@ export const RESEARCHES: IResearchData[] = [
   },
   {
     id: "E2",
-    name: "Mega power plant",
+    name: "Mega Power Plant",
     description: "Unlock mega power plant",
     max: 1,
     type: [TECHNOLOGIES.Energy],
     effMulti: [{ unitId: "e", multi: 0.05 }],
-    unitsToUnlock: ["16"]
+    unitsToUnlock: ["16"],
+    limitMulti: [
+      { unitId: "e", multi: MEGA_BUILDING_LIMIT },
+      { unitId: "E", multi: MEGA_BUILDING_STORAGE }
+    ]
   },
   {
     id: "r0",
@@ -226,7 +237,8 @@ export const RESEARCHES: IResearchData[] = [
     type: [TECHNOLOGIES.Search],
     max: 1,
     effMulti: [{ unitId: "r", multi: 0.1 }],
-    unitsToUnlock: ["15"]
+    unitsToUnlock: ["15"],
+    limitMulti: [{ unitId: "r", multi: MEGA_BUILDING_LIMIT }]
   },
   {
     id: "b",
@@ -290,6 +302,76 @@ export const RESEARCHES: IResearchData[] = [
     type: [TECHNOLOGIES.Physics],
     max: 1,
     unitsToUnlock: ["17"],
-    effMulti: [{ unitId: "s", multi: 0.1 }]
+    effMulti: [{ unitId: "s", multi: 0.1 }],
+    limitMulti: [{ unitId: "s", multi: MEGA_BUILDING_LIMIT }]
+  },
+  {
+    id: "g1",
+    name: "Metallurgy",
+    description: "Improve metallurgist and workers",
+    type: [TECHNOLOGIES.Materials],
+    max: 10,
+    researchToUnlock: ["g2"],
+    prodMulti: [
+      { unitId: "a", multi: INITIATIVE_MULTI / 2 },
+      { unitId: "w", multi: INITIATIVE_MULTI / 2 }
+    ]
+  },
+  {
+    id: "g2",
+    name: "Smart materials",
+    description: "Improve metallurgist and workers",
+    type: [TECHNOLOGIES.Materials],
+    max: 10,
+    researchToUnlock: ["g3", "f1", "f2"],
+    effMulti: [
+      { unitId: "a", multi: INITIATIVE_MULTI / 5 },
+      { unitId: "w", multi: INITIATIVE_MULTI / 5 }
+    ]
+  },
+  {
+    id: "g3",
+    name: "3D printing",
+    description: "Improve workers",
+    type: [TECHNOLOGIES.CivilEngineering],
+    max: 10,
+    researchToUnlock: ["g4"],
+    prodMulti: [{ unitId: "w", multi: INITIATIVE_MULTI }]
+  },
+  {
+    id: "g4",
+    name: "Nanorobotics",
+    description: "Improve workers",
+    type: [TECHNOLOGIES.CivilEngineering],
+    max: 10,
+    effMulti: [{ unitId: "w", multi: INITIATIVE_MULTI / 2 }]
+  },
+  {
+    id: "g4",
+    name: "Nanorobotics",
+    description: "Improve workers",
+    type: [TECHNOLOGIES.CivilEngineering],
+    max: 10,
+    effMulti: [{ unitId: "w", multi: INITIATIVE_MULTI / 2 }]
+  },
+  {
+    id: "f1",
+    name: "Mega Foundry",
+    description: "Unlock Mega foundry",
+    type: [TECHNOLOGIES.CivilEngineering],
+    max: 1,
+    unitsToUnlock: ["18"],
+    effMulti: [{ unitId: "a", multi: 0.1 }],
+    limitMulti: [{ unitId: "a", multi: MEGA_BUILDING_LIMIT }]
+  },
+  {
+    id: "f2",
+    name: "Mega Factory",
+    description: "Unlock Mega Factory",
+    type: [TECHNOLOGIES.CivilEngineering],
+    max: 1,
+    unitsToUnlock: ["19"],
+    effMulti: [{ unitId: "w", multi: 0.1 }],
+    limitMulti: [{ unitId: "w", multi: MEGA_BUILDING_LIMIT }]
   }
 ];

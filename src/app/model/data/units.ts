@@ -201,6 +201,10 @@ export const UNITS: IUnitData[] = [
       {
         buildingLimit: "4",
         buildingLimitQuantity: 10
+      },
+      {
+        buildingLimit: "18",
+        buildingLimitQuantity: BUILDING_TIER_2_UNIT
       }
     ],
     unitType: UNIT_TYPES.WORKER,
@@ -228,6 +232,10 @@ export const UNITS: IUnitData[] = [
       {
         buildingLimit: "5",
         buildingLimitQuantity: 10
+      },
+      {
+        buildingLimit: "19",
+        buildingLimitQuantity: BUILDING_TIER_2_UNIT
       }
     ],
     unitType: UNIT_TYPES.WORKER,
@@ -387,6 +395,17 @@ export const UNITS: IUnitData[] = [
     unitType: UNIT_TYPES.BUILDING
   },
   {
+    id: "8",
+    name: "Batteries",
+    description: "+ " + ENERGY_STORAGE + " energy storage",
+    colorClass: "energy-color",
+    icon: "my:battery-pack",
+    startQuantity: 1,
+    prices: [["j", 10]],
+    unlockQuantity: 1,
+    unitType: UNIT_TYPES.BUILDING
+  },
+  {
     id: "3",
     name: "Laboratory",
     icon: "fa-s:microscope",
@@ -436,17 +455,7 @@ export const UNITS: IUnitData[] = [
     unlockQuantity: 1,
     unitType: UNIT_TYPES.BUILDING
   },
-  {
-    id: "8",
-    name: "Batteries",
-    description: "+ " + ENERGY_STORAGE + " energy storage",
-    colorClass: "energy-color",
-    icon: "my:battery-pack",
-    startQuantity: 1,
-    prices: [["j", 10]],
-    unlockQuantity: 1,
-    unitType: UNIT_TYPES.BUILDING
-  },
+
   {
     id: "9",
     name: "Drone Depot",
@@ -478,39 +487,12 @@ export const UNITS: IUnitData[] = [
     unitType: UNIT_TYPES.BUILDING
   },
   {
-    id: "12",
-    name: "Super computing center",
-    description: "+ " + BUILDING_TIER_2_UNIT + " scientists",
-    icon: "my:circuitry",
-    colorClass: "science-color",
-    prices: [["j", BUILDING_TIER_2_PRICE]],
-    unitType: UNIT_TYPES.BUILDING
-  },
-  {
-    id: "13",
-    name: "Mega Drone Factory",
-    description: "+" + BUILDING_TIER_2_UNIT + " replicators",
-    icon: "my:factory-arm",
-    colorClass: "component-color",
-    prices: [["j", BUILDING_TIER_2_PRICE]],
-    unitType: UNIT_TYPES.BUILDING
-  },
-  {
     id: "14",
     name: "Mega Mine",
     description: "+" + BUILDING_TIER_2_UNIT + " miners",
     icon: "my:gold-mine",
     colorClass: "metal-color",
     prices: [["P", BUILDING_TIER_2_PRICE]],
-    unitType: UNIT_TYPES.BUILDING
-  },
-  {
-    id: "15",
-    name: "Mega observatory",
-    description: "+" + BUILDING_TIER_2_UNIT + " searchers",
-    icon: "my:observatory",
-    colorClass: "search-color",
-    prices: [["j", BUILDING_TIER_2_PRICE]],
     unitType: UNIT_TYPES.BUILDING
   },
   {
@@ -528,6 +510,51 @@ export const UNITS: IUnitData[] = [
     description: "+" + BUILDING_TIER_2_UNIT + " scientists",
     icon: "fa-s:microscope",
     colorClass: "science-color",
+    prices: [["j", BUILDING_TIER_2_PRICE]],
+    unitType: UNIT_TYPES.BUILDING
+  },
+  {
+    id: "12",
+    name: "Super computing center",
+    description: "+ " + BUILDING_TIER_2_UNIT + " scientists",
+    icon: "my:circuitry",
+    colorClass: "science-color",
+    prices: [["j", BUILDING_TIER_2_PRICE]],
+    unitType: UNIT_TYPES.BUILDING
+  },
+  {
+    id: "18",
+    name: "Mega Foundry",
+    description: "+" + BUILDING_TIER_2_UNIT + " metallurgists",
+    icon: "my:foundry-bucket",
+    colorClass: "alloy-color",
+    prices: [["j", BUILDING_TIER_2_UNIT]],
+    unitType: UNIT_TYPES.BUILDING
+  },
+  {
+    id: "19",
+    name: "Mega Factory",
+    description: "+" + BUILDING_TIER_2_UNIT + " workers",
+    icon: "my:factory",
+    colorClass: "production-color",
+    prices: [["j", BUILDING_TIER_2_UNIT]],
+    unitType: UNIT_TYPES.BUILDING
+  },
+  {
+    id: "15",
+    name: "Mega observatory",
+    description: "+" + BUILDING_TIER_2_UNIT + " searchers",
+    icon: "my:observatory",
+    colorClass: "search-color",
+    prices: [["j", BUILDING_TIER_2_PRICE]],
+    unitType: UNIT_TYPES.BUILDING
+  },
+  {
+    id: "13",
+    name: "Mega Drone Factory",
+    description: "+" + BUILDING_TIER_2_UNIT + " replicators",
+    icon: "my:factory-arm",
+    colorClass: "component-color",
     prices: [["j", BUILDING_TIER_2_PRICE]],
     unitType: UNIT_TYPES.BUILDING
   },
