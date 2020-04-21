@@ -20,10 +20,10 @@
       [nzData]="listOfStations"
       [nzShowPagination]="false"
     >
-      <thead (nzSortChange)="sort($event)" nzSingleSort>
+      <thead>
         <tr>
-          <th nzShowSort nzSortKey="id">Name</th>
-          <th nzShowSort nzSortKey="buildPriceNext">
+          <th>Name</th>
+          <th>
             <i
               nz-icon
               [nzType]="ms.game.resourceManager.shipyardWork.icon"
@@ -31,7 +31,7 @@
             ></i>
             Price
           </th>
-          <th nzShowSort nzSortKey="habSpace">
+          <th>
             <i
               nz-icon
               [ngClass]="ms.game.resourceManager.habitableSpace.colorClass"
@@ -39,7 +39,7 @@
             ></i>
             Hab. Space
           </th>
-          <th nzShowSort nzSortKey="habSpaceDivPrice">
+          <th>
             1e12 Space/Price
           </th>
           <th>Queue?</th>
