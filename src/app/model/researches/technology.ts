@@ -8,7 +8,7 @@ import assign from "lodash-es/assign";
 import { Game } from "../game";
 import { OptionsService } from "src/app/options.service";
 
-const RESEARCH_BONUS = new Decimal(0.1);
+const RESEARCH_BONUS = new Decimal(0.05);
 
 export class Technology implements IBase, IUnlockable, ITechnologyData {
   id = "";

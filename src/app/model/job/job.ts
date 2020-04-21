@@ -18,7 +18,7 @@ export abstract class Job {
   timeToEnd?: number;
   totalBonus = ONE;
   totalBonusUi = ZERO;
-  types: IJobType[] = [];
+  type: IJobType;
   canDelete = false;
 
   /**
@@ -63,13 +63,10 @@ export abstract class Job {
       this.progress.div(this.total).toNumber() * 100
     );
   }
-  getIcons(): MyIcon[] {
-    return [];
-  }
   reloadTotalBonus() {
     this.totalBonus = ONE;
-    for (let i = 0, n = this.types.length; i < n; i++) {
-      this.totalBonus = this.totalBonus.times(this.types[i].bonus.totalBonus);
+    if (this.type) {
+      this.totalBonus = this.totalBonus.times(this.type.bonus.totalBonus);
     }
   }
   abstract getSave(): any;

@@ -66,7 +66,7 @@ export class ResearchManager extends JobManager {
         name: shipyard.shipTypes[i].name,
         description: "Unlock " + shipyard.shipTypes[i].name,
         price: Decimal.pow(SHIP_PRICE_MULTI, i).times(SHIP_BASE_PRICE),
-        type: [TECHNOLOGIES.MilitaryEngineering],
+        type: TECHNOLOGIES.MilitaryEngineering,
         shipTypeToUnlock: shipyard.shipTypes[i].id
       };
       resData.navalCapacity =
@@ -90,7 +90,7 @@ export class ResearchManager extends JobManager {
         name: spaceStations[i].name,
         description: "Unlock " + spaceStations[i].name,
         price: Decimal.pow(SPACE_STATION_MULTI, i).times(second.initialPrice),
-        type: [TECHNOLOGIES.CivilEngineering],
+        type: TECHNOLOGIES.CivilEngineering,
         unitsToUnlock: [spaceStations[i].id]
       };
       if (i + 1 < n) {
@@ -107,7 +107,7 @@ export class ResearchManager extends JobManager {
         price: Decimal.pow(SPACE_STATION_MULTI, i)
           .times(second.initialPrice)
           .times(10),
-        type: [TECHNOLOGIES.CivilEngineering],
+        type: TECHNOLOGIES.CivilEngineering,
         stationToUp: [
           {
             stationId: spaceStations[i].id,

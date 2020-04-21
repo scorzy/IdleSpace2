@@ -1,5 +1,5 @@
 import { IResearchData } from "../data/iResearchData";
-import { Job, MyIcon } from "../job/job";
+import { Job } from "../job/job";
 import { convertToRoman, solveEquation } from "ant-utils";
 import {
   RESEARCH_GROW_RATE,
@@ -76,9 +76,10 @@ export class Research extends Job implements IUnlockable, IBase {
         (t) => t.id === this.resData.shipTypeToUnlock
       );
     }
-    this.types = researchData.type.map((t) =>
-      researchManager.technologies.find((tec) => tec.id === t.id)
+    this.type = researchManager.technologies.find(
+      (tec) => tec.id === researchData.type.id
     );
+
     this.reload();
   }
   reload(): void {
@@ -129,14 +130,6 @@ export class Research extends Job implements IUnlockable, IBase {
   unlock(): boolean {
     const resM = Game.getGame().researchManager;
     return resM.unlock(this);
-  }
-  getIcons(): MyIcon[] {
-    return this.types.map((t) => {
-      return {
-        icon: t.icon,
-        color: t.color
-      };
-    });
   }
   setLevels() {
     if (this.researchToUnlock) {

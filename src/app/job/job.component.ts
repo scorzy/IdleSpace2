@@ -5,7 +5,7 @@ import {
   OnDestroy,
   AfterViewInit
 } from "@angular/core";
-import { Job, MyIcon } from "../model/job/job";
+import { Job } from "../model/job/job";
 import { Research } from "../model/researches/research";
 import { moveItemInArray } from "@angular/cdk/drag-drop";
 import { BaseComponentComponent } from "../base-component/base-component.component";
@@ -20,7 +20,6 @@ export class JobComponent extends BaseComponentComponent
   @Input() job: Job;
   @Input() collection: Job[];
   @Input() showDescription = true;
-  icons: MyIcon[];
   isResearch = false;
   research: Research;
   totalResearchBonus: Decimal;
@@ -29,7 +28,6 @@ export class JobComponent extends BaseComponentComponent
     if (this.job instanceof Research) {
       this.research = this.job;
     }
-    this.icons = this.job.getIcons();
 
     this.subscriptions.push(
       this.ms.updateEmitter.subscribe(() => {
@@ -37,9 +35,6 @@ export class JobComponent extends BaseComponentComponent
         this.cd.markForCheck();
       })
     );
-  }
-  getIconId(index: number, myIcon: MyIcon) {
-    return myIcon.icon + myIcon.color;
   }
   moveUp() {
     moveItemInArray(

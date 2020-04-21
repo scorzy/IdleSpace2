@@ -1,11 +1,12 @@
 <div fxLayout="rows" class="bordered job-card light-background">
   <div fxLayout="column" fxFlex="100%" fxLayoutGap="1px" class="job-content">
     <div fxLayout="rows">
-      <span
-        *ngFor="let item of icons; trackBy: getIconId"
-        [style.color]="item.color"
-        ><i nz-icon [nzType]="item.icon" class="icon"></i
-      ></span>
+      <i
+        nz-icon
+        [nzType]="job.type.icon"
+        class="icon"
+        [style.color]="job.type.color"
+      ></i>
       <strong class="title">{{ job.name }}</strong>
       <div>
         <span *ngIf="research && research.totalBonusUi.gt(0)" class="monospace">

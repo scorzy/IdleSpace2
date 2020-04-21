@@ -11,7 +11,7 @@ export const RESEARCHES: IResearchData[] = [
     unitsToUnlock: ["A", "a", "w", "W", "4", "5"],
     researchToUnlock: ["p", "s1", "n", "s", "M", "P"],
     max: 1,
-    type: [TECHNOLOGIES.MilitaryEngineering],
+    type: TECHNOLOGIES.MilitaryEngineering,
     technologiesToUnlock: ["e", TECHNOLOGIES.CivilEngineering.id]
   },
   {
@@ -19,7 +19,7 @@ export const RESEARCHES: IResearchData[] = [
     name: "Physics",
     description: "Unlock Physics Technology",
     max: 1,
-    type: [TECHNOLOGIES.Physics],
+    type: TECHNOLOGIES.Physics,
     researchToUnlock: ["c", "E", "p1"],
     technologiesToUnlock: ["p"],
     effMulti: [{ unitId: "s", multi: 0.5 }]
@@ -29,7 +29,7 @@ export const RESEARCHES: IResearchData[] = [
     name: "Computing",
     description: "Unlock Computing Technology",
     max: 1,
-    type: [TECHNOLOGIES.Computing],
+    type: TECHNOLOGIES.Computing,
     technologiesToUnlock: ["c"],
     researchToUnlock: ["c1"]
   },
@@ -38,7 +38,7 @@ export const RESEARCHES: IResearchData[] = [
     name: "Naval Logistics",
     description: "Unlock Naval Capacity Technology",
     max: 1,
-    type: [TECHNOLOGIES.Naval],
+    type: TECHNOLOGIES.Naval,
     technologiesToUnlock: ["n"],
     researchToUnlock: ["n1"]
   },
@@ -47,7 +47,7 @@ export const RESEARCHES: IResearchData[] = [
     name: "Searching",
     description: "Unlock Searchers",
     max: 1,
-    type: [TECHNOLOGIES.Search],
+    type: TECHNOLOGIES.Search,
     unitsToUnlock: ["r", "R", "6"],
     technologiesToUnlock: ["r"],
     researchToUnlock: ["r0"]
@@ -57,7 +57,7 @@ export const RESEARCHES: IResearchData[] = [
     name: "Propulsion",
     description: "Unlock Propulsion",
     max: 1,
-    type: [TECHNOLOGIES.Propulsion],
+    type: TECHNOLOGIES.Propulsion,
     technologiesToUnlock: [TECHNOLOGIES.Propulsion.id]
   },
   {
@@ -65,7 +65,7 @@ export const RESEARCHES: IResearchData[] = [
     name: "Robotics",
     description: "Unlock Replicators",
     max: 1,
-    type: [TECHNOLOGIES.Robotics],
+    type: TECHNOLOGIES.Robotics,
     unitsToUnlock: ["x", "X", "7", "9"],
     technologiesToUnlock: [TECHNOLOGIES.Robotics.id],
     researchToUnlock: ["x1"],
@@ -85,7 +85,7 @@ export const RESEARCHES: IResearchData[] = [
     name: "Improved drones",
     description: "Drones yield and consume more",
     max: 10,
-    type: [TECHNOLOGIES.Robotics],
+    type: TECHNOLOGIES.Robotics,
     researchToUnlock: ["x2"],
     prodMulti: [
       { unitId: "m", multi: 0.1 },
@@ -103,7 +103,7 @@ export const RESEARCHES: IResearchData[] = [
     name: "Mega Drone Factory",
     description: "Unlock mega drone factory",
     max: 1,
-    type: [TECHNOLOGIES.Robotics],
+    type: TECHNOLOGIES.Robotics,
     unitsToUnlock: ["13"],
     effMulti: [{ unitId: "X", multi: 0.1 }],
     limitMulti: [
@@ -116,7 +116,7 @@ export const RESEARCHES: IResearchData[] = [
     name: "Materials",
     description: "Unlock Materials Technology",
     max: 1,
-    type: [TECHNOLOGIES.Materials],
+    type: TECHNOLOGIES.Materials,
     technologiesToUnlock: ["m"],
     researchToUnlock: ["x", "N", "g1", "su"]
   },
@@ -125,7 +125,7 @@ export const RESEARCHES: IResearchData[] = [
     name: "Superconductors",
     description: "Improve energy generation",
     max: 10,
-    type: [TECHNOLOGIES.Materials],
+    type: TECHNOLOGIES.Materials,
     effMulti: [{ unitId: "e", multi: 0.2 }],
     limitMulti: [{ unitId: "E", multi: 1 }]
   },
@@ -134,7 +134,7 @@ export const RESEARCHES: IResearchData[] = [
     name: "Mining",
     description: "Unlock Mining Technology",
     max: 1,
-    type: [TECHNOLOGIES.Mining],
+    type: TECHNOLOGIES.Mining,
     technologiesToUnlock: [TECHNOLOGIES.Mining.id],
     researchToUnlock: ["N1"],
     prodMulti: [{ unitId: "m", multi: 0.5 }]
@@ -144,7 +144,7 @@ export const RESEARCHES: IResearchData[] = [
     name: "Mining initiative",
     description: "Miners yield and consume more",
     max: 10,
-    type: [TECHNOLOGIES.Mining],
+    type: TECHNOLOGIES.Mining,
     researchToUnlock: ["N2"],
     prodMulti: [{ unitId: "m", multi: INITIATIVE_MULTI }]
   },
@@ -153,7 +153,7 @@ export const RESEARCHES: IResearchData[] = [
     name: "Mega mine",
     description: "Unlock mega mine",
     max: 1,
-    type: [TECHNOLOGIES.Mining],
+    type: TECHNOLOGIES.Mining,
     effMulti: [{ unitId: "m", multi: 0.1 }],
     unitsToUnlock: ["14"],
     limitMulti: [{ unitId: "m", multi: MEGA_BUILDING_LIMIT }]
@@ -163,7 +163,7 @@ export const RESEARCHES: IResearchData[] = [
     name: "Energy",
     description: "Unlock Energy Technology",
     max: 1,
-    type: [TECHNOLOGIES.Energy],
+    type: TECHNOLOGIES.Energy,
     technologiesToUnlock: [TECHNOLOGIES.Energy.id],
     researchToUnlock: ["E1"],
     limitMulti: [{ unitId: "E", multi: 1 }],
@@ -174,7 +174,7 @@ export const RESEARCHES: IResearchData[] = [
     name: "Energy initiative",
     description: "Technicians consume and yield more",
     max: 10,
-    type: [TECHNOLOGIES.Energy],
+    type: TECHNOLOGIES.Energy,
     effMulti: [{ unitId: "e", multi: INITIATIVE_MULTI / 6 }],
     researchToUnlock: ["E2"]
   },
@@ -183,7 +183,7 @@ export const RESEARCHES: IResearchData[] = [
     name: "Mega Power Plant",
     description: "Unlock mega power plant",
     max: 1,
-    type: [TECHNOLOGIES.Energy],
+    type: TECHNOLOGIES.Energy,
     effMulti: [{ unitId: "e", multi: 0.05 }],
     unitsToUnlock: ["16"],
     limitMulti: [
@@ -195,7 +195,7 @@ export const RESEARCHES: IResearchData[] = [
     id: "r0",
     name: "Searching initiative",
     description: "Improve searching",
-    type: [TECHNOLOGIES.Search],
+    type: TECHNOLOGIES.Search,
     researchToUnlock: ["r1"],
     prodMulti: [{ unitId: "r", multi: INITIATIVE_MULTI }]
   },
@@ -203,7 +203,7 @@ export const RESEARCHES: IResearchData[] = [
     id: "r1",
     name: "Optimistic zone",
     description: "Search 1",
-    type: [TECHNOLOGIES.Search],
+    type: TECHNOLOGIES.Search,
     researchToUnlock: ["r2", "r3", "r6"],
     battleMulti: [{ materialId: "j", multi: 0.5 }]
   },
@@ -211,14 +211,14 @@ export const RESEARCHES: IResearchData[] = [
     id: "r2",
     name: "Conservative zone",
     description: "Search 2",
-    type: [TECHNOLOGIES.Search],
+    type: TECHNOLOGIES.Search,
     battleMulti: [{ materialId: "j", multi: 1 }]
   },
   {
     id: "r3",
     name: "Astrogeology",
     description: "Astrogeology",
-    type: [TECHNOLOGIES.Search],
+    type: TECHNOLOGIES.Search,
     researchToUnlock: ["r4", "r5"],
     battleMulti: [
       { materialId: "P", multi: 0.5 },
@@ -229,21 +229,21 @@ export const RESEARCHES: IResearchData[] = [
     id: "r4",
     name: "Asteroid Mining",
     description: "Asteroid Mining",
-    type: [TECHNOLOGIES.Search],
+    type: TECHNOLOGIES.Search,
     battleMulti: [{ materialId: "P", multi: 1 }]
   },
   {
     id: "r5",
     name: "Renewable energy",
     description: "Renewable energy",
-    type: [TECHNOLOGIES.Search],
+    type: TECHNOLOGIES.Search,
     battleMulti: [{ materialId: "k", multi: 1 }]
   },
   {
     id: "r6",
     name: "Mega observatory",
     description: "Unlock mega observatory",
-    type: [TECHNOLOGIES.Search],
+    type: TECHNOLOGIES.Search,
     max: 1,
     effMulti: [{ unitId: "r", multi: 0.1 }],
     unitsToUnlock: ["15"],
@@ -254,14 +254,14 @@ export const RESEARCHES: IResearchData[] = [
     name: "Nuke",
     description: "Nuke",
     max: 1,
-    type: [TECHNOLOGIES.MilitaryEngineering],
+    type: TECHNOLOGIES.MilitaryEngineering,
     unitsToUnlock: ["b", "B", "10", "11"]
   },
   {
     id: "n1",
     name: "Scavenging",
     description: "Increase materials gain from battles",
-    type: [TECHNOLOGIES.Naval],
+    type: TECHNOLOGIES.Naval,
     researchToUnlock: ["b"],
     battleMulti: [
       { materialId: "M", multi: 1 },
@@ -274,7 +274,7 @@ export const RESEARCHES: IResearchData[] = [
     id: "c1",
     name: "Algorithms",
     description: "Improve research",
-    type: [TECHNOLOGIES.Computing],
+    type: TECHNOLOGIES.Computing,
     effMulti: [{ unitId: "s", multi: 0.1 }],
     researchToUnlock: ["c2"]
   },
@@ -282,7 +282,7 @@ export const RESEARCHES: IResearchData[] = [
     id: "c2",
     name: "Super computing",
     description: "Unlock super computing center",
-    type: [TECHNOLOGIES.Computing],
+    type: TECHNOLOGIES.Computing,
     effMulti: [{ unitId: "s", multi: 0.1 }],
     max: 1,
     unitsToUnlock: ["12"]
@@ -291,7 +291,7 @@ export const RESEARCHES: IResearchData[] = [
     id: "p1",
     name: "Research initiative",
     description: "Researchers yield and consume more",
-    type: [TECHNOLOGIES.Physics],
+    type: TECHNOLOGIES.Physics,
     prodMulti: [{ unitId: "s", multi: INITIATIVE_MULTI }],
     researchToUnlock: ["p2"]
   },
@@ -299,7 +299,7 @@ export const RESEARCHES: IResearchData[] = [
     id: "p2",
     name: "Quantum gravity",
     description: "Researchers yield more",
-    type: [TECHNOLOGIES.Physics],
+    type: TECHNOLOGIES.Physics,
     max: 1,
     researchToUnlock: ["p3"],
     effMulti: [{ unitId: "s", multi: 0.3 }]
@@ -308,7 +308,7 @@ export const RESEARCHES: IResearchData[] = [
     id: "p3",
     name: "Mega science lab",
     description: "Unlock mega science lab",
-    type: [TECHNOLOGIES.Physics],
+    type: TECHNOLOGIES.Physics,
     max: 1,
     unitsToUnlock: ["17"],
     effMulti: [{ unitId: "s", multi: 0.1 }],
@@ -318,7 +318,7 @@ export const RESEARCHES: IResearchData[] = [
     id: "g1",
     name: "Metallurgy",
     description: "Improve metallurgist and workers",
-    type: [TECHNOLOGIES.Materials],
+    type: TECHNOLOGIES.Materials,
     max: 10,
     researchToUnlock: ["g2"],
     prodMulti: [
@@ -330,7 +330,7 @@ export const RESEARCHES: IResearchData[] = [
     id: "g2",
     name: "Smart materials",
     description: "Improve metallurgist and workers",
-    type: [TECHNOLOGIES.Materials],
+    type: TECHNOLOGIES.Materials,
     max: 10,
     researchToUnlock: ["g3", "f1", "f2"],
     effMulti: [
@@ -342,7 +342,7 @@ export const RESEARCHES: IResearchData[] = [
     id: "g3",
     name: "3D printing",
     description: "Improve workers",
-    type: [TECHNOLOGIES.CivilEngineering],
+    type: TECHNOLOGIES.CivilEngineering,
     max: 10,
     researchToUnlock: ["g4"],
     prodMulti: [{ unitId: "w", multi: INITIATIVE_MULTI }]
@@ -351,7 +351,7 @@ export const RESEARCHES: IResearchData[] = [
     id: "g4",
     name: "Nanorobotics",
     description: "Improve workers",
-    type: [TECHNOLOGIES.CivilEngineering],
+    type: TECHNOLOGIES.CivilEngineering,
     max: 10,
     effMulti: [{ unitId: "w", multi: INITIATIVE_MULTI / 2 }]
   },
@@ -359,7 +359,7 @@ export const RESEARCHES: IResearchData[] = [
     id: "g4",
     name: "Nanorobotics",
     description: "Improve workers",
-    type: [TECHNOLOGIES.CivilEngineering],
+    type: TECHNOLOGIES.CivilEngineering,
     max: 10,
     effMulti: [{ unitId: "w", multi: INITIATIVE_MULTI / 2 }]
   },
@@ -367,7 +367,7 @@ export const RESEARCHES: IResearchData[] = [
     id: "f1",
     name: "Mega Foundry",
     description: "Unlock Mega foundry",
-    type: [TECHNOLOGIES.CivilEngineering],
+    type: TECHNOLOGIES.CivilEngineering,
     max: 1,
     unitsToUnlock: ["18"],
     effMulti: [{ unitId: "a", multi: 0.1 }],
@@ -377,7 +377,7 @@ export const RESEARCHES: IResearchData[] = [
     id: "f2",
     name: "Mega Factory",
     description: "Unlock Mega Factory",
-    type: [TECHNOLOGIES.CivilEngineering],
+    type: TECHNOLOGIES.CivilEngineering,
     max: 1,
     unitsToUnlock: ["19"],
     effMulti: [{ unitId: "w", multi: 0.1 }],

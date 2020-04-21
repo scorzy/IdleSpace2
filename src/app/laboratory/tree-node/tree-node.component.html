@@ -4,11 +4,7 @@
   *ngFor="let res of research.researchToUnlock; trackBy: getResId"
 >
   <span class="label" nz-popover [nzPopoverContent]="contentTemplate">
-    <i
-      nz-icon
-      [nzType]="res.types[0].icon"
-      [style.color]="res.types[0].color"
-    ></i>
+    <i nz-icon [nzType]="res.type.icon" [style.color]="res.type.color"></i>
     <span [class.text-success]="res.quantity.gte(1)"> {{ res.name }} </span>
   </span>
 
