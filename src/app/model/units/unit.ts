@@ -282,7 +282,9 @@ export class Unit implements IBase, IUnlockable {
     this.maxMods = this.maxMods.floor();
   }
   confirmMods() {
-    const toAdd = this.quantity.times(this.recycle);
+    let recycle = this.recycle.plus(Game.getGame().baseRecycling);
+    recycle = recycle.min(this.components.times(0.9));
+    const toAdd = this.quantity.times(recycle);
     const components = Game.getGame().resourceManager.components;
     components.quantity = components.quantity.plus(toAdd);
     this.quantity = ONE;

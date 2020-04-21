@@ -32,7 +32,7 @@ export class Game {
   civilianWorkPercent = 50;
   civWorkPerSec = ZERO;
   shipWorkPerSec = ZERO;
-
+  baseRecycling = ZERO;
   private _gameId = "";
   private battleResults: { result: BattleResult; fleet: number }[] = [];
 
@@ -150,10 +150,7 @@ export class Game {
     for (let i = 0, n = this.researchManager.backlog.length; i < n; i++) {
       this.researchManager.backlog[i].reloadTotalBonus();
     }
-    // if (this.updateNavalCapacity) {
     this.reloadNavalCapacity();
-    //   this.updateNavalCapacity = false;
-    // }
     if (this.updateMods) {
       this.resourceManager.reloadMods();
       this.updateMods = false;
@@ -161,11 +158,14 @@ export class Game {
     this.shipyardManager.postUpdate();
     this.enemyManager.postUpdate();
     this.spaceStationManager.postUpdate();
+    this.reloadBaseRecycling();
   }
   reloadNavalCapacity() {
     this.navalCapacity = BASE_NAVAL_CAPACITY;
-    for (let i = 0, n = this.researchManager.done.length; i < n; i++) {
-      this.navalCapacity += this.researchManager.done[i].navalCapacity;
+    for (let i = 0, n = this.researchManager.researches.length; i < n; i++) {
+      this.navalCapacity += this.researchManager.researches[i].quantity
+        .times(this.researchManager.researches[i].navalCapacity)
+        .toNumber();
     }
     this.navalCapacity += this.researchManager.navalCapTech.quantity.toNumber();
     this.navalCapacity = Math.floor(this.navalCapacity);
@@ -209,6 +209,16 @@ export class Game {
     this.researchManager.technologies.forEach((tech) => {
       tech.setTheme();
     });
+  }
+  reloadBaseRecycling() {
+    this.baseRecycling = ZERO;
+    for (let i = 0, n = this.researchManager.researches.length; i < n; i++) {
+      this.baseRecycling = this.baseRecycling.plus(
+        this.researchManager.researches[i].quantity.times(
+          this.researchManager.researches[i].recycling
+        )
+      );
+    }
   }
   //#region Save and Load
   getSave(): any {

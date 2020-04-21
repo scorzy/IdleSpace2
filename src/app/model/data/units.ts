@@ -11,6 +11,8 @@ export enum UNIT_TYPES {
 }
 const BUILDING_TIER_2_PRICE = 20;
 const BUILDING_TIER_2_UNIT = 20;
+const BUILDING_TIER_3_PRICE = 40;
+const BUILDING_TIER_3_UNIT = 40;
 const ENERGY_STORAGE = 1e4;
 
 export const UNITS: IUnitData[] = [
@@ -177,6 +179,10 @@ export const UNITS: IUnitData[] = [
       {
         buildingLimit: "12",
         buildingLimitQuantity: BUILDING_TIER_2_UNIT
+      },
+      {
+        buildingLimit: "20",
+        buildingLimitQuantity: BUILDING_TIER_3_UNIT
       }
     ],
     unitType: UNIT_TYPES.WORKER,
@@ -556,6 +562,24 @@ export const UNITS: IUnitData[] = [
     icon: "my:factory-arm",
     colorClass: "component-color",
     prices: [["j", BUILDING_TIER_2_PRICE]],
+    unitType: UNIT_TYPES.BUILDING
+  },
+  {
+    id: "20",
+    name: "Quantum computing center",
+    description: "+ " + BUILDING_TIER_3_UNIT + " scientists",
+    icon: "my:circuitry",
+    colorClass: "science-color",
+    prices: [["j", BUILDING_TIER_3_PRICE]],
+    unitType: UNIT_TYPES.BUILDING
+  },
+  {
+    id: "21",
+    name: "Fusion reactor",
+    description: "+ " + BUILDING_TIER_3_UNIT + " technicians",
+    icon: "my:solar-power",
+    colorClass: "energy-color",
+    prices: [["k", BUILDING_TIER_3_PRICE]],
     unitType: UNIT_TYPES.BUILDING
   },
   //#endregion

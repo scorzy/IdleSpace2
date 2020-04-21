@@ -51,6 +51,9 @@
     +{{ lim.multi | percent }} {{ lim.unit.name }}
     <span class="text-secondary">storage</span>
   </li>
+  <li *ngIf="research.recycling > 0">
+    + {{ research.recycling | format }} recycling
+  </li>
 </ul>
 
 <span

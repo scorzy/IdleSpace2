@@ -3,6 +3,7 @@ import { TECHNOLOGIES } from "./technologyData";
 const INITIATIVE_MULTI = 0.5;
 const MEGA_BUILDING_LIMIT = 0.3;
 const MEGA_BUILDING_STORAGE = 10;
+const TIER_2_MULTI = 0.5;
 export const RESEARCHES: IResearchData[] = [
   {
     id: "m",
@@ -40,7 +41,8 @@ export const RESEARCHES: IResearchData[] = [
     max: 1,
     type: TECHNOLOGIES.Naval,
     technologiesToUnlock: ["n"],
-    researchToUnlock: ["n1"]
+    researchToUnlock: ["n1"],
+    navalCapacity: 20
   },
   {
     id: "s",
@@ -68,7 +70,7 @@ export const RESEARCHES: IResearchData[] = [
     type: TECHNOLOGIES.Robotics,
     unitsToUnlock: ["x", "X", "7", "9"],
     technologiesToUnlock: [TECHNOLOGIES.Robotics.id],
-    researchToUnlock: ["x1"],
+    researchToUnlock: ["x1", "x3"],
     prodMulti: [
       { unitId: "m", multi: 0.3 },
       { unitId: "e", multi: 0.1 },
@@ -105,11 +107,38 @@ export const RESEARCHES: IResearchData[] = [
     max: 1,
     type: TECHNOLOGIES.Robotics,
     unitsToUnlock: ["13"],
+    researchToUnlock: ["x4"],
     effMulti: [{ unitId: "X", multi: 0.1 }],
     limitMulti: [
       { unitId: "X", multi: MEGA_BUILDING_LIMIT },
       { unitId: "x", multi: MEGA_BUILDING_STORAGE }
     ]
+  },
+  {
+    id: "x4",
+    name: "Mass Production",
+    description: "Increase components production",
+    max: 10,
+    type: TECHNOLOGIES.Robotics,
+    researchToUnlock: ["x5"],
+    prodMulti: [{ unitId: "X", multi: 0.3 }]
+  },
+  {
+    id: "x5",
+    name: "Nanobot",
+    description: "Improve drone production and recycling",
+    max: 10,
+    type: TECHNOLOGIES.CivilEngineering,
+    recycling: 0.1,
+    effMulti: [{ unitId: "X", multi: 0.05 }]
+  },
+  {
+    id: "x3",
+    name: "Interchangeable parts",
+    description: "Increase recycling",
+    max: 10,
+    type: TECHNOLOGIES.Robotics,
+    recycling: 1
   },
   {
     id: "M",
@@ -186,10 +215,32 @@ export const RESEARCHES: IResearchData[] = [
     type: TECHNOLOGIES.Energy,
     effMulti: [{ unitId: "e", multi: 0.05 }],
     unitsToUnlock: ["16"],
+    researchToUnlock: ["E3"],
     limitMulti: [
       { unitId: "e", multi: MEGA_BUILDING_LIMIT },
       { unitId: "E", multi: MEGA_BUILDING_STORAGE }
     ]
+  },
+  {
+    id: "E3",
+    name: "Experimental Fusion",
+    description: "Improve science and energy generation",
+    max: 10,
+    type: TECHNOLOGIES.Energy,
+    effMulti: [
+      { unitId: "e", multi: 0.05 },
+      { unitId: "s", multi: 0.1 }
+    ],
+    researchToUnlock: ["E4"]
+  },
+  {
+    id: "E4",
+    name: "Fusion reactor",
+    description: "Unlock fusion reactor",
+    max: 1,
+    type: TECHNOLOGIES.Energy,
+    effMulti: [{ unitId: "e", multi: 0.05 }],
+    unitsToUnlock: ["21"]
   },
   {
     id: "r0",
@@ -285,7 +336,45 @@ export const RESEARCHES: IResearchData[] = [
     type: TECHNOLOGIES.Computing,
     effMulti: [{ unitId: "s", multi: 0.1 }],
     max: 1,
-    unitsToUnlock: ["12"]
+    unitsToUnlock: ["12"],
+    researchToUnlock: ["c3"]
+  },
+  {
+    id: "c3",
+    name: "Machine Learning",
+    description: "Improve scientists",
+    type: TECHNOLOGIES.Computing,
+    prodMulti: [{ unitId: "s", multi: TIER_2_MULTI }],
+    max: 10,
+    researchToUnlock: ["c4"]
+  },
+  {
+    id: "c4",
+    name: "Quantum computing",
+    description: "Unlock quantum computing center",
+    type: TECHNOLOGIES.Computing,
+    effMulti: [{ unitId: "s", multi: 0.1 }],
+    max: 1,
+    unitsToUnlock: ["20"],
+    researchToUnlock: ["c5", "c6"]
+  },
+  {
+    id: "c5",
+    name: "Assisted AI research",
+    description: "Improve researching",
+    type: TECHNOLOGIES.Computing,
+    effMulti: [{ unitId: "s", multi: 0.2 }],
+    max: 10,
+    unitsToUnlock: ["20"]
+  },
+  {
+    id: "c6",
+    name: "Assisted AI combat",
+    description: "Grants naval capacity",
+    type: TECHNOLOGIES.Computing,
+    effMulti: [{ unitId: "s", multi: 0.2 }],
+    max: 10,
+    navalCapacity: 200
   },
   {
     id: "p1",
@@ -333,6 +422,7 @@ export const RESEARCHES: IResearchData[] = [
     type: TECHNOLOGIES.Materials,
     max: 10,
     researchToUnlock: ["g3", "f1", "f2"],
+    recycling: 0.1,
     effMulti: [
       { unitId: "a", multi: INITIATIVE_MULTI / 5 },
       { unitId: "w", multi: INITIATIVE_MULTI / 5 }

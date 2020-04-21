@@ -29,4 +29,5 @@ export interface IResearchData {
   effMulti?: { unitId: string; multi: number }[];
   shipTypeToUnlock?: number;
   limitMulti?: { unitId: string; multi: number }[];
+  recycling?: number;
 }

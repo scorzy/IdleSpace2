@@ -37,6 +37,7 @@ export class Research extends Job implements IUnlockable, IBase {
   available = false;
   shipTypeToUnlock: ShipType;
   limitMulti?: { unit: Unit; multi: number }[];
+  recycling: number = 0;
   constructor(researchData: IResearchData, researchManager: ResearchManager) {
     super();
     this.resData = researchData;
@@ -70,6 +71,9 @@ export class Research extends Job implements IUnlockable, IBase {
     }
     if ("navalCapacity" in researchData) {
       this.navalCapacity = this.resData.navalCapacity;
+    }
+    if ("recycling" in researchData) {
+      this.recycling = this.resData.recycling;
     }
     if ("shipTypeToUnlock" in researchData) {
       this.shipTypeToUnlock = sm.shipTypes.find(

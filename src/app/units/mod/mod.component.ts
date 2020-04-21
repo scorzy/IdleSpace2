@@ -62,7 +62,9 @@ export class ModComponent extends BaseComponentComponent
   }
   reloadComp() {
     if (!this.unit) return false;
-    this.componentGain = this.unit.quantity.times(this.unit.recycle);
+    let recycle = this.unit.recycle.plus(this.ms.game.baseRecycling);
+    recycle = recycle.min(this.unit.components.times(0.9));
+    this.componentGain = this.unit.quantity.times(recycle);
     this.componentTotal = this.ms.game.resourceManager.components.quantity.plus(
       this.componentGain
     );

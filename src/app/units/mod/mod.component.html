@@ -87,6 +87,19 @@
           </td>
         </tr>
         <tr>
+          <td>Max Drones</td>
+          <td>
+            <span class="monospace">{{ unit.limit | format }}</span>
+          </td>
+          <td>
+            <span
+              class="monospace"
+              [ngClass]="getClass(unit.limit, unit.limitTemp)"
+              >{{ unit.limitTemp | format }}</span
+            >
+          </td>
+        </tr>
+        <tr>
           <td>Recycle</td>
           <td>
             <span class="monospace">{{ unit.recycle | format }}</span>
@@ -100,17 +113,11 @@
           </td>
         </tr>
         <tr>
-          <td>Max Drones</td>
+          <td>Base Recycle</td>
           <td>
-            <span class="monospace">{{ unit.limit | format }}</span>
+            <span class="monospace">{{ ms.game.baseRecycling | format }}</span>
           </td>
-          <td>
-            <span
-              class="monospace"
-              [ngClass]="getClass(unit.limit, unit.limitTemp)"
-              >{{ unit.limitTemp | format }}</span
-            >
-          </td>
+          <td></td>
         </tr>
       </tbody>
     </nz-table>
