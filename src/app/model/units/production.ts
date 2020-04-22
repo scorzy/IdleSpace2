@@ -1,5 +1,6 @@
-import { Unit } from "./unit";
+import { Worker } from "./worker";
 import { ONE, ZERO } from "../CONSTANTS";
+import { Unit } from "./unit";
 
 export class Production {
   prodPerSec = ZERO;
@@ -8,7 +9,7 @@ export class Production {
   ratio: Decimal;
   expand = false;
   constructor(
-    public producer: Unit,
+    public producer: Worker,
     public product: Unit,
     ratio: DecimalSource = ONE
   ) {

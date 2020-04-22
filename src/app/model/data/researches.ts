@@ -106,7 +106,6 @@ export const RESEARCHES: IResearchData[] = [
     description: "Unlock mega drone factory",
     max: 1,
     type: TECHNOLOGIES.Robotics,
-    unitsToUnlock: ["13"],
     researchToUnlock: ["x4"],
     effMulti: [{ unitId: "X", multi: 0.1 }],
     limitMulti: [
@@ -184,7 +183,6 @@ export const RESEARCHES: IResearchData[] = [
     max: 1,
     type: TECHNOLOGIES.Mining,
     effMulti: [{ unitId: "m", multi: 0.1 }],
-    unitsToUnlock: ["14"],
     limitMulti: [{ unitId: "m", multi: MEGA_BUILDING_LIMIT }]
   },
   {
@@ -215,7 +213,6 @@ export const RESEARCHES: IResearchData[] = [
     max: 1,
     type: TECHNOLOGIES.Energy,
     effMulti: [{ unitId: "e", multi: 0.05 }],
-    unitsToUnlock: ["16"],
     researchToUnlock: ["E3"],
     modulesToUnlock: ["I"],
     limitMulti: [
@@ -242,7 +239,6 @@ export const RESEARCHES: IResearchData[] = [
     max: 1,
     type: TECHNOLOGIES.Energy,
     effMulti: [{ unitId: "e", multi: 0.05 }],
-    unitsToUnlock: ["21"],
     modulesToUnlock: ["F"]
   },
   {
@@ -300,7 +296,6 @@ export const RESEARCHES: IResearchData[] = [
     type: TECHNOLOGIES.Search,
     max: 1,
     effMulti: [{ unitId: "r", multi: 0.1 }],
-    unitsToUnlock: ["15"],
     limitMulti: [{ unitId: "r", multi: MEGA_BUILDING_LIMIT }]
   },
   {
@@ -339,7 +334,6 @@ export const RESEARCHES: IResearchData[] = [
     type: TECHNOLOGIES.Computing,
     effMulti: [{ unitId: "s", multi: 0.1 }],
     max: 1,
-    unitsToUnlock: ["12"],
     researchToUnlock: ["c3"]
   },
   {
@@ -358,7 +352,6 @@ export const RESEARCHES: IResearchData[] = [
     type: TECHNOLOGIES.Computing,
     effMulti: [{ unitId: "s", multi: 0.1 }],
     max: 1,
-    unitsToUnlock: ["20"],
     researchToUnlock: ["c5", "c6"]
   },
   {
@@ -367,8 +360,7 @@ export const RESEARCHES: IResearchData[] = [
     description: "Improve researching",
     type: TECHNOLOGIES.Computing,
     effMulti: [{ unitId: "s", multi: 0.2 }],
-    max: 10,
-    unitsToUnlock: ["20"]
+    max: 10
   },
   {
     id: "c6",
@@ -402,7 +394,6 @@ export const RESEARCHES: IResearchData[] = [
     description: "Unlock mega science lab",
     type: TECHNOLOGIES.Physics,
     max: 1,
-    unitsToUnlock: ["17"],
     effMulti: [{ unitId: "s", multi: 0.1 }],
     limitMulti: [{ unitId: "s", multi: MEGA_BUILDING_LIMIT }]
   },
@@ -470,7 +461,6 @@ export const RESEARCHES: IResearchData[] = [
     description: "Unlock Mega foundry",
     type: TECHNOLOGIES.CivilEngineering,
     max: 1,
-    unitsToUnlock: ["18"],
     effMulti: [{ unitId: "a", multi: 0.1 }],
     limitMulti: [{ unitId: "a", multi: MEGA_BUILDING_LIMIT }]
   },
@@ -480,7 +470,6 @@ export const RESEARCHES: IResearchData[] = [
     description: "Unlock Mega Factory",
     type: TECHNOLOGIES.CivilEngineering,
     max: 1,
-    unitsToUnlock: ["19"],
     effMulti: [{ unitId: "w", multi: 0.1 }],
     limitMulti: [{ unitId: "w", multi: MEGA_BUILDING_LIMIT }]
   }

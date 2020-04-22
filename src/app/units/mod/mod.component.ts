@@ -7,7 +7,6 @@ import {
   OnDestroy,
   AfterViewInit
 } from "@angular/core";
-import { Unit } from "src/app/model/units/unit";
 import { MainService } from "src/app/main.service";
 import { ActivatedRoute, ParamMap, Router } from "@angular/router";
 import { Mod } from "src/app/model/units/mod";
@@ -16,7 +15,7 @@ import { BreakpointObserver, BreakpointState } from "@angular/cdk/layout";
 import { ZERO } from "src/app/model/CONSTANTS";
 import { BaseComponentComponent } from "src/app/base-component/base-component.component";
 import { Technology } from "src/app/model/researches/technology";
-
+import { Worker } from "src/app/model/units/worker";
 @Component({
   selector: "app-mod",
   templateUrl: "./mod.component.html",
@@ -25,7 +24,7 @@ import { Technology } from "src/app/model/researches/technology";
 })
 export class ModComponent extends BaseComponentComponent
   implements OnInit, OnDestroy, AfterViewInit {
-  @Input() unit: Unit;
+  @Input() unit: Worker;
   disabled = false;
   isLarge = true;
   componentTotal = ZERO;
@@ -79,7 +78,7 @@ export class ModComponent extends BaseComponentComponent
       .toNumber();
   }
   getUnit(id: string) {
-    this.unit = this.ms.game.resourceManager.units.find((u) => id === u.id);
+    this.unit = this.ms.game.resourceManager.workers.find((u) => id === u.id);
     this.unit.modStack.mods.forEach((m) => {
       m.uiQuantity = m.quantity;
       m.uiQuantityString = m.uiQuantity.eq(0)

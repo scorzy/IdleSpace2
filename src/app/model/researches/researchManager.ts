@@ -189,7 +189,7 @@ export class ResearchManager extends JobManager {
       }
       if ("stationToUp" in resData) {
         resData.stationToUp.forEach((stu) => {
-          const station = rs.units.find((u) => u.id === stu.stationId);
+          const station = rs.spaceStations.find((u) => u.id === stu.stationId);
           if (!res.spaceStationsToUp) res.spaceStationsToUp = [];
           res.spaceStationsToUp.push({
             spaceStation: station,

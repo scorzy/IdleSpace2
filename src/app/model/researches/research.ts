@@ -38,7 +38,7 @@ export class Research extends Job implements IUnlockable, IBase {
   available = false;
   shipTypeToUnlock: ShipType;
   limitMulti?: { unit: Unit; multi: number }[];
-  recycling: number = 0;
+  recycling = 0;
   modulesToUnlock: Module[];
   constructor(researchData: IResearchData, researchManager: ResearchManager) {
     super();

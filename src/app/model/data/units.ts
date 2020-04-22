@@ -9,12 +9,7 @@ export enum UNIT_TYPES {
   SPACE_STATION,
   MEGASTRUCTURE
 }
-const BUILDING_TIER_2_PRICE = 20;
-const BUILDING_TIER_2_UNIT = 20;
-const BUILDING_TIER_3_PRICE = 40;
-const BUILDING_TIER_3_UNIT = 40;
 const ENERGY_STORAGE = 1e4;
-
 export const UNITS: IUnitData[] = [
   //#region Materials
   {
@@ -122,10 +117,6 @@ export const UNITS: IUnitData[] = [
       {
         buildingLimit: "1",
         buildingLimitQuantity: 10
-      },
-      {
-        buildingLimit: "14",
-        buildingLimitQuantity: BUILDING_TIER_2_UNIT
       }
     ],
     unitType: UNIT_TYPES.WORKER,
@@ -147,10 +138,6 @@ export const UNITS: IUnitData[] = [
       {
         buildingLimit: "2",
         buildingLimitQuantity: 10
-      },
-      {
-        buildingLimit: "16",
-        buildingLimitQuantity: BUILDING_TIER_2_UNIT
       }
     ],
     unitType: UNIT_TYPES.WORKER,
@@ -175,14 +162,6 @@ export const UNITS: IUnitData[] = [
       {
         buildingLimit: "3",
         buildingLimitQuantity: 10
-      },
-      {
-        buildingLimit: "12",
-        buildingLimitQuantity: BUILDING_TIER_2_UNIT
-      },
-      {
-        buildingLimit: "20",
-        buildingLimitQuantity: BUILDING_TIER_3_UNIT
       }
     ],
     unitType: UNIT_TYPES.WORKER,
@@ -207,10 +186,6 @@ export const UNITS: IUnitData[] = [
       {
         buildingLimit: "4",
         buildingLimitQuantity: 10
-      },
-      {
-        buildingLimit: "18",
-        buildingLimitQuantity: BUILDING_TIER_2_UNIT
       }
     ],
     unitType: UNIT_TYPES.WORKER,
@@ -238,10 +213,6 @@ export const UNITS: IUnitData[] = [
       {
         buildingLimit: "5",
         buildingLimitQuantity: 10
-      },
-      {
-        buildingLimit: "19",
-        buildingLimitQuantity: BUILDING_TIER_2_UNIT
       }
     ],
     unitType: UNIT_TYPES.WORKER,
@@ -276,10 +247,6 @@ export const UNITS: IUnitData[] = [
       {
         buildingLimit: "6",
         buildingLimitQuantity: 10
-      },
-      {
-        buildingLimit: "15",
-        buildingLimitQuantity: BUILDING_TIER_2_UNIT
       }
     ],
     unitType: UNIT_TYPES.WORKER,
@@ -307,10 +274,6 @@ export const UNITS: IUnitData[] = [
       {
         buildingLimit: "7",
         buildingLimitQuantity: 10
-      },
-      {
-        buildingLimit: "13",
-        buildingLimitQuantity: BUILDING_TIER_2_UNIT
       }
     ],
     unitType: UNIT_TYPES.WORKER,
@@ -490,96 +453,6 @@ export const UNITS: IUnitData[] = [
     colorClass: "nuke-color",
     prices: [["j", 10]],
     unlockQuantity: 1,
-    unitType: UNIT_TYPES.BUILDING
-  },
-  {
-    id: "14",
-    name: "Mega Mine",
-    description: "+" + BUILDING_TIER_2_UNIT + " miners",
-    icon: "my:gold-mine",
-    colorClass: "metal-color",
-    prices: [["P", BUILDING_TIER_2_PRICE]],
-    unitType: UNIT_TYPES.BUILDING
-  },
-  {
-    id: "16",
-    name: "Mega power plant",
-    description: "+" + BUILDING_TIER_2_UNIT + " technicians",
-    icon: "my:solar-power_2",
-    colorClass: "energy-color",
-    prices: [["k", BUILDING_TIER_2_PRICE]],
-    unitType: UNIT_TYPES.BUILDING
-  },
-  {
-    id: "17",
-    name: "Mega science lab",
-    description: "+" + BUILDING_TIER_2_UNIT + " scientists",
-    icon: "fa-s:microscope",
-    colorClass: "science-color",
-    prices: [["j", BUILDING_TIER_2_PRICE]],
-    unitType: UNIT_TYPES.BUILDING
-  },
-  {
-    id: "12",
-    name: "Super computing center",
-    description: "+ " + BUILDING_TIER_2_UNIT + " scientists",
-    icon: "my:circuitry",
-    colorClass: "science-color",
-    prices: [["j", BUILDING_TIER_2_PRICE]],
-    unitType: UNIT_TYPES.BUILDING
-  },
-  {
-    id: "18",
-    name: "Mega Foundry",
-    description: "+" + BUILDING_TIER_2_UNIT + " metallurgists",
-    icon: "my:foundry-bucket",
-    colorClass: "alloy-color",
-    prices: [["j", BUILDING_TIER_2_UNIT]],
-    unitType: UNIT_TYPES.BUILDING
-  },
-  {
-    id: "19",
-    name: "Mega Factory",
-    description: "+" + BUILDING_TIER_2_UNIT + " workers",
-    icon: "my:factory",
-    colorClass: "production-color",
-    prices: [["j", BUILDING_TIER_2_UNIT]],
-    unitType: UNIT_TYPES.BUILDING
-  },
-  {
-    id: "15",
-    name: "Mega observatory",
-    description: "+" + BUILDING_TIER_2_UNIT + " searchers",
-    icon: "my:observatory",
-    colorClass: "search-color",
-    prices: [["j", BUILDING_TIER_2_PRICE]],
-    unitType: UNIT_TYPES.BUILDING
-  },
-  {
-    id: "13",
-    name: "Mega Drone Factory",
-    description: "+" + BUILDING_TIER_2_UNIT + " replicators",
-    icon: "my:factory-arm",
-    colorClass: "component-color",
-    prices: [["j", BUILDING_TIER_2_PRICE]],
-    unitType: UNIT_TYPES.BUILDING
-  },
-  {
-    id: "20",
-    name: "Quantum computing center",
-    description: "+ " + BUILDING_TIER_3_UNIT + " scientists",
-    icon: "my:circuitry",
-    colorClass: "science-color",
-    prices: [["j", BUILDING_TIER_3_PRICE]],
-    unitType: UNIT_TYPES.BUILDING
-  },
-  {
-    id: "21",
-    name: "Fusion reactor",
-    description: "+ " + BUILDING_TIER_3_UNIT + " technicians",
-    icon: "my:solar-power",
-    colorClass: "energy-color",
-    prices: [["k", BUILDING_TIER_3_PRICE]],
     unitType: UNIT_TYPES.BUILDING
   },
   //#endregion

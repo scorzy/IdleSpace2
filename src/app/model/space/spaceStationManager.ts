@@ -1,7 +1,7 @@
 import { JobManager } from "../job/jobManager";
 import { SpaceStationJob } from "./spaceStationJob";
 import { Game } from "../game";
-import { Unit } from "../units/unit";
+import { SpaceStation } from "../units/spaceStation";
 
 export class SpaceStationManager extends JobManager {
   toDo = new Array<SpaceStationJob>();
@@ -15,8 +15,10 @@ export class SpaceStationManager extends JobManager {
       this.toDo[i].reload();
     }
   }
-  addJob(unit: Unit) {
-    if (!unit) { return false; }
+  addJob(unit: SpaceStation) {
+    if (!unit) {
+      return false;
+    }
     const job = new SpaceStationJob(unit);
     this.toDo.push(job);
     Game.getGame().reloadWorkPerSec();
@@ -26,14 +28,16 @@ export class SpaceStationManager extends JobManager {
   //#region Save and Load
   getSave() {
     return {
-      t: this.toDo.map(s => s.getSave())
+      t: this.toDo.map((s) => s.getSave())
     };
   }
   load(data: any) {
-    if (!("t" in data)) { return false; }
+    if (!("t" in data)) {
+      return false;
+    }
     const rs = Game.getGame().resourceManager;
-    data.t.forEach(jobData => {
-      const unit = rs.units.find(s => s.id === jobData.i);
+    data.t.forEach((jobData) => {
+      const unit = rs.spaceStations.find((s) => s.id === jobData.i);
       if (unit) {
         const job = new SpaceStationJob(unit);
         job.load(jobData);

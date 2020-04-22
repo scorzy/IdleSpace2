@@ -9,6 +9,7 @@ import { Unit } from "../model/units/unit";
 import { CdkDragDrop, moveItemInArray } from "@angular/cdk/drag-drop";
 import { fadeIn } from "../animations";
 import { BaseComponentComponent } from "../base-component/base-component.component";
+import { SpaceStation } from "../model/units/spaceStation";
 
 @Component({
   selector: "app-space-stations",
@@ -30,7 +31,7 @@ export class SpaceStationsComponent extends BaseComponentComponent
       })
     );
   }
-  addStation(unit: Unit) {
+  addStation(unit: SpaceStation) {
     if (!unit) return false;
     this.ms.game.spaceStationManager.addJob(unit);
   }

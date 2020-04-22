@@ -1,9 +1,10 @@
 import { Job } from "../job/job";
 import { Unit } from "../units/unit";
 import { Game } from "../game";
+import { SpaceStation } from "../units/spaceStation";
 
 export class SpaceStationJob extends Job {
-  constructor(public spaceStation: Unit) {
+  constructor(public spaceStation: SpaceStation) {
     super();
     this.canDelete = true;
     this.reload();
@@ -43,8 +44,12 @@ export class SpaceStationJob extends Job {
     return ret;
   }
   load(data: any) {
-    if (!("i" in data)) { return false; }
-    if ("p" in data) { this.progress = new Decimal(data.p); }
+    if (!("i" in data)) {
+      return false;
+    }
+    if ("p" in data) {
+      this.progress = new Decimal(data.p);
+    }
     this.reload();
   }
   //#endregion

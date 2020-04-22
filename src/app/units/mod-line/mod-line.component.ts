@@ -14,7 +14,7 @@ import {
 import { Mod } from "src/app/model/units/mod";
 import { parseDecimal } from "src/app/model/utility/parseDecimal";
 import { MainService } from "src/app/main.service";
-import { Unit } from "src/app/model/units/unit";
+import { Worker } from "src/app/model/units/worker";
 import { BreakpointObserver, BreakpointState } from "@angular/cdk/layout";
 import { ZERO } from "src/app/model/CONSTANTS";
 import { BaseComponentComponent } from "src/app/base-component/base-component.component";
@@ -29,7 +29,7 @@ export class ModLineComponent extends BaseComponentComponent
   implements OnInit, OnDestroy, AfterViewInit, OnChanges {
   @Input() mod: Mod;
   @Input() uiQuantityString: string;
-  @Input() unit: Unit;
+  @Input() unit: Worker;
   @Output() modChange = new EventEmitter<boolean>();
   status = "";
   isLarge = true;

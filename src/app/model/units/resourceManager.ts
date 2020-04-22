@@ -12,7 +12,9 @@ import { Price } from "../prices/price";
 import { Components } from "./components";
 import { BonusStack } from "../bonus/bonusStack";
 import { Game } from "../game";
-
+import { Worker } from "./worker";
+import { Building } from "./building";
+import { SpaceStation } from "./spaceStation";
 export class ResourceManager {
   units = new Array<Unit>();
   unlockedUnits = new Array<Unit>();
@@ -24,13 +26,13 @@ export class ResourceManager {
   firstEndingUnit: Unit = null;
   maxTime = Number.POSITIVE_INFINITY;
 
-  workers = new Array<Unit>();
-  unlockedWorkers = new Array<Unit>();
-  buildings = new Array<Unit>();
-  unlockedBuildings = new Array<Unit>();
+  workers = new Array<Worker>();
+  unlockedWorkers = new Array<Worker>();
+  buildings = new Array<Building>();
+  unlockedBuildings = new Array<Building>();
 
-  spaceStations = new Array<Unit>();
-  unlockedSpaceStations = new Array<Unit>();
+  spaceStations = new Array<SpaceStation>();
+  unlockedSpaceStations = new Array<SpaceStation>();
   megastructures = new Array<Unit>();
   unlockedMegastructures = new Array<Unit>();
 
@@ -41,12 +43,12 @@ export class ResourceManager {
   components: Components;
   science: Unit;
   nuke: Unit;
-  technician: Unit;
-  miner: Unit;
-  metallurgist: Unit;
-  scientist: Unit;
-  laboratory: Unit;
-  worker: Unit;
+  technician: Worker;
+  miner: Worker;
+  metallurgist: Worker;
+  scientist: Worker;
+  laboratory: Building;
+  worker: Worker;
   search: Unit;
   searcher: Unit;
   habitableSpace: Unit;
@@ -60,35 +62,55 @@ export class ResourceManager {
   makeUnits() {
     this.units = new Array<Unit>();
     //  Initialize Units
-    this.units = UNITS.map((unitData) => {
-      switch (unitData.id) {
-        case "x":
-          this.components = new Components(unitData);
-          return this.components;
-        default:
-          return new Unit(unitData);
+    UNITS.forEach((unitData) => {
+      if (unitData.id === "x") {
+        this.components = new Components(unitData);
+        this.units.push(this.components);
+      } else {
+        switch (unitData.unitType) {
+          case UNIT_TYPES.WORKER:
+            const w = new Worker(unitData);
+            this.workers.push(w);
+            this.units.push(w);
+            break;
+          case UNIT_TYPES.BUILDING:
+            const b = new Worker(unitData);
+            this.buildings.push(b);
+            this.units.push(b);
+            break;
+          case UNIT_TYPES.SPACE_STATION:
+            const s = new SpaceStation(unitData);
+            this.spaceStations.push(s);
+            this.units.push(s);
+            break;
+          default:
+            const unit = new Unit(unitData);
+            this.units.push(unit);
+            break;
+        }
       }
     });
+
     this.shipyardWork = this.units.find((u) => u.id === "W");
     this.metal = this.units.find((u) => u.id === "M");
     this.alloy = this.units.find((u) => u.id === "A");
     this.science = this.units.find((u) => u.id === "S");
     this.search = this.units.find((u) => u.id === "R");
-    this.technician = this.units.find((u) => u.id === "e");
-    this.miner = this.units.find((u) => u.id === "m");
-    this.metallurgist = this.units.find((u) => u.id === "a");
-    this.scientist = this.units.find((u) => u.id === "s");
-    this.worker = this.units.find((u) => u.id === "w");
+    this.technician = this.workers.find((u) => u.id === "e");
+    this.miner = this.workers.find((u) => u.id === "m");
+    this.metallurgist = this.workers.find((u) => u.id === "a");
+    this.scientist = this.workers.find((u) => u.id === "s");
+    this.worker = this.workers.find((u) => u.id === "w");
     this.searcher = this.units.find((u) => u.id === "r");
     this.energy = this.units.find((u) => u.id === "E");
     this.habitableSpace = this.units.find((u) => u.id === "j");
     this.miningDistrict = this.units.find((u) => u.id === "P");
     this.energyDistrict = this.units.find((u) => u.id === "k");
     this.nuke = this.units.find((u) => u.id === "b");
-    this.laboratory = this.units.find((u) => u.id === "3");
+    this.laboratory = this.buildings.find((u) => u.id === "3");
 
     //  Production
-    this.units.forEach((unit) => {
+    this.workers.forEach((unit) => {
       const unitData = UNITS.find((u) => u.id === unit.id);
       if (unitData && unitData.production) {
         unitData.production.forEach((prod) => {
@@ -120,15 +142,6 @@ export class ResourceManager {
     );
     this.districts = this.units.filter(
       (u) => u.unitData.unitType === UNIT_TYPES.DISTRICT
-    );
-    this.workers = this.units.filter(
-      (u) => u.unitData.unitType === UNIT_TYPES.WORKER
-    );
-    this.buildings = this.units.filter(
-      (u) => u.unitData.unitType === UNIT_TYPES.BUILDING
-    );
-    this.spaceStations = this.units.filter(
-      (u) => u.unitData.unitType === UNIT_TYPES.SPACE_STATION
     );
     this.megastructures = this.units.filter(
       (u) => u.unitData.unitType === UNIT_TYPES.MEGASTRUCTURE
@@ -372,7 +385,7 @@ export class ResourceManager {
   }
   makeUnitsMods() {
     const rm = Game.getGame().researchManager;
-    this.units.forEach((unit) => {
+    this.workers.forEach((unit) => {
       if ("mods" in unit.unitData) {
         unit.maxTechMods = [];
         for (const row of unit.unitData.mods) {

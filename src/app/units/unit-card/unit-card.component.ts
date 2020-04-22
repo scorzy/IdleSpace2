@@ -10,7 +10,7 @@ import {
   AfterViewInit
 } from "@angular/core";
 import { MainService } from "src/app/main.service";
-import { Unit } from "src/app/model/units/unit";
+import { Worker } from "src/app/model/units/worker";
 import { ONE } from "src/app/model/CONSTANTS";
 import { Production } from "src/app/model/units/production";
 import { Price } from "src/app/model/prices/price";
@@ -28,7 +28,7 @@ import { Bonus } from "src/app/model/bonus/bonus";
 })
 export class UnitCardComponent extends BaseComponentComponent
   implements OnInit, OnDestroy, AfterViewInit {
-  @Input() unit: Unit;
+  @Input() unit: Worker;
   tplModal: NzModalRef;
   popoverTrigger: string = null;
   actions = [];
