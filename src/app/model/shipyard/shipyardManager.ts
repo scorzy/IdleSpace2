@@ -38,6 +38,7 @@ export class ShipyardManager extends JobManager {
   shield: Module;
   designerView = false;
   shipyardPage = false;
+  unlockedModules = true;
   constructor() {
     super();
     this.fleetNavCapPriority.fill(0);
@@ -74,6 +75,11 @@ export class ShipyardManager extends JobManager {
         this.allGenerators.findIndex((w) => w.id === mod.id) < 0
     );
   }
+  unlockDefaultModules() {
+    this.modules.forEach((mod) => {
+      if (!mod.research) mod.unlock();
+    });
+  }
   addDesign(name: string, type: number): number {
     if (this.shipDesigns.length >= MAX_DESIGN) {
       return -1;
@@ -106,23 +112,9 @@ export class ShipyardManager extends JobManager {
   }
   postUpdate() {
     this.reloadFleetPercent();
-
-    let unlocked = false;
-    // if (this.designerView) {
-    for (let i = 0, n = this.modules.length; i < n; i++) {
-      this.modules[i].reloadMaxLevel();
-      if (
-        !this.modules[i].unlocked &&
-        this.modules[i].maxLevel >= this.modules[i].unlockLevel
-      ) {
-        if (this.modules[i].unlock()) {
-          unlocked = true;
-        }
-      }
-    }
-    // }
-    if (unlocked) {
+    if (this.unlockedModules) {
       this.reloadLists();
+      this.unlockedModules = false;
     }
     for (let i = 0, n = this.toDo.length; i < n; i++) {
       this.toDo[i].reload();

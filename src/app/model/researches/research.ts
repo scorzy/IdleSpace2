@@ -15,6 +15,7 @@ import { ResearchManager } from "./researchManager";
 import { Unit } from "../units/unit";
 import { Technology } from "./technology";
 import { ShipType } from "../shipyard/ShipType";
+import { Module } from "../shipyard/module";
 
 export class Research extends Job implements IUnlockable, IBase {
   static lastVisId = 0;
@@ -38,6 +39,7 @@ export class Research extends Job implements IUnlockable, IBase {
   shipTypeToUnlock: ShipType;
   limitMulti?: { unit: Unit; multi: number }[];
   recycling: number = 0;
+  modulesToUnlock: Module[];
   constructor(researchData: IResearchData, researchManager: ResearchManager) {
     super();
     this.resData = researchData;
@@ -127,6 +129,9 @@ export class Research extends Job implements IUnlockable, IBase {
       }
       if (this.shipTypeToUnlock) {
         this.shipTypeToUnlock.unlocked = true;
+      }
+      if (this.modulesToUnlock) {
+        this.modulesToUnlock.forEach((m) => m.unlock());
       }
       game.navalCapacity += this.navalCapacity;
     }

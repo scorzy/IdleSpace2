@@ -30,4 +30,5 @@ export interface IResearchData {
   shipTypeToUnlock?: number;
   limitMulti?: { unitId: string; multi: number }[];
   recycling?: number;
+  modulesToUnlock?: string[];
 }

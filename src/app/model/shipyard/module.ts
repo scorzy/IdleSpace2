@@ -5,6 +5,7 @@ import { ALL_SIZES } from "../data/sizes";
 import { Technology } from "../researches/technology";
 import { Game } from "../game";
 import forOwn from "lodash-es/forOwn";
+import { Research } from "../researches/research";
 
 export class Module implements IUnlockable {
   id = "";
@@ -30,7 +31,6 @@ export class Module implements IUnlockable {
   sizes = ALL_SIZES;
   maxLevel = 0;
   technologies: { technology: Technology; multi: number }[];
-  unlockLevel = 0;
   shieldRecharge = 0;
   velocity = 0;
   acceleration = 0;
@@ -38,6 +38,7 @@ export class Module implements IUnlockable {
   precision = 0;
   adaptivePrecision = 0;
   threatGainMulti = 1;
+  research: Research;
 
   constructor() {}
   init(moduleData: ModuleData) {

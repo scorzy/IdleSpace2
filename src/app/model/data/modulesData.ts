@@ -11,7 +11,6 @@ import {
   BASE_CARGO,
   BASE_ADAPTIVE_PRECISION
 } from "../CONSTANTS";
-
 export class ModuleData {
   id: string;
   name: string;
@@ -32,7 +31,6 @@ export class ModuleData {
   explosionDamage?: number;
   sizes?: Sizes[];
   shape?: string;
-  unlockLevel?: number;
   cargo?: number;
   technologies: { technologyId: string; multi: number }[];
   shieldRecharge?: number;
@@ -165,8 +163,7 @@ export const modules: ModuleData[] = [
       { technologyId: "e", multi: 1 },
       { technologyId: TECHNOLOGIES.Energy.id, multi: 1 }
     ],
-    explosion: 0.3 * MODULE_ARMOUR,
-    unlockLevel: 2
+    explosion: 0.3 * MODULE_ARMOUR
   },
   {
     id: "I",
@@ -179,22 +176,18 @@ export const modules: ModuleData[] = [
       { technologyId: TECHNOLOGIES.Energy.id, multi: 1 }
     ],
     explosion: 0.8 * MODULE_ARMOUR,
-    explosionDamage: MODULE_DAMAGE,
-    unlockLevel: 2
+    explosionDamage: MODULE_DAMAGE
   },
   {
     id: "F",
     name: "Fusion Reactor",
     energy: 6,
-    price: 30,
+    price: 80,
     shape: "my:atom",
     technologies: [
       { technologyId: "e", multi: 1 },
       { technologyId: TECHNOLOGIES.Energy.id, multi: 1 }
-    ],
-    explosion: 0.4 * MODULE_ARMOUR,
-    explosionDamage: 0.2 * MODULE_DAMAGE,
-    unlockLevel: 2
+    ]
   },
   {
     id: "J",
@@ -207,8 +200,7 @@ export const modules: ModuleData[] = [
       { technologyId: TECHNOLOGIES.Energy.id, multi: 1 }
     ],
     explosion: 1.5 * MODULE_ARMOUR,
-    explosionDamage: 2 * MODULE_DAMAGE,
-    unlockLevel: 2
+    explosionDamage: 2 * MODULE_DAMAGE
   },
   //#endregion
   //#region Weapons
@@ -238,7 +230,6 @@ export const modules: ModuleData[] = [
       { technologyId: TECHNOLOGIES.MilitaryEngineering.id, multi: 1 },
       { technologyId: TECHNOLOGIES.Physics.id, multi: 1 }
     ],
-    unlockLevel: 20,
     shape: "my:plasma-bolt"
   },
   {
@@ -253,7 +244,6 @@ export const modules: ModuleData[] = [
       { technologyId: TECHNOLOGIES.MilitaryEngineering.id, multi: 1 },
       { technologyId: TECHNOLOGIES.Physics.id, multi: 1 }
     ],
-    unlockLevel: 50,
     threatGainMulti: 1.5,
     shape: "my:crumbling-ball"
   },

@@ -46,15 +46,8 @@
               nzTheme="outline"
               class="lockIcon"
             ></i>
-            <span
-              class="monospace"
-              nz-tooltip
-              nzTooltipTitle="Max Leve / Unlock Level"
-            >
-              {{ mod.maxLevel | format: true
-              }}<span *ngIf="!mod.unlocked"
-                >/{{ mod.unlockLevel | format: true }}</span
-              >
+            <span class="monospace" nz-tooltip nzTooltipTitle="Max Level">
+              {{ mod.maxLevel | format: true }}
             </span>
           </span>
           <app-module-info [mod]="mod"></app-module-info>

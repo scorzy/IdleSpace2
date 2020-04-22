@@ -21,7 +21,7 @@ export const RESEARCHES: IResearchData[] = [
     description: "Unlock Physics Technology",
     max: 1,
     type: TECHNOLOGIES.Physics,
-    researchToUnlock: ["c", "E", "p1"],
+    researchToUnlock: ["c", "E", "p1", "p4"],
     technologiesToUnlock: ["p"],
     effMulti: [{ unitId: "s", multi: 0.5 }]
   },
@@ -196,7 +196,8 @@ export const RESEARCHES: IResearchData[] = [
     technologiesToUnlock: [TECHNOLOGIES.Energy.id],
     researchToUnlock: ["E1"],
     limitMulti: [{ unitId: "E", multi: 1 }],
-    effMulti: [{ unitId: "e", multi: 0.05 }]
+    effMulti: [{ unitId: "e", multi: 0.05 }],
+    modulesToUnlock: ["R"]
   },
   {
     id: "E1",
@@ -216,6 +217,7 @@ export const RESEARCHES: IResearchData[] = [
     effMulti: [{ unitId: "e", multi: 0.05 }],
     unitsToUnlock: ["16"],
     researchToUnlock: ["E3"],
+    modulesToUnlock: ["I"],
     limitMulti: [
       { unitId: "e", multi: MEGA_BUILDING_LIMIT },
       { unitId: "E", multi: MEGA_BUILDING_STORAGE }
@@ -240,7 +242,8 @@ export const RESEARCHES: IResearchData[] = [
     max: 1,
     type: TECHNOLOGIES.Energy,
     effMulti: [{ unitId: "e", multi: 0.05 }],
-    unitsToUnlock: ["21"]
+    unitsToUnlock: ["21"],
+    modulesToUnlock: ["F"]
   },
   {
     id: "r0",
@@ -402,6 +405,14 @@ export const RESEARCHES: IResearchData[] = [
     unitsToUnlock: ["17"],
     effMulti: [{ unitId: "s", multi: 0.1 }],
     limitMulti: [{ unitId: "s", multi: MEGA_BUILDING_LIMIT }]
+  },
+  {
+    id: "p4",
+    name: "Force Fields",
+    description: "Unlock shields",
+    type: TECHNOLOGIES.Physics,
+    max: 1,
+    modulesToUnlock: ["s"]
   },
   {
     id: "g1",

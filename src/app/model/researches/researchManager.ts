@@ -122,6 +122,7 @@ export class ResearchManager extends JobManager {
   }
   setRelations() {
     const rs = Game.getGame().resourceManager;
+    const sm = Game.getGame().shipyardManager;
     this.researches.forEach((res) => {
       const resData = res.resData;
       if ("researchToUnlock" in resData) {
@@ -206,6 +207,14 @@ export class ResearchManager extends JobManager {
           );
           if (!res.limitMulti) res.limitMulti = [];
           res.limitMulti.push({ unit, multi: lim.multi });
+        });
+      }
+      if ("modulesToUnlock" in resData) {
+        resData.modulesToUnlock.forEach((modId) => {
+          const mod = sm.modules.find((m) => m.id === modId);
+          if (!res.modulesToUnlock) res.modulesToUnlock = [];
+          res.modulesToUnlock.push(mod);
+          mod.research = res;
         });
       }
     });
