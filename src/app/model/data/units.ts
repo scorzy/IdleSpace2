@@ -1,6 +1,13 @@
 import { IUnitData } from "./iUnitData";
 import { TECHNOLOGIES } from "./technologyData";
-import { MOD_PER_ROBOTICS, MOD_PER_OTHERS } from "../CONSTANTS";
+import {
+  MOD_PER_ROBOTICS,
+  MOD_PER_OTHERS,
+  ENERGY_STORAGE,
+  NUKE_STORAGE,
+  COMPONENT_STORAGE
+} from "../CONSTANTS";
+import { RD, PROD_DEP, STORAGE_DEP } from "./departments";
 export enum UNIT_TYPES {
   MATERIAL,
   WORKER,
@@ -9,7 +16,7 @@ export enum UNIT_TYPES {
   SPACE_STATION,
   MEGASTRUCTURE
 }
-const ENERGY_STORAGE = 1e4;
+
 export const UNITS: IUnitData[] = [
   //#region Materials
   {
@@ -78,7 +85,7 @@ export const UNITS: IUnitData[] = [
     limits: [
       {
         buildingLimit: "9",
-        buildingLimitQuantity: 1e3
+        buildingLimitQuantity: COMPONENT_STORAGE
       }
     ],
     showUiLimit: true,
@@ -93,7 +100,7 @@ export const UNITS: IUnitData[] = [
     limits: [
       {
         buildingLimit: "11",
-        buildingLimitQuantity: 100
+        buildingLimitQuantity: NUKE_STORAGE
       }
     ],
     showUiLimit: true,
@@ -351,7 +358,8 @@ export const UNITS: IUnitData[] = [
     colorClass: "metal-color",
     startQuantity: 1,
     prices: [["P", 10]],
-    unitType: UNIT_TYPES.BUILDING
+    unitType: UNIT_TYPES.BUILDING,
+    departments: [RD, PROD_DEP]
   },
   {
     id: "2",
@@ -361,7 +369,8 @@ export const UNITS: IUnitData[] = [
     colorClass: "energy-color",
     startQuantity: 1,
     prices: [["k", 10]],
-    unitType: UNIT_TYPES.BUILDING
+    unitType: UNIT_TYPES.BUILDING,
+    departments: [RD, PROD_DEP, STORAGE_DEP]
   },
   {
     id: "8",
@@ -392,7 +401,8 @@ export const UNITS: IUnitData[] = [
     colorClass: "alloy-color",
     prices: [["j", 10]],
     unlockQuantity: 1,
-    unitType: UNIT_TYPES.BUILDING
+    unitType: UNIT_TYPES.BUILDING,
+    departments: [RD, PROD_DEP]
   },
   {
     id: "5",
@@ -402,7 +412,8 @@ export const UNITS: IUnitData[] = [
     colorClass: "production-color",
     prices: [["j", 10]],
     unlockQuantity: 1,
-    unitType: UNIT_TYPES.BUILDING
+    unitType: UNIT_TYPES.BUILDING,
+    departments: [RD, PROD_DEP]
   },
   {
     id: "6",
@@ -412,7 +423,8 @@ export const UNITS: IUnitData[] = [
     colorClass: "search-color",
     prices: [["j", 10]],
     unlockQuantity: 1,
-    unitType: UNIT_TYPES.BUILDING
+    unitType: UNIT_TYPES.BUILDING,
+    departments: [RD, PROD_DEP]
   },
   {
     id: "7",
@@ -422,13 +434,13 @@ export const UNITS: IUnitData[] = [
     colorClass: "component-color",
     prices: [["j", 10]],
     unlockQuantity: 1,
-    unitType: UNIT_TYPES.BUILDING
+    unitType: UNIT_TYPES.BUILDING,
+    departments: [RD, PROD_DEP, STORAGE_DEP]
   },
-
   {
     id: "9",
     name: "Drone Depot",
-    description: "+ 1000 components storage",
+    description: "+ 1k components storage",
     icon: "fa-s:warehouse",
     colorClass: "component-color",
     prices: [["j", 10]],
@@ -443,12 +455,13 @@ export const UNITS: IUnitData[] = [
     colorClass: "nuke-color",
     prices: [["j", 10]],
     unlockQuantity: 1,
-    unitType: UNIT_TYPES.BUILDING
+    unitType: UNIT_TYPES.BUILDING,
+    departments: [RD, PROD_DEP, STORAGE_DEP]
   },
   {
     id: "11",
     name: "Nuke Silos",
-    description: "+100 nuke storage",
+    description: "+" + NUKE_STORAGE + " nuke storage",
     icon: "fa-s:warehouse",
     colorClass: "nuke-color",
     prices: [["j", 10]],

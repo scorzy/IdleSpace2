@@ -65,3 +65,9 @@ export const NUKE_DAMAGE = MODULE_ARMOUR * 100;
 //  Researches
 export const RESEARCH_BASE_PRICE = 100;
 export const RESEARCH_LEVEL_MULTI = 1000;
+
+//  Buildings
+export const ENERGY_STORAGE = 1e4;
+export const STORAGE_DEPARTMENT_MULTI = 0.4;
+export const COMPONENT_STORAGE = 1e3;
+export const NUKE_STORAGE = 100;

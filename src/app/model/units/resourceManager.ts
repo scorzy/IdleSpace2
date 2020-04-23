@@ -6,15 +6,21 @@ import {
   UNIT_PRICE_GROW_RATE,
   SPACE_STATION_PRICE,
   SPACE_STATION_GROW,
-  SPACE_STATION_HAB_SPACE
+  SPACE_STATION_HAB_SPACE,
+  ONE,
+  STORAGE_DEPARTMENT_MULTI,
+  ENERGY_STORAGE,
+  COMPONENT_STORAGE,
+  NUKE_STORAGE
 } from "../CONSTANTS";
 import { Price } from "../prices/price";
 import { Components } from "./components";
 import { BonusStack } from "../bonus/bonusStack";
 import { Game } from "../game";
 import { Worker } from "./worker";
-import { Building } from "./building";
+import { Building, Department } from "./building";
 import { SpaceStation } from "./spaceStation";
+import { Bonus } from "../bonus/bonus";
 export class ResourceManager {
   units = new Array<Unit>();
   unlockedUnits = new Array<Unit>();
@@ -42,23 +48,26 @@ export class ResourceManager {
   alloy: Unit;
   components: Components;
   science: Unit;
-  nuke: Unit;
-  technician: Worker;
-  miner: Worker;
-  metallurgist: Worker;
-  scientist: Worker;
-  laboratory: Building;
-  worker: Worker;
   search: Unit;
-  searcher: Unit;
+  nuke: Unit;
+
+  miner: Worker;
+  technician: Worker;
+  scientist: Worker;
+  metallurgist: Worker;
+  worker: Worker;
+  searcher: Worker;
+  replicator: Worker;
+  nukeDrone: Worker;
+
+  laboratory: Building;
+
   habitableSpace: Unit;
   miningDistrict: Unit;
   energyDistrict: Unit;
   shipyardWork: Unit;
   //#endregion
-
   constructor() {}
-
   makeUnits() {
     this.units = new Array<Unit>();
     //  Initialize Units
@@ -74,7 +83,7 @@ export class ResourceManager {
             this.units.push(w);
             break;
           case UNIT_TYPES.BUILDING:
-            const b = new Worker(unitData);
+            const b = new Building(unitData);
             this.buildings.push(b);
             this.units.push(b);
             break;
@@ -90,7 +99,6 @@ export class ResourceManager {
         }
       }
     });
-
     this.shipyardWork = this.units.find((u) => u.id === "W");
     this.metal = this.units.find((u) => u.id === "M");
     this.alloy = this.units.find((u) => u.id === "A");
@@ -101,14 +109,15 @@ export class ResourceManager {
     this.metallurgist = this.workers.find((u) => u.id === "a");
     this.scientist = this.workers.find((u) => u.id === "s");
     this.worker = this.workers.find((u) => u.id === "w");
-    this.searcher = this.units.find((u) => u.id === "r");
+    this.searcher = this.workers.find((u) => u.id === "r");
+    this.replicator = this.workers.find((u) => u.id === "X");
+    this.nukeDrone = this.workers.find((u) => u.id === "B");
     this.energy = this.units.find((u) => u.id === "E");
     this.habitableSpace = this.units.find((u) => u.id === "j");
     this.miningDistrict = this.units.find((u) => u.id === "P");
     this.energyDistrict = this.units.find((u) => u.id === "k");
     this.nuke = this.units.find((u) => u.id === "b");
     this.laboratory = this.buildings.find((u) => u.id === "3");
-
     //  Production
     this.workers.forEach((unit) => {
       const unitData = UNITS.find((u) => u.id === unit.id);
@@ -399,6 +408,84 @@ export class ResourceManager {
             });
           }
         }
+      }
+    });
+  }
+  makeDepartments() {
+    this.buildings.forEach((building) => {
+      if (building.unitData.departments) {
+        let worker: Worker;
+        switch (building.id) {
+          case "1":
+            worker = this.miner;
+            break;
+          case "2":
+            worker = this.technician;
+            break;
+          case "3":
+            worker = this.scientist;
+            break;
+          case "4":
+            worker = this.metallurgist;
+            break;
+          case "5":
+            worker = this.worker;
+            break;
+          case "6":
+            worker = this.searcher;
+            break;
+          case "7":
+            worker = this.replicator;
+            break;
+          case "10":
+            worker = this.nukeDrone;
+            break;
+        }
+        building.unitData.departments.forEach((dep) => {
+          const department = new Department(dep);
+          if (department.id === "r") {
+            //  R&D
+            this.scientist.limitStack.bonuses.push(new Bonus(building, ONE));
+          } else if (department.id === "s") {
+            //  Storage
+            if (building.id === "2") {
+              department.description =
+                "+ " +
+                STORAGE_DEPARTMENT_MULTI * ENERGY_STORAGE +
+                " energy storage";
+              this.energy.limitStack.bonuses.push(
+                new Bonus(
+                  building,
+                  new Decimal(STORAGE_DEPARTMENT_MULTI * ENERGY_STORAGE)
+                )
+              );
+            } else if (building.id === "7") {
+              department.description =
+                "+ " +
+                STORAGE_DEPARTMENT_MULTI * COMPONENT_STORAGE +
+                " components storage";
+              this.components.limitStack.bonuses.push(
+                new Bonus(
+                  building,
+                  new Decimal(STORAGE_DEPARTMENT_MULTI * COMPONENT_STORAGE)
+                )
+              );
+            } else if (building.id === "10") {
+              department.description =
+                "+ " +
+                STORAGE_DEPARTMENT_MULTI * NUKE_STORAGE +
+                " nuke storage";
+              this.nuke.limitStack.bonuses.push(
+                new Bonus(
+                  building,
+                  new Decimal(STORAGE_DEPARTMENT_MULTI * NUKE_STORAGE)
+                )
+              );
+            }
+          } else if (department.id === "p") {
+          }
+          building.departments.push(department);
+        });
       }
     });
   }
