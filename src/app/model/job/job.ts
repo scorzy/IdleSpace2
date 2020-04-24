@@ -66,7 +66,7 @@ export abstract class Job {
   reloadTotalBonus() {
     this.totalBonus = ONE;
     if (this.type) {
-      this.totalBonus = this.totalBonus.times(this.type.bonus.totalBonus);
+      this.totalBonus = this.type.bonus.totalBonus;
     }
   }
   abstract getSave(): any;

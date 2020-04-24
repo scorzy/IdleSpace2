@@ -3,9 +3,9 @@
     <div fxLayout="rows">
       <i
         nz-icon
-        [nzType]="job.type.icon"
+        [nzType]="job.type?.icon"
         class="icon"
-        [style.color]="job.type.color"
+        [style.color]="job.type?.color"
       ></i>
       <strong class="title">{{ job.name }}</strong>
       <div>

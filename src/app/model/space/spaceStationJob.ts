@@ -7,9 +7,14 @@ export class SpaceStationJob extends Job {
   constructor(public spaceStation: SpaceStation) {
     super();
     this.canDelete = true;
+    this.type = Game.getGame().researchManager.civilEngTech;
     this.reload();
     this.spaceStation.reloadBuildPrice();
   }
+  get totalBonus(): Decimal {
+    return this.type.bonus.totalBonus;
+  }
+  set totalBonus(bon: Decimal) {}
   get name(): string {
     return this.spaceStation.name;
   }
@@ -25,7 +30,6 @@ export class SpaceStationJob extends Job {
 
     this.timeToEnd = this.getRemaining()
       .div(Game.getGame().civWorkPerSec)
-      .floor()
       .toNumber();
   }
   delete() {

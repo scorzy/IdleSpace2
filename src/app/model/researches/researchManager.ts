@@ -24,10 +24,15 @@ export class ResearchManager extends JobManager {
   researchPriority = 50;
   researchPerSec = ZERO;
   techPerSec = ZERO;
-  navalCapTech: Technology;
-  roboticsTech: Technology;
   drag = false;
   sort = true;
+  //#region Technologies
+  civilEngTech: Technology;
+  militaryEngTech: Technology;
+  searchTech: Technology;
+  navalCapTech: Technology;
+  roboticsTech: Technology;
+  //#endregion
   constructor() {
     super();
     this.makeResearches();
@@ -44,6 +49,9 @@ export class ResearchManager extends JobManager {
         }
       }
     }
+    this.civilEngTech = this.technologies.find((t) => t.id === "i");
+    this.militaryEngTech = this.technologies.find((t) => t.id === "e");
+    this.searchTech = this.technologies.find((t) => t.id === "r");
     this.navalCapTech = this.technologies.find((t) => t.id === "n");
     this.navalCapTech.onCompleted = () => {
       Game.getGame().updateNavalCapacity = true;
