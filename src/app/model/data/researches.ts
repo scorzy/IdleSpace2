@@ -10,7 +10,7 @@ export const RESEARCHES: IResearchData[] = [
     name: "Metallurgist",
     description: "Unlock Metallurgists",
     unitsToUnlock: ["A", "a", "w", "W", "4", "5"],
-    researchToUnlock: ["p", "s1", "n", "s", "M", "P"],
+    researchToUnlock: ["p", "s1", "s", "M", "P"],
     max: 1,
     type: TECHNOLOGIES.MilitaryEngineering,
     technologiesToUnlock: ["e", TECHNOLOGIES.CivilEngineering.id]
@@ -37,11 +37,10 @@ export const RESEARCHES: IResearchData[] = [
   {
     id: "n",
     name: "Naval Logistics",
-    description: "Unlock Naval Capacity Technology",
+    description: "Increase Naval Capacity",
     max: 1,
     type: TECHNOLOGIES.Naval,
-    technologiesToUnlock: ["n"],
-    researchToUnlock: ["n1"],
+    researchToUnlock: ["n1", "ns"],
     navalCapacity: 20
   },
   {
@@ -307,11 +306,10 @@ export const RESEARCHES: IResearchData[] = [
     unitsToUnlock: ["b", "B", "10", "11"]
   },
   {
-    id: "n1",
+    id: "ns",
     name: "Scavenging",
     description: "Increase materials gain from battles",
     type: TECHNOLOGIES.Naval,
-    researchToUnlock: ["b"],
     battleMulti: [
       { materialId: "M", multi: 1 },
       { materialId: "E", multi: 1 },

@@ -64,6 +64,23 @@ export class ResearchManager extends JobManager {
     };
     //  Researches
     this.researches = RESEARCHES.map((resData) => new Research(resData, this));
+    for (let i = 0; i < 9; i++) {
+      const resData: IResearchData = {
+        id: "n" + i,
+        max: 1,
+        name: "Naval Logistics" + i,
+        description: "Increase Naval Capacity",
+        type: TECHNOLOGIES.Naval,
+        navalCapacity: 20 * Math.pow(2, i)
+      };
+      if (i + 1 < 9) {
+        resData.researchToUnlock = ["n" + (i + 1)];
+      }
+      if (i === 2) {
+        resData.researchToUnlock.push("b");
+      }
+      this.researches.push(new Research(resData, this));
+    }
   }
   makeShipsResearches() {
     const shipyard = Game.getGame().shipyardManager;
@@ -82,12 +99,15 @@ export class ResearchManager extends JobManager {
       if (i + 1 < n) {
         resData.researchToUnlock = ["s" + (i + 1)];
       }
+      if (i === 1) {
+        resData.researchToUnlock.push("n");
+      }
       this.researches.push(new Research(resData, this));
     }
   }
   makeSpaceStationResearches() {
-    const first = this.researches.find((r) => r.id === "s4");
-    const second = this.researches.find((r) => r.id === "s5");
+    const first = this.researches.find((r) => r.id === "s3");
+    const second = this.researches.find((r) => r.id === "s4");
     first.resData.researchToUnlock.push("i0");
     const spaceStations = Game.getGame().resourceManager.spaceStations;
     for (let i = 0, n = spaceStations.length; i < n; i++) {
@@ -314,18 +334,24 @@ export class ResearchManager extends JobManager {
 
     for (const resData of data.t) {
       const res = this.researches.find((r) => r.id === resData.i);
-      res.load(resData);
-      this.toDo.push(res);
+      if (res) {
+        res.load(resData);
+        this.toDo.push(res);
+      }
     }
     for (const resData of data.d) {
       const res = this.researches.find((r) => r.id === resData.i);
-      res.load(resData);
-      this.done.push(res);
+      if (res) {
+        res.load(resData);
+        this.done.push(res);
+      }
     }
     for (const resData of data.b) {
       const res = this.researches.find((r) => r.id === resData.i);
-      res.load(resData);
-      this.backlog.push(res);
+      if (res) {
+        res.load(resData);
+        this.backlog.push(res);
+      }
     }
     if ("e" in data) {
       for (const techData of data.e) {
