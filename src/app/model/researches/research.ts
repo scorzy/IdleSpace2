@@ -40,6 +40,9 @@ export class Research extends Job implements IUnlockable, IBase {
   limitMulti?: { unit: Unit; multi: number }[];
   recycling = 0;
   modulesToUnlock: Module[];
+  get totalBonus(): Decimal {
+    return this.type.bonus.totalBonus;
+  }
   constructor(researchData: IResearchData, researchManager: ResearchManager) {
     super();
     this.resData = researchData;
@@ -99,10 +102,6 @@ export class Research extends Job implements IUnlockable, IBase {
   }
   reloadUi() {
     super.reloadUi();
-    const newTotalBonUi = this.totalBonus.minus(1).times(100);
-    if (!newTotalBonUi.eq(this.totalBonusUi)) {
-      this.totalBonusUi = newTotalBonUi;
-    }
     this.timeToEnd = solveEquation(
       ZERO,
       ZERO,

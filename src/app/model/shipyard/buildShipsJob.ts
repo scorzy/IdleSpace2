@@ -17,7 +17,6 @@ export class BuildShipsJob extends Job {
     );
   }
   public set description(_description: string) {}
-
   constructor(
     public quantity: number,
     public design: ShipDesign,
@@ -26,6 +25,7 @@ export class BuildShipsJob extends Job {
     super();
     this.total = this.design.price.times(this.quantity);
     this.canDelete = true;
+    this.type = Game.getGame().researchManager.militaryEngTech;
   }
 
   addProgress(pro: DecimalSource): Decimal {
@@ -67,7 +67,7 @@ export class BuildShipsJob extends Job {
   delete() {
     const shipyardManager = Game.getGame().shipyardManager;
     shipyardManager.toDo.splice(
-      shipyardManager.toDo.findIndex(job => job === this),
+      shipyardManager.toDo.findIndex((job) => job === this),
       1
     );
   }
@@ -87,14 +87,24 @@ export class BuildShipsJob extends Job {
   load(data: any) {
     if ("d" in data) {
       this.design = Game.getGame().shipyardManager.shipDesigns.find(
-        des => des.id === data.d
+        (des) => des.id === data.d
       );
     }
-    if (!this.design) { return false; }
-    if ("n" in data) { this.fleetNum = data.n; }
-    if ("p" in data) { this.progress = new Decimal(data.p); }
-    if ("b" in data) { this.built = data.b; }
-    if ("w" in data) { this.workDone = new Decimal(data.w); }
+    if (!this.design) {
+      return false;
+    }
+    if ("n" in data) {
+      this.fleetNum = data.n;
+    }
+    if ("p" in data) {
+      this.progress = new Decimal(data.p);
+    }
+    if ("b" in data) {
+      this.built = data.b;
+    }
+    if ("w" in data) {
+      this.workDone = new Decimal(data.w);
+    }
     this.total = this.design.price.times(this.quantity);
   }
   //#endregion

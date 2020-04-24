@@ -9,8 +9,8 @@
       ></i>
       <strong class="title">{{ job.name }}</strong>
       <div>
-        <span *ngIf="research && research.totalBonusUi.gt(0)" class="monospace">
-          +{{ research.totalBonusUi | format }}%
+        <span *ngIf="job.totalBonusUi.gt(0)" class="monospace">
+          +{{ job.totalBonusUi | format }}%
         </span>
       </div>
     </div>

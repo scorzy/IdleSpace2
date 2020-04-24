@@ -16,7 +16,9 @@ export abstract class Job {
   name: string;
   progressPercent = 0;
   timeToEnd?: number;
-  totalBonus = ONE;
+  get totalBonus(): Decimal {
+    return this.type.bonus.totalBonus;
+  }
   totalBonusUi = ZERO;
   type: IJobType;
   canDelete = false;
@@ -62,13 +64,12 @@ export abstract class Job {
     this.progressPercent = Math.floor(
       this.progress.div(this.total).toNumber() * 100
     );
-  }
-  reloadTotalBonus() {
-    this.totalBonus = ONE;
-    if (this.type) {
-      this.totalBonus = this.type.bonus.totalBonus;
+    const newTotalBonUi = this.totalBonus.minus(1).times(100);
+    if (!newTotalBonUi.eq(this.totalBonusUi)) {
+      this.totalBonusUi = newTotalBonUi;
     }
   }
+  reloadTotalBonus() {}
   abstract getSave(): any;
   delete() {}
 }

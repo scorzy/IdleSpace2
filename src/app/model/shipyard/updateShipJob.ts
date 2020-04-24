@@ -16,20 +16,16 @@ export class UpdateShipJob extends Job {
     return "Updated: " + this.updated + "/" + (this.toUpdate + this.updated);
   }
   public set description(_description: string) {}
-
   constructor(public design: ShipDesign) {
     super();
     this.diff = this.design.price.minus(this.design.old.price);
+    this.type = Game.getGame().researchManager.militaryEngTech;
     this.reload();
   }
   addProgress(pro: DecimalSource): Decimal {
     this.reload();
     const ret = super.addProgress(pro);
-    const done =
-      this.progress
-        .div(this.diff)
-        .floor()
-        .toNumber() - this.updated;
+    const done = this.progress.div(this.diff).floor().toNumber() - this.updated;
     if (done >= 1) {
       let toUpp = done;
       for (let i = 0, n = this.design.fleets.length; i < n; i++) {
@@ -84,10 +80,7 @@ export class UpdateShipJob extends Job {
     const perSec = Game.getGame().shipWorkPerSec;
     this.timeToEnd = perSec.lte(0)
       ? Number.POSITIVE_INFINITY
-      : this.getRemaining()
-          .div(perSec)
-          .floor()
-          .toNumber();
+      : this.getRemaining().div(perSec).floor().toNumber();
   }
 
   //#region Save and Load
@@ -102,12 +95,18 @@ export class UpdateShipJob extends Job {
   load(data: any) {
     if ("d" in data) {
       this.design = Game.getGame().shipyardManager.shipDesigns.find(
-        des => des.id === data.d
+        (des) => des.id === data.d
       );
     }
-    if (!this.design) { return false; }
-    if ("p" in data) { this.progress = new Decimal(data.p); }
-    if ("u" in data) { this.updated = data.u; }
+    if (!this.design) {
+      return false;
+    }
+    if ("p" in data) {
+      this.progress = new Decimal(data.p);
+    }
+    if ("u" in data) {
+      this.updated = data.u;
+    }
     this.reload();
   }
   //#endregion
