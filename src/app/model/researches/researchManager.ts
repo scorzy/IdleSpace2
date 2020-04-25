@@ -81,6 +81,31 @@ export class ResearchManager extends JobManager {
       }
       this.researches.push(new Research(resData, this));
     }
+
+    [
+      { name: "Physics", id: "p", max: 9, tech: TECHNOLOGIES.Physics },
+      { name: "Searching", id: "h", max: 9, tech: TECHNOLOGIES.Search },
+      { name: "Materials", id: "M", max: 9, tech: TECHNOLOGIES.Materials },
+      { name: "Computing", id: "c", max: 10, tech: TECHNOLOGIES.Computing },
+      { name: "Energy", id: "E", max: 10, tech: TECHNOLOGIES.Energy },
+      { name: "Robotics", id: "x", max: 10, tech: TECHNOLOGIES.Robotics },
+      { name: "Mining", id: "N", max: 10, tech: TECHNOLOGIES.Mining },
+      { name: "Propulsion", id: "P", max: 10, tech: TECHNOLOGIES.Propulsion }
+    ].forEach((res) => {
+      for (let i = 0; i < res.max; i++) {
+        const resData: IResearchData = {
+          id: res.id + i,
+          max: 1,
+          name: res.name + i,
+          description: res.name,
+          type: res.tech
+        };
+        if (i + 1 < res.max) {
+          resData.researchToUnlock = [res.id + (i + 1)];
+        }
+        this.researches.push(new Research(resData, this));
+      }
+    });
   }
   makeShipsResearches() {
     const shipyard = Game.getGame().shipyardManager;
