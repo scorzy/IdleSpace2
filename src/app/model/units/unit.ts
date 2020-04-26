@@ -165,7 +165,6 @@ export class Unit implements IBase, IUnlockable {
       this.limit.minus(this.quantity)
     );
   }
- 
   reloadNeedComponent() {
     this.needComponents = this.limit
       .minus(this.quantity)

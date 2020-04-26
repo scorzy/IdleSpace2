@@ -31,4 +31,5 @@ export interface IResearchData {
   limitMulti?: { unitId: string; multi: number }[];
   recycling?: number;
   modulesToUnlock?: string[];
+  modPoints?: { unitId: string; quantity: number }[];
 }

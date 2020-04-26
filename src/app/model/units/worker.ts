@@ -11,6 +11,7 @@ import {
 } from "../CONSTANTS";
 import { IUnitData } from "../data/iUnitData";
 import { Technology } from "../researches/technology";
+import { Research } from "../researches/research";
 
 export class Worker extends Unit {
   modStack: ModStack;
@@ -21,6 +22,7 @@ export class Worker extends Unit {
   recycleTemp = ZERO;
   assemblyPriority = 50;
   assemblyPriorityEnding = 500;
+  modsResearches: Research[];
   constructor(public unitData: IUnitData) {
     super(unitData);
   }
@@ -62,6 +64,25 @@ export class Worker extends Unit {
       this.maxMods = this.maxMods.plus(
         this.maxTechMods[i].technology.quantity.times(this.maxTechMods[i].multi)
       );
+    }
+    if (this.modsResearches) {
+      for (let i = 0, n = this.modsResearches.length; i < n; i++) {
+        if (this.modsResearches[i].quantity) {
+          for (
+            let k = 0, n2 = this.modsResearches[i].modPoints.length;
+            i < n2;
+            i++
+          ) {
+            if (this.modsResearches[i].modPoints[k].unit === this) {
+              this.maxMods = this.maxMods.plus(
+                this.modsResearches[i].quantity.times(
+                  this.modsResearches[i].modPoints[k].quantity
+                )
+              );
+            }
+          }
+        }
+      }
     }
     this.maxMods = this.maxMods.floor();
   }

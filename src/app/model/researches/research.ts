@@ -40,6 +40,7 @@ export class Research extends Job implements IUnlockable, IBase {
   limitMulti?: { unit: Unit; multi: number }[];
   recycling = 0;
   modulesToUnlock: Module[];
+  modPoints: { unit: Unit; quantity: number }[];
   get totalBonus(): Decimal {
     return this.type.bonus.totalBonus;
   }
@@ -88,6 +89,15 @@ export class Research extends Job implements IUnlockable, IBase {
     this.type = researchManager.technologies.find(
       (tec) => tec.id === researchData.type.id
     );
+    if ("modPoints" in researchData) {
+      researchData.modPoints.forEach((modPoint) => {
+        const unit = rs.workers.find((u) => u.id === modPoint.unitId);
+        if (!this.modPoints) this.modPoints = [];
+        this.modPoints.push({ unit, quantity: modPoint.quantity });
+        if (!unit.modsResearches) unit.modsResearches = [];
+        unit.modsResearches.push(this);
+      });
+    }
 
     this.reload();
   }

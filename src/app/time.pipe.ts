@@ -24,9 +24,7 @@ export class TimePipe implements PipeTransform {
           ? formatDistanceStrict(value * 1e3, 0)
           : formatDistance(value * 1e3, 0);
       } else {
-        return (
-          "in " + this.pipeFormat.transform(value / SECONDS_IN_YEAR) + " years"
-        );
+        return this.pipeFormat.transform(value / SECONDS_IN_YEAR) + " years";
       }
     } else {
       return "∞";

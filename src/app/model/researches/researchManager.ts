@@ -5,7 +5,7 @@ import { Game } from "../game";
 import { Bonus } from "../bonus/bonus";
 import { Technology } from "./technology";
 import { TECHNOLOGIES } from "../data/technologyData";
-import { ZERO } from "../CONSTANTS";
+import { ZERO, RESEARCH_TECH_EFF } from "../CONSTANTS";
 import { IResearchData } from "../data/iResearchData";
 import { BonusStack } from "../bonus/bonusStack";
 
@@ -71,7 +71,7 @@ export class ResearchManager extends JobManager {
         name: "Naval Logistics" + i,
         description: "Increase Naval Capacity",
         type: TECHNOLOGIES.Naval,
-        navalCapacity: 20 * Math.pow(2, i)
+        navalCapacity: 30 * Math.pow(2, i)
       };
       if (i + 1 < 9) {
         resData.researchToUnlock = ["n" + (i + 1)];
@@ -82,15 +82,16 @@ export class ResearchManager extends JobManager {
       this.researches.push(new Research(resData, this));
     }
 
+    const rs = Game.getGame().resourceManager;
     [
       { name: "Physics", id: "p", max: 9, tech: TECHNOLOGIES.Physics },
       { name: "Searching", id: "h", max: 9, tech: TECHNOLOGIES.Search },
       { name: "Materials", id: "M", max: 9, tech: TECHNOLOGIES.Materials },
-      { name: "Computing", id: "c", max: 10, tech: TECHNOLOGIES.Computing },
-      { name: "Energy", id: "E", max: 10, tech: TECHNOLOGIES.Energy },
-      { name: "Robotics", id: "x", max: 10, tech: TECHNOLOGIES.Robotics },
-      { name: "Mining", id: "N", max: 10, tech: TECHNOLOGIES.Mining },
-      { name: "Propulsion", id: "P", max: 10, tech: TECHNOLOGIES.Propulsion }
+      { name: "Computing", id: "c", max: 9, tech: TECHNOLOGIES.Computing },
+      { name: "Energy", id: "E", max: 9, tech: TECHNOLOGIES.Energy },
+      { name: "Robotics", id: "x", max: 9, tech: TECHNOLOGIES.Robotics },
+      { name: "Mining", id: "N", max: 9, tech: TECHNOLOGIES.Mining },
+      { name: "Propulsion", id: "P", max: 9, tech: TECHNOLOGIES.Propulsion }
     ].forEach((res) => {
       for (let i = 0; i < res.max; i++) {
         const resData: IResearchData = {
@@ -103,6 +104,48 @@ export class ResearchManager extends JobManager {
         if (i + 1 < res.max) {
           resData.researchToUnlock = [res.id + (i + 1)];
         }
+        const modPlus = (1 + i) * 4;
+        const modRob = 1 + 1;
+        switch (res.id) {
+          //  Robotics
+          case "x":
+            resData.modPoints = rs.workers.map((w) => {
+              return { unitId: w.id, quantity: modRob };
+            });
+            break;
+          //  Research / Physics
+          case "p":
+            resData.modPoints = [{ unitId: "s", quantity: modPlus }];
+            resData.effMulti = [{ unitId: "s", multi: RESEARCH_TECH_EFF }];
+            break;
+          //  Searching
+          case "h":
+            resData.modPoints = [{ unitId: "r", quantity: modPlus }];
+            resData.effMulti = [{ unitId: "r", multi: RESEARCH_TECH_EFF }];
+            break;
+          //  materials
+          case "M":
+            resData.modPoints = [
+              { unitId: "a", quantity: modPlus },
+              { unitId: "w", quantity: modPlus }
+            ];
+            resData.effMulti = [
+              { unitId: "a", multi: RESEARCH_TECH_EFF },
+              { unitId: "w", multi: RESEARCH_TECH_EFF }
+            ];
+            break;
+          //  Energy
+          case "E":
+            resData.modPoints = [{ unitId: "e", quantity: modPlus }];
+            resData.effMulti = [{ unitId: "e", multi: RESEARCH_TECH_EFF }];
+            break;
+          //  Mining
+          case "N":
+            resData.modPoints = [{ unitId: "m", quantity: modPlus }];
+            resData.effMulti = [{ unitId: "m", multi: RESEARCH_TECH_EFF }];
+            break;
+        }
+
         this.researches.push(new Research(resData, this));
       }
     });
