@@ -24,7 +24,6 @@ export class Game {
 
   navalCapacity: number = BASE_NAVAL_CAPACITY;
   updateNavalCapacity = true;
-  updateMods = true;
 
   battleStats: Array<{ name: string; stats: Stats[] }[]>;
   updateStats = true;
@@ -152,10 +151,8 @@ export class Game {
       this.researchManager.backlog[i].reloadTotalBonus();
     }
     this.reloadNavalCapacity();
-    if (this.updateMods) {
-      this.resourceManager.reloadMods();
-      this.updateMods = false;
-    }
+    this.resourceManager.reloadMods();
+
     this.shipyardManager.postUpdate();
     this.enemyManager.postUpdate();
     this.spaceStationManager.postUpdate();

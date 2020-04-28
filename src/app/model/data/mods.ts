@@ -13,7 +13,7 @@ export const ENERGY_MOD: IModData = {
 };
 export const COMPONENTS_MOD: IModData = {
   name: "Expensive / Economic",
-  max: 10
+  max: 5
 };
 export const DRONE_MOD: IModData = {
   name: "More Drones",

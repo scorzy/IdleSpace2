@@ -60,6 +60,7 @@ export class Worker extends Unit {
     this.modStack = new ModStack(this.id !== "e");
   }
   reloadMaxMods() {
+    this.maxMods = ZERO;
     for (let i = 0, n = this.maxTechMods.length; i < n; i++) {
       this.maxMods = this.maxMods.plus(
         this.maxTechMods[i].technology.quantity.times(this.maxTechMods[i].multi)
@@ -89,14 +90,19 @@ export class Worker extends Unit {
   confirmMods() {
     let recycle = this.recycle.plus(Game.getGame().baseRecycling);
     recycle = recycle.min(this.components.times(0.9));
-    const toAdd = this.quantity.times(recycle);
-    const components = Game.getGame().resourceManager.components;
-    components.quantity = components.quantity.plus(toAdd);
     this.quantity = ONE;
     this.modStack.mods.forEach((mod) => {
       mod.quantity = mod.uiQuantity;
     });
     this.reloadAll();
+    let toAdd = this.quantity.times(recycle);
+    let newDrones = toAdd.div(this.components).floor();
+    newDrones = newDrones.min(this.limit.minus(ONE));
+    toAdd = toAdd.minus(newDrones.times(this.components));
+
+    this.quantity = this.quantity.plus(newDrones);
+    const components = Game.getGame().resourceManager.components;
+    components.quantity = components.quantity.plus(toAdd);
     Game.getGame().resourceManager.deployComponents();
     this.reloadAll();
   }

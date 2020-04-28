@@ -58,7 +58,8 @@
           <td colspan="3" class="center"><strong>Production</strong></td>
         </tr>
         <tr *ngFor="let prod of unit.production">
-          <td>
+          <td [ngClass]="prod.product.colorClass">
+            <i nz-icon [nzType]="prod.product.icon"></i>
             {{ prod.product.name }}
           </td>
           <td style="min-width: 4rem;">
@@ -126,7 +127,7 @@
 <!-- nzSize="middle" -->
 
 <ng-template #infoRef>
-  <span>You will restart with one Drone.</span>
+  <span>You will restart with {{ droneRestart | format: true }} Drones.</span>
   <span *ngIf="componentGain.gt(0)"
     >You will gain
     <span class="monospace">{{ componentGain | format }}</span>

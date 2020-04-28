@@ -182,7 +182,7 @@
     <h4>Storage - Additive</h4>
     <nz-table nzTemplateMode nzSize="middle">
       <tbody>
-        <tr *ngFor="let limit of unit.limitStack.bonuses; trackBy: getBonusId">
+        <tr *ngFor="let limit of unit.limitStack?.bonuses; trackBy: getBonusId">
           <ng-container *ngIf="limit.unit.quantity.gt(0)">
             <td>{{ limit.unit.name }}</td>
             <td>{{ limit.unit.quantity | format }}</td>
@@ -199,7 +199,7 @@
       <tbody>
         <tr
           *ngFor="
-            let limit of unit.limitStackMulti.bonuses;
+            let limit of unit.limitStackMulti?.bonuses;
             trackBy: getBonusId
           "
         >

@@ -59,9 +59,6 @@ export class ResearchManager extends JobManager {
     this.roboticsTech = this.technologies.find(
       (t) => t.id === TECHNOLOGIES.Robotics.id
     );
-    this.roboticsTech.onCompleted = () => {
-      Game.getGame().updateMods = true;
-    };
     //  Researches
     this.researches = RESEARCHES.map((resData) => new Research(resData, this));
     for (let i = 0; i < 9; i++) {
