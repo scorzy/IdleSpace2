@@ -1,4 +1,4 @@
-import { ZERO, ONE } from "../CONSTANTS";
+import { ZERO } from "../CONSTANTS";
 import { IJobType } from "../data/iResearchData";
 
 export interface MyIcon {

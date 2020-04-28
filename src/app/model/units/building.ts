@@ -1,6 +1,5 @@
 import { Unit } from "./unit";
-import { IUnitData } from "../data/iUnitData";
-import { iDepartmentData, RD } from "../data/departments";
+import { iDepartmentData } from "../data/departments";
 import assign from "lodash-es/assign";
 export class Department implements iDepartmentData {
   id: string;
@@ -26,7 +25,7 @@ export class Building extends Unit {
   load(save: any) {
     if (!super.load(save)) return false;
     if ("d" in save) {
-      for (let depSave of save.d) {
+      for (const depSave of save.d) {
         const department = this.departments.find((d) => d.id === depSave.i);
         if (department) {
           department.quantity = depSave.q;

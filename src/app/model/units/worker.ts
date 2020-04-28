@@ -70,7 +70,7 @@ export class Worker extends Unit {
       for (let i = 0, n = this.modsResearches.length; i < n; i++) {
         if (this.modsResearches[i].quantity) {
           for (
-            let k = 0, n2 = this.modsResearches[i].modPoints.length;
+            const k = 0, n2 = this.modsResearches[i].modPoints.length;
             i < n2;
             i++
           ) {
