@@ -7,7 +7,7 @@ export class Department implements IDepartmentData {
   id: string;
   name: string;
   description: string;
-  quantity: number = 0;
+  quantity = 0;
   constructor(depData: IDepartmentData) {
     assign(this, depData);
   }

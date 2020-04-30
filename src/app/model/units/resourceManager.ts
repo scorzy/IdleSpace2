@@ -488,7 +488,7 @@ export class ResourceManager {
                 );
               }
               break;
-            case "p": //Production
+            case "p": // Production
               worker.limitStack.bonuses.push(
                 new Bonus(building, ONE, department.quantity)
               );

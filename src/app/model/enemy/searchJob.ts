@@ -3,6 +3,15 @@ import { SEARCH_JOB_PRICE, EXTRA_OPT_EXP } from "../CONSTANTS";
 import { Game } from "../game";
 
 export class SearchJob extends Job {
+  constructor() {
+    super();
+    this.id = SearchJob.LAST_ID;
+    SearchJob.LAST_ID++;
+    this.canDelete = true;
+    this.type = Game.getGame().researchManager.searchTech;
+  }
+  //#endregion
+  static LAST_ID = 0;
   enemyLevel = 0;
   id = 0;
   //#region Search Options
@@ -13,15 +22,6 @@ export class SearchJob extends Job {
   metalOpt = 0;
   scienceOpt = 0;
   componentOpt = 0;
-  //#endregion
-  static LAST_ID = 0;
-  constructor() {
-    super();
-    this.id = SearchJob.LAST_ID;
-    SearchJob.LAST_ID++;
-    this.canDelete = true;
-    this.type = Game.getGame().researchManager.searchTech;
-  }
   static getPrice(level: number, extraOpt: number): Decimal {
     return Decimal.multiply(level + 1, SEARCH_JOB_PRICE).times(
       Decimal.pow(EXTRA_OPT_EXP, Math.max(extraOpt, 0))

@@ -356,8 +356,9 @@ export class ResearchManager extends JobManager {
           const building = rs.buildings.find((b) => b.id === bp.buildingId);
           if (!res.buildingPoints) res.buildingPoints = [];
           res.buildingPoints.push({ building, quantity: bp.quantity });
-          if (!building.departmentResearches)
+          if (!building.departmentResearches) {
             building.departmentResearches = [];
+          }
           building.departmentResearches.push(res);
         });
       }
