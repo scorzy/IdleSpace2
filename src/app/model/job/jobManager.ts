@@ -4,8 +4,9 @@ import { ZERO } from "../CONSTANTS";
 export abstract class JobManager {
   toDo: Job[];
   done: Job[];
+  backlog: Job[];
   sort = false;
-
+  newJobsOnBacklog = false;
   addProgress(prog: Decimal): Decimal {
     let toAdd = prog;
     while (toAdd.gt(0) && this.toDo.length > 0) {
@@ -30,7 +31,8 @@ export abstract class JobManager {
     const job = this.toDo[0];
     this.toDo.shift();
     if (job.max > job.level) {
-      this.toDo.push(job);
+      if (this.newJobsOnBacklog) this.backlog.push(job);
+      else this.toDo.push(job);
     } else if (this.done) {
       this.done.push(job);
     }

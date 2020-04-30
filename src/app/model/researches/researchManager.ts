@@ -380,8 +380,8 @@ export class ResearchManager extends JobManager {
     if (this.backlog.findIndex((r) => r.id === res.id) > -1) {
       return false;
     }
-
-    this.toDo.push(res);
+    if (this.newJobsOnBacklog) this.backlog.push(res);
+    else this.toDo.push(res);
     return true;
   }
   reloadTechList() {
@@ -431,7 +431,7 @@ export class ResearchManager extends JobManager {
   }
   //#region Save and Load
   getSave(): any {
-    return {
+    const ret: any = {
       d: this.done.map((r) => r.getSave()),
       t: this.toDo.map((r) => r.getSave()),
       b: this.backlog.map((r) => r.getSave()),
@@ -439,15 +439,17 @@ export class ResearchManager extends JobManager {
       r: this.researchPriority,
       s: this.sort
     };
+    if (this.newJobsOnBacklog) ret.k = this.newJobsOnBacklog;
+    return ret;
   }
   load(data: any) {
     this.toDo = [];
     this.done = [];
     this.backlog = [];
+    if ("k" in data) this.newJobsOnBacklog = data.k;
     if ("s" in data) {
       this.sort = data.s;
     }
-
     for (const resData of data.t) {
       const res = this.researches.find((r) => r.id === resData.i);
       if (res) {
