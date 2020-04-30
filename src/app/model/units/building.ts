@@ -1,36 +1,76 @@
 import { Unit } from "./unit";
-import { iDepartmentData } from "../data/departments";
+import { IDepartmentData } from "../data/departments";
 import assign from "lodash-es/assign";
-export class Department implements iDepartmentData {
+import { Research } from "../researches/research";
+
+export class Department implements IDepartmentData {
   id: string;
   name: string;
   description: string;
-  quantity: number;
-  constructor(depData: iDepartmentData) {
+  quantity: number = 0;
+  constructor(depData: IDepartmentData) {
     assign(this, depData);
   }
 }
 export class Building extends Unit {
   maxDepartments = 0;
+  usedDepartments = 0;
   departments = new Array<Department>();
+  departmentResearches: Array<Research>;
+  addDep(dep: Department) {
+    if (this.usedDepartments < this.maxDepartments) {
+      dep.quantity++;
+      this.usedDepartments++;
+    }
+  }
+  reloadMaxDep() {
+    if (!this.departmentResearches) return false;
+    this.maxDepartments = 0;
+    for (let i = 0, n = this.departmentResearches.length; i < n; i++) {
+      for (
+        let k = 0, n2 = this.departmentResearches[i].buildingPoints.length;
+        k < n2;
+        k++
+      ) {
+        if (this.departmentResearches[i].buildingPoints[k].building === this) {
+          this.maxDepartments +=
+            this.departmentResearches[i].buildingPoints[k].quantity *
+            this.departmentResearches[i].quantity.toNumber();
+        }
+      }
+    }
+  }
+  postUpdate() {
+    super.postUpdate();
+    this.reloadMaxDep();
+  }
+  //#region Save and Load
   getSave(): any {
     const ret = super.getSave();
     ret.d = this.departments.map((dep) => {
-      i: dep.id;
-      q: dep.quantity;
+      const depSave: any = {
+        i: dep.id
+      };
+      if (dep.quantity !== 0) {
+        depSave.q = dep.quantity;
+      }
+      return depSave;
     });
-
     return ret;
   }
   load(save: any) {
     if (!super.load(save)) return false;
     if ("d" in save) {
       for (const depSave of save.d) {
-        const department = this.departments.find((d) => d.id === depSave.i);
-        if (department) {
-          department.quantity = depSave.q;
+        if ("q" in depSave) {
+          const department = this.departments.find((d) => d.id === depSave.i);
+          if (department) {
+            department.quantity = depSave.q;
+            this.usedDepartments += department.quantity;
+          }
         }
       }
     }
   }
+  //#endregion
 }

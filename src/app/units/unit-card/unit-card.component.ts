@@ -19,6 +19,7 @@ import { BreakpointObserver, BreakpointState } from "@angular/cdk/layout";
 import { Router } from "@angular/router";
 import { BaseComponentComponent } from "src/app/base-component/base-component.component";
 import { Bonus } from "src/app/model/bonus/bonus";
+import { Building } from "src/app/model/units/building";
 
 @Component({
   selector: "app-unit-card",
@@ -29,6 +30,7 @@ import { Bonus } from "src/app/model/bonus/bonus";
 export class UnitCardComponent extends BaseComponentComponent
   implements OnInit, OnDestroy, AfterViewInit {
   @Input() unit: Worker;
+  building: Building;
   tplModal: NzModalRef;
   popoverTrigger: string = null;
   actions = [];
@@ -37,7 +39,6 @@ export class UnitCardComponent extends BaseComponentComponent
   isVisible = false;
   Decimal = Decimal;
   ONE = ONE;
-
   @ViewChild("buyOne", { static: true })
   private buyOne: TemplateRef<any>;
   @ViewChild("buyHalf", { static: true })
@@ -55,6 +56,7 @@ export class UnitCardComponent extends BaseComponentComponent
   }
   ngOnInit() {
     this.popoverTrigger = "hover";
+    if (this.unit instanceof Building) this.building = this.unit;
     this.sliderDisabled = !this.unit.production.find((p) => p.ratio.lt(0));
     // this.getActions();
     this.unit.reloadMaxBuy();
@@ -71,26 +73,6 @@ export class UnitCardComponent extends BaseComponentComponent
         })
     );
   }
-  // getActions() {
-  //   this.unit.reloadMaxBuy();
-  //   const newActions = [this.buyOne];
-
-  //   if (this.unit.buyPrice.canBuy) {
-  //     if (this.unit.buyPrice.maxBuy.gte(4)) {
-  //       newActions.push(this.buyHalf);
-  //     }
-  //     if (this.unit.buyPrice.maxBuy.gte(2)) {
-  //       newActions.push(this.buyMax);
-  //     }
-  //   }
-
-  //   if (
-  //     newActions.length !== this.actions.length ||
-  //     this.actions[0] !== newActions[0]
-  //   ) {
-  //     this.actions = newActions;
-  //   }
-  // }
   buyOneAct() {
     this.unit.buy(ONE);
   }
@@ -120,6 +102,9 @@ export class UnitCardComponent extends BaseComponentComponent
   }
   goModPage() {
     this.router.navigate(["/mod/" + this.unit.id]);
+  }
+  goDepPage() {
+    this.router.navigate(["/dep/" + this.unit.id]);
   }
   getBonusId(index: number, bonus: Bonus) {
     return bonus.unit.id;

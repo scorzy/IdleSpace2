@@ -1,0 +1,47 @@
+<nz-card nzSize="small" style="width: 350px;">
+  <h2 [ngClass]="building.colorClass">
+    <i nz-icon [nzType]="building.icon"></i>
+    {{ building.name }}
+  </h2>
+  <span>
+    <span class="used">
+      Used:
+      <span class="monospace"
+        >{{ building.usedDepartments | format: true }}
+      </span>
+    </span>
+    <span>
+      Total:
+      <span class="monospace"
+        >{{ building.maxDepartments | format: true }}
+      </span>
+    </span>
+  </span>
+
+  <table class="margin-top">
+    <tr *ngFor="let dep of building.departments; trackBy: getDepId">
+      <td
+        class="title"
+        nz-popover
+        [nzTitle]="dep.name"
+        [nzPopoverContent]="dep.description"
+      >
+        {{ dep.name }}
+      </td>
+      <td class="monospace quantity">
+        {{ dep.quantity | format: true }}
+      </td>
+      <td>
+        <button
+          nz-button
+          nzSize="small"
+          nzType="secondary"
+          [disabled]="building.usedDepartments >= building.maxDepartments"
+          (click)="building.addDep(dep)"
+        >
+          +1
+        </button>
+      </td>
+    </tr>
+  </table>
+</nz-card>

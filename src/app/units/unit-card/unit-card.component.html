@@ -3,7 +3,13 @@
   nzSize="small"
   [nzTitle]="cardTitleTemplate"
   [nzExtra]="extraTemplate"
-  [nzActions]="unit.modStack ? [buyOne, buyMax, mod] : [buyOne, buyMax]"
+  [nzActions]="
+    unit.modStack
+      ? [buyOne, buyMax, mod]
+      : building
+      ? [buyOne, buyMax, dep]
+      : [buyOne, buyMax]
+  "
 >
   <!-- <p *ngIf="unit.description !== ''" class="text-secondary">
     {{ unit.description }}
@@ -170,6 +176,18 @@
       <span class="monospace">
         {{ unit.modStack.used | format: true }} /{{
           unit.maxMods | format: true
+        }}</span
+      >
+    </button>
+  </div>
+</ng-template>
+<ng-template #dep>
+  <div *ngIf="building">
+    <button nz-button (click)="goDepPage()" nzType="link" nzSize="small">
+      <i nz-icon nzType="fa-s:microchip"></i>
+      <span class="monospace">
+        {{ building.usedDepartments | format: true }} /{{
+          building.maxDepartments | format: true
         }}</span
       >
     </button>

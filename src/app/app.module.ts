@@ -93,6 +93,7 @@ import { ResearchPreviewComponent } from "./laboratory/research-preview/research
 import { HtmlTreeComponent } from "./laboratory/html-tree/html-tree.component";
 import { TreeNodeComponent } from "./laboratory/tree-node/tree-node.component";
 import { BuildingsComponent } from './units/buildings/buildings.component';
+import { DepartmentComponent } from './units/department/department.component';
 
 registerLocaleData(en);
 
@@ -146,7 +147,8 @@ const ngZorroConfig: NzConfig = {
     ResearchPreviewComponent,
     HtmlTreeComponent,
     TreeNodeComponent,
-    BuildingsComponent
+    BuildingsComponent,
+    DepartmentComponent
   ],
   imports: [
     BrowserModule,

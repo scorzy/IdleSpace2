@@ -443,47 +443,61 @@ export class ResourceManager {
         }
         building.unitData.departments.forEach((dep) => {
           const department = new Department(dep);
-          if (department.id === "r") {
-            //  R&D
-            this.scientist.limitStack.bonuses.push(new Bonus(building, ONE));
-          } else if (department.id === "s") {
-            //  Storage
-            if (building.id === "2") {
-              department.description =
-                "+ " +
-                STORAGE_DEPARTMENT_MULTI * ENERGY_STORAGE +
-                " energy storage";
-              this.energy.limitStack.bonuses.push(
-                new Bonus(
-                  building,
-                  new Decimal(STORAGE_DEPARTMENT_MULTI * ENERGY_STORAGE)
-                )
+          switch (department.id) {
+            case "r": //  R&D
+              this.scientist.limitStack.bonuses.push(
+                new Bonus(building, ONE, department.quantity)
               );
-            } else if (building.id === "7") {
-              department.description =
-                "+ " +
-                STORAGE_DEPARTMENT_MULTI * COMPONENT_STORAGE +
-                " components storage";
-              this.components.limitStack.bonuses.push(
-                new Bonus(
-                  building,
-                  new Decimal(STORAGE_DEPARTMENT_MULTI * COMPONENT_STORAGE)
-                )
+              break;
+            case "s": //  Storage
+              if (building.id === "2") {
+                department.description =
+                  "+ " +
+                  STORAGE_DEPARTMENT_MULTI * ENERGY_STORAGE +
+                  " energy storage";
+                this.energy.limitStack.bonuses.push(
+                  new Bonus(
+                    building,
+                    new Decimal(STORAGE_DEPARTMENT_MULTI * ENERGY_STORAGE),
+                    department.quantity
+                  )
+                );
+              } else if (building.id === "7") {
+                department.description =
+                  "+ " +
+                  STORAGE_DEPARTMENT_MULTI * COMPONENT_STORAGE +
+                  " components storage";
+                this.components.limitStack.bonuses.push(
+                  new Bonus(
+                    building,
+                    new Decimal(STORAGE_DEPARTMENT_MULTI * COMPONENT_STORAGE),
+                    department.quantity
+                  )
+                );
+              } else if (building.id === "10") {
+                department.description =
+                  "+ " +
+                  STORAGE_DEPARTMENT_MULTI * NUKE_STORAGE +
+                  " nuke storage";
+                this.nuke.limitStack.bonuses.push(
+                  new Bonus(
+                    building,
+                    new Decimal(STORAGE_DEPARTMENT_MULTI * NUKE_STORAGE),
+                    department.quantity
+                  )
+                );
+              }
+              break;
+            case "p": //Production
+              worker.limitStack.bonuses.push(
+                new Bonus(building, ONE, department.quantity)
               );
-            } else if (building.id === "10") {
-              department.description =
-                "+ " +
-                STORAGE_DEPARTMENT_MULTI * NUKE_STORAGE +
-                " nuke storage";
-              this.nuke.limitStack.bonuses.push(
-                new Bonus(
-                  building,
-                  new Decimal(STORAGE_DEPARTMENT_MULTI * NUKE_STORAGE)
-                )
+              worker.prodEfficiency.bonuses.push(
+                new Bonus(building, new Decimal(0.1), department.quantity)
               );
-            }
-          } else if (department.id === "p") {
+              break;
           }
+
           building.departments.push(department);
         });
       }

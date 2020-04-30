@@ -57,6 +57,7 @@ export class Game {
     this.researchManager.makeSpaceStationResearches();
     this.researchManager.setRelations();
     this.resourceManager.makeUnitsMods();
+    this.resourceManager.makeDepartments();
     this.shipyardManager.unlockDefaultModules();
 
     this.setTheme();

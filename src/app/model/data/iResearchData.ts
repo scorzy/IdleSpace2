@@ -32,4 +32,5 @@ export interface IResearchData {
   recycling?: number;
   modulesToUnlock?: string[];
   modPoints?: { unitId: string; quantity: number }[];
+  buildingPoints?: { buildingId: string; quantity: number }[];
 }

@@ -16,6 +16,7 @@ import { Unit } from "../units/unit";
 import { Technology } from "./technology";
 import { ShipType } from "../shipyard/ShipType";
 import { Module } from "../shipyard/module";
+import { Building } from "../units/building";
 
 export class Research extends Job implements IUnlockable, IBase {
   static lastVisId = 0;
@@ -41,6 +42,7 @@ export class Research extends Job implements IUnlockable, IBase {
   recycling = 0;
   modulesToUnlock: Module[];
   modPoints: { unit: Unit; quantity: number }[];
+  buildingPoints: { building: Building; quantity: number }[];
   get totalBonus(): Decimal {
     return this.type.bonus.totalBonus;
   }

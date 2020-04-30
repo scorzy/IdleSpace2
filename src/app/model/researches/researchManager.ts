@@ -80,17 +80,48 @@ export class ResearchManager extends JobManager {
     }
 
     const rs = Game.getGame().resourceManager;
+
     [
-      { name: "Physics", id: "p", max: 9, tech: TECHNOLOGIES.Physics },
-      { name: "Searching", id: "h", max: 9, tech: TECHNOLOGIES.Search },
-      { name: "Materials", id: "M", max: 9, tech: TECHNOLOGIES.Materials },
-      { name: "Computing", id: "c", max: 9, tech: TECHNOLOGIES.Computing },
-      { name: "Energy", id: "E", max: 9, tech: TECHNOLOGIES.Energy },
-      { name: "Robotics", id: "x", max: 9, tech: TECHNOLOGIES.Robotics },
-      { name: "Mining", id: "N", max: 9, tech: TECHNOLOGIES.Mining },
-      { name: "Propulsion", id: "P", max: 9, tech: TECHNOLOGIES.Propulsion }
+      {
+        name: "Physics",
+        id: "p",
+        start: 0,
+        tech: TECHNOLOGIES.Physics
+      },
+      {
+        name: "Searching",
+        id: "h",
+        start: 0,
+        tech: TECHNOLOGIES.Search
+      },
+      {
+        name: "Materials",
+        id: "M",
+        start: 0,
+        tech: TECHNOLOGIES.Materials
+      },
+      {
+        name: "Computing",
+        id: "c",
+        start: 1,
+        tech: TECHNOLOGIES.Computing
+      },
+      { name: "Energy", id: "E", start: 1, tech: TECHNOLOGIES.Energy },
+      {
+        name: "Robotics",
+        id: "x",
+        start: 1,
+        tech: TECHNOLOGIES.Robotics
+      },
+      { name: "Mining", id: "N", start: 1, tech: TECHNOLOGIES.Mining },
+      {
+        name: "Propulsion",
+        id: "P",
+        start: 1,
+        tech: TECHNOLOGIES.Propulsion
+      }
     ].forEach((res) => {
-      for (let i = 0; i < res.max; i++) {
+      for (let i = res.start; i < 9; i++) {
         const resData: IResearchData = {
           id: res.id + i,
           max: 1,
@@ -98,51 +129,61 @@ export class ResearchManager extends JobManager {
           description: res.name,
           type: res.tech
         };
-        if (i + 1 < res.max) {
+        if (i + 1 < 9) {
           resData.researchToUnlock = [res.id + (i + 1)];
         }
-        const modPlus = (1 + i) * 4;
-        const modRob = 1 + 1;
-        switch (res.id) {
-          //  Robotics
-          case "x":
-            resData.modPoints = rs.workers.map((w) => {
-              return { unitId: w.id, quantity: modRob };
-            });
-            break;
-          //  Research / Physics
-          case "p":
-            resData.modPoints = [{ unitId: "s", quantity: modPlus }];
-            resData.effMulti = [{ unitId: "s", multi: RESEARCH_TECH_EFF }];
-            break;
-          //  Searching
-          case "h":
-            resData.modPoints = [{ unitId: "r", quantity: modPlus }];
-            resData.effMulti = [{ unitId: "r", multi: RESEARCH_TECH_EFF }];
-            break;
-          //  materials
-          case "M":
-            resData.modPoints = [
-              { unitId: "a", quantity: modPlus },
-              { unitId: "w", quantity: modPlus }
-            ];
-            resData.effMulti = [
-              { unitId: "a", multi: RESEARCH_TECH_EFF },
-              { unitId: "w", multi: RESEARCH_TECH_EFF }
-            ];
-            break;
-          //  Energy
-          case "E":
-            resData.modPoints = [{ unitId: "e", quantity: modPlus }];
-            resData.effMulti = [{ unitId: "e", multi: RESEARCH_TECH_EFF }];
-            break;
-          //  Mining
-          case "N":
-            resData.modPoints = [{ unitId: "m", quantity: modPlus }];
-            resData.effMulti = [{ unitId: "m", multi: RESEARCH_TECH_EFF }];
-            break;
+        if (i > 0) {
+          const modPlus = (1 + i) * 4;
+          const modRob = 1 + 1;
+          switch (res.id) {
+            //  Robotics
+            case "x":
+              resData.modPoints = rs.workers.map((w) => {
+                return { unitId: w.id, quantity: modRob };
+              });
+              resData.buildingPoints = [{ buildingId: "7", quantity: 1 }];
+              break;
+            //  Research / Physics
+            case "p":
+              resData.modPoints = [{ unitId: "s", quantity: modPlus }];
+              resData.effMulti = [{ unitId: "s", multi: RESEARCH_TECH_EFF }];
+              resData.buildingPoints = [{ buildingId: "3", quantity: 1 }];
+              break;
+            //  Searching
+            case "h":
+              resData.modPoints = [{ unitId: "r", quantity: modPlus }];
+              resData.effMulti = [{ unitId: "r", multi: RESEARCH_TECH_EFF }];
+              resData.buildingPoints = [{ buildingId: "6", quantity: 1 }];
+              break;
+            //  Materials
+            case "M":
+              resData.modPoints = [
+                { unitId: "a", quantity: modPlus },
+                { unitId: "w", quantity: modPlus }
+              ];
+              resData.effMulti = [
+                { unitId: "a", multi: RESEARCH_TECH_EFF },
+                { unitId: "w", multi: RESEARCH_TECH_EFF }
+              ];
+              resData.buildingPoints = [
+                { buildingId: "4", quantity: 1 },
+                { buildingId: "5", quantity: 1 }
+              ];
+              break;
+            //  Energy
+            case "E":
+              resData.modPoints = [{ unitId: "e", quantity: modPlus }];
+              resData.effMulti = [{ unitId: "e", multi: RESEARCH_TECH_EFF }];
+              resData.buildingPoints = [{ buildingId: "2", quantity: 1 }];
+              break;
+            //  Mining
+            case "N":
+              resData.modPoints = [{ unitId: "m", quantity: modPlus }];
+              resData.effMulti = [{ unitId: "m", multi: RESEARCH_TECH_EFF }];
+              resData.buildingPoints = [{ buildingId: "1", quantity: 1 }];
+              break;
+          }
         }
-
         this.researches.push(new Research(resData, this));
       }
     });
@@ -310,6 +351,16 @@ export class ResearchManager extends JobManager {
           mod.research = res;
         });
       }
+      if ("buildingPoints" in resData) {
+        resData.buildingPoints.forEach((bp) => {
+          const building = rs.buildings.find((b) => b.id === bp.buildingId);
+          if (!res.buildingPoints) res.buildingPoints = [];
+          res.buildingPoints.push({ building, quantity: bp.quantity });
+          if (!building.departmentResearches)
+            building.departmentResearches = [];
+          building.departmentResearches.push(res);
+        });
+      }
     });
 
     this.toDo = [this.researches[0]];
@@ -377,7 +428,6 @@ export class ResearchManager extends JobManager {
         .cmp(b.total.minus(b.progress).div(b.totalBonus))
     );
   }
-
   //#region Save and Load
   getSave(): any {
     return {

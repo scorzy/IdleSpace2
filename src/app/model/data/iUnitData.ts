@@ -1,5 +1,5 @@
 import { UNIT_TYPES } from "./units";
-import { iDepartmentData } from "./departments";
+import { IDepartmentData } from "./departments";
 
 export interface IUnitData {
   id: string;
@@ -23,5 +23,5 @@ export interface IUnitData {
    */
   prices?: [string, DecimalSource][];
   mods?: { technologyId: string; multi: number }[];
-  departments?: iDepartmentData[];
+  departments?: IDepartmentData[];
 }

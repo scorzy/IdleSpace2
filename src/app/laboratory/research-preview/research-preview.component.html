@@ -22,6 +22,10 @@
     +{{ unit.quantity | number }} {{ unit.unit.name
     }}<span class="text-secondary"> mod points</span>
   </li>
+  <li *ngFor="let unit of research.buildingPoints">
+    +{{ unit.quantity | number }} {{ unit.building.name
+    }}<span class="text-secondary"> departments</span>
+  </li>
   <li *ngFor="let effMulti of research.effMulti; trackBy: getId">
     {{ effMulti.unit.name }}
     <span class="text-secondary">

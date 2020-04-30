@@ -20,13 +20,14 @@ import { ListComponent } from "./designer/list/list.component";
 import { BiComponent } from "./units/bi/bi.component";
 import { HtmlTreeComponent } from "./laboratory/html-tree/html-tree.component";
 import { BuildingsComponent } from "./units/buildings/buildings.component";
-
+import { DepartmentComponent } from "./units/department/department.component";
 export const routes: Routes = [
   { path: "", pathMatch: "full", redirectTo: "/units/ws" },
   { path: "des", pathMatch: "full", redirectTo: "/des/add" },
   { path: "enemyList", pathMatch: "full", redirectTo: "/enemyList/search" },
   { path: "units/:id", pathMatch: "full", component: UnitsComponent },
   { path: "build", pathMatch: "full", component: BuildingsComponent },
+  { path: "dep/:id", pathMatch: "full", component: DepartmentComponent },
   { path: "bi", pathMatch: "full", component: BiComponent },
   { path: "mod/:id", pathMatch: "full", component: ModComponent },
   { path: "lab", pathMatch: "full", component: LaboratoryComponent },
