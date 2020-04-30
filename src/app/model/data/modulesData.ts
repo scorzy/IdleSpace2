@@ -473,8 +473,8 @@ export const modules: ModuleData[] = [
     energy: -1,
     price: 20,
     technologies: [
-      { technologyId: TECHNOLOGIES.Physics.id, multi: 1 },
-      { technologyId: TECHNOLOGIES.Propulsion.id, multi: 1 }
+      { technologyId: TECHNOLOGIES.Physics.id, multi: 1.25 },
+      { technologyId: TECHNOLOGIES.Propulsion.id, multi: 0.75 }
     ],
     acceleration: BASE_ACCELERATION,
     shape: "my:rocket-thruster"
@@ -498,8 +498,8 @@ export const modules: ModuleData[] = [
     price: 40,
     energy: -2,
     technologies: [
-      { technologyId: TECHNOLOGIES.Physics.id, multi: 1 },
-      { technologyId: TECHNOLOGIES.Propulsion.id, multi: 1 }
+      { technologyId: TECHNOLOGIES.Physics.id, multi: 1.6 },
+      { technologyId: TECHNOLOGIES.Propulsion.id, multi: 0.4 }
     ],
     acceleration: BASE_ACCELERATION * 5,
     shape: "my:rocket-thruster"
@@ -508,8 +508,8 @@ export const modules: ModuleData[] = [
     id: "l",
     name: "Solar Sail",
     technologies: [
-      { technologyId: TECHNOLOGIES.Materials.id, multi: 1 },
-      { technologyId: TECHNOLOGIES.Propulsion.id, multi: 1 }
+      { technologyId: TECHNOLOGIES.Materials.id, multi: 1.2 },
+      { technologyId: TECHNOLOGIES.Propulsion.id, multi: 0.8 }
     ],
     acceleration: BASE_ACCELERATION * 0.1,
     threat: BASE_THREAT,

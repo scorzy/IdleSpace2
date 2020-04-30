@@ -183,6 +183,13 @@ export class ResearchManager extends JobManager {
               resData.buildingPoints = [{ buildingId: "1", quantity: 1 }];
               break;
           }
+
+          if (res.tech === TECHNOLOGIES.Propulsion && i % 2 === 1) {
+            const modToUnlock = ["o", "l", "a", "w"];
+            const mod = Math.floor(i / 2);
+            if (mod < modToUnlock.length)
+              resData.modulesToUnlock = [modToUnlock[mod]];
+          }
         }
         this.researches.push(new Research(resData, this));
       }
