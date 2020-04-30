@@ -70,9 +70,9 @@ export class Worker extends Unit {
       for (let i = 0, n = this.modsResearches.length; i < n; i++) {
         if (this.modsResearches[i].quantity) {
           for (
-            const k = 0, n2 = this.modsResearches[i].modPoints.length;
-            i < n2;
-            i++
+            let k = 0, n2 = this.modsResearches[i].modPoints.length;
+            k < n2;
+            k++
           ) {
             if (this.modsResearches[i].modPoints[k].unit === this) {
               this.maxMods = this.maxMods.plus(

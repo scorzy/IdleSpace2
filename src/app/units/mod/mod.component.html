@@ -145,6 +145,9 @@
 
 <ng-template #maxTemplate>
   <table nzTemplateMode nzSize="small">
+    <tr>
+      <td colspan="4" class="row-title">Technologies</td>
+    </tr>
     <tr *ngFor="let tech of unit.maxTechMods; trackBy: getTechId">
       <td>
         <span [style.color]="tech.technology.color">
@@ -158,6 +161,17 @@
       <td class="monospace">x{{ tech.multi | number }}</td>
       <td class="monospace">
         ={{ tech.technology.quantity.times(tech.multi) | format }}
+      </td>
+    </tr>
+    <tr>
+      <td colspan="4" class="row-title">Researches</td>
+    </tr>
+    <tr *ngFor="let res of getModRes(); trackBy: getResId">
+      <td>{{ res.name }}</td>
+      <td class="monospace text-right">{{ res.quantity | format: true }}</td>
+      <td class="monospace">x{{ getResMod(res) | number }}</td>
+      <td class="monospace">
+        ={{ res.quantity.times(getResMod(res)) | format: true }}
       </td>
     </tr>
   </table>

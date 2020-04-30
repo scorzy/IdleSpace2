@@ -133,8 +133,8 @@ export class ResearchManager extends JobManager {
           resData.researchToUnlock = [res.id + (i + 1)];
         }
         if (i > 0) {
-          const modPlus = (1 + i) * 4;
-          const modRob = 1 + 1;
+          const modPlus = i * 4;
+          const modRob = i;
           switch (res.id) {
             //  Robotics
             case "x":

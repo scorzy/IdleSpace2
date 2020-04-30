@@ -16,6 +16,7 @@ import { ZERO, ONE } from "src/app/model/CONSTANTS";
 import { BaseComponentComponent } from "src/app/base-component/base-component.component";
 import { Technology } from "src/app/model/researches/technology";
 import { Worker } from "src/app/model/units/worker";
+import { Research } from "src/app/model/researches/research";
 @Component({
   selector: "app-mod",
   templateUrl: "./mod.component.html",
@@ -135,6 +136,15 @@ export class ModComponent extends BaseComponentComponent
     if (this.disabled) return false;
     this.unit.confirmMods();
     this.router.navigate(["/units/w"]);
+  }
+  getModRes(): Research[] {
+    return this.unit.modsResearches.filter((res) => res.quantity.gt(0));
+  }
+  getResId(index: number, res: Research) {
+    return res.id;
+  }
+  getResMod(res: Research): number {
+    return res.modPoints.find((m) => m.unit === this.unit).quantity;
   }
   getTechId(index: number, tech: Technology) {
     return tech.id;
