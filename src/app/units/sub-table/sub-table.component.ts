@@ -48,14 +48,25 @@ export class SubTableComponent extends BaseComponentComponent
     ret = (this.positiveOnly
       ? this.unit.prodEfficiency.bonuses
       : this.unit.prodAllBonus.bonuses
-    ).map((bonus) => {
-      return {
-        what: bonus.unit.name,
-        quantity: bonus.unit.quantity,
-        effect: bonus.multiplier.times(100),
-        total: bonus.multiplier.times(bonus.unit.quantity).times(100).plus(100)
-      };
-    });
+    )
+      .filter(
+        (bon) => !bon.secondMultiplier || bon.secondMultiplier.quantity.gt(0)
+      )
+      .map((bonus) => {
+        return {
+          what:
+            bonus.unit.name +
+            (bonus.secondMultiplier ? " " + bonus.secondMultiplier.name : ""),
+          quantity: bonus.unit.quantity.times(
+            bonus.secondMultiplier ? bonus.secondMultiplier.quantity : 1
+          ),
+          effect: bonus.multiplier.times(100),
+          total: bonus.multiplier
+            .times(bonus.unit.quantity)
+            .times(100)
+            .plus(100)
+        };
+      });
 
     return ret;
   }

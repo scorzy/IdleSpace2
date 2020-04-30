@@ -11,9 +11,6 @@
       : [buyOne, buyMax]
   "
 >
-  <!-- <p *ngIf="unit.description !== ''" class="text-secondary">
-    {{ unit.description }}
-  </p> -->
   <div *ngIf="unit.production.length > 0">
     <nz-slider
       [(ngModel)]="unit.operativity"
@@ -201,9 +198,30 @@
     <nz-table nzTemplateMode nzSize="middle">
       <tbody>
         <tr *ngFor="let limit of unit.limitStack?.bonuses; trackBy: getBonusId">
-          <ng-container *ngIf="limit.unit.quantity.gt(0)">
-            <td>{{ limit.unit.name }}</td>
-            <td>{{ limit.unit.quantity | format }}</td>
+          <ng-container
+            *ngIf="
+              limit.unit.quantity.gt(0) &&
+              (!limit.secondMultiplier ||
+                limit.secondMultiplier?.quantity.gt(0))
+            "
+          >
+            <td>
+              {{ limit.unit.name }}
+              <span *ngIf="limit.secondMultiplier">{{
+                limit.secondMultiplier.name
+              }}</span>
+            </td>
+            <td>
+              <span *ngIf="!limit.secondMultiplier; else secondMulti">{{
+                limit.unit.quantity | format
+              }}</span>
+              <ng-template #secondMulti>
+                <span>{{
+                  limit.unit.quantity.times(limit.secondMultiplier.quantity)
+                    | format
+                }}</span>
+              </ng-template>
+            </td>
             <td>x{{ limit.multiplier | format: true }}</td>
             <td>
               = {{ limit.unit.quantity.times(limit.multiplier) | format }}

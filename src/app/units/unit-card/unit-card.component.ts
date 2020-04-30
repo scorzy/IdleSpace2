@@ -39,12 +39,6 @@ export class UnitCardComponent extends BaseComponentComponent
   isVisible = false;
   Decimal = Decimal;
   ONE = ONE;
-  @ViewChild("buyOne", { static: true })
-  private buyOne: TemplateRef<any>;
-  @ViewChild("buyHalf", { static: true })
-  private buyHalf: TemplateRef<any>;
-  @ViewChild("buyMax", { static: true })
-  private buyMax: TemplateRef<any>;
   constructor(
     ms: MainService,
     cd: ChangeDetectorRef,
@@ -56,7 +50,8 @@ export class UnitCardComponent extends BaseComponentComponent
   }
   ngOnInit() {
     this.popoverTrigger = "hover";
-    if (this.unit instanceof Building) this.building = this.unit;
+    if (this.unit instanceof Building && this.unit.departments)
+      this.building = this.unit;
     this.sliderDisabled = !this.unit.production.find((p) => p.ratio.lt(0));
     // this.getActions();
     this.unit.reloadMaxBuy();

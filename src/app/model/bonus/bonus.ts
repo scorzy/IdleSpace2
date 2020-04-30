@@ -1,21 +1,22 @@
 import { IBase } from "../iBase";
-import { ONE } from "../CONSTANTS";
+import { ONE, ZERO } from "../CONSTANTS";
 
 export class Bonus {
   constructor(
     public unit: IBase,
     public multiplier: Decimal,
-    public secondMultiplier: DecimalSource = 1
+    public secondMultiplier: IBase = null
   ) {}
   getBonus(): Decimal {
-    return this.unit.quantity
-      .times(this.multiplier)
-      .times(this.secondMultiplier)
-      .plus(ONE);
+    let ret = this.unit.quantity.times(this.multiplier);
+    if (this.secondMultiplier) ret = ret.times(this.secondMultiplier.quantity);
+    return ret.plus(ONE);
   }
   getAdditiveBonus(): Decimal {
-    return this.unit.quantity
-      .times(this.multiplier)
-      .times(this.secondMultiplier);
+    if (this.secondMultiplier && this.secondMultiplier.quantity.eq(0))
+      return ZERO;
+    let ret = this.unit.quantity.times(this.multiplier);
+    if (this.secondMultiplier) ret = ret.times(this.secondMultiplier.quantity);
+    return ret;
   }
 }

@@ -36,7 +36,6 @@ export class ResourceManager {
   unlockedWorkers = new Array<Worker>();
   buildings = new Array<Building>();
   unlockedBuildings = new Array<Building>();
-
   spaceStations = new Array<SpaceStation>();
   unlockedSpaceStations = new Array<SpaceStation>();
   megastructures = new Array<Unit>();
@@ -446,7 +445,7 @@ export class ResourceManager {
           switch (department.id) {
             case "r": //  R&D
               this.scientist.limitStack.bonuses.push(
-                new Bonus(building, ONE, department.quantity)
+                new Bonus(building, ONE, department)
               );
               break;
             case "s": //  Storage
@@ -459,7 +458,7 @@ export class ResourceManager {
                   new Bonus(
                     building,
                     new Decimal(STORAGE_DEPARTMENT_MULTI * ENERGY_STORAGE),
-                    department.quantity
+                    department
                   )
                 );
               } else if (building.id === "7") {
@@ -471,7 +470,7 @@ export class ResourceManager {
                   new Bonus(
                     building,
                     new Decimal(STORAGE_DEPARTMENT_MULTI * COMPONENT_STORAGE),
-                    department.quantity
+                    department
                   )
                 );
               } else if (building.id === "10") {
@@ -483,17 +482,17 @@ export class ResourceManager {
                   new Bonus(
                     building,
                     new Decimal(STORAGE_DEPARTMENT_MULTI * NUKE_STORAGE),
-                    department.quantity
+                    department
                   )
                 );
               }
               break;
             case "p": // Production
               worker.limitStack.bonuses.push(
-                new Bonus(building, ONE, department.quantity)
+                new Bonus(building, new Decimal(2), department)
               );
               worker.prodEfficiency.bonuses.push(
-                new Bonus(building, new Decimal(0.1), department.quantity)
+                new Bonus(building, new Decimal(0.1), department)
               );
               break;
           }

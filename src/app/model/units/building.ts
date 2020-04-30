@@ -2,12 +2,14 @@ import { Unit } from "./unit";
 import { IDepartmentData } from "../data/departments";
 import assign from "lodash-es/assign";
 import { Research } from "../researches/research";
+import { IBase } from "../iBase";
+import { ONE, ZERO } from "../CONSTANTS";
 
-export class Department implements IDepartmentData {
+export class Department implements IDepartmentData, IBase {
   id: string;
   name: string;
   description: string;
-  quantity = 0;
+  quantity = ZERO;
   constructor(depData: IDepartmentData) {
     assign(this, depData);
   }
@@ -19,7 +21,7 @@ export class Building extends Unit {
   departmentResearches: Array<Research>;
   addDep(dep: Department) {
     if (this.usedDepartments < this.maxDepartments) {
-      dep.quantity++;
+      dep.quantity = dep.quantity.plus(1);
       this.usedDepartments++;
     }
   }
@@ -51,7 +53,7 @@ export class Building extends Unit {
       const depSave: any = {
         i: dep.id
       };
-      if (dep.quantity !== 0) {
+      if (!dep.quantity.eq(0)) {
         depSave.q = dep.quantity;
       }
       return depSave;
@@ -66,7 +68,7 @@ export class Building extends Unit {
           const department = this.departments.find((d) => d.id === depSave.i);
           if (department) {
             department.quantity = depSave.q;
-            this.usedDepartments += department.quantity;
+            this.usedDepartments += department.quantity.toNumber();
           }
         }
       }
