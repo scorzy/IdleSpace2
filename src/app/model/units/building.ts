@@ -49,15 +49,16 @@ export class Building extends Unit {
   //#region Save and Load
   getSave(): any {
     const ret = super.getSave();
-    ret.d = this.departments.map((dep) => {
-      const depSave: any = {
-        i: dep.id
-      };
-      if (!dep.quantity.eq(0)) {
-        depSave.q = dep.quantity;
-      }
-      return depSave;
-    });
+    if (this.departments)
+      ret.d = this.departments.map((dep) => {
+        const depSave: any = {
+          i: dep.id
+        };
+        if (!dep.quantity.eq(0)) {
+          depSave.q = dep.quantity;
+        }
+        return depSave;
+      });
     return ret;
   }
   load(save: any) {

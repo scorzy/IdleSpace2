@@ -19,6 +19,7 @@ export const RESEARCHES: IResearchData[] = [
     type: TECHNOLOGIES.Physics,
     researchToUnlock: ["c", "E", "p0"],
     technologiesToUnlock: ["p"],
+    modulesToUnlock: ["s"],
     effMulti: [{ unitId: "s", multi: 0.5 }]
   },
   {
@@ -56,7 +57,8 @@ export const RESEARCHES: IResearchData[] = [
     max: 1,
     type: TECHNOLOGIES.Propulsion,
     technologiesToUnlock: [TECHNOLOGIES.Propulsion.id],
-    researchToUnlock: ["P1"]
+    researchToUnlock: ["P1"],
+    modulesToUnlock: ["d"]
   },
   {
     id: "x",

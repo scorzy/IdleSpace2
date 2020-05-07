@@ -184,13 +184,58 @@ export class ResearchManager extends JobManager {
               break;
           }
 
-          if (res.tech === TECHNOLOGIES.Propulsion && i % 2 === 1) {
-            const modToUnlock = ["o", "l", "a", "w"];
-            const mod = Math.floor(i / 2);
-            if (mod < modToUnlock.length)
-              resData.modulesToUnlock = [modToUnlock[mod]];
+          //#region Modules
+          //  Propulsion
+          if (res.tech === TECHNOLOGIES.Propulsion) {
+            if (i === 1) resData.modulesToUnlock = ["o"];
+            if (i === 2) resData.modulesToUnlock = ["n"];
+            if (i === 3) resData.modulesToUnlock = ["l"];
+            // if (i === 4) resData.modulesToUnlock = [""];
+            if (i === 5) resData.modulesToUnlock = ["a"];
+            if (i === 6) resData.modulesToUnlock = ["c"];
+            if (i === 7) resData.modulesToUnlock = ["w"];
+            // if (i === 8) resData.modulesToUnlock = [""];
+          }
+          //  Energy - Generators
+          if (res.tech === TECHNOLOGIES.Energy) {
+            if (i === 1) resData.modulesToUnlock = ["T"];
+            if (i === 2) resData.modulesToUnlock = ["I"];
+            if (i === 4) resData.modulesToUnlock = ["F"];
+            if (i === 6) resData.modulesToUnlock = ["J"];
+          }
+          //  Materials
+          if (res.tech === TECHNOLOGIES.Materials) {
+            if (i === 2) resData.modulesToUnlock = ["E"];
+            if (i === 3) resData.modulesToUnlock = ["C", "G"];
+            if (i === 4) resData.modulesToUnlock = ["B"];
+            if (i === 5) resData.modulesToUnlock = ["b"];
+            if (i === 6) resData.modulesToUnlock = ["V"];
+            if (i === 7) resData.modulesToUnlock = ["D"];
+          }
+          //  Physics
+          if (res.tech === TECHNOLOGIES.Physics) {
+            if (i === 2) resData.modulesToUnlock = ["p"];
+            if (i === 3) resData.modulesToUnlock = ["O", "H", "G"];
+            if (i === 4) resData.modulesToUnlock = ["g"];
+            if (i === 5) resData.modulesToUnlock = ["X"];
+            if (i === 6) resData.modulesToUnlock = ["P"];
+            if (i === 7) resData.modulesToUnlock = ["j"];
+            if (i === 8) resData.modulesToUnlock = ["i", "e"];
+          }
+          //  Mining
+          if (res.tech === TECHNOLOGIES.Mining) {
+            if (i === 1) resData.modulesToUnlock = ["m"];
+          }
+          //  Robotics
+          if (res.tech === TECHNOLOGIES.Robotics) {
+            if (i === 3) resData.modulesToUnlock = ["f"];
+          }
+          //  Computing
+          if (res.tech === TECHNOLOGIES.Robotics) {
+            if (i === 2) resData.modulesToUnlock = ["t"];
           }
         }
+        //#endregion
         this.researches.push(new Research(resData, this));
       }
     });

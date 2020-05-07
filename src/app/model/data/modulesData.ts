@@ -227,8 +227,8 @@ export const modules: ModuleData[] = [
     shieldDamagePercent: 30,
     armourDamagePercent: 170,
     technologies: [
-      { technologyId: TECHNOLOGIES.MilitaryEngineering.id, multi: 1 },
-      { technologyId: TECHNOLOGIES.Physics.id, multi: 1 }
+      { technologyId: TECHNOLOGIES.MilitaryEngineering.id, multi: 1.2 },
+      { technologyId: TECHNOLOGIES.Physics.id, multi: 0.8 }
     ],
     shape: "my:plasma-bolt"
   },
@@ -241,8 +241,8 @@ export const modules: ModuleData[] = [
     shieldDamagePercent: 0,
     armourDamagePercent: 205,
     technologies: [
-      { technologyId: TECHNOLOGIES.MilitaryEngineering.id, multi: 1 },
-      { technologyId: TECHNOLOGIES.Physics.id, multi: 1 }
+      { technologyId: TECHNOLOGIES.MilitaryEngineering.id, multi: 0.4 },
+      { technologyId: TECHNOLOGIES.Physics.id, multi: 1.6 }
     ],
     threatGainMulti: 1.5,
     shape: "my:crumbling-ball"
@@ -256,8 +256,8 @@ export const modules: ModuleData[] = [
     shieldDamagePercent: 175,
     armourDamagePercent: 25,
     technologies: [
-      { technologyId: TECHNOLOGIES.MilitaryEngineering.id, multi: 1 },
-      { technologyId: TECHNOLOGIES.Physics.id, multi: 1 }
+      { technologyId: TECHNOLOGIES.Physics.id, multi: 1.3 },
+      { technologyId: TECHNOLOGIES.MilitaryEngineering.id, multi: 0.7 }
     ],
 
     shape: "my:ion-cannon-blast"
@@ -271,8 +271,8 @@ export const modules: ModuleData[] = [
     shieldDamagePercent: 205,
     armourDamagePercent: 0,
     technologies: [
-      { technologyId: TECHNOLOGIES.MilitaryEngineering.id, multi: 1 },
-      { technologyId: TECHNOLOGIES.Physics.id, multi: 1 }
+      { technologyId: TECHNOLOGIES.MilitaryEngineering.id, multi: 0.4 },
+      { technologyId: TECHNOLOGIES.Physics.id, multi: 1.6 }
     ],
     threatGainMulti: 1.5,
     shape: "my:unstable-orb"
@@ -351,7 +351,7 @@ export const modules: ModuleData[] = [
     energy: -1,
     technologies: [
       { technologyId: TECHNOLOGIES.CivilEngineering.id, multi: 1 },
-      { technologyId: TECHNOLOGIES.Physics.id, multi: 1 }
+      { technologyId: TECHNOLOGIES.Mining.id, multi: 1 }
     ],
     threatGainMulti: 0.7,
     shape: "my:mining"
@@ -424,8 +424,8 @@ export const modules: ModuleData[] = [
     id: "f",
     name: "Assistance Drone",
     technologies: [
-      { technologyId: TECHNOLOGIES.Robotics.id, multi: 1 },
-      { technologyId: TECHNOLOGIES.Computing.id, multi: 1 }
+      { technologyId: TECHNOLOGIES.Robotics.id, multi: 1.2 },
+      { technologyId: TECHNOLOGIES.Computing.id, multi: 0.8 }
     ],
     precision: 500,
     explosion: MODULE_ARMOUR * -1.5,
