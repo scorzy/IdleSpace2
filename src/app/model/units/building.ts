@@ -17,7 +17,7 @@ export class Department implements IDepartmentData, IBase {
 export class Building extends Unit {
   maxDepartments = 0;
   usedDepartments = 0;
-  departments = new Array<Department>();
+  departments: Array<Department>;
   departmentResearches: Array<Research>;
   addDep(dep: Department) {
     if (this.usedDepartments < this.maxDepartments) {

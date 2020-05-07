@@ -413,6 +413,7 @@ export class ResourceManager {
   makeDepartments() {
     this.buildings.forEach((building) => {
       if (building.unitData.departments) {
+        building.departments = [];
         let worker: Worker;
         switch (building.id) {
           case "1":
