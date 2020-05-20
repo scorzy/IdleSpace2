@@ -8,6 +8,7 @@ import { TECHNOLOGIES } from "../data/technologyData";
 import { ZERO, RESEARCH_TECH_EFF } from "../CONSTANTS";
 import { IResearchData } from "../data/iResearchData";
 import { BonusStack } from "../bonus/bonusStack";
+import { SearchJob } from "../enemy/searchJob";
 
 const SHIP_BASE_PRICE = 1e3;
 const SHIP_PRICE_MULTI = 2;
@@ -248,7 +249,6 @@ export class ResearchManager extends JobManager {
         max: 1,
         name: shipyard.shipTypes[i].name,
         description: "Unlock " + shipyard.shipTypes[i].name,
-        price: Decimal.pow(SHIP_PRICE_MULTI, i).times(SHIP_BASE_PRICE),
         type: TECHNOLOGIES.MilitaryEngineering,
         shipTypeToUnlock: shipyard.shipTypes[i].id
       };
@@ -275,7 +275,6 @@ export class ResearchManager extends JobManager {
         max: 1,
         name: spaceStations[i].name,
         description: "Unlock " + spaceStations[i].name,
-        price: Decimal.pow(SPACE_STATION_MULTI, i).times(second.initialPrice),
         type: TECHNOLOGIES.CivilEngineering,
         unitsToUnlock: [spaceStations[i].id]
       };
@@ -290,9 +289,6 @@ export class ResearchManager extends JobManager {
         id: "u" + i,
         name: "Upgraded " + spaceStations[i].name,
         description: "+30% habitable space from " + spaceStations[i].name,
-        price: Decimal.pow(SPACE_STATION_MULTI, i)
-          .times(second.initialPrice)
-          .times(10),
         type: TECHNOLOGIES.CivilEngineering,
         stationToUp: [
           {
@@ -434,6 +430,7 @@ export class ResearchManager extends JobManager {
     }
     if (this.newJobsOnBacklog) this.backlog.push(res);
     else this.toDo.push(res);
+
     return true;
   }
   reloadTechList() {

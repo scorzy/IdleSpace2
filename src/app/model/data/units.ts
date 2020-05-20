@@ -161,7 +161,7 @@ export const UNITS: IUnitData[] = [
     description: "",
     production: [
       ["S", 1],
-      ["M", -5],
+      ["M", -3],
       ["E", -2]
     ],
     prices: [["M", 10]],
@@ -185,7 +185,7 @@ export const UNITS: IUnitData[] = [
     description: "",
     production: [
       ["A", 1],
-      ["M", -5],
+      ["M", -4],
       ["E", -2]
     ],
     prices: [["M", 10]],
@@ -325,7 +325,7 @@ export const UNITS: IUnitData[] = [
     id: "j",
     name: "Habitable Space",
     description: "",
-    startQuantity: 10,
+    startQuantity: 50,
     icon: "fa-s:globe",
     colorClass: "habSpace-color",
     unitType: UNIT_TYPES.DISTRICT
@@ -334,7 +334,7 @@ export const UNITS: IUnitData[] = [
     id: "P",
     name: "Mining District",
     description: "",
-    startQuantity: 10,
+    startQuantity: 30,
     icon: "my:mining",
     colorClass: "metal-color",
     unitType: UNIT_TYPES.DISTRICT
@@ -343,7 +343,7 @@ export const UNITS: IUnitData[] = [
     id: "k",
     name: "Energy District",
     description: "",
-    startQuantity: 10,
+    startQuantity: 30,
     icon: "my:solar-power",
     colorClass: "energy-color",
     unitType: UNIT_TYPES.DISTRICT

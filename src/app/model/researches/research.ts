@@ -6,7 +6,8 @@ import {
   ZERO,
   INFINITY,
   RESEARCH_BASE_PRICE,
-  RESEARCH_LEVEL_MULTI
+  RESEARCH_LEVEL_MULTI,
+  ONE
 } from "../CONSTANTS";
 import { IUnlockable } from "../iUnlocable";
 import { Game } from "../game";
@@ -17,6 +18,7 @@ import { Technology } from "./technology";
 import { ShipType } from "../shipyard/ShipType";
 import { Module } from "../shipyard/module";
 import { Building } from "../units/building";
+import { SearchJob } from "../enemy/searchJob";
 
 export class Research extends Job implements IUnlockable, IBase {
   static lastVisId = 0;
@@ -53,20 +55,15 @@ export class Research extends Job implements IUnlockable, IBase {
     this.name = researchData.name + " " + this.id;
     this.originalName = this.name;
     this.description = researchData.description;
-    this.initialPrice = new Decimal(researchData.price);
     this.visId = Research.lastVisId++;
+    this.initialPrice = ONE;
 
     const rs = Game.getGame().resourceManager;
     const sm = Game.getGame().shipyardManager;
-    if ("max" in researchData) {
-      this.max = researchData.max;
-    } else {
-      this.max = 10;
-    }
-    this.growRate = RESEARCH_GROW_RATE;
-    if ("growRate" in researchData) {
-      this.growRate = researchData.growRate;
-    }
+
+    this.max = researchData.max ?? 10;
+    this.growRate = researchData.growRate ?? RESEARCH_GROW_RATE;
+
     if ("unitsToUnlock" in researchData) {
       this.unitsToUnlock = researchData.unitsToUnlock.map((uId) =>
         rs.units.find((a) => a.id === uId)
@@ -146,6 +143,13 @@ export class Research extends Job implements IUnlockable, IBase {
       }
       game.navalCapacity += this.navalCapacity;
     }
+    if (this.id === "m") {
+      for (let i = 0; i < 3; i++) {
+        const enemyJob = new SearchJob();
+        enemyJob.level = 0;
+        Game.getGame().enemyManager.generateEnemy(enemyJob);
+      }
+    }
   }
   unlock(): boolean {
     const resM = Game.getGame().researchManager;
@@ -159,7 +163,9 @@ export class Research extends Job implements IUnlockable, IBase {
       });
     }
     this.initialPrice = new Decimal(RESEARCH_BASE_PRICE).times(
-      Decimal.pow(RESEARCH_LEVEL_MULTI, this.visLevel)
+      Decimal.pow(RESEARCH_LEVEL_MULTI, this.visLevel).times(
+        this.resData?.priceMulti || 1
+      )
     );
     this.reload();
   }

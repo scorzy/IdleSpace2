@@ -77,7 +77,10 @@ export class ShipyardManager extends JobManager {
   }
   unlockDefaultModules() {
     this.modules.forEach((mod) => {
-      if (!mod.research) mod.unlock();
+      if (!mod.research) {
+        mod.unlock();
+        mod.reloadMaxLevel();
+      }
     });
   }
   addDesign(name: string, type: number): number {

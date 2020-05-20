@@ -64,7 +64,7 @@ export const NUKE_DAMAGE = MODULE_ARMOUR * 100;
 
 //  Researches
 export const RESEARCH_BASE_PRICE = 100;
-export const RESEARCH_LEVEL_MULTI = 1000;
+export const RESEARCH_LEVEL_MULTI = 100;
 export const RESEARCH_TECH_EFF = 0.1;
 
 //  Buildings
