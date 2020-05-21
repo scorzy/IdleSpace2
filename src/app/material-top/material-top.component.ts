@@ -10,7 +10,7 @@ import {
 import { MainService } from "../main.service";
 import { Unit } from "../model/units/unit";
 import { fadeIn } from "../animations";
-import { NzModalRef, NzModalService } from "ng-zorro-antd";
+import { NzModalRef, NzModalService } from "ng-zorro-antd/modal";
 import { BreakpointObserver } from "@angular/cdk/layout";
 import { OptionsService } from "../options.service";
 import { BaseComponentComponent } from "../base-component/base-component.component";

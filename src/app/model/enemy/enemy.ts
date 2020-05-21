@@ -9,7 +9,8 @@ import { ShipDesign } from "../shipyard/shipDesign";
 import { SearchJob } from "./searchJob";
 import { IShipData, FIRST_DRONE } from "../data/shipsData";
 import { Game } from "../game";
-import { sample, shuffle } from "lodash-es";
+import sample from "lodash-es/sample";
+import shuffle from "lodash-es/shuffle";
 import {
   ENEMY_NAVAL_CAP_LEVEL,
   FLEET_CAPACITY,

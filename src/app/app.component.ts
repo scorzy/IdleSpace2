@@ -8,10 +8,10 @@ import {
   ChangeDetectorRef
 } from "@angular/core";
 import { MainService } from "./main.service";
-import { Subscription } from "rxjs";
-import { NzNotificationService } from "ng-zorro-antd";
+import { NzNotificationService } from "ng-zorro-antd/notification";
 import { OptionsService } from "./options.service";
 import { fadeIn } from "./animations";
+import { Subscription } from "rxjs";
 
 @Component({
   selector: "app-root",
@@ -51,7 +51,7 @@ export class AppComponent implements OnInit, OnDestroy {
       this.ms.updateEmitter.subscribe(() => {
         this.cd.markForCheck();
       }),
-      this.ms.notificationEmitter.subscribe(n => {
+      this.ms.notificationEmitter.subscribe((n) => {
         let template = this.saveNoti;
         switch (n.type) {
           case 1:

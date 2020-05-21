@@ -15,7 +15,7 @@ import {
 import { ShipType } from "src/app/model/shipyard/ShipType";
 import { MainService } from "src/app/main.service";
 import { Router } from "@angular/router";
-import { upperCase } from "lodash-es";
+import upperCase from "lodash-es/upperCase";
 import { BaseComponentComponent } from "src/app/base-component/base-component.component";
 
 @Component({

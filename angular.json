@@ -36,8 +36,7 @@
             "styles": ["src/styles.scss"],
             "scripts": [
               "node_modules/break_infinity.js/dist/break_infinity.min.js",
-              "node_modules/swarm-numberformat/dist/swarm-numberformat.min.js",
-              "node_modules/vis-network/standalone/umd/vis-network.min.js"
+              "node_modules/swarm-numberformat/dist/swarm-numberformat.min.js"
             ],
             "webWorkerTsConfig": "tsconfig.worker.json"
           },
@@ -108,8 +107,7 @@
             "styles": ["src/styles.scss"],
             "scripts": [
               "node_modules/break_infinity.js/dist/break_infinity.min.js",
-              "node_modules/swarm-numberformat/dist/swarm-numberformat.min.js",
-              "node_modules/vis-network/standalone/umd/vis-network.min.js"
+              "node_modules/swarm-numberformat/dist/swarm-numberformat.min.js"
             ],
             "webWorkerTsConfig": "tsconfig.worker.json"
           }

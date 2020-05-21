@@ -13,7 +13,7 @@ import { Worker } from "src/app/model/units/worker";
 import { ONE } from "src/app/model/CONSTANTS";
 import { Production } from "src/app/model/units/production";
 import { Price } from "src/app/model/prices/price";
-import { NzModalService, NzModalRef } from "ng-zorro-antd";
+import { NzModalService, NzModalRef } from "ng-zorro-antd/modal";
 import { BreakpointObserver, BreakpointState } from "@angular/cdk/layout";
 import { Router } from "@angular/router";
 import { BaseComponentComponent } from "src/app/base-component/base-component.component";

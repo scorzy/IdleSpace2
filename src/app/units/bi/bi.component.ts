@@ -9,7 +9,7 @@ import {
 } from "@angular/core";
 import { Unit } from "src/app/model/units/unit";
 import { MainService } from "src/app/main.service";
-import { NzModalService } from "ng-zorro-antd";
+import { NzModalService } from "ng-zorro-antd/modal";
 import { BreakpointObserver } from "@angular/cdk/layout";
 import { Router } from "@angular/router";
 import { BaseComponentComponent } from "src/app/base-component/base-component.component";

@@ -2,40 +2,6 @@ import { BrowserModule } from "@angular/platform-browser";
 import { NgModule } from "@angular/core";
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
-import {
-  NZ_I18N,
-  en_US,
-  NzConfig,
-  NZ_CONFIG,
-  NzAlertModule,
-  NzBadgeModule,
-  NzButtonModule,
-  NzCheckboxModule,
-  NzCollapseModule,
-  NzIconModule,
-  NzInputModule,
-  NzLayoutModule,
-  NzListModule,
-  NzMenuModule,
-  NzMessageModule,
-  NzNotificationModule,
-  NzPageHeaderModule,
-  NzPaginationModule,
-  NzPopconfirmModule,
-  NzPopoverModule,
-  NzProgressModule,
-  NzRadioModule,
-  NzModalModule,
-  NzSelectModule,
-  NzSliderModule,
-  NzSwitchModule,
-  NzTableModule,
-  NzTabsModule,
-  NzTagModule,
-  NzToolTipModule,
-  NzTypographyModule,
-  NzDrawerModule
-} from "ng-zorro-antd";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
@@ -43,7 +9,6 @@ import { registerLocaleData } from "@angular/common";
 import en from "@angular/common/locales/en";
 import { SideMenuComponent } from "./side-menu/side-menu.component";
 import { MaterialTopComponent } from "./material-top/material-top.component";
-import { NzGridModule } from "ng-zorro-antd/grid";
 import { FormatPipe } from "./format.pipe";
 import { MainService } from "./main.service";
 import { OptionsService } from "./options.service";
@@ -92,8 +57,35 @@ import { PricesComponent } from "./prices/prices.component";
 import { ResearchPreviewComponent } from "./laboratory/research-preview/research-preview.component";
 import { HtmlTreeComponent } from "./laboratory/html-tree/html-tree.component";
 import { TreeNodeComponent } from "./laboratory/tree-node/tree-node.component";
-import { BuildingsComponent } from './units/buildings/buildings.component';
-import { DepartmentComponent } from './units/department/department.component';
+import { BuildingsComponent } from "./units/buildings/buildings.component";
+import { DepartmentComponent } from "./units/department/department.component";
+import { NzAlertModule } from "ng-zorro-antd/alert";
+import { NzConfig, NZ_CONFIG } from "ng-zorro-antd/core/config";
+import { NzBadgeModule } from "ng-zorro-antd/badge";
+import { NzButtonModule } from "ng-zorro-antd/button";
+import { NzCollapseModule } from "ng-zorro-antd/collapse";
+import { NzCheckboxModule } from "ng-zorro-antd/checkbox";
+import { NzIconModule } from "ng-zorro-antd/icon";
+import { NzInputModule } from "ng-zorro-antd/input";
+import { NzLayoutModule } from "ng-zorro-antd/layout";
+import { NzListModule } from "ng-zorro-antd/list";
+import { NzMenuModule } from "ng-zorro-antd/menu";
+import { NzMessageModule } from "ng-zorro-antd/message";
+import { NzModalModule } from "ng-zorro-antd/modal";
+import { NzNotificationModule } from "ng-zorro-antd/notification";
+import { NzPageHeaderModule } from "ng-zorro-antd/page-header";
+import { NzDrawerModule } from "ng-zorro-antd/drawer";
+import { NzProgressModule } from "ng-zorro-antd/progress";
+import { NzPopoverModule } from "ng-zorro-antd/popover";
+import { NzTypographyModule } from "ng-zorro-antd/typography";
+import { NzToolTipModule } from "ng-zorro-antd/tooltip";
+import { NzRadioModule } from "ng-zorro-antd/radio";
+import { NzSelectModule } from "ng-zorro-antd/select";
+import { NzSliderModule } from "ng-zorro-antd/slider";
+import { NzSwitchModule } from "ng-zorro-antd/switch";
+import { NzTableModule } from "ng-zorro-antd/table";
+import { NzTabsModule } from "ng-zorro-antd/tabs";
+import { NzTagModule } from "ng-zorro-antd/tag";
 
 registerLocaleData(en);
 
@@ -156,11 +148,9 @@ const ngZorroConfig: NzConfig = {
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    NzGridModule,
     NzCardModule,
     DragDropModule,
     FlexLayoutModule,
-    NzFormModule,
     ReactiveFormsModule,
     NzInputNumberModule,
     NzAlertModule,
@@ -181,8 +171,6 @@ const ngZorroConfig: NzConfig = {
     NzNotificationModule,
     NzDrawerModule,
     NzPageHeaderModule,
-    NzPaginationModule,
-    NzPopconfirmModule,
     NzPopoverModule,
     NzProgressModule,
     NzRadioModule,
@@ -196,7 +184,7 @@ const ngZorroConfig: NzConfig = {
     NzTypographyModule
   ],
   providers: [
-    { provide: NZ_I18N, useValue: en_US },
+    // { provide: NZ_I18N, useValue: en_US },
     { provide: NZ_CONFIG, useValue: ngZorroConfig },
     MainService,
     OptionsService,

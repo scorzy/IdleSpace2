@@ -1,7 +1,9 @@
 import { Pipe, PipeTransform } from "@angular/core";
 import { FormatPipe } from "./format.pipe";
 import { OptionsService } from "./options.service";
-import { isValid, formatDistance, formatDistanceStrict } from "date-fns";
+import isValid from "date-fns/isValid";
+import formatDistanceStrict from "date-fns/formatDistanceStrict";
+import formatDistance from "date-fns/formatDistance";
 
 const SECONDS_IN_YEAR = 3.154e7;
 
