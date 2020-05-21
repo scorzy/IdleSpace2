@@ -3,7 +3,7 @@ import { IDepartmentData } from "../data/departments";
 import assign from "lodash-es/assign";
 import { Research } from "../researches/research";
 import { IBase } from "../iBase";
-import { ONE, ZERO } from "../CONSTANTS";
+import { ZERO } from "../CONSTANTS";
 
 export class Department implements IDepartmentData, IBase {
   id: string;
@@ -49,7 +49,7 @@ export class Building extends Unit {
   //#region Save and Load
   getSave(): any {
     const ret = super.getSave();
-    if (this.departments)
+    if (this.departments) {
       ret.d = this.departments.map((dep) => {
         const depSave: any = {
           i: dep.id
@@ -59,6 +59,7 @@ export class Building extends Unit {
         }
         return depSave;
       });
+    }
     return ret;
   }
   load(save: any) {

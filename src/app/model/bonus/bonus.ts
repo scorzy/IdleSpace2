@@ -13,8 +13,9 @@ export class Bonus {
     return ret.plus(ONE);
   }
   getAdditiveBonus(): Decimal {
-    if (this.secondMultiplier && this.secondMultiplier.quantity.eq(0))
+    if (this.secondMultiplier && this.secondMultiplier.quantity.eq(0)) {
       return ZERO;
+    }
     let ret = this.unit.quantity.times(this.multiplier);
     if (this.secondMultiplier) ret = ret.times(this.secondMultiplier.quantity);
     return ret;

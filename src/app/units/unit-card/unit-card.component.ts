@@ -3,7 +3,6 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Input,
-  ViewChild,
   TemplateRef,
   OnInit,
   OnDestroy,
@@ -50,8 +49,9 @@ export class UnitCardComponent extends BaseComponentComponent
   }
   ngOnInit() {
     this.popoverTrigger = "hover";
-    if (this.unit instanceof Building && this.unit.departments)
+    if (this.unit instanceof Building && this.unit.departments) {
       this.building = this.unit;
+    }
     this.sliderDisabled = !this.unit.production.find((p) => p.ratio.lt(0));
     // this.getActions();
     this.unit.reloadMaxBuy();

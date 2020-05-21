@@ -8,7 +8,6 @@ import { TECHNOLOGIES } from "../data/technologyData";
 import { ZERO, RESEARCH_TECH_EFF } from "../CONSTANTS";
 import { IResearchData } from "../data/iResearchData";
 import { BonusStack } from "../bonus/bonusStack";
-import { SearchJob } from "../enemy/searchJob";
 
 const SHIP_BASE_PRICE = 1e3;
 const SHIP_PRICE_MULTI = 2;
