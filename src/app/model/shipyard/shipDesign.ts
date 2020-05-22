@@ -115,7 +115,7 @@ export class ShipDesign {
       modSum++;
       this.totalPoints = this.totalPoints + m.size;
       const statsMulti = ShipDesign.getStatsMulti(m);
-      const priceMulti = Decimal.pow(m.level, PRICE_GROW_RATE).times(
+      const priceMulti = Decimal.pow(1 + m.level / 5, PRICE_GROW_RATE).times(
         statsMulti
       );
 

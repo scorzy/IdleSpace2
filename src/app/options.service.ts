@@ -14,7 +14,7 @@ export class OptionsService {
   numFormat = "scientific";
   formatId = 0;
   timeFormatDetail = true;
-  themeId = "light-blue";
+  themeId = "dark-blue";
   darkSide = true;
   darkHeader = true;
   constructor() {
