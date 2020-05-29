@@ -385,12 +385,11 @@ export class Enemy {
     const sm = Game.getGame().shipyardManager;
 
     const design = new ShipDesign();
-    design.name = "Pippo";
+    design.name = "Drone";
     design.type = sm.shipTypes.find((t) => t.id === iShipData.typeId);
     iShipData.modules.forEach((mod) => {
       const modId =
         typeof mod.moduleID === "string" ? mod.moduleID : sample(mod.moduleID);
-
       const module = sm.modules.find((m) => m.id === modId);
       design.modules.push({
         module,

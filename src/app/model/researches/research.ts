@@ -143,12 +143,22 @@ export class Research extends Job implements IUnlockable, IBase {
       }
       game.navalCapacity += this.navalCapacity;
     }
+    /**
+     * First Research
+     * Generate enemies and drone design
+     */
     if (this.id === "m") {
+      const em = Game.getGame().enemyManager;
       for (let i = 0; i < 3; i++) {
         const enemyJob = new SearchJob();
         enemyJob.level = 0;
-        Game.getGame().enemyManager.generateEnemy(enemyJob);
+        em.generateEnemy(enemyJob);
       }
+      if (!em.currentEnemy) {
+        em.attackEnemy(em.enemies[0]);
+      }
+      const sm = Game.getGame().shipyardManager;
+      if (sm.shipDesigns.length < 1) sm.addDefaultDesign();
     }
   }
   unlock(): boolean {

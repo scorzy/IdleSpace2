@@ -10,6 +10,8 @@ import { BuildShipsJob } from "./buildShipsJob";
 import { Job } from "../job/job";
 import { UpdateShipJob } from "./updateShipJob";
 import { BattleResult } from "../battle/battleResult";
+import { FIRST_DRONE } from "../data/shipsData";
+import sample from "lodash-es/sample";
 
 const MAX_DESIGN = 20;
 
@@ -445,6 +447,20 @@ export class ShipyardManager extends JobManager {
       }
       this.fleetsPercent[fleet] = 100 * (total > 0 ? used / total : 0);
     }
+  }
+  addDefaultDesign() {
+    this.addDesign("Drone", 1);
+    const design = this.shipDesigns[0];
+    FIRST_DRONE.modules.forEach((mod) => {
+      const modId =
+        typeof mod.moduleID === "string" ? mod.moduleID : sample(mod.moduleID);
+      const module = this.modules.find((m) => m.id === modId);
+      design.modules.push({
+        module,
+        level: 10,
+        size: mod.size
+      });
+    });
   }
 
   //#region Save and Load

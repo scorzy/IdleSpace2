@@ -66,7 +66,7 @@ export class Module implements IUnlockable {
     }
   }
   reloadMaxLevel() {
-    this.maxLevel = 10;
+    this.maxLevel = 11;
     for (let i = 0, n = this.technologies.length; i < n; i++) {
       this.maxLevel += this.technologies[i].technology.quantity
         .times(this.technologies[i].multi)
