@@ -89,6 +89,7 @@ export class ShipDesign {
     this.explosionThreshold = BASE_EXPLOSION * (this.type.id + 1);
     this.threat = BASE_THREAT * (this.type.id + 1);
     this.valid = true;
+    this.available = true;
     if (errorCheck) {
       //  Error check
       this.modules
@@ -98,12 +99,20 @@ export class ShipDesign {
           mod.warningTip = "";
           mod.validateStatus = "";
 
-          if (mod.level >= mod.module.maxLevel) {
-            mod.errorTip = mod.errorTip + "Level is over max level.";
-            mod.validateStatus = "error";
-            this.valid = false;
+          if (!mod.module.unlocked) {
+            this.available = false;
+            mod.warningTip = mod.warningTip + "Blueprint.";
+            mod.validateStatus = "warning";
+          } else {
+            if (mod.level >= mod.module.maxLevel) {
+              mod.errorTip = mod.errorTip + "Level is over max level.";
+              mod.validateStatus = "error";
+              this.valid = false;
+            }
           }
         });
+    } else {
+      this.reloadAvailability();
     }
     for (let i = 0, n = this.modules.length; i < n; i++) {
       const m = this.modules[i];
@@ -416,6 +425,12 @@ export class ShipDesign {
       (this.energy >= 0 || this.isDefence) &&
       modSum <= this.type.maxModule &&
       points <= this.type.maxPoints;
+
+    if (!this.available) {
+      this.fleets.forEach((fl) => {
+        this.valid = this.valid && fl.shipsQuantity < 1;
+      });
+    }
 
     // avgModLevel = modSum > 0 ? avgModLevel / modSum : 1;
     // this.threat += this.threat * avgModLevel;

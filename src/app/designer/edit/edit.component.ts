@@ -33,6 +33,7 @@ export class EditComponent extends BaseComponentComponent
   changeEmitter = new EventEmitter();
   loaded = false;
   otherDesigns: Array<ShipDesign>;
+  blueprintWarning = false;
 
   constructor(
     ms: MainService,
@@ -103,8 +104,10 @@ export class EditComponent extends BaseComponentComponent
       (m) => m.id === this.design.modules[index].moduleId
     );
     if (this.design.modules[index].module) {
-      this.design.modules[index].level =
-        this.design.modules[index].module.maxLevel - 1;
+      this.design.modules[index].level = Math.max(
+        this.design.modules[index].module.maxLevel - 1,
+        10
+      );
     }
     this.design.modules[index].levelUi = MainService.formatPipe.transform(
       this.design.modules[index].level,
@@ -157,6 +160,15 @@ export class EditComponent extends BaseComponentComponent
         }
       } else this.isEqual = false;
 
+      if (!this.design.available) {
+        this.original.fleets.forEach((fl) => {
+          if (fl.shipsQuantity > 0) {
+            this.blueprintWarning = true;
+            this.design.valid = false;
+          }
+        });
+      }
+
       this.changeEmitter.emit("1");
       this.cd.markForCheck();
     }
@@ -185,7 +197,7 @@ export class EditComponent extends BaseComponentComponent
   }
   delete() {
     this.ms.game.shipyardManager.delete(this.original);
-    this.router.navigate(["/add"]);
+    this.router.navigateByUrl("/des/add");
   }
   getIcon(id: string): string {
     const mod = this.ms.game.shipyardManager.modules.find((m) => m.id === id);

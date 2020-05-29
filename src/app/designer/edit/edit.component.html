@@ -187,12 +187,11 @@
         Delete Design
       </button>
     </nz-button-group>
-    <div style="margin-top: 0.5rem;">
+    <div style="margin-top: 0.5rem;" *ngIf="otherDesigns.length > 0">
       <nz-form-label>Next Design</nz-form-label>
       <nz-select
         class="next-select"
         [(ngModel)]="original.next"
-        *ngIf="otherDesigns.length > 0"
         nzAllowClear="true"
       >
         <nz-option
@@ -203,6 +202,17 @@
         </nz-option>
       </nz-select>
     </div>
+
+    <nz-alert
+      *ngIf="!design.available"
+      nzType="info"
+      nzMessage="Blueprint. Cannot be built."
+    ></nz-alert>
+    <nz-alert
+      *ngIf="blueprintWarning"
+      nzType="error"
+      nzMessage="Blueprint. Cannot update existing ships to a blueprint."
+    ></nz-alert>
   </div>
 
   <!-- Comparison Table -->

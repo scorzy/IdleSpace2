@@ -162,6 +162,12 @@ export class ShipyardManager extends JobManager {
     newDesign.next = oldDesign.next;
     oldDesign.next = null;
 
+    newDesign.reloadAvailability();
+    if (!newDesign.available) {
+      this.deleteJobs(oldDesign);
+      this.deleteJobs(newDesign);
+    }
+
     if (
       newDesign.price.lte(oldDesign.price) ||
       oldDesign.fleets.findIndex((fl) => fl.shipsQuantity > 0) < 0
@@ -194,6 +200,7 @@ export class ShipyardManager extends JobManager {
     if (index > -1) {
       this.shipDesigns[index] = newDesign;
     }
+
     return true;
   }
   /**
@@ -394,7 +401,14 @@ export class ShipyardManager extends JobManager {
     }
   }
   delete(design: ShipDesign) {
-    for (let i = this.toDo.length - 1; i > 0; i--) {
+    this.deleteJobs(design);
+    this.shipDesigns.splice(
+      this.shipDesigns.findIndex((d) => d === design),
+      1
+    );
+  }
+  deleteJobs(design: ShipDesign) {
+    for (let i = this.toDo.length - 1; i >= 0; i--) {
       const job = this.toDo[i];
       if (
         (job instanceof BuildShipsJob && job.design === design) ||
@@ -403,10 +417,6 @@ export class ShipyardManager extends JobManager {
         this.toDo.splice(i, 1);
       }
     }
-    this.shipDesigns.splice(
-      this.shipDesigns.findIndex((d) => d === design),
-      1
-    );
   }
   onBattleEnd(battleResult: BattleResult, fleetNum: number) {
     for (let i = 0, n = this.shipDesigns.length; i < n; i++) {
