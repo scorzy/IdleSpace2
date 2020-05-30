@@ -1,0 +1,58 @@
+<h2>Ui Settings</h2>
+<form nz-form>
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="theme">Theme</nz-form-label>
+    <nz-select
+      [(ngModel)]="os.themeId"
+      (ngModelChange)="ms.setTheme()"
+      class="theme-sel"
+      name="theme"
+    >
+      <nz-option nzValue="dark-green-2" nzLabel="Dark Green 2"></nz-option>
+      <nz-option nzValue="dark-blue-2" nzLabel="Dark Blue 2"></nz-option>
+      <nz-option nzValue="dark-green" nzLabel="Dark Green"></nz-option>
+      <nz-option nzValue="dark-blue" nzLabel="Dark Blue"></nz-option>
+      <nz-option nzValue="light-green" nzLabel="Light Green"></nz-option>
+      <nz-option nzValue="light-blue" nzLabel="Light Blue"></nz-option>
+    </nz-select>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="format">
+      Number format
+    </nz-form-label>
+    <nz-select
+      [(ngModel)]="os.numFormat"
+      (ngModelChange)="onFormatChange()"
+      class="theme-sel"
+      name="format"
+    >
+      <nz-option nzValue="standard" nzLabel="Standard"></nz-option>
+      <nz-option nzValue="scientific" nzLabel="Scientific"></nz-option>
+      <nz-option nzValue="engineering" nzLabel="Engineering"></nz-option>
+      <nz-option nzValue="longScale" nzLabel="Long Scale"></nz-option>
+    </nz-select>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="side">
+      Side menu theme
+    </nz-form-label>
+    <nz-switch
+      name="side"
+      [(ngModel)]="os.darkSide"
+      (ngModelChange)="ms.setSideTheme()"
+    ></nz-switch>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="usa">
+      USA decimal format (reload required)
+    </nz-form-label>
+    <nz-switch
+      name="usa"
+      [(ngModel)]="usaFormat"
+      (ngModelChange)="changeUsaFormat()"
+    ></nz-switch>
+  </nz-form-item>
+</form>

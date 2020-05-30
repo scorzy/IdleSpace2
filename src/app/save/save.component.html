@@ -9,21 +9,11 @@
     Clear
   </button>
 </nz-button-group>
-<br />
-<nz-select
-  [(ngModel)]="os.themeId"
-  (ngModelChange)="ms.setTheme()"
-  class="theme-sel"
->
-  <nz-option nzValue="dark-green-2" nzLabel="Dark Green 2"></nz-option>
-  <nz-option nzValue="dark-blue-2" nzLabel="Dark Blue 2"></nz-option>
-  <nz-option nzValue="dark-green" nzLabel="Dark Green"></nz-option>
-  <nz-option nzValue="dark-blue" nzLabel="Dark Blue"></nz-option>
-  <nz-option nzValue="light-green" nzLabel="Light Green"></nz-option>
-  <nz-option nzValue="light-blue" nzLabel="Light Blue"></nz-option>
-</nz-select>
-<br />
-<nz-switch
-  [(ngModel)]="os.darkSide"
-  (ngModelChange)="ms.setSideTheme()"
-></nz-switch>
+
+<textarea nz-input [(ngModel)]="exp"></textarea>
+<nz-button-group>
+  <button nz-button nzType="primary" (click)="export()">Export</button>
+  <button nz-button nzType="default" (click)="import()">
+    Import
+  </button>
+</nz-button-group>

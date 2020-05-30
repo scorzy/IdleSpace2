@@ -51,7 +51,11 @@ export class MainService {
     this.lzWorker.onmessage = ({ data }) => {
       if ("a" in data && data.a === "c") {
         //  Compress request
-        this.saveToLocalStorage(data.m);
+        if ("t" in data) {
+          this.exportEmitter.emit(data.m);
+        } else {
+          this.saveToLocalStorage(data.m);
+        }
       } else {
         // Decompress request
         this.load(data.m);
@@ -86,6 +90,8 @@ export class MainService {
   game: Game;
   last: number;
   updateEmitter = new EventEmitter<number>();
+  saveEmitter = new EventEmitter<number>();
+  exportEmitter = new EventEmitter<string>();
   lzWorker: Worker;
   enemyListCollapsed = false;
   designListCollapsed = false;
@@ -114,6 +120,10 @@ export class MainService {
     const save = this.getSave();
     this.lzWorker.postMessage({ m: save, a: "c" });
   }
+  export() {
+    const save = this.getSave();
+    this.lzWorker.postMessage({ m: save, a: "c", t: "E" });
+  }
   private getSave(): string {
     if (!this.game) return "";
     const save = {
@@ -126,6 +136,7 @@ export class MainService {
   private saveToLocalStorage(data: string) {
     localStorage.setItem(SAVE_ID, data);
     this.notificationEmitter.emit({ type: 1 });
+    this.saveEmitter.emit(1);
   }
   private load(save: string) {
     const data = JSON.parse(save);

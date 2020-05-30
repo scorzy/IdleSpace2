@@ -1,1 +1,14 @@
-<p>options works!</p>
+<nz-tabset nzTabPosition="left">
+  <nz-tab nzTitle="Save">
+    <ng-template #titleTemplate>
+      <i nz-icon nzType="save"></i> Save
+    </ng-template>
+    <app-save></app-save>
+  </nz-tab>
+  <nz-tab nzTitle="Ui">
+    <ng-template #titleTemplate>
+      <i nz-icon nzType="format-painter" nzTheme="outline"></i> UI
+    </ng-template>
+    <app-ui></app-ui>
+  </nz-tab>
+</nz-tabset>

@@ -35,6 +35,7 @@ export const routes: Routes = [
   { path: "tree", pathMatch: "full", component: HtmlTreeComponent },
   { path: "opt", pathMatch: "full", component: OptionsComponent },
   { path: "save", pathMatch: "full", component: SaveComponent },
+  { path: "options", pathMatch: "full", component: OptionsComponent },
   { path: "fleet", pathMatch: "full", component: ShipyardComponent },
   {
     path: "des",
