@@ -407,7 +407,7 @@ export class Enemy {
     const sm = Game.getGame().shipyardManager;
 
     const design = new ShipDesign();
-    design.name = (isDefence ? "def" : "") + type.name;
+    design.name = isDefence ? type.defenceName : type.name;
     design.type = type;
     design.isDefence = isDefence;
     let usedModules = 0;

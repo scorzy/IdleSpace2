@@ -237,3 +237,6 @@ nz-card-meta {
 .text-right {
   text-align: right;
 }
+.ant-table-tbody > tr .ant-table-wrapper:only-child .ant-table {
+  margin: 0;
+}

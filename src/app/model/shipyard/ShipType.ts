@@ -3,6 +3,7 @@ import { ShipTypeData } from "../data/shipTypes";
 export class ShipType implements ShipTypeData {
   id: number;
   name: string;
+  defenceName: string;
   maxModule: number;
   maxPoints: number;
   navalCapacity: number;
@@ -11,6 +12,7 @@ export class ShipType implements ShipTypeData {
   constructor(data: ShipTypeData) {
     this.id = data.id;
     this.name = data.name;
+    this.defenceName = data.defenceName;
     if ("maxModule" in data) {
       this.maxModule = data.maxModule;
     } else {
