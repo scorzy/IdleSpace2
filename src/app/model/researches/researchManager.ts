@@ -9,10 +9,7 @@ import { ZERO, RESEARCH_TECH_EFF, OPTIMIZE_RES_BONUS } from "../CONSTANTS";
 import { IResearchData } from "../data/iResearchData";
 import { BonusStack } from "../bonus/bonusStack";
 
-const SHIP_BASE_PRICE = 1e3;
-const SHIP_PRICE_MULTI = 2;
 const SHIP_RESEARCH_NAV_CAP_MULTI = 5;
-const SPACE_STATION_MULTI = 2;
 
 export class ResearchManager extends JobManager {
   researches: Research[];
@@ -280,7 +277,6 @@ export class ResearchManager extends JobManager {
   }
   makeSpaceStationResearches() {
     const first = this.researches.find((r) => r.id === "s3");
-    const second = this.researches.find((r) => r.id === "s4");
     first.resData.researchToUnlock.push("i0");
     const spaceStations = Game.getGame().resourceManager.spaceStations;
     for (let i = 0, n = spaceStations.length; i < n; i++) {

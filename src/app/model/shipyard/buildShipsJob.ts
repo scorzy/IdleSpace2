@@ -2,8 +2,6 @@ import { Job } from "../job/job";
 import { ShipDesign } from "./shipDesign";
 import { Game } from "../game";
 import { ZERO } from "../CONSTANTS";
-import { Bonus } from "../bonus/bonus";
-import { BonusStack } from "../bonus/bonusStack";
 
 export class BuildShipsJob extends Job {
   built = 0;
