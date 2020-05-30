@@ -138,7 +138,7 @@ export class Enemy {
     const maxNavalCap =
       navalCapMulti *
       Math.min(
-        BASE_NAVAL_CAPACITY + ENEMY_NAVAL_CAP_LEVEL * this.level,
+        BASE_NAVAL_CAPACITY / 4 + ENEMY_NAVAL_CAP_LEVEL * this.level,
         FLEET_CAPACITY
       );
     let defPercent = 0;
@@ -156,7 +156,7 @@ export class Enemy {
       const maxShip = Math.floor(
         1 + (11 * this.level) / (25 + Math.random() * 20 + this.level)
       );
-      let designNum = 1 + Math.random() * (2 + Math.min(this.level, 100) / 25);
+      let designNum = 1 + Math.random() * (Math.min(this.level, 100) / 20);
       defPercent =
         this.level <= DEFENCE_START_LEVEL
           ? 0
@@ -173,13 +173,9 @@ export class Enemy {
         defNum =
           1 +
           Math.floor(
-            Math.min(
-              2,
-              Math.random() *
-                Math.min(2, (this.level - DEFENCE_START_LEVEL) / 10)
-            )
+            Math.random() * Math.min(4, (this.level - DEFENCE_START_LEVEL) / 10)
           );
-        designNum -= defNum;
+        designNum += 1 - defNum;
         designNum = Math.max(1, designNum);
       }
       //#region Generators
@@ -229,9 +225,6 @@ export class Enemy {
       this.favouriteWeapons.push(favouriteWeapon);
       //#endregion
       sum = 0;
-      if (defPercent > 0) {
-        designNum--;
-      }
       for (let i = 0; i < designNum; i++) {
         let type = sample(allowedShipTypes);
         if (this.designs.findIndex((d) => d.type.id === type.id)) {
