@@ -133,6 +133,9 @@ export class ShipyardManager extends JobManager {
         this.toDo.splice(i, 1);
       }
     }
+    for (let i = 0, n = this.modules.length; i < n; i++) {
+      this.modules[i].reloadMaxLevel();
+    }
   }
   reloadLists() {
     this.weapons = this.allWeapons.filter((mod) => mod.unlocked);

@@ -29,7 +29,7 @@ export class Module implements IUnlockable {
   explosionDamage = 0;
   unlocked = false;
   sizes = ALL_SIZES;
-  maxLevel = 0;
+  maxLevel = 11;
   technologies: { technology: Technology; multi: number }[];
   shieldRecharge = 0;
   velocity = 0;

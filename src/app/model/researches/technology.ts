@@ -20,7 +20,7 @@ export class Technology implements IBase, IUnlockable, ITechnologyData {
   unlocked = false;
   color: string;
   bonus?: BonusStack;
-  ratio = 2;
+  ratio = 1.2;
   progressPercent = 0;
   priority = 50;
   total = ZERO;
