@@ -86,6 +86,7 @@ import { NzSwitchModule } from "ng-zorro-antd/switch";
 import { NzTableModule } from "ng-zorro-antd/table";
 import { NzTabsModule } from "ng-zorro-antd/tabs";
 import { NzTagModule } from "ng-zorro-antd/tag";
+import { NZ_I18N, en_US } from "ng-zorro-antd/i18n";
 
 registerLocaleData(en);
 
@@ -184,7 +185,7 @@ const ngZorroConfig: NzConfig = {
     NzTypographyModule
   ],
   providers: [
-    // { provide: NZ_I18N, useValue: en_US },
+    { provide: NZ_I18N, useValue: en_US },
     { provide: NZ_CONFIG, useValue: ngZorroConfig },
     MainService,
     OptionsService,
