@@ -2,6 +2,8 @@ import { Job } from "../job/job";
 import { ShipDesign } from "./shipDesign";
 import { Game } from "../game";
 import { ZERO } from "../CONSTANTS";
+import { Bonus } from "../bonus/bonus";
+import { BonusStack } from "../bonus/bonusStack";
 
 export class BuildShipsJob extends Job {
   built = 0;
@@ -26,6 +28,7 @@ export class BuildShipsJob extends Job {
     this.total = this.design.price.times(this.quantity);
     this.canDelete = true;
     this.type = Game.getGame().researchManager.militaryEngTech;
+    this.addShipBonus(this.design.type);
   }
 
   addProgress(pro: DecimalSource): Decimal {

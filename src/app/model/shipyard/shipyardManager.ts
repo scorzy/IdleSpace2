@@ -122,6 +122,7 @@ export class ShipyardManager extends JobManager {
       this.unlockedModules = false;
     }
     for (let i = 0, n = this.toDo.length; i < n; i++) {
+      this.toDo[i].reloadTotalBonus();
       this.toDo[i].reload();
     }
     for (let i = this.toDo.length - 1; i > 0; i--) {
@@ -192,11 +193,13 @@ export class ShipyardManager extends JobManager {
           toDo.design = newDesign;
         }
       }
-      this.toDo.push(new UpdateShipJob(newDesign));
+      const upJob = new UpdateShipJob(newDesign);
+      this.toDo.push(upJob);
       if (this.toDo.length === 1) {
         Game.getGame().reloadWorkPerSec();
-        this.toDo[0].reload();
       }
+      upJob.reload();
+      upJob.reloadTotalBonus();
     }
     oldDesign.old = null;
     const index = this.shipDesigns.indexOf(oldDesign);
@@ -395,11 +398,13 @@ export class ShipyardManager extends JobManager {
         }
       }
       if (toBuild > 0) {
-        this.toDo.push(new BuildShipsJob(toBuild, this.shipDesigns[k], i));
+        const job = new BuildShipsJob(toBuild, this.shipDesigns[k], i);
+        this.toDo.push(job);
         if (this.toDo.length === 1) {
           Game.getGame().reloadWorkPerSec();
-          this.toDo[0].reload();
         }
+        job.reload();
+        job.reloadTotalBonus();
       }
     }
   }

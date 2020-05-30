@@ -12,6 +12,7 @@ export class SpaceStationManager extends JobManager {
   }
   postUpdate() {
     for (let i = 0, n = this.toDo.length; i < n; i++) {
+      this.toDo[i].reloadTotalBonus();
       this.toDo[i].reload();
     }
   }
@@ -23,6 +24,7 @@ export class SpaceStationManager extends JobManager {
     this.toDo.push(job);
     Game.getGame().reloadWorkPerSec();
     unit.reloadBuildPrice();
+    job.reloadTotalBonus();
     job.reload();
   }
   //#region Save and Load

@@ -5,7 +5,7 @@ import { Game } from "../game";
 import { Bonus } from "../bonus/bonus";
 import { Technology } from "./technology";
 import { TECHNOLOGIES } from "../data/technologyData";
-import { ZERO, RESEARCH_TECH_EFF } from "../CONSTANTS";
+import { ZERO, RESEARCH_TECH_EFF, OPTIMIZE_RES_BONUS } from "../CONSTANTS";
 import { IResearchData } from "../data/iResearchData";
 import { BonusStack } from "../bonus/bonusStack";
 
@@ -255,11 +255,27 @@ export class ResearchManager extends JobManager {
         shipyard.shipTypes[i].navalCapacity * SHIP_RESEARCH_NAV_CAP_MULTI;
       if (i + 1 < n) {
         resData.researchToUnlock = ["s" + (i + 1)];
+      } else {
+        resData.researchToUnlock = [];
       }
+      resData.researchToUnlock.push("o" + i);
       if (i === 1) {
         resData.researchToUnlock.push("n");
       }
       this.researches.push(new Research(resData, this));
+    }
+    for (let i = 0, n = shipyard.shipTypes.length; i < n; i++) {
+      const bonusResData: IResearchData = {
+        id: "o" + i,
+        max: 10,
+        name: "Optimized " + shipyard.shipTypes[i].name,
+        description: "Improve " + shipyard.shipTypes[i].name + " build speed",
+        type: TECHNOLOGIES.MilitaryEngineering,
+        shipProductionBonus: [
+          { shipType: shipyard.shipTypes[i].id, multi: OPTIMIZE_RES_BONUS }
+        ]
+      };
+      this.researches.push(new Research(bonusResData, this));
     }
   }
   makeSpaceStationResearches() {

@@ -21,6 +21,7 @@ export class UpdateShipJob extends Job {
     this.diff = this.design.price.minus(this.design.old.price);
     this.type = Game.getGame().researchManager.militaryEngTech;
     this.reload();
+    this.addShipBonus(this.design.type);
   }
   addProgress(pro: DecimalSource): Decimal {
     this.reload();

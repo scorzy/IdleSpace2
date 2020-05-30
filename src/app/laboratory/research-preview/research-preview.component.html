@@ -55,6 +55,11 @@
     {{ battleMulti.material.name }}
     <span class="text-secondary">from battles</span>
   </li>
+  <li *ngFor="let shipProdMulti of research.shipProductionBonus">
+    +{{ shipProdMulti.multi | percent }}
+    <span class="text-secondary">production of</span>
+    {{ shipProdMulti.shipType.name }}
+  </li>
   <li *ngIf="research.navalCapacity > 0">
     + {{ research.navalCapacity | format: true }} naval capacity
   </li>

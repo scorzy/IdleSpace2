@@ -33,4 +33,5 @@ export interface IResearchData {
   modulesToUnlock?: string[];
   modPoints?: { unitId: string; quantity: number }[];
   buildingPoints?: { buildingId: string; quantity: number }[];
+  shipProductionBonus?: { shipType: number; multi: number }[];
 }

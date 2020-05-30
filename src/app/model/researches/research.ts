@@ -45,9 +45,7 @@ export class Research extends Job implements IUnlockable, IBase {
   modulesToUnlock: Module[];
   modPoints: { unit: Unit; quantity: number }[];
   buildingPoints: { building: Building; quantity: number }[];
-  get totalBonus(): Decimal {
-    return this.type.bonus.totalBonus;
-  }
+  shipProductionBonus: { shipType: ShipType; multi: number }[];
   constructor(researchData: IResearchData, researchManager: ResearchManager) {
     super();
     this.resData = researchData;
@@ -84,6 +82,14 @@ export class Research extends Job implements IUnlockable, IBase {
       this.shipTypeToUnlock = sm.shipTypes.find(
         (t) => t.id === this.resData.shipTypeToUnlock
       );
+    }
+    if ("shipProductionBonus" in researchData) {
+      this.shipProductionBonus = researchData.shipProductionBonus.map((spb) => {
+        return {
+          shipType: sm.shipTypes.find((t) => t.id === spb.shipType),
+          multi: spb.multi
+        };
+      });
     }
     this.type = researchManager.technologies.find(
       (tec) => tec.id === researchData.type.id

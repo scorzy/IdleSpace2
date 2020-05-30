@@ -1,5 +1,9 @@
-import { ZERO } from "../CONSTANTS";
+import { ZERO, ONE } from "../CONSTANTS";
 import { IJobType } from "../data/iResearchData";
+import { BonusStack } from "../bonus/bonusStack";
+import { Game } from "../game";
+import { ShipType } from "../shipyard/ShipType";
+import { Bonus } from "../bonus/bonus";
 
 export interface MyIcon {
   icon: string;
@@ -16,9 +20,8 @@ export abstract class Job {
   name: string;
   progressPercent = 0;
   timeToEnd?: number;
-  get totalBonus(): Decimal {
-    return this.type.bonus.totalBonus;
-  }
+  totalBonus: Decimal = ONE;
+  bonuses: BonusStack;
   totalBonusUi = ZERO;
   type: IJobType;
   canDelete = false;
@@ -69,7 +72,25 @@ export abstract class Job {
       this.totalBonusUi = newTotalBonUi;
     }
   }
-  reloadTotalBonus() {}
+  reloadTotalBonus() {
+    this.totalBonus = this.type.bonus.totalBonus;
+    if (this.bonuses) {
+      this.bonuses.reloadBonus();
+      this.totalBonus = this.totalBonus.times(this.bonuses.totalBonus);
+    }
+  }
   abstract getSave(): any;
   delete() {}
+  addShipBonus(shipType: ShipType) {
+    Game.getGame().researchManager.researches.forEach((res) => {
+      if (res.shipProductionBonus) {
+        res.shipProductionBonus.forEach((bon) => {
+          if (bon.shipType === shipType) {
+            if (!this.bonuses) this.bonuses = new BonusStack();
+            this.bonuses.bonuses.push(new Bonus(res, new Decimal(bon.multi)));
+          }
+        });
+      }
+    });
+  }
 }

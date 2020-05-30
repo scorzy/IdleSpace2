@@ -79,6 +79,7 @@ export class EnemyManager extends JobManager {
   search(level: number) {
     const job = new SearchJob();
     job.enemyLevel = level;
+    job.reloadTotalBonus();
     job.reload();
     this.toDo.push(job);
   }
@@ -89,6 +90,7 @@ export class EnemyManager extends JobManager {
   }
   postUpdate() {
     for (let i = 0, n = this.toDo.length; i < n; i++) {
+      this.toDo[i].reloadTotalBonus();
       this.toDo[i].reload();
     }
     //  Auto Attack
