@@ -4,6 +4,7 @@ import { Game } from "../game";
 
 export class Components extends Unit {
   private _uiLimit = ZERO;
+  private _oldUiLimit = ZERO;
   public get uiLimit() {
     return this._uiLimit;
   }
@@ -18,6 +19,12 @@ export class Components extends Unit {
       this.limit = this.limit.plus(unlockedWorkers[i].needComponents);
     }
     this.quantity = this.quantity.min(this.limit);
+
+    if (this._uiLimit.eq(this._oldUiLimit)) {
+      this._uiLimit = this._oldUiLimit;
+    } else {
+      this._oldUiLimit = this._uiLimit;
+    }
     return true;
   }
 }

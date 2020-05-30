@@ -95,6 +95,9 @@ export class Unit implements IBase, IUnlockable {
     Game.getGame().resourceManager.reloadLists();
   }
   postUpdate() {
+    this.reloadLimit();
+    this.reloadNeedComponent();
+
     if (this._quantityOld.eq(this.quantity)) {
       this.quantity = this._quantityOld;
     } else {
@@ -104,15 +107,13 @@ export class Unit implements IBase, IUnlockable {
       this.perSec = this._perSecOld;
     } else {
       this._perSecOld = this.perSec;
-    }
-
-    this.reloadLimit();
+    }    
     if (this._oldLimit.eq(this.limit)) {
       this.limit = this._oldLimit;
     } else {
       this._oldLimit = this.limit;
     }
-    this.reloadNeedComponent();
+    
   }
   buy(quantity: Decimal): boolean {
     if (
