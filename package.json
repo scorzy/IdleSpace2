@@ -16,7 +16,9 @@
     "make-themes": "node ./src/makeThemes.js",
     "make-icons": "node ./src/makeIcons.js",
     "analyze": "webpack-bundle-analyzer dist/IdleSpace2/stats-es2015.json",
-    "build:analyze": "npm run build:stats && npm run analyze"
+    "build:analyze": "npm run build:stats && npm run analyze",
+    "lint:styles": "stylelint \"src/**/*.scss\"",
+    "lint:styles:fix": "stylelint \"src/**/*.scss\" --fix"
   },
   "private": true,
   "dependencies": {
@@ -42,6 +44,8 @@
     "ng-zorro-antd": "^9.1.2",
     "postinstall": "^0.5.1",
     "rxjs": "~6.5.5",
+    "stylelint-config-prettier": "^8.0.1",
+    "stylelint-config-sass-guidelines": "^7.0.0",
     "swarm-numberformat": "^0.4.0",
     "tslib": "^1.13.0",
     "zone.js": "^0.10.3"
@@ -63,8 +67,13 @@
     "karma-jasmine": "~2.0.1",
     "karma-jasmine-html-reporter": "^1.5.4",
     "less": "^3.11.1",
+    "prettier": "^2.0.5",
     "protractor": "^5.4.4",
     "rxjs-tslint-rules": "^4.33.0",
+    "stylelint": "^13.5.0",
+    "stylelint-config-recommended": "^3.0.0",
+    "stylelint-config-standard": "^20.0.0",
+    "stylelint-prettier": "^1.1.2",
     "ts-node": "~7.0.0",
     "tslint": "~5.15.0",
     "tslint-config-prettier": "^1.18.0",

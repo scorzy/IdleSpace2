@@ -1,36 +1,46 @@
 .ant-collapse-content > .ant-collapse-content-box {
   padding: 8px;
 }
+
 .infoIcon {
   float: right;
 }
+
 button {
   width: 100%;
 }
+
 .priority {
   width: 100%;
   // margin-bottom: 8px;
 }
+
 .priceIcon {
   margin-right: 0.2rem;
 }
+
 .comma {
   margin-right: 0.3rem;
 }
+
 .mod-button {
   margin-bottom: -6px;
 }
+
 .prod-table {
   min-width: 17rem;
 }
+
 .total {
   font-weight: 700;
   // text-align: right;
 }
+
 ::ng-deep .ant-card-body {
   padding-bottom: 0.5rem !important;
 }
+
 p {
-  margin-top: 0.3rem;
   margin-bottom: 0;
+  margin-top: 0.3rem;
 }

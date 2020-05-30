@@ -1,13 +1,17 @@
 {
     "cSpell.words": [
         "Astrogeology",
+        "Bitstream",
+        "Emoji",
         "Kardashev",
         "Shotted",
         "elem",
         "endregion",
         "megastructures",
         "popover",
+        "sider",
         "spec",
+        "stylelint",
         "unsubscribe"
     ],
     "typescript.tsdk": "node_modules/typescript/lib"

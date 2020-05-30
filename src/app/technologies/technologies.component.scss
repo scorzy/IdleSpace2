@@ -1,9 +1,11 @@
 .tech-container {
   margin-bottom: 0.5rem;
 }
+
 [fxFlex]:last-of-type {
   margin-right: 0.5rem;
 }
+
 ::ng-deep .ant-card-small > .ant-card-body {
   padding-bottom: 8px;
 }

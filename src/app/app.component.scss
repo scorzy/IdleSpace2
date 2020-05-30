@@ -1,24 +1,25 @@
 :host {
   display: flex;
-  text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
 .headerRow {
+  align-content: center;
+  align-items: center;
   display: flex;
   flex-flow: row wrap;
-  align-items: center;
-  align-content: center;
 }
+
 app-material-top {
   flex: 1 0;
   line-height: 1rem;
 }
 
 .header-trigger {
-  font-size: 20px;
   cursor: pointer;
+  font-size: 20px;
   transition: all 0.3s, padding 0s;
 }
 
@@ -29,33 +30,39 @@ nz-header {
 }
 
 .app-header {
-  position: relative;
   padding: 0;
+  position: relative;
 }
 
 :host ::ng-deep .header-right {
   height: 100%;
   overflow: hidden;
   padding-right: 2rem;
+
   i {
     font-size: 16px;
   }
+
   .ant-badge-count,
   .ant-badge-dot,
   .ant-badge .ant-scroll-number-custom-component {
     right: -7px;
   }
 }
+
 :host ::ng-deep .ant-layout-header {
   height: auto;
 }
+
 @media only screen and (max-width: 700px) {
   nz-sider {
     display: none;
   }
+
   .t1 {
     display: none;
   }
+
   .headerRow {
     justify-content: space-between;
   }

@@ -1,14 +1,15 @@
 .dynamic-delete-button {
   cursor: pointer;
+  font-size: 24px;
   position: relative;
   top: 4px;
-  font-size: 24px;
   // transition: all 0.3s;
 }
 
 .add-button {
   width: 60%;
 }
+
 @media only screen and (min-width: 959px) {
   .recap {
     padding-right: 2rem;
@@ -18,18 +19,22 @@
 .levelNum {
   width: 4rem;
 }
+
 .modSelect {
   i {
     margin-right: 0.5rem;
   }
 }
+
 form {
   white-space: pre-line;
 }
+
 .module-select {
   min-width: 15rem;
   width: auto;
 }
+
 .next-select {
   min-width: 10rem;
 }
@@ -38,6 +43,7 @@ form {
 .ant-form-item-extra {
   margin-top: -0;
 }
+
 nz-alert {
   margin-top: 12px;
 }

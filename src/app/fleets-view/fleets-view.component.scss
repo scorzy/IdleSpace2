@@ -1,9 +1,10 @@
 ::ng-deep th,
 td {
-  padding-left: 0px !important;
-  padding-right: 0px !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
 }
+
 .fleet-td-1 > span {
-  padding-left: 4px;
   font-weight: 600;
+  padding-left: 4px;
 }

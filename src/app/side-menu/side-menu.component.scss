@@ -1,27 +1,32 @@
 .sidebar-logo {
-  position: relative;
   height: 64px;
-  padding-left: 24px;
-  overflow: hidden;
   line-height: 64px;
+  overflow: hidden;
+  padding-left: 24px;
+  position: relative;
+
   /* background: #001529; */
   transition: all 0.3s;
+
   img {
     display: inline-block;
     height: 32px;
-    width: 32px;
     vertical-align: middle;
+    width: 32px;
   }
+
   h1 {
     display: inline-block;
-    margin: 0 0 0 20px;
+    font-family: Avenir, Helvetica Neue, Arial, Helvetica, sans-serif;
+    font-size: 14px;
+
     /* color: #fff; */
     font-weight: 600;
-    font-size: 14px;
-    font-family: Avenir, Helvetica Neue, Arial, Helvetica, sans-serif;
+    margin: 0 0 0 20px;
     vertical-align: middle;
   }
 }
+
 .first {
   margin-bottom: 50px;
 }

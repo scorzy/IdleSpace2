@@ -3,11 +3,12 @@ table {
 }
 
 td {
+  border: 1px solid #485764;
   text-align: center;
   transition: all 0.5s;
-  border: 1px solid #485764;
   width: 10%;
 }
+
 .cell {
   height: 1.5rem;
 }
