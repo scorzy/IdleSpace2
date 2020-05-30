@@ -38,6 +38,7 @@ export const RESEARCHES: IResearchData[] = [
     description: "Increase Naval Capacity",
     max: 1,
     type: TECHNOLOGIES.Naval,
+    technologiesToUnlock: [TECHNOLOGIES.Naval.id],
     researchToUnlock: ["n1", "ns"],
     navalCapacity: 20
   },
