@@ -2,11 +2,12 @@ import {
   Component,
   OnInit,
   ChangeDetectionStrategy,
-  ChangeDetectorRef
+  ChangeDetectorRef,
+  OnDestroy
 } from "@angular/core";
 import { MainService } from "../main.service";
 import { OptionsService } from "../options.service";
-import { Subscription } from "rxjs/internal/Subscription";
+import { Subscription } from "rxjs";
 
 @Component({
   selector: "app-save",
@@ -14,7 +15,7 @@ import { Subscription } from "rxjs/internal/Subscription";
   styleUrls: ["./save.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SaveComponent implements OnInit {
+export class SaveComponent implements OnInit, OnDestroy {
   exp = "";
   private subscriptions: Subscription[] = [];
 
