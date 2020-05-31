@@ -17,7 +17,7 @@
       <ul>
         <li>
           <span
-            *ngIf="ms.game.resourceManager.technician.quantity.gte(3); else x"
+            *ngIf="ms.game.resourceManager.technician.quantity.gte(10); else x"
             @fadeIn
             nz-text
             class="text-success"
@@ -25,11 +25,11 @@
           >
             <i nz-icon nzType="check" nzTheme="outline"></i
           ></span>
-          3 Technician
+          10 Technician
         </li>
         <li>
           <span
-            *ngIf="ms.game.resourceManager.miner.quantity.gte(3); else x"
+            *ngIf="ms.game.resourceManager.miner.quantity.gte(10); else x"
             @fadeIn
             nz-text
             class="text-success"
@@ -37,7 +37,7 @@
           >
             <i nz-icon nzType="check" nzTheme="outline"></i
           ></span>
-          3 Miner
+          10 Miner
         </li>
       </ul>
     </nz-card>

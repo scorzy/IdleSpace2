@@ -266,6 +266,7 @@ export class ResearchManager extends JobManager {
         id: "o" + i,
         max: 10,
         name: "Optimized " + shipyard.shipTypes[i].name,
+        priceMulti: 0.5,
         description: "Improve " + shipyard.shipTypes[i].name + " build speed",
         type: TECHNOLOGIES.MilitaryEngineering,
         shipProductionBonus: [
@@ -301,6 +302,7 @@ export class ResearchManager extends JobManager {
         name: "Upgraded " + spaceStations[i].name,
         description: "+30% habitable space from " + spaceStations[i].name,
         type: TECHNOLOGIES.CivilEngineering,
+        priceMulti: 0.8,
         stationToUp: [
           {
             stationId: spaceStations[i].id,

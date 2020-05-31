@@ -50,7 +50,9 @@ export class SubTableComponent extends BaseComponentComponent
       : this.unit.prodAllBonus.bonuses
     )
       .filter(
-        (bon) => !bon.secondMultiplier || bon.secondMultiplier.quantity.gt(0)
+        (bon) =>
+          bon.unit.quantity.gt(0) &&
+          (!bon.secondMultiplier || bon.secondMultiplier.quantity.gt(0))
       )
       .map((bonus) => {
         return {

@@ -5,7 +5,9 @@ import {
   MOD_PER_OTHERS,
   ENERGY_STORAGE,
   NUKE_STORAGE,
-  COMPONENT_STORAGE
+  COMPONENT_STORAGE,
+  METAL_BUILDING_PRICE,
+  ALLOY_BUILDING_PRICE
 } from "../CONSTANTS";
 import { RD, PROD_DEP, STORAGE_DEP } from "./departments";
 export enum UNIT_TYPES {
@@ -24,7 +26,7 @@ export const UNITS: IUnitData[] = [
     name: "Metal",
     icon: "my:asteroid",
     description: "",
-    startQuantity: 100,
+    startQuantity: 10,
     colorClass: "metal-color",
     unitType: UNIT_TYPES.MATERIAL
   },
@@ -33,7 +35,7 @@ export const UNITS: IUnitData[] = [
     name: "Energy",
     icon: "my:electric",
     description: "",
-    startQuantity: 100,
+    startQuantity: 10,
     colorClass: "energy-color",
     limits: [
       {
@@ -140,7 +142,7 @@ export const UNITS: IUnitData[] = [
     description: "",
     startQuantity: 1,
     production: [["E", 2]],
-    prices: [["M", 10]],
+    prices: [["M", 15]],
     limits: [
       {
         buildingLimit: "2",
@@ -164,7 +166,7 @@ export const UNITS: IUnitData[] = [
       ["M", -3],
       ["E", -2]
     ],
-    prices: [["M", 10]],
+    prices: [["M", 20]],
     limits: [
       {
         buildingLimit: "3",
@@ -188,7 +190,7 @@ export const UNITS: IUnitData[] = [
       ["M", -4],
       ["E", -2]
     ],
-    prices: [["M", 10]],
+    prices: [["M", 20]],
     limits: [
       {
         buildingLimit: "4",
@@ -209,11 +211,11 @@ export const UNITS: IUnitData[] = [
     description: "",
     production: [
       ["W", 1],
-      ["A", -5],
+      ["A", -4],
       ["E", -2]
     ],
     prices: [
-      ["M", 10],
+      ["M", 30],
       ["A", 10]
     ],
     limits: [
@@ -227,11 +229,11 @@ export const UNITS: IUnitData[] = [
       { technologyId: TECHNOLOGIES.Robotics.id, multi: MOD_PER_ROBOTICS },
       {
         technologyId: TECHNOLOGIES.MilitaryEngineering.id,
-        multi: MOD_PER_OTHERS / 2
+        multi: MOD_PER_OTHERS / 2.5
       },
       {
         technologyId: TECHNOLOGIES.CivilEngineering.id,
-        multi: MOD_PER_OTHERS / 2
+        multi: MOD_PER_OTHERS / 2.5
       }
     ]
   },
@@ -247,7 +249,7 @@ export const UNITS: IUnitData[] = [
       ["E", -2]
     ],
     prices: [
-      ["M", 10],
+      ["M", 20],
       ["A", 10]
     ],
     limits: [
@@ -274,8 +276,8 @@ export const UNITS: IUnitData[] = [
       ["E", -2]
     ],
     prices: [
-      ["M", 10],
-      ["A", 10]
+      ["M", 50],
+      ["A", 20]
     ],
     limits: [
       {
@@ -303,8 +305,8 @@ export const UNITS: IUnitData[] = [
       ["E", -2]
     ],
     prices: [
-      ["M", 10],
-      ["A", 10]
+      ["M", 30],
+      ["A", 15]
     ],
     limits: [
       {
@@ -315,8 +317,8 @@ export const UNITS: IUnitData[] = [
     unitType: UNIT_TYPES.WORKER,
     mods: [
       { technologyId: TECHNOLOGIES.Robotics.id, multi: MOD_PER_ROBOTICS },
-      { technologyId: TECHNOLOGIES.Naval.id, multi: MOD_PER_OTHERS / 2 },
-      { technologyId: TECHNOLOGIES.Propulsion.id, multi: MOD_PER_OTHERS / 2 }
+      { technologyId: TECHNOLOGIES.Naval.id, multi: MOD_PER_OTHERS / 2.5 },
+      { technologyId: TECHNOLOGIES.Propulsion.id, multi: MOD_PER_OTHERS / 2.5 }
     ]
   },
   //#endregion
@@ -334,7 +336,7 @@ export const UNITS: IUnitData[] = [
     id: "P",
     name: "Mining District",
     description: "",
-    startQuantity: 30,
+    startQuantity: 50,
     icon: "my:mining",
     colorClass: "metal-color",
     unitType: UNIT_TYPES.DISTRICT
@@ -343,7 +345,7 @@ export const UNITS: IUnitData[] = [
     id: "k",
     name: "Energy District",
     description: "",
-    startQuantity: 30,
+    startQuantity: 50,
     icon: "my:solar-power",
     colorClass: "energy-color",
     unitType: UNIT_TYPES.DISTRICT
@@ -357,7 +359,10 @@ export const UNITS: IUnitData[] = [
     icon: "my:gold-mine",
     colorClass: "metal-color",
     startQuantity: 1,
-    prices: [["P", 10]],
+    prices: [
+      ["M", METAL_BUILDING_PRICE / 2],
+      ["P", 10]
+    ],
     unitType: UNIT_TYPES.BUILDING,
     departments: [RD, PROD_DEP]
   },
@@ -368,7 +373,10 @@ export const UNITS: IUnitData[] = [
     description: "+10 technicians",
     colorClass: "energy-color",
     startQuantity: 1,
-    prices: [["k", 10]],
+    prices: [
+      ["M", METAL_BUILDING_PRICE],
+      ["k", 10]
+    ],
     unitType: UNIT_TYPES.BUILDING,
     departments: [RD, PROD_DEP, STORAGE_DEP]
   },
@@ -379,7 +387,10 @@ export const UNITS: IUnitData[] = [
     colorClass: "energy-color",
     icon: "my:battery-pack",
     startQuantity: 1,
-    prices: [["j", 10]],
+    prices: [
+      ["M", METAL_BUILDING_PRICE],
+      ["j", 10]
+    ],
     unlockQuantity: 1,
     unitType: UNIT_TYPES.BUILDING
   },
@@ -389,7 +400,10 @@ export const UNITS: IUnitData[] = [
     icon: "fa-s:microscope",
     colorClass: "science-color",
     description: "+10 scientists",
-    prices: [["j", 10]],
+    prices: [
+      ["M", METAL_BUILDING_PRICE * 2],
+      ["j", 10]
+    ],
     unlockQuantity: 1,
     unitType: UNIT_TYPES.BUILDING
   },
@@ -399,7 +413,10 @@ export const UNITS: IUnitData[] = [
     description: "+10 metallurgists",
     icon: "my:foundry-bucket",
     colorClass: "alloy-color",
-    prices: [["j", 10]],
+    prices: [
+      ["M", METAL_BUILDING_PRICE * 3],
+      ["j", 10]
+    ],
     unlockQuantity: 1,
     unitType: UNIT_TYPES.BUILDING,
     departments: [RD, PROD_DEP]
@@ -410,7 +427,10 @@ export const UNITS: IUnitData[] = [
     description: "+10 workers",
     icon: "my:factory",
     colorClass: "production-color",
-    prices: [["j", 10]],
+    prices: [
+      ["M", METAL_BUILDING_PRICE * 2],
+      ["j", 10]
+    ],
     unlockQuantity: 1,
     unitType: UNIT_TYPES.BUILDING,
     departments: [RD, PROD_DEP]
@@ -421,7 +441,10 @@ export const UNITS: IUnitData[] = [
     description: "+10 searchers",
     icon: "my:observatory",
     colorClass: "search-color",
-    prices: [["j", 10]],
+    prices: [
+      ["M", METAL_BUILDING_PRICE * 2],
+      ["j", 10]
+    ],
     unlockQuantity: 1,
     unitType: UNIT_TYPES.BUILDING,
     departments: [RD, PROD_DEP]
@@ -432,7 +455,10 @@ export const UNITS: IUnitData[] = [
     description: "+10 replicators",
     icon: "my:factory-arm",
     colorClass: "component-color",
-    prices: [["j", 10]],
+    prices: [
+      ["A", ALLOY_BUILDING_PRICE * 5],
+      ["j", 10]
+    ],
     unlockQuantity: 1,
     unitType: UNIT_TYPES.BUILDING,
     departments: [RD, PROD_DEP, STORAGE_DEP]
@@ -443,7 +469,10 @@ export const UNITS: IUnitData[] = [
     description: "+ 1k components storage",
     icon: "fa-s:warehouse",
     colorClass: "component-color",
-    prices: [["j", 10]],
+    prices: [
+      ["M", METAL_BUILDING_PRICE],
+      ["j", 10]
+    ],
     unlockQuantity: 1,
     unitType: UNIT_TYPES.BUILDING
   },
@@ -453,7 +482,10 @@ export const UNITS: IUnitData[] = [
     description: "+10 nuke specialists",
     icon: "my:factory",
     colorClass: "nuke-color",
-    prices: [["j", 10]],
+    prices: [
+      ["A", ALLOY_BUILDING_PRICE * 2],
+      ["j", 10]
+    ],
     unlockQuantity: 1,
     unitType: UNIT_TYPES.BUILDING,
     departments: [RD, PROD_DEP, STORAGE_DEP]
@@ -464,7 +496,10 @@ export const UNITS: IUnitData[] = [
     description: "+" + NUKE_STORAGE + " nuke storage",
     icon: "fa-s:warehouse",
     colorClass: "nuke-color",
-    prices: [["j", 10]],
+    prices: [
+      ["M", METAL_BUILDING_PRICE],
+      ["j", 10]
+    ],
     unlockQuantity: 1,
     unitType: UNIT_TYPES.BUILDING
   },

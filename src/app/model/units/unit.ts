@@ -133,10 +133,10 @@ export class Unit implements IBase, IUnlockable {
   afterBuy(): boolean {
     const rs = Game.getGame().resourceManager;
     switch (this.id) {
-      case "f":
+      // case "f":
       case "e":
       case "m":
-        if (rs.miner.quantity.gte(3) && rs.technician.quantity.gte(3)) {
+        if (rs.miner.quantity.gte(10) && rs.technician.quantity.gte(10)) {
           rs.laboratory.unlock();
           rs.scientist.unlock();
           rs.science.unlock();

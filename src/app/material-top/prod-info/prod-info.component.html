@@ -31,10 +31,14 @@
 >
   <thead>
     <tr>
-      <th>
-        Name
+      <th
+        *ngFor="let column of listOfColumns"
+        [nzSortOrder]="column.sortOrder"
+        [nzSortFn]="column.sortFn"
+        [nzSortDirections]="column.sortDirections"
+      >
+        {{ column.name }}
       </th>
-      <th>Prod</th>
     </tr>
   </thead>
   <tbody>

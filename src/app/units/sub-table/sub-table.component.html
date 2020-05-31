@@ -1,26 +1,5 @@
-<nz-table nzTemplateMode nzSize="small">
-  <!-- <thead>
-    <tr>
-      <th></th>
-      <th>Quantity</th>
-      <th>Effect</th>
-      <th>Total</th>
-    </tr>
-  </thead> -->
+<nz-table nzTemplateMode nzSize="small" *ngIf="subData.length > 0">
   <tbody>
-    <!-- <tr>
-      <td>Base</td>
-      <td class="monospace">{{ this.data.ratio }}</td>
-      <td class="monospace">{{ this.unit.operativity | format }}%</td>
-      <td>
-        <span
-          class="monospace"
-          nz-text
-          [nzType]="data.ratio.gte(0) ? '' : 'danger'"
-          >{{ data.ratio.times(this.unit.operativity).div(100) | format }}</span
-        >
-      </td>
-    </tr> -->
     <tr *ngFor="let d of subData; trackBy: getIndex">
       <td>{{ d.what }}</td>
       <td>

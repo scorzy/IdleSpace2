@@ -4,9 +4,9 @@
   [nzTitle]="cardTitleTemplate"
   [nzExtra]="extraTemplate"
   [nzActions]="
-    unit.modStack
+    unit.modStack && unit.maxMods.gt(0)
       ? [buyOne, buyMax, mod]
-      : building
+      : building && building.maxDepartments > 0
       ? [buyOne, buyMax, dep]
       : [buyOne, buyMax]
   "

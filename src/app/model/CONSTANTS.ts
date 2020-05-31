@@ -28,7 +28,7 @@ export const FLEET_CAPACITY_MULTI = 10;
 
 //  Ships
 export const BASE_ARMOUR = 100;
-export const BASE_SHIP_PRICE = 50;
+export const BASE_SHIP_PRICE = 40;
 export const BASE_EXPLOSION = BASE_ARMOUR;
 export const OPTIMIZE_RES_BONUS = 0.5;
 
@@ -52,7 +52,7 @@ export const SIZE_MULTI = 0.2;
 export const MODULE_ARMOUR = 200;
 export const MODULE_SHIELD = 200;
 export const MODULE_DAMAGE = 65;
-export const DEFAULT_MODULE_PRICE = 10;
+export const DEFAULT_MODULE_PRICE = 5;
 export const BASE_VELOCITY = 100;
 export const BASE_ACCELERATION = 1;
 export const BASE_THREAT = 150;
@@ -73,3 +73,5 @@ export const ENERGY_STORAGE = 1e4;
 export const STORAGE_DEPARTMENT_MULTI = 0.4;
 export const COMPONENT_STORAGE = 1e3;
 export const NUKE_STORAGE = 100;
+export const METAL_BUILDING_PRICE = 1000;
+export const ALLOY_BUILDING_PRICE = 1e3;
