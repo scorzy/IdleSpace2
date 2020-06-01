@@ -88,10 +88,11 @@ export class EditComponent extends BaseComponentComponent
 
     this.design.modules.push({
       module: null,
-      level: 1,
+      level: 10,
       size: 1,
       levelUi: "1"
     });
+    this.reload();
   }
   removeLine(index: number) {
     this.design.modules.splice(index, 1);

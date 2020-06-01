@@ -21,7 +21,9 @@
     >
       <tr>
         <td nzShowExpand [(nzExpand)]="mapOfExpandData[data.id]"></td>
-        <td>{{ data.name }}</td>
+        <td class="name-link" [routerLink]="'/des/edit/' + data.id">
+          {{ data.name }}
+        </td>
         <td>
           {{ getQuantity(data, i) | number: "1.0-0" }}
         </td>

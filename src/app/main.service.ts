@@ -106,8 +106,8 @@ export class MainService {
     if (!this.game) return;
 
     const now = Date.now();
-    const diff = now - this.last;
-    // diff = diff * 1e9;
+    let diff = now - this.last;
+    diff = diff * 1e9;
     this.game.update(diff / 1000);
     this.last = now;
 

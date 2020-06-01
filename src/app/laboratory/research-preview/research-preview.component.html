@@ -19,7 +19,7 @@
     <span class="text-secondary">Unlock ship module:</span> {{ mod.name }}
   </li>
   <li *ngFor="let unit of research.modPoints">
-    +{{ unit.quantity | number }} {{ unit.unit.name
+    +{{ unit.multi | percent }} {{ unit.unit.name
     }}<span class="text-secondary"> mod points</span>
   </li>
   <li *ngFor="let unit of research.buildingPoints">
@@ -69,6 +69,10 @@
   </li>
   <li *ngIf="research.recycling > 0">
     + {{ research.recycling | format }} recycling
+  </li>
+  <li *ngIf="research.speedMulti > 0">
+    +{{ research.speedMulti | percent }}
+    <span class="text-secondary">ship</span> velocity
   </li>
 </ul>
 

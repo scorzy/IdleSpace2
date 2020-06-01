@@ -22,39 +22,84 @@
     <i nz-icon nzType="my:defense-satellite"></i>
     <span>Space Stations</span>
   </li>
-  <li nz-menu-item nzMatchRouter [routerLink]="'lab'">
+  <li
+    nz-menu-item
+    nzMatchRouter
+    [routerLink]="'lab'"
+    *ngIf="ms.game.resourceManager.scientist.unlocked"
+  >
     <i nz-icon nzType="fa-s:flask"></i>
     <span>Laboratory</span>
   </li>
-  <li nz-menu-item nzMatchRouter [routerLink]="'tech'">
+  <li
+    nz-menu-item
+    nzMatchRouter
+    [routerLink]="'tech'"
+    *ngIf="ms.game.researchManager.researches[0].quantity.gt(0)"
+  >
     <i nz-icon nzType="fa-s:book"></i>
     <span>Technologies</span>
   </li>
-  <li nz-menu-item nzMatchRouter [routerLink]="'tree'">
+  <li
+    nz-menu-item
+    nzMatchRouter
+    [routerLink]="'tree'"
+    *ngIf="ms.game.resourceManager.scientist.unlocked"
+  >
     <i nz-icon nzType="fa-s:project-diagram"></i>
     <span>Tree</span>
   </li>
-  <li nz-menu-item nzMatchRouter [routerLink]="'fleet'">
+  <li
+    nz-menu-item
+    nzMatchRouter
+    [routerLink]="'fleet'"
+    *ngIf="ms.game.researchManager.researches[0].quantity.gt(0)"
+  >
     <i nz-icon nzType="my:strafe"></i>
     <span>Fleet</span>
   </li>
-  <li nz-menu-item nzMatchRouter [routerLink]="'/des'">
+  <li
+    nz-menu-item
+    nzMatchRouter
+    [routerLink]="'/des'"
+    *ngIf="ms.game.researchManager.researches[0].quantity.gt(0)"
+  >
     <i nz-icon nzType="fa-s:pencil-ruler"></i>
     <span>Designs</span>
   </li>
-  <li nz-menu-item nzMatchRouter [routerLink]="'/modules'">
+  <li
+    nz-menu-item
+    nzMatchRouter
+    [routerLink]="'/modules'"
+    *ngIf="ms.game.researchManager.researches[0].quantity.gt(0)"
+  >
     <i nz-icon nzType="fa-s:table"></i>
     <span>Modules</span>
   </li>
-  <li nz-menu-item nzMatchRouter routerLink="enemyList">
+  <li
+    nz-menu-item
+    nzMatchRouter
+    routerLink="enemyList"
+    *ngIf="ms.game.resourceManager.searcher.unlocked"
+  >
     <i nz-icon nzType="fa-s:search"></i>
     <span>Enemies</span>
   </li>
-  <li nz-menu-item nzMatchRouter routerLink="battle">
+  <li
+    nz-menu-item
+    nzMatchRouter
+    routerLink="battle"
+    *ngIf="ms.game.researchManager.researches[0].quantity.gt(0)"
+  >
     <i nz-icon nzType="fa-s:crosshairs"></i>
     <span>Battle</span>
   </li>
-  <li nz-menu-item nzMatchRouter routerLink="report">
+  <li
+    nz-menu-item
+    nzMatchRouter
+    routerLink="report"
+    *ngIf="ms.game.researchManager.researches[0].quantity.gt(0)"
+  >
     <i nz-icon nzType="fa-s:chart-bar"></i>
     <span>Reports</span>
   </li>

@@ -12,6 +12,8 @@ import { UpdateShipJob } from "./updateShipJob";
 import { BattleResult } from "../battle/battleResult";
 import { FIRST_DRONE } from "../data/shipsData";
 import sample from "lodash-es/sample";
+import { BonusStack } from "../bonus/bonusStack";
+import { Bonus } from "../bonus/bonus";
 
 const MAX_DESIGN = 20;
 
@@ -41,6 +43,8 @@ export class ShipyardManager extends JobManager {
   designerView = false;
   shipyardPage = false;
   unlockedModules = true;
+  velocityBonusStack = new BonusStack();
+  autoReinforce = false;
   constructor() {
     super();
     this.fleetNavCapPriority.fill(0);
@@ -77,7 +81,16 @@ export class ShipyardManager extends JobManager {
         this.allGenerators.findIndex((w) => w.id === mod.id) < 0
     );
   }
-  unlockDefaultModules() {
+  afterResearchesInit() {
+    const rm = Game.getGame().researchManager;
+    rm.researches.forEach((res) => {
+      if (res?.speedMulti > 0) {
+        this.velocityBonusStack.bonuses.push(
+          new Bonus(res, new Decimal(res.speedMulti))
+        );
+      }
+    });
+
     this.modules.forEach((mod) => {
       if (!mod.research) {
         mod.unlock();
@@ -116,6 +129,7 @@ export class ShipyardManager extends JobManager {
     return shipDesign.id;
   }
   postUpdate() {
+    this.velocityBonusStack.reloadBonus();
     this.reloadFleetPercent();
     if (this.unlockedModules) {
       this.reloadLists();
@@ -136,6 +150,12 @@ export class ShipyardManager extends JobManager {
     }
     for (let i = 0, n = this.modules.length; i < n; i++) {
       this.modules[i].reloadMaxLevel();
+    }
+    for (let i = 0, n = this.shipDesigns.length; i < n; i++) {
+      this.shipDesigns[i].reload(false);
+    }
+    if (this.autoReinforce) {
+      this.reinforceAll();
     }
   }
   reloadLists() {
@@ -451,9 +471,9 @@ export class ShipyardManager extends JobManager {
     }
   }
   reloadFleetPercent() {
-    let total = 0;
-    let used = 0;
     for (let fleet = 0; fleet < FLEET_NUMBER; fleet++) {
+      let total = 0;
+      let used = 0;
       for (let i = 0, n = this.shipDesigns.length; i < n; i++) {
         const navCap = this.shipDesigns[i].type.navalCapacity;
         total += this.shipDesigns[i].fleets[fleet].wantedShips * navCap;
@@ -486,7 +506,8 @@ export class ShipyardManager extends JobManager {
     return {
       d: this.shipDesigns.map((des) => des.getSave()),
       t: this.toDo.map((j) => j.getSave()),
-      n: this.fleetNavCapPriority
+      n: this.fleetNavCapPriority,
+      r: this.autoReinforce
     };
   }
   load(data: any) {
@@ -537,6 +558,7 @@ export class ShipyardManager extends JobManager {
         }
       }
     }
+    this.autoReinforce = data?.r ?? false;
   }
   //#endregion
 }

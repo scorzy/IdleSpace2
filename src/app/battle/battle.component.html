@@ -41,6 +41,7 @@
           ></nz-switch>
         </nz-form-control>
       </nz-form-item>
+
       <nz-form-item>
         <nz-form-control>
           <button nz-button nzType="default" (click)="autoAttackOptions = true">
@@ -49,6 +50,7 @@
           </button>
         </nz-form-control>
       </nz-form-item>
+
       <nz-form-item>
         <nz-form-label nzFor="autoNext">Auto Next</nz-form-label>
         <nz-form-control>
@@ -56,6 +58,17 @@
             name="autoNext"
             id="autoNext"
             [(ngModel)]="ms.game.enemyManager.autoNext"
+          ></nz-switch>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label nzFor="autoReinforce">Auto Reinforce</nz-form-label>
+        <nz-form-control>
+          <nz-switch
+            name="autoReinforce"
+            id="autoReinforce"
+            [(ngModel)]="ms.game.shipyardManager.autoReinforce"
           ></nz-switch>
         </nz-form-control>
       </nz-form-item>

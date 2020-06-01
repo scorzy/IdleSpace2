@@ -43,9 +43,10 @@ export class Research extends Job implements IUnlockable, IBase {
   limitMulti?: { unit: Unit; multi: number }[];
   recycling = 0;
   modulesToUnlock: Module[];
-  modPoints: { unit: Unit; quantity: number }[];
+  modPoints: { unit: Unit; multi: number }[];
   buildingPoints: { building: Building; quantity: number }[];
   shipProductionBonus: { shipType: ShipType; multi: number }[];
+  speedMulti: number;
   constructor(researchData: IResearchData, researchManager: ResearchManager) {
     super();
     this.resData = researchData;
@@ -98,11 +99,12 @@ export class Research extends Job implements IUnlockable, IBase {
       researchData.modPoints.forEach((modPoint) => {
         const unit = rs.workers.find((u) => u.id === modPoint.unitId);
         if (!this.modPoints) this.modPoints = [];
-        this.modPoints.push({ unit, quantity: modPoint.quantity });
+        this.modPoints.push({ unit, multi: modPoint.multi });
         if (!unit.modsResearches) unit.modsResearches = [];
         unit.modsResearches.push(this);
       });
     }
+    this.speedMulti = researchData.speedMulti ?? 0;
 
     this.reload();
   }

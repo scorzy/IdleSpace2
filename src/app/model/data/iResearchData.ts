@@ -31,7 +31,8 @@ export interface IResearchData {
   limitMulti?: { unitId: string; multi: number }[];
   recycling?: number;
   modulesToUnlock?: string[];
-  modPoints?: { unitId: string; quantity: number }[];
+  modPoints?: { unitId: string; multi: number }[];
   buildingPoints?: { buildingId: string; quantity: number }[];
   shipProductionBonus?: { shipType: number; multi: number }[];
+  speedMulti?: number;
 }

@@ -68,7 +68,7 @@ export class ShipDesign {
     }
     return (1 + 0.1 * (m.level - 1)) * sizeMultiplier;
   }
-  reload(errorCheck = false) {
+  reload(errorCheck = false, enemy = false) {
     let modSum = 0;
     let points = 0;
     this.weapons = [];
@@ -435,6 +435,11 @@ export class ShipDesign {
     // avgModLevel = modSum > 0 ? avgModLevel / modSum : 1;
     // this.threat += this.threat * avgModLevel;
     this.threat = Math.max(MIN_THREAT, this.threat);
+    if (!enemy) {
+      this.velocity = this.velocity.times(
+        Game.getGame().shipyardManager.velocityBonusStack.totalBonus
+      );
+    }
   }
   getCopy(errorCheck = true) {
     const ret = new ShipDesign();

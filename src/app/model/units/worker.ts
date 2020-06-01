@@ -66,18 +66,19 @@ export class Worker extends Unit {
         this.maxTechMods[i].technology.quantity.times(this.maxTechMods[i].multi)
       );
     }
+    let multi = ONE;
     if (this.modsResearches) {
       for (let i = 0, n = this.modsResearches.length; i < n; i++) {
-        if (this.modsResearches[i].quantity) {
+        if (this.modsResearches[i].quantity.gt(0)) {
           for (
             let k = 0, n2 = this.modsResearches[i].modPoints.length;
             k < n2;
             k++
           ) {
             if (this.modsResearches[i].modPoints[k].unit === this) {
-              this.maxMods = this.maxMods.plus(
+              multi = multi.times(
                 this.modsResearches[i].quantity.times(
-                  this.modsResearches[i].modPoints[k].quantity
+                  1 + this.modsResearches[i].modPoints[k].multi
                 )
               );
             }
@@ -85,7 +86,7 @@ export class Worker extends Unit {
         }
       }
     }
-    this.maxMods = this.maxMods.floor();
+    this.maxMods = this.maxMods.times(multi).floor();
   }
   confirmMods() {
     let recycle = this.recycle.plus(Game.getGame().baseRecycling);

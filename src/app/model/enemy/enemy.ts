@@ -390,7 +390,7 @@ export class Enemy {
         size: mod.size
       });
     });
-    design.reload();
+    design.reload(true, true);
     return design;
   }
   private reloadTotalNavalCap() {
@@ -551,7 +551,7 @@ export class Enemy {
         notEnergy = false;
       }
       if (tempEnergy >= 0 && tempUsedPoint <= design.type.maxPoints) {
-        copy.reload(false);
+        copy.reload(false, true);
         if (copy.valid) {
           const line = copy.modules.find(
             (m) => m.module.id === module.id && m.size < 5
@@ -566,7 +566,7 @@ export class Enemy {
             });
           }
         }
-        copy.reload(false);
+        copy.reload(false, true);
         if (copy.valid) {
           design.modules = copy.modules;
         }
@@ -580,7 +580,7 @@ export class Enemy {
       }
     }
 
-    design.reload(false);
+    design.reload(false, true);
     return design;
   }
   generateName() {

@@ -58,7 +58,7 @@ export class Game {
     this.researchManager.setRelations();
     this.resourceManager.makeUnitsMods();
     this.resourceManager.makeDepartments();
-    this.shipyardManager.unlockDefaultModules();
+    this.shipyardManager.afterResearchesInit();
 
     this.setTheme();
     this.battleStats = Array<{ name: string; stats: Stats[] }[]>();

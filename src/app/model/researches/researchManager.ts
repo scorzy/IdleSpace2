@@ -5,7 +5,14 @@ import { Game } from "../game";
 import { Bonus } from "../bonus/bonus";
 import { Technology } from "./technology";
 import { TECHNOLOGIES } from "../data/technologyData";
-import { ZERO, RESEARCH_TECH_EFF, OPTIMIZE_RES_BONUS } from "../CONSTANTS";
+import {
+  ZERO,
+  RESEARCH_TECH_EFF,
+  OPTIMIZE_RES_BONUS,
+  RESEARCH_ROBOTICS_MULTI,
+  RESEARCH_TECH_MOD_MULTI,
+  PROPULSION_SPEED_MULTI
+} from "../CONSTANTS";
 import { IResearchData } from "../data/iResearchData";
 import { BonusStack } from "../bonus/bonusStack";
 
@@ -70,7 +77,7 @@ export class ResearchManager extends JobManager {
       if (i + 1 < 9) {
         resData.researchToUnlock = ["n" + (i + 1)];
       }
-      if (i === 2) {
+      if (i === 1) {
         resData.researchToUnlock.push("b");
       }
       this.researches.push(new Research(resData, this));
@@ -130,33 +137,33 @@ export class ResearchManager extends JobManager {
           resData.researchToUnlock = [res.id + (i + 1)];
         }
         if (i > 0) {
-          const modPlus = i * 4;
-          const modRob = i;
+          const modPlus = RESEARCH_TECH_MOD_MULTI;
+          const modRob = RESEARCH_ROBOTICS_MULTI;
           switch (res.id) {
             //  Robotics
             case "x":
               resData.modPoints = rs.workers.map((w) => {
-                return { unitId: w.id, quantity: modRob };
+                return { unitId: w.id, multi: modRob };
               });
               resData.buildingPoints = [{ buildingId: "7", quantity: 1 }];
               break;
             //  Research / Physics
             case "p":
-              resData.modPoints = [{ unitId: "s", quantity: modPlus }];
+              resData.modPoints = [{ unitId: "s", multi: modPlus }];
               resData.effMulti = [{ unitId: "s", multi: RESEARCH_TECH_EFF }];
               resData.buildingPoints = [{ buildingId: "3", quantity: 1 }];
               break;
             //  Searching
             case "h":
-              resData.modPoints = [{ unitId: "r", quantity: modPlus }];
+              resData.modPoints = [{ unitId: "r", multi: modPlus }];
               resData.effMulti = [{ unitId: "r", multi: RESEARCH_TECH_EFF }];
               resData.buildingPoints = [{ buildingId: "6", quantity: 1 }];
               break;
             //  Materials
             case "M":
               resData.modPoints = [
-                { unitId: "a", quantity: modPlus },
-                { unitId: "w", quantity: modPlus }
+                { unitId: "a", multi: modPlus },
+                { unitId: "w", multi: modPlus }
               ];
               resData.effMulti = [
                 { unitId: "a", multi: RESEARCH_TECH_EFF },
@@ -169,15 +176,19 @@ export class ResearchManager extends JobManager {
               break;
             //  Energy
             case "E":
-              resData.modPoints = [{ unitId: "e", quantity: modPlus }];
+              resData.modPoints = [{ unitId: "e", multi: modPlus }];
               resData.effMulti = [{ unitId: "e", multi: RESEARCH_TECH_EFF }];
               resData.buildingPoints = [{ buildingId: "2", quantity: 1 }];
               break;
             //  Mining
             case "N":
-              resData.modPoints = [{ unitId: "m", quantity: modPlus }];
+              resData.modPoints = [{ unitId: "m", multi: modPlus }];
               resData.effMulti = [{ unitId: "m", multi: RESEARCH_TECH_EFF }];
               resData.buildingPoints = [{ buildingId: "1", quantity: 1 }];
+              break;
+            //  Propulsion
+            case "P":
+              resData.speedMulti = PROPULSION_SPEED_MULTI;
               break;
           }
 

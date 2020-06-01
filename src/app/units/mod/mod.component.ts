@@ -144,7 +144,7 @@ export class ModComponent extends BaseComponentComponent
     return res.id;
   }
   getResMod(res: Research): number {
-    return res.modPoints.find((m) => m.unit === this.unit).quantity;
+    return res.modPoints.find((m) => m.unit === this.unit).multi;
   }
   getTechId(index: number, tech: Technology) {
     return tech.id;
