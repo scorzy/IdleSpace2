@@ -240,3 +240,7 @@ nz-card-meta {
 .ant-table-tbody > tr .ant-table-wrapper:only-child .ant-table {
   margin: 0;
 }
+.ant-menu-item .anticon + span,
+.ant-menu-submenu-title .anticon + span {
+  transition: none !important;
+}

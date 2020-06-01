@@ -13,6 +13,7 @@ import { fadeIn } from "src/app/animations";
 import { CdkDragDrop, moveItemInArray } from "@angular/cdk/drag-drop";
 import { BreakpointObserver, BreakpointState } from "@angular/cdk/layout";
 import { BaseComponentComponent } from "src/app/base-component/base-component.component";
+import { OptionsService } from "src/app/options.service";
 
 @Component({
   selector: "app-enemies-list",
@@ -28,6 +29,7 @@ export class EnemiesListComponent extends BaseComponentComponent
   constructor(
     ms: MainService,
     cd: ChangeDetectorRef,
+    public os: OptionsService,
     private route: ActivatedRoute,
     public breakpointObserver: BreakpointObserver
   ) {

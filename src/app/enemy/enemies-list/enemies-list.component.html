@@ -28,6 +28,7 @@
         nzMatchRouter
         *ngFor="let enemy of ms.game.enemyManager.enemies; trackBy: getEnemyId"
         cdkDrag
+        [ngClass]="os.darkSide ? 'menu-dark' : 'menu-light'"
       >
         <a [routerLink]="'enemyDetail/' + enemy.id">
           <i nz-icon [nzType]="enemy.icon"></i>
