@@ -58,7 +58,9 @@
 
     <!-- Form  -->
     <form *ngIf="design" nz-form [nzLayout]="'horizontal'">
-      <nz-form-item *ngFor="let line of design.modules; let i = index">
+      <nz-form-item
+        *ngFor="let line of design.modules; let i = index; trackBy: getLineId"
+      >
         <nz-form-control
           [nzValidateStatus]="line.validateStatus"
           [nzErrorTip]="' ' + line.errorTip"

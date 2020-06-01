@@ -16,6 +16,7 @@ import { Module } from "src/app/model/shipyard/module";
 import { fadeIn } from "src/app/animations";
 import { OptionsService } from "src/app/options.service";
 import { BaseComponentComponent } from "src/app/base-component/base-component.component";
+import { IShipModule } from "src/app/model/shipyard/IShipModule";
 declare let numberformat;
 
 @Component({
@@ -93,6 +94,7 @@ export class EditComponent extends BaseComponentComponent
       levelUi: "1"
     });
     this.reload();
+    this.cd.markForCheck();
   }
   removeLine(index: number) {
     this.design.modules.splice(index, 1);
@@ -206,5 +208,8 @@ export class EditComponent extends BaseComponentComponent
   }
   getDesId(index: number, des: ShipDesign) {
     return des.id;
+  }
+  getLineId(index: number, iShipModule: IShipModule) {
+    return "" + index + iShipModule?.moduleId;
   }
 }
