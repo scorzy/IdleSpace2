@@ -5,6 +5,10 @@ import { FormatPipe } from "./format.pipe";
 import { OptionsService } from "./options.service";
 import compiledCss from "./model/data/themes.json";
 import { FLEET_NUMBER } from "./model/CONSTANTS";
+import {
+  NotificationTypes,
+  MyNotification
+} from "./model/notifications/myNotification";
 
 export const SAVE_ID = "IS2_save";
 export const GAME_SPEED = 1;
@@ -19,6 +23,7 @@ export class MainService {
     @Inject(DOCUMENT) private document: Document
   ) {
     this.last = Date.now();
+    MainService.instance = this;
     MainService.formatPipe = _formatPipe;
 
     this.theme = this.document.createElement("link");
@@ -82,6 +87,7 @@ export class MainService {
   }
   static formatPipe: FormatPipe;
   static battleWorkers = new Array<Worker>(FLEET_NUMBER);
+  static instance: MainService;
 
   theme: HTMLLinkElement;
   scrollbarTheme: HTMLLinkElement;
@@ -96,11 +102,7 @@ export class MainService {
   lzWorker: Worker;
   enemyListCollapsed = false;
   designListCollapsed = false;
-  notificationEmitter = new EventEmitter<{
-    type: number;
-    title?: string;
-    text?: string;
-  }>();
+  notificationEmitter = new EventEmitter<MyNotification>();
   ready = false;
 
   update() {
@@ -134,7 +136,9 @@ export class MainService {
   }
   private saveToLocalStorage(data: string) {
     localStorage.setItem(SAVE_ID, data);
-    this.notificationEmitter.emit({ type: 1 });
+    this.game.notificationManager.addNotification(
+      new MyNotification(NotificationTypes.SAVE, "Game Saved")
+    );
     this.saveEmitter.emit(1);
   }
   private load(save: string) {
@@ -147,11 +151,13 @@ export class MainService {
     }
     this.setTheme();
     this.setSideTheme();
-    this.notificationEmitter.emit({
-      type: 2,
-      title: "Game Loaded",
-      text: formatDate(this.last, "medium", "EN")
-    });
+    this.notificationEmitter.emit(
+      new MyNotification(
+        NotificationTypes.LOAD,
+        "Game Loaded",
+        formatDate(this.last, "medium", "EN")
+      )
+    );
   }
   decompressAndLoad(data: string) {
     this.lzWorker.postMessage({ m: data, a: "d" });

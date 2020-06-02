@@ -6,6 +6,7 @@ import { EnemyManager } from "./enemy/enemyManager";
 import { BattleResult, Stats } from "./battle/battleResult";
 import { DatePipe } from "@angular/common";
 import { SpaceStationManager } from "./space/spaceStationManager";
+import { NotificationManager } from "./notifications/notificationManager";
 
 /**
  * Game is the main class that orchestrate everything game related
@@ -32,6 +33,7 @@ export class Game {
   civWorkPerSec = ZERO;
   shipWorkPerSec = ZERO;
   baseRecycling = ZERO;
+  notificationManager = new NotificationManager();
   private _gameId = "";
   private battleResults: { result: BattleResult; fleet: number }[] = [];
 

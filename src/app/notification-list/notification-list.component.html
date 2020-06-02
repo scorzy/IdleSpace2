@@ -1,0 +1,22 @@
+<div
+  class="noti-list"
+  *ngFor="let noti of ms.game.notificationManager.notifications"
+>
+  <div fxLayout="row" fxLayoutAlign="start center">
+    <span>{{ noti.dateTime | date: "shortTime" }}</span>
+    <div fxLayout="row" fxLayoutAlign="start center">
+      <i
+        nz-icon
+        [nzType]="noti.icon"
+        [ngClass]="noti.iconClass"
+        class="noti-icon"
+      ></i>
+      <div>
+        <div class="ant-card-meta-title">{{ noti.title }}</div>
+        <div class="noti-desc">
+          {{ noti.description }}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

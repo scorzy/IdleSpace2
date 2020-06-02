@@ -68,13 +68,16 @@
 </nz-drawer>
 
 <!-- Custom Notifications -->
-<ng-template #saveNoti>
+<ng-template #customNoti let-myNoti="data">
   <div class="ant-notification-notice-content">
     <div class="ant-notification-notice-with-icon">
-      <span class="ant-notification-notice-icon"
-        ><i nz-icon nzType="save" class="text-success"></i
-      ></span>
-      <div class="ant-notification-notice-message">Game Saved</div>
+      <span class="ant-notification-notice-icon">
+        <i nz-icon [nzType]="myNoti.icon" [ngClass]="myNoti.iconClass"></i>
+      </span>
+      <div class="ant-notification-notice-message">{{ myNoti.title }}</div>
+      <div class="ant-notification-notice-description">
+        {{ myNoti.description }}
+      </div>
     </div>
   </div>
 </ng-template>

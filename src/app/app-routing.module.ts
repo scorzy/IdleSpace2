@@ -21,6 +21,7 @@ import { BiComponent } from "./units/bi/bi.component";
 import { HtmlTreeComponent } from "./laboratory/html-tree/html-tree.component";
 import { BuildingsComponent } from "./units/buildings/buildings.component";
 import { DepartmentComponent } from "./units/department/department.component";
+import { NotificationListComponent } from "./notification-list/notification-list.component";
 export const routes: Routes = [
   { path: "", pathMatch: "full", redirectTo: "/units/ws" },
   { path: "des", pathMatch: "full", redirectTo: "/des/add" },
@@ -36,6 +37,7 @@ export const routes: Routes = [
   { path: "opt", pathMatch: "full", component: OptionsComponent },
   { path: "save", pathMatch: "full", component: SaveComponent },
   { path: "options", pathMatch: "full", component: OptionsComponent },
+  { path: "noti", pathMatch: "full", component: NotificationListComponent },
   { path: "fleet", pathMatch: "full", component: ShipyardComponent },
   {
     path: "des",

@@ -19,6 +19,10 @@ import { ShipType } from "../shipyard/ShipType";
 import { Module } from "../shipyard/module";
 import { Building } from "../units/building";
 import { SearchJob } from "../enemy/searchJob";
+import {
+  MyNotification,
+  NotificationTypes
+} from "../notifications/myNotification";
 
 export class Research extends Job implements IUnlockable, IBase {
   static lastVisId = 0;
@@ -168,6 +172,10 @@ export class Research extends Job implements IUnlockable, IBase {
       const sm = Game.getGame().shipyardManager;
       if (sm.shipDesigns.length < 1) sm.addDefaultDesign();
     }
+
+    Game.getGame().notificationManager.addNotification(
+      new MyNotification(NotificationTypes.RESEARCH, this.name + " completed!")
+    );
   }
   unlock(): boolean {
     const resM = Game.getGame().researchManager;

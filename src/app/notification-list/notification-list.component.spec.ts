@@ -1,0 +1,32 @@
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
+
+import { NotificationListComponent } from "./notification-list.component";
+import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import { testImports } from "../app.component.spec";
+import { FormatPipe } from "../format.pipe";
+import { MainService } from "../main.service";
+import { OptionsService } from "../options.service";
+
+describe("NotificationListComponent", () => {
+  let component: NotificationListComponent;
+  let fixture: ComponentFixture<NotificationListComponent>;
+
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
+      imports: testImports,
+      declarations: [NotificationListComponent, FormatPipe],
+      providers: [MainService, OptionsService, FormatPipe]
+    }).compileComponents();
+  }));
+
+  beforeEach(() => {
+    fixture = TestBed.createComponent(NotificationListComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it("should create", () => {
+    expect(component).toBeTruthy();
+  });
+});

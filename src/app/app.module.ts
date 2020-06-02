@@ -89,6 +89,7 @@ import { NzTagModule } from "ng-zorro-antd/tag";
 import { NZ_I18N, en_US } from "ng-zorro-antd/i18n";
 import { UiComponent } from "./options/ui/ui.component";
 import { NzCascaderModule } from "ng-zorro-antd/cascader";
+import { NotificationListComponent } from './notification-list/notification-list.component';
 
 registerLocaleData(en);
 
@@ -144,7 +145,8 @@ const ngZorroConfig: NzConfig = {
     TreeNodeComponent,
     BuildingsComponent,
     DepartmentComponent,
-    UiComponent
+    UiComponent,
+    NotificationListComponent
   ],
   imports: [
     BrowserModule,

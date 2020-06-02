@@ -12,6 +12,10 @@ import { NzNotificationService } from "ng-zorro-antd/notification";
 import { OptionsService } from "./options.service";
 import { fadeIn } from "./animations";
 import { Subscription } from "rxjs";
+import {
+  MyNotification,
+  NotificationTypes
+} from "./model/notifications/myNotification";
 
 @Component({
   selector: "app-root",
@@ -23,10 +27,8 @@ import { Subscription } from "rxjs";
 export class AppComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
 
-  @ViewChild("saveNoti", { static: false })
-  private saveNoti: TemplateRef<any>;
-  @ViewChild("loadNoti", { static: false })
-  private loadNoti: TemplateRef<any>;
+  @ViewChild("customNoti", { static: false })
+  private customNoti: TemplateRef<any>;
 
   loadMessage = "";
 
@@ -51,15 +53,17 @@ export class AppComponent implements OnInit, OnDestroy {
       this.ms.updateEmitter.subscribe(() => {
         this.cd.markForCheck();
       }),
-      this.ms.notificationEmitter.subscribe((n) => {
-        let template = this.saveNoti;
-        switch (n.type) {
-          case 1:
-            template = this.saveNoti;
-            this.notification.template(template);
-            break;
-          case 2:
-            this.notification.create("info", n.title, n.text);
+      this.ms.notificationEmitter.subscribe((n: MyNotification) => {
+        if (n.template) {
+          let template = this.customNoti;
+          template = this.customNoti;
+          this.notification.template(template, { nzData: n });
+        } else {
+          switch (n.type) {
+            case NotificationTypes.LOAD:
+              this.notification.create("info", n.title, n.description);
+              break;
+          }
         }
       })
     );
