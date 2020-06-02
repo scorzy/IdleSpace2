@@ -251,6 +251,7 @@ export class Game {
     if ("c" in data) {
       this.civilianWorkPercent = data.c;
     }
+    this.postUpdate();
   }
   //#endregion
 }

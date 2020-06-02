@@ -7,7 +7,8 @@ import {
   NUKE_STORAGE,
   COMPONENT_STORAGE,
   METAL_BUILDING_PRICE,
-  ALLOY_BUILDING_PRICE
+  ALLOY_BUILDING_PRICE,
+  BUILDING_LIMIT
 } from "../CONSTANTS";
 import { RD, PROD_DEP, STORAGE_DEP } from "./departments";
 export enum UNIT_TYPES {
@@ -35,7 +36,7 @@ export const UNITS: IUnitData[] = [
     name: "Energy",
     icon: "my:electric",
     description: "",
-    startQuantity: 10,
+    startQuantity: 100,
     colorClass: "energy-color",
     limits: [
       {
@@ -118,14 +119,14 @@ export const UNITS: IUnitData[] = [
     description: "",
     startQuantity: 1,
     production: [
-      ["M", 2],
+      ["M", 1],
       ["E", -1]
     ],
     prices: [["M", 10]],
     limits: [
       {
         buildingLimit: "1",
-        buildingLimitQuantity: 10
+        buildingLimitQuantity: BUILDING_LIMIT
       }
     ],
     unitType: UNIT_TYPES.WORKER,
@@ -146,7 +147,7 @@ export const UNITS: IUnitData[] = [
     limits: [
       {
         buildingLimit: "2",
-        buildingLimitQuantity: 10
+        buildingLimitQuantity: BUILDING_LIMIT
       }
     ],
     unitType: UNIT_TYPES.WORKER,
@@ -163,14 +164,14 @@ export const UNITS: IUnitData[] = [
     description: "",
     production: [
       ["S", 1],
-      ["M", -3],
-      ["E", -2]
+      ["M", -2],
+      ["E", -1]
     ],
     prices: [["M", 20]],
     limits: [
       {
         buildingLimit: "3",
-        buildingLimitQuantity: 10
+        buildingLimitQuantity: BUILDING_LIMIT
       }
     ],
     unitType: UNIT_TYPES.WORKER,
@@ -187,14 +188,14 @@ export const UNITS: IUnitData[] = [
     description: "",
     production: [
       ["A", 1],
-      ["M", -4],
-      ["E", -2]
+      ["M", -2],
+      ["E", -1]
     ],
     prices: [["M", 20]],
     limits: [
       {
         buildingLimit: "4",
-        buildingLimitQuantity: 10
+        buildingLimitQuantity: BUILDING_LIMIT
       }
     ],
     unitType: UNIT_TYPES.WORKER,
@@ -211,7 +212,7 @@ export const UNITS: IUnitData[] = [
     description: "",
     production: [
       ["W", 1],
-      ["A", -4],
+      ["A", -2],
       ["E", -2]
     ],
     prices: [
@@ -221,7 +222,7 @@ export const UNITS: IUnitData[] = [
     limits: [
       {
         buildingLimit: "5",
-        buildingLimitQuantity: 10
+        buildingLimitQuantity: BUILDING_LIMIT
       }
     ],
     unitType: UNIT_TYPES.WORKER,
@@ -255,7 +256,7 @@ export const UNITS: IUnitData[] = [
     limits: [
       {
         buildingLimit: "6",
-        buildingLimitQuantity: 10
+        buildingLimitQuantity: BUILDING_LIMIT
       }
     ],
     unitType: UNIT_TYPES.WORKER,
@@ -282,7 +283,7 @@ export const UNITS: IUnitData[] = [
     limits: [
       {
         buildingLimit: "7",
-        buildingLimitQuantity: 10
+        buildingLimitQuantity: BUILDING_LIMIT
       }
     ],
     unitType: UNIT_TYPES.WORKER,
@@ -311,7 +312,7 @@ export const UNITS: IUnitData[] = [
     limits: [
       {
         buildingLimit: "7",
-        buildingLimitQuantity: 10
+        buildingLimitQuantity: BUILDING_LIMIT
       }
     ],
     unitType: UNIT_TYPES.WORKER,
@@ -374,7 +375,7 @@ export const UNITS: IUnitData[] = [
     colorClass: "energy-color",
     startQuantity: 1,
     prices: [
-      ["M", METAL_BUILDING_PRICE],
+      ["M", METAL_BUILDING_PRICE * 0.75],
       ["k", 10]
     ],
     unitType: UNIT_TYPES.BUILDING,

@@ -41,6 +41,7 @@ export class BuildShipsJob extends Job {
             .div(this.design.price)
             .floor()
             .toNumber();
+
     if (toBuild > 0) {
       this.design.fleets[this.fleetNum].shipsQuantity += toBuild;
       this.built += toBuild;
@@ -59,6 +60,7 @@ export class BuildShipsJob extends Job {
     this.total = this.design.price
       .times(this.quantity - this.built)
       .plus(this.workDone);
+    console.log(this.total.toNumber());
 
     this.timeToEnd = this.getRemaining()
       .div(Game.getGame().shipWorkPerSec)
@@ -106,6 +108,8 @@ export class BuildShipsJob extends Job {
     if ("w" in data) {
       this.workDone = new Decimal(data.w);
     }
+    this.quantity = data.q ?? 0;
+
     this.total = this.design.price.times(this.quantity);
   }
   //#endregion

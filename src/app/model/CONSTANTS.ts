@@ -19,6 +19,7 @@ export const MOD_COMPONENTS = 1;
 export const MOD_RECYCLING = 0.2;
 export const COMPONENT_PRICE = TEN;
 export const MAX_RECYCLING = 0.9;
+export const BUILDING_LIMIT = 20;
 
 //  FLEETS
 export const BASE_NAVAL_CAPACITY = 100;
