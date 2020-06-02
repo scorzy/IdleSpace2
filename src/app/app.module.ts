@@ -87,7 +87,8 @@ import { NzTableModule } from "ng-zorro-antd/table";
 import { NzTabsModule } from "ng-zorro-antd/tabs";
 import { NzTagModule } from "ng-zorro-antd/tag";
 import { NZ_I18N, en_US } from "ng-zorro-antd/i18n";
-import { UiComponent } from './options/ui/ui.component';
+import { UiComponent } from "./options/ui/ui.component";
+import { NzCascaderModule } from "ng-zorro-antd/cascader";
 
 registerLocaleData(en);
 
@@ -184,7 +185,8 @@ const ngZorroConfig: NzConfig = {
     NzTabsModule,
     NzTagModule,
     NzToolTipModule,
-    NzTypographyModule
+    NzTypographyModule,
+    NzCascaderModule
   ],
   providers: [
     { provide: NZ_I18N, useValue: en_US },

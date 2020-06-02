@@ -443,6 +443,7 @@ export class ShipDesign {
   }
   getCopy(errorCheck = true) {
     const ret = new ShipDesign();
+    const sm = Game.getGame().shipyardManager;
     ret.name = this.name;
     ret.id = this.id;
     ret.rev = this.rev;
@@ -461,7 +462,8 @@ export class ShipDesign {
                 moduleId: mod.module.id,
                 levelUi: MainService.formatPipe.transform(mod.level, true),
                 validateStatus: "",
-                errorTip: ""
+                errorTip: "",
+                uiModel: [mod.module.groupId, mod.module.id]
               };
             });
     ret.reload(errorCheck);

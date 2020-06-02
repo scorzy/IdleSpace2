@@ -36,7 +36,12 @@ export class ShipyardManager extends JobManager {
   others = new Array<Module>();
   allThrusters = new Array<Module>();
   thrusters = new Array<Module>();
-  groups: { name: string; list: Array<Module>; id: number }[];
+  groups: {
+    name: string;
+    list: Array<Module>;
+    all: Array<Module>;
+    id: number;
+  }[];
   toDo = new Array<Job>();
   armour: Module;
   shield: Module;
@@ -80,6 +85,12 @@ export class ShipyardManager extends JobManager {
         this.allThrusters.findIndex((w) => w.id === mod.id) < 0 &&
         this.allGenerators.findIndex((w) => w.id === mod.id) < 0
     );
+    this.reloadLists();
+    this.groups.forEach((group) => {
+      group.all.forEach((mod) => {
+        mod.groupId = group.id;
+      });
+    });
   }
   afterResearchesInit() {
     const rm = Game.getGame().researchManager;
@@ -165,11 +176,21 @@ export class ShipyardManager extends JobManager {
     this.thrusters = this.allThrusters.filter((m) => m.unlocked);
     this.others = this.allOthers.filter((mod) => mod.unlocked);
     this.groups = [
-      { name: "Weapons", list: this.weapons, id: 1 },
-      { name: "Defences", list: this.defences, id: 2 },
-      { name: "Generators", list: this.generators, id: 3 },
-      { name: "Thrusters", list: this.thrusters, id: 4 },
-      { name: "Others", list: this.others, id: 5 }
+      { name: "Weapons", list: this.weapons, id: 1, all: this.allWeapons },
+      { name: "Defences", list: this.defences, id: 2, all: this.allDefences },
+      {
+        name: "Generators",
+        list: this.generators,
+        id: 3,
+        all: this.allGenerators
+      },
+      {
+        name: "Thrusters",
+        list: this.thrusters,
+        id: 4,
+        all: this.allThrusters
+      },
+      { name: "Others", list: this.others, id: 5, all: this.allOthers }
     ];
   }
   update(oldDesign: ShipDesign, newDesign: ShipDesign): boolean {

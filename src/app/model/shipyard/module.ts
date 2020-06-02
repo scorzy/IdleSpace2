@@ -39,7 +39,7 @@ export class Module implements IUnlockable {
   adaptivePrecision = 0;
   threatGainMulti = 1;
   research: Research;
-
+  groupId = 0;
   constructor() {}
   init(moduleData: ModuleData) {
     forOwn(

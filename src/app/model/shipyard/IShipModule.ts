@@ -8,4 +8,5 @@ export interface IShipModule {
   validateStatus?: string;
   errorTip?: string;
   warningTip?: string;
+  uiModel?: [number, string];
 }

@@ -17,6 +17,7 @@ import { fadeIn } from "src/app/animations";
 import { OptionsService } from "src/app/options.service";
 import { BaseComponentComponent } from "src/app/base-component/base-component.component";
 import { IShipModule } from "src/app/model/shipyard/IShipModule";
+import { NzCascaderOption } from "ng-zorro-antd/cascader/typings";
 declare let numberformat;
 
 @Component({
@@ -35,6 +36,7 @@ export class EditComponent extends BaseComponentComponent
   loaded = false;
   otherDesigns: Array<ShipDesign>;
   blueprintWarning = false;
+  nzOptions: NzCascaderOption[];
 
   constructor(
     ms: MainService,
@@ -52,6 +54,22 @@ export class EditComponent extends BaseComponentComponent
     });
   }
   ngOnInit() {
+    this.nzOptions = this.ms.game.shipyardManager.groups.map((group) => {
+      return {
+        value: group.id,
+        label: group.name,
+        group,
+        children: group.all.map((mod) => {
+          return {
+            value: mod.id,
+            label: mod.name,
+            mod,
+            isLeaf: true
+          };
+        })
+      };
+    });
+
     this.ms.game.shipyardManager.designerView = true;
     this.ms.game.shipyardManager.postUpdate();
     this.subscriptions.push(
@@ -211,5 +229,10 @@ export class EditComponent extends BaseComponentComponent
   }
   getLineId(index: number, iShipModule: IShipModule) {
     return "" + index + iShipModule?.moduleId;
+  }
+  onModuleChanges(values: string[], index: number): void {
+    console.log(this.design.modules[index].uiModel);
+    this.design.modules[index].moduleId = values[values.length - 1];
+    this.moduleChange(index);
   }
 }

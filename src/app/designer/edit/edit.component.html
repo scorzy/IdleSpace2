@@ -27,8 +27,8 @@
             design.modules.length <= design.type.maxModule ? '' : 'danger'
           "
         >
-          {{ design.modules.length | format }}/{{
-            design.type.maxModule | format
+          {{ design.modules.length | format: true }}/{{
+            design.type.maxModule | format: true
           }}
         </span></span
       >
@@ -40,7 +40,9 @@
           nz-text
           [nzType]="design.totalPoints <= design.type.maxPoints ? '' : 'danger'"
         >
-          {{ design.totalPoints | format }}/{{ design.type.maxPoints | format }}
+          {{ design.totalPoints | format: true }}/{{
+            design.type.maxPoints | format: true
+          }}
         </span></span
       >
 
@@ -67,43 +69,55 @@
           [nzWarningTip]="' ' + line.warningTip"
         >
           <div fxLayout="row wrap" fxLayoutGap="0.5rem" fxLayout.lt-sm="column">
-            <nz-select
+            <nz-cascader
               fxFlex="1 1 0"
-              [name]="'module' + i"
-              [(ngModel)]="line.moduleId"
-              (ngModelChange)="moduleChange(i)"
-              [nzCustomTemplate]="custom"
               class="module-select"
+              [name]="'module' + i"
+              [nzLabelRender]="renderTpl"
+              [nzOptions]="nzOptions"
+              [(ngModel)]="line.uiModel"
+              [nzOptionRender]="renderOptTpl"
+              (ngModelChange)="onModuleChanges($event, i)"
             >
-              <nz-option
-                *ngFor="
-                  let mod of ms.game.shipyardManager.modules;
-                  trackBy: getModId
-                "
-                [nzValue]="mod.id"
-                [nzLabel]="mod.name"
-                nzCustomContent
-              >
-                <span nz-typography [nzType]="!mod.unlocked ? 'warning' : ''">
-                  <i nz-icon [nzType]="mod.shape"></i>
-                  <span> {{ mod.name }}</span></span
-                >
-              </nz-option>
+            </nz-cascader>
 
-              <!-- <nz-option-group
-                [nzLabel]="group.name"
-                *ngFor="let group of ms.game.shipyardManager.groups"
+            <ng-template
+              #renderTpl
+              let-labels="labels"
+              let-selectedOptions="selectedOptions"
+            >
+              <span
+                *ngIf="selectedOptions"
+                nz-typography
+                [nzType]="
+                  selectedOptions[selectedOptions.length - 1]?.mod &&
+                  !selectedOptions[selectedOptions.length - 1]?.mod?.unlocked
+                    ? 'warning'
+                    : ''
+                "
               >
-                <nz-option
-                  *ngFor="let mod of group.list"
-                  [nzValue]="mod.id"
-                  [nzLabel]="mod.name"
-                > -->
-              <!-- <i nz-icon [nzType]="mod.shape" style="font-size: 200%;"></i> -->
-              <!-- <span fxFlex="100%"> {{ mod.name }}</span> -->
-              <!-- </nz-option>
-              </nz-option-group> -->
-            </nz-select>
+                <i
+                  nz-icon
+                  [nzType]="
+                    selectedOptions[selectedOptions.length - 1]?.mod?.shape
+                  "
+                ></i>
+                {{ selectedOptions[selectedOptions.length - 1]?.label }}
+              </span>
+            </ng-template>
+
+            <ng-template #renderOptTpl let-option let-index="index">
+              <span
+                nz-typography
+                [nzType]="
+                  option?.mod && !option?.mod?.unlocked ? 'warning' : ''
+                "
+              >
+                <i nz-icon [nzType]="option?.mod?.shape"></i>
+                {{ option.label }}
+              </span>
+            </ng-template>
+
             <div fxLayout="row" fxLayoutGap="0.5rem">
               <nz-select
                 *ngIf="line.module"
@@ -172,9 +186,11 @@
         [disabled]="isDisabled()"
         (click)="update()"
       >
+        <i nz-icon nzType="save" nzTheme="outline"></i>
         Update
       </button>
       <button nz-button nzType="info" (click)="maximize()">
+        <i nz-icon nzType="arrow-up" nzTheme="outline"></i>
         Maximize
       </button>
       <button
@@ -186,6 +202,7 @@
         Delete Outdated
       </button>
       <button nz-button nzType="danger" (click)="delete()">
+        <i nz-icon nzType="delete" nzTheme="outline"></i>
         Delete Design
       </button>
     </nz-button-group>
