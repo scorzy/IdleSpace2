@@ -439,8 +439,25 @@ export class ShipyardManager extends JobManager {
         }
       }
       if (toBuild > 0) {
-        const job = new BuildShipsJob(toBuild, this.shipDesigns[k], i);
-        this.toDo.push(job);
+        let job: BuildShipsJob;
+        if (this.toDo.length > 0) {
+          const sameJob = this.toDo.find(
+            (j) =>
+              j instanceof BuildShipsJob &&
+              j.design === this.shipDesigns[k] &&
+              j.fleetNum === fleetNum &&
+              j.progress.lte(1)
+          );
+          if (sameJob && sameJob instanceof BuildShipsJob) {
+            job = sameJob;
+            job.quantity += toBuild;
+          }
+        }
+        if (!job) {
+          job = new BuildShipsJob(toBuild, this.shipDesigns[k], i);
+          this.toDo.push(job);
+        }
+
         if (this.toDo.length === 1) {
           Game.getGame().reloadWorkPerSec();
         }

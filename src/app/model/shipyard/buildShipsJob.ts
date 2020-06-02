@@ -60,7 +60,7 @@ export class BuildShipsJob extends Job {
     this.total = this.design.price
       .times(this.quantity - this.built)
       .plus(this.workDone);
-    console.log(this.total.toNumber());
+    // console.log(this.total.toNumber());
 
     this.timeToEnd = this.getRemaining()
       .div(Game.getGame().shipWorkPerSec)
