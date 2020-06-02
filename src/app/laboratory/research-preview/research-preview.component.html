@@ -74,6 +74,15 @@
     +{{ research.speedMulti | percent }}
     <span class="text-secondary">ship</span> velocity
   </li>
+  <li>
+    <i
+      nz-icon
+      class="science-icon"
+      [nzType]="ms.game.resourceManager.science.icon"
+      [ngClass]="ms.game.resourceManager.science.colorClass"
+    ></i>
+    <span class="monospace">{{ research.initialPrice | format }}</span>
+  </li>
 </ul>
 
 <span

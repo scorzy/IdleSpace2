@@ -6,7 +6,8 @@ import { OptionsService } from "./options.service";
 import compiledCss from "./model/data/themes.json";
 import { FLEET_NUMBER } from "./model/CONSTANTS";
 
-export const SAVE_ID = "IA3_save";
+export const SAVE_ID = "IS2_save";
+export const GAME_SPEED = 1;
 
 @Injectable({
   providedIn: "root"
@@ -107,7 +108,7 @@ export class MainService {
 
     const now = Date.now();
     let diff = now - this.last;
-    diff = diff * 1e9;
+    diff = diff * GAME_SPEED;
     this.game.update(diff / 1000);
     this.last = now;
 

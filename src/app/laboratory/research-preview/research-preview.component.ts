@@ -5,6 +5,7 @@ import {
   Input
 } from "@angular/core";
 import { Research } from "src/app/model/researches/research";
+import { MainService } from "src/app/main.service";
 
 @Component({
   selector: "app-research-preview",
@@ -15,7 +16,7 @@ import { Research } from "src/app/model/researches/research";
 export class ResearchPreviewComponent implements OnInit {
   @Input() research: Research;
   @Input() noProgress = false;
-  constructor() {}
+  constructor(public ms: MainService) {}
   ngOnInit(): void {}
 
   getId(index: number, aaa: any) {
