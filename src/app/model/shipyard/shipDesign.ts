@@ -426,6 +426,9 @@ export class ShipDesign {
       modSum <= this.type.maxModule &&
       points <= this.type.maxPoints;
 
+    if (!this.type.unlocked) {
+      this.available = false;
+    }
     if (!this.available) {
       this.fleets.forEach((fl) => {
         this.valid = this.valid && fl.shipsQuantity < 1;

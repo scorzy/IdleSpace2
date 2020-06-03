@@ -272,12 +272,12 @@ export class Enemy {
       }
     });
 
-    const districtQuantity = TEN.plus(this.level - 1).times(
+    const districtQuantity = TEN.plus(this.level - 3).times(
       em.districtMultiplier.totalBonus
     );
     const materialQuantity = Decimal.pow(1 + this.level, PRICE_GROW_RATE)
       .times(DEFAULT_MODULE_PRICE)
-      .times(50)
+      .times(100)
       .times(em.resourceMultiplier.totalBonus);
 
     this.cells = new Array<Cell>(100);

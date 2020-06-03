@@ -36,7 +36,7 @@ export const OPTIMIZE_RES_BONUS = 0.5;
 //  Search and enemies
 export const SEARCH_JOB_PRICE = 100;
 export const EXTRA_OPT_EXP = 1.07;
-export const ENEMY_NAVAL_CAP_LEVEL = 40;
+export const ENEMY_NAVAL_CAP_LEVEL = 50;
 export const ENEMY_BASE_DISTANCE = new Decimal(100);
 export const MOD_LEVEL_EXP = 1.04;
 export const DEFENCE_START_LEVEL = 14;

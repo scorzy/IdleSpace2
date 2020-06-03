@@ -7,7 +7,10 @@
   <div fxFlex="65 1 0">
     <h2>
       {{ design.name }}
-      <small>Rev. {{ design.rev | number }}</small>
+      <small
+        >Rev. {{ design.rev | number }}
+        <span class="text-secondary">{{ design.type.name }}</span>
+      </small>
     </h2>
 
     <!-- Recap Line  -->

@@ -80,7 +80,7 @@
     nz-menu-item
     nzMatchRouter
     routerLink="enemyList"
-    *ngIf="ms.game.resourceManager.searcher.unlocked"
+    *ngIf="ms.game.researchManager.researches[0].quantity.gt(0)"
   >
     <i nz-icon nzType="fa-s:search"></i>
     <span>Enemies</span>
