@@ -44,7 +44,7 @@ import { DragDropModule } from "@angular/cdk/drag-drop";
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { FormatPipe } from "./format.pipe";
 import { OptionsService } from "./options.service";
-
+import { NzDropDownModule } from "ng-zorro-antd/dropdown";
 export const testImports = [
   RouterTestingModule,
   FormsModule,
@@ -87,7 +87,8 @@ export const testImports = [
   NzTabsModule,
   NzTagModule,
   NzToolTipModule,
-  NzTypographyModule
+  NzTypographyModule,
+  NzDropDownModule
 ];
 
 describe("AppComponent", () => {

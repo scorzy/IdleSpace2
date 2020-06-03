@@ -75,9 +75,8 @@
         <i nz-icon [nzType]="myNoti.icon" [ngClass]="myNoti.iconClass"></i>
       </span>
       <div class="ant-notification-notice-message">{{ myNoti.title }}</div>
-      <div class="ant-notification-notice-description">
-        {{ myNoti.description }}
-      </div>
+      <!-- prettier-ignore -->
+      <div class="ant-notification-notice-description">{{ myNoti.description }}</div>
     </div>
   </div>
 </ng-template>

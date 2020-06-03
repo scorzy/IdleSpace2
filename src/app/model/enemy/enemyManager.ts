@@ -242,8 +242,7 @@ export class EnemyManager extends JobManager {
                 (fleetNum + 1) +
                 " cell: " +
                 cell.index +
-                "\n" +
-                this.rewardString
+                (this.rewardString === "", "", "\n" + this.rewardString)
             )
           );
         }
@@ -290,11 +289,11 @@ export class EnemyManager extends JobManager {
       if (toAdd.gt(0)) {
         mat.material.quantity = mat.material.quantity.plus(toAdd);
         this.rewardString +=
-          "+ " +
+          (this.rewardString === "" ? "" : ", ") +
+          "+" +
           MainService.formatPipe.transform(toAdd) +
           " " +
-          mat.material.name +
-          " ";
+          mat.material.name;
       }
       mat.quantity = ZERO;
     }
@@ -312,8 +311,7 @@ export class EnemyManager extends JobManager {
           MainService.formatPipe.transform(this.currentEnemy.level, true) +
           " " +
           this.currentEnemy.name +
-          "\n" +
-          this.rewardString
+          (this.rewardString === "", "", "\n" + this.rewardString)
       )
     );
     this.currentEnemy = null;
