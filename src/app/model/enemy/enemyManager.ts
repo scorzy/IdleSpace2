@@ -21,6 +21,10 @@ import {
 import { solveEquation } from "ant-utils";
 import { UNIT_TYPES } from "../data/units";
 import { AutoAttackOption } from "./autoAttackOptions";
+import {
+  MyNotification,
+  NotificationTypes
+} from "../notifications/myNotification";
 
 export class EnemyManager extends JobManager {
   enemies = new Array<Enemy>();
@@ -33,6 +37,7 @@ export class EnemyManager extends JobManager {
   autoAttackEnabled = false;
   autoNext = false;
   autoAttackOptions: AutoAttackOption[];
+  private rewardString = "";
   //#region Bonus
   districtMultiplier: BonusStack = new BonusStack();
   resourceMultiplier: BonusStack = new BonusStack();
@@ -201,6 +206,7 @@ export class EnemyManager extends JobManager {
     }
   }
   onBattleEnd(battleResult: BattleResult, fleetNum: number) {
+    this.rewardString = "";
     const cell = this.fleetsInBattle[fleetNum];
     if (!this.currentEnemy) {
       this.fleetsInBattle[fleetNum] = null;
@@ -222,13 +228,35 @@ export class EnemyManager extends JobManager {
     }
     cell.done = done;
     cell.inBattle = false;
-    if (cell.done && this.currentEnemy) {
-      this.reward(cell, fleetNum);
-      if (this.currentEnemy.cells.findIndex((c) => !c.done) < 0) {
-        this.defeatEnemy();
-      }
-    }
     if (this.currentEnemy) {
+      if (cell.done) {
+        this.reward(cell, fleetNum);
+        if (this.currentEnemy.cells.findIndex((c) => !c.done) < 0) {
+          this.defeatEnemy();
+        } else {
+          Game.getGame().notificationManager.addNotification(
+            new MyNotification(
+              NotificationTypes.BATTLE_WIN,
+              "Battle win",
+              "Fleet " +
+                (fleetNum + 1) +
+                " cell: " +
+                cell.index +
+                "\n" +
+                this.rewardString
+            )
+          );
+        }
+      } else {
+        Game.getGame().notificationManager.addNotification(
+          new MyNotification(
+            NotificationTypes.BATTLE_LOST,
+            "Battle lost",
+            "Fleet " + (fleetNum + 1) + " cell: " + cell.index
+          )
+        );
+      }
+
       this.currentEnemy.reloadCell(this.currentEnemy.cells.indexOf(cell));
     }
     this.fleetsInBattle[fleetNum] = null;
@@ -252,10 +280,21 @@ export class EnemyManager extends JobManager {
     cargo = cargo.div(100).plus(1);
     for (let i = 0, n = cell.materials.length; i < n; i++) {
       const mat = cell.materials[i];
+      let toAdd = ZERO;
+
       if (mat.material.unitData.unitType === UNIT_TYPES.MATERIAL) {
-        mat.material.quantity = mat.material.quantity.times(cargo);
+        toAdd = mat.quantity.times(cargo);
       } else {
-        mat.material.quantity = mat.material.quantity.plus(mat.quantity);
+        toAdd = mat.quantity;
+      }
+      if (toAdd.gt(0)) {
+        mat.material.quantity = mat.material.quantity.plus(toAdd);
+        this.rewardString +=
+          "+ " +
+          MainService.formatPipe.transform(toAdd) +
+          " " +
+          mat.material.name +
+          " ";
       }
       mat.quantity = ZERO;
     }
@@ -265,6 +304,18 @@ export class EnemyManager extends JobManager {
     if (this.currentEnemy.level >= this.maxLevel) {
       this.maxLevel++;
     }
+    Game.getGame().notificationManager.addNotification(
+      new MyNotification(
+        NotificationTypes.ENEMY_DEFEATED,
+        "Enemy Defeated!",
+        "Lv. " +
+          MainService.formatPipe.transform(this.currentEnemy.level, true) +
+          " " +
+          this.currentEnemy.name +
+          "\n" +
+          this.rewardString
+      )
+    );
     this.currentEnemy = null;
   }
   nuke(cellNum: number) {

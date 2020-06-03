@@ -5,6 +5,7 @@ export enum NotificationTypes {
   LOAD,
   RESEARCH,
   BATTLE_WIN,
+  BATTLE_LOST,
   ENEMY_DEFEATED
 }
 export class MyNotification {
@@ -28,6 +29,18 @@ export class MyNotification {
         break;
       case NotificationTypes.LOAD:
         this.template = false;
+        break;
+      case NotificationTypes.BATTLE_LOST:
+        this.icon = "my:tattered-banner";
+        this.iconClass = "text-danger";
+        break;
+      case NotificationTypes.BATTLE_WIN:
+        this.icon = "my:flying-flag";
+        this.iconClass = "habSpace-color";
+        break;
+      case NotificationTypes.ENEMY_DEFEATED:
+        this.icon = "my:rally-the-troops";
+        this.iconClass = "text-success";
         break;
     }
   }
