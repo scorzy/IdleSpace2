@@ -112,7 +112,7 @@
   <app-prices [unit]="unit" [quantity]="ONE"></app-prices>
 </ng-template>
 <ng-template #priceTemplateMax>
-  <app-prices [unit]="unit" [quantity]="unit.buyPrice.maxBuy"></app-prices>
+  <app-prices [unit]="unit" [quantity]="customBuy"></app-prices>
 </ng-template>
 
 <!-- Buttons -->
@@ -135,12 +135,7 @@
     </button>
   </div>
 </ng-template>
-<!-- <ng-template #buyHalf>
-  <button (click)="buyHalfAct()" nz-button nzType="link" nzSize="small">
-    Buy &nbsp;
-    <span class="monospace">{{ unit.buyPrice.halfBuy | format: true }}</span>
-  </button>
-</ng-template> -->
+
 <ng-template #buyMax>
   <div
     nz-popover
@@ -149,18 +144,17 @@
     nzPopoverPlacement="bottom"
   >
     <button
-      (click)="buyMaxAct()"
+      (click)="buyCustom()"
       nz-button
       nzType="link"
       nzSize="small"
-      [disabled]="!unit.buyPrice.canBuy"
+      [disabled]="customBuy.gt(unit.buyPrice.maxBuy)"
     >
-      Buy &nbsp;<span class="monospace">{{
-        unit.buyPrice.maxBuy | format: true
-      }}</span>
+      Buy &nbsp;<span class="monospace">{{ customBuy | format: true }}</span>
     </button>
   </div>
 </ng-template>
+
 <ng-template #tplFooter>
   <button nz-button nzType="primary" (click)="destroyTplModal()" nzSize="small">
     Ok

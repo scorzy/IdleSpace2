@@ -38,6 +38,7 @@ export class UnitCardComponent extends BaseComponentComponent
   isVisible = false;
   Decimal = Decimal;
   ONE = ONE;
+  customBuy = ONE;
   constructor(
     ms: MainService,
     cd: ChangeDetectorRef,
@@ -55,10 +56,12 @@ export class UnitCardComponent extends BaseComponentComponent
     this.sliderDisabled = !this.unit.production.find((p) => p.ratio.lt(0));
     // this.getActions();
     this.unit.reloadMaxBuy();
+    this.reloadCustomBuy();
     this.subscriptions.push(
       this.ms.updateEmitter.subscribe(() => {
         // this.getActions();
         this.unit.reloadMaxBuy();
+        this.reloadCustomBuy();
         this.cd.markForCheck();
       }),
       this.breakpointObserver
@@ -71,11 +74,8 @@ export class UnitCardComponent extends BaseComponentComponent
   buyOneAct() {
     this.unit.buy(ONE);
   }
-  buyHalfAct() {
-    this.unit.buy(this.unit.buyPrice.maxBuy.div(2).floor());
-  }
-  buyMaxAct() {
-    this.unit.buy(this.unit.buyPrice.maxBuy);
+  buyCustom() {
+    this.unit.buy(this.customBuy);
   }
   getProdId(index: number, production: Production) {
     return index + production.producer.id + production.product.id;
@@ -103,5 +103,14 @@ export class UnitCardComponent extends BaseComponentComponent
   }
   getBonusId(index: number, bonus: Bonus) {
     return bonus.unit.id;
+  }
+  reloadCustomBuy() {
+    if (this.ms.game.buyFixed) {
+      this.customBuy = this.ms.game.customBuy;
+    } else {
+      this.customBuy = this.unit.buyPrice.maxBuy
+        .times(this.ms.game.customBuyPercent)
+        .floor();
+    }
   }
 }

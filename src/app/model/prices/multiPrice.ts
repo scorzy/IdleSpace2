@@ -62,7 +62,7 @@ export class MultiPrice {
   }
   buy(quantity: Decimal, bought: Decimal, limit: Decimal): boolean {
     this.reload(bought, quantity, limit);
-    if (!this.canBuy) {
+    if (!this.canBuy || this.maxBuy.lt(quantity)) {
       return false;
     }
     this.prices.forEach((pr) => pr.buy(quantity, bought));

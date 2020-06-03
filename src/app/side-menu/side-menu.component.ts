@@ -24,6 +24,7 @@ export class SideMenuComponent extends BaseComponentComponent
   implements OnInit, OnDestroy, AfterViewInit {
   @Input() isCollapsed = false;
   @Input() notCollapsed = false;
+  buyString = "Max";
 
   constructor(
     ms: MainService,
@@ -34,5 +35,14 @@ export class SideMenuComponent extends BaseComponentComponent
   }
   getDesignId(index: number, shipDesign: ShipDesign) {
     return shipDesign.id;
+  }
+  setCustomBuy(fixed: boolean, num: number, text: string) {
+    this.ms.game.buyFixed = fixed;
+    if (this.ms.game.buyFixed) {
+      this.ms.game.customBuy = new Decimal(num);
+    } else {
+      this.ms.game.customBuyPercent = num;
+    }
+    this.buyString = text;
   }
 }
