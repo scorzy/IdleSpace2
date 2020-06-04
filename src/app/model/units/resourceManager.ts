@@ -21,6 +21,10 @@ import { Worker } from "./worker";
 import { Building, Department } from "./building";
 import { SpaceStation } from "./spaceStation";
 import { Bonus } from "../bonus/bonus";
+import {
+  MyNotification,
+  NotificationTypes
+} from "../notifications/myNotification";
 export class ResourceManager {
   units = new Array<Unit>();
   unlockedUnits = new Array<Unit>();
@@ -320,6 +324,13 @@ export class ResourceManager {
       .forEach((prod) => {
         prod.producer.operativity = 0;
       });
+
+    Game.getGame().notificationManager.addNotification(
+      new MyNotification(
+        NotificationTypes.MATERIAL_ENDED,
+        this.firstEndingUnit.name + " Ended"
+      )
+    );
   }
   postUpdate() {
     for (let i = 0, n = this.unlockedUnits.length; i < n; i++) {

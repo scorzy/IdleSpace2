@@ -6,7 +6,8 @@ export enum NotificationTypes {
   RESEARCH,
   BATTLE_WIN,
   BATTLE_LOST,
-  ENEMY_DEFEATED
+  ENEMY_DEFEATED,
+  MATERIAL_ENDED
 }
 export class MyNotification {
   dateTime = Date.now();
@@ -41,6 +42,10 @@ export class MyNotification {
       case NotificationTypes.ENEMY_DEFEATED:
         this.icon = "my:rally-the-troops";
         this.iconClass = "text-success";
+        break;
+      case NotificationTypes.MATERIAL_ENDED:
+        this.icon = "fall";
+        this.iconClass = "text-danger";
         break;
     }
   }
