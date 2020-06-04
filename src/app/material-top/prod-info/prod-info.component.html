@@ -16,8 +16,14 @@
 </span>
 <span class="top-line">
   Total Consumed:
-  <span nz-text nzType="danger" class="monospace qta">
+  <span class="monospace qta text-danger">
     {{ totalConsumed | format }}
+  </span>
+</span>
+<span class="top-line" *ngIf="unit.isEnding">
+  End in:
+  <span class="monospace qta text-danger">
+    {{ unit.endIn | time }}
   </span>
 </span>
 
@@ -45,12 +51,9 @@
     <tr *ngFor="let data of sortTable.data">
       <td>{{ data.producer.name }}</td>
       <td>
-        <span
-          nz-text
-          [nzType]="data.prodPerSec.gte(0) ? '' : 'danger'"
-          class="monospace"
-          >{{ data.prodPerSec.times(data.producer.quantity) | format }}</span
-        >
+        <span [class.text-danger]="data.prodPerSec.lt(0)" class="monospace">{{
+          data.prodPerSec.times(data.producer.quantity) | format
+        }}</span>
       </td>
     </tr>
   </tbody>
