@@ -65,12 +65,13 @@ export const BASE_ADAPTIVE_PRECISION = 700;
 export const NUKE_DAMAGE = MODULE_ARMOUR * 100;
 
 //  Researches
-export const RESEARCH_BASE_PRICE = 10;
+export const RESEARCH_BASE_PRICE = 1;
 export const RESEARCH_LEVEL_MULTI = 1000;
 export const RESEARCH_TECH_EFF = 0.1;
 export const RESEARCH_ROBOTICS_MULTI = 0.1;
 export const RESEARCH_TECH_MOD_MULTI = 0.3;
 export const PROPULSION_SPEED_MULTI = 0.2;
+export const TIER_ONE_RES_PRICE_MULTI = 10;
 
 //  Buildings
 export const ENERGY_STORAGE = 1e4;

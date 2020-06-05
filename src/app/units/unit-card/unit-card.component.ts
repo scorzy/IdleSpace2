@@ -110,7 +110,8 @@ export class UnitCardComponent extends BaseComponentComponent
     } else {
       this.customBuy = this.unit.buyPrice.maxBuy
         .times(this.ms.game.customBuyPercent)
-        .floor();
+        .floor()
+        .max(1);
     }
   }
 }

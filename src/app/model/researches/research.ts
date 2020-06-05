@@ -7,7 +7,8 @@ import {
   INFINITY,
   RESEARCH_BASE_PRICE,
   RESEARCH_LEVEL_MULTI,
-  ONE
+  ONE,
+  TIER_ONE_RES_PRICE_MULTI
 } from "../CONSTANTS";
 import { IUnlockable } from "../iUnlocable";
 import { Game } from "../game";
@@ -193,6 +194,9 @@ export class Research extends Job implements IUnlockable, IBase {
         this.resData?.priceMulti || 1
       )
     );
+    if (this.visLevel <= 1) {
+      this.initialPrice = this.initialPrice.times(TIER_ONE_RES_PRICE_MULTI);
+    }
     this.reload();
   }
 

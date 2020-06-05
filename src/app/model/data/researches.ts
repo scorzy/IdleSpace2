@@ -8,7 +8,7 @@ export const RESEARCHES: IResearchData[] = [
     unitsToUnlock: ["A", "a", "w", "W", "4", "5"],
     researchToUnlock: ["h", "p", "M", "s1", "o0"],
     max: 1,
-    priceMulti: 5,
+    priceMulti: 20,
     type: TECHNOLOGIES.MilitaryEngineering,
     technologiesToUnlock: ["e", TECHNOLOGIES.CivilEngineering.id]
   },
