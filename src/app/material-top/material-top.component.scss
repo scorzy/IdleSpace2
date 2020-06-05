@@ -16,7 +16,7 @@ span {
   flex-basis: auto;
   flex-grow: 1;
   padding-bottom: 5px;
-  // font-weight: 600;
+  font-weight: 700;
   padding-top: 5px;
 
   [nz-icon] {
@@ -44,5 +44,5 @@ span {
 .min-width {
   display: inline-block;
   margin-right: 0.5rem;
-  min-width: 4rem;
+  min-width: 2.5rem;
 }

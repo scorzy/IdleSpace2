@@ -50,12 +50,12 @@ export class ProdInfoComponent extends BaseComponentComponent
 
   getData() {
     this.totalProd = this.unit.makers
-      .filter((p) => p.ratio.gt(0))
+      .filter((p) => p.ratio.gt(0) && p.producer.quantity.gt(0))
       .map((p) => p.prodPerSec.times(p.producer.quantity))
       .reduce((p, c) => p.plus(c), ZERO);
 
     this.totalConsumed = this.unit.makers
-      .filter((p) => p.ratio.lt(0))
+      .filter((p) => p.ratio.lt(0) && p.producer.quantity.gt(0))
       .map((p) => p.prodPerSec.times(p.producer.quantity))
       .reduce((p, c) => p.plus(c), ZERO);
 
