@@ -25,6 +25,7 @@ import {
   MyNotification,
   NotificationTypes
 } from "../notifications/myNotification";
+import { MegaStructure } from "./megaStructure";
 export class ResourceManager {
   units = new Array<Unit>();
   unlockedUnits = new Array<Unit>();
@@ -95,6 +96,11 @@ export class ResourceManager {
             this.spaceStations.push(s);
             this.units.push(s);
             break;
+          case UNIT_TYPES.MEGASTRUCTURE:
+            const m = new MegaStructure(unitData);
+            this.megastructures.push(m);
+            this.units.push(m);
+            break;
           default:
             const unit = new Unit(unitData);
             this.units.push(unit);
@@ -137,9 +143,8 @@ export class ResourceManager {
 
     //  Buy Price
     this.units.forEach((unit) => {
-      const unitData = UNITS.find((u) => u.id === unit.id);
-      if (unitData && unitData.prices) {
-        unitData.prices.forEach((price) => {
+      if (unit.unitData && unit.unitData.prices) {
+        unit.unitData.prices.forEach((price) => {
           const base = this.units.find((u) => u.id === price[0]);
           const cost = new Decimal(price[1]);
           const realPrice = new Price(base, cost, UNIT_PRICE_GROW_RATE);
@@ -163,7 +168,7 @@ export class ResourceManager {
     for (let i = 0, n = this.spaceStations.length; i < n; i++) {
       const station = this.spaceStations[i];
       station.habSpaceStack = new BonusStack();
-      station.buildPrice = Decimal.pow(i + 1, SPACE_STATION_GROW).times(
+      station.buildPrice = Decimal.pow(SPACE_STATION_GROW, i + 1).times(
         SPACE_STATION_PRICE
       );
       station.buildPriceNext = station.buildPrice;

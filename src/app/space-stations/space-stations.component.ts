@@ -10,6 +10,7 @@ import { CdkDragDrop, moveItemInArray } from "@angular/cdk/drag-drop";
 import { fadeIn } from "../animations";
 import { BaseComponentComponent } from "../base-component/base-component.component";
 import { SpaceStation } from "../model/units/spaceStation";
+import { UNIT_TYPES } from "../model/data/units";
 
 @Component({
   selector: "app-space-stations",
@@ -23,10 +24,13 @@ export class SpaceStationsComponent extends BaseComponentComponent
   sortName: string | null = "id";
   sortValue: string | null = "ascend";
   listOfStations: Unit[];
+  megaQueue = 0;
   ngOnInit() {
     this.search();
+    this.reloadMegaQueue();
     this.subscriptions.push(
       this.ms.updateEmitter.subscribe(() => {
+        this.reloadMegaQueue();
         this.cd.markForCheck();
       })
     );
@@ -85,5 +89,20 @@ export class SpaceStationsComponent extends BaseComponentComponent
       }
     }
     /* tslint:enable */
+  }
+  reloadMegaQueue() {
+    this.megaQueue = 0;
+    for (
+      let i = 0, n = this.ms.game.spaceStationManager.toDo.length;
+      i < n;
+      i++
+    ) {
+      if (
+        this.ms.game.spaceStationManager.toDo[i].spaceStation.unitData
+          .unitType === UNIT_TYPES.MEGASTRUCTURE
+      ) {
+        this.megaQueue++;
+      }
+    }
   }
 }

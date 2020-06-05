@@ -1,5 +1,10 @@
 import { IResearchData } from "./iResearchData";
 import { TECHNOLOGIES } from "./technologyData";
+import { UNITS, UNIT_TYPES } from "./units";
+
+const megastructures = UNITS.filter(
+  (u) => u.unitType === UNIT_TYPES.MEGASTRUCTURE
+).map((u) => u.id);
 export const RESEARCHES: IResearchData[] = [
   {
     id: "m",
@@ -132,5 +137,12 @@ export const RESEARCHES: IResearchData[] = [
       { materialId: "A", multi: 1 },
       { materialId: "x", multi: 1 }
     ]
+  },
+  {
+    id: "me",
+    name: "Mega Structures",
+    description: "Unlock Megastructures",
+    type: TECHNOLOGIES.CivilEngineering,
+    unitsToUnlock: megastructures
   }
 ];

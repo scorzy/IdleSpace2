@@ -11,7 +11,6 @@ export class SpaceStation extends Unit {
   habSpaceDivPrice = ZERO;
   buildPriceNext = ZERO;
 
-  //#region Space stations & Megastructures
   getBuildPrice(index = Number.POSITIVE_INFINITY) {
     const toDoList = Game.getGame().spaceStationManager.toDo;
     let queued = 0;

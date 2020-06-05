@@ -11,7 +11,7 @@ import {
 } from "./model/notifications/myNotification";
 
 export const SAVE_ID = "IS2_save";
-export const GAME_SPEED = 1;
+export const GAME_SPEED = 1e30;
 
 @Injectable({
   providedIn: "root"

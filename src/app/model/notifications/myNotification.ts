@@ -7,7 +7,8 @@ export enum NotificationTypes {
   BATTLE_WIN,
   BATTLE_LOST,
   ENEMY_DEFEATED,
-  MATERIAL_ENDED
+  MATERIAL_ENDED,
+  SPACE_STATION_COMPLETED
 }
 export class MyNotification {
   dateTime = Date.now();
@@ -46,6 +47,10 @@ export class MyNotification {
       case NotificationTypes.MATERIAL_ENDED:
         this.icon = "fall";
         this.iconClass = "text-danger";
+        break;
+      case NotificationTypes.SPACE_STATION_COMPLETED:
+        this.icon = "my:defense-satellite";
+        this.iconClass = "production-color";
         break;
     }
   }

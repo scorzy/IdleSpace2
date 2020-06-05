@@ -64,6 +64,48 @@
         </tr>
       </tbody>
     </nz-table>
+
+    <!-- Megastructures -->
+    <div
+      class="megastructures"
+      *ngIf="ms.game.resourceManager.unlockedMegastructures.length > 0"
+    >
+      <h2>Megastructures</h2>
+
+      <div fxLayout="row" fxLayoutGap="0.5rem" class="mega-recap">
+        <span
+          >Built: <span class="monospace"></span>
+          {{ ms.game.spaceStationManager.megaBuilt | format: true }}
+        </span>
+        <span
+          >Queued: <span class="monospace"></span>
+          {{ megaQueue | format: true }}
+        </span>
+        <span
+          >Next Price: <span class="monospace"></span>
+          {{ ms.game.spaceStationManager.nextMegaPrice | format: true }}
+        </span>
+      </div>
+
+      <ng-container
+        *ngFor="let mega of ms.game.resourceManager.unlockedMegastructures"
+      >
+        <button
+          class="mega-button"
+          nz-button
+          nz-popover
+          nzType="primary"
+          [nzPopoverTitle]="mega.name"
+          [nzPopoverContent]="mega.description"
+          (click)="addStation(mega)"
+        >
+          {{ mega.name }}
+          <span *ngIf="mega.quantity.gt(0)" class="monospace">
+            {{ mega.quantity | format: true }}
+          </span>
+        </button>
+      </ng-container>
+    </div>
   </div>
   <div
     fxFlex.lt-md="100%"

@@ -541,6 +541,39 @@ export const UNITS: IUnitData[] = [
     name: "Habitat",
     description: "",
     unitType: UNIT_TYPES.SPACE_STATION
+  },
+  {
+    id: "i7",
+    name: "Ring World",
+    description: "",
+    unitType: UNIT_TYPES.SPACE_STATION
+  },
+  ,
+  //#endregion
+  //#region MegaStructure
+  {
+    id: "m0",
+    name: "Dyson Sphere",
+    description: "",
+    unitType: UNIT_TYPES.MEGASTRUCTURE
+  },
+  {
+    id: "m1",
+    name: "Mega Laboratory",
+    description: "",
+    unitType: UNIT_TYPES.MEGASTRUCTURE
+  },
+  {
+    id: "m2",
+    name: "Mega Foundry",
+    description: "",
+    unitType: UNIT_TYPES.MEGASTRUCTURE
+  },
+  {
+    id: "m3",
+    name: "Mega Shipyard",
+    description: "",
+    unitType: UNIT_TYPES.MEGASTRUCTURE
   }
   //#endregion
 ];

@@ -322,6 +322,9 @@ export class ResearchManager extends JobManager {
         ]
       };
       resData.researchToUnlock.push(resDataUp.id);
+      if (i === 5) {
+        resData.researchToUnlock.push("me");
+      }
       this.researches.push(new Research(resDataUp, this));
       this.researches.push(new Research(resData, this));
     }

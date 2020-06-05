@@ -1,6 +1,11 @@
 import { Job } from "../job/job";
 import { Game } from "../game";
 import { SpaceStation } from "../units/spaceStation";
+import { UNIT_TYPES } from "../data/units";
+import {
+  MyNotification,
+  NotificationTypes
+} from "../notifications/myNotification";
 
 export class SpaceStationJob extends Job {
   constructor(public spaceStation: SpaceStation) {
@@ -19,8 +24,22 @@ export class SpaceStationJob extends Job {
   }
   onCompleted() {
     this.spaceStation.quantity = this.spaceStation.quantity.plus(1);
-    const habSpace = Game.getGame().resourceManager.habitableSpace;
-    habSpace.quantity = habSpace.quantity.plus(this.spaceStation.habSpace);
+    if (this.spaceStation.unitData.unitType === UNIT_TYPES.SPACE_STATION) {
+      const habSpace = Game.getGame().resourceManager.habitableSpace;
+      habSpace.quantity = habSpace.quantity.plus(this.spaceStation.habSpace);
+    } else if (
+      this.spaceStation.unitData.unitType === UNIT_TYPES.MEGASTRUCTURE
+    ) {
+      const sm = Game.getGame().spaceStationManager;
+      sm.megaBuilt = sm.megaBuilt.plus(1);
+    }
+
+    Game.getGame().notificationManager.addNotification(
+      new MyNotification(
+        NotificationTypes.SPACE_STATION_COMPLETED,
+        this.spaceStation.name + " completed."
+      )
+    );
   }
   reload() {
     const toDoList = Game.getGame().spaceStationManager.toDo;
