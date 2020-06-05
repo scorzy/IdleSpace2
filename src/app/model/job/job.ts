@@ -33,6 +33,7 @@ export abstract class Job {
    */
   addProgress(pro: DecimalSource): Decimal {
     const toAdd = this.totalBonus.times(pro);
+    const prev = this.progress;
     this.progress = this.progress.plus(toAdd);
     let ret: Decimal;
     if (this.progress.gte(this.total) || this.total.lte(0)) {
@@ -45,12 +46,12 @@ export abstract class Job {
       this.level = Math.min(this.level, this.max);
       this.reload();
     } else {
-      ret = ZERO;
+      ret = this.progress.minus(prev);
     }
     return ret;
   }
   getRemaining(): Decimal {
-    return this.total.minus(this.progress).div(this.totalBonus).ceil().max(0);
+    return this.total.minus(this.progress).div(this.totalBonus).ceil().max(1);
   }
   onCompleted() {}
   reload() {
