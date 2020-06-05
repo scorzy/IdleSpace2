@@ -69,4 +69,7 @@ export class LaboratoryComponent extends BaseComponentComponent
   end(event: CdkDragEnd) {
     this.ms.game.researchManager.drag = false;
   }
+  sort() {
+    this.ms.game.researchManager.sortJobs();
+  }
 }

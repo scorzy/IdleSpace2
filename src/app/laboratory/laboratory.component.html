@@ -96,16 +96,23 @@
       ></nz-slider>
     </div>
 
-    <nz-switch nzSize="small" [(ngModel)]="ms.game.researchManager.sort">
-    </nz-switch>
-    <label class="my-label"> Auto Sort</label>
+    <div>
+      <nz-switch nzSize="small" [(ngModel)]="ms.game.researchManager.sort">
+      </nz-switch>
+      <label class="my-label"> Auto Sort</label>
 
-    <nz-switch
-      nzSize="small"
-      [(ngModel)]="ms.game.researchManager.newJobsOnBacklog"
-    >
-    </nz-switch>
-    <label>New on BackLog</label>
+      <nz-switch
+        nzSize="small"
+        [(ngModel)]="ms.game.researchManager.newJobsOnBacklog"
+      >
+      </nz-switch>
+      <label>New on BackLog</label>
+    </div>
+
+    <button nz-button nzType="default" id="sort-btn" (click)="sort()">
+      <i nz-icon nzType="sort-ascending" nzTheme="outline"></i>
+      Sort
+    </button>
 
     <ul class="list-unstyled technology-list">
       <li
