@@ -1,7 +1,6 @@
 import { IUnitData } from "../data/iUnitData";
 import { Production } from "./production";
 import { IBase } from "../iBase";
-import { BonusStack } from "../bonus/bonusStack";
 import { MultiPrice } from "../prices/multiPrice";
 import {
   ZERO,
@@ -12,6 +11,7 @@ import {
 import { IUnlockable } from "../iUnlocable";
 import { Game } from "../game";
 import { Bonus } from "../bonus/bonus";
+import { BonusStack } from '../bonus/bonusStack';
 
 export class Unit implements IBase, IUnlockable {
   id = "";
@@ -48,6 +48,7 @@ export class Unit implements IBase, IUnlockable {
   private _perSecOld = this.perSec;
 
   battleGainMulti: BonusStack;
+  workers = new Array<Unit>();
   constructor(public unitData: IUnitData) {
     this.id = unitData.id;
     this.name = unitData.name;
@@ -78,6 +79,7 @@ export class Unit implements IBase, IUnlockable {
         this.limitStack.bonuses.push(
           new Bonus(other, new Decimal(limit.buildingLimitQuantity))
         );
+        other.workers.push(this);
       });
     }
   }

@@ -4,6 +4,11 @@ import assign from "lodash-es/assign";
 import { Research } from "../researches/research";
 import { IBase } from "../iBase";
 import { ZERO } from "../CONSTANTS";
+import { Worker } from "./worker";
+import { Game } from "../game";
+import { BonusStack } from "../bonus/bonusStack";
+import { Bonus } from "../bonus/bonus";
+import { AutoBuilding } from "../automation/autoBuilding";
 
 export class Department implements IDepartmentData, IBase {
   id: string;
@@ -15,12 +20,15 @@ export class Department implements IDepartmentData, IBase {
     assign(this, depData);
   }
 }
+
 export class Building extends Unit {
   maxDepartments = 0;
   usedDepartments = 0;
   departments: Array<Department>;
   departmentResearches: Array<Research>;
   researchesToInspire: Array<Research>;
+  autoBuyer: AutoBuilding;
+
   addDep(dep: Department) {
     if (this.usedDepartments < this.maxDepartments) {
       dep.quantity = dep.quantity.plus(1);
@@ -72,6 +80,7 @@ export class Building extends Unit {
         return depSave;
       });
     }
+
     return ret;
   }
   load(save: any) {

@@ -7,6 +7,7 @@ import { BattleResult, Stats } from "./battle/battleResult";
 import { DatePipe } from "@angular/common";
 import { SpaceStationManager } from "./space/spaceStationManager";
 import { NotificationManager } from "./notifications/notificationManager";
+import { AutomationManager } from "./automation/automationManager";
 
 /**
  * Game is the main class that orchestrate everything game related
@@ -22,6 +23,7 @@ export class Game {
   shipyardManager: ShipyardManager;
   enemyManager: EnemyManager;
   spaceStationManager: SpaceStationManager;
+  automationManager: AutomationManager;
 
   navalCapacity: number = BASE_NAVAL_CAPACITY;
 
@@ -66,6 +68,7 @@ export class Game {
     this.resourceManager.makeDepartments();
     this.shipyardManager.afterResearchesInit();
     this.resourceManager.setRelations();
+    this.automationManager = new AutomationManager();
 
     this.setTheme();
     this.battleStats = Array<{ name: string; stats: Stats[] }[]>();
@@ -88,6 +91,8 @@ export class Game {
   update(delta: number) {
     let toUpdate = delta;
     this.processBattles();
+    this.automationManager.update();
+
     let n = 0;
     while (toUpdate > 0) {
       n++;
@@ -234,7 +239,8 @@ export class Game {
       d: this.shipyardManager.getSave(),
       e: this.enemyManager.getSave(),
       m: this.spaceStationManager.getSave(),
-      c: this.civilianWorkPercent
+      c: this.civilianWorkPercent,
+      a: this.automationManager.getSave()
     };
   }
   load(data: any) {
@@ -257,6 +263,9 @@ export class Game {
     }
     if ("c" in data) {
       this.civilianWorkPercent = data.c;
+    }
+    if ("a" in data) {
+      this.automationManager.load(data.a);
     }
     this.postUpdate();
   }

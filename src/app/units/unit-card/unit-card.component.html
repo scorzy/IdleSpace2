@@ -57,6 +57,20 @@
       ></nz-input-number>
     </div>
   </div>
+
+  <!-- AutoBuy -->
+  <div *ngIf="building?.autoBuyer">
+    <form nz-form [nzLayout]="'inline'">
+      <nz-form-item>
+        <nz-form-label [nzFor]="building.id + 'A'">Auto</nz-form-label>
+        <nz-switch
+          nzSize="small"
+          [name]="building.id + 'A'"
+          [(ngModel)]="building.autoBuyer.on"
+        ></nz-switch>
+      </nz-form-item>
+    </form>
+  </div>
 </nz-card>
 
 <ng-template #extraTemplate>
