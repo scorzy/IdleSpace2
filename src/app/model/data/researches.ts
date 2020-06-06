@@ -127,7 +127,8 @@ export const RESEARCHES: IResearchData[] = [
     description: "Nuke",
     max: 1,
     type: TECHNOLOGIES.MilitaryEngineering,
-    unitsToUnlock: ["b", "B", "10", "11"]
+    unitsToUnlock: ["b", "B", "10", "11"],
+    inspirationDescription: "Win a battle vs. ground defences"
   },
   {
     id: "ns",

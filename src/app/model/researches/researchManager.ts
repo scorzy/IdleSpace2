@@ -33,6 +33,7 @@ export class ResearchManager extends JobManager {
   techPerSec = ZERO;
   drag = false;
   sort = true;
+  nukeResearch: Research;
   //#region Technologies
   civilEngTech: Technology;
   militaryEngTech: Technology;
@@ -66,6 +67,7 @@ export class ResearchManager extends JobManager {
     );
     //  Researches
     this.researches = RESEARCHES.map((resData) => new Research(resData, this));
+    this.nukeResearch = this.researches.find((res) => res.id === "b");
     for (let i = 0; i < 9; i++) {
       const resData: IResearchData = {
         id: "n" + i,

@@ -232,6 +232,7 @@ export class EnemyManager extends JobManager {
       if (cell.done) {
         this.reward(cell, fleetNum);
         //#region Research Inspiration
+        //  Ship types unlock
         const rm = Game.getGame().researchManager;
         const shipResToInspire =
           rm.backlog.find((r) => r.shipTypeToUnlock) ||
@@ -240,9 +241,13 @@ export class EnemyManager extends JobManager {
           if (
             this.currentEnemy.designs.findIndex(
               (des) => des.type === shipResToInspire.shipTypeToUnlock
-            )
+            ) > -1
           )
             shipResToInspire.inspire;
+        }
+        //  Nuke
+        if (this.currentEnemy.designs.findIndex((des) => des.isDefence) > -1) {
+          rm.nukeResearch.inspire();
         }
         //#endregion
         if (this.currentEnemy.cells.findIndex((c) => !c.done) < 0) {
