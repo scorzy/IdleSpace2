@@ -8,8 +8,12 @@ export abstract class JobManager {
   sort = false;
   newJobsOnBacklog = false;
   addProgress(prog: Decimal): Decimal {
+    if (this.toDo.length < 1) return prog;
+
     let toAdd = prog;
-    while (toAdd.gt(0) && this.toDo.length > 0) {
+    let last: Job = null;
+    while (toAdd.gt(0) && this.toDo.length > 0 && last !== this.toDo[0]) {
+      last = this.toDo[0];
       // console.log(this.toDo[0].name + " " + this.toDo[0].level);
       const prevLevel = this.toDo[0].level;
       toAdd = this.toDo[0].addProgress(toAdd);

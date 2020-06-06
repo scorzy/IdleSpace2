@@ -47,6 +47,8 @@ export abstract class Job {
       this.reload();
     } else {
       ret = this.progress.minus(prev);
+      console.log(this.name + " " + ret.toNumber());
+      // ret = ZERO;
     }
     return ret;
   }
