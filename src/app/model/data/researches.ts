@@ -27,7 +27,8 @@ export const RESEARCHES: IResearchData[] = [
     researchToUnlock: ["c", "E", "p0"],
     technologiesToUnlock: ["p"],
     modulesToUnlock: ["s"],
-    effMulti: [{ unitId: "s", multi: 0.5 }]
+    effMulti: [{ unitId: "s", multi: 0.5 }],
+    inspirationBuildingId: "3"
   },
   {
     id: "c",
@@ -95,7 +96,8 @@ export const RESEARCHES: IResearchData[] = [
     max: 1,
     type: TECHNOLOGIES.Materials,
     technologiesToUnlock: ["m"],
-    researchToUnlock: ["x", "N", "P", "M0"]
+    researchToUnlock: ["x", "N", "P", "M0"],
+    inspirationBuildingId: "4"
   },
   {
     id: "N",

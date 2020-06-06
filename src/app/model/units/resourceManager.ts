@@ -64,7 +64,14 @@ export class ResourceManager {
   replicator: Worker;
   nukeDrone: Worker;
 
+  mine: Building;
+  powerPlant: Building;
   laboratory: Building;
+  foundry: Building;
+  factory: Building;
+  observatory: Building;
+  droneFactory: Building;
+  nukeFactory: Building;
 
   habitableSpace: Unit;
   miningDistrict: Unit;
@@ -126,7 +133,16 @@ export class ResourceManager {
     this.miningDistrict = this.units.find((u) => u.id === "P");
     this.energyDistrict = this.units.find((u) => u.id === "k");
     this.nuke = this.units.find((u) => u.id === "b");
+
+    this.mine = this.buildings.find((u) => u.id === "1");
+    this.powerPlant = this.buildings.find((u) => u.id === "2");
     this.laboratory = this.buildings.find((u) => u.id === "3");
+    this.foundry = this.buildings.find((u) => u.id === "4");
+    this.factory = this.buildings.find((u) => u.id === "5");
+    this.observatory = this.buildings.find((u) => u.id === "6");
+    this.droneFactory = this.buildings.find((u) => u.id === "7");
+    this.nukeFactory = this.buildings.find((u) => u.id === "10");
+
     //  Production
     this.workers.forEach((unit) => {
       const unitData = UNITS.find((u) => u.id === unit.id);
@@ -519,6 +535,7 @@ export class ResourceManager {
       }
     });
   }
+  setRelations() {}
   //#region Save and Load
   getSave(): any {
     return {

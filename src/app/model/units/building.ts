@@ -10,6 +10,7 @@ export class Department implements IDepartmentData, IBase {
   name: string;
   description: string;
   quantity = ZERO;
+
   constructor(depData: IDepartmentData) {
     assign(this, depData);
   }
@@ -19,6 +20,7 @@ export class Building extends Unit {
   usedDepartments = 0;
   departments: Array<Department>;
   departmentResearches: Array<Research>;
+  researchesToInspire: Array<Research>;
   addDep(dep: Department) {
     if (this.usedDepartments < this.maxDepartments) {
       dep.quantity = dep.quantity.plus(1);
@@ -45,6 +47,16 @@ export class Building extends Unit {
   postUpdate() {
     super.postUpdate();
     this.reloadMaxDep();
+  }
+  /**
+   * Inspire first research available
+   */
+  afterBuy(): boolean {
+    if (!this.researchesToInspire) return false;
+    for (let i = 0, n = this.researchesToInspire.length; i < n; i++) {
+      if (this.researchesToInspire[i].inspire()) break;
+    }
+    return true;
   }
   //#region Save and Load
   getSave(): any {

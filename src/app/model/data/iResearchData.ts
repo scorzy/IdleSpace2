@@ -36,4 +36,5 @@ export interface IResearchData {
   shipProductionBonus?: { shipType: number; multi: number }[];
   speedMulti?: number;
   inspirationDescription?: string;
+  inspirationBuildingId?: string;
 }

@@ -16,6 +16,7 @@ import {
 } from "../CONSTANTS";
 import { IResearchData } from "../data/iResearchData";
 import { BonusStack } from "../bonus/bonusStack";
+import { convertToRoman } from "ant-utils";
 
 const SHIP_RESEARCH_NAV_CAP_MULTI = 5;
 
@@ -91,52 +92,73 @@ export class ResearchManager extends JobManager {
         name: "Physics",
         id: "p",
         start: 0,
-        tech: TECHNOLOGIES.Physics
+        tech: TECHNOLOGIES.Physics,
+        inspirationBuilding: "3"
       },
       {
         name: "Searching",
         id: "h",
         start: 0,
-        tech: TECHNOLOGIES.Search
+        tech: TECHNOLOGIES.Search,
+        inspirationBuilding: "6"
       },
       {
         name: "Materials",
         id: "M",
         start: 0,
-        tech: TECHNOLOGIES.Materials
+        tech: TECHNOLOGIES.Materials,
+        inspirationBuilding: "4"
       },
       {
         name: "Computing",
         id: "c",
         start: 1,
-        tech: TECHNOLOGIES.Computing
+        tech: TECHNOLOGIES.Computing,
+        inspirationBuilding: ""
       },
-      { name: "Energy", id: "E", start: 1, tech: TECHNOLOGIES.Energy },
+      {
+        name: "Energy",
+        id: "E",
+        start: 1,
+        tech: TECHNOLOGIES.Energy,
+        inspirationBuilding: "2"
+      },
       {
         name: "Robotics",
         id: "x",
         start: 1,
-        tech: TECHNOLOGIES.Robotics
+        tech: TECHNOLOGIES.Robotics,
+        inspirationBuilding: "7"
       },
-      { name: "Mining", id: "N", start: 1, tech: TECHNOLOGIES.Mining },
+      {
+        name: "Mining",
+        id: "N",
+        start: 1,
+        tech: TECHNOLOGIES.Mining,
+        inspirationBuilding: "1"
+      },
       {
         name: "Propulsion",
         id: "P",
         start: 1,
-        tech: TECHNOLOGIES.Propulsion
+        tech: TECHNOLOGIES.Propulsion,
+        inspirationBuilding: ""
       }
     ].forEach((res) => {
       for (let i = res.start; i < 9; i++) {
         const resData: IResearchData = {
           id: res.id + i,
           max: 1,
-          name: res.name + i,
+          name: res.name + " " + convertToRoman(i + 1),
           description: res.name,
           type: res.tech
         };
         if (i + 1 < 9) {
           resData.researchToUnlock = [res.id + (i + 1)];
         }
+        if (res.inspirationBuilding !== "")
+          resData.inspirationBuildingId = res.inspirationBuilding;
+
         if (i > 0) {
           const modPlus = RESEARCH_TECH_MOD_MULTI;
           const modRob = RESEARCH_ROBOTICS_MULTI;
