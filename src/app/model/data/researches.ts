@@ -1,6 +1,7 @@
 import { IResearchData } from "./iResearchData";
 import { TECHNOLOGIES } from "./technologyData";
 import { UNITS, UNIT_TYPES } from "./units";
+import { OPTIMIZED_SHIP_PREFIX } from "../CONSTANTS";
 
 const megastructures = UNITS.filter(
   (u) => u.unitType === UNIT_TYPES.MEGASTRUCTURE
@@ -11,7 +12,7 @@ export const RESEARCHES: IResearchData[] = [
     name: "Metallurgist",
     description: "Unlock Metallurgists",
     unitsToUnlock: ["A", "a", "w", "W", "4", "5"],
-    researchToUnlock: ["h", "p", "M", "s1", "o0"],
+    researchToUnlock: ["h", "p", "M", "s1", OPTIMIZED_SHIP_PREFIX + 1],
     max: 1,
     priceMulti: 20,
     type: TECHNOLOGIES.MilitaryEngineering,

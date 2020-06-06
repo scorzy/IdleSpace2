@@ -35,4 +35,5 @@ export interface IResearchData {
   buildingPoints?: { buildingId: string; quantity: number }[];
   shipProductionBonus?: { shipType: number; multi: number }[];
   speedMulti?: number;
+  inspirationDescription?: string;
 }

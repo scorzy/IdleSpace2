@@ -1,7 +1,7 @@
 import { Job } from "../job/job";
 import { ShipDesign } from "./shipDesign";
 import { Game } from "../game";
-import { ZERO } from "../CONSTANTS";
+import { ZERO, OPTIMIZED_SHIP_PREFIX } from "../CONSTANTS";
 
 export class BuildShipsJob extends Job {
   built = 0;
@@ -46,6 +46,14 @@ export class BuildShipsJob extends Job {
       this.design.fleets[this.fleetNum].shipsQuantity += toBuild;
       this.built += toBuild;
       this.workDone = this.workDone.plus(this.design.price.times(toBuild));
+
+      //  Research inspiration
+      const researchToInspire = Game.getGame().researchManager.researches.find(
+        (res) => res.id === OPTIMIZED_SHIP_PREFIX + this.design.type.id
+      );
+      if (researchToInspire) {
+        researchToInspire.inspire();
+      }
     }
     return ret;
   }

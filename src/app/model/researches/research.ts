@@ -8,7 +8,8 @@ import {
   RESEARCH_BASE_PRICE,
   RESEARCH_LEVEL_MULTI,
   ONE,
-  TIER_ONE_RES_PRICE_MULTI
+  TIER_ONE_RES_PRICE_MULTI,
+  INSPIRATION_PERCENT
 } from "../CONSTANTS";
 import { IUnlockable } from "../iUnlocable";
 import { Game } from "../game";
@@ -52,6 +53,8 @@ export class Research extends Job implements IUnlockable, IBase {
   buildingPoints: { building: Building; quantity: number }[];
   shipProductionBonus: { shipType: ShipType; multi: number }[];
   speedMulti: number;
+  inspiration = false;
+  inspirationDescription = "";
   constructor(researchData: IResearchData, researchManager: ResearchManager) {
     super();
     this.resData = researchData;
@@ -110,6 +113,7 @@ export class Research extends Job implements IUnlockable, IBase {
       });
     }
     this.speedMulti = researchData.speedMulti ?? 0;
+    this.inspirationDescription = researchData.inspirationDescription ?? "";
 
     this.reload();
   }
@@ -177,6 +181,7 @@ export class Research extends Job implements IUnlockable, IBase {
     Game.getGame().notificationManager.addNotification(
       new MyNotification(NotificationTypes.RESEARCH, this.name + " completed!")
     );
+    if (!force) this.inspiration = false;
   }
   unlock(): boolean {
     const resM = Game.getGame().researchManager;
@@ -199,6 +204,14 @@ export class Research extends Job implements IUnlockable, IBase {
     }
     this.reload();
   }
+  inspire() {
+    if (this.inspiration) return;
+    this.inspiration = true;
+    this.addProgress(this.total.times(INSPIRATION_PERCENT));
+    Game.getGame().notificationManager.addNotification(
+      new MyNotification(NotificationTypes.RESEARCH_INSPIRED, this.name)
+    );
+  }
 
   //#region Save and Load
   getSave(): any {
@@ -210,6 +223,7 @@ export class Research extends Job implements IUnlockable, IBase {
     if (this.level > 0) {
       ret.l = this.level;
     }
+    if (this.inspiration) ret.s = this.inspiration;
     return ret;
   }
   load(data: any) {
@@ -222,6 +236,7 @@ export class Research extends Job implements IUnlockable, IBase {
     if ("l" in data) {
       this.level = data.l;
     }
+    this.inspiration = data.s ?? false;
     this.reload();
   }
   //#endregion

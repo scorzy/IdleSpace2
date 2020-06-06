@@ -11,7 +11,8 @@ import {
   OPTIMIZE_RES_BONUS,
   RESEARCH_ROBOTICS_MULTI,
   RESEARCH_TECH_MOD_MULTI,
-  PROPULSION_SPEED_MULTI
+  PROPULSION_SPEED_MULTI,
+  OPTIMIZED_SHIP_PREFIX
 } from "../CONSTANTS";
 import { IResearchData } from "../data/iResearchData";
 import { BonusStack } from "../bonus/bonusStack";
@@ -266,7 +267,9 @@ export class ResearchManager extends JobManager {
       } else {
         resData.researchToUnlock = [];
       }
-      resData.researchToUnlock.push("o" + i);
+      resData.researchToUnlock.push(
+        OPTIMIZED_SHIP_PREFIX + shipyard.shipTypes[i].id
+      );
       if (i === 1) {
         resData.researchToUnlock.push("n");
       }
@@ -274,7 +277,7 @@ export class ResearchManager extends JobManager {
     }
     for (let i = 0, n = shipyard.shipTypes.length; i < n; i++) {
       const bonusResData: IResearchData = {
-        id: "o" + i,
+        id: OPTIMIZED_SHIP_PREFIX + shipyard.shipTypes[i].id,
         max: 10,
         name: "Optimized " + shipyard.shipTypes[i].name,
         priceMulti: 0.5,
@@ -282,7 +285,8 @@ export class ResearchManager extends JobManager {
         type: TECHNOLOGIES.MilitaryEngineering,
         shipProductionBonus: [
           { shipType: shipyard.shipTypes[i].id, multi: OPTIMIZE_RES_BONUS }
-        ]
+        ],
+        inspirationDescription: "Build one " + shipyard.shipTypes[i].name
       };
       this.researches.push(new Research(bonusResData, this));
     }

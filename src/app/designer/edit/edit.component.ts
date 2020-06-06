@@ -231,7 +231,6 @@ export class EditComponent extends BaseComponentComponent
     return "" + index + iShipModule?.moduleId;
   }
   onModuleChanges(values: string[], index: number): void {
-    console.log(this.design.modules[index].uiModel);
     this.design.modules[index].moduleId = values[values.length - 1];
     this.moduleChange(index);
   }

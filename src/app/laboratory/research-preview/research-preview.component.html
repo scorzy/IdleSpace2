@@ -77,11 +77,21 @@
   <li>
     <i
       nz-icon
-      class="science-icon"
+      class="bottom-icon"
       [nzType]="ms.game.resourceManager.science.icon"
       [ngClass]="ms.game.resourceManager.science.colorClass"
     ></i>
-    <span class="monospace">{{ research.initialPrice | format }}</span>
+    <span class="monospace">
+      {{ research.progress | format }}/{{ research.total | format }}
+      {{ research.progressPercent }}%</span
+    >
+  </li>
+  <li
+    *ngIf="research.inspirationDescription"
+    [class.text-success]="research.inspiration"
+  >
+    <i nz-icon class="bottom-icon" nzType="rise" nzTheme="outline"></i>
+    <span>{{ research.inspirationDescription }}</span>
   </li>
 </ul>
 
