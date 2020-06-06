@@ -305,7 +305,12 @@ export class ShipyardManager extends JobManager {
         }
         if (remainingNavCap > 0) {
           const ordered = this.shipDesigns
-            .filter((s) => s.available && !(s.next && s.next.available))
+            .filter(
+              (s) =>
+                s.fleets[i].navalCapPercent > 0 &&
+                s.available &&
+                !(s.next && s.next.available)
+            )
             .sort(
               (a, b) =>
                 b.fleets[i].navalCapPercent - a.fleets[i].navalCapPercent
@@ -380,7 +385,12 @@ export class ShipyardManager extends JobManager {
         }
         if (remainingNavCapUi > 0) {
           const ordered = this.shipDesigns
-            .filter((s) => s.available && !(s.next && s.next.available))
+            .filter(
+              (s) =>
+                s.fleets[i].navalCapPercentUi > 0 &&
+                s.available &&
+                !(s.next && s.next.available)
+            )
             .sort(
               (a, b) =>
                 b.fleets[i].navalCapPercentUi - a.fleets[i].navalCapPercentUi
