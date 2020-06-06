@@ -31,8 +31,8 @@ export abstract class Job {
    * @param progress to add
    * @returns rest
    */
-  addProgress(pro: DecimalSource): Decimal {
-    const toAdd = this.totalBonus.times(pro);
+  addProgress(pro: DecimalSource, noBonus = false): Decimal {
+    const toAdd = noBonus ? pro : this.totalBonus.times(pro);
     const prev = this.progress;
     this.progress = this.progress.plus(toAdd);
     let ret: Decimal;

@@ -231,6 +231,20 @@ export class EnemyManager extends JobManager {
     if (this.currentEnemy) {
       if (cell.done) {
         this.reward(cell, fleetNum);
+        //#region Research Inspiration
+        const rm = Game.getGame().researchManager;
+        const shipResToInspire =
+          rm.backlog.find((r) => r.shipTypeToUnlock) ||
+          rm.backlog.find((r) => r.shipTypeToUnlock);
+        if (shipResToInspire) {
+          if (
+            this.currentEnemy.designs.findIndex(
+              (des) => des.type === shipResToInspire.shipTypeToUnlock
+            )
+          )
+            shipResToInspire.inspire;
+        }
+        //#endregion
         if (this.currentEnemy.cells.findIndex((c) => !c.done) < 0) {
           this.defeatEnemy();
         } else {

@@ -64,6 +64,7 @@ export class Research extends Job implements IUnlockable, IBase {
     this.description = researchData.description;
     this.visId = Research.lastVisId++;
     this.initialPrice = ONE;
+    this.inspirationDescription = researchData.inspirationDescription ?? "";
 
     const rs = Game.getGame().resourceManager;
     const sm = Game.getGame().shipyardManager;
@@ -114,7 +115,6 @@ export class Research extends Job implements IUnlockable, IBase {
     }
     this.speedMulti = researchData.speedMulti ?? 0;
 
-    this.inspirationDescription = researchData.inspirationDescription ?? "";
     if (researchData.inspirationBuildingId) {
       const building = rs.buildings.find(
         (b) => b.id === researchData.inspirationBuildingId
@@ -226,7 +226,7 @@ export class Research extends Job implements IUnlockable, IBase {
       return false;
 
     this.inspiration = true;
-    this.addProgress(this.total.times(INSPIRATION_PERCENT));
+    this.addProgress(this.total.times(INSPIRATION_PERCENT), true);
     Game.getGame().notificationManager.addNotification(
       new MyNotification(NotificationTypes.RESEARCH_INSPIRED, this.name)
     );

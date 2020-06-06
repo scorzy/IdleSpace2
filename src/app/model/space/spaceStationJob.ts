@@ -40,6 +40,16 @@ export class SpaceStationJob extends Job {
         this.spaceStation.name + " completed."
       )
     );
+
+    if (this.spaceStation.researchesToInspire) {
+      for (
+        let i = 0, n = this.spaceStation.researchesToInspire.length;
+        i < n;
+        i++
+      ) {
+        if (this.spaceStation.researchesToInspire[i].inspire()) break;
+      }
+    }
   }
   reload() {
     const toDoList = Game.getGame().spaceStationManager.toDo;

@@ -74,6 +74,8 @@
     +{{ research.speedMulti | percent }}
     <span class="text-secondary">ship</span> velocity
   </li>
+</ul>
+<ul class="list-unstyled">
   <li>
     <i
       nz-icon
@@ -86,12 +88,22 @@
       {{ research.progressPercent }}%</span
     >
   </li>
-  <li
-    *ngIf="research.inspirationDescription"
-    [class.text-success]="research.inspiration"
-  >
-    <i nz-icon class="bottom-icon" nzType="rise" nzTheme="outline"></i>
-    <span>{{ research.inspirationDescription }}</span>
+  <li *ngIf="research.inspirationDescription">
+    <i
+      nz-icon
+      [ngClass]="ms.game.resourceManager.science.colorClass"
+      class="bottom-icon"
+      nzType="rise"
+      nzTheme="outline"
+    ></i>
+    <i
+      nz-icon
+      *ngIf="research.inspiration"
+      nzType="check"
+      nzTheme="outline"
+      class="text-success bottom-icon"
+    ></i>
+    <span> {{ research.inspirationDescription }} </span>
   </li>
 </ul>
 

@@ -24,7 +24,6 @@ export class Game {
   spaceStationManager: SpaceStationManager;
 
   navalCapacity: number = BASE_NAVAL_CAPACITY;
-  updateNavalCapacity = true;
 
   battleStats: Array<{ name: string; stats: Stats[] }[]>;
   updateStats = true;

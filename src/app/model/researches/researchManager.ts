@@ -12,7 +12,8 @@ import {
   RESEARCH_ROBOTICS_MULTI,
   RESEARCH_TECH_MOD_MULTI,
   PROPULSION_SPEED_MULTI,
-  OPTIMIZED_SHIP_PREFIX
+  OPTIMIZED_SHIP_PREFIX,
+  SPACE_STATION_UP_PREFIX
 } from "../CONSTANTS";
 import { IResearchData } from "../data/iResearchData";
 import { BonusStack } from "../bonus/bonusStack";
@@ -59,9 +60,7 @@ export class ResearchManager extends JobManager {
     this.militaryEngTech = this.technologies.find((t) => t.id === "e");
     this.searchTech = this.technologies.find((t) => t.id === "r");
     this.navalCapTech = this.technologies.find((t) => t.id === "n");
-    this.navalCapTech.onCompleted = () => {
-      Game.getGame().updateNavalCapacity = true;
-    };
+
     this.roboticsTech = this.technologies.find(
       (t) => t.id === TECHNOLOGIES.Robotics.id
     );
@@ -280,7 +279,8 @@ export class ResearchManager extends JobManager {
         name: shipyard.shipTypes[i].name,
         description: "Unlock " + shipyard.shipTypes[i].name,
         type: TECHNOLOGIES.MilitaryEngineering,
-        shipTypeToUnlock: shipyard.shipTypes[i].id
+        shipTypeToUnlock: shipyard.shipTypes[i].id,
+        inspirationDescription: "Win a battle vs. " + shipyard.shipTypes[i].name
       };
       resData.navalCapacity =
         shipyard.shipTypes[i].navalCapacity * SHIP_RESEARCH_NAV_CAP_MULTI;
@@ -335,7 +335,7 @@ export class ResearchManager extends JobManager {
 
       // Upgrade
       const resDataUp: IResearchData = {
-        id: "u" + i,
+        id: SPACE_STATION_UP_PREFIX + spaceStations[i].id,
         name: "Upgraded " + spaceStations[i].name,
         description: "+30% habitable space from " + spaceStations[i].name,
         type: TECHNOLOGIES.CivilEngineering,
@@ -431,6 +431,10 @@ export class ResearchManager extends JobManager {
             multi: 0.3
           });
           station.habSpaceStack.bonuses.push(new Bonus(res, new Decimal(0.3)));
+          station.researchesToInspire =
+            station.researchesToInspire || new Array<Research>();
+          station.researchesToInspire.push(res);
+          res.inspirationDescription = "Build one " + station.name;
         });
       }
       if ("limitMulti" in resData) {

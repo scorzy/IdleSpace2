@@ -2,6 +2,7 @@ import { Unit } from "./unit";
 import { ZERO } from "../CONSTANTS";
 import { BonusStack } from "../bonus/bonusStack";
 import { Game } from "../game";
+import { Research } from "../researches/research";
 
 export class SpaceStation extends Unit {
   buildPrice = ZERO;
@@ -10,6 +11,7 @@ export class SpaceStation extends Unit {
   habSpaceStack: BonusStack;
   habSpaceDivPrice = ZERO;
   buildPriceNext = ZERO;
+  researchesToInspire: Array<Research>;
 
   getBuildPrice(index = Number.POSITIVE_INFINITY) {
     const toDoList = Game.getGame().spaceStationManager.toDo;
