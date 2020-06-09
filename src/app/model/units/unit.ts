@@ -149,7 +149,7 @@ export class Unit implements IBase, IUnlockable {
 
     return true;
   }
-  reloadLimit() {
+  reloadLimit():boolean {
     if (!this.limitStack) {
       return false;
     }
@@ -160,6 +160,7 @@ export class Unit implements IBase, IUnlockable {
       this.limitStackMulti.reloadBonus();
       this.limit = this.limit.times(this.limitStackMulti.totalBonus);
     }
+    return true;
   }
   reloadMaxBuy() {
     this.buyPrice.reload(

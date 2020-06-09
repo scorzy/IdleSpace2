@@ -1,5 +1,7 @@
 <nz-form-item>
-  <nz-form-label [nzSpan]="isLarge ? 10 : null">{{ mod.name }}</nz-form-label>
+  <nz-form-label [nzSpan]="isLarge ? 10 : null">
+    <span nz-tooltip [nzTooltipTitle]="mod.description">{{ mod.name }}</span>
+  </nz-form-label>
   <nz-form-control
     [nzSpan]="isLarge ? 14 : null"
     [nzValidateStatus]="status"

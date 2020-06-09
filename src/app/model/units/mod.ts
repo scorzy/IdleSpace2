@@ -3,6 +3,7 @@ import { ZERO, ONE } from "../CONSTANTS";
 
 export class Mod {
   name: string;
+  description = "";
   quantity = ZERO;
   max: Decimal = Decimal.MAX_VALUE;
   min: Decimal = Decimal.MAX_VALUE.times(-1);
@@ -16,8 +17,13 @@ export class Mod {
   uiOk = true;
   constructor(iModData: IModData) {
     this.name = iModData.name;
-    if ("max" in iModData) { this.max = new Decimal(iModData.max); }
-    if ("min" in iModData) { this.min = new Decimal(iModData.min); }
+    this.description = iModData.description;
+    if ("max" in iModData) {
+      this.max = new Decimal(iModData.max);
+    }
+    if ("min" in iModData) {
+      this.min = new Decimal(iModData.min);
+    }
   }
   reloadBonus() {
     this.totalBonus = Decimal.times(this.bonusValue, this.quantity).plus(1);
