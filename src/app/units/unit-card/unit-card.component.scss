@@ -44,3 +44,8 @@ p {
   margin-bottom: 0;
   margin-top: 0.3rem;
 }
+.autoBuy {
+  nz-select {
+    min-width: 5rem;
+  }
+}

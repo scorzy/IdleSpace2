@@ -19,6 +19,8 @@ import { Router } from "@angular/router";
 import { BaseComponentComponent } from "src/app/base-component/base-component.component";
 import { Bonus } from "src/app/model/bonus/bonus";
 import { Building } from "src/app/model/units/building";
+import { INTERVALS } from "src/app/model/automation/intervals";
+import { BuildingAutoBuyTypes } from "src/app/model/automation/autoBuilding";
 
 @Component({
   selector: "app-unit-card",
@@ -39,6 +41,8 @@ export class UnitCardComponent extends BaseComponentComponent
   Decimal = Decimal;
   ONE = ONE;
   customBuy = ONE;
+  INTERVALS = INTERVALS;
+  BuildingAutoBuyTypes = BuildingAutoBuyTypes;
   constructor(
     ms: MainService,
     cd: ChangeDetectorRef,
@@ -113,5 +117,8 @@ export class UnitCardComponent extends BaseComponentComponent
         .floor()
         .max(1);
     }
+  }
+  getIntervalId(index: number, interval: any) {
+    return index;
   }
 }

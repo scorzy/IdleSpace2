@@ -17,7 +17,7 @@ export abstract class AbstractAutobuyer {
     if (dateTime < this.last + this.interval) return false;
 
     if (this.automate()) {
-      this.last = Date.now();
+      this.last = dateTime;
       return true;
     }
     return false;

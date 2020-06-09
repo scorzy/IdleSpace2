@@ -10,7 +10,7 @@ export class AutoBuilding extends AbstractAutobuyer {
   autoBuyType: BuildingAutoBuyTypes = BuildingAutoBuyTypes.ASAP;
   constructor(public building: Building) {
     super();
-    this.on = true;
+    // this.on = true;
     building.autoBuyer = this;
   }
   automate(): boolean {

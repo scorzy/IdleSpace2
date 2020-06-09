@@ -59,7 +59,7 @@
   </div>
 
   <!-- AutoBuy -->
-  <div *ngIf="building?.autoBuyer">
+  <div *ngIf="building?.autoBuyer" class="autoBuy">
     <form nz-form [nzLayout]="'inline'">
       <nz-form-item>
         <nz-form-label [nzFor]="building.id + 'A'">Auto</nz-form-label>
@@ -68,6 +68,37 @@
           [name]="building.id + 'A'"
           [(ngModel)]="building.autoBuyer.on"
         ></nz-switch>
+      </nz-form-item>
+      <nz-form-item>
+        <!-- <nz-form-label [nzFor]="building.id + 'A'">Auto</nz-form-label> -->
+        <nz-select
+          [(ngModel)]="building.autoBuyer.autoBuyType"
+          nzSize="small"
+          [name]="building.id + 'B'"
+        >
+          <nz-option
+            nzLabel="Asap"
+            [nzValue]="BuildingAutoBuyTypes.ASAP"
+          ></nz-option>
+          <nz-option
+            nzLabel="As need"
+            [nzValue]="BuildingAutoBuyTypes.AS_NEED"
+          ></nz-option>
+        </nz-select>
+      </nz-form-item>
+      <nz-form-item>
+        <!-- <nz-form-label [nzFor]="building.id + 'A'">Auto</nz-form-label> -->
+        <nz-select
+          nzSize="small"
+          [(ngModel)]="building.autoBuyer.interval"
+          [name]="building.id + 'C'"
+        >
+          <nz-option
+            *ngFor="let interval of INTERVALS; trackBy: getIntervalId"
+            [nzLabel]="interval.label"
+            [nzValue]="interval.value"
+          ></nz-option>
+        </nz-select>
       </nz-form-item>
     </form>
   </div>
