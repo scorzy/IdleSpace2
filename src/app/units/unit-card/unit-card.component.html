@@ -167,17 +167,14 @@
     [nzPopoverContent]="priceTemplateOne"
     nzPopoverTrigger="hover"
     nzPopoverPlacement="bottom"
+    nz-typography
+    [nzDisabled]="!unit.buyPrice.canBuy"
+    (click)="buyOneAct()"
   >
-    <button
-      (click)="buyOneAct()"
-      nz-button
-      nzType="link"
-      nzSize="small"
-      [disabled]="!unit.buyPrice.canBuy"
-    >
+    <span>
       Buy &nbsp;
       <span class="monospace">1</span>
-    </button>
+    </span>
   </div>
 </ng-template>
 
@@ -187,16 +184,13 @@
     [nzPopoverContent]="priceTemplateMax"
     nzPopoverTrigger="hover"
     nzPopoverPlacement="bottom"
+    nz-typography
+    [nzDisabled]="customBuy.gt(unit.buyPrice.maxBuy)"
+    (click)="buyCustom()"
   >
-    <button
-      (click)="buyCustom()"
-      nz-button
-      nzType="link"
-      nzSize="small"
-      [disabled]="customBuy.gt(unit.buyPrice.maxBuy)"
-    >
+    <span>
       Buy &nbsp;<span class="monospace">{{ customBuy | format: true }}</span>
-    </button>
+    </span>
   </div>
 </ng-template>
 
@@ -206,27 +200,23 @@
   </button>
 </ng-template>
 <ng-template #mod>
-  <div>
-    <button nz-button (click)="goModPage()" nzType="link" nzSize="small">
-      <i nz-icon nzType="fa-s:microchip"></i>
-      <span class="monospace">
-        {{ unit.modStack.used | format: true }} /{{
-          unit.maxMods | format: true
-        }}</span
-      >
-    </button>
+  <div nz-typography (click)="goModPage()">
+    <i nz-icon nzType="fa-s:microchip"></i>
+    <span class="monospace">
+      {{ unit.modStack.used | format: true }} /{{
+        unit.maxMods | format: true
+      }}</span
+    >
   </div>
 </ng-template>
 <ng-template #dep>
-  <div *ngIf="building">
-    <button nz-button (click)="goDepPage()" nzType="link" nzSize="small">
-      <i nz-icon nzType="fa-s:microchip"></i>
-      <span class="monospace">
-        {{ building.usedDepartments | format: true }} /{{
-          building.maxDepartments | format: true
-        }}</span
-      >
-    </button>
+  <div *ngIf="building" (click)="goDepPage()">
+    <i nz-icon nzType="fa-s:microchip"></i>
+    <span class="monospace">
+      {{ building.usedDepartments | format: true }} /{{
+        building.maxDepartments | format: true
+      }}</span
+    >
   </div>
 </ng-template>
 
