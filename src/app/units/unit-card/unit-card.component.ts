@@ -121,4 +121,8 @@ export class UnitCardComponent extends BaseComponentComponent
   getIntervalId(index: number, interval: any) {
     return index;
   }
+  buildingAutoBuyChange() {
+    this.building.autoBuyer.on =
+      this.building.autoBuyer.autoBuyType !== BuildingAutoBuyTypes.OFF;
+  }
 }

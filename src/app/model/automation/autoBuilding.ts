@@ -3,6 +3,7 @@ import { Building } from "../units/building";
 import { ONE } from "../CONSTANTS";
 
 export enum BuildingAutoBuyTypes {
+  OFF,
   ASAP,
   AS_NEED
 }
@@ -10,7 +11,7 @@ export class AutoBuilding extends AbstractAutobuyer {
   autoBuyType: BuildingAutoBuyTypes = BuildingAutoBuyTypes.ASAP;
   constructor(public building: Building) {
     super();
-    // this.on = true;
+    this.id = "-" + building.id;
     building.autoBuyer = this;
   }
   automate(): boolean {
@@ -32,10 +33,11 @@ export class AutoBuilding extends AbstractAutobuyer {
         }
         break;
     }
-
     return ret;
   }
-
+  reload() {
+    if (!this.on) this.autoBuyType = BuildingAutoBuyTypes.OFF;
+  }
   //#region Save and Load
   getSave(): any {
     let ret = super.getSave();

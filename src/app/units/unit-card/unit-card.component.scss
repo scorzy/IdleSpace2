@@ -44,11 +44,15 @@ p {
   margin-bottom: 0;
   margin-top: 0.3rem;
 }
-.autoBuy {
-  nz-select {
-    min-width: 5rem;
-  }
+.autoTime {
+  min-width: 4rem;
+}
+.autoType {
+  min-width: 6rem;
 }
 div.ant-typography {
   margin: 0;
+}
+.autoBuy {
+  margin-top: 0.2rem;
 }

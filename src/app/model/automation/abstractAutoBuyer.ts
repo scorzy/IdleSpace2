@@ -23,6 +23,7 @@ export abstract class AbstractAutobuyer {
     return false;
   }
   abstract automate(): boolean;
+  reload() {}
 
   //#region Save and Load
   getSave(): any {
@@ -33,7 +34,7 @@ export abstract class AbstractAutobuyer {
       n: this.interval
     };
     if (this.on) ret.o = this.on;
-
+    console.log(ret);
     return ret;
   }
   load(save: any) {

@@ -31,14 +31,16 @@ export class AutomationManager {
   }
   load(save: any) {
     if (!("l" in save)) return false;
-    save.l.foreach((data) => {
+    for (const data of save.l) {
+      console.log(data);
       if ("i" in data) {
         const auto = this.autobuyers.find((a) => a.id === data.i);
         if (auto) {
           auto.load(data);
         }
       }
-    });
+    }
+    this.autobuyers.forEach((a) => a.reload());
     this.sort();
     return true;
   }
