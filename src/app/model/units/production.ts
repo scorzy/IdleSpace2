@@ -16,13 +16,13 @@ export class Production {
     this.ratio = new Decimal(ratio);
   }
   reload() {
+    this.reloadFull();
     if (
       this.producer.operativity < Number.EPSILON ||
       this.producer.quantity.lt(Number.EPSILON)
     ) {
       this.prodPerSec = ZERO;
     } else {
-      this.reloadFull();
       this.prodPerSec = this.prodPerSecFull.times(
         this.producer.operativity / 100
       );

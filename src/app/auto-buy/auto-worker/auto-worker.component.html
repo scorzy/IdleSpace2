@@ -27,6 +27,11 @@
         </nz-select>
         <nz-input-number
           nzSize="small"
+          [name]="autoWorker.id + 'M'"
+          [(ngModel)]="autoWorker.maxBuy"
+        ></nz-input-number>
+        <nz-input-number
+          nzSize="small"
           [name]="autoWorker.id + 'P'"
           [(ngModel)]="autoWorker.priority"
         ></nz-input-number>

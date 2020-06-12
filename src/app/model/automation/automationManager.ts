@@ -14,6 +14,7 @@ export class AutomationManager {
     game.resourceManager.workers.forEach((worker) => {
       this.autobuyers.push(new AutoWorker(worker));
     });
+    this.autobuyers.forEach((a) => a.reload());
     this.sort();
   }
   update() {
