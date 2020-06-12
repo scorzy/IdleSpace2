@@ -163,13 +163,28 @@
 <!-- Buttons -->
 <ng-template #buyOne>
   <div
+    *ngIf="unit.buyPrice.canBuy; else buyOneDisabled"
+    nz-popover
+    [nzPopoverContent]="priceTemplateOne"
+    nzPopoverTrigger="hover"
+    nzPopoverPlacement="bottom"
+    (click)="buyOneAct()"
+  >
+    <span>
+      Buy &nbsp;
+      <span class="monospace">1</span>
+    </span>
+  </div>
+</ng-template>
+
+<ng-template #buyOneDisabled>
+  <div
     nz-popover
     [nzPopoverContent]="priceTemplateOne"
     nzPopoverTrigger="hover"
     nzPopoverPlacement="bottom"
     nz-typography
-    [nzDisabled]="!unit.buyPrice.canBuy"
-    (click)="buyOneAct()"
+    nzDisabled
   >
     <span>
       Buy &nbsp;
@@ -180,13 +195,26 @@
 
 <ng-template #buyMax>
   <div
+    *ngIf="unit.buyPrice.canBuy; else buyMaxDisabled"
+    nz-popover
+    [nzPopoverContent]="priceTemplateMax"
+    nzPopoverTrigger="hover"
+    nzPopoverPlacement="bottom"
+    (click)="buyCustom()"
+  >
+    <span>
+      Buy &nbsp;<span class="monospace">{{ customBuy | format: true }}</span>
+    </span>
+  </div>
+</ng-template>
+<ng-template #buyMaxDisabled>
+  <div
     nz-popover
     [nzPopoverContent]="priceTemplateMax"
     nzPopoverTrigger="hover"
     nzPopoverPlacement="bottom"
     nz-typography
-    [nzDisabled]="customBuy.gt(unit.buyPrice.maxBuy)"
-    (click)="buyCustom()"
+    nzDisabled
   >
     <span>
       Buy &nbsp;<span class="monospace">{{ customBuy | format: true }}</span>
@@ -200,7 +228,7 @@
   </button>
 </ng-template>
 <ng-template #mod>
-  <div nz-typography (click)="goModPage()">
+  <div (click)="goModPage()">
     <i nz-icon nzType="fa-s:microchip"></i>
     <span class="monospace">
       {{ unit.modStack.used | format: true }} /{{

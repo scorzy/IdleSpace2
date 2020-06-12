@@ -95,7 +95,7 @@ import { NzDropDownModule } from "ng-zorro-antd/dropdown";
 registerLocaleData(en);
 
 const ngZorroConfig: NzConfig = {
-  notification: { nzPlacement: "bottomRight", nzAnimate: false }
+  notification: { nzPlacement: "bottomRight" }
 };
 
 @NgModule({
