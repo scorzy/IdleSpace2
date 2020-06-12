@@ -41,20 +41,22 @@
         </p>
       </ng-template>
 
-      <nz-input-number
-        [(ngModel)]="unit.assemblyPriority"
-        [nzSize]="'small'"
-        [nzMin]="0"
-        [nzMax]="1e3"
-        [nzStep]="1"
-      ></nz-input-number>
-      <nz-input-number
-        [(ngModel)]="unit.assemblyPriorityEnding"
-        [nzSize]="'small'"
-        [nzMin]="0"
-        [nzMax]="1e3"
-        [nzStep]="1"
-      ></nz-input-number>
+      <nz-input-group nzCompact>
+        <nz-input-number
+          [(ngModel)]="unit.assemblyPriority"
+          [nzSize]="'small'"
+          [nzMin]="0"
+          [nzMax]="1e3"
+          [nzStep]="1"
+        ></nz-input-number>
+        <nz-input-number
+          [(ngModel)]="unit.assemblyPriorityEnding"
+          [nzSize]="'small'"
+          [nzMin]="0"
+          [nzMax]="1e3"
+          [nzStep]="1"
+        ></nz-input-number>
+      </nz-input-group>
     </div>
   </div>
 
@@ -62,7 +64,12 @@
   <div *ngIf="building?.autoBuyer" class="autoBuy">
     <form nz-form nzLayout="inline">
       <nz-form-item>
-        <nz-form-label>Auto </nz-form-label>
+        <nz-form-label
+          nz-popover
+          nzPopoverTitle="Automation"
+          [nzPopoverContent]="autoInfoTemplate"
+          >Auto
+        </nz-form-label>
         <nz-input-group nzCompact>
           <nz-select
             [(ngModel)]="building.autoBuyer.autoBuyType"
@@ -96,10 +103,21 @@
               [nzValue]="interval.value"
             ></nz-option>
           </nz-select>
+          <nz-input-number
+            nzSize="small"
+            [name]="building.id + 'P'"
+            [(ngModel)]="building.autoBuyer.priority"
+          ></nz-input-number>
         </nz-input-group>
       </nz-form-item>
     </form>
   </div>
+
+  <ng-template #autoInfoTemplate>
+    <p>
+      Set auto buy options, last is priority (bigger number => high priority)
+    </p>
+  </ng-template>
 </nz-card>
 
 <ng-template #extraTemplate>
