@@ -13,6 +13,7 @@ import { IUnitData } from "../data/iUnitData";
 import { Technology } from "../researches/technology";
 import { Research } from "../researches/research";
 import { AutoWorker } from "../automation/autoWorker";
+import { spread } from "lodash-es";
 
 export class Worker extends Unit {
   modStack: ModStack;
@@ -126,6 +127,17 @@ export class Worker extends Unit {
       prod.reloadMod();
     });
     super.reloadAll();
+  }
+  reloadNeedComponent() {
+    this.needComponents = this.limit
+      .minus(this.quantity)
+      .times(this.components)
+      .minus(this.storedComponents)
+      .max(0);
+  }
+  postUpdate() {
+    super.postUpdate();
+    this.reloadNeedComponent();
   }
   getSave(): any {
     const ret = super.getSave();

@@ -98,7 +98,6 @@ export class Unit implements IBase, IUnlockable {
   }
   postUpdate() {
     this.reloadLimit();
-    this.reloadNeedComponent();
 
     if (this._quantityOld.eq(this.quantity)) {
       this.quantity = this._quantityOld;
@@ -169,13 +168,7 @@ export class Unit implements IBase, IUnlockable {
       this.limit.minus(this.quantity)
     );
   }
-  reloadNeedComponent() {
-    this.needComponents = this.limit
-      .minus(this.quantity)
-      .times(this.components)
-      .minus(this.storedComponents)
-      .max(0);
-  }
+
   reloadAll() {
     this.reloadLimit();
   }
