@@ -91,6 +91,8 @@ import { UiComponent } from "./options/ui/ui.component";
 import { NzCascaderModule } from "ng-zorro-antd/cascader";
 import { NotificationListComponent } from "./notification-list/notification-list.component";
 import { NzDropDownModule } from "ng-zorro-antd/dropdown";
+import { AutoBuildingComponent } from './auto-buy/auto-building/auto-building.component';
+import { AutoWorkerComponent } from './auto-buy/auto-worker/auto-worker.component';
 
 registerLocaleData(en);
 
@@ -147,7 +149,9 @@ const ngZorroConfig: NzConfig = {
     BuildingsComponent,
     DepartmentComponent,
     UiComponent,
-    NotificationListComponent
+    NotificationListComponent,
+    AutoBuildingComponent,
+    AutoWorkerComponent
   ],
   imports: [
     BrowserModule,

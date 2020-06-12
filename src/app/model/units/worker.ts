@@ -12,6 +12,7 @@ import {
 import { IUnitData } from "../data/iUnitData";
 import { Technology } from "../researches/technology";
 import { Research } from "../researches/research";
+import { AutoWorker } from "../automation/autoWorker";
 
 export class Worker extends Unit {
   modStack: ModStack;
@@ -23,6 +24,7 @@ export class Worker extends Unit {
   assemblyPriority = 50;
   assemblyPriorityEnding = 500;
   modsResearches: Research[];
+  autoBuyer: AutoWorker;
   constructor(public unitData: IUnitData) {
     super(unitData);
   }

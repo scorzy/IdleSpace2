@@ -1,0 +1,42 @@
+<form nz-form nzLayout="inline">
+  <nz-form-item>
+    <nz-form-label
+      nz-popover
+      nzPopoverTitle="Automation"
+      [nzPopoverContent]="autoInfoTemplate"
+      >Auto
+    </nz-form-label>
+    <nz-form-control>
+      <nz-input-group nzCompact>
+        <nz-switch
+          [name]="autoWorker.id"
+          [(ngModel)]="autoWorker.on"
+          nzSize="small"
+        ></nz-switch>
+        <nz-select
+          nzSize="small"
+          class="autoTime"
+          [(ngModel)]="autoWorker.interval"
+          [name]="autoWorker.id + 'C'"
+        >
+          <nz-option
+            *ngFor="let interval of INTERVALS; trackBy: getIntervalId"
+            [nzLabel]="interval.label"
+            [nzValue]="interval.value"
+          ></nz-option>
+        </nz-select>
+        <nz-input-number
+          nzSize="small"
+          [name]="autoWorker.id + 'P'"
+          [(ngModel)]="autoWorker.priority"
+        ></nz-input-number>
+      </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
+</form>
+
+<ng-template #autoInfoTemplate>
+  <p>
+    Set auto buy options, last is priority (bigger number => high priority)
+  </p>
+</ng-template>

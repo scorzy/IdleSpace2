@@ -41,8 +41,6 @@ export class UnitCardComponent extends BaseComponentComponent
   Decimal = Decimal;
   ONE = ONE;
   customBuy = ONE;
-  INTERVALS = INTERVALS;
-  BuildingAutoBuyTypes = BuildingAutoBuyTypes;
   constructor(
     ms: MainService,
     cd: ChangeDetectorRef,
@@ -117,12 +115,5 @@ export class UnitCardComponent extends BaseComponentComponent
         .floor()
         .max(1);
     }
-  }
-  getIntervalId(index: number, interval: any) {
-    return index;
-  }
-  buildingAutoBuyChange() {
-    this.building.autoBuyer.on =
-      this.building.autoBuyer.autoBuyType !== BuildingAutoBuyTypes.OFF;
   }
 }

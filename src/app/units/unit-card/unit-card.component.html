@@ -19,105 +19,61 @@
     ></nz-slider>
 
     <!-- Priority -->
-    <div
-      class="priority"
-      fxLayout="row"
-      fxLayoutGap="4px"
+    <!-- class="priority" -->
+    <form
+      nz-form
+      nzLayout="inline"
       *ngIf="ms.game.resourceManager.components.unlocked"
-      fxLayoutAlign="center"
     >
-      <span
-        nz-popover
-        nzPopoverTitle="Assembly Priority"
-        [nzPopoverContent]="priorityTemplate"
-        >Priority:
-      </span>
-
-      <ng-template #priorityTemplate>
-        <p>
-          Priorities for assembling new drones.<br />
-          The first item is the normal priority,<br />the second is used when
-          resources are ending.
-        </p>
-      </ng-template>
-
-      <nz-input-group nzCompact>
-        <nz-input-number
-          [(ngModel)]="unit.assemblyPriority"
-          [nzSize]="'small'"
-          [nzMin]="0"
-          [nzMax]="1e3"
-          [nzStep]="1"
-        ></nz-input-number>
-        <nz-input-number
-          [(ngModel)]="unit.assemblyPriorityEnding"
-          [nzSize]="'small'"
-          [nzMin]="0"
-          [nzMax]="1e3"
-          [nzStep]="1"
-        ></nz-input-number>
-      </nz-input-group>
-    </div>
-  </div>
-
-  <!-- AutoBuy -->
-  <div *ngIf="building?.autoBuyer" class="autoBuy">
-    <form nz-form nzLayout="inline">
       <nz-form-item>
         <nz-form-label
           nz-popover
-          nzPopoverTitle="Automation"
-          [nzPopoverContent]="autoInfoTemplate"
-          >Auto
+          nzPopoverTitle="Assembly Priority"
+          [nzPopoverContent]="priorityTemplate"
+          >Priority
         </nz-form-label>
-        <nz-input-group nzCompact>
-          <nz-select
-            [(ngModel)]="building.autoBuyer.autoBuyType"
-            nzSize="small"
-            class="autoType"
-            [name]="building.id + 'B'"
-            (ngModelChange)="buildingAutoBuyChange()"
-          >
-            <nz-option
-              nzLabel="Off"
-              [nzValue]="BuildingAutoBuyTypes.OFF"
-            ></nz-option>
-            <nz-option
-              nzLabel="Asap"
-              [nzValue]="BuildingAutoBuyTypes.ASAP"
-            ></nz-option>
-            <nz-option
-              nzLabel="As need"
-              [nzValue]="BuildingAutoBuyTypes.AS_NEED"
-            ></nz-option>
-          </nz-select>
-          <nz-select
-            nzSize="small"
-            class="autoTime"
-            [(ngModel)]="building.autoBuyer.interval"
-            [name]="building.id + 'C'"
-          >
-            <nz-option
-              *ngFor="let interval of INTERVALS; trackBy: getIntervalId"
-              [nzLabel]="interval.label"
-              [nzValue]="interval.value"
-            ></nz-option>
-          </nz-select>
-          <nz-input-number
-            nzSize="small"
-            [name]="building.id + 'P'"
-            [(ngModel)]="building.autoBuyer.priority"
-          ></nz-input-number>
-        </nz-input-group>
+        <nz-form-control>
+          <nz-input-group nzCompact>
+            <nz-input-number
+              [(ngModel)]="unit.assemblyPriority"
+              [nzSize]="'small'"
+              [nzMin]="0"
+              [nzMax]="1e3"
+              [nzStep]="1"
+              [name]="unit.id + 'p1'"
+            >
+            </nz-input-number>
+            <nz-input-number
+              [(ngModel)]="unit.assemblyPriorityEnding"
+              [nzSize]="'small'"
+              [nzMin]="0"
+              [nzMax]="1e3"
+              [nzStep]="1"
+              [name]="unit.id + 'p2'"
+            >
+            </nz-input-number>
+          </nz-input-group>
+        </nz-form-control>
       </nz-form-item>
     </form>
   </div>
 
-  <ng-template #autoInfoTemplate>
+  <ng-template #priorityTemplate>
     <p>
-      Set auto buy options, last is priority (bigger number => high priority)
+      Priorities for assembling new drones.<br />
+      The first item is the normal priority,<br />the second is used when
+      resources are ending.
     </p>
   </ng-template>
+
+  <app-auto-building
+    *ngIf="building?.autoBuyer"
+    [autoBuilding]="building?.autoBuyer"
+  ></app-auto-building>
+  <app-auto-worker
+    *ngIf="unit.autoBuyer && !building"
+    [autoWorker]="unit.autoBuyer"
+  ></app-auto-worker>
 </nz-card>
 
 <ng-template #extraTemplate>

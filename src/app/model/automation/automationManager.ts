@@ -1,6 +1,7 @@
 import { AbstractAutobuyer } from "./abstractAutoBuyer";
 import { Game } from "../game";
 import { AutoBuilding } from "./autoBuilding";
+import { AutoWorker } from "./autoWorker";
 
 export class AutomationManager {
   autobuyers = new Array<AbstractAutobuyer>();
@@ -10,7 +11,9 @@ export class AutomationManager {
     game.resourceManager.buildings.forEach((building) => {
       this.autobuyers.push(new AutoBuilding(building));
     });
-
+    game.resourceManager.workers.forEach((worker) => {
+      this.autobuyers.push(new AutoWorker(worker));
+    });
     this.sort();
   }
   update() {
