@@ -6,7 +6,7 @@
   [nzActions]="
     unit.modStack && unit.maxMods.gt(0)
       ? [buyOne, buyMax, mod]
-      : building && building.maxDepartments > 0
+      : building && hasDepartments && building.maxDepartments > 0
       ? [buyOne, buyMax, dep]
       : [buyOne, buyMax]
   "
@@ -71,8 +71,8 @@
     [autoBuilding]="building?.autoBuyer"
   ></app-auto-building>
   <app-auto-worker
-    *ngIf="unit.autoBuyer && !building"
-    [autoWorker]="unit.autoBuyer"
+    *ngIf="unit?.autoBuyer && !building"
+    [autoWorker]="unit?.autoBuyer"
   ></app-auto-worker>
 </nz-card>
 

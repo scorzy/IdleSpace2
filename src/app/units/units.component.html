@@ -1,7 +1,7 @@
 <div fxLayout="column" fxLayout.gt-xs="row wrap" fxLayoutGap="10px">
   <div
     class="flex-item"
-    *ngFor="let unit of units; trackBy: getId"
+    *ngFor="let unit of ms.game.resourceManager.unlockedWorkers; trackBy: getId"
     fxFlex.xs="0 0 calc(100%)"
     fxFlex.sm="0 0 calc(50% -10px)"
     fxFlex.md="0 0 calc(33% -10px)"
@@ -41,6 +41,18 @@
         </li>
       </ul>
     </nz-card>
+  </div>
+
+  <div
+    fxFlex.gt-xs="1 1 320px"
+    fxFlex="1"
+    class="flex-item"
+    *ngFor="
+      let unit of ms.game.resourceManager.unlockedBuildings;
+      trackBy: getId
+    "
+  >
+    <app-unit-card [unit]="unit"> </app-unit-card>
   </div>
 </div>
 

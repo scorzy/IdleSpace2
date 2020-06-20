@@ -41,6 +41,7 @@ export class UnitCardComponent extends BaseComponentComponent
   Decimal = Decimal;
   ONE = ONE;
   customBuy = ONE;
+  hasDepartments = false;
   constructor(
     ms: MainService,
     cd: ChangeDetectorRef,
@@ -52,8 +53,9 @@ export class UnitCardComponent extends BaseComponentComponent
   }
   ngOnInit() {
     this.popoverTrigger = "hover";
-    if (this.unit instanceof Building && this.unit.departments) {
+    if (this.unit instanceof Building) {
       this.building = this.unit;
+      this.hasDepartments = this.building?.departments?.length > 0;
     }
     this.sliderDisabled = !this.unit.production.find((p) => p.ratio.lt(0));
     // this.getActions();
