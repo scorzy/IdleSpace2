@@ -9,7 +9,6 @@ import {
   ZERO,
   RESEARCH_TECH_EFF,
   OPTIMIZE_RES_BONUS,
-  RESEARCH_ROBOTICS_MULTI,
   RESEARCH_TECH_MOD_MULTI,
   PROPULSION_SPEED_MULTI,
   OPTIMIZED_SHIP_PREFIX,
@@ -174,8 +173,9 @@ export class ResearchManager extends JobManager {
         if (i + 1 < 9) {
           resData.researchToUnlock = [res.id + (i + 1)];
         }
-        if (res.inspirationBuilding !== "")
+        if (res.inspirationBuilding !== "") {
           resData.inspirationBuildingId = res.inspirationBuilding;
+        }
 
         const modPlus = RESEARCH_TECH_MOD_MULTI;
         switch (res.id) {

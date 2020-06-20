@@ -27,7 +27,7 @@ export abstract class AbstractAutobuyer {
 
   //#region Save and Load
   getSave(): any {
-    let ret: any = {
+    const ret: any = {
       i: this.id,
       l: this.last,
       p: this.priority,

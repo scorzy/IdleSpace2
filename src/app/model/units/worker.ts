@@ -13,7 +13,6 @@ import { IUnitData } from "../data/iUnitData";
 import { Technology } from "../researches/technology";
 import { Research } from "../researches/research";
 import { AutoWorker } from "../automation/autoWorker";
-import { spread } from "lodash-es";
 
 export class Worker extends Unit {
   modStack: ModStack;

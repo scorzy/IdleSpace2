@@ -1,7 +1,7 @@
 import { AbstractAutobuyer } from "./abstractAutoBuyer";
 import { Worker } from "../units/worker";
 import { Game } from "../game";
-import { ONE, ZERO } from "../CONSTANTS";
+import { ZERO } from "../CONSTANTS";
 
 const RESOURCE_GAP = 1;
 
@@ -21,8 +21,9 @@ export class AutoWorker extends AbstractAutobuyer {
     if (
       Game.getGame().resourceManager.replicator.quantity.gt(1) &&
       this.worker.manualBought.gte(this.maxWhenFactory)
-    )
+    ) {
       return false;
+    }
     this.worker.reloadMaxBuy();
     if (!this.worker.buyPrice.canBuy) return false;
 
@@ -46,15 +47,16 @@ export class AutoWorker extends AbstractAutobuyer {
         }
       }
     }
-    if (max.gte(1))
+    if (max.gte(1)) {
       return this.worker.buy(
         this.worker.buyPrice.maxBuy.min(this.maxBuy).min(max).floor()
       );
+    }
     else return false;
   }
   //#region Save and Load
   getSave(): any {
-    let ret = super.getSave();
+    const ret = super.getSave();
     ret.mf = this.maxWhenFactory;
     ret.ma = this.maxBuy;
     return ret;

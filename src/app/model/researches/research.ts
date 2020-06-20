@@ -124,8 +124,9 @@ export class Research extends Job implements IUnlockable, IBase {
           building.researchesToInspire || new Array<Research>();
         building.researchesToInspire.push(this);
 
-        if (this.inspirationDescription === "")
+        if (this.inspirationDescription === "") {
           this.inspirationDescription = "Build one " + building.name;
+        }
       }
     }
 
@@ -218,12 +219,13 @@ export class Research extends Job implements IUnlockable, IBase {
     }
     this.reload();
   }
-  inspire(): Boolean {
+  inspire(): boolean {
     if (this.inspiration) return false;
     const rm = Game.getGame().researchManager;
     if (rm.done.indexOf(this) > -1) return false;
-    if (!(rm.backlog.indexOf(this) > -1 || rm.toDo.indexOf(this) > -1))
+    if (!(rm.backlog.indexOf(this) > -1 || rm.toDo.indexOf(this) > -1)) {
       return false;
+    }
 
     this.inspiration = true;
     this.addProgress(this.total.times(INSPIRATION_PERCENT), true);

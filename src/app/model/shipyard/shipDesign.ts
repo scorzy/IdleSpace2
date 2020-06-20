@@ -446,7 +446,6 @@ export class ShipDesign {
   }
   getCopy(errorCheck = true) {
     const ret = new ShipDesign();
-    const sm = Game.getGame().shipyardManager;
     ret.name = this.name;
     ret.id = this.id;
     ret.rev = this.rev;

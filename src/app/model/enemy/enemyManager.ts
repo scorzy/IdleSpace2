@@ -242,8 +242,9 @@ export class EnemyManager extends JobManager {
             this.currentEnemy.designs.findIndex(
               (des) => des.type === shipResToInspire.shipTypeToUnlock
             ) > -1
-          )
+          ) {
             shipResToInspire.inspire();
+          }
         }
         //  Nuke
         if (this.currentEnemy.designs.findIndex((des) => des.isDefence) > -1) {
@@ -261,7 +262,7 @@ export class EnemyManager extends JobManager {
                 (fleetNum + 1) +
                 " cell: " +
                 cell.index +
-                (this.rewardString === "", "", "\n" + this.rewardString)
+                (this.rewardString === "" ? "" : "\n" + this.rewardString)
             )
           );
         }
@@ -333,7 +334,7 @@ export class EnemyManager extends JobManager {
           MainService.formatPipe.transform(this.currentEnemy.level, true) +
           " " +
           this.currentEnemy.name +
-          (this.rewardString === "", "", "\n" + this.rewardString)
+          (this.rewardString === "" ? "" : "\n" + this.rewardString)
       )
     );
     this.currentEnemy = null;

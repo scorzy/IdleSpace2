@@ -40,7 +40,7 @@ export class AutoBuilding extends AbstractAutobuyer {
   }
   //#region Save and Load
   getSave(): any {
-    let ret = super.getSave();
+    const ret = super.getSave();
     ret.aut = this.autoBuyType;
     return ret;
   }
