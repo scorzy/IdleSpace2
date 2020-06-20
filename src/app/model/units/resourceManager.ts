@@ -11,7 +11,8 @@ import {
   STORAGE_DEPARTMENT_MULTI,
   ENERGY_STORAGE,
   COMPONENT_STORAGE,
-  NUKE_STORAGE
+  NUKE_STORAGE,
+  DEPARTMENT_TECH_MULTI
 } from "../CONSTANTS";
 import { Price } from "../prices/price";
 import { Components } from "./components";
@@ -26,6 +27,7 @@ import {
   NotificationTypes
 } from "../notifications/myNotification";
 import { MegaStructure } from "./megaStructure";
+import { Technology } from "../researches/technology";
 export class ResourceManager {
   units = new Array<Unit>();
   unlockedUnits = new Array<Unit>();
@@ -446,31 +448,41 @@ export class ResourceManager {
     this.buildings.forEach((building) => {
       if (building.unitData.departments) {
         building.departments = [];
+        const rm = Game.getGame().researchManager;
         let worker: Worker;
+        let tech: Technology;
         switch (building.id) {
           case "1":
             worker = this.miner;
+            tech = rm.miningTech;
             break;
           case "2":
             worker = this.technician;
+            tech = rm.energyTech;
             break;
           case "3":
             worker = this.scientist;
+            tech = rm.physicsTech;
             break;
           case "4":
             worker = this.metallurgist;
+            tech = rm.materialsTech;
             break;
           case "5":
             worker = this.worker;
+            tech = rm.civilEngTech;
             break;
           case "6":
             worker = this.searcher;
+            tech = rm.searchTech;
             break;
           case "7":
             worker = this.replicator;
+            tech = rm.roboticsTech;
             break;
           case "10":
             worker = this.nukeDrone;
+            tech = rm.militaryEngTech;
             break;
         }
         building.unitData.departments.forEach((dep) => {
@@ -480,6 +492,17 @@ export class ResourceManager {
               this.scientist.limitStack.bonuses.push(
                 new Bonus(building, ONE, department)
               );
+              if (tech) {
+                tech.technologyBonus.bonuses.push(
+                  new Bonus(building, DEPARTMENT_TECH_MULTI, department)
+                );
+                department.description +=
+                  "; +" +
+                  DEPARTMENT_TECH_MULTI.times(100).toString() +
+                  "% " +
+                  tech.name +
+                  " tech. increase speed";
+              }
               break;
             case "s": //  Storage
               if (building.id === "2") {
@@ -526,6 +549,11 @@ export class ResourceManager {
               );
               worker.prodEfficiency.bonuses.push(
                 new Bonus(building, new Decimal(0.1), department)
+              );
+              break;
+            case "m": // Production
+              this.replicator.limitStack.bonuses.push(
+                new Bonus(building, new Decimal(2), department)
               );
               break;
           }

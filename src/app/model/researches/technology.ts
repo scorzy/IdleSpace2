@@ -19,25 +19,29 @@ export class Technology implements IBase, IUnlockable, ITechnologyData {
   price = ZERO;
   unlocked = false;
   color: string;
-  bonus?: BonusStack;
+  bonus: BonusStack;
   ratio = 1.2;
   progressPercent = 0;
   priority = 50;
   total = ZERO;
   darkColor: string;
   lightColor: string;
+  technologyBonus: BonusStack;
 
   constructor(data: ITechnologyData) {
     assign(this, data);
     this.bonus = new BonusStack();
     this.bonus.bonuses.push(new Bonus(this, RESEARCH_BONUS));
+    this.technologyBonus = new BonusStack();
   }
   addProgress(progress: Decimal) {
     if (progress.lte(0)) {
       return;
     }
 
-    this.progress = this.progress.plus(progress);
+    this.progress = this.progress.plus(
+      progress.times(this.technologyBonus.totalAdditiveBonus)
+    );
     const toBuy = Decimal.affordGeometricSeries(
       this.progress,
       this.price,
@@ -71,6 +75,7 @@ export class Technology implements IBase, IUnlockable, ITechnologyData {
     this.progressPercent = Math.floor(
       this.progress.div(this.total).toNumber() * 100
     );
+    this.technologyBonus.reloadBonusUi();
   }
   setTheme() {
     this.color = OptionsService.isDark ? this.darkColor : this.lightColor;

@@ -32,10 +32,11 @@
     </ng-template>
     <ng-template #description>
       <span class="monospace"
-        >{{ tech.progress | format: true }}/{{
-          tech.total | format: true
-        }}</span
-      >
+        >{{ tech.progress | format: true }}/{{ tech.total | format: true }}
+        <span *ngIf="tech.technologyBonus.totalBonusUi.gt(0)">
+          +{{ tech.technologyBonus.totalBonusUi | format }}%
+        </span>
+      </span>
     </ng-template>
     <ng-template #extraTemplate>
       <span class="text-secondary">Priority</span><br />

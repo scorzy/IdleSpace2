@@ -33,17 +33,23 @@ export class ResearchManager extends JobManager {
   techPerSec = ZERO;
   drag = false;
   sort = true;
-  //#region researches
+  //#region Researches
   nukeResearch: Research;
   searching: Research;
   scavenging: Research;
   //#endregion
   //#region Technologies
-  civilEngTech: Technology;
   militaryEngTech: Technology;
-  searchTech: Technology;
-  navalCapTech: Technology;
+  civilEngTech: Technology;
+  physicsTech: Technology;
+  materialsTech: Technology;
+  propulsionTech: Technology;
+  computingTech: Technology;
   roboticsTech: Technology;
+  navalCapTech: Technology;
+  searchTech: Technology;
+  energyTech: Technology;
+  miningTech: Technology;
   //#endregion
   constructor() {
     super();
@@ -61,10 +67,17 @@ export class ResearchManager extends JobManager {
         }
       }
     }
-    this.civilEngTech = this.technologies.find((t) => t.id === "i");
     this.militaryEngTech = this.technologies.find((t) => t.id === "e");
-    this.searchTech = this.technologies.find((t) => t.id === "r");
+    this.civilEngTech = this.technologies.find((t) => t.id === "i");
+    this.physicsTech = this.technologies.find((t) => t.id === "p");
+    this.materialsTech = this.technologies.find((t) => t.id === "m");
+    this.propulsionTech = this.technologies.find((t) => t.id === "o");
+    this.computingTech = this.technologies.find((t) => t.id === "c");
+    this.roboticsTech = this.technologies.find((t) => t.id === "R");
     this.navalCapTech = this.technologies.find((t) => t.id === "n");
+    this.searchTech = this.technologies.find((t) => t.id === "r");
+    this.energyTech = this.technologies.find((t) => t.id === "t");
+    this.miningTech = this.technologies.find((t) => t.id === "l");
 
     this.roboticsTech = this.technologies.find(
       (t) => t.id === TECHNOLOGIES.Robotics.id

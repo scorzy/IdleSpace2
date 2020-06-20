@@ -4,10 +4,6 @@ import assign from "lodash-es/assign";
 import { Research } from "../researches/research";
 import { IBase } from "../iBase";
 import { ZERO } from "../CONSTANTS";
-import { Worker } from "./worker";
-import { Game } from "../game";
-import { BonusStack } from "../bonus/bonusStack";
-import { Bonus } from "../bonus/bonus";
 import { AutoBuilding } from "../automation/autoBuilding";
 
 export class Department implements IDepartmentData, IBase {
@@ -90,7 +86,7 @@ export class Building extends Unit {
         if ("q" in depSave) {
           const department = this.departments.find((d) => d.id === depSave.i);
           if (department) {
-            department.quantity = depSave.q;
+            department.quantity = new Decimal(depSave.q);
             this.usedDepartments += department.quantity.toNumber();
           }
         }

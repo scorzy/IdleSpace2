@@ -150,6 +150,7 @@ export class Game {
     this.reloadWorkPerSec();
     for (let i = 0, n = this.researchManager.technologies.length; i < n; i++) {
       this.researchManager.technologies[i].bonus.reloadBonus();
+      this.researchManager.technologies[i].technologyBonus.reloadBonus();
     }
     const resNotAdded = this.researchManager.addProgress(
       this.resourceManager.science.quantity

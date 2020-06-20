@@ -10,7 +10,7 @@ import {
   ALLOY_BUILDING_PRICE,
   BUILDING_LIMIT
 } from "../CONSTANTS";
-import { RD, PROD_DEP, STORAGE_DEP } from "./departments";
+import { RD, PROD_DEP, STORAGE_DEP, MAINTENANCE_DEP } from "./departments";
 export enum UNIT_TYPES {
   MATERIAL,
   WORKER,
@@ -365,7 +365,7 @@ export const UNITS: IUnitData[] = [
       ["P", 10]
     ],
     unitType: UNIT_TYPES.BUILDING,
-    departments: [RD, PROD_DEP]
+    departments: [RD, PROD_DEP, MAINTENANCE_DEP]
   },
   {
     id: "2",
@@ -379,7 +379,7 @@ export const UNITS: IUnitData[] = [
       ["k", 10]
     ],
     unitType: UNIT_TYPES.BUILDING,
-    departments: [RD, PROD_DEP, STORAGE_DEP]
+    departments: [RD, PROD_DEP, STORAGE_DEP, MAINTENANCE_DEP]
   },
   {
     id: "8",
@@ -420,7 +420,7 @@ export const UNITS: IUnitData[] = [
     ],
     unlockQuantity: 1,
     unitType: UNIT_TYPES.BUILDING,
-    departments: [RD, PROD_DEP]
+    departments: [RD, PROD_DEP, MAINTENANCE_DEP]
   },
   {
     id: "5",
@@ -434,7 +434,7 @@ export const UNITS: IUnitData[] = [
     ],
     unlockQuantity: 1,
     unitType: UNIT_TYPES.BUILDING,
-    departments: [RD, PROD_DEP]
+    departments: [RD, PROD_DEP, MAINTENANCE_DEP]
   },
   {
     id: "6",
@@ -448,7 +448,7 @@ export const UNITS: IUnitData[] = [
     ],
     unlockQuantity: 1,
     unitType: UNIT_TYPES.BUILDING,
-    departments: [RD, PROD_DEP]
+    departments: [RD, PROD_DEP, MAINTENANCE_DEP]
   },
   {
     id: "7",
@@ -462,7 +462,7 @@ export const UNITS: IUnitData[] = [
     ],
     unlockQuantity: 1,
     unitType: UNIT_TYPES.BUILDING,
-    departments: [RD, PROD_DEP, STORAGE_DEP]
+    departments: [RD, PROD_DEP, STORAGE_DEP, MAINTENANCE_DEP]
   },
   {
     id: "9",
@@ -489,7 +489,7 @@ export const UNITS: IUnitData[] = [
     ],
     unlockQuantity: 1,
     unitType: UNIT_TYPES.BUILDING,
-    departments: [RD, PROD_DEP, STORAGE_DEP]
+    departments: [RD, PROD_DEP, STORAGE_DEP, MAINTENANCE_DEP]
   },
   {
     id: "11",
