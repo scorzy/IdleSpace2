@@ -1,0 +1,19 @@
+<nz-list nzBordered nzSize="small">
+  <nz-list-header>Reports</nz-list-header>
+
+  <nz-list-item *ngFor="let report of ms.game.battleStats; let i = index">
+    <strong>{{ listOfFleets[report.fleetNum].label }}</strong>
+    <strong [ngClass]="report.battleResult.won ? 'text-success' : 'text-error'">
+      {{ report.battleResult.won ? "Won" : "Lost" }}
+    </strong>
+    <span> {{ report.name }}</span>
+
+    <ul nz-list-item-actions>
+      <nz-list-item-action>
+        <a [routerLink]="'/report/' + report.id"
+          ><i nz-icon nzType="eye" nzTheme="outline"></i> View</a
+        >
+      </nz-list-item-action>
+    </ul>
+  </nz-list-item>
+</nz-list>

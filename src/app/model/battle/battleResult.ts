@@ -43,4 +43,5 @@ export class BattleResult {
   gameId: string;
   stats: Stats[];
   endTime: DOMHighResTimeStamp;
+  won = false;
 }

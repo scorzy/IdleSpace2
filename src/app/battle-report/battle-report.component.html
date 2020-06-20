@@ -1,8 +1,10 @@
-<h2>Battle Reports</h2>
+<h2>
+  {{ name }}
+</h2>
 <nz-collapse nzBordered="true">
   <nz-collapse-panel nzHeader="Options" [nzActive]="true">
     <form nzLayout="horizontal" nz-form>
-      <nz-form-item>
+      <!-- <nz-form-item>
         <nz-form-label>Fleet and Report</nz-form-label>
         <nz-select
           class="select-fleet"
@@ -30,7 +32,7 @@
             [nzValue]="i"
           ></nz-option>
         </nz-select>
-      </nz-form-item>
+      </nz-form-item> -->
       <nz-form-item>
         <nz-form-label>Rounds</nz-form-label>
         <nz-select

@@ -36,7 +36,6 @@ export class AutomationManager {
   load(save: any) {
     if (!("l" in save)) return false;
     for (const data of save.l) {
-      console.log(data);
       if ("i" in data) {
         const auto = this.autobuyers.find((a) => a.id === data.i);
         if (auto) {

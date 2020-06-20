@@ -85,7 +85,7 @@ export class ResearchManager extends JobManager {
     this.researches = RESEARCHES.map((resData) => new Research(resData, this));
     this.nukeResearch = this.researches.find((res) => res.id === "b");
     this.searching = this.researches.find((res) => res.id === "h");
-    this.searching = this.researches.find((res) => res.id === "ns");
+    this.scavenging = this.researches.find((res) => res.id === "ns");
     for (let i = 0; i < 9; i++) {
       const resData: IResearchData = {
         id: "n" + i,

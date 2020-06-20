@@ -27,7 +27,14 @@ export class Game {
 
   navalCapacity: number = BASE_NAVAL_CAPACITY;
 
-  battleStats: Array<{ name: string; stats: Stats[] }[]>;
+  battleStats: Array<{
+    id: string;
+    fleetNum: number;
+    name: string;
+    stats: Stats[];
+    battleResult: BattleResult;
+  }>;
+  lastId = 0;
   updateStats = true;
 
   civilianWorkPercent = 50;
@@ -71,10 +78,13 @@ export class Game {
     this.automationManager = new AutomationManager();
 
     this.setTheme();
-    this.battleStats = Array<{ name: string; stats: Stats[] }[]>();
-    for (let i = 0; i < FLEET_NUMBER; i++) {
-      this.battleStats.push(new Array<{ name: string; stats: Stats[] }>());
-    }
+    this.battleStats = Array<{
+      id: string;
+      fleetNum: number;
+      name: string;
+      stats: Stats[];
+      battleResult: BattleResult;
+    }>();
   }
   private generateGameId() {
     this._gameId = Date.now().toString() + Math.random().toString();
@@ -197,6 +207,8 @@ export class Game {
       if (now >= battleResult.endTime) {
         if (this.enemyManager.currentEnemy && this.updateStats) {
           const toAdd = {
+            id: "" + this.lastId++,
+            fleetNum,
             name:
               this.enemyManager.currentEnemy.name +
               " lv." +
@@ -205,10 +217,11 @@ export class Game {
               this.enemyManager.fleetsInBattle[fleetNum].index +
               " " +
               new DatePipe("en-US").transform(Date.now(), "HH:mm:sss"),
-            stats: battleResult.stats
+            stats: battleResult.stats,
+            battleResult
           };
-          this.battleStats[fleetNum].push(toAdd);
-          this.battleStats[fleetNum].splice(30);
+          this.battleStats.push(toAdd);
+          this.battleStats.splice(30);
         }
 
         this.shipyardManager.onBattleEnd(battleResult, fleetNum);

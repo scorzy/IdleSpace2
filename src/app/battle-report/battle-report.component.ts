@@ -3,11 +3,14 @@ import {
   ChangeDetectionStrategy,
   OnInit,
   OnDestroy,
-  AfterViewInit
+  AfterViewInit,
+  ChangeDetectorRef
 } from "@angular/core";
 import { Stats } from "../model/battle/battleResult";
 import { BaseComponentComponent } from "../base-component/base-component.component";
 import { FLEET_NUMBER } from "../model/CONSTANTS";
+import { MainService } from "../main.service";
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: "app-battle-report",
@@ -20,6 +23,7 @@ export class BattleReportComponent extends BaseComponentComponent
   fleet = -1;
   report = -1;
   stats: Stats[];
+  name: string = "";
   listOfFleets: Array<{ label: string; value: string }> = [];
 
   listOfRounds: Array<{ label: string; value: string }> = [
@@ -51,7 +55,13 @@ export class BattleReportComponent extends BaseComponentComponent
   listOfSelectedRounds = [];
 
   listOfSelectedValues = [];
-
+  constructor(
+    ms: MainService,
+    cd: ChangeDetectorRef,
+    private route: ActivatedRoute
+  ) {
+    super(ms, cd);
+  }
   ngOnInit() {
     this.ms.game.updateStats = false;
     for (let i = 0; i < FLEET_NUMBER; i++) {
@@ -60,11 +70,27 @@ export class BattleReportComponent extends BaseComponentComponent
         value: "" + i
       });
     }
+    this.route.paramMap.subscribe((paramMap) => {
+      const result = this.ms.game.battleStats.find(
+        (b) => b.id == paramMap.get("id")
+      );
+      if (result) {
+        this.name =
+          this.listOfFleets[result.fleetNum].label + " " + result.name;
+        this.stats = result.stats;
+      }
+      this.cd.markForCheck();
+    });
   }
+
   reload(): void {
     if (this.fleet > -1 && this.report > -1) {
       this.stats = this.ms.game.battleStats[this.fleet][this.report].stats;
     }
+  }
+  ngOnDestroy() {
+    this.ms.game.updateStats = true;
+    super.ngOnDestroy();
   }
   getValue(data: Stats, round: string, value: string) {
     const stat =

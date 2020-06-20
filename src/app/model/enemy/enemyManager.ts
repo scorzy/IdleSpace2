@@ -231,6 +231,7 @@ export class EnemyManager extends JobManager {
     if (this.currentEnemy) {
       if (cell.done) {
         this.reward(cell, fleetNum);
+        battleResult.won = true;
         //#region Research Inspiration
         //  Ship types unlock
         const rm = Game.getGame().researchManager;

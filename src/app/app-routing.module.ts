@@ -22,6 +22,7 @@ import { HtmlTreeComponent } from "./laboratory/html-tree/html-tree.component";
 import { BuildingsComponent } from "./units/buildings/buildings.component";
 import { DepartmentComponent } from "./units/department/department.component";
 import { NotificationListComponent } from "./notification-list/notification-list.component";
+import { ReportListComponent } from "./battle-report/report-list/report-list.component";
 export const routes: Routes = [
   { path: "", pathMatch: "full", redirectTo: "/units/ws" },
   { path: "des", pathMatch: "full", redirectTo: "/des/add" },
@@ -49,7 +50,8 @@ export const routes: Routes = [
   },
   { path: "search", component: SearchComponent },
   { path: "battle", component: BattleComponent },
-  { path: "report", component: BattleReportComponent },
+  { path: "report-list", component: ReportListComponent },
+  { path: "report/:id", component: BattleReportComponent },
   { path: "modules", component: ModulesComponent },
   { path: "space", component: SpaceStationsComponent },
   {
