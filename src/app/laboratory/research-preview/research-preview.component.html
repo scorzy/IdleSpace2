@@ -13,7 +13,7 @@
     <span class="text-secondary">Unlock research:</span> {{ res.name }}
   </li>
   <li *ngFor="let tech of research.technologiesToUnlock; trackBy: getId">
-    <span class="text-secondary">Unlock technology:</span>{{ tech.name }}
+    <span class="text-secondary">Unlock technology:</span> {{ tech.name }}
   </li>
   <li *ngFor="let mod of research.modulesToUnlock; trackBy: getId">
     <span class="text-secondary">Unlock ship module:</span> {{ mod.name }}

@@ -19,6 +19,7 @@ export interface IResearchData {
   growRate?: number;
   unitsToUnlock?: string[];
   researchToUnlock?: string[];
+  unlockFrom?: string;
   technologiesToUnlock?: string[];
   type: IJobType;
   researchBonus?: { type: IJobType; bonus: DecimalSource }[];

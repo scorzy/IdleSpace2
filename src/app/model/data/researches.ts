@@ -57,7 +57,8 @@ export const RESEARCHES: IResearchData[] = [
     type: TECHNOLOGIES.Search,
     unitsToUnlock: ["r", "R", "6"],
     researchToUnlock: ["h0"],
-    technologiesToUnlock: ["r"]
+    technologiesToUnlock: ["r"],
+    inspirationDescription: "Defeat an enemy"
   },
   {
     id: "P",
@@ -87,7 +88,8 @@ export const RESEARCHES: IResearchData[] = [
       { unitId: "r", multi: 0.3 },
       { unitId: "X", multi: 0.3 },
       { unitId: "B", multi: 0.3 }
-    ]
+    ],
+    inspirationBuildingId: "7"
   },
   {
     id: "M",
@@ -97,7 +99,11 @@ export const RESEARCHES: IResearchData[] = [
     type: TECHNOLOGIES.Materials,
     technologiesToUnlock: ["m"],
     researchToUnlock: ["x", "N", "P", "M0"],
-    inspirationBuildingId: "4"
+    inspirationBuildingId: "4",
+    prodMulti: [
+      { unitId: "m", multi: 0.3 },
+      { unitId: "e", multi: 0.1 }
+    ]
   },
   {
     id: "N",
@@ -107,7 +113,8 @@ export const RESEARCHES: IResearchData[] = [
     type: TECHNOLOGIES.Mining,
     technologiesToUnlock: [TECHNOLOGIES.Mining.id],
     prodMulti: [{ unitId: "m", multi: 0.5 }],
-    researchToUnlock: ["N1"]
+    researchToUnlock: ["N1"],
+    inspirationBuildingId: "1"
   },
   {
     id: "E",
@@ -119,7 +126,8 @@ export const RESEARCHES: IResearchData[] = [
     limitMulti: [{ unitId: "E", multi: 1 }],
     effMulti: [{ unitId: "e", multi: 0.05 }],
     modulesToUnlock: ["R"],
-    researchToUnlock: ["E1"]
+    researchToUnlock: ["E1"],
+    inspirationBuildingId: "2"
   },
   {
     id: "b",
@@ -140,7 +148,8 @@ export const RESEARCHES: IResearchData[] = [
       { materialId: "E", multi: 1 },
       { materialId: "A", multi: 1 },
       { materialId: "x", multi: 1 }
-    ]
+    ],
+    inspirationDescription: "Defeat an enemy"
   },
   {
     id: "me",
@@ -148,5 +157,29 @@ export const RESEARCHES: IResearchData[] = [
     description: "Unlock Megastructures",
     type: TECHNOLOGIES.CivilEngineering,
     unitsToUnlock: megastructures
+  },
+  {
+    id: "hz1",
+    name: "Habitable zone",
+    description: "",
+    type: TECHNOLOGIES.Search,
+    unlockFrom: "h",
+    battleMulti: [
+      { materialId: "j", multi: 0.2 },
+      { materialId: "P", multi: 0.2 },
+      { materialId: "k", multi: 0.2 }
+    ]
+  },
+  {
+    id: "hz2",
+    name: "Optimistic zone",
+    description: "",
+    type: TECHNOLOGIES.Search,
+    unlockFrom: "h1",
+    battleMulti: [
+      { materialId: "j", multi: 0.25 },
+      { materialId: "P", multi: 0.25 },
+      { materialId: "k", multi: 0.25 }
+    ]
   }
 ];

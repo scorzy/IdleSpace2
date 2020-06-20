@@ -243,7 +243,7 @@ export class EnemyManager extends JobManager {
               (des) => des.type === shipResToInspire.shipTypeToUnlock
             ) > -1
           )
-            shipResToInspire.inspire;
+            shipResToInspire.inspire();
         }
         //  Nuke
         if (this.currentEnemy.designs.findIndex((des) => des.isDefence) > -1) {
@@ -319,6 +319,9 @@ export class EnemyManager extends JobManager {
   }
   defeatEnemy() {
     // TODO:
+    Game.getGame().researchManager.searching.inspire();
+    Game.getGame().researchManager.scavenging.inspire();
+
     if (this.currentEnemy.level >= this.maxLevel) {
       this.maxLevel++;
     }
