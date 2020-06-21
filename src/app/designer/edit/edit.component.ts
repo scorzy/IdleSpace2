@@ -209,6 +209,7 @@ export class EditComponent extends BaseComponentComponent
     this.design.maximize();
     this.design.modules.forEach((mod) => {
       mod.levelUi = MainService.formatPipe.transform(mod.level, true);
+      this.reload();
     });
     this.changeEmitter.emit("1");
   }

@@ -477,7 +477,7 @@ export class ShipDesign {
   getShipData(): ShipData {
     const ret = new ShipData();
     ret.designId = this.id;
-    ret.name = this.name;
+    ret.name = this.name + " r. " + this.rev;
     ret.totalArmour = this.totalArmour;
     ret.totalShield = this.totalShield;
     ret.armourReduction = this.armourReduction;

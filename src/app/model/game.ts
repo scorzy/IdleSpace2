@@ -221,7 +221,7 @@ export class Game {
             date: Date.now(),
             battleResult
           };
-          this.battleStats.push(toAdd);
+          this.battleStats.unshift(toAdd);
           this.battleStats.splice(30);
         }
 
