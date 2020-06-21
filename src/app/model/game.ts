@@ -32,6 +32,7 @@ export class Game {
     fleetNum: number;
     name: string;
     stats: Stats[];
+    date: number;
     battleResult: BattleResult;
   }>;
   lastId = 0;
@@ -83,6 +84,7 @@ export class Game {
       fleetNum: number;
       name: string;
       stats: Stats[];
+      date: number;
       battleResult: BattleResult;
     }>();
   }
@@ -214,10 +216,9 @@ export class Game {
               " lv." +
               this.enemyManager.currentEnemy.level +
               " cell: " +
-              this.enemyManager.fleetsInBattle[fleetNum].index +
-              " " +
-              new DatePipe("en-US").transform(Date.now(), "HH:mm:sss"),
+              this.enemyManager.fleetsInBattle[fleetNum].index,
             stats: battleResult.stats,
+            date: Date.now(),
             battleResult
           };
           this.battleStats.push(toAdd);

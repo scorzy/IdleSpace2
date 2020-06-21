@@ -1,19 +1,35 @@
-<nz-list nzBordered nzSize="small">
-  <nz-list-header>Reports</nz-list-header>
-
-  <nz-list-item *ngFor="let report of ms.game.battleStats; let i = index">
-    <strong>{{ listOfFleets[report.fleetNum].label }}</strong>
-    <strong [ngClass]="report.battleResult.won ? 'text-success' : 'text-error'">
-      {{ report.battleResult.won ? "Won" : "Lost" }}
-    </strong>
-    <span> {{ report.name }}</span>
-
-    <ul nz-list-item-actions>
-      <nz-list-item-action>
+<h2>Battle Reports</h2>
+<nz-table #reportTable [nzData]="ms.game.battleStats">
+  <thead>
+    <tr>
+      <th>Fleet</th>
+      <th>Date</th>
+      <th>Enemy</th>
+      <th>Status</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let report of reportTable.data">
+      <td>
+        <strong>{{ listOfFleets[report.fleetNum].label }}</strong>
+      </td>
+      <td>{{ report.date | date: "d/M/yy HH:mm:sss" }}</td>
+      <td>
+        <span> {{ report.name }}</span>
+      </td>
+      <td>
+        <strong
+          [ngClass]="report.battleResult.won ? 'text-success' : 'text-error'"
+        >
+          {{ report.battleResult.won ? "Won" : "Lost" }}
+        </strong>
+      </td>
+      <td>
         <a [routerLink]="'/report/' + report.id"
           ><i nz-icon nzType="eye" nzTheme="outline"></i> View</a
         >
-      </nz-list-item-action>
-    </ul>
-  </nz-list-item>
-</nz-list>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>
