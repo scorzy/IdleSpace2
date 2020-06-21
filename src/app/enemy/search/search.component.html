@@ -57,7 +57,12 @@
         </nz-form-item>
       </form>
       <nz-button-group>
-        <button nz-button nzType="primary" (click)="search()">
+        <button
+          nz-button
+          nzType="primary"
+          (click)="search()"
+          [disabled]="ms.game.enemyManager.toDo.length >= MAX_SEARCH_JOB"
+        >
           Search
         </button>
         <button nz-button nzType="secondary" (click)="reset()">
@@ -77,7 +82,7 @@
     <div fxLayout="column">
       <!-- Results -->
       <div>
-        <h2>Results</h2>
+        <!-- <h2>Results</h2> -->
         <nz-table nzTemplateMode nzSize="small">
           <tbody>
             <tr *ngFor="let tile of expectedTiles; trackBy: getExpTileId">
@@ -114,7 +119,7 @@
       </div>
       <!-- Jobs -->
       <div>
-        <h2>Jobs</h2>
+        <!-- <h2>Jobs</h2> -->
         <div
           cdkDropList
           [cdkDropListData]="ms.game.enemyManager.toDo"

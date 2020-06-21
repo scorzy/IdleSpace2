@@ -47,6 +47,7 @@ export const DISTRICT_MAX_OPT_END = 80;
 export const DISTRICT_MIN_OPT_END = 40;
 export const SCIENCE_DISTRICT_MULTI = 0.6;
 export const COMPONENTS_DISTRICT_MULTI = 0.4;
+export const MAX_SEARCH_JOB = 10;
 
 // Modules
 export const PRICE_GROW_RATE = 1.05;

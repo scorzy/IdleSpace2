@@ -82,11 +82,20 @@ export class EnemyManager extends JobManager {
     ];
   }
   search(level: number) {
-    const job = new SearchJob();
-    job.enemyLevel = level;
-    job.reloadTotalBonus();
-    job.reload();
-    this.toDo.push(job);
+    const searchJob = new SearchJob();
+    searchJob.enemyLevel = level;
+    searchJob.habitabilityOpt = this.habitabilityOpt.quantity;
+    searchJob.difficultyOpt = this.difficultyOpt.quantity;
+    searchJob.distanceOpt = this.distanceOpt.quantity;
+    searchJob.energyOpt = this.energyOpt.quantity;
+    searchJob.metalOpt = this.metalOpt.quantity;
+    searchJob.scienceOpt = this.scienceOpt.quantity;
+    searchJob.componentOpt = this.componentOpt.quantity;
+    searchJob.init();
+    this.toDo.push(searchJob);
+  }
+  sortJobs() {
+    this.toDo = this.toDo.sort((a, b) => a.enemyLevel - b.enemyLevel);
   }
   generateEnemy(searchJob: SearchJob) {
     const enemy = new Enemy();

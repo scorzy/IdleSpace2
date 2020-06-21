@@ -11,7 +11,7 @@ import { ActivatedRoute } from "@angular/router";
 import { CdkDragDrop, moveItemInArray } from "@angular/cdk/drag-drop";
 import { SearchJob } from "src/app/model/enemy/searchJob";
 import { SearchOption, SearchRange } from "src/app/model/enemy/searchOption";
-import { ZERO } from "src/app/model/CONSTANTS";
+import { ZERO, MAX_SEARCH_JOB } from "src/app/model/CONSTANTS";
 import { Unit } from "src/app/model/units/unit";
 import { Enemy } from "src/app/model/enemy/enemy";
 import { BaseComponentComponent } from "src/app/base-component/base-component.component";
@@ -24,6 +24,7 @@ import { BaseComponentComponent } from "src/app/base-component/base-component.co
 })
 export class SearchComponent extends BaseComponentComponent
   implements OnInit, OnDestroy, AfterViewInit {
+  MAX_SEARCH_JOB = MAX_SEARCH_JOB;
   searchLevel = 0;
   expectedPrice = ZERO;
   expectedTiles: { unit: Unit; range: SearchRange }[];
@@ -69,17 +70,7 @@ export class SearchComponent extends BaseComponentComponent
     );
   }
   search() {
-    const searchJob = new SearchJob();
-    searchJob.enemyLevel = this.searchLevel;
-    searchJob.habitabilityOpt = this.ms.game.enemyManager.habitabilityOpt.quantity;
-    searchJob.difficultyOpt = this.ms.game.enemyManager.difficultyOpt.quantity;
-    searchJob.distanceOpt = this.ms.game.enemyManager.distanceOpt.quantity;
-    searchJob.energyOpt = this.ms.game.enemyManager.energyOpt.quantity;
-    searchJob.metalOpt = this.ms.game.enemyManager.metalOpt.quantity;
-    searchJob.scienceOpt = this.ms.game.enemyManager.scienceOpt.quantity;
-    searchJob.componentOpt = this.ms.game.enemyManager.componentOpt.quantity;
-    searchJob.init();
-    this.ms.game.enemyManager.toDo.push(searchJob);
+    this.ms.game.enemyManager.search(this.searchLevel);
   }
   getJobId(index: number, searchJob: SearchJob) {
     return searchJob.id;
