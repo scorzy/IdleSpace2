@@ -58,7 +58,12 @@ export class Building extends Unit {
   afterBuy(): boolean {
     if (!this.researchesToInspire) return false;
     for (let i = 0, n = this.researchesToInspire.length; i < n; i++) {
-      if (this.researchesToInspire[i].inspire()) break;
+      if (
+        this.researchesToInspire[i].inspire() ||
+        (this.researchesToInspire[i].inspiration &&
+          this.researchesToInspire[i].level < this.researchesToInspire[i].max)
+      )
+        break;
     }
     return true;
   }

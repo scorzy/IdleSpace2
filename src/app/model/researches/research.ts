@@ -221,11 +221,12 @@ export class Research extends Job implements IUnlockable, IBase {
   }
   inspire(): boolean {
     if (this.inspiration) return false;
+
     const rm = Game.getGame().researchManager;
     if (rm.done.indexOf(this) > -1) return false;
-    if (!(rm.backlog.indexOf(this) > -1 || rm.toDo.indexOf(this) > -1)) {
-      return false;
-    }
+    // if (!(rm.backlog.indexOf(this) > -1 || rm.toDo.indexOf(this) > -1)) {
+    //   return false;
+    // }
 
     this.inspiration = true;
     this.addProgress(this.total.times(INSPIRATION_PERCENT), true);

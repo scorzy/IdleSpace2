@@ -36,6 +36,7 @@ export class ResearchManager extends JobManager {
   nukeResearch: Research;
   searching: Research;
   scavenging: Research;
+  robotics: Research;
   //#endregion
   //#region Technologies
   militaryEngTech: Technology;
@@ -86,6 +87,8 @@ export class ResearchManager extends JobManager {
     this.nukeResearch = this.researches.find((res) => res.id === "b");
     this.searching = this.researches.find((res) => res.id === "h");
     this.scavenging = this.researches.find((res) => res.id === "ns");
+    this.robotics = this.researches.find((res) => res.id === "x");
+
     for (let i = 0; i < 9; i++) {
       const resData: IResearchData = {
         id: "n" + i,
@@ -311,9 +314,6 @@ export class ResearchManager extends JobManager {
       resData.researchToUnlock.push(
         OPTIMIZED_SHIP_PREFIX + shipyard.shipTypes[i].id
       );
-      if (i === 1) {
-        resData.researchToUnlock.push("n");
-      }
       this.researches.push(new Research(resData, this));
     }
     for (let i = 0, n = shipyard.shipTypes.length; i < n; i++) {

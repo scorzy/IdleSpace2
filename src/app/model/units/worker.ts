@@ -107,6 +107,7 @@ export class Worker extends Unit {
     const components = Game.getGame().resourceManager.components;
     components.quantity = components.quantity.plus(toAdd);
     Game.getGame().resourceManager.deployComponents();
+    Game.getGame().researchManager.robotics.inspire();
     this.reloadAll();
   }
   reloadLimit() {

@@ -12,7 +12,7 @@ export const RESEARCHES: IResearchData[] = [
     name: "Metallurgist",
     description: "Unlock Metallurgists",
     unitsToUnlock: ["A", "a", "w", "W", "4", "5"],
-    researchToUnlock: ["h", "p", "M", "s1", OPTIMIZED_SHIP_PREFIX + 1],
+    researchToUnlock: ["h", "p", "M", "s1", "n", OPTIMIZED_SHIP_PREFIX + 1],
     max: 1,
     priceMulti: 20,
     type: TECHNOLOGIES.MilitaryEngineering,
@@ -89,7 +89,7 @@ export const RESEARCHES: IResearchData[] = [
       { unitId: "X", multi: 0.3 },
       { unitId: "B", multi: 0.3 }
     ],
-    inspirationBuildingId: "7"
+    inspirationDescription: "Mod any drones"
   },
   {
     id: "M",
