@@ -1,0 +1,22 @@
+<h2>Automation</h2>
+
+<form nz-form nzLayout="inline">
+  <nz-form-item>
+    <nz-form-label nz-popover>
+      Global Automation ON
+    </nz-form-label>
+    <nz-form-control>
+      <nz-input-group nzCompact>
+        <nz-switch
+          name="auto-on"
+          [(ngModel)]="ms.game.automationManager.on"
+          nzSize="small"
+        ></nz-switch>
+      </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
+</form>
+
+<nz-card nzTitle="Fleet design updater" nzSize="small" style="width: 300px;">
+  <app-auto-fleet-up></app-auto-fleet-up>
+</nz-card>

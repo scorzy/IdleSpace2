@@ -47,7 +47,7 @@
               class="lockIcon"
             ></i>
             <span class="monospace" nz-tooltip nzTooltipTitle="Max Level">
-              {{ mod.maxLevel | format: true }}
+              {{ mod.maxLevel - 1 | format: true }}
             </span>
           </span>
           <app-module-info [mod]="mod"></app-module-info>

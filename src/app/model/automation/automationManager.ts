@@ -2,10 +2,14 @@ import { AbstractAutobuyer } from "./abstractAutoBuyer";
 import { Game } from "../game";
 import { AutoBuilding } from "./autoBuilding";
 import { AutoWorker } from "./autoWorker";
+import { AutoFleetUpdate } from "./autoFleetUpdate";
 
 export class AutomationManager {
+  on = true;
   autobuyers = new Array<AbstractAutobuyer>();
   orderedAutoBuyers = new Array<AbstractAutobuyer>();
+  fleetUpdater: AutoFleetUpdate;
+
   constructor() {
     const game = Game.getGame();
     game.resourceManager.buildings.forEach((building) => {
@@ -14,10 +18,16 @@ export class AutomationManager {
     game.resourceManager.workers.forEach((worker) => {
       this.autobuyers.push(new AutoWorker(worker));
     });
+
+    this.fleetUpdater = new AutoFleetUpdate();
+    this.autobuyers.push(this.fleetUpdater);
+
     this.autobuyers.forEach((a) => a.reload());
     this.sort();
   }
   update() {
+    if (!this.on) return false;
+
     const now = Date.now();
     for (let i = 0, n = this.orderedAutoBuyers.length; i < n; i++) {
       this.orderedAutoBuyers[i].execute(now);
@@ -31,10 +41,11 @@ export class AutomationManager {
 
   //#region Save and Load
   getSave(): any {
-    return { l: this.autobuyers.map((a) => a.getSave()) };
+    return { o: this.on, l: this.autobuyers.map((a) => a.getSave()) };
   }
   load(save: any) {
     if (!("l" in save)) return false;
+    if ("o" in save) this.on = save.o;
     for (const data of save.l) {
       if ("i" in data) {
         const auto = this.autobuyers.find((a) => a.id === data.i);
