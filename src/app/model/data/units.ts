@@ -356,7 +356,7 @@ export const UNITS: IUnitData[] = [
   {
     id: "1",
     name: "Mine",
-    description: "+10 miners",
+    description: "+" + BUILDING_LIMIT + " miners",
     icon: "my:gold-mine",
     colorClass: "metal-color",
     startQuantity: 1,
@@ -371,7 +371,7 @@ export const UNITS: IUnitData[] = [
     id: "2",
     name: "Power Plant",
     icon: "my:solar-power_2",
-    description: "+10 technicians",
+    description: "+" + BUILDING_LIMIT + " technicians",
     colorClass: "energy-color",
     startQuantity: 1,
     prices: [
@@ -400,7 +400,7 @@ export const UNITS: IUnitData[] = [
     name: "Laboratory",
     icon: "fa-s:microscope",
     colorClass: "science-color",
-    description: "+10 scientists",
+    description: "+" + BUILDING_LIMIT + " scientists",
     prices: [
       ["M", METAL_BUILDING_PRICE * 2],
       ["j", 10]
@@ -411,7 +411,7 @@ export const UNITS: IUnitData[] = [
   {
     id: "4",
     name: "Foundry",
-    description: "+10 metallurgists",
+    description: "+" + BUILDING_LIMIT + " metallurgists",
     icon: "my:foundry-bucket",
     colorClass: "alloy-color",
     prices: [
@@ -425,7 +425,7 @@ export const UNITS: IUnitData[] = [
   {
     id: "5",
     name: "Factory",
-    description: "+10 workers",
+    description: "+" + BUILDING_LIMIT + " workers",
     icon: "my:factory",
     colorClass: "production-color",
     prices: [
@@ -439,7 +439,7 @@ export const UNITS: IUnitData[] = [
   {
     id: "6",
     name: "Observatory",
-    description: "+10 searchers",
+    description: "+" + BUILDING_LIMIT + " searchers",
     icon: "my:observatory",
     colorClass: "search-color",
     prices: [
@@ -453,7 +453,7 @@ export const UNITS: IUnitData[] = [
   {
     id: "7",
     name: "Drone Factory",
-    description: "+10 replicators",
+    description: "+" + BUILDING_LIMIT + " replicators",
     icon: "my:factory-arm",
     colorClass: "component-color",
     prices: [
@@ -480,7 +480,7 @@ export const UNITS: IUnitData[] = [
   {
     id: "10",
     name: "Nuke Factory",
-    description: "+10 nuke specialists",
+    description: "+" + BUILDING_LIMIT + " nuke specialists",
     icon: "my:factory",
     colorClass: "nuke-color",
     prices: [

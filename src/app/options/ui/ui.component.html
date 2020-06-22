@@ -55,4 +55,11 @@
       (ngModelChange)="changeUsaFormat()"
     ></nz-switch>
   </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="small">
+      Small Headers
+    </nz-form-label>
+    <nz-switch name="small" [(ngModel)]="os.compactCardHeader"></nz-switch>
+  </nz-form-item>
 </form>

@@ -19,6 +19,7 @@ import { Router } from "@angular/router";
 import { BaseComponentComponent } from "src/app/base-component/base-component.component";
 import { Bonus } from "src/app/model/bonus/bonus";
 import { Building } from "src/app/model/units/building";
+import { OptionsService } from "src/app/options.service";
 
 @Component({
   selector: "app-unit-card",
@@ -43,6 +44,7 @@ export class UnitCardComponent extends BaseComponentComponent
   constructor(
     ms: MainService,
     cd: ChangeDetectorRef,
+    public os: OptionsService,
     private modalService: NzModalService,
     public breakpointObserver: BreakpointObserver,
     private router: Router

@@ -17,6 +17,7 @@ export class OptionsService {
   themeId = "dark-blue";
   darkSide = true;
   darkHeader = true;
+  compactCardHeader = false;
   constructor() {
     try {
       const n = 1.1;
@@ -51,12 +52,14 @@ export class OptionsService {
     return {
       u: OptionsService.usaFormat,
       t: this.themeId,
-      d: this.darkSide
+      d: this.darkSide,
+      c: this.compactCardHeader
     };
   }
   load(data: any) {
     if ("u" in data) OptionsService.usaFormat = data.u;
     if ("t" in data) this.themeId = data.t;
     if ("d" in data) this.darkSide = data.d;
+    if ("c" in data) this.compactCardHeader = data.c;
   }
 }

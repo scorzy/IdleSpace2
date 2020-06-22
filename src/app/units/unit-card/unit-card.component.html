@@ -92,6 +92,7 @@
 
 <ng-template #cardTitleTemplate>
   <nz-card-meta
+    *ngIf="!os.compactCardHeader; else smallHeader"
     [nzAvatar]="avatarTemplate"
     [nzTitle]="title"
     [nzDescription]="description"
@@ -99,6 +100,20 @@
     [nzPopoverContent]="limitPopover"
   ></nz-card-meta>
 </ng-template>
+
+<ng-template #smallHeader>
+  <span nz-popover [nzPopoverContent]="limitPopover">
+    <i nz-icon [nzType]="unit.icon" [ngClass]="unit.colorClass"></i>
+    <strong> {{ unit.name }}</strong>
+    <span class="monospace text-secondary">
+      {{ unit.quantity | format: true }}
+      <span *ngIf="unit.limit.lt(Decimal.MAX_VALUE)">
+        /{{ unit.limit | format: true }}
+      </span>
+    </span>
+  </span></ng-template
+>
+
 <ng-template #avatarTemplate>
   <i nz-icon [nzType]="unit.icon" [ngClass]="unit.colorClass"></i>
 </ng-template>
@@ -108,10 +123,8 @@
 <ng-template #description>
   <span class="monospace">
     {{ unit.quantity | format: true }}
-    <!-- ({{ unit.manualBought | format }}) -->
     <span *ngIf="unit.limit.lt(Decimal.MAX_VALUE)">
-      /
-      {{ unit.limit | format: true }}
+      /{{ unit.limit | format: true }}
     </span>
   </span>
 </ng-template>

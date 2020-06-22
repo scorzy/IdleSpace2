@@ -17,7 +17,7 @@ export class TimePipe implements PipeTransform {
   }
 
   transform(value: number, format?: number): any {
-    if (!isNaN(value) && value > 0 && value < Number.POSITIVE_INFINITY) {
+    if (!isNaN(value) && value >= 0 && value < Number.POSITIVE_INFINITY) {
       const dateEnd = new Date(Date.now() + value);
       if (isValid(dateEnd)) {
         return format === 1
