@@ -2,7 +2,7 @@
   <nz-form-item>
     <nz-form-label
       nz-popover
-      nzPopoverTitle="Fleet updater"
+      nzPopoverTitle="Auto Search"
       [nzPopoverContent]="autoInfoTemplate"
     >
       On
@@ -10,15 +10,15 @@
     <nz-form-control>
       <nz-input-group nzCompact>
         <nz-switch
-          name="afus"
-          [(ngModel)]="ms.game.automationManager.fleetUpdater.on"
+          name="aus"
+          [(ngModel)]="ms.game.automationManager.autoSearch.on"
           nzSize="small"
         ></nz-switch>
         <nz-select
           nzSize="small"
           class="autoTime"
-          [(ngModel)]="ms.game.automationManager.fleetUpdater.interval"
-          name="afu"
+          [(ngModel)]="ms.game.automationManager.autoSearch.interval"
+          name="aus-i"
         >
           <nz-option
             *ngFor="let interval of INTERVALS; trackBy: getIntervalId"

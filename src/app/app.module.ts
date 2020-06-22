@@ -96,6 +96,7 @@ import { AutoWorkerComponent } from "./auto-buy/auto-worker/auto-worker.componen
 import { ReportListComponent } from "./battle-report/report-list/report-list.component";
 import { AutomationComponent } from "./automation/automation.component";
 import { AutoFleetUpComponent } from "./auto-buy/auto-fleet-up/auto-fleet-up.component";
+import { AutoSearchComponent } from './auto-buy/auto-search/auto-search.component';
 
 registerLocaleData(en);
 
@@ -157,7 +158,8 @@ const ngZorroConfig: NzConfig = {
     AutoWorkerComponent,
     ReportListComponent,
     AutomationComponent,
-    AutoFleetUpComponent
+    AutoFleetUpComponent,
+    AutoSearchComponent
   ],
   imports: [
     BrowserModule,
