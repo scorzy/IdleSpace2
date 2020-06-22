@@ -377,6 +377,7 @@ export class ResearchManager extends JobManager {
   setRelations() {
     const rs = Game.getGame().resourceManager;
     const sm = Game.getGame().shipyardManager;
+    const em = Game.getGame().enemyManager;
     this.researches.forEach((res) => {
       if ("unlockFrom" in res.resData) {
         const resParent = this.researches.find(
@@ -497,6 +498,31 @@ export class ResearchManager extends JobManager {
           }
           building.departmentResearches.push(res);
         });
+      }
+
+      if ("districtMulti" in resData) {
+        res.districtMultiplier = resData.districtMulti;
+        em.districtMultiplier.bonuses.push(
+          new Bonus(res, new Decimal(res.districtMultiplier))
+        );
+      }
+      if ("habSpaceMulti" in resData) {
+        res.habSpaceMulti = resData.habSpaceMulti;
+        em.habSpaceMultiplier.bonuses.push(
+          new Bonus(res, new Decimal(res.habSpaceMulti))
+        );
+      }
+      if ("miningDistMulti" in resData) {
+        res.miningDistMulti = resData.miningDistMulti;
+        em.miningDistMultiplier.bonuses.push(
+          new Bonus(res, new Decimal(res.miningDistMulti))
+        );
+      }
+      if ("energyDistMulti" in resData) {
+        res.energyDistMulti = resData.energyDistMulti;
+        em.energyDistMultiplier.bonuses.push(
+          new Bonus(res, new Decimal(res.energyDistMulti))
+        );
       }
     });
 

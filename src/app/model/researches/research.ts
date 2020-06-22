@@ -55,6 +55,10 @@ export class Research extends Job implements IUnlockable, IBase {
   speedMulti: number;
   inspiration = false;
   inspirationDescription = "";
+  districtMultiplier: number;
+  habSpaceMulti: number;
+  miningDistMulti: number;
+  energyDistMulti: number;
   constructor(researchData: IResearchData, researchManager: ResearchManager) {
     super();
     this.resData = researchData;

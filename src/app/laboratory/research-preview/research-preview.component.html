@@ -46,6 +46,22 @@
       more
     </span>
   </li>
+  <li *ngIf="research.districtMultiplier">
+    +{{ research.districtMultiplier | percent }} districts
+    <span class="text-secondary"> from enemies </span>
+  </li>
+  <li *ngIf="research.habSpaceMulti">
+    +{{ research.habSpaceMulti | percent }} habitable space
+    <span class="text-secondary"> from enemies </span>
+  </li>
+  <li *ngIf="research.miningDistMulti">
+    +{{ research.miningDistMulti | percent }} mining districts
+    <span class="text-secondary"> from enemies </span>
+  </li>
+  <li *ngIf="research.energyDistMulti">
+    +{{ research.energyDistMulti | percent }} energetic districts
+    <span class="text-secondary"> from enemies </span>
+  </li>
   <li *ngFor="let hsbBonus of research.spaceStationsToUp">
     <span class="text-secondary">{{ hsbBonus.spaceStation.name }}</span> +
     {{ hsbBonus.multi | percent }} habitable space

@@ -164,11 +164,7 @@ export const RESEARCHES: IResearchData[] = [
     description: "",
     type: TECHNOLOGIES.Search,
     unlockFrom: "h",
-    battleMulti: [
-      { materialId: "j", multi: 0.2 },
-      { materialId: "P", multi: 0.2 },
-      { materialId: "k", multi: 0.2 }
-    ]
+    districtMulti: 0.2
   },
   {
     id: "hz2",
@@ -176,10 +172,6 @@ export const RESEARCHES: IResearchData[] = [
     description: "",
     type: TECHNOLOGIES.Search,
     unlockFrom: "h1",
-    battleMulti: [
-      { materialId: "j", multi: 0.25 },
-      { materialId: "P", multi: 0.25 },
-      { materialId: "k", multi: 0.25 }
-    ]
+    districtMulti: 0.25
   }
 ];

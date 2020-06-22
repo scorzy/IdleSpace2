@@ -40,6 +40,9 @@ export class EnemyManager extends JobManager {
   private rewardString = "";
   //#region Bonus
   districtMultiplier: BonusStack = new BonusStack();
+  habSpaceMultiplier: BonusStack = new BonusStack();
+  miningDistMultiplier: BonusStack = new BonusStack();
+  energyDistMultiplier: BonusStack = new BonusStack();
   resourceMultiplier: BonusStack = new BonusStack();
   scienceMultiplier: BonusStack = new BonusStack();
   //#endregion

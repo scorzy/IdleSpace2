@@ -38,4 +38,8 @@ export interface IResearchData {
   speedMulti?: number;
   inspirationDescription?: string;
   inspirationBuildingId?: string;
+  districtMulti?: number;
+  habSpaceMulti?: number;
+  miningDistMulti?: number;
+  energyDistMulti?: number;
 }

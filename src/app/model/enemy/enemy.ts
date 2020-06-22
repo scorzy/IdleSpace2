@@ -273,6 +273,9 @@ export class Enemy {
     const em = Game.getGame().enemyManager;
     const rs = Game.getGame().resourceManager;
     em.districtMultiplier.reloadBonus();
+    em.habSpaceMultiplier.reloadBonus();
+    em.miningDistMultiplier.reloadBonus();
+    em.energyDistMultiplier.reloadBonus();
     em.resourceMultiplier.reloadBonus();
     em.scienceMultiplier.reloadBonus();
     rs.units.forEach((u) => {
@@ -319,10 +322,22 @@ export class Enemy {
         row = (row + 1) % 10;
         // const cell = sample(rowCell.length > 0 ? rowCell : this.cells);
         const cell = sample(rowCell);
-        const num =
+        let num =
           tile.unit.unitData.unitType === UNIT_TYPES.DISTRICT
             ? districtQuantity
             : materialQuantity;
+
+        switch (tile.unit) {
+          case rs.miningDistrict:
+            num = num.times(em.miningDistMultiplier.totalBonus);
+            break;
+          case rs.energyDistrict:
+            num = num.times(em.energyDistMultiplier.totalBonus);
+            break;
+          case rs.habitableSpace:
+            num = num.times(em.habSpaceMultiplier.totalBonus);
+            break;
+        }
         cell.addMaterial(tile.unit, num);
         switch (tile.unit) {
           case rs.miningDistrict:
