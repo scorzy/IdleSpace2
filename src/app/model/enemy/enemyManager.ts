@@ -166,8 +166,11 @@ export class EnemyManager extends JobManager {
       let maxTime = 0;
       for (let i = 0, n = playerDesign.length; i < n; i++) {
         const shipData = playerDesign[i].getShipData();
+        if (playerDesign[i].fleets[fleetNum].shipsQuantity < 1) continue;
+
         shipData.quantity = playerDesign[i].fleets[fleetNum].shipsQuantity;
         battleRequest.playerFleet.push(shipData);
+
         let tempMax = solveEquation(
           ZERO,
           playerDesign[i].acceleration,

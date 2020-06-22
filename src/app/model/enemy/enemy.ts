@@ -73,9 +73,14 @@ export class Enemy {
       minMulti = Math.abs(1 / minMulti);
       maxMulti = Math.abs(1 / maxMulti);
     }
+    const powMulti = Math.pow(MOD_LEVEL_EXP, level);
     return {
-      min: ENEMY_BASE_DISTANCE.times(level + 1).times(minMulti),
-      max: ENEMY_BASE_DISTANCE.times(level + 1).times(maxMulti)
+      min: ENEMY_BASE_DISTANCE.times(level + 2)
+        .times(minMulti)
+        .times(powMulti),
+      max: ENEMY_BASE_DISTANCE.times(level + 2)
+        .times(maxMulti)
+        .times(powMulti)
     };
   }
   generate(searchJob: SearchJob) {
@@ -149,8 +154,12 @@ export class Enemy {
     } else {
       //#region Ships
       this.modLevel =
-        Math.floor(100 * Math.pow(MOD_LEVEL_EXP, this.level) * modLevelMulti) /
-        10;
+        Math.floor(
+          (1 + this.level / 10) *
+            100 *
+            Math.pow(MOD_LEVEL_EXP, this.level) *
+            modLevelMulti
+        ) / 10;
       this.weaponDefenceRatio = 0.2 + Math.random() * 0.5;
       const sm = Game.getGame().shipyardManager;
       const maxShip = Math.floor(

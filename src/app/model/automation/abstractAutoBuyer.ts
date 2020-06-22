@@ -34,7 +34,6 @@ export abstract class AbstractAutobuyer {
       n: this.interval
     };
     if (this.on) ret.o = this.on;
-    console.log(ret);
     return ret;
   }
   load(save: any) {

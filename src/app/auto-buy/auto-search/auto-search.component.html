@@ -14,6 +14,12 @@
           [(ngModel)]="ms.game.automationManager.autoSearch.on"
           nzSize="small"
         ></nz-switch>
+        <nz-input-number
+          nzSize="small"
+          name="search-max-lv"
+          [nzMin]="0"
+          [(ngModel)]="ms.game.automationManager.autoSearch.maxLevel"
+        ></nz-input-number>
         <nz-select
           nzSize="small"
           class="autoTime"
@@ -35,6 +41,7 @@
   Options:
   <ul>
     <li>On / Off</li>
+    <li>Max Level</li>
     <li>Interval</li>
   </ul>
 </ng-template>

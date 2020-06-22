@@ -1,13 +1,12 @@
 import { AbstractAutobuyer } from "./abstractAutoBuyer";
 import { Game } from "../game";
 import { MAX_SEARCH_JOB } from "../CONSTANTS";
-import { SearchJob } from "../enemy/searchJob";
 
 export class AutoSearch extends AbstractAutobuyer {
   maxLevel = 0;
   automate(): boolean {
     const em = Game.getGame().enemyManager;
-    if (em.toDo.length >= MAX_SEARCH_JOB) return false;
+    if (em.toDo.length + em.enemies.length >= MAX_SEARCH_JOB) return false;
 
     let levelToSearch = this.maxLevel;
     if (levelToSearch > em.maxLevel) {
@@ -15,7 +14,10 @@ export class AutoSearch extends AbstractAutobuyer {
         levelToSearch = Math.min(this.maxLevel, em.currentEnemy.level + 1);
       }
 
-      let levels = em.toDo.map((sj) => sj.enemyLevel);
+      let levels = em.toDo
+        .map((sj) => sj.enemyLevel)
+        .concat(em.enemies.map((e) => e.level));
+
       if (em.currentEnemy) levels.push(em.currentEnemy.level);
       if (levels.length > 0) {
         levels = levels.sort((a, b) => a - b);
@@ -29,7 +31,7 @@ export class AutoSearch extends AbstractAutobuyer {
       }
       levelToSearch++;
     }
-    levelToSearch = Math.min(this.maxLevel, levelToSearch);
+    levelToSearch = Math.max(Math.min(this.maxLevel, levelToSearch), 0);
     em.search(levelToSearch);
     em.sortJobs();
 

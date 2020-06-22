@@ -5,8 +5,11 @@
       {{ ms.game.enemyManager.currentEnemy.name }}
       <small
         >lv.
-        {{ ms.game.enemyManager.currentEnemy.level | number: "1.0-0" }}</small
-      >
+        {{ ms.game.enemyManager.currentEnemy.level | number: "1.0-0" }}
+
+        <i nz-icon nzType="fa-s:arrows-alt-h" class="distance-icon"></i>
+        <span>{{ ms.game.enemyManager.currentEnemy.distance | format }}</span>
+      </small>
     </h2>
     <nz-button-group *ngIf="ms.game.enemyManager.currentEnemy">
       <button nz-button nzType="primary" (click)="attack(-1)">

@@ -61,7 +61,11 @@
           nz-button
           nzType="primary"
           (click)="search()"
-          [disabled]="ms.game.enemyManager.toDo.length >= MAX_SEARCH_JOB"
+          [disabled]="
+            ms.game.enemyManager.toDo.length +
+              ms.game.enemyManager.enemies.length >=
+            MAX_SEARCH_JOB
+          "
         >
           Search
         </button>
