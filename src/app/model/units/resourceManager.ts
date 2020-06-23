@@ -190,7 +190,7 @@ export class ResourceManager {
         SPACE_STATION_PRICE
       );
       station.buildPriceNext = station.buildPrice;
-      station.habSpaceOriginal = Decimal.pow(i + 1, SPACE_STATION_GROW).times(
+      station.habSpaceOriginal = Decimal.mul(i, SPACE_STATION_GROW).times(
         SPACE_STATION_HAB_SPACE
       );
       station.habSpace = station.habSpaceOriginal;
