@@ -2,6 +2,7 @@ import { IResearchData } from "./iResearchData";
 import { TECHNOLOGIES } from "./technologyData";
 import { UNITS, UNIT_TYPES } from "./units";
 import { OPTIMIZED_SHIP_PREFIX } from "../CONSTANTS";
+import { ExclusiveResGroups } from "../researches/exclusiveResGroups";
 
 const megastructures = UNITS.filter(
   (u) => u.unitType === UNIT_TYPES.MEGASTRUCTURE
@@ -24,7 +25,7 @@ export const RESEARCHES: IResearchData[] = [
     description: "Unlock Physics Technology",
     max: 1,
     type: TECHNOLOGIES.Physics,
-    researchToUnlock: ["c", "E", "p0"],
+    researchToUnlock: ["c", "E", "p0", "or1"],
     technologiesToUnlock: ["p"],
     modulesToUnlock: ["s"],
     effMulti: [{ unitId: "s", multi: 0.5 }],
@@ -46,7 +47,7 @@ export const RESEARCHES: IResearchData[] = [
     max: 1,
     type: TECHNOLOGIES.Naval,
     technologiesToUnlock: [TECHNOLOGIES.Naval.id],
-    researchToUnlock: ["n1", "ns"],
+    researchToUnlock: ["n1", "ns", "or2"],
     navalCapacity: 20
   },
   {
@@ -98,7 +99,7 @@ export const RESEARCHES: IResearchData[] = [
     max: 1,
     type: TECHNOLOGIES.Materials,
     technologiesToUnlock: ["m"],
-    researchToUnlock: ["x", "N", "P", "M0"],
+    researchToUnlock: ["x", "N", "P", "M0", "or3"],
     inspirationBuildingId: "4",
     prodMulti: [
       { unitId: "m", multi: 0.3 },
@@ -173,5 +174,26 @@ export const RESEARCHES: IResearchData[] = [
     type: TECHNOLOGIES.Search,
     unlockFrom: "h1",
     districtMulti: 0.25
+  },
+  {
+    id: "or1",
+    name: "ScientistBot",
+    description: "",
+    type: TECHNOLOGIES.Physics,
+    exclusiveGroup: ExclusiveResGroups.FIRST_ORIGIN
+  },
+  {
+    id: "or2",
+    name: "WarBot",
+    description: "",
+    type: TECHNOLOGIES.Naval,
+    exclusiveGroup: ExclusiveResGroups.FIRST_ORIGIN
+  },
+  {
+    id: "or3",
+    name: "BuilderBot",
+    description: "",
+    type: TECHNOLOGIES.CivilEngineering,
+    exclusiveGroup: ExclusiveResGroups.FIRST_ORIGIN
   }
 ];

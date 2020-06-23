@@ -33,18 +33,15 @@ export class LaboratoryComponent extends BaseComponentComponent
       })
     );
   }
-
   reloadUi() {
     this.ms.game.researchManager.technologies.forEach((t) =>
       t.bonus.reloadBonusUi()
     );
   }
-
   getResId(index: number, research: Research) {
     return research.id;
   }
-
-  drop(event: CdkDragDrop<string[]>) {
+  drop(event: CdkDragDrop<Research[]>) {
     if (event.previousContainer === event.container) {
       moveItemInArray(
         event.container.data,
@@ -52,12 +49,31 @@ export class LaboratoryComponent extends BaseComponentComponent
         event.currentIndex
       );
     } else {
+      const res = event.previousContainer.data[event.previousIndex];
       transferArrayItem(
         event.previousContainer.data,
         event.container.data,
         event.previousIndex,
         event.currentIndex
       );
+      if (event.container.id === "toDo" && res.exclusiveGroup) {
+        let indexToRemove = 0;
+        let n = 0;
+        while (indexToRemove > -1 && n < 10) {
+          n++;
+          indexToRemove = this.ms.game.researchManager.toDo.findIndex(
+            (r) => res.exclusiveGroup === r.exclusiveGroup && res !== r
+          );
+          if (indexToRemove > -1) {
+            transferArrayItem(
+              this.ms.game.researchManager.toDo,
+              this.ms.game.researchManager.backlog,
+              indexToRemove,
+              0
+            );
+          }
+        }
+      }
     }
   }
   getTypeId(num: number, data: IJobType) {

@@ -16,6 +16,7 @@
         [cdkDropListConnectedTo]="[doneList]"
         class="job-list"
         (cdkDropListDropped)="drop($event)"
+        id="backlog"
       >
         <app-job
           cdkDrag
@@ -45,6 +46,7 @@
         [cdkDropListConnectedTo]="[todoList]"
         class="job-list"
         (cdkDropListDropped)="drop($event)"
+        id="toDo"
       >
         <app-job
           cdkDrag

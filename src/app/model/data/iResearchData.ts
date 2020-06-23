@@ -1,4 +1,5 @@
 import { BonusStack } from "../bonus/bonusStack";
+import { ExclusiveResGroups } from "../researches/exclusiveResGroups";
 
 export interface IJobType {
   id: string;
@@ -42,4 +43,5 @@ export interface IResearchData {
   habSpaceMulti?: number;
   miningDistMulti?: number;
   energyDistMulti?: number;
+  exclusiveGroup?: ExclusiveResGroups;
 }

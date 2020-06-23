@@ -25,6 +25,7 @@ import {
   MyNotification,
   NotificationTypes
 } from "../notifications/myNotification";
+import { ExclusiveResGroups } from "./exclusiveResGroups";
 
 export class Research extends Job implements IUnlockable, IBase {
   static lastVisId = 0;
@@ -59,6 +60,7 @@ export class Research extends Job implements IUnlockable, IBase {
   habSpaceMulti: number;
   miningDistMulti: number;
   energyDistMulti: number;
+  exclusiveGroup: ExclusiveResGroups;
   constructor(researchData: IResearchData, researchManager: ResearchManager) {
     super();
     this.resData = researchData;
@@ -69,6 +71,7 @@ export class Research extends Job implements IUnlockable, IBase {
     this.visId = Research.lastVisId++;
     this.initialPrice = ONE;
     this.inspirationDescription = researchData.inspirationDescription ?? "";
+    this.exclusiveGroup = researchData.exclusiveGroup;
 
     const rs = Game.getGame().resourceManager;
     const sm = Game.getGame().shipyardManager;
@@ -195,6 +198,16 @@ export class Research extends Job implements IUnlockable, IBase {
       }
       const sm = Game.getGame().shipyardManager;
       if (sm.shipDesigns.length < 1) sm.addDefaultDesign();
+    }
+
+    /**
+     * Eventually remove other exclusive researches
+     */
+    if (this.exclusiveGroup) {
+      const rm = Game.getGame().researchManager;
+      rm.backlog = rm.backlog.filter(
+        (res) => res.exclusiveGroup !== this.exclusiveGroup
+      );
     }
 
     Game.getGame().notificationManager.addNotification(

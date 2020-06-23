@@ -542,7 +542,7 @@ export class ResearchManager extends JobManager {
     if (this.backlog.findIndex((r) => r.id === res.id) > -1) {
       return false;
     }
-    if (this.newJobsOnBacklog) this.backlog.push(res);
+    if (this.newJobsOnBacklog || res.exclusiveGroup) this.backlog.push(res);
     else this.toDo.push(res);
 
     return true;
