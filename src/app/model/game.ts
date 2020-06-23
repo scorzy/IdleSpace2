@@ -126,9 +126,13 @@ export class Game {
         this.resourceManager.stopResources();
       }
 
-      const shipWork = this.resourceManager.shipyardWork.quantity.times(
-        (100 - this.civilianWorkPercent) / 100
-      );
+      const shipWork =
+        this.spaceStationManager.toDo.length > 0
+          ? this.resourceManager.shipyardWork.quantity.times(
+              (100 - this.civilianWorkPercent) / 100
+            )
+          : this.resourceManager.shipyardWork.quantity;
+
       const civWork = this.resourceManager.shipyardWork.quantity.minus(
         shipWork
       );
