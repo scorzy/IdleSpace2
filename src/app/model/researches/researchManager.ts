@@ -32,6 +32,7 @@ export class ResearchManager extends JobManager {
   techPerSec = ZERO;
   drag = false;
   sort = true;
+  researchNotAdded = ZERO;
   //#region Researches
   nukeResearch: Research;
   searching: Research;
@@ -557,6 +558,7 @@ export class ResearchManager extends JobManager {
       return this.drag ? prog : super.addProgress(prog);
     }
 
+    this.researchPriority = Math.max(Math.min(this.researchPriority, 100), 0);
     const resPercent = this.researchPriority / 100;
     const resProg = prog.times(resPercent);
     this.researchPerSec = Game.getGame().resourceManager.science.perSec.times(
@@ -568,9 +570,13 @@ export class ResearchManager extends JobManager {
 
     let notAdded = prog;
     if (!this.drag) {
-      notAdded = super.addProgress(resProg);
+      notAdded = super.addProgress(resProg.plus(this.researchNotAdded));
+      console.log(notAdded.toNumber());
       if (this.researchPriority >= 100) {
-        return notAdded;
+        this.researchNotAdded = notAdded;
+        return ZERO;
+      } else {
+        this.researchNotAdded = ZERO;
       }
     }
 

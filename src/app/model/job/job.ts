@@ -46,7 +46,7 @@ export abstract class Job {
       this.level = Math.min(this.level, this.max);
       this.reload();
     } else {
-      ret = this.progress.minus(prev);
+      ret = this.progress.minus(prev).minus(toAdd).max(0);
     }
     return ret;
   }
