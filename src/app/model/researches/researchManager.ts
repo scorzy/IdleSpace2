@@ -571,7 +571,6 @@ export class ResearchManager extends JobManager {
     let notAdded = prog;
     if (!this.drag) {
       notAdded = super.addProgress(resProg.plus(this.researchNotAdded));
-      console.log(notAdded.toNumber());
       if (this.researchPriority >= 100) {
         this.researchNotAdded = notAdded;
         return ZERO;
