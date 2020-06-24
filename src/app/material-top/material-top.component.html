@@ -23,17 +23,17 @@
         <span
           class="min-width"
           *ngIf="item.quantity.gt(0) || item.id === 'x' || item.id === 'b'"
-          >{{ item.quantity | format }}</span
+          >{{ item.quantity | format: false:2 }}</span
         >
         <span class="min-width" *ngIf="item.showUiLimit"
-          >/{{ item.uiLimit | format }}</span
+          >/{{ item.uiLimit | format: false:2 }}</span
         >
       </span>
       <span class="monospace">
         <span
           class="min-width"
           [class]="item.perSec.gte(0) ? '' : 'text-danger'"
-          >{{ item.perSec | format }}/s</span
+          >{{ item.perSec | format: false:2 }}/s</span
         >
       </span>
     </div>

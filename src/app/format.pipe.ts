@@ -5,32 +5,12 @@ import { OptionsService } from "./options.service";
   name: "format"
 })
 export class FormatPipe implements PipeTransform {
-  // static map: Map<string, string> = new Map<string, string>();
-  // static interval: number;
+  constructor(public options: OptionsService) {}
 
-  constructor(public options: OptionsService) {
-    // if (FormatPipe.interval < 1) {
-    //   FormatPipe.interval = window.setInterval(this.clear.bind(this), 5000);
-    // }
-  }
-
-  transform(value1: any, integer?: boolean): any {
+  transform(value1: any, integer?: boolean, sigfigs?: number = 3): string {
     if (!(value1 instanceof Decimal)) value1 = new Decimal(value1);
-    // console.log(value1);
 
-    // let index = "";
     const formatter = this.options.formatter;
-    // index =
-    //   value1.toString() +
-    //   !!integer +
-    //   this.options.usaFormat +
-    //   formatter.opts.flavor +
-    //   formatter.opts.format;
-    // console.log(index);
-    // const ret1 = FormatPipe.map.get(index);
-    // if (ret1 !== undefined) {
-    //   return ret1;
-    // }
 
     let str = "";
     if (value1.abs().lt(1e3)) {
@@ -47,7 +27,10 @@ export class FormatPipe implements PipeTransform {
         maximumFractionDigits: digits
       });
     } else {
-      str = formatter.formatShort(value1.abs(), { minSuffix: 10 });
+      str = formatter.formatShort(value1.abs(), {
+        minSuffix: 10,
+        sigfigs: sigfigs
+      });
       if (integer) {
         str = str.replace(/\.0+$/, "");
       }
@@ -56,18 +39,6 @@ export class FormatPipe implements PipeTransform {
       }
     }
 
-    const ret = (value1.lt(0) ? "-" : "") + str;
-
-    // if (index !== "") {
-    //   FormatPipe.map.set(index, ret);
-    // }
-
-    return ret;
+    return (value1.lt(0) ? "-" : "") + str;
   }
-
-  // clear() {
-  //   if (FormatPipe.map.entries.length > 500) {
-  //     FormatPipe.map.clear();
-  //   }
-  // }
 }
