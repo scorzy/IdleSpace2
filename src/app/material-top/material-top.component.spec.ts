@@ -6,6 +6,7 @@ import { MainService } from "../main.service";
 import { testImports } from "../app.component.spec";
 import { FormatPipe } from "../format.pipe";
 import { OptionsService } from "../options.service";
+import { TimePipe } from "../time.pipe";
 
 describe("MaterialTopComponent", () => {
   let component: MaterialTopComponent;
@@ -16,7 +17,7 @@ describe("MaterialTopComponent", () => {
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
       imports: testImports,
       declarations: [MaterialTopComponent, FormatPipe],
-      providers: [MainService, OptionsService, FormatPipe]
+      providers: [MainService, OptionsService, FormatPipe, TimePipe]
     }).compileComponents();
   }));
 

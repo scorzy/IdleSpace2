@@ -67,6 +67,8 @@
   ></app-side-menu>
 </nz-drawer>
 
+<app-spell-bar *ngIf="ms.game && ms.ready"></app-spell-bar>
+
 <!-- Custom Notifications -->
 <ng-template #customNoti let-myNoti="data">
   <div class="ant-notification-notice-content">

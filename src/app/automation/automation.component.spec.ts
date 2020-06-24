@@ -6,6 +6,7 @@ import { FormatPipe } from "../format.pipe";
 import { MainService } from "../main.service";
 import { OptionsService } from "../options.service";
 import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import { TimePipe } from "../time.pipe";
 
 describe("AutomationComponent", () => {
   let component: AutomationComponent;
@@ -16,7 +17,7 @@ describe("AutomationComponent", () => {
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
       imports: testImports,
       declarations: [AutomationComponent, FormatPipe],
-      providers: [MainService, OptionsService, FormatPipe]
+      providers: [MainService, OptionsService, FormatPipe, TimePipe]
     }).compileComponents();
   }));
 

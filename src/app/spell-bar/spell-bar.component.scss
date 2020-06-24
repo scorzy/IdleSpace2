@@ -1,0 +1,16 @@
+.bottom-spells {
+  position: relative;
+  left: -50%;
+  top: -1px;
+  padding-left: 10px;
+  padding-right: 10px;
+  z-index: 100;
+}
+.spell {
+  i {
+    font-size: 28px;
+  }
+}
+.block {
+  display: block;
+}

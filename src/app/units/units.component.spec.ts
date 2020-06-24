@@ -6,6 +6,7 @@ import { FormatPipe } from "../format.pipe";
 import { MainService } from "../main.service";
 import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
 import { OptionsService } from "../options.service";
+import { TimePipe } from "../time.pipe";
 
 describe("UnitsComponent", () => {
   let component: UnitsComponent;
@@ -16,7 +17,7 @@ describe("UnitsComponent", () => {
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
       imports: testImports,
       declarations: [UnitsComponent, FormatPipe],
-      providers: [MainService, OptionsService, FormatPipe]
+      providers: [MainService, OptionsService, FormatPipe, TimePipe]
     }).compileComponents();
   }));
 

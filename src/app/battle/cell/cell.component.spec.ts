@@ -9,6 +9,7 @@ import { MainService } from "src/app/main.service";
 import { OptionsService } from "src/app/options.service";
 import { Game } from "src/app/model/game";
 import { Cell } from "src/app/model/enemy/cell";
+import { TimePipe } from "src/app/time.pipe";
 
 describe("CellComponent", () => {
   let component: CellComponent;
@@ -19,7 +20,7 @@ describe("CellComponent", () => {
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
       imports: testImports,
       declarations: [CellComponent, FormatPipe, SizePipe],
-      providers: [MainService, OptionsService, FormatPipe]
+      providers: [MainService, OptionsService, FormatPipe, TimePipe]
     }).compileComponents();
   }));
 

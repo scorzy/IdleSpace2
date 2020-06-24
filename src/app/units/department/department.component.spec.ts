@@ -7,6 +7,7 @@ import { MainService } from "src/app/main.service";
 import { OptionsService } from "src/app/options.service";
 import { ActivatedRoute, convertToParamMap } from "@angular/router";
 import { of } from "rxjs";
+import { TimePipe } from "src/app/time.pipe";
 
 describe("DepartmentComponent", () => {
   let component: DepartmentComponent;
@@ -21,6 +22,7 @@ describe("DepartmentComponent", () => {
         MainService,
         OptionsService,
         FormatPipe,
+        TimePipe,
         {
           provide: ActivatedRoute,
           useValue: { paramMap: of(convertToParamMap({ id: "1" })) }

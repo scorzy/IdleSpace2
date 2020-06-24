@@ -8,6 +8,7 @@ import { OptionsService } from "src/app/options.service";
 import { Game } from "src/app/model/game";
 import { ActivatedRoute, convertToParamMap } from "@angular/router";
 import { of } from "rxjs";
+import { TimePipe } from "src/app/time.pipe";
 
 describe("ModComponent", () => {
   let component: ModComponent;
@@ -22,6 +23,7 @@ describe("ModComponent", () => {
         MainService,
         OptionsService,
         FormatPipe,
+        TimePipe,
         {
           provide: ActivatedRoute,
           useValue: { paramMap: of(convertToParamMap({ id: "m" })) }

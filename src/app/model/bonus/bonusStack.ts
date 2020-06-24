@@ -1,5 +1,5 @@
-import { Bonus } from "./bonus";
 import { ONE, ZERO } from "../CONSTANTS";
+import { Bonus } from "./bonus";
 
 export class BonusStack {
   public bonuses = new Array<Bonus>();
@@ -15,7 +15,9 @@ export class BonusStack {
   }
   reloadBonusUi() {
     const newBonus = this.totalBonus.minus(1).times(100);
-    if (!newBonus.eq(this.totalBonusUi)) { this.totalBonusUi = newBonus; }
+    if (!newBonus.eq(this.totalBonusUi)) {
+      this.totalBonusUi = newBonus;
+    }
   }
   reloadAdditiveBonus() {
     this.totalAdditiveBonus = ZERO;

@@ -10,6 +10,7 @@ import { OptionsService } from "src/app/options.service";
 import { Module } from "src/app/model/shipyard/module";
 import { modules } from "src/app/model/data/modulesData";
 import { Game } from "src/app/model/game";
+import { TimePipe } from "src/app/time.pipe";
 
 describe("ModuleInfoComponent", () => {
   let component: ModuleInfoComponent;
@@ -20,7 +21,7 @@ describe("ModuleInfoComponent", () => {
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
       imports: testImports,
       declarations: [ModuleInfoComponent, FormatPipe, SizePipe],
-      providers: [MainService, OptionsService, FormatPipe]
+      providers: [MainService, OptionsService, FormatPipe, TimePipe]
     }).compileComponents();
   }));
 

@@ -9,7 +9,8 @@ export enum NotificationTypes {
   ENEMY_DEFEATED,
   MATERIAL_ENDED,
   SPACE_STATION_COMPLETED,
-  RESEARCH_INSPIRED
+  RESEARCH_INSPIRED,
+  WARP
 }
 export class MyNotification {
   dateTime = Date.now();
@@ -55,6 +56,9 @@ export class MyNotification {
         break;
       case NotificationTypes.RESEARCH_INSPIRED:
         this.icon = "rise";
+        this.iconClass = Game.getGame().resourceManager.science.colorClass;
+      case NotificationTypes.WARP:
+        this.icon = "field-time";
         this.iconClass = Game.getGame().resourceManager.science.colorClass;
         break;
     }

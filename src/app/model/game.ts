@@ -8,6 +8,12 @@ import { DatePipe } from "@angular/common";
 import { SpaceStationManager } from "./space/spaceStationManager";
 import { NotificationManager } from "./notifications/notificationManager";
 import { AutomationManager } from "./automation/automationManager";
+import { ComputingManager } from "./computing/computingManager";
+import {
+  MyNotification,
+  NotificationTypes
+} from "./notifications/myNotification";
+import { MainService } from "../main.service";
 
 /**
  * Game is the main class that orchestrate everything game related
@@ -24,6 +30,7 @@ export class Game {
   enemyManager: EnemyManager;
   spaceStationManager: SpaceStationManager;
   automationManager: AutomationManager;
+  computingManager: ComputingManager;
 
   navalCapacity: number = BASE_NAVAL_CAPACITY;
 
@@ -47,6 +54,7 @@ export class Game {
   customBuy = TEN;
   customBuyPercent = 1;
   buyFixed = false;
+  timeToWarp = 0;
 
   private _gameId = "";
   private battleResults: { result: BattleResult; fleet: number }[] = [];
@@ -77,8 +85,9 @@ export class Game {
     this.shipyardManager.afterResearchesInit();
     this.resourceManager.setRelations();
     this.automationManager = new AutomationManager();
-
+    this.computingManager = new ComputingManager();
     this.setTheme();
+
     this.battleStats = Array<{
       id: string;
       fleetNum: number;
@@ -101,8 +110,17 @@ export class Game {
    * @param delta in seconds
    */
   update(delta: number) {
-    let toUpdate = delta;
+    let toUpdate = delta + this.timeToWarp;
+    if (this.timeToWarp > 0)
+      this.notificationManager.addNotification(
+        new MyNotification(
+          NotificationTypes.WARP,
+          "Warp",
+          MainService.timePipe.transform(this.timeToWarp)
+        )
+      );
     this.processBattles();
+    this.timeToWarp = 0;
     this.automationManager.update();
 
     let n = 0;
@@ -162,7 +180,8 @@ export class Game {
       }
     }
   }
-  postUpdate() {
+  postUpdate(delta: number) {
+    this.computingManager.update(delta);
     this.reloadWorkPerSec();
     for (let i = 0, n = this.researchManager.technologies.length; i < n; i++) {
       this.researchManager.technologies[i].bonus.reloadBonus();
@@ -210,6 +229,7 @@ export class Game {
     for (let i = this.battleResults.length - 1; i >= 0; i--) {
       const battleResult = this.battleResults[i].result;
       const fleetNum = this.battleResults[i].fleet;
+      battleResult.endTime -= this.timeToWarp * 1000;
       if (now >= battleResult.endTime) {
         if (this.enemyManager.currentEnemy && this.updateStats) {
           const toAdd = {
@@ -259,7 +279,8 @@ export class Game {
       e: this.enemyManager.getSave(),
       m: this.spaceStationManager.getSave(),
       c: this.civilianWorkPercent,
-      a: this.automationManager.getSave()
+      a: this.automationManager.getSave(),
+      p: this.computingManager.getSave()
     };
   }
   load(data: any) {
@@ -286,7 +307,10 @@ export class Game {
     if ("a" in data) {
       this.automationManager.load(data.a);
     }
-    this.postUpdate();
+    if ("p" in data) {
+      this.computingManager.load(data.p);
+    }
+    this.postUpdate(0);
   }
   //#endregion
 }

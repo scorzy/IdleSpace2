@@ -7,6 +7,7 @@ import { FormatPipe } from "../format.pipe";
 import { MainService } from "../main.service";
 import { OptionsService } from "../options.service";
 import { Game } from "../model/game";
+import { TimePipe } from "../time.pipe";
 
 describe("PricesComponent", () => {
   let component: PricesComponent;
@@ -17,7 +18,7 @@ describe("PricesComponent", () => {
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
       imports: testImports,
       declarations: [PricesComponent, FormatPipe],
-      providers: [MainService, OptionsService, FormatPipe]
+      providers: [MainService, OptionsService, FormatPipe, TimePipe]
     }).compileComponents();
   }));
 

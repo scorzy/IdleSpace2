@@ -6,6 +6,7 @@ import { FormatPipe } from "src/app/format.pipe";
 import { MainService } from "src/app/main.service";
 import { SizePipe } from "src/app/size.pipe";
 import { OptionsService } from "src/app/options.service";
+import { TimePipe } from "src/app/time.pipe";
 
 describe("EditComponent", () => {
   let component: EditComponent;
@@ -16,7 +17,7 @@ describe("EditComponent", () => {
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
       imports: testImports,
       declarations: [EditComponent, FormatPipe, SizePipe],
-      providers: [MainService, OptionsService, FormatPipe]
+      providers: [MainService, OptionsService, FormatPipe, TimePipe]
     }).compileComponents();
   }));
 

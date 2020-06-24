@@ -9,6 +9,7 @@ import { MainService } from "src/app/main.service";
 import { OptionsService } from "src/app/options.service";
 import { Enemy } from "src/app/model/enemy/enemy";
 import { SearchJob } from "src/app/model/enemy/searchJob";
+import { TimePipe } from "src/app/time.pipe";
 
 describe("BattleTableComponent", () => {
   let component: BattleTableComponent;
@@ -19,7 +20,7 @@ describe("BattleTableComponent", () => {
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
       imports: testImports,
       declarations: [BattleTableComponent, FormatPipe, SizePipe],
-      providers: [MainService, OptionsService, FormatPipe]
+      providers: [MainService, OptionsService, FormatPipe, TimePipe]
     }).compileComponents();
   }));
 

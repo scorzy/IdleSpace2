@@ -8,6 +8,7 @@ import { SizePipe } from "../size.pipe";
 import { MainService } from "../main.service";
 import { OptionsService } from "../options.service";
 import { ShipDesign } from "../model/shipyard/shipDesign";
+import { TimePipe } from "../time.pipe";
 
 describe("DesignInfoComponent", () => {
   let component: DesignInfoComponent;
@@ -18,7 +19,7 @@ describe("DesignInfoComponent", () => {
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
       imports: testImports,
       declarations: [DesignInfoComponent, FormatPipe, SizePipe],
-      providers: [MainService, OptionsService, FormatPipe]
+      providers: [MainService, OptionsService, FormatPipe, TimePipe]
     }).compileComponents();
   }));
 

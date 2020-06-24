@@ -45,6 +45,7 @@ import { FlexLayoutModule } from "@angular/flex-layout";
 import { FormatPipe } from "./format.pipe";
 import { OptionsService } from "./options.service";
 import { NzDropDownModule } from "ng-zorro-antd/dropdown";
+import { TimePipe } from "./time.pipe";
 export const testImports = [
   RouterTestingModule,
   FormsModule,
@@ -97,7 +98,7 @@ describe("AppComponent", () => {
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
       imports: testImports,
       declarations: [AppComponent],
-      providers: [MainService, OptionsService, FormatPipe]
+      providers: [MainService, OptionsService, FormatPipe, TimePipe]
     }).compileComponents();
   }));
 

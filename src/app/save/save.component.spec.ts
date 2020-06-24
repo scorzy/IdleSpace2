@@ -6,6 +6,7 @@ import { testImports } from "../app.component.spec";
 import { FormatPipe } from "../format.pipe";
 import { MainService } from "../main.service";
 import { OptionsService } from "../options.service";
+import { TimePipe } from "../time.pipe";
 
 describe("SaveComponent", () => {
   let component: SaveComponent;
@@ -16,7 +17,7 @@ describe("SaveComponent", () => {
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
       imports: testImports,
       declarations: [SaveComponent, FormatPipe],
-      providers: [MainService, OptionsService, FormatPipe]
+      providers: [MainService, OptionsService, FormatPipe, TimePipe]
     }).compileComponents();
   }));
 

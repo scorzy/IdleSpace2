@@ -6,6 +6,7 @@ import { testImports } from "src/app/app.component.spec";
 import { FormatPipe } from "src/app/format.pipe";
 import { MainService } from "src/app/main.service";
 import { OptionsService } from "src/app/options.service";
+import { TimePipe } from "src/app/time.pipe";
 
 describe("HtmlTreeComponent", () => {
   let component: HtmlTreeComponent;
@@ -16,7 +17,7 @@ describe("HtmlTreeComponent", () => {
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
       imports: testImports,
       declarations: [HtmlTreeComponent, FormatPipe],
-      providers: [MainService, OptionsService, FormatPipe]
+      providers: [MainService, OptionsService, FormatPipe, TimePipe]
     }).compileComponents();
   }));
 

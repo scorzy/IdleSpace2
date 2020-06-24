@@ -5,6 +5,7 @@ import { MainService } from "../main.service";
 import { testImports } from "../app.component.spec";
 import { FormatPipe } from "../format.pipe";
 import { OptionsService } from "../options.service";
+import { TimePipe } from "../time.pipe";
 
 describe("SideMenuComponent", () => {
   let component: SideMenuComponent;
@@ -15,7 +16,7 @@ describe("SideMenuComponent", () => {
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
       imports: testImports,
       declarations: [SideMenuComponent],
-      providers: [MainService, OptionsService, FormatPipe]
+      providers: [MainService, OptionsService, FormatPipe, TimePipe]
     }).compileComponents();
   }));
 

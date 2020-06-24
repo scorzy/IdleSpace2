@@ -7,6 +7,7 @@ import { FormatPipe } from "../format.pipe";
 import { SizePipe } from "../size.pipe";
 import { MainService } from "../main.service";
 import { OptionsService } from "../options.service";
+import { TimePipe } from "../time.pipe";
 
 describe("BattleReportComponent", () => {
   let component: BattleReportComponent;
@@ -17,7 +18,7 @@ describe("BattleReportComponent", () => {
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
       imports: testImports,
       declarations: [BattleReportComponent, FormatPipe, SizePipe],
-      providers: [MainService, OptionsService, FormatPipe]
+      providers: [MainService, OptionsService, FormatPipe, TimePipe]
     }).compileComponents();
   }));
 

@@ -88,3 +88,6 @@ export const ALLOY_BUILDING_PRICE = 1e3;
 
 //  Megastructures
 export const MEGA_PRICE_MULTI = 1e3;
+
+//  Computing
+export const BASE_COMPUTING = 1e4;

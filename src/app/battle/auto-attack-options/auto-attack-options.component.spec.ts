@@ -7,6 +7,7 @@ import { FormatPipe } from "src/app/format.pipe";
 import { SizePipe } from "src/app/size.pipe";
 import { MainService } from "src/app/main.service";
 import { OptionsService } from "src/app/options.service";
+import { TimePipe } from "src/app/time.pipe";
 
 describe("AutoAttackOptionsComponent", () => {
   let component: AutoAttackOptionsComponent;
@@ -17,7 +18,7 @@ describe("AutoAttackOptionsComponent", () => {
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
       imports: testImports,
       declarations: [AutoAttackOptionsComponent, FormatPipe, SizePipe],
-      providers: [MainService, OptionsService, FormatPipe]
+      providers: [MainService, OptionsService, FormatPipe, TimePipe]
     }).compileComponents();
   }));
 

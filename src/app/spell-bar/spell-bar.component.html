@@ -1,0 +1,43 @@
+<div
+  class="bottom-spells ant-card"
+  fxLayout="row"
+  fxLayoutGap="10px"
+  fxLayoutAlign="center center"
+>
+  <!-- ant-card-bordered ant-card -->
+  <div
+    class="spell"
+    *ngFor="
+      let spell of ms.game.computingManager.currentSpells;
+      trackBy: getSpellId
+    "
+  >
+    <button
+      nz-button
+      (click)="spell.activate()"
+      nz-popover
+      [nzPopoverTitle]="titleTemplate"
+      [nzPopoverContent]="contentTemplate"
+    >
+      <i nz-icon [nzType]="spell.icon"></i>
+    </button>
+
+    <ng-template #titleTemplate> {{ spell.name }}</ng-template>
+    <ng-template #contentTemplate>
+      <p>{{ spell.description }}</p>
+      <span class="monospace">{{ spell.price | format: true }}</span>
+    </ng-template>
+  </div>
+
+  <div fxLayoutAlign="center center" fxLayout="column">
+    <span class="monospace">
+      {{ ms.game.computingManager.currentComputing | format: false:2 }}/{{
+        ms.game.computingManager.maxComputing | format: false:2
+      }}
+    </span>
+    <span class="monospace">
+      {{ ms.game.computingManager.computingPerSec | format: false:2 }}/s
+    </span>
+  </div>
+</div>
+<!-- [ngClass]="spell.colorClass" -->

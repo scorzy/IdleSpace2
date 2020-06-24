@@ -7,7 +7,7 @@ import { OptionsService } from "./options.service";
 export class FormatPipe implements PipeTransform {
   constructor(public options: OptionsService) {}
 
-  transform(value1: any, integer?: boolean, sigfigs?: number = 3): string {
+  transform(value1: any, integer?: boolean, sigfigs: number = 3): string {
     if (!(value1 instanceof Decimal)) value1 = new Decimal(value1);
 
     const formatter = this.options.formatter;

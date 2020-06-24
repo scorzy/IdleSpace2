@@ -1,6 +1,6 @@
 import { Injectable, EventEmitter, Inject } from "@angular/core";
 import { Game } from "./model/game";
-import { formatDate, DOCUMENT } from "@angular/common";
+import { formatDate, DOCUMENT, Time } from "@angular/common";
 import { FormatPipe } from "./format.pipe";
 import { OptionsService } from "./options.service";
 import compiledCss from "./model/data/themes.json";
@@ -9,6 +9,7 @@ import {
   NotificationTypes,
   MyNotification
 } from "./model/notifications/myNotification";
+import { TimePipe } from "./time.pipe";
 
 export const SAVE_ID = "IS2_save";
 export const GAME_SPEED = 1;
@@ -19,12 +20,14 @@ export const GAME_SPEED = 1;
 export class MainService {
   constructor(
     private _formatPipe: FormatPipe,
+    private _timePipe: TimePipe,
     private options: OptionsService,
     @Inject(DOCUMENT) private document: Document
   ) {
     this.last = Date.now();
     MainService.instance = this;
     MainService.formatPipe = _formatPipe;
+    MainService.timePipe = _timePipe;
 
     this.theme = this.document.createElement("link");
     this.theme.rel = "stylesheet";
@@ -86,6 +89,7 @@ export class MainService {
     this.ready = true;
   }
   static formatPipe: FormatPipe;
+  static timePipe: TimePipe;
   static battleWorkers = new Array<Worker>(FLEET_NUMBER);
   static instance: MainService;
 
@@ -110,11 +114,11 @@ export class MainService {
 
     const now = Date.now();
     let diff = now - this.last;
-    diff = diff * GAME_SPEED;
-    this.game.update(diff / 1000);
+    diff = (diff * GAME_SPEED) / 1000;
+    this.game.update(diff);
     this.last = now;
 
-    this.game.postUpdate();
+    this.game.postUpdate(diff);
     this.updateEmitter.emit(this.last);
   }
   save() {
