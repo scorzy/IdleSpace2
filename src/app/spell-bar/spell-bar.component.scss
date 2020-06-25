@@ -14,3 +14,23 @@
 .block {
   display: block;
 }
+.computing {
+  margin-left: 1rem;
+}
+.icons {
+  margin-right: -28px;
+  margin-bottom: 0 !important;
+  i {
+    position: relative;
+    top: 0;
+    left: 0;
+    // cursor: pointer;
+    // margin-right: -28px;
+  }
+  .first {
+    opacity: 70%;
+  }
+  .second {
+    left: -28px;
+  }
+}

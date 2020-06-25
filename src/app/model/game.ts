@@ -76,6 +76,7 @@ export class Game {
     this.shipyardManager = new ShipyardManager();
     this.enemyManager = new EnemyManager();
     this.spaceStationManager = new SpaceStationManager();
+    this.computingManager = new ComputingManager();
     this.shipyardManager.init();
     this.researchManager.makeShipsResearches();
     this.researchManager.makeSpaceStationResearches();
@@ -83,9 +84,10 @@ export class Game {
     this.resourceManager.makeUnitsMods();
     this.resourceManager.makeDepartments();
     this.shipyardManager.afterResearchesInit();
+
     this.resourceManager.setRelations();
     this.automationManager = new AutomationManager();
-    this.computingManager = new ComputingManager();
+
     this.setTheme();
 
     this.battleStats = Array<{

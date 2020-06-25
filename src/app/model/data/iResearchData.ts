@@ -44,4 +44,5 @@ export interface IResearchData {
   miningDistMulti?: number;
   energyDistMulti?: number;
   exclusiveGroup?: ExclusiveResGroups;
+  spellToUnlock?: string;
 }

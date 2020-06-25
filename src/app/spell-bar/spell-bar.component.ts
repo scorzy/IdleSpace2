@@ -3,10 +3,13 @@ import {
   OnInit,
   ChangeDetectionStrategy,
   OnDestroy,
-  AfterViewInit
+  AfterViewInit,
+  ChangeDetectorRef
 } from "@angular/core";
 import { BaseComponentComponent } from "../base-component/base-component.component";
 import { Spell } from "../model/computing/spell";
+import { DomSanitizer } from "@angular/platform-browser";
+import { MainService } from "../main.service";
 
 @Component({
   selector: "app-spell-bar",
@@ -16,7 +19,19 @@ import { Spell } from "../model/computing/spell";
 })
 export class SpellBarComponent extends BaseComponentComponent
   implements OnInit, OnDestroy, AfterViewInit {
+  constructor(
+    ms: MainService,
+    cd: ChangeDetectorRef,
+    private sanitizer: DomSanitizer
+  ) {
+    super(ms, cd);
+  }
   getSpellId(index: number, spell: Spell) {
     return spell.id;
+  }
+  public clip(spell) {
+    return this.sanitizer.bypassSecurityTrustStyle(
+      "inset(" + spell.percent + "% 0px 0px"
+    );
   }
 }

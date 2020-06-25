@@ -178,13 +178,16 @@ export const RESEARCHES: IResearchData[] = [
   {
     id: "or1",
     name: "ScientistBot",
+    max: 1,
     description: "",
     type: TECHNOLOGIES.Physics,
-    exclusiveGroup: ExclusiveResGroups.FIRST_ORIGIN
+    exclusiveGroup: ExclusiveResGroups.FIRST_ORIGIN,
+    spellToUnlock: "2"
   },
   {
     id: "or2",
     name: "WarBot",
+    max: 1,
     description: "",
     type: TECHNOLOGIES.Naval,
     exclusiveGroup: ExclusiveResGroups.FIRST_ORIGIN
@@ -192,6 +195,7 @@ export const RESEARCHES: IResearchData[] = [
   {
     id: "or3",
     name: "BuilderBot",
+    max: 1,
     description: "",
     type: TECHNOLOGIES.CivilEngineering,
     exclusiveGroup: ExclusiveResGroups.FIRST_ORIGIN

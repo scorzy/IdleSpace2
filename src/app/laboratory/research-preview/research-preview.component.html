@@ -90,6 +90,15 @@
     +{{ research.speedMulti | percent }}
     <span class="text-secondary">ship</span> velocity
   </li>
+  <li *ngIf="research.spellToUnlock">
+    <i
+      nz-icon
+      class="bottom-icon"
+      [nzType]="research.spellToUnlock.icon"
+      [ngClass]="research.spellToUnlock.colorClass"
+    ></i>
+    <span>{{ research.spellToUnlock.name }}</span>
+  </li>
 </ul>
 <ul class="list-unstyled">
   <li>

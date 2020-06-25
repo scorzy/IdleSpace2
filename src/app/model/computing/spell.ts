@@ -5,7 +5,6 @@ import { IBase } from "../iBase";
 
 export class Spell implements IBase {
   id: string;
-  quantity: Decimal;
   icon: string;
   colorClass: string;
   name: string;
@@ -16,6 +15,7 @@ export class Spell implements IBase {
   price = 1000;
   canAfford = false;
   duration = 30;
+  percent = 0;
   activate() {
     if (this.active) return false;
     const cp = Game.getGame().computingManager;
@@ -26,9 +26,10 @@ export class Spell implements IBase {
     this.endTime = Date.now() + this.duration;
   }
   onActivate() {}
-  getBonus(): Decimal {
+
+  get quantity(): Decimal {
     if (this.active) return this.bonusQuantity;
-    else return ONE;
+    else return ZERO;
   }
   getAdditiveBonus(): Decimal {
     if (this.active) return this.bonusQuantity;

@@ -26,6 +26,7 @@ import {
   NotificationTypes
 } from "../notifications/myNotification";
 import { ExclusiveResGroups } from "./exclusiveResGroups";
+import { Spell } from "../computing/spell";
 
 export class Research extends Job implements IUnlockable, IBase {
   static lastVisId = 0;
@@ -61,6 +62,7 @@ export class Research extends Job implements IUnlockable, IBase {
   miningDistMulti: number;
   energyDistMulti: number;
   exclusiveGroup: ExclusiveResGroups;
+  spellToUnlock: Spell;
   constructor(researchData: IResearchData, researchManager: ResearchManager) {
     super();
     this.resData = researchData;
@@ -180,6 +182,8 @@ export class Research extends Job implements IUnlockable, IBase {
       if (this.modulesToUnlock) {
         this.modulesToUnlock.forEach((m) => m.unlock());
       }
+      if (this.spellToUnlock)
+        Game.getGame().computingManager.addSpell(this.spellToUnlock);
       game.navalCapacity += this.navalCapacity;
     }
     /**

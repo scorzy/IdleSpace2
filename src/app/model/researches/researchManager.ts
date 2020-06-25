@@ -379,6 +379,7 @@ export class ResearchManager extends JobManager {
     const rs = Game.getGame().resourceManager;
     const sm = Game.getGame().shipyardManager;
     const em = Game.getGame().enemyManager;
+    const cm = Game.getGame().computingManager;
     this.researches.forEach((res) => {
       if ("unlockFrom" in res.resData) {
         const resParent = this.researches.find(
@@ -523,6 +524,11 @@ export class ResearchManager extends JobManager {
         res.energyDistMulti = resData.energyDistMulti;
         em.energyDistMultiplier.bonuses.push(
           new Bonus(res, new Decimal(res.energyDistMulti))
+        );
+      }
+      if ("spellToUnlock" in resData) {
+        res.spellToUnlock = cm.spells.find(
+          (s) => s.id === resData.spellToUnlock
         );
       }
     });

@@ -12,15 +12,28 @@
       trackBy: getSpellId
     "
   >
-    <button
-      nz-button
-      (click)="spell.activate()"
-      nz-popover
-      [nzPopoverTitle]="titleTemplate"
-      [nzPopoverContent]="contentTemplate"
-    >
-      <i nz-icon [nzType]="spell.icon"></i>
-    </button>
+    <div class="icons" nz-typography [nzDisabled]="!spell.canAfford">
+      <i
+        nz-popover
+        [nzPopoverTitle]="titleTemplate"
+        [nzPopoverContent]="contentTemplate"
+        nz-icon
+        [nzType]="spell.icon"
+        class="first"
+        (click)="spell.activate()"
+        [style.cursor]="spell.canAfford ? 'pointer' : ''"
+      ></i>
+      <i
+        nz-popover
+        [nzPopoverTitle]="titleTemplate"
+        [nzPopoverContent]="contentTemplate"
+        nz-icon
+        [nzType]="spell.icon"
+        class="second"
+        [ngClass]="spell.colorClass"
+        [style.clip-path]="clip(spell)"
+      ></i>
+    </div>
 
     <ng-template #titleTemplate> {{ spell.name }}</ng-template>
     <ng-template #contentTemplate>
@@ -29,7 +42,7 @@
     </ng-template>
   </div>
 
-  <div fxLayoutAlign="center center" fxLayout="column">
+  <div class="computing" fxLayoutAlign="center center" fxLayout="column">
     <span class="monospace">
       {{ ms.game.computingManager.currentComputing | format: false:2 }}/{{
         ms.game.computingManager.maxComputing | format: false:2
