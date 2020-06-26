@@ -13,6 +13,7 @@ export class ComputingManager {
   maxComputingStack = new BonusStack();
   spells = new Array<Spell>();
   currentSpells = new Array<Spell>();
+  computingPercent = 100;
   constructor() {
     const warpSpell = new WarpSpell();
     const researchSpell = new ResearchSpell();
@@ -29,6 +30,9 @@ export class ComputingManager {
       10 + this.computingStack.totalAdditiveBonus.toNumber();
     this.currentComputing += delta * this.computingPerSec;
     this.currentComputing = Math.min(this.currentComputing, this.maxComputing);
+    this.computingPercent = Math.floor(
+      (100 * this.currentComputing) / this.maxComputing
+    );
 
     const now = Date.now();
     for (let i = 0, n = this.currentSpells.length; i < n; i++) {

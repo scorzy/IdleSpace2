@@ -117,8 +117,7 @@ export class Game {
       this.notificationManager.addNotification(
         new MyNotification(
           NotificationTypes.WARP,
-          "Warp",
-          MainService.timePipe.transform(this.timeToWarp)
+          "Warp: " + MainService.timePipe.transform(this.timeToWarp, 1)
         )
       );
     this.processBattles();

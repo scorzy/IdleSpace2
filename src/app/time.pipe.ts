@@ -20,11 +20,15 @@ export class TimePipe implements PipeTransform {
     if (!isNaN(value) && value >= 0 && value < Number.POSITIVE_INFINITY) {
       const dateEnd = new Date(Date.now() + value);
       if (isValid(dateEnd)) {
-        return format === 1
-          ? formatDistanceStrict(value * 1e3, 0)
-          : this.options.timeFormatDetail
-          ? formatDistanceStrict(value * 1e3, 0)
-          : formatDistance(value * 1e3, 0);
+        if (format === 1 || this.options.timeFormatDetail) {
+          if (value < 60) {
+            return Math.floor(value) + " seconds";
+          } else {
+            return formatDistanceStrict(value * 1e3, 0);
+          }
+        } else {
+          return formatDistance(value * 1e3, 0);
+        }
       } else {
         return this.pipeFormat.transform(value / SECONDS_IN_YEAR) + " years";
       }

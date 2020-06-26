@@ -30,6 +30,8 @@ export class AppComponent implements OnInit, OnDestroy {
   @ViewChild("customNoti", { static: false })
   private customNoti: TemplateRef<any>;
 
+  @ViewChild("closeNoti", { static: true })
+  private closeNoti: TemplateRef<any>;
   loadMessage = "";
 
   visible = false;
@@ -57,11 +59,16 @@ export class AppComponent implements OnInit, OnDestroy {
         if (n.template) {
           let template = this.customNoti;
           template = this.customNoti;
-          this.notification.template(template, { nzData: n });
+          this.notification.template(template, {
+            nzData: n,
+            nzCloseIcon: this.closeNoti
+          });
         } else {
           switch (n.type) {
             case NotificationTypes.LOAD:
-              this.notification.create("info", n.title, n.description);
+              this.notification.create("info", n.title, n.description, {
+                nzCloseIcon: this.closeNoti
+              });
               break;
           }
         }

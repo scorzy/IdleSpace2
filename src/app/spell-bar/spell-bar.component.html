@@ -2,10 +2,12 @@
   class="bottom-spells ant-card"
   fxLayout="row"
   fxLayoutGap="10px"
-  fxLayoutAlign="center center"
+  fxLayoutAlign="center stretch"
 >
   <!-- ant-card-bordered ant-card -->
   <div
+    fxLayout="row"
+    fxLayoutAlign="center center"
     class="spell"
     *ngFor="
       let spell of ms.game.computingManager.currentSpells;
@@ -51,6 +53,14 @@
     <span class="monospace">
       {{ ms.game.computingManager.computingPerSec | format: false:2 }}/s
     </span>
+  </div>
+
+  <div
+    class="percentage progress"
+    fxLayout="row"
+    fxLayoutAlign="space-around end"
+  >
+    <div [style.height.%]="ms.game.computingManager.computingPercent"></div>
   </div>
 </div>
 <!-- [ngClass]="spell.colorClass" -->
