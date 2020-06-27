@@ -97,6 +97,10 @@
     Science and Search
     <span class="text-secondary">from enemies</span>
   </li>
+  <li *ngIf="research.shipProductionBonusAll">
+    +{{ research.shipProductionBonusAll | percent }}
+    <span class="text-secondary">production of</span> all ships
+  </li>
   <li *ngFor="let shipProdMulti of research.shipProductionBonus">
     +{{ shipProdMulti.multi | percent }}
     <span class="text-secondary">production of</span>

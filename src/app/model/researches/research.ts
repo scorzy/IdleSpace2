@@ -55,6 +55,7 @@ export class Research extends Job implements IUnlockable, IBase {
   modPoints: { unit: Unit; multi: number }[];
   buildingPoints: { building: Building; quantity: number }[];
   shipProductionBonus: { shipType: ShipType; multi: number }[];
+  shipProductionBonusAll: number;
   speedMulti: number;
   inspiration = false;
   inspirationDescription = "";
@@ -128,6 +129,9 @@ export class Research extends Job implements IUnlockable, IBase {
           multi: spb.multi
         };
       });
+    }
+    if ("shipProductionBonusAll" in researchData) {
+      this.shipProductionBonusAll = researchData.shipProductionBonusAll;
     }
     this.type = researchManager.technologies.find(
       (tec) => tec.id === researchData.type.id

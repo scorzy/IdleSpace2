@@ -181,14 +181,14 @@ export const RESEARCHES: IResearchData[] = [
   //#region Origin Science
   {
     id: "or1",
-    name: "ScientistBot",
+    name: "Scientists origin",
     max: 1,
     description: "",
     type: TECHNOLOGIES.Physics,
     exclusiveGroup: ExclusiveResGroups.FIRST_ORIGIN,
     researchToUnlock: ["or11"],
     prodMulti: [{ unitId: "s", multi: 0.2 }],
-    spellToUnlock: "2",
+    spellToUnlock: "or1",
     technologyBonus: [
       { techId: TECHNOLOGIES.Physics.id, multi: ORIGIN_1_TECH_MULTI },
       { techId: TECHNOLOGIES.Search.id, multi: ORIGIN_1_TECH_2_MULTI }
@@ -215,24 +215,49 @@ export const RESEARCHES: IResearchData[] = [
   //#endregion
   {
     id: "or2",
-    name: "WarBot",
+    name: "War origin",
     max: 1,
     description: "",
     type: TECHNOLOGIES.Naval,
     exclusiveGroup: ExclusiveResGroups.FIRST_ORIGIN,
+    spellToUnlock: "or2",
+    researchToUnlock: ["or22"],
     technologyBonus: [
-      { techId: TECHNOLOGIES.Naval.id, multi: ORIGIN_1_TECH_MULTI }
+      { techId: TECHNOLOGIES.Naval.id, multi: ORIGIN_1_TECH_MULTI },
+      {
+        techId: TECHNOLOGIES.MilitaryEngineering.id,
+        multi: ORIGIN_1_TECH_2_MULTI
+      }
     ]
   },
-  //#origin Builders
+  {
+    id: "or22",
+    name: "War origin",
+    max: 1,
+    description: "",
+    type: TECHNOLOGIES.Naval,
+    modulesToUnlock: ["W"],
+    researchToUnlock: ["or23"],
+    navalCapacity: 100
+  },
+  {
+    id: "or23",
+    name: "War origin",
+    max: 1,
+    description: "",
+    type: TECHNOLOGIES.Naval,
+    districtMulti: 1
+  },
+  //#region Builders
   {
     id: "or3",
-    name: "BuilderBot",
+    name: "Builders origin",
     max: 1,
     description: "",
     type: TECHNOLOGIES.CivilEngineering,
     exclusiveGroup: ExclusiveResGroups.FIRST_ORIGIN,
     prodMulti: [{ unitId: "w", multi: 0.2 }],
+    spellToUnlock: "or3",
     technologyBonus: [
       { techId: TECHNOLOGIES.CivilEngineering.id, multi: ORIGIN_1_TECH_MULTI },
       { techId: TECHNOLOGIES.Materials.id, multi: ORIGIN_1_TECH_2_MULTI }
@@ -246,7 +271,8 @@ export const RESEARCHES: IResearchData[] = [
     description: "",
     type: TECHNOLOGIES.CivilEngineering,
     modulesToUnlock: ["V"],
-    researchToUnlock: ["or32"]
+    researchToUnlock: ["or32"],
+    shipProductionBonusAll: 1
   },
   {
     id: "or32",
@@ -258,5 +284,5 @@ export const RESEARCHES: IResearchData[] = [
     stationToUp: [],
     inspirationDescription: "Build any space station"
   }
-  //#endRegion
+  //#endregion
 ];

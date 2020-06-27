@@ -4,6 +4,8 @@ import { BASE_COMPUTING } from "../CONSTANTS";
 import { WarpSpell } from "./warp";
 import { Research } from "../researches/research";
 import { ResearchSpell } from "./researchSpell";
+import { BuilderSpell } from "./builderSpell";
+import { WarSpell } from "./warSpell";
 
 export class ComputingManager {
   currentComputing: number = 0;
@@ -17,7 +19,9 @@ export class ComputingManager {
   constructor() {
     const warpSpell = new WarpSpell();
     const researchSpell = new ResearchSpell();
-    this.spells = [warpSpell, researchSpell];
+    const builderSpell = new BuilderSpell();
+    const warSpell = new WarSpell();
+    this.spells = [warpSpell, researchSpell, builderSpell, warSpell];
     this.currentSpells = [warpSpell];
   }
   update(delta: number) {
@@ -72,7 +76,7 @@ export class ComputingManager {
     if ("s" in data) {
       for (let i = 0, n = data.s.length; i < n; i++) {
         const spell = this.spells.find((sp) => sp.id === data.s[i]);
-        if (spell?.id !== "1") {
+        if (spell && spell?.id !== "1") {
           this.currentSpells.push(spell);
         }
       }

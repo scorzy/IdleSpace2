@@ -36,6 +36,7 @@ export interface IResearchData {
   modPoints?: { unitId: string; multi: number }[];
   buildingPoints?: { buildingId: string; quantity: number }[];
   shipProductionBonus?: { shipType: number; multi: number }[];
+  shipProductionBonusAll?: number;
   speedMulti?: number;
   inspirationDescription?: string;
   inspirationBuildingId?: string;

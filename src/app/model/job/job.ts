@@ -92,6 +92,12 @@ export abstract class Job {
           }
         });
       }
+      if (res.shipProductionBonusAll) {
+        if (!this.bonuses) this.bonuses = new BonusStack();
+        this.bonuses.bonuses.push(
+          new Bonus(res, new Decimal(res.shipProductionBonusAll))
+        );
+      }
     });
   }
 }

@@ -466,6 +466,22 @@ export const modules: ModuleData[] = [
     threatGainMulti: 0.65,
     shape: "my:cube"
   },
+  {
+    id: "W",
+    name: "Coordinator",
+    technologies: [
+      { technologyId: TECHNOLOGIES.MilitaryEngineering.id, multi: 1 },
+      { technologyId: TECHNOLOGIES.Naval.id, multi: 1 }
+    ],
+    shape: "my:cube",
+    energy: -1,
+    explosion: MODULE_ARMOUR * -1.5,
+    adaptivePrecision: BASE_ADAPTIVE_PRECISION / 4,
+    armourDamagePercent: 15,
+    shieldDamagePercent: 15,
+    shieldPercent: 15,
+    armourPercent: 15
+  },
   //#endregion
   //#region Thrusters
   {
