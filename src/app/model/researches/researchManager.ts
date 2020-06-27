@@ -263,7 +263,7 @@ export class ResearchManager extends JobManager {
             if (i === 3) resData.modulesToUnlock = ["C", "G"];
             if (i === 4) resData.modulesToUnlock = ["B"];
             if (i === 5) resData.modulesToUnlock = ["b"];
-            if (i === 6) resData.modulesToUnlock = ["V"];
+            // if (i === 6) resData.modulesToUnlock = ["V"];
             if (i === 7) resData.modulesToUnlock = ["D"];
           }
           //  Physics
@@ -337,6 +337,7 @@ export class ResearchManager extends JobManager {
   makeSpaceStationResearches() {
     const first = this.researches.find((r) => r.id === "s3");
     first.resData.researchToUnlock.push("i0");
+    const builderUpData = RESEARCHES.find((r) => r.id === "or32");
     const spaceStations = Game.getGame().resourceManager.spaceStations;
     for (let i = 0, n = spaceStations.length; i < n; i++) {
       // Space station
@@ -358,7 +359,7 @@ export class ResearchManager extends JobManager {
       const resDataUp: IResearchData = {
         id: SPACE_STATION_UP_PREFIX + spaceStations[i].id,
         name: "Upgraded " + spaceStations[i].name,
-        description: "+30% habitable space from " + spaceStations[i].name,
+        description: "", //"+30% habitable space from " + spaceStations[i].name,
         type: TECHNOLOGIES.CivilEngineering,
         priceMulti: 0.8,
         stationToUp: [
@@ -374,6 +375,11 @@ export class ResearchManager extends JobManager {
       }
       this.researches.push(new Research(resDataUp, this));
       this.researches.push(new Research(resData, this));
+
+      builderUpData.stationToUp.push({
+        stationId: spaceStations[i].id,
+        habSpace: 0.2
+      });
     }
   }
   setRelations() {
@@ -471,13 +477,14 @@ export class ResearchManager extends JobManager {
           if (!res.spaceStationsToUp) res.spaceStationsToUp = [];
           res.spaceStationsToUp.push({
             spaceStation: station,
-            multi: 0.3
+            multi: stu.habSpace
           });
           station.habSpaceStack.bonuses.push(new Bonus(res, new Decimal(0.3)));
           station.researchesToInspire =
             station.researchesToInspire || new Array<Research>();
           station.researchesToInspire.push(res);
-          res.inspirationDescription = "Build one " + station.name;
+          if (res.inspirationDescription === "")
+            res.inspirationDescription = "Build one " + station.name;
         });
       }
       if ("limitMulti" in resData) {

@@ -1,7 +1,11 @@
 import { IResearchData } from "./iResearchData";
 import { TECHNOLOGIES } from "./technologyData";
 import { UNITS, UNIT_TYPES } from "./units";
-import { OPTIMIZED_SHIP_PREFIX, ORIGIN_1_TECH_MULTI } from "../CONSTANTS";
+import {
+  OPTIMIZED_SHIP_PREFIX,
+  ORIGIN_1_TECH_MULTI,
+  ORIGIN_1_TECH_2_MULTI
+} from "../CONSTANTS";
 import { ExclusiveResGroups } from "../researches/exclusiveResGroups";
 
 const megastructures = UNITS.filter(
@@ -186,7 +190,8 @@ export const RESEARCHES: IResearchData[] = [
     prodMulti: [{ unitId: "s", multi: 0.2 }],
     spellToUnlock: "2",
     technologyBonus: [
-      { techId: TECHNOLOGIES.Physics.id, multi: ORIGIN_1_TECH_MULTI }
+      { techId: TECHNOLOGIES.Physics.id, multi: ORIGIN_1_TECH_MULTI },
+      { techId: TECHNOLOGIES.Search.id, multi: ORIGIN_1_TECH_2_MULTI }
     ]
   },
   {
@@ -219,6 +224,7 @@ export const RESEARCHES: IResearchData[] = [
       { techId: TECHNOLOGIES.Naval.id, multi: ORIGIN_1_TECH_MULTI }
     ]
   },
+  //#origin Builders
   {
     id: "or3",
     name: "BuilderBot",
@@ -226,8 +232,31 @@ export const RESEARCHES: IResearchData[] = [
     description: "",
     type: TECHNOLOGIES.CivilEngineering,
     exclusiveGroup: ExclusiveResGroups.FIRST_ORIGIN,
+    prodMulti: [{ unitId: "w", multi: 0.2 }],
     technologyBonus: [
-      { techId: TECHNOLOGIES.CivilEngineering.id, multi: ORIGIN_1_TECH_MULTI }
-    ]
+      { techId: TECHNOLOGIES.CivilEngineering.id, multi: ORIGIN_1_TECH_MULTI },
+      { techId: TECHNOLOGIES.Materials.id, multi: ORIGIN_1_TECH_2_MULTI }
+    ],
+    researchToUnlock: ["or31"]
+  },
+  {
+    id: "or31",
+    name: "Reactive Armour",
+    max: 1,
+    description: "",
+    type: TECHNOLOGIES.CivilEngineering,
+    modulesToUnlock: ["V"],
+    researchToUnlock: ["or32"]
+  },
+  {
+    id: "or32",
+    name: "Advanced Space Stations",
+    max: 10,
+    description: "",
+    type: TECHNOLOGIES.CivilEngineering,
+    exclusiveGroup: ExclusiveResGroups.FIRST_ORIGIN,
+    stationToUp: [],
+    inspirationDescription: "Build any space station"
   }
+  //#endRegion
 ];
