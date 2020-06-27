@@ -10,7 +10,7 @@ export class ResearchSpell extends Spell {
   description = "+30% research, +1% per Research Lab";
   colorClass = "science-color";
   duration = 60 * 5 * 1e3;
-  price = 3e4;
+  price = 5e3;
   constructor() {
     super();
     const game = Game.getGame();

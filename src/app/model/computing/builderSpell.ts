@@ -10,7 +10,7 @@ export class BuilderSpell extends Spell {
   description = "+30% production, +1% per Factory";
   colorClass = "production-color";
   duration = 60 * 5 * 1e3;
-  price = 3e4;
+  price = 5e3;
   constructor() {
     super();
     const game = Game.getGame();

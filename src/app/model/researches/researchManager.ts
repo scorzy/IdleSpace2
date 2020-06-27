@@ -194,10 +194,11 @@ export class ResearchManager extends JobManager {
               { unitId: "a", multi: RESEARCH_TECH_EFF },
               { unitId: "w", multi: RESEARCH_TECH_EFF }
             ];
-            resData.buildingPoints = [
-              { buildingId: "4", quantity: 1 },
-              { buildingId: "5", quantity: 1 }
-            ];
+            if (i > 0)
+              resData.buildingPoints = [
+                { buildingId: "4", quantity: 1 },
+                { buildingId: "5", quantity: 1 }
+              ];
             break;
           //  Propulsion
           case "P":
@@ -207,13 +208,15 @@ export class ResearchManager extends JobManager {
           case "p":
             resData.modPoints = [{ unitId: "s", multi: modPlus }];
             resData.effMulti = [{ unitId: "s", multi: RESEARCH_TECH_EFF }];
-            resData.buildingPoints = [{ buildingId: "3", quantity: 1 }];
+            if (i > 0)
+              resData.buildingPoints = [{ buildingId: "3", quantity: 1 }];
             break;
           //  Searching
           case "h":
             resData.modPoints = [{ unitId: "r", multi: modPlus }];
             resData.effMulti = [{ unitId: "r", multi: RESEARCH_TECH_EFF }];
-            resData.buildingPoints = [{ buildingId: "6", quantity: 1 }];
+            if (i > 0)
+              resData.buildingPoints = [{ buildingId: "6", quantity: 1 }];
             break;
         }
         if (i > 0) {
@@ -222,19 +225,22 @@ export class ResearchManager extends JobManager {
             case "x":
               resData.modPoints = [{ unitId: "X", multi: modPlus }];
               resData.recycling = i * 2;
-              resData.buildingPoints = [{ buildingId: "7", quantity: 1 }];
+              if (i > 0)
+                resData.buildingPoints = [{ buildingId: "7", quantity: 1 }];
               break;
             //  Energy
             case "E":
               resData.modPoints = [{ unitId: "e", multi: modPlus }];
               resData.effMulti = [{ unitId: "e", multi: RESEARCH_TECH_EFF }];
-              resData.buildingPoints = [{ buildingId: "2", quantity: 1 }];
+              if (i > 0)
+                resData.buildingPoints = [{ buildingId: "2", quantity: 1 }];
               break;
             //  Mining
             case "N":
               resData.modPoints = [{ unitId: "m", multi: modPlus }];
               resData.effMulti = [{ unitId: "m", multi: RESEARCH_TECH_EFF }];
-              resData.buildingPoints = [{ buildingId: "1", quantity: 1 }];
+              if (i > 0)
+                resData.buildingPoints = [{ buildingId: "1", quantity: 1 }];
               break;
           }
 

@@ -12,6 +12,7 @@ const megastructures = UNITS.filter(
   (u) => u.unitType === UNIT_TYPES.MEGASTRUCTURE
 ).map((u) => u.id);
 export const RESEARCHES: IResearchData[] = [
+  //#region Researches
   {
     id: "m",
     name: "Metallurgist",
@@ -178,6 +179,7 @@ export const RESEARCHES: IResearchData[] = [
     unlockFrom: "h1",
     districtMulti: 0.25
   },
+  //#endregion
   //#region Origin Science
   {
     id: "or1",
@@ -186,7 +188,7 @@ export const RESEARCHES: IResearchData[] = [
     description: "",
     type: TECHNOLOGIES.Physics,
     exclusiveGroup: ExclusiveResGroups.FIRST_ORIGIN,
-    researchToUnlock: ["or11"],
+    researchToUnlock: ["or11", "or13", "or14"],
     prodMulti: [{ unitId: "s", multi: 0.2 }],
     spellToUnlock: "or1",
     technologyBonus: [
@@ -196,7 +198,7 @@ export const RESEARCHES: IResearchData[] = [
   },
   {
     id: "or11",
-    name: "Research Lab",
+    name: "Research Module",
     max: 1,
     description: "",
     type: TECHNOLOGIES.Physics,
@@ -212,7 +214,30 @@ export const RESEARCHES: IResearchData[] = [
     type: TECHNOLOGIES.Physics,
     effMulti: [{ unitId: "s", multi: 0.01, secondUnitId: "i1" }]
   },
+  {
+    id: "or13",
+    name: "Improved Laboratory",
+    max: 1,
+    description: "",
+    type: TECHNOLOGIES.Physics,
+    buildingPoints: [{ buildingId: "3", quantity: 1 }],
+    technologyBonus: [
+      { techId: TECHNOLOGIES.Physics.id, multi: ORIGIN_1_TECH_MULTI * 0.5 }
+    ]
+  },
+  {
+    id: "or14",
+    name: "Improved Observatory",
+    max: 1,
+    description: "",
+    type: TECHNOLOGIES.Search,
+    buildingPoints: [{ buildingId: "6", quantity: 2 }],
+    technologyBonus: [
+      { techId: TECHNOLOGIES.Search.id, multi: ORIGIN_1_TECH_MULTI * 0.5 }
+    ]
+  },
   //#endregion
+  //#region Origin War
   {
     id: "or2",
     name: "War origin",
@@ -221,7 +246,7 @@ export const RESEARCHES: IResearchData[] = [
     type: TECHNOLOGIES.Naval,
     exclusiveGroup: ExclusiveResGroups.FIRST_ORIGIN,
     spellToUnlock: "or2",
-    researchToUnlock: ["or22"],
+    researchToUnlock: ["or21", "or23", "or24"],
     technologyBonus: [
       { techId: TECHNOLOGIES.Naval.id, multi: ORIGIN_1_TECH_MULTI },
       {
@@ -231,24 +256,52 @@ export const RESEARCHES: IResearchData[] = [
     ]
   },
   {
-    id: "or22",
-    name: "War origin",
+    id: "or21",
+    name: "Tactics",
     max: 1,
     description: "",
     type: TECHNOLOGIES.Naval,
     modulesToUnlock: ["W"],
-    researchToUnlock: ["or23"],
-    navalCapacity: 100
+    researchToUnlock: ["or22"],
+    navalCapacity: 150
   },
   {
-    id: "or23",
-    name: "War origin",
+    id: "or22",
+    name: "Planetary Acquisition",
     max: 1,
     description: "",
     type: TECHNOLOGIES.Naval,
     districtMulti: 1
   },
-  //#region Builders
+  {
+    id: "or23",
+    name: "Military Industry",
+    max: 1,
+    description: "",
+    type: TECHNOLOGIES.MilitaryEngineering,
+    buildingPoints: [
+      { buildingId: "5", quantity: 1 },
+      { buildingId: "10", quantity: 1 }
+    ],
+    technologyBonus: [
+      {
+        techId: TECHNOLOGIES.MilitaryEngineering.id,
+        multi: ORIGIN_1_TECH_MULTI * 0.25
+      },
+      { techId: TECHNOLOGIES.Naval.id, multi: ORIGIN_1_TECH_MULTI * 0.25 }
+    ],
+    limitMulti: [{ unitId: "b", multi: 1 }]
+  },
+  {
+    id: "or24",
+    name: "Pillage",
+    max: 10,
+    description: "",
+    type: TECHNOLOGIES.Naval,
+    materialMulti: 1
+  },
+  //#endregion
+  //#region Origin Builders
   {
     id: "or3",
     name: "Builders origin",
@@ -262,7 +315,7 @@ export const RESEARCHES: IResearchData[] = [
       { techId: TECHNOLOGIES.CivilEngineering.id, multi: ORIGIN_1_TECH_MULTI },
       { techId: TECHNOLOGIES.Materials.id, multi: ORIGIN_1_TECH_2_MULTI }
     ],
-    researchToUnlock: ["or31"]
+    researchToUnlock: ["or31", "or33", "or34"]
   },
   {
     id: "or31",
@@ -283,6 +336,39 @@ export const RESEARCHES: IResearchData[] = [
     exclusiveGroup: ExclusiveResGroups.FIRST_ORIGIN,
     stationToUp: [],
     inspirationDescription: "Build any space station"
+  },
+  {
+    id: "or33",
+    name: "Primary Industry",
+    max: 1,
+    description: "",
+    type: TECHNOLOGIES.CivilEngineering,
+    buildingPoints: [
+      { buildingId: "1", quantity: 1 },
+      { buildingId: "2", quantity: 1 }
+    ],
+    technologyBonus: [
+      { techId: TECHNOLOGIES.Mining.id, multi: ORIGIN_1_TECH_MULTI * 0.25 },
+      { techId: TECHNOLOGIES.Energy.id, multi: ORIGIN_1_TECH_MULTI * 0.25 }
+    ]
+  },
+  {
+    id: "or34",
+    name: "Secondary Industry",
+    max: 1,
+    description: "",
+    type: TECHNOLOGIES.CivilEngineering,
+    buildingPoints: [
+      { buildingId: "4", quantity: 1 },
+      { buildingId: "5", quantity: 1 }
+    ],
+    technologyBonus: [
+      { techId: TECHNOLOGIES.Materials.id, multi: ORIGIN_1_TECH_MULTI * 0.25 },
+      {
+        techId: TECHNOLOGIES.CivilEngineering.id,
+        multi: ORIGIN_1_TECH_MULTI * 0.25
+      }
+    ]
   }
   //#endregion
 ];
