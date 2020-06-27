@@ -55,7 +55,8 @@ export class ComputingManager {
     }
   }
   addSpell(spell: Spell) {
-    if (this.currentSpells.findIndex((s) => s === spell) > -1) return false;
+    if (this.currentSpells.findIndex((s) => s.id === spell.id) > -1)
+      return false;
     this.currentSpells.push(spell);
   }
 

@@ -27,8 +27,8 @@ export interface IResearchData {
   navalCapacity?: number;
   stationToUp?: { stationId: string; habSpace: DecimalSource }[];
   battleMulti?: { materialId: string; multi: DecimalSource }[];
-  prodMulti?: { unitId: string; multi: number }[];
-  effMulti?: { unitId: string; multi: number }[];
+  prodMulti?: { unitId: string; multi: number; secondUnitId?: string }[];
+  effMulti?: { unitId: string; multi: number; secondUnitId?: string }[];
   shipTypeToUnlock?: number;
   limitMulti?: { unitId: string; multi: number }[];
   recycling?: number;
@@ -43,6 +43,9 @@ export interface IResearchData {
   habSpaceMulti?: number;
   miningDistMulti?: number;
   energyDistMulti?: number;
+  materialMulti?: number;
+  scienceMulti?: number;
   exclusiveGroup?: ExclusiveResGroups;
   spellToUnlock?: string;
+  technologyBonus?: { techId: string; multi: number }[];
 }

@@ -24,11 +24,13 @@
     position: relative;
     top: 0;
     left: 0;
-    // cursor: pointer;
-    // margin-right: -28px;
   }
   .first {
     opacity: 70%;
+    transition: opacity 0.5s;
+    &:hover {
+      opacity: 1;
+    }
   }
   .second {
     left: -28px;

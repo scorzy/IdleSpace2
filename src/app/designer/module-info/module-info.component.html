@@ -148,6 +148,15 @@
     <i nz-icon nzType="my:cube"></i>{{ mod.cargo | format }}
   </span>
   <span
+    *ngIf="mod.scienceLab > 0"
+    class="science-color"
+    nz-tooltip
+    nzTooltipTitle="Science Lab"
+    fxLayout="row"
+  >
+    <i nz-icon nzType="fa-s:flask"></i>{{ mod.scienceLab | format }}
+  </span>
+  <span
     *ngIf="mod.velocity > 0"
     class="velocity-color"
     nz-tooltip

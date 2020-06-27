@@ -27,6 +27,7 @@ import {
 } from "../notifications/myNotification";
 import { ExclusiveResGroups } from "./exclusiveResGroups";
 import { Spell } from "../computing/spell";
+import { Bonus } from "../bonus/bonus";
 
 export class Research extends Job implements IUnlockable, IBase {
   static lastVisId = 0;
@@ -40,8 +41,8 @@ export class Research extends Job implements IUnlockable, IBase {
   technologiesToUnlock?: Technology[];
   spaceStationsToUp?: { spaceStation: Unit; multi: number }[];
   battleMulti?: { material: Unit; multi: number }[];
-  prodMulti?: { unit: Unit; multi: number }[];
-  effMulti?: { unit: Unit; multi: number }[];
+  prodMulti?: { unit: Unit; multi: number; secondUnit: Unit }[];
+  effMulti?: { unit: Unit; multi: number; secondUnit: Unit }[];
   quantity: Decimal;
   icon?: string;
   resData: IResearchData;
@@ -61,8 +62,11 @@ export class Research extends Job implements IUnlockable, IBase {
   habSpaceMulti: number;
   miningDistMulti: number;
   energyDistMulti: number;
+  materialMulti: number;
+  scienceMulti: number;
   exclusiveGroup: ExclusiveResGroups;
   spellToUnlock: Spell;
+  technologyBonus: { technology: Technology; multi: number }[];
   constructor(researchData: IResearchData, researchManager: ResearchManager) {
     super();
     this.resData = researchData;
@@ -90,6 +94,21 @@ export class Research extends Job implements IUnlockable, IBase {
       this.technologiesToUnlock = researchData.technologiesToUnlock.map(
         (techId) => researchManager.technologies.find((a) => a.id === techId)
       );
+    }
+    if ("technologyBonus" in researchData) {
+      this.technologyBonus = researchData.technologyBonus.map((data) => {
+        return {
+          technology: researchManager.technologies.find(
+            (a) => a.id === data.techId
+          ),
+          multi: data.multi
+        };
+      });
+      this.technologyBonus.forEach((data) => {
+        data.technology.technologyBonus.bonuses.push(
+          new Bonus(this, new Decimal(data.multi))
+        );
+      });
     }
     if ("navalCapacity" in researchData) {
       this.navalCapacity = this.resData.navalCapacity;
@@ -182,9 +201,11 @@ export class Research extends Job implements IUnlockable, IBase {
       if (this.modulesToUnlock) {
         this.modulesToUnlock.forEach((m) => m.unlock());
       }
+      game.navalCapacity += this.navalCapacity;
+    }
+    if (this.level < 2 && !force) {
       if (this.spellToUnlock)
         Game.getGame().computingManager.addSpell(this.spellToUnlock);
-      game.navalCapacity += this.navalCapacity;
     }
     /**
      * First Research

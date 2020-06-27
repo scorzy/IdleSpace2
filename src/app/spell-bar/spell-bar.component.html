@@ -37,10 +37,21 @@
       ></i>
     </div>
 
-    <ng-template #titleTemplate> {{ spell.name }}</ng-template>
+    <ng-template #titleTemplate>
+      <i nz-icon [nzType]="spell.icon" [ngClass]="spell.colorClass"></i>
+      <strong> {{ spell.name }} </strong>
+    </ng-template>
     <ng-template #contentTemplate>
       <p>{{ spell.description }}</p>
-      <span class="monospace">{{ spell.price | format: true }}</span>
+      <div fxLayout="row" fxLayoutAlign="space-between center">
+        <div>
+          <span class="monospace">{{ spell.price | format: true }}</span>
+        </div>
+        <div *ngIf="spell.duration > 0">
+          <i nz-icon nzType="fa-r:hourglass"></i>
+          <span class="monospace"> {{ spell.duration / 1000 | time: 1 }} </span>
+        </div>
+      </div>
     </ng-template>
   </div>
 

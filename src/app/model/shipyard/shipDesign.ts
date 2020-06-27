@@ -40,6 +40,7 @@ export class ShipDesign {
   energy = 0;
   price = ZERO;
   cargo = ZERO;
+  scienceLab = ZERO;
   shieldRecharge = 0;
   velocity = BASE_VELOCITY_DECIMAL;
   acceleration = ZERO;
@@ -80,6 +81,7 @@ export class ShipDesign {
     this.shieldReduction = 0;
     this.price = new Decimal(BASE_SHIP_PRICE * (this.type.id + 1));
     this.cargo = ZERO;
+    this.scienceLab = ZERO;
     this.totalPoints = 0;
     this.energy = 0;
     this.explosionDamage = 0;
@@ -149,6 +151,9 @@ export class ShipDesign {
       this.price = this.price.plus(priceMulti.times(m.module.price));
       this.cargo = this.cargo.plus(
         Decimal.multiply(m.module.cargo, statsMulti)
+      );
+      this.scienceLab = this.scienceLab.plus(
+        Decimal.multiply(m.module.scienceLab, statsMulti)
       );
 
       // Weapons
@@ -511,7 +516,7 @@ export class ShipDesign {
         }
       }
     }
-    if (ok) this.available = true;
+    this.available = ok;
   }
   //#region Save and Load
   getSave(): any {

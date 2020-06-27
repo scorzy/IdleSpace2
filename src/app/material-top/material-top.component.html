@@ -40,7 +40,8 @@
 
     <ng-template #titleTemplate>
       <span [ngClass]="item.colorClass">
-        <i nz-icon [nzType]="item.icon"></i> {{ item.name }}</span
+        <i nz-icon [nzType]="item.icon"></i>
+        <strong> {{ item.name }} </strong></span
       >
     </ng-template>
     <ng-template #contentTemplate>

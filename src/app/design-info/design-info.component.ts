@@ -216,6 +216,23 @@ export class DesignInfoComponent extends BaseComponentComponent
         : ""
     });
     this.comparisonData.push({
+      name: "Science",
+      icon: "fa-s:flask",
+      iconClass: "science-color",
+      original: this.original.scienceLab,
+      new: !this.design ? null : this.design.scienceLab,
+      type: !this.design
+        ? null
+        : this.original.scienceLab.gt(this.design.scienceLab)
+        ? "danger"
+        : "",
+      classes: !this.design
+        ? null
+        : this.original.scienceLab.lt(this.design.scienceLab)
+        ? "text-success"
+        : ""
+    });
+    this.comparisonData.push({
       name: "Velocity",
       icon: "my:rocket-thruster",
       iconClass: "velocity-color",

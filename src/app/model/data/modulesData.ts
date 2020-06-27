@@ -32,6 +32,7 @@ export class ModuleData {
   sizes?: Sizes[];
   shape?: string;
   cargo?: number;
+  scienceLab?: number;
   technologies: { technologyId: string; multi: number }[];
   shieldRecharge?: number;
   velocity?: number;
@@ -383,6 +384,16 @@ export const modules: ModuleData[] = [
     cargo: BASE_CARGO,
     explosion: MODULE_ARMOUR * -1,
     shape: "my:cube"
+  },
+  {
+    id: "N",
+    name: "Laboratory",
+    technologies: [
+      { technologyId: TECHNOLOGIES.Physics.id, multi: 1.3 },
+      { technologyId: TECHNOLOGIES.Search.id, multi: 0.7 }
+    ],
+    scienceLab: BASE_CARGO * 10,
+    shape: "fa-s:flask"
   },
   {
     id: "P",

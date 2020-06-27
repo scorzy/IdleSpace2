@@ -2,7 +2,7 @@
   <tbody>
     <tr *ngFor="let d of subData; trackBy: getIndex">
       <td>{{ d.what }}</td>
-      <td>
+      <!-- <td>
         <span
           class="monospace"
           nz-text
@@ -18,7 +18,7 @@
           [nzType]="d.effect.gte(0) ? '' : 'danger'"
           >{{ d.effect | format }}%</span
         >
-      </td>
+      </td> -->
       <td>
         =
         <span

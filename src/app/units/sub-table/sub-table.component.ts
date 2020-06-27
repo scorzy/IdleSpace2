@@ -56,17 +56,13 @@ export class SubTableComponent extends BaseComponentComponent
       )
       .map((bonus) => {
         return {
-          what:
-            bonus.unit.name +
-            (bonus.secondMultiplier ? " " + bonus.secondMultiplier.name : ""),
+          what: bonus.unit.name,
+          // (bonus.secondMultiplier ? " " + bonus.secondMultiplier.name : ""),
           quantity: bonus.unit.quantity.times(
             bonus.secondMultiplier ? bonus.secondMultiplier.quantity : 1
           ),
           effect: bonus.multiplier.times(100),
-          total: bonus.multiplier
-            .times(bonus.unit.quantity)
-            .times(100)
-            .plus(100)
+          total: bonus.getBonus().times(100)
         };
       });
 

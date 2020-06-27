@@ -35,6 +35,10 @@
     <span class="text-secondary">
       more
     </span>
+    <span class="text-secondary" *ngIf="effMulti.secondUnit">
+      per
+    </span>
+    {{ effMulti.secondUnit?.name }}
   </li>
   <li *ngFor="let prodMulti of research.prodMulti; trackBy: getId">
     {{ prodMulti.unit.name }}
@@ -44,6 +48,18 @@
     <span class="monospace">{{ prodMulti.multi | percent }}</span>
     <span class="text-secondary">
       more
+    </span>
+    <span class="text-secondary" *ngIf="prodMulti.secondUnit">
+      per
+    </span>
+    {{ prodMulti.secondUnit?.name }}
+  </li>
+  <li *ngFor="let techMulti of research.technologyBonus; trackBy: getId">
+    <span class="text-secondary"> +</span
+    ><span class="monospace">{{ techMulti.multi | percent }} </span>
+    {{ techMulti.technology.name }}
+    <span class="text-secondary">
+      technology progress
     </span>
   </li>
   <li *ngIf="research.districtMultiplier">
@@ -69,7 +85,17 @@
   <li *ngFor="let battleMulti of research.battleMulti">
     +{{ battleMulti.multi | percent }}
     {{ battleMulti.material.name }}
-    <span class="text-secondary">from battles</span>
+    <span class="text-secondary">from enemies</span>
+  </li>
+  <li *ngIf="research.materialMulti">
+    +{{ research.materialMulti | percent }}
+    Materials
+    <span class="text-secondary">from enemies</span>
+  </li>
+  <li *ngIf="research.scienceMulti">
+    +{{ research.scienceMulti | percent }}
+    Science and Search
+    <span class="text-secondary">from enemies</span>
   </li>
   <li *ngFor="let shipProdMulti of research.shipProductionBonus">
     +{{ shipProdMulti.multi | percent }}

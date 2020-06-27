@@ -277,7 +277,7 @@ export class Enemy {
     em.miningDistMultiplier.reloadBonus();
     em.energyDistMultiplier.reloadBonus();
     em.resourceMultiplier.reloadBonus();
-    em.scienceMultiplier.reloadBonus();
+
     rs.units.forEach((u) => {
       if (u.battleGainMulti) {
         u.battleGainMulti.reloadBonus();
@@ -287,7 +287,7 @@ export class Enemy {
     const districtQuantity = TEN.plus(this.level - 3).times(
       em.districtMultiplier.totalBonus
     );
-    const materialQuantity = Decimal.pow(1 + this.level, PRICE_GROW_RATE)
+    const materialQuantity = Decimal.pow(1 + this.level, PRICE_GROW_RATE + 0.5)
       .times(DEFAULT_MODULE_PRICE)
       .times(100)
       .times(em.resourceMultiplier.totalBonus);
@@ -320,7 +320,7 @@ export class Enemy {
         });
         rowCell = rowCell.filter((c) => c.materials.length <= min);
         row = (row + 1) % 10;
-        // const cell = sample(rowCell.length > 0 ? rowCell : this.cells);
+
         const cell = sample(rowCell);
         let num =
           tile.unit.unitData.unitType === UNIT_TYPES.DISTRICT

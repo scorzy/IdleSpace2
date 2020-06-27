@@ -17,6 +17,7 @@ import {
 import { IResearchData } from "../data/iResearchData";
 import { BonusStack } from "../bonus/bonusStack";
 import { convertToRoman } from "ant-utils";
+import { Unit } from "../units/unit";
 
 const SHIP_RESEARCH_NAV_CAP_MULTI = 5;
 
@@ -429,14 +430,18 @@ export class ResearchManager extends JobManager {
       if ("prodMulti" in resData) {
         resData.prodMulti.forEach((multi) => {
           const unit = rs.units.find((u) => u.id === multi.unitId);
+          let secondUnit: Unit = null;
+          if (multi.secondUnitId)
+            secondUnit = rs.units.find((u) => u.id === multi.secondUnitId);
           if (unit) {
             unit.prodAllBonus.bonuses.push(
-              new Bonus(res, new Decimal(multi.multi))
+              new Bonus(res, new Decimal(multi.multi), secondUnit)
             );
             if (!res.prodMulti) res.prodMulti = [];
             res.prodMulti.push({
               unit,
-              multi: multi.multi
+              multi: multi.multi,
+              secondUnit
             });
           }
         });
@@ -444,14 +449,18 @@ export class ResearchManager extends JobManager {
       if ("effMulti" in resData) {
         resData.effMulti.forEach((multi) => {
           const unit = rs.units.find((u) => u.id === multi.unitId);
+          let secondUnit: Unit = null;
+          if (multi.secondUnitId)
+            secondUnit = rs.units.find((u) => u.id === multi.secondUnitId);
           if (unit) {
             unit.prodEfficiency.bonuses.push(
-              new Bonus(res, new Decimal(multi.multi))
+              new Bonus(res, new Decimal(multi.multi), secondUnit)
             );
             if (!res.effMulti) res.effMulti = [];
             res.effMulti.push({
               unit,
-              multi: multi.multi
+              multi: multi.multi,
+              secondUnit
             });
           }
         });
@@ -524,6 +533,18 @@ export class ResearchManager extends JobManager {
         res.energyDistMulti = resData.energyDistMulti;
         em.energyDistMultiplier.bonuses.push(
           new Bonus(res, new Decimal(res.energyDistMulti))
+        );
+      }
+      if ("materialMulti" in resData) {
+        res.materialMulti = resData.materialMulti;
+        em.resourceMultiplier.bonuses.push(
+          new Bonus(res, new Decimal(res.materialMulti))
+        );
+      }
+      if ("scienceMulti" in resData) {
+        res.scienceMulti = resData.scienceMulti;
+        em.resourceMultiplier.bonuses.push(
+          new Bonus(res, new Decimal(res.scienceMulti))
         );
       }
       if ("spellToUnlock" in resData) {

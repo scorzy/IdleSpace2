@@ -1,7 +1,7 @@
 import { IResearchData } from "./iResearchData";
 import { TECHNOLOGIES } from "./technologyData";
 import { UNITS, UNIT_TYPES } from "./units";
-import { OPTIMIZED_SHIP_PREFIX } from "../CONSTANTS";
+import { OPTIMIZED_SHIP_PREFIX, ORIGIN_1_TECH_MULTI } from "../CONSTANTS";
 import { ExclusiveResGroups } from "../researches/exclusiveResGroups";
 
 const megastructures = UNITS.filter(
@@ -144,11 +144,10 @@ export const RESEARCHES: IResearchData[] = [
     name: "Scavenging",
     description: "Increase materials gain from battles",
     type: TECHNOLOGIES.Naval,
+    materialMulti: 1,
     battleMulti: [
       { materialId: "M", multi: 1 },
-      { materialId: "E", multi: 1 },
-      { materialId: "A", multi: 1 },
-      { materialId: "x", multi: 1 }
+      { materialId: "E", multi: 1 }
     ],
     inspirationDescription: "Defeat an enemy"
   },
@@ -175,6 +174,7 @@ export const RESEARCHES: IResearchData[] = [
     unlockFrom: "h1",
     districtMulti: 0.25
   },
+  //#region Origin Science
   {
     id: "or1",
     name: "ScientistBot",
@@ -182,15 +182,42 @@ export const RESEARCHES: IResearchData[] = [
     description: "",
     type: TECHNOLOGIES.Physics,
     exclusiveGroup: ExclusiveResGroups.FIRST_ORIGIN,
-    spellToUnlock: "2"
+    researchToUnlock: ["or11"],
+    prodMulti: [{ unitId: "s", multi: 0.2 }],
+    spellToUnlock: "2",
+    technologyBonus: [
+      { techId: TECHNOLOGIES.Physics.id, multi: ORIGIN_1_TECH_MULTI }
+    ]
   },
+  {
+    id: "or11",
+    name: "Research Lab",
+    max: 1,
+    description: "",
+    type: TECHNOLOGIES.Physics,
+    modulesToUnlock: ["N"],
+    researchToUnlock: ["or12"],
+    scienceMulti: 1
+  },
+  {
+    id: "or12",
+    name: "Orbital Research Lab",
+    max: 10,
+    description: "",
+    type: TECHNOLOGIES.Physics,
+    effMulti: [{ unitId: "s", multi: 0.01, secondUnitId: "i1" }]
+  },
+  //#endregion
   {
     id: "or2",
     name: "WarBot",
     max: 1,
     description: "",
     type: TECHNOLOGIES.Naval,
-    exclusiveGroup: ExclusiveResGroups.FIRST_ORIGIN
+    exclusiveGroup: ExclusiveResGroups.FIRST_ORIGIN,
+    technologyBonus: [
+      { techId: TECHNOLOGIES.Naval.id, multi: ORIGIN_1_TECH_MULTI }
+    ]
   },
   {
     id: "or3",
@@ -198,6 +225,9 @@ export const RESEARCHES: IResearchData[] = [
     max: 1,
     description: "",
     type: TECHNOLOGIES.CivilEngineering,
-    exclusiveGroup: ExclusiveResGroups.FIRST_ORIGIN
+    exclusiveGroup: ExclusiveResGroups.FIRST_ORIGIN,
+    technologyBonus: [
+      { techId: TECHNOLOGIES.CivilEngineering.id, multi: ORIGIN_1_TECH_MULTI }
+    ]
   }
 ];

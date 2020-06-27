@@ -44,7 +44,6 @@ export class EnemyManager extends JobManager {
   miningDistMultiplier: BonusStack = new BonusStack();
   energyDistMultiplier: BonusStack = new BonusStack();
   resourceMultiplier: BonusStack = new BonusStack();
-  scienceMultiplier: BonusStack = new BonusStack();
   //#endregion
   //#region Search Options
   habitabilityOpt: SearchOption;
@@ -313,14 +312,28 @@ export class EnemyManager extends JobManager {
       );
     }
     cargo = cargo.div(100).plus(1);
+
+    let scienceLab = ZERO;
+    for (let i = 0, n = playerDesign.length; i < n; i++) {
+      scienceLab = scienceLab.plus(
+        playerDesign[i].scienceLab.times(
+          playerDesign[i].fleets[fleetNum].shipsQuantity
+        )
+      );
+    }
+    scienceLab = scienceLab.div(100).plus(1);
+
     for (let i = 0, n = cell.materials.length; i < n; i++) {
       const mat = cell.materials[i];
-      let toAdd = ZERO;
+      let toAdd = mat.quantity;
 
       if (mat.material.unitData.unitType === UNIT_TYPES.MATERIAL) {
-        toAdd = mat.quantity.times(cargo);
-      } else {
-        toAdd = mat.quantity;
+        if (
+          mat.material.unitData.id === "S" ||
+          mat.material.unitData.id === "R"
+        )
+          toAdd = toAdd.times(scienceLab);
+        else toAdd = toAdd.times(cargo);
       }
       if (toAdd.gt(0)) {
         mat.material.quantity = mat.material.quantity.plus(toAdd);
