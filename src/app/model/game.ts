@@ -14,6 +14,7 @@ import {
   NotificationTypes
 } from "./notifications/myNotification";
 import { MainService } from "../main.service";
+import { PrestigeManager } from "./prestige/prestigeManager";
 
 /**
  * Game is the main class that orchestrate everything game related
@@ -31,6 +32,7 @@ export class Game {
   spaceStationManager: SpaceStationManager;
   automationManager: AutomationManager;
   computingManager: ComputingManager;
+  prestigeManager: PrestigeManager;
 
   navalCapacity: number = BASE_NAVAL_CAPACITY;
 
@@ -87,6 +89,7 @@ export class Game {
 
     this.resourceManager.setRelations();
     this.automationManager = new AutomationManager();
+    this.prestigeManager = new PrestigeManager();
 
     this.setTheme();
 
@@ -284,7 +287,8 @@ export class Game {
       m: this.spaceStationManager.getSave(),
       c: this.civilianWorkPercent,
       a: this.automationManager.getSave(),
-      p: this.computingManager.getSave()
+      p: this.computingManager.getSave(),
+      t: this.prestigeManager.getSave()
     };
   }
   load(data: any) {
@@ -314,6 +318,7 @@ export class Game {
     if ("p" in data) {
       this.computingManager.load(data.p);
     }
+    if ("t" in data) this.prestigeManager.load(data.t);
     this.postUpdate(0);
   }
   //#endregion

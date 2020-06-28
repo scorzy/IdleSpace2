@@ -48,6 +48,9 @@ export const DISTRICT_MIN_OPT_END = 40;
 export const SCIENCE_DISTRICT_MULTI = 0.6;
 export const COMPONENTS_DISTRICT_MULTI = 0.4;
 export const MAX_SEARCH_JOB = 10;
+export const ENEMY_EXP_START_LEVEL = 3;
+export const ENEMY_BASE_EXP = 5;
+export const ENEMY_EXP_GROW_RATE = 0.2;
 
 // Modules
 export const PRICE_GROW_RATE = 1.05;

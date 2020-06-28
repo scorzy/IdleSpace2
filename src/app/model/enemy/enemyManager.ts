@@ -1,7 +1,14 @@
 import { Enemy } from "./enemy";
 import { JobManager } from "../job/jobManager";
 import { SearchJob } from "./searchJob";
-import { FLEET_NUMBER, ZERO, NUKE_DAMAGE } from "../CONSTANTS";
+import {
+  FLEET_NUMBER,
+  ZERO,
+  NUKE_DAMAGE,
+  ENEMY_EXP_START_LEVEL,
+  ENEMY_BASE_EXP,
+  ENEMY_EXP_GROW_RATE
+} from "../CONSTANTS";
 import { MainService } from "src/app/main.service";
 import { BattleRequest } from "../battle/battleRequest";
 import { Game } from "../game";
@@ -349,11 +356,26 @@ export class EnemyManager extends JobManager {
   }
   defeatEnemy() {
     // TODO:
+    if (!this.currentEnemy) return false;
+
     Game.getGame().researchManager.searching.inspire();
     Game.getGame().researchManager.scavenging.inspire();
 
     if (this.currentEnemy.level >= this.maxLevel) {
       this.maxLevel++;
+      if (this.currentEnemy.level >= ENEMY_EXP_START_LEVEL) {
+        const pm = Game.getGame().prestigeManager;
+        const exp = Math.floor(
+          ENEMY_BASE_EXP + this.currentEnemy.level * ENEMY_EXP_GROW_RATE
+        );
+        pm.experience = pm.experience.plus(exp);
+        Game.getGame().notificationManager.addNotification(
+          new MyNotification(
+            NotificationTypes.EXPERIENCE,
+            MainService.formatPipe.transform(exp, true)
+          )
+        );
+      }
     }
     Game.getGame().notificationManager.addNotification(
       new MyNotification(
