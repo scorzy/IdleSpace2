@@ -207,6 +207,9 @@ export class Game {
     this.enemyManager.postUpdate();
     this.spaceStationManager.postUpdate();
     this.reloadBaseRecycling();
+    this.resourceManager.energy.quantity = this.resourceManager.energy.quantity.min(
+      this.resourceManager.energy.limit
+    );
   }
   reloadNavalCapacity() {
     this.navalCapacity = BASE_NAVAL_CAPACITY;

@@ -5,8 +5,7 @@ export const TEN = new Decimal(10);
 export const INFINITY = new Decimal(Number.POSITIVE_INFINITY);
 
 //  Units
-export const UNIT_PRICE_GROW_RATE = 1.1;
-export const RESEARCH_GROW_RATE = 1.1;
+export const UNIT_PRICE_GROW_RATE = 1.05;
 export const SPACE_STATION_PRICE = 1e6;
 export const SPACE_STATION_HAB_SPACE = 1e3;
 export const SPACE_STATION_GROW = 10;
@@ -23,7 +22,7 @@ export const BUILDING_LIMIT = 20;
 export const DEPARTMENT_TECH_MULTI = new Decimal(0.01);
 
 //  FLEETS
-export const BASE_NAVAL_CAPACITY = 50;
+export const BASE_NAVAL_CAPACITY = 25;
 export const FLEET_NUMBER = 5;
 export const FLEET_CAPACITY = 5e3;
 export const FLEET_CAPACITY_MULTI = 10;
@@ -35,8 +34,9 @@ export const BASE_EXPLOSION = BASE_ARMOUR;
 export const OPTIMIZE_RES_BONUS = 0.5;
 
 //  Search and enemies
+export const RESEARCH_GROW_RATE = 1.1;
 export const SEARCH_JOB_PRICE = 100;
-export const EXTRA_OPT_EXP = 1.07;
+export const EXTRA_OPT_EXP = 1.05;
 export const ENEMY_NAVAL_CAP_LEVEL = 50;
 export const ENEMY_BASE_DISTANCE = new Decimal(50);
 export const MOD_LEVEL_EXP = 1.045;
@@ -67,7 +67,7 @@ export const BASE_ADAPTIVE_PRECISION = 700;
 export const NUKE_DAMAGE = MODULE_ARMOUR * 100;
 
 //  Researches
-export const RESEARCH_BASE_PRICE = 1;
+export const RESEARCH_BASE_PRICE = 0.1;
 export const RESEARCH_LEVEL_MULTI = 1000;
 export const RESEARCH_TECH_EFF = 0.1;
 export const RESEARCH_ROBOTICS_MULTI = 0.1;

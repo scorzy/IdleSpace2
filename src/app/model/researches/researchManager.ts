@@ -333,7 +333,7 @@ export class ResearchManager extends JobManager {
         id: OPTIMIZED_SHIP_PREFIX + shipyard.shipTypes[i].id,
         max: 10,
         name: "Optimized " + shipyard.shipTypes[i].name,
-        priceMulti: 0.5,
+        priceMulti: 0.2,
         description: "Improve " + shipyard.shipTypes[i].name + " build speed",
         type: TECHNOLOGIES.MilitaryEngineering,
         shipProductionBonus: [
@@ -649,7 +649,16 @@ export class ResearchManager extends JobManager {
       b: this.backlog.map((r) => r.getSave()),
       e: this.unlockedTechnologies.map((t) => t.getSave()),
       r: this.researchPriority,
-      s: this.sort
+      s: this.sort,
+      o: this.researches
+        .filter(
+          (res) =>
+            this.toDo.findIndex((r) => r === res) < 0 &&
+            this.backlog.findIndex((r) => r === res) < 0 &&
+            this.done.findIndex((r) => r === res) < 0 &&
+            (res.inspiration || res.progress.gt(0))
+        )
+        .map((res) => res.getSave())
     };
     if (this.newJobsOnBacklog) ret.k = this.newJobsOnBacklog;
     return ret;
@@ -661,6 +670,12 @@ export class ResearchManager extends JobManager {
     if ("k" in data) this.newJobsOnBacklog = data.k;
     if ("s" in data) {
       this.sort = data.s;
+    }
+    for (const resData of data.o) {
+      const res = this.researches.find((r) => r.id === resData.i);
+      if (res) {
+        res.load(resData);
+      }
     }
     for (const resData of data.t) {
       const res = this.researches.find((r) => r.id === resData.i);
