@@ -16,7 +16,6 @@ export class SearchJob extends Job {
   id = 0;
   //#region Search Options
   habitabilityOpt = 0;
-  difficultyOpt = 0;
   distanceOpt = 0;
   energyOpt = 0;
   metalOpt = 0;
@@ -32,7 +31,6 @@ export class SearchJob extends Job {
     this.total = SearchJob.getPrice(
       this.level,
       this.habitabilityOpt +
-        this.difficultyOpt * -1 +
         this.distanceOpt * -1 +
         this.energyOpt +
         this.metalOpt +
@@ -64,9 +62,6 @@ export class SearchJob extends Job {
     if (this.habitabilityOpt !== 0) {
       ret.h = this.habitabilityOpt;
     }
-    if (this.difficultyOpt !== 0) {
-      ret.d = this.difficultyOpt;
-    }
     if (this.distanceOpt !== 0) {
       ret.i = this.distanceOpt;
     }
@@ -90,9 +85,6 @@ export class SearchJob extends Job {
     }
     if ("h" in data) {
       this.habitabilityOpt = data.h;
-    }
-    if ("d" in data) {
-      this.difficultyOpt = data.d;
     }
     if ("i" in data) {
       this.distanceOpt = data.i;

@@ -23,7 +23,7 @@ export class BattleReportComponent extends BaseComponentComponent
   fleet = -1;
   report = -1;
   stats: Stats[];
-  name: string = "";
+  name = "";
   listOfFleets: Array<{ label: string; value: string }> = [];
 
   listOfRounds: Array<{ label: string; value: string }> = [

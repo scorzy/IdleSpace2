@@ -1,4 +1,4 @@
-import { Bonus } from "../bonus/bonus";
+
 import { ONE, ZERO } from "../CONSTANTS";
 import { Game } from "../game";
 import { IBase } from "../iBase";

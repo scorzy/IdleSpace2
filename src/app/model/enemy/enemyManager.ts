@@ -18,7 +18,6 @@ import { BonusStack } from "../bonus/bonusStack";
 import { SearchOption } from "./searchOption";
 import {
   HABITABILITY_OPT,
-  DIFFICULTY_OPT,
   DISTANCE_OPT,
   METAL_OPT,
   ENERGY_OPT,
@@ -54,7 +53,6 @@ export class EnemyManager extends JobManager {
   //#endregion
   //#region Search Options
   habitabilityOpt: SearchOption;
-  difficultyOpt: SearchOption;
   distanceOpt: SearchOption;
   energyOpt: SearchOption;
   metalOpt: SearchOption;
@@ -75,7 +73,6 @@ export class EnemyManager extends JobManager {
     this.habitabilityOpt = new SearchOption(HABITABILITY_OPT);
     this.metalOpt = new SearchOption(METAL_OPT);
     this.energyOpt = new SearchOption(ENERGY_OPT);
-    this.difficultyOpt = new SearchOption(DIFFICULTY_OPT);
     this.distanceOpt = new SearchOption(DISTANCE_OPT);
     this.scienceOpt = new SearchOption(SCIENCE_OPT);
     this.componentOpt = new SearchOption(COMPONENT_OPT);
@@ -86,7 +83,6 @@ export class EnemyManager extends JobManager {
       this.energyOpt,
       this.scienceOpt,
       this.componentOpt,
-      this.difficultyOpt,
       this.distanceOpt
     ];
   }
@@ -94,7 +90,6 @@ export class EnemyManager extends JobManager {
     const searchJob = new SearchJob();
     searchJob.enemyLevel = level;
     searchJob.habitabilityOpt = this.habitabilityOpt.quantity;
-    searchJob.difficultyOpt = this.difficultyOpt.quantity;
     searchJob.distanceOpt = this.distanceOpt.quantity;
     searchJob.energyOpt = this.energyOpt.quantity;
     searchJob.metalOpt = this.metalOpt.quantity;
@@ -338,8 +333,9 @@ export class EnemyManager extends JobManager {
         if (
           mat.material.unitData.id === "S" ||
           mat.material.unitData.id === "R"
-        )
+        ) {
           toAdd = toAdd.times(scienceLab);
+        }
         else toAdd = toAdd.times(cargo);
       }
       if (toAdd.gt(0)) {
@@ -365,16 +361,10 @@ export class EnemyManager extends JobManager {
       this.maxLevel++;
       if (this.currentEnemy.level >= ENEMY_EXP_START_LEVEL) {
         const pm = Game.getGame().prestigeManager;
-        const exp = Math.floor(
+        const exp = Decimal.floor(
           ENEMY_BASE_EXP + this.currentEnemy.level * ENEMY_EXP_GROW_RATE
         );
-        pm.experience = pm.experience.plus(exp);
-        Game.getGame().notificationManager.addNotification(
-          new MyNotification(
-            NotificationTypes.EXPERIENCE,
-            MainService.formatPipe.transform(exp, true)
-          )
-        );
+        pm.addExperience(exp);
       }
     }
     Game.getGame().notificationManager.addNotification(

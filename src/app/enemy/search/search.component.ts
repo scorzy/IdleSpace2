@@ -94,7 +94,6 @@ export class SearchComponent extends BaseComponentComponent
   reload() {
     this.pointBalance =
       this.ms.game.enemyManager.habitabilityOpt.quantity +
-      this.ms.game.enemyManager.difficultyOpt.quantity * -1 +
       this.ms.game.enemyManager.distanceOpt.quantity * -1 +
       this.ms.game.enemyManager.energyOpt.quantity +
       this.ms.game.enemyManager.metalOpt.quantity +
@@ -110,7 +109,7 @@ export class SearchComponent extends BaseComponentComponent
     this.expectedTiles[2].range = this.ms.game.enemyManager.energyOpt.getRange();
     this.expectedTiles[3].range = this.ms.game.enemyManager.scienceOpt.getRange();
     this.expectedTiles[4].range = this.ms.game.enemyManager.componentOpt.getRange();
-    this.fleetPowerRange = this.ms.game.enemyManager.difficultyOpt.getRange();
+
     const distanceRange = Enemy.getDistance(
       this.searchLevel,
       this.ms.game.enemyManager.distanceOpt.quantity

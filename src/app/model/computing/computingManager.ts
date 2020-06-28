@@ -11,8 +11,8 @@ import { Bonus } from "../bonus/bonus";
 import { Game } from "../game";
 
 export class ComputingManager {
-  currentComputing: number = 0;
-  computingPerSec: number = 0;
+  currentComputing = 0;
+  computingPerSec = 0;
   maxComputing: number = BASE_COMPUTING;
   computingStack = new BonusStack();
   computingStackMulti = new BonusStack();
@@ -85,8 +85,9 @@ export class ComputingManager {
     //#region Update spells status
     const now = Date.now();
     for (let i = 0, n = this.currentSpells.length; i < n; i++) {
-      if (this.currentSpells[i].endTime < now)
+      if (this.currentSpells[i].endTime < now) {
         this.currentSpells[i].active = false;
+      }
 
       if (this.currentSpells[i].active) {
         this.currentSpells[i].percent = Math.floor(
@@ -110,8 +111,9 @@ export class ComputingManager {
         (sp) => sp.autoCastPriority === 1 && sp.active
       ) > 0;
     for (let i = 1; i < 5; i++) {
-      if (this.currentSpells.findIndex((sp) => sp.autoCastPriority === i) < 0)
+      if (this.currentSpells.findIndex((sp) => sp.autoCastPriority === i) < 0) {
         break;
+      }
       for (let k = 0, n = this.currentSpells.length; k < n; k++) {
         if (this.currentSpells[k].autoCastPriority !== i) continue;
         if (
@@ -125,8 +127,9 @@ export class ComputingManager {
           if (
             this.currentSpells[k].autoCastPriority === 1 &&
             this.currentSpells[k].active
-          )
+          ) {
             oneLv1 = true;
+          }
         }
 
         nextLevelOk = nextLevelOk && this.currentSpells[k].active;
@@ -136,8 +139,9 @@ export class ComputingManager {
     //#endregion
   }
   addSpell(spell: Spell) {
-    if (this.currentSpells.findIndex((s) => s.id === spell.id) > -1)
+    if (this.currentSpells.findIndex((s) => s.id === spell.id) > -1) {
       return false;
+    }
     this.currentSpells.push(spell);
   }
 

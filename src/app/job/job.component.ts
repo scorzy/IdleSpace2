@@ -9,8 +9,6 @@ import { Job } from "../model/job/job";
 import { Research } from "../model/researches/research";
 import { moveItemInArray } from "@angular/cdk/drag-drop";
 import { BaseComponentComponent } from "../base-component/base-component.component";
-import { BuildShipsJob } from "../model/shipyard/buildShipsJob";
-import { UpdateShipJob } from "../model/shipyard/updateShipJob";
 
 @Component({
   selector: "app-job",

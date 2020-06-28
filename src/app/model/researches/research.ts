@@ -212,8 +212,9 @@ export class Research extends Job implements IUnlockable, IBase {
       game.navalCapacity += this.navalCapacity;
     }
     if (this.level < 2 && !force) {
-      if (this.spellToUnlock)
+      if (this.spellToUnlock) {
         Game.getGame().computingManager.addSpell(this.spellToUnlock);
+      }
     }
     /**
      * First Research

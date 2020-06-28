@@ -135,11 +135,8 @@ export class Enemy {
     });
     //#endregion
     //#region Naval
-    const powerRange = em.difficultyOpt.getRange(searchJob.difficultyOpt);
-    const powerMulti =
-      1 + powerRange.min + (powerRange.max - powerRange.min) * Math.random();
-    const navalCapMulti = 1 + Math.floor(powerMulti * 2 * Math.random()) / 10;
-    const modLevelMulti = Math.floor((10 * powerMulti) / navalCapMulti) / 10;
+    const navalCapMulti = 1 + Math.floor(2 * Math.random()) / 10;
+    const modLevelMulti = Math.floor(10 / navalCapMulti) / 10;
     const maxNavalCap =
       navalCapMulti *
       Math.min(
@@ -154,12 +151,8 @@ export class Enemy {
     } else {
       //#region Ships
       this.modLevel =
-        Math.floor(
-          (1 + this.level / 10) *
-            100 *
-            Math.pow(MOD_LEVEL_EXP, this.level) *
-            modLevelMulti
-        ) / 10;
+        Math.floor(100 * Math.pow(MOD_LEVEL_EXP, this.level) * modLevelMulti) /
+        10;
       this.weaponDefenceRatio = 0.2 + Math.random() * 0.5;
       const sm = Game.getGame().shipyardManager;
       const maxShip = Math.floor(

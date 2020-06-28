@@ -18,8 +18,9 @@ export class AutoFleetUpdate extends AbstractAutobuyer {
         if (mod.level < mod.module.maxLevel - 1) {
           mod.level = mod.module.maxLevel - 1;
           up = true;
-          if (mod.module.maxLevel - 1 < newMinMax)
+          if (mod.module.maxLevel - 1 < newMinMax) {
             newMinMax = mod.module.maxLevel - 1;
+          }
         }
       });
       if (up) {

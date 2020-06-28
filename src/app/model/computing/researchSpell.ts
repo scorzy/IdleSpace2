@@ -1,7 +1,6 @@
 import { Spell } from "./spell";
 import { Game } from "../game";
 import { Bonus } from "../bonus/bonus";
-import { ONE } from "../CONSTANTS";
 
 export class ResearchSpell extends Spell {
   id = "or1";

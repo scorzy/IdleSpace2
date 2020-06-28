@@ -1,10 +1,9 @@
 import { ResourceManager } from "./units/resourceManager";
 import { ResearchManager } from "./researches/researchManager";
 import { ShipyardManager } from "./shipyard/shipyardManager";
-import { BASE_NAVAL_CAPACITY, ZERO, FLEET_NUMBER, TEN } from "./CONSTANTS";
+import { BASE_NAVAL_CAPACITY, ZERO, TEN } from "./CONSTANTS";
 import { EnemyManager } from "./enemy/enemyManager";
 import { BattleResult, Stats } from "./battle/battleResult";
-import { DatePipe } from "@angular/common";
 import { SpaceStationManager } from "./space/spaceStationManager";
 import { NotificationManager } from "./notifications/notificationManager";
 import { AutomationManager } from "./automation/automationManager";
@@ -116,13 +115,14 @@ export class Game {
    */
   update(delta: number) {
     let toUpdate = delta + this.timeToWarp;
-    if (this.timeToWarp > 0)
+    if (this.timeToWarp > 0) {
       this.notificationManager.addNotification(
         new MyNotification(
           NotificationTypes.WARP,
           "Warp: " + MainService.timePipe.transform(this.timeToWarp, 1)
         )
       );
+    }
     this.processBattles();
     this.timeToWarp = 0;
     this.automationManager.update();

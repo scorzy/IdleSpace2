@@ -24,6 +24,7 @@ import { DepartmentComponent } from "./units/department/department.component";
 import { NotificationListComponent } from "./notification-list/notification-list.component";
 import { ReportListComponent } from "./battle-report/report-list/report-list.component";
 import { AutomationComponent } from "./automation/automation.component";
+import { PrestigeShopComponent } from "./prestige-shop/prestige-shop.component";
 export const routes: Routes = [
   { path: "", pathMatch: "full", redirectTo: "/units/ws" },
   { path: "des", pathMatch: "full", redirectTo: "/des/add" },
@@ -67,7 +68,8 @@ export const routes: Routes = [
       { path: "search", pathMatch: "full", component: SearchComponent }
     ]
   },
-  { path: "automation", pathMatch: "full", component: AutomationComponent }
+  { path: "automation", pathMatch: "full", component: AutomationComponent },
+  { path: "expShop", component: PrestigeShopComponent }
 ];
 
 @NgModule({

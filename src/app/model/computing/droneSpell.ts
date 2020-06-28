@@ -21,8 +21,6 @@ export class DroneSpell extends Spell {
     super();
     const game = Game.getGame();
 
-    const bonus = new Bonus(this, new Decimal(0.3));
-
     const workers = [
       game.resourceManager.miner,
       game.resourceManager.technician,

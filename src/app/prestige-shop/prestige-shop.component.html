@@ -1,0 +1,64 @@
+<h2>
+  Experience
+  <span class="monospace">
+    {{ ms.game.prestigeManager.experience | format: true }}
+  </span>
+</h2>
+<p>
+  Spend your experience here.
+</p>
+
+<nz-tabset>
+  <nz-tab
+    *ngFor="let tab of ms.game.prestigeManager.tabs; trackBy: getTabId"
+    [nzTitle]="tab.name"
+  >
+    <div fxLayout="column" fxLayout.gt-xs="row wrap" fxLayoutGap="10px">
+      <nz-card
+        *ngFor="let prestige of tab.prestige; trackBy: getPrestigeId"
+        style="width: 100%;"
+        nzSize="small"
+        [nzTitle]="prestige.name"
+        class="flex-item"
+        fxFlex.xs="0 0 calc(100%)"
+        fxFlex.sm="0 0 calc(50% -10px)"
+        fxFlex.md="0 0 calc(33% -10px)"
+        fxFlex.lg="0 0 calc(25% -10px)"
+        fxFlex.xl="0 0 calc(20% -10px)"
+      >
+        <p>{{ prestige.description }}</p>
+        <span>
+          <strong>
+            Price:
+          </strong>
+          <span>
+            {{ prestige.price | format: true }}
+          </span>
+        </span>
+
+        <!-- Buttons -->
+        <div
+          fxLayout="column"
+          fxLayoutAlign="space-around stretch"
+          fxLayoutGap="12px"
+        >
+          <button
+            *ngFor="let buyOpt of buyOptions"
+            nz-button
+            nzType="default"
+            nzBlock
+            (click)="prestige.buy(buyOpt)"
+            [disabled]="
+              prestige.price
+                .times(buyOpt)
+                .gt(ms.game.prestigeManager.experience)
+            "
+          >
+            Buy {{ buyOpt | format: true }} for
+            {{ prestige.price.times(buyOpt) | format: true }} exp
+          </button>
+        </div>
+      </nz-card>
+    </div>
+  </nz-tab>
+</nz-tabset>

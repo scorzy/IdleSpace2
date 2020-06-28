@@ -58,6 +58,7 @@ export class MyNotification {
       case NotificationTypes.RESEARCH_INSPIRED:
         this.icon = "rise";
         this.iconClass = Game.getGame().resourceManager.science.colorClass;
+        break;
       case NotificationTypes.WARP:
         this.icon = "field-time";
         this.iconClass = Game.getGame().resourceManager.science.colorClass;

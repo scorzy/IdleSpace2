@@ -62,8 +62,9 @@ export class Building extends Unit {
         this.researchesToInspire[i].inspire() ||
         (this.researchesToInspire[i].inspiration &&
           this.researchesToInspire[i].level < this.researchesToInspire[i].max)
-      )
+      ) {
         break;
+      }
     }
     return true;
   }

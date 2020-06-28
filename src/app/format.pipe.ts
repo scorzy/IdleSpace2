@@ -29,7 +29,7 @@ export class FormatPipe implements PipeTransform {
     } else {
       str = formatter.formatShort(value1.abs(), {
         minSuffix: 10,
-        sigfigs: sigfigs
+        sigfigs
       });
       if (integer) {
         str = str.replace(/\.0+$/, "");

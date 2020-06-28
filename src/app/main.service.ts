@@ -1,6 +1,6 @@
 import { Injectable, EventEmitter, Inject } from "@angular/core";
 import { Game } from "./model/game";
-import { formatDate, DOCUMENT, Time } from "@angular/common";
+import { formatDate, DOCUMENT } from "@angular/common";
 import { FormatPipe } from "./format.pipe";
 import { OptionsService } from "./options.service";
 import compiledCss from "./model/data/themes.json";
@@ -12,7 +12,7 @@ import {
 import { TimePipe } from "./time.pipe";
 
 export const SAVE_ID = "IS2_save";
-export const GAME_SPEED = 1;
+export const GAME_SPEED = 1e20;
 
 @Injectable({
   providedIn: "root"

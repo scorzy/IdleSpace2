@@ -194,11 +194,12 @@ export class ResearchManager extends JobManager {
               { unitId: "a", multi: RESEARCH_TECH_EFF },
               { unitId: "w", multi: RESEARCH_TECH_EFF }
             ];
-            if (i > 0)
+            if (i > 0) {
               resData.buildingPoints = [
                 { buildingId: "4", quantity: 1 },
                 { buildingId: "5", quantity: 1 }
               ];
+            }
             break;
           //  Propulsion
           case "P":
@@ -208,15 +209,17 @@ export class ResearchManager extends JobManager {
           case "p":
             resData.modPoints = [{ unitId: "s", multi: modPlus }];
             resData.effMulti = [{ unitId: "s", multi: RESEARCH_TECH_EFF }];
-            if (i > 0)
+            if (i > 0) {
               resData.buildingPoints = [{ buildingId: "3", quantity: 1 }];
+            }
             break;
           //  Searching
           case "h":
             resData.modPoints = [{ unitId: "r", multi: modPlus }];
             resData.effMulti = [{ unitId: "r", multi: RESEARCH_TECH_EFF }];
-            if (i > 0)
+            if (i > 0) {
               resData.buildingPoints = [{ buildingId: "6", quantity: 1 }];
+            }
             break;
           //  Computing
           case "c":
@@ -229,22 +232,25 @@ export class ResearchManager extends JobManager {
             case "x":
               resData.modPoints = [{ unitId: "X", multi: modPlus }];
               resData.recycling = i * 2;
-              if (i > 0)
+              if (i > 0) {
                 resData.buildingPoints = [{ buildingId: "7", quantity: 1 }];
+              }
               break;
             //  Energy
             case "E":
               resData.modPoints = [{ unitId: "e", multi: modPlus }];
               resData.effMulti = [{ unitId: "e", multi: RESEARCH_TECH_EFF }];
-              if (i > 0)
+              if (i > 0) {
                 resData.buildingPoints = [{ buildingId: "2", quantity: 1 }];
+              }
               break;
             //  Mining
             case "N":
               resData.modPoints = [{ unitId: "m", multi: modPlus }];
               resData.effMulti = [{ unitId: "m", multi: RESEARCH_TECH_EFF }];
-              if (i > 0)
+              if (i > 0) {
                 resData.buildingPoints = [{ buildingId: "1", quantity: 1 }];
+              }
               break;
           }
 
@@ -369,7 +375,7 @@ export class ResearchManager extends JobManager {
       const resDataUp: IResearchData = {
         id: SPACE_STATION_UP_PREFIX + spaceStations[i].id,
         name: "Upgraded " + spaceStations[i].name,
-        description: "", //"+30% habitable space from " + spaceStations[i].name,
+        description: "", // "+30% habitable space from " + spaceStations[i].name,
         type: TECHNOLOGIES.CivilEngineering,
         priceMulti: 0.8,
         stationToUp: [
@@ -447,8 +453,9 @@ export class ResearchManager extends JobManager {
         resData.prodMulti.forEach((multi) => {
           const unit = rs.units.find((u) => u.id === multi.unitId);
           let secondUnit: Unit = null;
-          if (multi.secondUnitId)
+          if (multi.secondUnitId) {
             secondUnit = rs.units.find((u) => u.id === multi.secondUnitId);
+          }
           if (unit) {
             unit.prodAllBonus.bonuses.push(
               new Bonus(res, new Decimal(multi.multi), secondUnit)
@@ -466,8 +473,9 @@ export class ResearchManager extends JobManager {
         resData.effMulti.forEach((multi) => {
           const unit = rs.units.find((u) => u.id === multi.unitId);
           let secondUnit: Unit = null;
-          if (multi.secondUnitId)
+          if (multi.secondUnitId) {
             secondUnit = rs.units.find((u) => u.id === multi.secondUnitId);
+          }
           if (unit) {
             unit.prodEfficiency.bonuses.push(
               new Bonus(res, new Decimal(multi.multi), secondUnit)
@@ -493,8 +501,9 @@ export class ResearchManager extends JobManager {
           station.researchesToInspire =
             station.researchesToInspire || new Array<Research>();
           station.researchesToInspire.push(res);
-          if (res.inspirationDescription === "")
+          if (res.inspirationDescription === "") {
             res.inspirationDescription = "Build one " + station.name;
+          }
         });
       }
       if ("limitMulti" in resData) {

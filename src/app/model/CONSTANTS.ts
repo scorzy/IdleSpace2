@@ -97,3 +97,8 @@ export const MEGA_PRICE_MULTI = 1e3;
 //  Computing
 export const BASE_COMPUTING = 1e4;
 export const COMPUTING_TECH_BONUS = 0.01;
+
+//  Prestige
+export const PRESTIGE_PRICE = 10;
+export const DRONE_PRESTIGE_PRODUCTION = 0.1;
+export const DRONE_PRESTIGE_EFFICIENCY = 0.02;
