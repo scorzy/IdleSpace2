@@ -93,3 +93,4 @@ export const MEGA_PRICE_MULTI = 1e3;
 
 //  Computing
 export const BASE_COMPUTING = 1e4;
+export const COMPUTING_TECH_BONUS = 0.01;

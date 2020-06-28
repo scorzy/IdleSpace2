@@ -28,6 +28,7 @@ import {
 } from "../notifications/myNotification";
 import { MegaStructure } from "./megaStructure";
 import { Technology } from "../researches/technology";
+
 export class ResourceManager {
   units = new Array<Unit>();
   unlockedUnits = new Array<Unit>();

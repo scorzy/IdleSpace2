@@ -1,17 +1,21 @@
 import { BonusStack } from "../bonus/bonusStack";
 import { Spell } from "./spell";
-import { BASE_COMPUTING } from "../CONSTANTS";
+import { BASE_COMPUTING, COMPUTING_TECH_BONUS } from "../CONSTANTS";
 import { WarpSpell } from "./warp";
 import { Research } from "../researches/research";
 import { ResearchSpell } from "./researchSpell";
 import { BuilderSpell } from "./builderSpell";
 import { WarSpell } from "./warSpell";
+import { DroneSpell } from "./droneSpell";
+import { Bonus } from "../bonus/bonus";
+import { Game } from "../game";
 
 export class ComputingManager {
   currentComputing: number = 0;
   computingPerSec: number = 0;
   maxComputing: number = BASE_COMPUTING;
   computingStack = new BonusStack();
+  computingStackMulti = new BonusStack();
   maxComputingStack = new BonusStack();
   spells = new Array<Spell>();
   currentSpells = new Array<Spell>();
@@ -21,8 +25,30 @@ export class ComputingManager {
     const researchSpell = new ResearchSpell();
     const builderSpell = new BuilderSpell();
     const warSpell = new WarSpell();
-    this.spells = [warpSpell, researchSpell, builderSpell, warSpell];
+    const droneSpell = new DroneSpell();
+    this.spells = [
+      warpSpell,
+      researchSpell,
+      builderSpell,
+      warSpell,
+      droneSpell
+    ];
     this.currentSpells = [warpSpell];
+
+    this.computingStackMulti.bonuses.push(
+      new Bonus(
+        Game.getGame().researchManager.computingTech,
+        new Decimal(COMPUTING_TECH_BONUS)
+      )
+    );
+    const rm = Game.getGame().researchManager;
+    rm.researches.forEach((res) => {
+      if (res.computingPerSec > 0) {
+        this.computingStack.bonuses.push(
+          new Bonus(res, new Decimal(res.computingPerSec))
+        );
+      }
+    });
   }
   update(delta: number) {
     this.maxComputingStack.reloadAdditiveBonus();
@@ -30,8 +56,11 @@ export class ComputingManager {
       BASE_COMPUTING + this.maxComputingStack.totalAdditiveBonus.toNumber();
 
     this.computingStack.reloadAdditiveBonus();
+    this.computingStackMulti.reloadBonus();
     this.computingPerSec =
       10 + this.computingStack.totalAdditiveBonus.toNumber();
+    this.computingPerSec *= this.computingStackMulti.totalBonus.toNumber();
+
     this.currentComputing += delta * this.computingPerSec;
     this.currentComputing = Math.min(this.currentComputing, this.maxComputing);
     this.computingPercent = Math.floor(
@@ -76,7 +105,7 @@ export class ComputingManager {
     if ("s" in data) {
       for (let i = 0, n = data.s.length; i < n; i++) {
         const spell = this.spells.find((sp) => sp.id === data.s[i]);
-        if (spell && spell?.id !== "1") {
+        if (spell && this.currentSpells.findIndex((s) => s === spell) < 0) {
           this.currentSpells.push(spell);
         }
       }

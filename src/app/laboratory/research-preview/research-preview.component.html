@@ -129,6 +129,9 @@
     ></i>
     <span>{{ research.spellToUnlock.name }}</span>
   </li>
+  <li *ngIf="research.computingPerSec > 0">
+    +{{ research.computingPerSec | format: true }} computing /s
+  </li>
 </ul>
 <ul class="list-unstyled">
   <li>

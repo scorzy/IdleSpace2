@@ -68,6 +68,7 @@ export class Research extends Job implements IUnlockable, IBase {
   exclusiveGroup: ExclusiveResGroups;
   spellToUnlock: Spell;
   technologyBonus: { technology: Technology; multi: number }[];
+  computingPerSec = 0;
   constructor(researchData: IResearchData, researchManager: ResearchManager) {
     super();
     this.resData = researchData;
@@ -160,6 +161,9 @@ export class Research extends Job implements IUnlockable, IBase {
           this.inspirationDescription = "Build one " + building.name;
         }
       }
+    }
+    if ("computingPerSec" in researchData) {
+      this.computingPerSec = researchData.computingPerSec;
     }
 
     this.reload();

@@ -42,6 +42,8 @@ export const RESEARCHES: IResearchData[] = [
     description: "Unlock Computing Technology",
     max: 1,
     type: TECHNOLOGIES.Computing,
+    spellToUnlock: "d1",
+    computingPerSec: 3,
     technologiesToUnlock: ["c"],
     researchToUnlock: ["c1"]
   },

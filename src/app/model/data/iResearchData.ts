@@ -49,4 +49,5 @@ export interface IResearchData {
   exclusiveGroup?: ExclusiveResGroups;
   spellToUnlock?: string;
   technologyBonus?: { techId: string; multi: number }[];
+  computingPerSec?: number;
 }

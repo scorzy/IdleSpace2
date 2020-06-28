@@ -218,6 +218,10 @@ export class ResearchManager extends JobManager {
             if (i > 0)
               resData.buildingPoints = [{ buildingId: "6", quantity: 1 }];
             break;
+          //  Computing
+          case "c":
+            resData.computingPerSec = i + 2;
+            break;
         }
         if (i > 0) {
           switch (res.id) {
@@ -291,7 +295,7 @@ export class ResearchManager extends JobManager {
             if (i === 3) resData.modulesToUnlock = ["f"];
           }
           //  Computing
-          if (res.tech === TECHNOLOGIES.Robotics) {
+          if (res.tech === TECHNOLOGIES.Computing) {
             if (i === 2) resData.modulesToUnlock = ["t"];
           }
         }
