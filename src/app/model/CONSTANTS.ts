@@ -31,7 +31,7 @@ export const FLEET_CAPACITY_MULTI = 10;
 export const BASE_ARMOUR = 100;
 export const BASE_SHIP_PRICE = 40;
 export const BASE_EXPLOSION = BASE_ARMOUR;
-export const OPTIMIZE_RES_BONUS = 0.5;
+export const OPTIMIZE_RES_BONUS = 0.4;
 
 //  Search and enemies
 export const RESEARCH_GROW_RATE = 1.1;

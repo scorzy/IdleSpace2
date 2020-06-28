@@ -333,7 +333,7 @@ export class ResearchManager extends JobManager {
         id: OPTIMIZED_SHIP_PREFIX + shipyard.shipTypes[i].id,
         max: 10,
         name: "Optimized " + shipyard.shipTypes[i].name,
-        priceMulti: 0.2,
+        priceMulti: 0.4,
         description: "Improve " + shipyard.shipTypes[i].name + " build speed",
         type: TECHNOLOGIES.MilitaryEngineering,
         shipProductionBonus: [
