@@ -15,7 +15,7 @@ export class DroneSpell extends Spell {
     buildingBonus.times(100).toString() +
     " per relative building)% more resources";
   colorClass = "production-color";
-  duration = 60 * 3 * 1e3;
+  duration = 60 * 5 * 1e3;
   price = 3e3;
   constructor() {
     super();

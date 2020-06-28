@@ -52,6 +52,25 @@
           <span class="monospace"> {{ spell.duration / 1000 | time: 1 }} </span>
         </div>
       </div>
+      <div *ngIf="ms.game.computingManager.autoCastResearch1.level > 0">
+        Auto
+        <nz-radio-group [(ngModel)]="spell.autoCastPriority">
+          <label nz-radio-button [nzValue]="valueNo">No</label>
+          <label nz-radio-button [nzValue]="value1">1</label>
+          <label
+            *ngIf="ms.game.computingManager.autoCastResearch2.level > 0"
+            nz-radio-button
+            [nzValue]="value2"
+            >2</label
+          >
+          <label
+            *ngIf="ms.game.computingManager.autoCastResearch3.level > 0"
+            nz-radio-button
+            [nzValue]="value3"
+            >3</label
+          >
+        </nz-radio-group>
+      </div>
     </ng-template>
   </div>
 

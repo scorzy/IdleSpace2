@@ -20,6 +20,10 @@ export class ComputingManager {
   spells = new Array<Spell>();
   currentSpells = new Array<Spell>();
   computingPercent = 100;
+  autoCastResearch1: Research;
+  autoCastResearch2: Research;
+  autoCastResearch3: Research;
+  autoCastResearchFull: Research;
   constructor() {
     const warpSpell = new WarpSpell();
     const researchSpell = new ResearchSpell();
@@ -49,8 +53,19 @@ export class ComputingManager {
         );
       }
     });
+    this.autoCastResearch1 = rm.researches.find((res) => res.id === "c");
+    this.autoCastResearch2 = rm.researches.find((res) => res.id === "c1");
+    this.autoCastResearch3 = rm.researches.find((res) => res.id === "c2");
+    this.autoCastResearchFull = rm.researches.find((res) => res.id === "c3");
+
+    this.autoCastResearch1.description = "Unlock auto casting";
+    this.autoCastResearch2.description = "Unlock secondary auto casting";
+    this.autoCastResearch3.description = "Unlock third auto casting";
+    this.autoCastResearchFull.description =
+      "Level 1 auto casting start casting on full computing";
   }
   update(delta: number) {
+    //#region Computing
     this.maxComputingStack.reloadAdditiveBonus();
     this.maxComputing =
       BASE_COMPUTING + this.maxComputingStack.totalAdditiveBonus.toNumber();
@@ -66,7 +81,8 @@ export class ComputingManager {
     this.computingPercent = Math.floor(
       (100 * this.currentComputing) / this.maxComputing
     );
-
+    //#endregion
+    //#region Update spells status
     const now = Date.now();
     for (let i = 0, n = this.currentSpells.length; i < n; i++) {
       if (this.currentSpells[i].endTime < now)
@@ -86,6 +102,38 @@ export class ComputingManager {
         !this.currentSpells[i].active &&
         this.currentSpells[i].price <= this.currentComputing;
     }
+    //#endregion
+    //#region Auto Cast
+    let nextLevelOk = true;
+    let oneLv1 =
+      this.currentSpells.findIndex(
+        (sp) => sp.autoCastPriority === 1 && sp.active
+      ) > 0;
+    for (let i = 1; i < 5; i++) {
+      if (this.currentSpells.findIndex((sp) => sp.autoCastPriority === i) < 0)
+        break;
+      for (let k = 0, n = this.currentSpells.length; k < n; k++) {
+        if (this.currentSpells[k].autoCastPriority !== i) continue;
+        if (
+          !this.currentSpells[k].active &&
+          (i !== 1 ||
+            oneLv1 ||
+            this.autoCastResearchFull.level < 1 ||
+            this.currentComputing >= this.maxComputing)
+        ) {
+          this.currentSpells[k].activate();
+          if (
+            this.currentSpells[k].autoCastPriority === 1 &&
+            this.currentSpells[k].active
+          )
+            oneLv1 = true;
+        }
+
+        nextLevelOk = nextLevelOk && this.currentSpells[k].active;
+      }
+      if (!nextLevelOk) break;
+    }
+    //#endregion
   }
   addSpell(spell: Spell) {
     if (this.currentSpells.findIndex((s) => s.id === spell.id) > -1)
@@ -97,16 +145,17 @@ export class ComputingManager {
   getSave(): any {
     return {
       c: this.currentComputing,
-      s: this.currentSpells.map((sp) => sp.id)
+      s: this.currentSpells.map((sp) => sp.getSave())
     };
   }
   load(data: any) {
     if ("c" in data) this.currentComputing = data.c;
     if ("s" in data) {
       for (let i = 0, n = data.s.length; i < n; i++) {
-        const spell = this.spells.find((sp) => sp.id === data.s[i]);
+        const spell = this.spells.find((sp) => sp.id === data.s[i]?.i);
         if (spell && this.currentSpells.findIndex((s) => s === spell) < 0) {
           this.currentSpells.push(spell);
+          spell.load(data.s[i]);
         }
       }
     }

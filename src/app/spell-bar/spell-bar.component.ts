@@ -19,6 +19,10 @@ import { MainService } from "../main.service";
 })
 export class SpellBarComponent extends BaseComponentComponent
   implements OnInit, OnDestroy, AfterViewInit {
+  valueNo = 0;
+  value1 = 1;
+  value2 = 2;
+  value3 = 3;
   constructor(
     ms: MainService,
     cd: ChangeDetectorRef,

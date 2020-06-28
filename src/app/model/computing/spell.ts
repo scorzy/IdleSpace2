@@ -16,6 +16,7 @@ export class Spell implements IBase {
   canAfford = false;
   duration = 30;
   percent = 0;
+  autoCastPriority = 0;
   activate() {
     if (this.active) return false;
     const cp = Game.getGame().computingManager;
@@ -34,5 +35,12 @@ export class Spell implements IBase {
   getAdditiveBonus(): Decimal {
     if (this.active) return this.bonusQuantity;
     else return ZERO;
+  }
+  getSave(): any {
+    return { i: this.id, a: this.autoCastPriority };
+  }
+  load(data: any) {
+    if (!("i" in data && data.i === this.id)) return false;
+    if ("a" in data) this.autoCastPriority = data.a;
   }
 }
