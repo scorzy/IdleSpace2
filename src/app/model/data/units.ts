@@ -96,7 +96,7 @@ export const UNITS: IUnitData[] = [
     ],
     showUiLimit: true,
     unitType: UNIT_TYPES.MATERIAL,
-    battleMulti: 0.01
+    battleMulti: 0.2
   },
   {
     id: "b",

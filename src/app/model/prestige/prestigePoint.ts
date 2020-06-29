@@ -10,10 +10,12 @@ export class PrestigePoint implements IBase {
   colorClass?: string;
   price = TEN;
   maxBuy = ZERO;
+  max = Decimal.MAX_VALUE;
   private realQuantity = ZERO;
   reload() {
     const pm = Game.getGame().prestigeManager;
     this.maxBuy = pm.experience.div(this.price).floor();
+    this.maxBuy = Decimal.min(this.maxBuy, this.max.minus(this.realQuantity));
   }
   buy(quantity: Decimal = ONE): boolean {
     const pm = Game.getGame().prestigeManager;

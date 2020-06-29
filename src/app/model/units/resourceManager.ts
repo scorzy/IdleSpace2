@@ -12,7 +12,8 @@ import {
   ENERGY_STORAGE,
   COMPONENT_STORAGE,
   NUKE_STORAGE,
-  DEPARTMENT_TECH_MULTI
+  DEPARTMENT_TECH_MULTI,
+  BUILDING_PRICE_GROW_RATE
 } from "../CONSTANTS";
 import { Price } from "../prices/price";
 import { Components } from "./components";
@@ -166,7 +167,13 @@ export class ResourceManager {
         unit.unitData.prices.forEach((price) => {
           const base = this.units.find((u) => u.id === price[0]);
           const cost = new Decimal(price[1]);
-          const realPrice = new Price(base, cost, UNIT_PRICE_GROW_RATE);
+          const realPrice = new Price(
+            base,
+            cost,
+            unit instanceof Worker
+              ? UNIT_PRICE_GROW_RATE
+              : BUILDING_PRICE_GROW_RATE
+          );
           unit.buyPrice.prices.push(realPrice);
         });
       }

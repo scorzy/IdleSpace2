@@ -59,7 +59,7 @@ export const RESEARCHES: IResearchData[] = [
     type: TECHNOLOGIES.Naval,
     technologiesToUnlock: [TECHNOLOGIES.Naval.id],
     researchToUnlock: ["n1", "ns", "or2"],
-    navalCapacity: 20,
+    navalCapacity: 10,
     materialMulti: 0.5,
     districtMulti: 0.3
   },
