@@ -331,23 +331,32 @@ export class Enemy {
             num = num.times(em.habSpaceMultiplier.totalBonus);
             break;
         }
-        cell.addMaterial(tile.unit, num);
+        cell.addMaterial(tile.unit, num.times(tile.unit.battleMulti));
         switch (tile.unit) {
           case rs.miningDistrict:
-            cell.addMaterial(rs.metal, materialQuantity);
+            cell.addMaterial(
+              rs.metal,
+              materialQuantity.times(rs.metal.battleMulti)
+            );
             break;
           case rs.energyDistrict:
-            cell.addMaterial(rs.energy, materialQuantity);
+            cell.addMaterial(
+              rs.energy,
+              materialQuantity.times(rs.energy.battleMulti)
+            );
             break;
           case rs.habitableSpace:
-            cell.addMaterial(rs.science, materialQuantity);
+            cell.addMaterial(
+              rs.science,
+              materialQuantity.times(rs.science.battleMulti)
+            );
             break;
         }
       }
     });
   }
   reloadCell(index: number) {
-    if (!this.cells) {
+    if (!this.cells || !this.cells[index]) {
       return;
     }
     //#region Color

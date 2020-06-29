@@ -577,8 +577,9 @@ export class ShipyardManager extends JobManager {
     }
 
     if ("n" in data) {
-      for (let i = 0; i < data.n; i++) {
+      for (let i = 0; i < data.n.length; i++) {
         this.fleetNavCapPriority[i] = data.n[i];
+        this.fleetNavCapPriorityUi[i] = data.n[i];
       }
     }
 

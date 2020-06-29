@@ -24,4 +24,5 @@ export interface IUnitData {
   prices?: [string, DecimalSource][];
   mods?: { technologyId: string; multi: number }[];
   departments?: IDepartmentData[];
+  battleMulti?: number;
 }

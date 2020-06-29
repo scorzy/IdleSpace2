@@ -53,7 +53,8 @@ export const UNITS: IUnitData[] = [
     icon: "my:metal-bar",
     description: "",
     colorClass: "alloy-color",
-    unitType: UNIT_TYPES.MATERIAL
+    unitType: UNIT_TYPES.MATERIAL,
+    battleMulti: 0.5
   },
   {
     id: "S",
@@ -61,7 +62,8 @@ export const UNITS: IUnitData[] = [
     icon: "fa-s:flask", // "my:fizzing-flask",
     description: "",
     colorClass: "science-color",
-    unitType: UNIT_TYPES.MATERIAL
+    unitType: UNIT_TYPES.MATERIAL,
+    battleMulti: 0.3
   },
   {
     id: "W",
@@ -77,7 +79,8 @@ export const UNITS: IUnitData[] = [
     icon: "my:radar-sweep",
     description: "",
     colorClass: "search-color",
-    unitType: UNIT_TYPES.MATERIAL
+    unitType: UNIT_TYPES.MATERIAL,
+    battleMulti: 0.6
   },
   {
     id: "x",
@@ -92,7 +95,8 @@ export const UNITS: IUnitData[] = [
       }
     ],
     showUiLimit: true,
-    unitType: UNIT_TYPES.MATERIAL
+    unitType: UNIT_TYPES.MATERIAL,
+    battleMulti: 0.01
   },
   {
     id: "b",

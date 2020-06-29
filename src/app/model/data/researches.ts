@@ -22,7 +22,11 @@ export const RESEARCHES: IResearchData[] = [
     max: 1,
     priceMulti: 500,
     type: TECHNOLOGIES.MilitaryEngineering,
-    technologiesToUnlock: ["e", TECHNOLOGIES.CivilEngineering.id]
+    technologiesToUnlock: ["e", TECHNOLOGIES.CivilEngineering.id],
+    prodMulti: [
+      { unitId: "m", multi: 0.3 },
+      { unitId: "e", multi: 0.1 }
+    ]
   },
   {
     id: "p",

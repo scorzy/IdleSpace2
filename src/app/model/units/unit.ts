@@ -49,6 +49,7 @@ export class Unit implements IBase, IUnlockable {
 
   battleGainMulti: BonusStack;
   workers = new Array<Unit>();
+  battleMulti = 1;
   constructor(public unitData: IUnitData) {
     this.id = unitData.id;
     this.name = unitData.name;
@@ -65,6 +66,9 @@ export class Unit implements IBase, IUnlockable {
     }
     if ("showUiLimit" in unitData) {
       this.showUiLimit = unitData.showUiLimit;
+    }
+    if("battleMulti"in unitData){
+      this.battleMulti = unitData.battleMulti;
     }
   }
   public get uiLimit() {

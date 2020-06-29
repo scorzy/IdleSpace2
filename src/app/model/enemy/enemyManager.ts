@@ -156,10 +156,7 @@ export class EnemyManager extends JobManager {
 
     const playerDesign = Game.getGame().shipyardManager.shipDesigns;
     const toAttack = this.currentEnemy.cells.find(
-      (c) =>
-        !c.inBattle &&
-        (!c.done ||
-          (c.materials && c.materials.findIndex((m) => m.quantity.gt(0)) > -1))
+      (c) => !c.inBattle && !c.done
     );
     if (toAttack) {
       toAttack.inBattle = true;
@@ -293,7 +290,7 @@ export class EnemyManager extends JobManager {
         );
       }
 
-      this.currentEnemy.reloadCell(this.currentEnemy.cells.indexOf(cell));
+      this.currentEnemy?.reloadCell(this.currentEnemy.cells.indexOf(cell));
     }
     this.fleetsInBattle[fleetNum] = null;
   }
@@ -335,10 +332,10 @@ export class EnemyManager extends JobManager {
           mat.material.unitData.id === "R"
         ) {
           toAdd = toAdd.times(scienceLab);
-        }
-        else toAdd = toAdd.times(cargo);
+        } else toAdd = toAdd.times(cargo);
       }
       if (toAdd.gt(0)) {
+        mat.material.unlock();
         mat.material.quantity = mat.material.quantity.plus(toAdd);
         this.rewardString +=
           (this.rewardString === "" ? "" : ", ") +
@@ -347,7 +344,7 @@ export class EnemyManager extends JobManager {
           " " +
           mat.material.name;
       }
-      mat.quantity = ZERO;
+      // mat.quantity = ZERO;
     }
   }
   defeatEnemy() {

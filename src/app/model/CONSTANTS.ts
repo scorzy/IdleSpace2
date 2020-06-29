@@ -34,9 +34,9 @@ export const BASE_EXPLOSION = BASE_ARMOUR;
 export const OPTIMIZE_RES_BONUS = 0.4;
 
 //  Search and enemies
-export const RESEARCH_GROW_RATE = 1.1;
-export const SEARCH_JOB_PRICE = 100;
-export const EXTRA_OPT_EXP = 1.05;
+export const RESEARCH_GROW_RATE = 1.07;
+export const SEARCH_JOB_PRICE = 500;
+export const EXTRA_OPT_EXP = 1.06;
 export const ENEMY_NAVAL_CAP_LEVEL = 50;
 export const ENEMY_BASE_DISTANCE = new Decimal(50);
 export const MOD_LEVEL_EXP = 1.045;
@@ -46,7 +46,7 @@ export const DEFENCE_MAX_PERCENT = 0.3;
 export const DISTRICT_MAX_OPT_END = 80;
 export const DISTRICT_MIN_OPT_END = 40;
 export const SCIENCE_DISTRICT_MULTI = 0.6;
-export const COMPONENTS_DISTRICT_MULTI = 0.4;
+export const COMPONENTS_DISTRICT_MULTI = 0.3;
 export const MAX_SEARCH_JOB = 10;
 export const ENEMY_EXP_START_LEVEL = 3;
 export const ENEMY_BASE_EXP = 5;

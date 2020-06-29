@@ -56,15 +56,13 @@ export class CellComponent extends BaseComponentComponent
             (this.cell.materials[i].material === rm.science &&
               this.cell.materials.findIndex(
                 (m) => m.material === rm.habitableSpace
-              ) < 0)
+              ) < 0) ||
+            (this.cell.materials[i].material !== rm.metal &&
+              this.cell.materials[i].material !== rm.energy &&
+              this.cell.materials[i].material !== rm.science)
           ) {
             this.icons.push(this.cell.materials[i].material.icon);
           }
-        } else if (
-          this.cell.materials[i].material.unitData.unitType !==
-          UNIT_TYPES.DISTRICT
-        ) {
-          this.icons.push(this.cell.materials[i].material.icon);
         }
       }
     }
