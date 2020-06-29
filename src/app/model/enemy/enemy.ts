@@ -280,7 +280,11 @@ export class Enemy {
     const districtQuantity = TEN.plus(this.level - 3).times(
       em.districtMultiplier.totalBonus
     );
-    const materialQuantity = Decimal.pow(1 + this.level, PRICE_GROW_RATE + 0.5)
+    const componentQuantity = TEN.plus(this.level).times(
+      em.resourceMultiplier.totalBonus
+    );
+
+    const materialQuantity = Decimal.pow(1 + this.level, PRICE_GROW_RATE + 0.4)
       .times(DEFAULT_MODULE_PRICE)
       .times(100)
       .times(em.resourceMultiplier.totalBonus);
@@ -318,6 +322,8 @@ export class Enemy {
         let num =
           tile.unit.unitData.unitType === UNIT_TYPES.DISTRICT
             ? districtQuantity
+            : tile.unit === rs.components
+            ? componentQuantity
             : materialQuantity;
 
         switch (tile.unit) {
@@ -331,24 +337,35 @@ export class Enemy {
             num = num.times(em.habSpaceMultiplier.totalBonus);
             break;
         }
-        cell.addMaterial(tile.unit, num.times(tile.unit.battleMulti));
+        cell.addMaterial(
+          tile.unit,
+          num
+            .times(tile.unit.battleMulti)
+            .times(tile.unit.battleGainMulti.totalBonus)
+        );
         switch (tile.unit) {
           case rs.miningDistrict:
             cell.addMaterial(
               rs.metal,
-              materialQuantity.times(rs.metal.battleMulti)
+              materialQuantity
+                .times(rs.metal.battleMulti)
+                .times(rs.metal.battleGainMulti.totalBonus)
             );
             break;
           case rs.energyDistrict:
             cell.addMaterial(
               rs.energy,
-              materialQuantity.times(rs.energy.battleMulti)
+              materialQuantity
+                .times(rs.energy.battleMulti)
+                .times(rs.energy.battleGainMulti.totalBonus)
             );
             break;
           case rs.habitableSpace:
             cell.addMaterial(
               rs.science,
-              materialQuantity.times(rs.science.battleMulti)
+              materialQuantity
+                .times(rs.science.battleMulti)
+                .times(rs.science.battleGainMulti.totalBonus)
             );
             break;
         }

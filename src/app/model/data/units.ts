@@ -63,7 +63,7 @@ export const UNITS: IUnitData[] = [
     description: "",
     colorClass: "science-color",
     unitType: UNIT_TYPES.MATERIAL,
-    battleMulti: 0.3
+    battleMulti: 0.5
   },
   {
     id: "W",
