@@ -5,7 +5,7 @@
     "ng": "ng",
     "start": "ng serve --open",
     "start:prod": "ng serve --open --prod",
-    "build": "ng build --prod --aot --buildOptimizer",
+    "build": "ng build --prod --aot --buildOptimizer --base-href ./",
     "build:stats": "ng build --statsJson=true",
     "test": "ng test",
     "lint": "ng lint",
@@ -18,7 +18,8 @@
     "analyze": "webpack-bundle-analyzer dist/IdleSpace2/stats-es2015.json",
     "build:analyze": "npm run build:stats && npm run analyze",
     "lint:styles": "stylelint \"src/**/*.scss\"",
-    "lint:styles:fix": "stylelint \"src/**/*.scss\" --fix"
+    "lint:styles:fix": "stylelint \"src/**/*.scss\" --fix",
+    "release": "ngh --dir=dist/IdleSpace2"
   },
   "private": true,
   "dependencies": {
@@ -35,6 +36,7 @@
     "@types/date-fns": "^2.6.0",
     "@types/lodash-es": "^4.17.3",
     "@types/lz-string": "^1.3.34",
+    "angular-cli-ghpages": "^0.6.2",
     "ant-utils": "^1.2.0",
     "break_infinity.js": "^1.1.1",
     "date-fns": "^2.14.0",

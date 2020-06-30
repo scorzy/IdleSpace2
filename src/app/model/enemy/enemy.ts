@@ -140,7 +140,7 @@ export class Enemy {
     const maxNavalCap =
       navalCapMulti *
       Math.min(
-        BASE_NAVAL_CAPACITY + 4 + ENEMY_NAVAL_CAP_LEVEL * this.level,
+        BASE_NAVAL_CAPACITY - 4 + ENEMY_NAVAL_CAP_LEVEL * this.level,
         FLEET_CAPACITY
       );
     let defPercent = 0;

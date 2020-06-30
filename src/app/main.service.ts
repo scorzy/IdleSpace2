@@ -174,9 +174,6 @@ export class MainService {
   }
   clear() {
     localStorage.removeItem(SAVE_ID);
-    // this.last = Date.now();
-    // this.game = new Game();
-    // this.setTheme();
     location.reload();
   }
   setTheme() {
