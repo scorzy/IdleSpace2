@@ -1,6 +1,6 @@
 import { TestBed } from "@angular/core/testing";
 
-import { MainService } from "./main.service";
+import { MainService, GAME_SPEED } from "./main.service";
 import { OptionsService } from "./options.service";
 import { FormatPipe } from "./format.pipe";
 import { TimePipe } from "./time.pipe";
@@ -19,6 +19,6 @@ describe("MainService", () => {
 
   it("Game speed should be one", () => {
     // TODO: enable before release
-    // expect(GAME_SPEED).toBe(1);
+    expect(GAME_SPEED).toBe(1);
   });
 });

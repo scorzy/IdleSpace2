@@ -24,8 +24,8 @@ export const RESEARCHES: IResearchData[] = [
     type: TECHNOLOGIES.MilitaryEngineering,
     technologiesToUnlock: ["e", TECHNOLOGIES.CivilEngineering.id],
     prodMulti: [
-      { unitId: "m", multi: 0.3 },
-      { unitId: "e", multi: 0.1 }
+      { unitId: "m", multi: 0.5 },
+      { unitId: "e", multi: 0.2 }
     ]
   },
   {
@@ -115,8 +115,8 @@ export const RESEARCHES: IResearchData[] = [
     researchToUnlock: ["x", "N", "P", "M0", "or3"],
     inspirationBuildingId: "1",
     prodMulti: [
-      { unitId: "m", multi: 0.3 },
-      { unitId: "e", multi: 0.1 }
+      { unitId: "m", multi: 0.4 },
+      { unitId: "e", multi: 0.15 }
     ]
   },
   {

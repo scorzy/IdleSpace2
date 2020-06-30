@@ -12,7 +12,7 @@ import {
 import { TimePipe } from "./time.pipe";
 
 export const SAVE_ID = "IS2_save";
-export const GAME_SPEED = 10;
+export const GAME_SPEED = 1;
 
 @Injectable({
   providedIn: "root"
