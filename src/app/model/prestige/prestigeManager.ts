@@ -188,7 +188,6 @@ export class PrestigeManager {
         }
       }
     }
-    this.experience = new Decimal(100);
   }
   //#endregion
 }
