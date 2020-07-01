@@ -286,7 +286,14 @@ export class Research extends Job implements IUnlockable, IBase {
     );
     return true;
   }
+  prestige() {
+    this.level = 0;
+    this.progress = ZERO;
+    this.inspiration = false;
+    this.quantity = ZERO;
 
+    this.reload();
+  }
   //#region Save and Load
   getSave(): any {
     const ret: any = {};

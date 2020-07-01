@@ -198,7 +198,7 @@ export class ResourceManager {
         SPACE_STATION_PRICE
       );
       station.buildPriceNext = station.buildPrice;
-      station.habSpaceOriginal = Decimal.mul(i, SPACE_STATION_GROW).times(
+      station.habSpaceOriginal = Decimal.mul(i + 1, SPACE_STATION_GROW).times(
         SPACE_STATION_HAB_SPACE
       );
       station.habSpace = station.habSpaceOriginal;
@@ -572,6 +572,10 @@ export class ResourceManager {
     });
   }
   setRelations() {}
+  prestige() {
+    this.units.forEach((u) => u.prestige());
+    this.reloadLists();
+  }
   //#region Save and Load
   getSave(): any {
     return {

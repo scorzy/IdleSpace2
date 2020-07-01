@@ -27,14 +27,28 @@
         fxFlex.xl="0 0 calc(20% -10px)"
       >
         <p>{{ prestige.description }}</p>
-        <span>
-          <strong>
-            Price:
-          </strong>
+
+        <div fxLayout="row" fxLayoutAlign="space-between center">
           <span>
-            {{ prestige.price | format: true }}
+            <strong>
+              Owned:
+            </strong>
+            <span>
+              {{ prestige.realQuantity | format: true }}
+            </span>
+            <span *ngIf="prestige.max.lt(1e3)">
+              /{{ prestige.max | format: true }}
+            </span>
           </span>
-        </span>
+          <span>
+            <strong>
+              Price:
+            </strong>
+            <span>
+              {{ prestige.price | format: true }}
+            </span>
+          </span>
+        </div>
 
         <!-- Buttons -->
         <div
@@ -42,21 +56,23 @@
           fxLayoutAlign="space-around stretch"
           fxLayoutGap="12px"
         >
-          <button
-            *ngFor="let buyOpt of buyOptions"
-            nz-button
-            nzType="default"
-            nzBlock
-            (click)="prestige.buy(buyOpt)"
-            [disabled]="
-              prestige.price
-                .times(buyOpt)
-                .gt(ms.game.prestigeManager.experience)
-            "
-          >
-            Buy {{ buyOpt | format: true }} for
-            {{ prestige.price.times(buyOpt) | format: true }} exp
-          </button>
+          <ng-container *ngFor="let buyOpt of buyOptions">
+            <button
+              *ngIf="prestige.realQuantity.plus(buyOpt).lte(prestige.max)"
+              nz-button
+              nzType="default"
+              nzBlock
+              (click)="prestige.buy(buyOpt)"
+              [disabled]="
+                prestige.price
+                  .times(buyOpt)
+                  .gt(ms.game.prestigeManager.experience)
+              "
+            >
+              Buy {{ buyOpt | format: true }} for
+              {{ prestige.price.times(buyOpt) | format: true }} exp
+            </button>
+          </ng-container>
         </div>
       </nz-card>
     </div>

@@ -3,7 +3,14 @@ import {
   ONE,
   DRONE_PRESTIGE_PRODUCTION,
   PRESTIGE_PRICE,
-  DRONE_PRESTIGE_EFFICIENCY
+  DRONE_PRESTIGE_EFFICIENCY,
+  PRESTIGE_MULTI_PER_LEVEL,
+  PRESTIGE_MULTI_EXP,
+  TECH_PRESTIGE_MULTI,
+  DRONE_PRESTIGE_START_OFFER,
+  DISTRICT_PRESTIGE_MULTI,
+  MATERIAL_PRESTIGE_MULTI,
+  COMPONENT_PRESTIGE_MULTI
 } from "../CONSTANTS";
 import { Game } from "../game";
 import {
@@ -17,6 +24,7 @@ import { Bonus } from "../bonus/bonus";
 export class PrestigeManager {
   experience = ZERO;
   prestigeMultiplier = ONE;
+  nextPrestigeMultiplier = ONE;
   prestigePoints = new Array<PrestigePoint>();
   tabs = new Array<{
     name: string;
@@ -24,9 +32,22 @@ export class PrestigeManager {
   }>();
   constructor() {
     const rm = Game.getGame().resourceManager;
+    const sm = Game.getGame().researchManager;
     //#region Drones
     const dronePrestigeList = new Array<PrestigePoint>();
     //  Drones yields and consume more
+    const starterPack = new PrestigePoint();
+    starterPack.id = "d0";
+    starterPack.name = "Starter Pack";
+    starterPack.description =
+      "Drones yields and consume " +
+      DRONE_PRESTIGE_START_OFFER * 100 +
+      "% more";
+    starterPack.price = new Decimal(PRESTIGE_PRICE);
+    starterPack.max = new Decimal(5);
+    this.prestigePoints.push(starterPack);
+    dronePrestigeList.push(starterPack);
+
     const droneMulti = new PrestigePoint();
     droneMulti.id = "d1";
     droneMulti.name = "Drones production prestige";
@@ -52,12 +73,84 @@ export class PrestigeManager {
     });
     rm.workers.forEach((w) => {
       w.prodAllBonus.bonuses.push(
-        new Bonus(droneMulti, new Decimal(DRONE_PRESTIGE_EFFICIENCY))
+        new Bonus(starterPack, new Decimal(DRONE_PRESTIGE_START_OFFER))
+      );
+      w.prodAllBonus.bonuses.push(
+        new Bonus(droneMulti, new Decimal(DRONE_PRESTIGE_PRODUCTION))
       );
       w.prodEfficiency.bonuses.push(
         new Bonus(droneMulti, new Decimal(DRONE_PRESTIGE_EFFICIENCY))
       );
     });
+    //#endregion
+    //#region Science
+    const scienceList = new Array<PrestigePoint>();
+    this.tabs.push({
+      name: "Science",
+      prestige: scienceList
+    });
+    //  Tech Multi
+    const techMulti = new PrestigePoint();
+    techMulti.id = "s1";
+    techMulti.name = "Increase technology gain";
+    techMulti.description =
+      "All technologies increase " + TECH_PRESTIGE_MULTI * 100 + "% faster";
+    techMulti.price = new Decimal(PRESTIGE_PRICE);
+    this.prestigePoints.push(techMulti);
+    scienceList.push(techMulti);
+    sm.technologies.forEach((tech) => {
+      tech.technologyBonus.bonuses.push(
+        new Bonus(techMulti, new Decimal(TECH_PRESTIGE_MULTI))
+      );
+    });
+    //#endregion
+    //#region War
+    const warList = new Array<PrestigePoint>();
+    this.tabs.push({
+      name: "War",
+      prestige: warList
+    });
+    const distMulti = new PrestigePoint();
+    distMulti.id = "w1";
+    distMulti.name = "More Districts";
+    distMulti.description =
+      "Gain " + DISTRICT_PRESTIGE_MULTI * 100 + "% more district from enemies";
+    distMulti.price = new Decimal(PRESTIGE_PRICE);
+    this.prestigePoints.push(distMulti);
+    warList.push(distMulti);
+    rm.districts.forEach((dis) => {
+      dis.battleGainMulti.bonuses.push(
+        new Bonus(distMulti, new Decimal(DISTRICT_PRESTIGE_MULTI))
+      );
+    });
+
+    const matMulti = new PrestigePoint();
+    matMulti.id = "w2";
+    matMulti.name = "More Materials";
+    matMulti.description =
+      "Gain " + MATERIAL_PRESTIGE_MULTI * 100 + "% more materials from enemies";
+    matMulti.price = new Decimal(PRESTIGE_PRICE);
+    this.prestigePoints.push(matMulti);
+    warList.push(matMulti);
+    rm.materials.forEach((dis) => {
+      dis.battleGainMulti.bonuses.push(
+        new Bonus(matMulti, new Decimal(MATERIAL_PRESTIGE_MULTI))
+      );
+    });
+
+    const compMulti = new PrestigePoint();
+    compMulti.id = "w3";
+    compMulti.name = "More Components";
+    compMulti.description =
+      "Gain " +
+      COMPONENT_PRESTIGE_MULTI * 100 +
+      "% more components from enemies";
+    compMulti.price = new Decimal(PRESTIGE_PRICE);
+    this.prestigePoints.push(compMulti);
+    warList.push(compMulti);
+    rm.components.battleGainMulti.bonuses.push(
+      new Bonus(compMulti, new Decimal(COMPONENT_PRESTIGE_MULTI))
+    );
     //#endregion
   }
   addExperience(quantity: Decimal) {
@@ -68,6 +161,12 @@ export class PrestigeManager {
         MainService.formatPipe.transform(quantity, true)
       )
     );
+  }
+  loadNextMultiplier() {
+    const maxEnemyLevel = Game.getGame().enemyManager.maxLevel;
+    this.nextPrestigeMultiplier = ONE.plus(
+      maxEnemyLevel * PRESTIGE_MULTI_PER_LEVEL
+    ).pow(PRESTIGE_MULTI_EXP);
   }
 
   //#region Save and Load
@@ -89,6 +188,7 @@ export class PrestigeManager {
         }
       }
     }
+    this.experience = new Decimal(100);
   }
   //#endregion
 }

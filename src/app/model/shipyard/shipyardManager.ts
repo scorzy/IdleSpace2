@@ -548,7 +548,17 @@ export class ShipyardManager extends JobManager {
       });
     });
   }
-
+  prestige() {
+    this.modules.forEach((mod) => (mod.unlocked = false));
+    this.unlockedModules = true;
+    this.toDo = [];
+    this.shipDesigns.forEach((des) => {
+      des.old = null;
+      des.fleets.forEach((fl) => {
+        fl.shipsQuantity = 0;
+      });
+    });
+  }
   //#region Save and Load
   getSave(): any {
     return {

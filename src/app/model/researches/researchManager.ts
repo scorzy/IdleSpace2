@@ -650,6 +650,13 @@ export class ResearchManager extends JobManager {
         .cmp(b.total.minus(b.progress).div(b.totalBonus))
     );
   }
+  prestige() {
+    this.researches.forEach((res) => res.prestige());
+    this.technologies.forEach((tech) => tech.prestige());
+    this.toDo = [this.researches[0]];
+    this.done = [];
+    this.backlog = [];
+  }
   //#region Save and Load
   getSave(): any {
     const ret: any = {

@@ -348,7 +348,6 @@ export class EnemyManager extends JobManager {
     }
   }
   defeatEnemy() {
-    // TODO:
     if (!this.currentEnemy) return false;
 
     Game.getGame().researchManager.searching.inspire();
@@ -398,7 +397,12 @@ export class EnemyManager extends JobManager {
       this.nukeDamageMulti.totalBonus
     );
   }
-
+  prestige() {
+    this.maxLevel = 0;
+    this.toDo = [];
+    this.currentEnemy = null;
+    this.enemies = [];
+  }
   //#region Save and Load
   getSave(): any {
     const ret: any = {

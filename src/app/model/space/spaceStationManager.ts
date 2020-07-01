@@ -42,6 +42,13 @@ export class SpaceStationManager extends JobManager {
     job.reloadTotalBonus();
     job.reload();
   }
+  prestige() {
+    this.toDo = [];
+    this.done = [];
+    this.megaInitialPrice = ONE;
+    this.nextMegaPrice = ONE;
+    this.megaBuilt = ZERO;
+  }
   //#region Save and Load
   getSave() {
     return {

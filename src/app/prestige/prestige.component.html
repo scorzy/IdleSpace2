@@ -1,0 +1,23 @@
+<h2>Prestige</h2>
+<p>
+  Your current experience multiplier is:
+  <strong class="monospace">
+    {{ ms.game.prestigeManager.prestigeMultiplier | format }}
+  </strong>
+
+  Your next experience multiplier will be:
+  <strong class="monospace" [ngClass]="getMultiplierClass()">
+    {{ ms.game.prestigeManager.nextPrestigeMultiplier | format }}
+  </strong>
+</p>
+<p>
+  Reset everything except "Exp Shop" and ship design. Ship design with locked
+  module becomes blueprint. You will be able to defeat enemies again and gain
+  Experience. The "experience multiplier" multiply the effectiveness of
+  experience spent. "experience multiplier" is based on the max level of
+  defeated enemy.
+</p>
+
+<button nz-button nzType="primary" nzSize="large" (click)="ms.game.prestige()">
+  Prestige
+</button>

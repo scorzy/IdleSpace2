@@ -11,7 +11,7 @@ export class PrestigePoint implements IBase {
   price = TEN;
   maxBuy = ZERO;
   max = Decimal.MAX_VALUE;
-  private realQuantity = ZERO;
+  realQuantity = ZERO;
   reload() {
     const pm = Game.getGame().prestigeManager;
     this.maxBuy = pm.experience.div(this.price).floor();
@@ -21,6 +21,7 @@ export class PrestigePoint implements IBase {
     const pm = Game.getGame().prestigeManager;
     const price = this.price.times(quantity);
     if (pm.experience.lt(price)) return false;
+    if (this.realQuantity.plus(quantity).gt(this.max)) return false;
     this.realQuantity = this.realQuantity.plus(quantity);
     pm.experience = pm.experience.minus(price);
     return true;

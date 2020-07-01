@@ -80,6 +80,11 @@ export class Technology implements IBase, IUnlockable, ITechnologyData {
   setTheme() {
     this.color = OptionsService.isDark ? this.darkColor : this.lightColor;
   }
+  prestige() {
+    this.unlocked = false;
+    this.quantity = ZERO;
+    this.total = ZERO;
+  }
   //#region
   getSave(): any {
     return {

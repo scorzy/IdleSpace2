@@ -24,20 +24,21 @@ export class ComputingManager {
   autoCastResearch2: Research;
   autoCastResearch3: Research;
   autoCastResearchFull: Research;
+  warpSpell: Spell;
   constructor() {
-    const warpSpell = new WarpSpell();
+    this.warpSpell = new WarpSpell();
     const researchSpell = new ResearchSpell();
     const builderSpell = new BuilderSpell();
     const warSpell = new WarSpell();
     const droneSpell = new DroneSpell();
     this.spells = [
-      warpSpell,
+      this.warpSpell,
       researchSpell,
       builderSpell,
       warSpell,
       droneSpell
     ];
-    this.currentSpells = [warpSpell];
+    this.currentSpells = [this.warpSpell];
 
     this.computingStackMulti.bonuses.push(
       new Bonus(
@@ -144,7 +145,10 @@ export class ComputingManager {
     }
     this.currentSpells.push(spell);
   }
-
+  prestige() {
+    this.currentSpells = [this.warpSpell];
+    this.currentComputing = 0;
+  }
   //#region Save and Load
   getSave(): any {
     return {

@@ -8,7 +8,7 @@ export const INFINITY = new Decimal(Number.POSITIVE_INFINITY);
 export const UNIT_PRICE_GROW_RATE = 1.04;
 export const BUILDING_PRICE_GROW_RATE = 1.1;
 export const SPACE_STATION_PRICE = 1e6;
-export const SPACE_STATION_HAB_SPACE = 1e3;
+export const SPACE_STATION_HAB_SPACE = 1e1;
 export const SPACE_STATION_GROW = 10;
 export const MOD_PER_ROBOTICS = 0.1;
 export const MOD_PER_OTHERS = 0.2;
@@ -49,9 +49,9 @@ export const DISTRICT_MIN_OPT_END = 40;
 export const SCIENCE_DISTRICT_MULTI = 0.6;
 export const COMPONENTS_DISTRICT_MULTI = 0.3;
 export const MAX_SEARCH_JOB = 10;
-export const ENEMY_EXP_START_LEVEL = 3;
+export const ENEMY_EXP_START_LEVEL = 2;
 export const ENEMY_BASE_EXP = 5;
-export const ENEMY_EXP_GROW_RATE = 0.2;
+export const ENEMY_EXP_GROW_RATE = 0.5;
 
 // Modules
 export const PRICE_GROW_RATE = 1.05;
@@ -100,6 +100,13 @@ export const BASE_COMPUTING = 1e4;
 export const COMPUTING_TECH_BONUS = 0.01;
 
 //  Prestige
+export const PRESTIGE_MULTI_PER_LEVEL = 0.05;
+export const PRESTIGE_MULTI_EXP = 1.2;
 export const PRESTIGE_PRICE = 10;
+export const DRONE_PRESTIGE_START_OFFER = 0.2;
 export const DRONE_PRESTIGE_PRODUCTION = 0.1;
 export const DRONE_PRESTIGE_EFFICIENCY = 0.02;
+export const TECH_PRESTIGE_MULTI = 0.5;
+export const DISTRICT_PRESTIGE_MULTI = 0.5;
+export const MATERIAL_PRESTIGE_MULTI = 1;
+export const COMPONENT_PRESTIGE_MULTI = 0.3;

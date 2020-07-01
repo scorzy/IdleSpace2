@@ -213,6 +213,7 @@ export class Game {
     this.resourceManager.energy.quantity = this.resourceManager.energy.quantity.min(
       this.resourceManager.energy.limit
     );
+    this.prestigeManager.loadNextMultiplier();
   }
   reloadNavalCapacity() {
     this.navalCapacity = BASE_NAVAL_CAPACITY;
@@ -276,6 +277,21 @@ export class Game {
         )
       );
     }
+  }
+  prestige() {
+    this.prestigeManager.loadNextMultiplier();
+    this.resourceManager.prestige();
+    this.researchManager.prestige();
+    this.shipyardManager.prestige();
+    this.enemyManager.prestige();
+    this.computingManager.prestige();
+    this.battleResults = [];
+    this.battleStats = [];
+    this.generateGameId();
+    this.prestigeManager.prestigeMultiplier = this.prestigeManager.nextPrestigeMultiplier;
+    this.prestigeManager.loadNextMultiplier();
+
+    this.postUpdate(0);
   }
   //#region Save and Load
   getSave(): any {

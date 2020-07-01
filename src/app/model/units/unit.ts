@@ -2,16 +2,11 @@ import { IUnitData } from "../data/iUnitData";
 import { Production } from "./production";
 import { IBase } from "../iBase";
 import { MultiPrice } from "../prices/multiPrice";
-import {
-  ZERO,
-  ONE,
-  COMPONENT_PRICE
-
-} from "../CONSTANTS";
+import { ZERO, ONE, COMPONENT_PRICE } from "../CONSTANTS";
 import { IUnlockable } from "../iUnlocable";
 import { Game } from "../game";
 import { Bonus } from "../bonus/bonus";
-import { BonusStack } from '../bonus/bonusStack';
+import { BonusStack } from "../bonus/bonusStack";
 
 export class Unit implements IBase, IUnlockable {
   id = "";
@@ -67,7 +62,7 @@ export class Unit implements IBase, IUnlockable {
     if ("showUiLimit" in unitData) {
       this.showUiLimit = unitData.showUiLimit;
     }
-    if("battleMulti"in unitData){
+    if ("battleMulti" in unitData) {
       this.battleMulti = unitData.battleMulti;
     }
   }
@@ -112,13 +107,12 @@ export class Unit implements IBase, IUnlockable {
       this.perSec = this._perSecOld;
     } else {
       this._perSecOld = this.perSec;
-    }    
+    }
     if (this._oldLimit.eq(this.limit)) {
       this.limit = this._oldLimit;
     } else {
       this._oldLimit = this.limit;
     }
-    
   }
   buy(quantity: Decimal): boolean {
     if (
@@ -152,7 +146,7 @@ export class Unit implements IBase, IUnlockable {
 
     return true;
   }
-  reloadLimit():boolean {
+  reloadLimit(): boolean {
     if (!this.limitStack) {
       return false;
     }
@@ -172,11 +166,14 @@ export class Unit implements IBase, IUnlockable {
       this.limit.minus(this.quantity)
     );
   }
-
   reloadAll() {
     this.reloadLimit();
   }
- 
+  prestige() {
+    this.quantity = new Decimal(this.unitData.startQuantity ?? 0);
+    this.unlocked = this.quantity.gt(0);
+    this.manualBought = ZERO;
+  }
   //#region Save and Load
   getSave(): any {
     const ret: any = {};
