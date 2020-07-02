@@ -1,7 +1,7 @@
 import { ResourceManager } from "./units/resourceManager";
 import { ResearchManager } from "./researches/researchManager";
 import { ShipyardManager } from "./shipyard/shipyardManager";
-import { BASE_NAVAL_CAPACITY, ZERO, TEN } from "./CONSTANTS";
+import { BASE_NAVAL_CAPACITY, ZERO, TEN, SIX_HOURS } from "./CONSTANTS";
 import { EnemyManager } from "./enemy/enemyManager";
 import { BattleResult, Stats } from "./battle/battleResult";
 import { SpaceStationManager } from "./space/spaceStationManager";
@@ -14,6 +14,7 @@ import {
 } from "./notifications/myNotification";
 import { MainService } from "../main.service";
 import { PrestigeManager } from "./prestige/prestigeManager";
+import { BonusStack } from "./bonus/bonusStack";
 
 /**
  * Game is the main class that orchestrate everything game related
@@ -56,6 +57,7 @@ export class Game {
   customBuyPercent = 1;
   buyFixed = false;
   timeToWarp = 0;
+  idleTimeMultipliers: BonusStack;
 
   private _gameId = "";
   private battleResults: { result: BattleResult; fleet: number }[] = [];
@@ -70,6 +72,7 @@ export class Game {
   }
   constructor() {
     Game.instance = this;
+    this.idleTimeMultipliers = new BonusStack();
     this.generateGameId();
     this.resourceManager = new ResourceManager();
     this.resourceManager.makeUnits();
@@ -114,6 +117,20 @@ export class Game {
    * @param delta in seconds
    */
   update(delta: number) {
+    this.idleTimeMultipliers.reloadBonus();
+    if (delta > SIX_HOURS) {
+      const oldDelta = delta;
+      delta = this.idleTimeMultipliers.totalBonus.toNumber() * delta;
+      const diff = delta - oldDelta;
+      if (diff > 0) {
+        this.notificationManager.addNotification(
+          new MyNotification(
+            NotificationTypes.EXTRA_TIME,
+            "+ " + MainService.timePipe.transform(diff)
+          )
+        );
+      }
+    }
     let toUpdate = delta + this.timeToWarp;
     if (this.timeToWarp > 0) {
       this.notificationManager.addNotification(

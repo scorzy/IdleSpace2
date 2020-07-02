@@ -100,7 +100,7 @@ export const BASE_COMPUTING = 1e4;
 export const COMPUTING_TECH_BONUS = 0.01;
 
 //  Prestige
-export const PRESTIGE_MULTI_PER_LEVEL = 0.05;
+export const PRESTIGE_MULTI_PER_LEVEL = 0.1;
 export const PRESTIGE_MULTI_EXP = 1.2;
 export const PRESTIGE_PRICE = 10;
 export const DRONE_PRESTIGE_START_OFFER = 0.2;
@@ -110,3 +110,5 @@ export const TECH_PRESTIGE_MULTI = 0.5;
 export const DISTRICT_PRESTIGE_MULTI = 0.5;
 export const MATERIAL_PRESTIGE_MULTI = 1;
 export const COMPONENT_PRESTIGE_MULTI = 0.3;
+export const MORE_UP_PRESTIGE = 0.5;
+export const SIX_HOURS = 3600 * 6;

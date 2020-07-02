@@ -10,7 +10,8 @@ import {
   DRONE_PRESTIGE_START_OFFER,
   DISTRICT_PRESTIGE_MULTI,
   MATERIAL_PRESTIGE_MULTI,
-  COMPONENT_PRESTIGE_MULTI
+  COMPONENT_PRESTIGE_MULTI,
+  MORE_UP_PRESTIGE
 } from "../CONSTANTS";
 import { Game } from "../game";
 import {
@@ -152,6 +153,26 @@ export class PrestigeManager {
       new Bonus(compMulti, new Decimal(COMPONENT_PRESTIGE_MULTI))
     );
     //#endregion
+    //#region Misc
+    const miscList = new Array<PrestigePoint>();
+    this.tabs.push({
+      name: "Misc",
+      prestige: miscList
+    });
+    const moreIdle = new PrestigePoint();
+    moreIdle.id = "m1";
+    moreIdle.name = "More Districts";
+    moreIdle.description =
+      "+" +
+      MORE_UP_PRESTIGE * 100 +
+      "% idle gain when idling for 6 or more hours";
+    moreIdle.price = new Decimal(PRESTIGE_PRICE);
+    this.prestigePoints.push(moreIdle);
+    miscList.push(moreIdle);
+    Game.getGame().idleTimeMultipliers.bonuses.push(
+      new Bonus(moreIdle, new Decimal(MORE_UP_PRESTIGE))
+    );
+    //#endregion
   }
   addExperience(quantity: Decimal) {
     this.experience = this.experience.plus(quantity);
@@ -188,6 +209,7 @@ export class PrestigeManager {
         }
       }
     }
+    // this.experience = new Decimal(200);
   }
   //#endregion
 }

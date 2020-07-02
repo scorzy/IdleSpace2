@@ -11,7 +11,8 @@ export enum NotificationTypes {
   SPACE_STATION_COMPLETED,
   RESEARCH_INSPIRED,
   WARP,
-  EXPERIENCE
+  EXPERIENCE,
+  EXTRA_TIME
 }
 export class MyNotification {
   dateTime = Date.now();
@@ -64,6 +65,10 @@ export class MyNotification {
         this.iconClass = Game.getGame().resourceManager.science.colorClass;
         break;
       case NotificationTypes.EXPERIENCE:
+        this.icon = "field-time";
+        this.iconClass = Game.getGame().resourceManager.science.colorClass;
+        break;
+      case NotificationTypes.EXTRA_TIME:
         this.icon = "field-time";
         this.iconClass = Game.getGame().resourceManager.science.colorClass;
         break;
