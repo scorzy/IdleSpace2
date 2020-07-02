@@ -1,0 +1,40 @@
+<h2>
+  Warp
+  <span>
+    {{ ms.game.darkMatter | time }}
+  </span>
+</h2>
+<p>
+  Use Dark Matter to warp! Warp will reduce the time of ongoing battles.
+</p>
+
+<div fxLayout="row" fxLayoutAlign="space-around center">
+  <nz-card
+    *ngFor="let period of periods; trackBy: getPeriodId"
+    nzSize="small"
+    [nzTitle]="period.name"
+    style="min-width: 10rem;"
+  >
+    <div
+      fxLayout="column"
+      fxLayoutAlign="space-around stretch"
+      fxLayoutGap="12px"
+    >
+      <ng-container *ngFor="let buyOpt of buyOptions; let i = index">
+        <button
+          nz-button
+          nzType="default"
+          nzBlock
+          (click)="warp(period.time * buyOpt)"
+          [disabled]="ms.game.darkMatter.lt(period.time * buyOpt)"
+        >
+          <span class="monospace time">
+            {{ buyOpt | format: true }}
+          </span>
+          <span *ngIf="i < 2; else plural"> {{ period.name }} </span>
+          <ng-template #plural> {{ period.plural }} </ng-template>
+        </button>
+      </ng-container>
+    </div>
+  </nz-card>
+</div>

@@ -7,7 +7,8 @@ import {
   NUKE_DAMAGE,
   ENEMY_EXP_START_LEVEL,
   ENEMY_BASE_EXP,
-  ENEMY_EXP_GROW_RATE
+  ENEMY_EXP_GROW_RATE,
+  DM_PER_LEVEL
 } from "../CONSTANTS";
 import { MainService } from "src/app/main.service";
 import { BattleRequest } from "../battle/battleRequest";
@@ -363,10 +364,22 @@ export class EnemyManager extends JobManager {
         pm.addExperience(exp);
       }
     }
+    let dmToAdd = ZERO;
+    if (this.currentEnemy.level >= ENEMY_EXP_START_LEVEL) {
+      dmToAdd = Decimal.multiply(DM_PER_LEVEL, this.currentEnemy.level);
+      Game.getGame().lockedDarkMatter = Game.getGame().lockedDarkMatter.plus(
+        dmToAdd
+      );
+    }
     Game.getGame().notificationManager.addNotification(
       new MyNotification(
         NotificationTypes.ENEMY_DEFEATED,
-        "Enemy Defeated!",
+        "Enemy Defeated!" +
+          (dmToAdd.lte(0)
+            ? ""
+            : " +" +
+              MainService.formatPipe.transform(dmToAdd) +
+              " dark matter"),
         "Lv. " +
           MainService.formatPipe.transform(this.currentEnemy.level, true) +
           " " +

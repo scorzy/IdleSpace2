@@ -52,6 +52,7 @@ export const MAX_SEARCH_JOB = 10;
 export const ENEMY_EXP_START_LEVEL = 2;
 export const ENEMY_BASE_EXP = 5;
 export const ENEMY_EXP_GROW_RATE = 0.5;
+export const DM_PER_LEVEL = 10;
 
 // Modules
 export const PRICE_GROW_RATE = 1.05;

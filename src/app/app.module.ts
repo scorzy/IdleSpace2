@@ -100,6 +100,7 @@ import { AutoSearchComponent } from "./auto-buy/auto-search/auto-search.componen
 import { SpellBarComponent } from './spell-bar/spell-bar.component';
 import { PrestigeShopComponent } from './prestige-shop/prestige-shop.component';
 import { PrestigeComponent } from './prestige/prestige.component';
+import { WarpComponent } from './warp/warp.component';
 
 registerLocaleData(en);
 
@@ -165,7 +166,8 @@ const ngZorroConfig: NzConfig = {
     AutoSearchComponent,
     SpellBarComponent,
     PrestigeShopComponent,
-    PrestigeComponent
+    PrestigeComponent,
+    WarpComponent
   ],
   imports: [
     BrowserModule,

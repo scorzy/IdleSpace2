@@ -6,6 +6,7 @@ import formatDistanceStrict from "date-fns/formatDistanceStrict";
 import formatDistance from "date-fns/formatDistance";
 
 const SECONDS_IN_YEAR = 3.154e7;
+const ONE_HUNDRED_YEARS = SECONDS_IN_YEAR * 100;
 
 @Pipe({
   name: "time"
@@ -16,7 +17,14 @@ export class TimePipe implements PipeTransform {
     this.pipeFormat = new FormatPipe(options);
   }
 
-  transform(value: number, format?: number): any {
+  transform(value: number | Decimal, format?: number): any {
+    if (value instanceof Decimal && value.gt(ONE_HUNDRED_YEARS)) {
+      return this.pipeFormat.transform(value.div(SECONDS_IN_YEAR)) + " years";
+    }
+    if (value instanceof Decimal) {
+      value = value.toNumber();
+    }
+
     if (!isNaN(value) && value >= 0 && value < Number.POSITIVE_INFINITY) {
       const dateEnd = new Date(Date.now() + value);
       if (isValid(dateEnd)) {

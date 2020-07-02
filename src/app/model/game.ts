@@ -58,6 +58,8 @@ export class Game {
   buyFixed = false;
   timeToWarp = 0;
   idleTimeMultipliers: BonusStack;
+  darkMatter = ZERO;
+  lockedDarkMatter = ZERO;
 
   private _gameId = "";
   private battleResults: { result: BattleResult; fleet: number }[] = [];
@@ -307,6 +309,8 @@ export class Game {
     this.generateGameId();
     this.prestigeManager.prestigeMultiplier = this.prestigeManager.nextPrestigeMultiplier;
     this.prestigeManager.loadNextMultiplier();
+    this.darkMatter = this.darkMatter.plus(this.lockedDarkMatter);
+    this.lockedDarkMatter = ZERO;
 
     this.postUpdate(0);
   }
@@ -321,7 +325,9 @@ export class Game {
       c: this.civilianWorkPercent,
       a: this.automationManager.getSave(),
       p: this.computingManager.getSave(),
-      t: this.prestigeManager.getSave()
+      t: this.prestigeManager.getSave(),
+      k: this.darkMatter,
+      l: this.lockedDarkMatter
     };
   }
   load(data: any) {
@@ -352,6 +358,8 @@ export class Game {
       this.computingManager.load(data.p);
     }
     if ("t" in data) this.prestigeManager.load(data.t);
+    if ("k" in data) this.darkMatter = new Decimal(data.k);
+    if ("l" in data) this.lockedDarkMatter = new Decimal(data.l);
     this.postUpdate(0);
   }
   //#endregion

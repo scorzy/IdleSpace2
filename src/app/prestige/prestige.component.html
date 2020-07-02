@@ -9,6 +9,15 @@
   <strong class="monospace" [ngClass]="getMultiplierClass()">
     {{ ms.game.prestigeManager.nextPrestigeMultiplier | format }}
   </strong>
+  <br />
+  Your will gain
+  <strong class="monospace text-success">
+    {{ ms.game.lockedDarkMatter | time }}
+  </strong>
+  Dark Matter. Now you have
+  <strong class="monospace">
+    {{ ms.game.darkMatter | time }}
+  </strong>
 </p>
 <p>
   Reset everything except "Exp Shop" and ship design. Ship design with locked
