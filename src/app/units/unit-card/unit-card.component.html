@@ -96,8 +96,6 @@
     [nzAvatar]="avatarTemplate"
     [nzTitle]="title"
     [nzDescription]="description"
-    nz-popover
-    [nzPopoverContent]="limitPopover"
   ></nz-card-meta>
 </ng-template>
 
@@ -121,7 +119,7 @@
   <span> {{ unit.name }}</span>
 </ng-template>
 <ng-template #description>
-  <span class="monospace">
+  <span class="monospace" nz-popover [nzPopoverContent]="limitPopover">
     {{ unit.quantity | format: true }}
     <span *ngIf="unit.limit.lt(Decimal.MAX_VALUE)">
       /{{ unit.limit | format: true }}
