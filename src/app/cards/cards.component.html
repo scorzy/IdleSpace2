@@ -1,0 +1,43 @@
+<h2>Cards</h2>
+<div fxLayout="row" fxLayoutGap="10px">
+  <div fxFlex.xs="0 0 calc(100%)" fxFlex.gt-xs="0 0 calc(50% -10px)">
+    <h3>Available</h3>
+    <div
+      cdkDropList
+      #todoList="cdkDropList"
+      [cdkDropListData]="available"
+      [cdkDropListConnectedTo]="[doneList]"
+      class="job-list"
+      (cdkDropListDropped)="drop($event)"
+      id="backlog"
+    >
+      <app-prestige-card
+        cdkDrag
+        class="job-box"
+        *ngFor="let cardAv of available; trackBy: getCardId"
+        [card]="cardAv"
+      >
+      </app-prestige-card>
+    </div>
+  </div>
+  <div fxFlex.xs="0 0 calc(100%)" fxFlex.gt-xs="0 0 calc(50% -10px)">
+    <h3>In Use</h3>
+    <div
+      cdkDropList
+      #doneList="cdkDropList"
+      [cdkDropListData]="inUse"
+      [cdkDropListConnectedTo]="[todoList]"
+      class="job-list"
+      (cdkDropListDropped)="drop($event)"
+      id="backlog"
+    >
+      <app-prestige-card
+        cdkDrag
+        class="job-box"
+        *ngFor="let cardUse of inUse; trackBy: getCardId"
+        [card]="cardUse"
+      >
+      </app-prestige-card>
+    </div>
+  </div>
+</div>

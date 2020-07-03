@@ -27,6 +27,7 @@ import { AutomationComponent } from "./automation/automation.component";
 import { PrestigeShopComponent } from "./prestige-shop/prestige-shop.component";
 import { PrestigeComponent } from "./prestige/prestige.component";
 import { WarpComponent } from "./warp/warp.component";
+import { CardsComponent } from "./cards/cards.component";
 export const routes: Routes = [
   { path: "", pathMatch: "full", redirectTo: "/units/ws" },
   { path: "des", pathMatch: "full", redirectTo: "/des/add" },
@@ -73,7 +74,8 @@ export const routes: Routes = [
   { path: "automation", pathMatch: "full", component: AutomationComponent },
   { path: "expShop", component: PrestigeShopComponent },
   { path: "prestige", component: PrestigeComponent },
-  { path: "warp", component: WarpComponent }
+  { path: "warp", component: WarpComponent },
+  { path: "cards", component: CardsComponent }
 ];
 
 @NgModule({

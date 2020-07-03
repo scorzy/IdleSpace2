@@ -21,6 +21,8 @@ import {
 import { MainService } from "src/app/main.service";
 import { PrestigePoint } from "./prestigePoint";
 import { Bonus } from "../bonus/bonus";
+import { PrestigeCard } from "./prestigeCard";
+import { PRESTIGE_CARDS } from "../data/prestigeCard";
 
 export class PrestigeManager {
   experience = ZERO;
@@ -31,7 +33,13 @@ export class PrestigeManager {
     name: string;
     prestige: PrestigePoint[];
   }>();
+  cards = new Array<PrestigeCard>();
+  maxCards = 0;
   constructor() {
+    this.generateExperience();
+    this.generateCards();
+  }
+  generateExperience() {
     const rm = Game.getGame().resourceManager;
     const sm = Game.getGame().researchManager;
     //#region Drones
@@ -174,6 +182,10 @@ export class PrestigeManager {
     );
     //#endregion
   }
+  generateCards() {
+    this.cards = PRESTIGE_CARDS.map((data) => new PrestigeCard(data));
+    console.log(this.cards);
+  }
   addExperience(quantity: Decimal) {
     this.experience = this.experience.plus(quantity);
     Game.getGame().notificationManager.addNotification(
@@ -195,7 +207,9 @@ export class PrestigeManager {
     return {
       e: this.experience,
       m: this.prestigeMultiplier,
-      p: this.prestigePoints.map((p) => p.getSave())
+      p: this.prestigePoints.map((p) => p.getSave()),
+      c: this.cards.filter((c) => c.active).map((c) => c.id),
+      a: this.maxCards
     };
   }
   load(data: any) {
@@ -209,6 +223,15 @@ export class PrestigeManager {
         }
       }
     }
+    if ("c" in data) {
+      for (const cardId of data.c) {
+        const card = this.cards.find((card) => card.id === cardId);
+        if (card) {
+          card.active = true;
+        }
+      }
+    }
+    if ("a" in data) this.maxCards = data.a;
     // this.experience = new Decimal(200);
   }
   //#endregion

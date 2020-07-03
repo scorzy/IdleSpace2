@@ -103,6 +103,7 @@ export const COMPUTING_TECH_BONUS = 0.01;
 //  Prestige
 export const PRESTIGE_MULTI_PER_LEVEL = 0.1;
 export const PRESTIGE_MULTI_EXP = 1.2;
+export const LEVEL_PER_CARD = 10;
 export const PRESTIGE_PRICE = 10;
 export const DRONE_PRESTIGE_START_OFFER = 0.2;
 export const DRONE_PRESTIGE_PRODUCTION = 0.1;

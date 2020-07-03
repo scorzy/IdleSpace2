@@ -1,7 +1,10 @@
-export interface IBase {
+export interface ISimpleBase {
   id: string;
   name: string;
-  quantity: Decimal;
+  description?: string;
   icon?: string;
   colorClass?: string;
+}
+export interface IBase extends ISimpleBase {
+  quantity: Decimal;
 }

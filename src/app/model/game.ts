@@ -1,7 +1,13 @@
 import { ResourceManager } from "./units/resourceManager";
 import { ResearchManager } from "./researches/researchManager";
 import { ShipyardManager } from "./shipyard/shipyardManager";
-import { BASE_NAVAL_CAPACITY, ZERO, TEN, SIX_HOURS } from "./CONSTANTS";
+import {
+  BASE_NAVAL_CAPACITY,
+  ZERO,
+  TEN,
+  SIX_HOURS,
+  LEVEL_PER_CARD
+} from "./CONSTANTS";
 import { EnemyManager } from "./enemy/enemyManager";
 import { BattleResult, Stats } from "./battle/battleResult";
 import { SpaceStationManager } from "./space/spaceStationManager";
@@ -311,6 +317,11 @@ export class Game {
     this.prestigeManager.loadNextMultiplier();
     this.darkMatter = this.darkMatter.plus(this.lockedDarkMatter);
     this.lockedDarkMatter = ZERO;
+    const newMaxCard = Math.floor(this.enemyManager.maxLevel / LEVEL_PER_CARD);
+    this.prestigeManager.maxCards = Math.max(
+      this.prestigeManager.maxCards,
+      newMaxCard
+    );
 
     this.postUpdate(0);
   }

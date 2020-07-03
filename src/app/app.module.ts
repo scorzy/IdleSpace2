@@ -101,6 +101,8 @@ import { SpellBarComponent } from './spell-bar/spell-bar.component';
 import { PrestigeShopComponent } from './prestige-shop/prestige-shop.component';
 import { PrestigeComponent } from './prestige/prestige.component';
 import { WarpComponent } from './warp/warp.component';
+import { CardsComponent } from './cards/cards.component';
+import { PrestigeCardComponent } from './cards/prestige-card/prestige-card.component';
 
 registerLocaleData(en);
 
@@ -167,7 +169,9 @@ const ngZorroConfig: NzConfig = {
     SpellBarComponent,
     PrestigeShopComponent,
     PrestigeComponent,
-    WarpComponent
+    WarpComponent,
+    CardsComponent,
+    PrestigeCardComponent
   ],
   imports: [
     BrowserModule,
