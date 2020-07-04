@@ -34,14 +34,14 @@ export class Technology implements IBase, IUnlockable, ITechnologyData {
     this.bonus.bonuses.push(new Bonus(this, RESEARCH_BONUS));
     this.technologyBonus = new BonusStack();
   }
-  addProgress(progress: Decimal) {
+  addProgress(progress: Decimal, noMultiplier = false) {
     if (progress.lte(0)) {
       return;
     }
-
-    this.progress = this.progress.plus(
-      progress.times(this.technologyBonus.totalBonus)
-    );
+    if (!noMultiplier) {
+      progress = progress.times(this.technologyBonus.totalBonus);
+    }
+    this.progress = this.progress.plus(progress);
     const toBuy = Decimal.affordGeometricSeries(
       this.progress,
       this.price,

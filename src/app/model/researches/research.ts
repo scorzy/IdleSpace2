@@ -9,7 +9,8 @@ import {
   RESEARCH_LEVEL_MULTI,
   ONE,
   TIER_ONE_RES_PRICE_MULTI,
-  INSPIRATION_PERCENT
+  INSPIRATION_PERCENT,
+  INSPIRATION_CARD
 } from "../CONSTANTS";
 import { IUnlockable } from "../iUnlocable";
 import { Game } from "../game";
@@ -69,6 +70,7 @@ export class Research extends Job implements IUnlockable, IBase {
   spellToUnlock: Spell;
   technologyBonus: { technology: Technology; multi: number }[];
   computingPerSec = 0;
+  type: Technology;
   constructor(researchData: IResearchData, researchManager: ResearchManager) {
     super();
     this.resData = researchData;
@@ -275,12 +277,16 @@ export class Research extends Job implements IUnlockable, IBase {
 
     const rm = Game.getGame().researchManager;
     if (rm.done.indexOf(this) > -1) return false;
-    // if (!(rm.backlog.indexOf(this) > -1 || rm.toDo.indexOf(this) > -1)) {
-    //   return false;
-    // }
 
     this.inspiration = true;
-    this.addProgress(this.total.times(INSPIRATION_PERCENT), true);
+    const percent = Game.getGame().prestigeManager.inspiration.active
+      ? INSPIRATION_CARD
+      : INSPIRATION_PERCENT;
+    const toAdd = this.total.times(percent);
+    if (Game.getGame().prestigeManager.inspirationTechnology.active) {
+      this.type.addProgress(toAdd, true);
+    }
+    this.addProgress(toAdd, true);
     Game.getGame().notificationManager.addNotification(
       new MyNotification(NotificationTypes.RESEARCH_INSPIRED, this.name)
     );

@@ -19,7 +19,8 @@ import {
   COMPONENTS_CARD,
   MATERIALS_CARD,
   DISTRICTS_CARD,
-  TECHNOLOGY_CARD
+  TECHNOLOGY_CARD,
+  COMPUTING_REGENERATION_CARD
 } from "../CONSTANTS";
 import { Game } from "../game";
 import {
@@ -44,9 +45,19 @@ export class PrestigeManager {
   }>();
   cards = new Array<PrestigeCard>();
   maxCards = 0;
+  lockedCars = false;
   //#region Special cards
+  victoryWarp: PrestigeCard;
+  enemyDefeatWarp: PrestigeCard;
   moreWarp: PrestigeCard;
   scienceWarp: PrestigeCard;
+  inspiration: PrestigeCard;
+  inspirationTechnology: PrestigeCard;
+  updateWarp: PrestigeCard;
+  longerSpells: PrestigeCard;
+  moreExp: PrestigeCard;
+  moreDM: PrestigeCard;
+  moreComputing: PrestigeCard;
   //#region
   constructor() {
     this.generateExperience();
@@ -198,6 +209,7 @@ export class PrestigeManager {
   generateCards() {
     const rm = Game.getGame().resourceManager;
     const sm = Game.getGame().researchManager;
+    const cm = Game.getGame().computingManager;
     //#region Drones
     this.cards = PRESTIGE_CARDS.map((data) => new PrestigeCard(data));
     const prodCard = this.cards.find((card) => card.id === "0");
@@ -223,6 +235,8 @@ export class PrestigeManager {
     //#endregion
     //#region Science
     const technology = this.cards.find((card) => card.id === "r0");
+    this.inspiration = this.cards.find((card) => card.id === "r1");
+    this.inspirationTechnology = this.cards.find((card) => card.id === "r2");
     sm.technologies.forEach((tech) => {
       tech.technologyBonus.bonuses.push(
         new Bonus(technology, new Decimal(TECHNOLOGY_CARD))
@@ -233,6 +247,8 @@ export class PrestigeManager {
     const districts = this.cards.find((card) => card.id === "w0");
     const materials = this.cards.find((card) => card.id === "w1");
     const components = this.cards.find((card) => card.id === "w2");
+    this.victoryWarp = this.cards.find((card) => card.id === "w3");
+    this.enemyDefeatWarp = this.cards.find((card) => card.id === "w4");
 
     rm.districts.forEach((dis) => {
       dis.battleGainMulti.bonuses.push(
@@ -251,6 +267,19 @@ export class PrestigeManager {
     //#region Warp
     this.moreWarp = this.cards.find((card) => card.id === "p0");
     this.scienceWarp = this.cards.find((card) => card.id === "p1");
+    this.updateWarp = this.cards.find((card) => card.id === "p2");
+    //#endregion
+    //#region Computing
+    this.longerSpells = this.cards.find((card) => card.id === "s0");
+    const computingRegeneration = this.cards.find((card) => card.id === "s1");
+    this.moreComputing = this.cards.find((card) => card.id === "s2");
+    cm.computingStackMulti.bonuses.push(
+      new Bonus(computingRegeneration, new Decimal(COMPUTING_REGENERATION_CARD))
+    );
+    //#endregion
+    //#region Misc
+    this.moreExp = this.cards.find((card) => card.id === "m0");
+    this.moreDM = this.cards.find((card) => card.id === "m1");
     //#endregion
   }
   addExperience(quantity: Decimal) {
@@ -276,7 +305,8 @@ export class PrestigeManager {
       m: this.prestigeMultiplier,
       p: this.prestigePoints.map((p) => p.getSave()),
       c: this.cards.filter((c) => c.active).map((c) => c.id),
-      a: this.maxCards
+      a: this.maxCards,
+      l: this.lockedCars
     };
   }
   load(data: any) {
@@ -299,6 +329,7 @@ export class PrestigeManager {
       }
     }
     if ("a" in data) this.maxCards = data.a;
+    if ("l" in data) this.lockedCars = data.l;
     // this.experience = new Decimal(200);
   }
   //#endregion

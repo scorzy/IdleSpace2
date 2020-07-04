@@ -6,7 +6,8 @@ import {
   ZERO,
   TEN,
   SIX_HOURS,
-  LEVEL_PER_CARD
+  LEVEL_PER_CARD,
+  UPDATE_WARP_CARD
 } from "./CONSTANTS";
 import { EnemyManager } from "./enemy/enemyManager";
 import { BattleResult, Stats } from "./battle/battleResult";
@@ -140,6 +141,13 @@ export class Game {
         );
       }
     }
+    if (
+      this.prestigeManager.updateWarp.active &&
+      delta > UPDATE_WARP_CARD * 3600
+    ) {
+      this.timeToWarp += delta;
+      delta = 0;
+    }
     if (this.timeToWarp > 0) {
       //  Double Warp
       if (this.prestigeManager.moreWarp.active) {
@@ -157,8 +165,10 @@ export class Game {
       );
     }
     let toUpdate = delta + this.timeToWarp;
-    this.processBattles();
+    const warped = this.timeToWarp;
     this.timeToWarp = 0;
+    this.processBattles(warped);
+
     this.automationManager.update();
 
     let n = 0;
@@ -266,12 +276,12 @@ export class Game {
     }
     this.battleResults.push({ result: battleResult, fleet: fleetNum });
   }
-  processBattles() {
+  processBattles(warpTime: number) {
     const now = performance.now();
     for (let i = this.battleResults.length - 1; i >= 0; i--) {
       const battleResult = this.battleResults[i].result;
       const fleetNum = this.battleResults[i].fleet;
-      battleResult.endTime -= this.timeToWarp * 1000;
+      battleResult.endTime -= warpTime * 1000;
       if (now >= battleResult.endTime) {
         if (this.enemyManager.currentEnemy && this.updateStats) {
           const toAdd = {
@@ -328,6 +338,7 @@ export class Game {
     this.darkMatter = this.darkMatter.plus(this.lockedDarkMatter);
     this.lockedDarkMatter = ZERO;
     const newMaxCard = Math.floor(this.enemyManager.maxLevel / LEVEL_PER_CARD);
+    this.prestigeManager.lockedCars = false;
     this.prestigeManager.maxCards = Math.max(
       this.prestigeManager.maxCards,
       newMaxCard

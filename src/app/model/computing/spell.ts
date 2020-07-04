@@ -1,5 +1,4 @@
-
-import { ONE, ZERO } from "../CONSTANTS";
+import { ONE, ZERO, SPELL_DURATION_CARD } from "../CONSTANTS";
 import { Game } from "../game";
 import { IBase } from "../iBase";
 
@@ -24,7 +23,12 @@ export class Spell implements IBase {
     cp.currentComputing -= this.price;
     this.onActivate();
     this.active = true;
-    this.endTime = Date.now() + this.duration;
+    this.endTime =
+      Date.now() +
+      this.duration *
+        (Game.getGame().prestigeManager.longerSpells.active
+          ? 1 + SPELL_DURATION_CARD
+          : 1);
   }
   onActivate() {}
 

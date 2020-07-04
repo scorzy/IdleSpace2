@@ -1,3 +1,11 @@
-<nz-card nzSize="small" [nzTitle]="card.name" style="width: 100%;">
-  <p>{{ card.description }}</p>
+<nz-card nzSize="small" style="width: 100%;">
+  <nz-card-meta
+    [nzAvatar]="avatarTemplate"
+    [nzTitle]="card.name"
+    [nzDescription]="card.description"
+  ></nz-card-meta>
 </nz-card>
+
+<ng-template #avatarTemplate>
+  <i nz-icon [nzType]="card.icon"></i>
+</ng-template>

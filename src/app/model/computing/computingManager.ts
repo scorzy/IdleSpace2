@@ -1,6 +1,10 @@
 import { BonusStack } from "../bonus/bonusStack";
 import { Spell } from "./spell";
-import { BASE_COMPUTING, COMPUTING_TECH_BONUS } from "../CONSTANTS";
+import {
+  BASE_COMPUTING,
+  COMPUTING_TECH_BONUS,
+  COMPUTING_MAX_CARD
+} from "../CONSTANTS";
 import { WarpSpell } from "./warp";
 import { Research } from "../researches/research";
 import { ResearchSpell } from "./researchSpell";
@@ -70,6 +74,9 @@ export class ComputingManager {
     this.maxComputingStack.reloadAdditiveBonus();
     this.maxComputing =
       BASE_COMPUTING + this.maxComputingStack.totalAdditiveBonus.toNumber();
+    if (Game.getGame().prestigeManager.moreComputing.active) {
+      this.maxComputing += this.maxComputing * COMPUTING_MAX_CARD;
+    }
 
     this.computingStack.reloadAdditiveBonus();
     this.computingStackMulti.reloadBonus();

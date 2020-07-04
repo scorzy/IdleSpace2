@@ -18,6 +18,9 @@ export class TimePipe implements PipeTransform {
   }
 
   transform(value: number | Decimal, format?: number): any {
+    if (!(value instanceof Decimal) && value > ONE_HUNDRED_YEARS) {
+      value = new Decimal(value);
+    }
     if (value instanceof Decimal && value.gt(ONE_HUNDRED_YEARS)) {
       return this.pipeFormat.transform(value.div(SECONDS_IN_YEAR)) + " years";
     }

@@ -8,7 +8,11 @@ import {
   ENEMY_EXP_START_LEVEL,
   ENEMY_BASE_EXP,
   ENEMY_EXP_GROW_RATE,
-  DM_PER_LEVEL
+  DM_PER_LEVEL,
+  VICTORY_WARP_CARD,
+  ENEMY_DEFEAT_WARP_CARD,
+  EXP_GAIN_CARD,
+  DM_GAIN_CARD
 } from "../CONSTANTS";
 import { MainService } from "src/app/main.service";
 import { BattleRequest } from "../battle/battleRequest";
@@ -299,6 +303,11 @@ export class EnemyManager extends JobManager {
     this.currentEnemy = null;
   }
   reward(cell: Cell, fleetNum: number) {
+    //  Card Warp
+    if (Game.getGame().prestigeManager.victoryWarp.active) {
+      Game.getGame().timeToWarp += VICTORY_WARP_CARD;
+    }
+
     if (cell.materials.length < 1) {
       return;
     }
@@ -351,6 +360,10 @@ export class EnemyManager extends JobManager {
   defeatEnemy() {
     if (!this.currentEnemy) return false;
 
+    if (Game.getGame().prestigeManager.enemyDefeatWarp.active) {
+      Game.getGame().timeToWarp += ENEMY_DEFEAT_WARP_CARD;
+    }
+
     Game.getGame().researchManager.searching.inspire();
     Game.getGame().researchManager.scavenging.inspire();
 
@@ -359,7 +372,10 @@ export class EnemyManager extends JobManager {
       if (this.currentEnemy.level >= ENEMY_EXP_START_LEVEL) {
         const pm = Game.getGame().prestigeManager;
         const exp = Decimal.floor(
-          ENEMY_BASE_EXP + this.currentEnemy.level * ENEMY_EXP_GROW_RATE
+          (ENEMY_BASE_EXP + this.currentEnemy.level * ENEMY_EXP_GROW_RATE) *
+            (Game.getGame().prestigeManager.moreExp.active
+              ? 1 + EXP_GAIN_CARD
+              : 1)
         );
         pm.addExperience(exp);
       }
@@ -370,6 +386,9 @@ export class EnemyManager extends JobManager {
       Game.getGame().lockedDarkMatter = Game.getGame().lockedDarkMatter.plus(
         dmToAdd
       );
+      if (Game.getGame().prestigeManager.moreDM.active) {
+        dmToAdd = dmToAdd.times(1 + DM_GAIN_CARD);
+      }
     }
     Game.getGame().notificationManager.addNotification(
       new MyNotification(

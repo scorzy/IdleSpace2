@@ -13,6 +13,7 @@ export class PrestigeCard implements IBase {
     this.id = data.id;
     this.name = data.name;
     this.description = data.description;
+    this.icon = data?.icon;
   }
   get quantity(): Decimal {
     if (this.active) return ONE;

@@ -11,13 +11,22 @@
   </strong>
   <br />
   Your will gain
-  <strong class="monospace text-success">
+  <strong
+    class="monospace"
+    [class.text-success]="ms.game.lockedDarkMatter.gt(0)"
+  >
     {{ ms.game.lockedDarkMatter | time }}
   </strong>
   Dark Matter. Now you have
   <strong class="monospace">
-    {{ ms.game.darkMatter | time }}
+    {{ ms.game.darkMatter | time }} </strong
+  >.
+  <br />
+  Your will gain
+  <strong class="monospace" [class.text-success]="newSlots > 0">
+    {{ newSlots | format: true }}
   </strong>
+  cards slots.
 </p>
 <p>
   Reset everything except "Exp Shop" and ship design. Ship design with locked

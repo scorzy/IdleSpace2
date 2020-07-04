@@ -6,6 +6,7 @@ import {
   AfterViewInit
 } from "@angular/core";
 import { BaseComponentComponent } from "../base-component/base-component.component";
+import { LEVEL_PER_CARD } from "../model/CONSTANTS";
 
 @Component({
   selector: "app-prestige",
@@ -15,6 +16,16 @@ import { BaseComponentComponent } from "../base-component/base-component.compone
 })
 export class PrestigeComponent extends BaseComponentComponent
   implements OnInit, OnDestroy, AfterViewInit {
+  newSlots = 0;
+  ngOnInit() {
+    this.newSlots = this.getNextCardSlots();
+    super.ngOnInit();
+    this.subscriptions.push(
+      this.ms.updateEmitter.subscribe((ev) => {
+        this.newSlots = this.getNextCardSlots();
+      })
+    );
+  }
   getMultiplierClass() {
     if (
       this.ms.game.prestigeManager.nextPrestigeMultiplier.gt(
@@ -31,5 +42,11 @@ export class PrestigeComponent extends BaseComponentComponent
       return "text-error";
     }
     return "";
+  }
+  getNextCardSlots(): number {
+    const newSlot = Math.floor(
+      this.ms.game.enemyManager.maxLevel / LEVEL_PER_CARD
+    );
+    return this.ms.game.prestigeManager.maxCards - newSlot;
   }
 }

@@ -16,6 +16,7 @@ import {
   CdkDropList
 } from "@angular/cdk/drag-drop";
 import { Game } from "../model/game";
+import { LEVEL_PER_CARD } from "../model/CONSTANTS";
 
 @Component({
   selector: "app-cards",
@@ -26,6 +27,7 @@ import { Game } from "../model/game";
 export class CardsComponent implements OnInit, AfterViewInit {
   available: Array<PrestigeCard>;
   inUse: Array<PrestigeCard>;
+  LEVEL_PER_CARD = LEVEL_PER_CARD;
   @HostBinding("class.disableAnimation") animationDisabled = true;
   constructor(public ms: MainService) {}
 
@@ -68,5 +70,6 @@ export class CardsComponent implements OnInit, AfterViewInit {
   confirm() {
     this.ms.game.prestigeManager.cards.forEach((card) => (card.active = false));
     this.inUse.forEach((card) => (card.active = true));
+    this.ms.game.prestigeManager.lockedCars = true;
   }
 }

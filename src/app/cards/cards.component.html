@@ -1,9 +1,7 @@
 <h2>Cards</h2>
-<button nzType="primary" nz-button (click)="confirm()" class="confirmButton">
-  Confirm
-</button>
+
 <div fxLayout="row" fxLayoutGap="10px" fxLayout.xs="column">
-  <div fxFlex.xs="0 0 calc(100%)" fxFlex.gt-xs="0 0 calc(50% -10px)">
+  <div fxFlex.xs="0 0 calc(100%)" fxFlex.gt-xs="0 0 calc(37% -10px)">
     <h3>Available</h3>
     <div
       cdkDropList
@@ -23,7 +21,7 @@
       </app-prestige-card>
     </div>
   </div>
-  <div fxFlex.xs="0 0 calc(100%)" fxFlex.gt-xs="0 0 calc(50% -10px)">
+  <div fxFlex.xs="0 0 calc(100%)" fxFlex.gt-xs="0 0 calc(37% -10px)">
     <h3>
       In Use
       <span class="monospace"
@@ -48,5 +46,23 @@
       >
       </app-prestige-card>
     </div>
+  </div>
+  <div fxFlex.xs="0 0 calc(100%)" fxFlex.gt-xs="0 0 calc(26% -10px)">
+    <p>
+      Gain one slot every {{ LEVEL_PER_CARD }} max level enemy. Slots never
+      reset.
+      <br />
+      After confirmation cards will be locked until prestige (you can click
+      'Confirm' only one time per prestige).
+    </p>
+    <button
+      nzType="primary"
+      nz-button
+      (click)="confirm()"
+      class="confirmButton"
+      [disabled]="ms.game.prestigeManager.lockedCars"
+    >
+      Confirm
+    </button>
   </div>
 </div>
