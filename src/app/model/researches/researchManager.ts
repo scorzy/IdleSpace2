@@ -132,19 +132,20 @@ export class ResearchManager extends JobManager {
         inspirationBuilding: "4"
       },
       {
+        name: "Energy",
+        id: "E",
+        start: 0,
+        tech: TECHNOLOGIES.Energy,
+        inspirationBuilding: "2"
+      },
+      {
         name: "Computing",
         id: "c",
         start: 1,
         tech: TECHNOLOGIES.Computing,
         inspirationBuilding: ""
       },
-      {
-        name: "Energy",
-        id: "E",
-        start: 1,
-        tech: TECHNOLOGIES.Energy,
-        inspirationBuilding: "2"
-      },
+
       {
         name: "Robotics",
         id: "x",
@@ -225,6 +226,14 @@ export class ResearchManager extends JobManager {
           case "c":
             resData.computingPerSec = i + 2;
             break;
+          //  Energy
+          case "E":
+            resData.modPoints = [{ unitId: "e", multi: modPlus }];
+            resData.effMulti = [{ unitId: "e", multi: RESEARCH_TECH_EFF }];
+            if (i > 0) {
+              resData.buildingPoints = [{ buildingId: "2", quantity: 1 }];
+            }
+            break;
         }
         if (i > 0) {
           switch (res.id) {
@@ -236,14 +245,7 @@ export class ResearchManager extends JobManager {
                 resData.buildingPoints = [{ buildingId: "7", quantity: 1 }];
               }
               break;
-            //  Energy
-            case "E":
-              resData.modPoints = [{ unitId: "e", multi: modPlus }];
-              resData.effMulti = [{ unitId: "e", multi: RESEARCH_TECH_EFF }];
-              if (i > 0) {
-                resData.buildingPoints = [{ buildingId: "2", quantity: 1 }];
-              }
-              break;
+
             //  Mining
             case "N":
               resData.modPoints = [{ unitId: "m", multi: modPlus }];
@@ -253,58 +255,59 @@ export class ResearchManager extends JobManager {
               }
               break;
           }
-
-          //#region Modules
-          //  Propulsion
-          if (res.tech === TECHNOLOGIES.Propulsion) {
-            if (i === 1) resData.modulesToUnlock = ["o"];
-            if (i === 2) resData.modulesToUnlock = ["n"];
-            if (i === 3) resData.modulesToUnlock = ["l"];
-            // if (i === 4) resData.modulesToUnlock = [""];
-            if (i === 5) resData.modulesToUnlock = ["a"];
-            if (i === 6) resData.modulesToUnlock = ["c"];
-            if (i === 7) resData.modulesToUnlock = ["w"];
-            // if (i === 8) resData.modulesToUnlock = [""];
-          }
-          //  Energy - Generators
-          if (res.tech === TECHNOLOGIES.Energy) {
-            if (i === 1) resData.modulesToUnlock = ["T"];
-            if (i === 2) resData.modulesToUnlock = ["I"];
-            if (i === 4) resData.modulesToUnlock = ["F"];
-            if (i === 6) resData.modulesToUnlock = ["J"];
-          }
-          //  Materials
-          if (res.tech === TECHNOLOGIES.Materials) {
-            if (i === 2) resData.modulesToUnlock = ["E"];
-            if (i === 3) resData.modulesToUnlock = ["C", "G"];
-            if (i === 4) resData.modulesToUnlock = ["B"];
-            if (i === 5) resData.modulesToUnlock = ["b"];
-            // if (i === 6) resData.modulesToUnlock = ["V"];
-            if (i === 7) resData.modulesToUnlock = ["D"];
-          }
-          //  Physics
-          if (res.tech === TECHNOLOGIES.Physics) {
-            if (i === 2) resData.modulesToUnlock = ["p"];
-            if (i === 3) resData.modulesToUnlock = ["O", "H", "G"];
-            if (i === 4) resData.modulesToUnlock = ["g"];
-            if (i === 5) resData.modulesToUnlock = ["X"];
-            if (i === 6) resData.modulesToUnlock = ["P"];
-            if (i === 7) resData.modulesToUnlock = ["j"];
-            if (i === 8) resData.modulesToUnlock = ["i", "e"];
-          }
-          //  Mining
-          if (res.tech === TECHNOLOGIES.Mining) {
-            if (i === 1) resData.modulesToUnlock = ["m"];
-          }
-          //  Robotics
-          if (res.tech === TECHNOLOGIES.Robotics) {
-            if (i === 3) resData.modulesToUnlock = ["f"];
-          }
-          //  Computing
-          if (res.tech === TECHNOLOGIES.Computing) {
-            if (i === 2) resData.modulesToUnlock = ["t"];
-          }
         }
+        //#region Modules
+        //  Propulsion
+        if (res.tech === TECHNOLOGIES.Propulsion) {
+          if (i === 1) resData.modulesToUnlock = ["o"];
+          if (i === 2) resData.modulesToUnlock = ["n"];
+          if (i === 3) resData.modulesToUnlock = ["l"];
+          // if (i === 4) resData.modulesToUnlock = [""];
+          if (i === 5) resData.modulesToUnlock = ["a"];
+          if (i === 6) resData.modulesToUnlock = ["c"];
+          if (i === 7) resData.modulesToUnlock = ["w"];
+          // if (i === 8) resData.modulesToUnlock = [""];
+        }
+        //  Energy - Generators
+        if (res.tech === TECHNOLOGIES.Energy) {
+          if (i === 0) resData.modulesToUnlock = ["R"];
+          if (i === 1) resData.modulesToUnlock = ["T"];
+          if (i === 2) resData.modulesToUnlock = ["I"];
+          if (i === 4) resData.modulesToUnlock = ["F"];
+          if (i === 6) resData.modulesToUnlock = ["J"];
+        }
+        //  Materials
+        if (res.tech === TECHNOLOGIES.Materials) {
+          if (i === 2) resData.modulesToUnlock = ["E"];
+          if (i === 3) resData.modulesToUnlock = ["C", "G"];
+          if (i === 4) resData.modulesToUnlock = ["B"];
+          if (i === 5) resData.modulesToUnlock = ["b"];
+          // if (i === 6) resData.modulesToUnlock = ["V"];
+          if (i === 7) resData.modulesToUnlock = ["D"];
+        }
+        //  Physics
+        if (res.tech === TECHNOLOGIES.Physics) {
+          if (i === 2) resData.modulesToUnlock = ["p"];
+          if (i === 3) resData.modulesToUnlock = ["O", "H", "G"];
+          if (i === 4) resData.modulesToUnlock = ["g"];
+          if (i === 5) resData.modulesToUnlock = ["X"];
+          if (i === 6) resData.modulesToUnlock = ["P"];
+          if (i === 7) resData.modulesToUnlock = ["j"];
+          if (i === 8) resData.modulesToUnlock = ["i", "e"];
+        }
+        //  Mining
+        if (res.tech === TECHNOLOGIES.Mining) {
+          if (i === 1) resData.modulesToUnlock = ["m"];
+        }
+        //  Robotics
+        if (res.tech === TECHNOLOGIES.Robotics) {
+          if (i === 3) resData.modulesToUnlock = ["f"];
+        }
+        //  Computing
+        if (res.tech === TECHNOLOGIES.Computing) {
+          if (i === 2) resData.modulesToUnlock = ["t"];
+        }
+
         //#endregion
         this.researches.push(new Research(resData, this));
       }

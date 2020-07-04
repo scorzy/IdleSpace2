@@ -18,7 +18,15 @@ export const RESEARCHES: IResearchData[] = [
     name: "Metallurgist",
     description: "Unlock Metallurgists",
     unitsToUnlock: ["A", "a", "w", "W", "4", "5"],
-    researchToUnlock: ["h", "p", "M", "s1", "n", OPTIMIZED_SHIP_PREFIX + 1],
+    researchToUnlock: [
+      "h",
+      "p",
+      "E",
+      "M",
+      "s1",
+      "n",
+      OPTIMIZED_SHIP_PREFIX + 1
+    ],
     max: 1,
     priceMulti: 500,
     type: TECHNOLOGIES.MilitaryEngineering,
@@ -34,7 +42,7 @@ export const RESEARCHES: IResearchData[] = [
     description: "Unlock Physics Technology",
     max: 1,
     type: TECHNOLOGIES.Physics,
-    researchToUnlock: ["c", "E", "p0", "or1"],
+    researchToUnlock: ["c", "p0", "or1"],
     technologiesToUnlock: ["p"],
     modulesToUnlock: ["s"],
     effMulti: [{ unitId: "s", multi: 0.5 }],
@@ -138,9 +146,8 @@ export const RESEARCHES: IResearchData[] = [
     type: TECHNOLOGIES.Energy,
     technologiesToUnlock: [TECHNOLOGIES.Energy.id],
     limitMulti: [{ unitId: "E", multi: 1 }],
-    effMulti: [{ unitId: "e", multi: 0.05 }],
-    modulesToUnlock: ["R"],
-    researchToUnlock: ["E1"],
+    effMulti: [{ unitId: "e", multi: 0.1 }],
+    researchToUnlock: ["E0"],
     inspirationBuildingId: "2"
   },
   {
