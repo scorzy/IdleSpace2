@@ -57,6 +57,7 @@ export class Game {
   civWorkPerSec = ZERO;
   shipWorkPerSec = ZERO;
   baseRecycling = ZERO;
+  recyclingMulti = new BonusStack();
   notificationManager = new NotificationManager();
 
   customBuy = TEN;
@@ -139,8 +140,15 @@ export class Game {
         );
       }
     }
-    let toUpdate = delta + this.timeToWarp;
     if (this.timeToWarp > 0) {
+      //  Double Warp
+      if (this.prestigeManager.moreWarp.active) {
+        this.timeToWarp = this.timeToWarp * 2;
+      }
+      //  Science Warp
+      if (this.prestigeManager.scienceWarp.active) {
+        this.scienceWarp(this.timeToWarp);
+      }
       this.notificationManager.addNotification(
         new MyNotification(
           NotificationTypes.WARP,
@@ -148,6 +156,7 @@ export class Game {
         )
       );
     }
+    let toUpdate = delta + this.timeToWarp;
     this.processBattles();
     this.timeToWarp = 0;
     this.automationManager.update();
@@ -294,6 +303,7 @@ export class Game {
     });
   }
   reloadBaseRecycling() {
+    this.recyclingMulti.reloadBonus();
     this.baseRecycling = ZERO;
     for (let i = 0, n = this.researchManager.researches.length; i < n; i++) {
       this.baseRecycling = this.baseRecycling.plus(
@@ -324,6 +334,15 @@ export class Game {
     );
 
     this.postUpdate(0);
+  }
+  scienceWarp(timeToWarp: number) {
+    const totalScience = this.resourceManager.science.makers
+      .filter((p) => p.ratio.gt(0) && p.producer.quantity.gt(0))
+      .map((p) => p.prodPerSec.times(p.producer.quantity))
+      .reduce((p, c) => p.plus(c), ZERO);
+    this.resourceManager.science.quantity = this.resourceManager.science.quantity.plus(
+      totalScience.times(timeToWarp)
+    );
   }
   //#region Save and Load
   getSave(): any {
@@ -372,6 +391,9 @@ export class Game {
     if ("k" in data) this.darkMatter = new Decimal(data.k);
     if ("l" in data) this.lockedDarkMatter = new Decimal(data.l);
     this.postUpdate(0);
+
+    // this.prestigeManager.maxCards = 5;
+    // this.darkMatter = new Decimal(1e20);
   }
   //#endregion
 }

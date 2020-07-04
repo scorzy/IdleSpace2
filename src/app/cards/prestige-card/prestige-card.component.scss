@@ -1,3 +1,6 @@
 :host ::ng-deep .ant-card-head-title {
   white-space: break-spaces;
 }
+:host ::ng-deep p {
+  margin-bottom: 0;
+}

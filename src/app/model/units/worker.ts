@@ -29,6 +29,8 @@ export class Worker extends Unit {
     super(unitData);
   }
   reloadComponentPrice() {
+    const baseRecycling = Game.getGame().baseRecycling;
+    const recyclingMulti = Game.getGame().recyclingMulti.totalBonus;
     this.components = COMPONENT_PRICE;
     this.componentsTemp = COMPONENT_PRICE;
     if (this.modStack && this.modStack.componentsMod) {
@@ -39,8 +41,8 @@ export class Worker extends Unit {
         this.modStack.componentsMod.uiQuantity.times(MOD_COMPONENTS)
       );
     }
-    this.recycle = ZERO;
-    this.recycleTemp = ZERO;
+    this.recycle = baseRecycling;
+    this.recycleTemp = baseRecycling;
     if (this.modStack && this.modStack.recyclingMod) {
       this.recycle = this.recycle.plus(
         this.modStack.recyclingMod.quantity.times(MOD_RECYCLING)
@@ -50,11 +52,11 @@ export class Worker extends Unit {
       );
     }
     this.recycle = Decimal.min(
-      this.recycle,
+      this.recycle.times(recyclingMulti),
       this.components.times(MAX_RECYCLING)
     );
     this.recycleTemp = Decimal.min(
-      this.recycleTemp,
+      this.recycleTemp.times(recyclingMulti),
       this.componentsTemp.times(MAX_RECYCLING)
     );
   }
@@ -92,6 +94,7 @@ export class Worker extends Unit {
   }
   confirmMods() {
     let recycle = this.recycle.plus(Game.getGame().baseRecycling);
+    recycle = recycle.times(Game.getGame().recyclingMulti.totalBonus);
     recycle = recycle.min(this.components.times(0.9));
     this.quantity = ONE;
     this.modStack.mods.forEach((mod) => {

@@ -103,7 +103,6 @@ export const COMPUTING_TECH_BONUS = 0.01;
 //  Prestige
 export const PRESTIGE_MULTI_PER_LEVEL = 0.1;
 export const PRESTIGE_MULTI_EXP = 1.2;
-export const LEVEL_PER_CARD = 10;
 export const PRESTIGE_PRICE = 10;
 export const DRONE_PRESTIGE_START_OFFER = 0.2;
 export const DRONE_PRESTIGE_PRODUCTION = 0.1;
@@ -114,3 +113,14 @@ export const MATERIAL_PRESTIGE_MULTI = 1;
 export const COMPONENT_PRESTIGE_MULTI = 0.3;
 export const MORE_UP_PRESTIGE = 0.5;
 export const SIX_HOURS = 3600 * 6;
+
+//  Prestige Card
+export const LEVEL_PER_CARD = 10;
+export const PRODUCTION_CARD = 1;
+export const EFFICIENCY_CARD = 0.3;
+export const MORE_DRONES_CARD = 2;
+export const RECYCLING_CARD = 1;
+export const TECHNOLOGY_CARD = 1;
+export const DISTRICTS_CARD = 1;
+export const MATERIALS_CARD = 2;
+export const COMPONENTS_CARD = 1;

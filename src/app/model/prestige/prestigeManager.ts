@@ -11,7 +11,15 @@ import {
   DISTRICT_PRESTIGE_MULTI,
   MATERIAL_PRESTIGE_MULTI,
   COMPONENT_PRESTIGE_MULTI,
-  MORE_UP_PRESTIGE
+  MORE_UP_PRESTIGE,
+  PRODUCTION_CARD,
+  EFFICIENCY_CARD,
+  MORE_DRONES_CARD,
+  RECYCLING_CARD,
+  COMPONENTS_CARD,
+  MATERIALS_CARD,
+  DISTRICTS_CARD,
+  TECHNOLOGY_CARD
 } from "../CONSTANTS";
 import { Game } from "../game";
 import {
@@ -23,6 +31,7 @@ import { PrestigePoint } from "./prestigePoint";
 import { Bonus } from "../bonus/bonus";
 import { PrestigeCard } from "./prestigeCard";
 import { PRESTIGE_CARDS } from "../data/prestigeCard";
+import { BonusStack } from "../bonus/bonusStack";
 
 export class PrestigeManager {
   experience = ZERO;
@@ -35,6 +44,10 @@ export class PrestigeManager {
   }>();
   cards = new Array<PrestigeCard>();
   maxCards = 0;
+  //#region Special cards
+  moreWarp: PrestigeCard;
+  scienceWarp: PrestigeCard;
+  //#region
   constructor() {
     this.generateExperience();
     this.generateCards();
@@ -183,8 +196,62 @@ export class PrestigeManager {
     //#endregion
   }
   generateCards() {
+    const rm = Game.getGame().resourceManager;
+    const sm = Game.getGame().researchManager;
+    //#region Drones
     this.cards = PRESTIGE_CARDS.map((data) => new PrestigeCard(data));
-    console.log(this.cards);
+    const prodCard = this.cards.find((card) => card.id === "0");
+    const effCard = this.cards.find((card) => card.id === "1");
+    const moreDrones = this.cards.find((card) => card.id === "2");
+    const recycling = this.cards.find((card) => card.id === "3");
+    Game.getGame().recyclingMulti.bonuses.push(
+      new Bonus(recycling, new Decimal(RECYCLING_CARD))
+    );
+
+    rm.workers.forEach((w) => {
+      w.prodAllBonus.bonuses.push(
+        new Bonus(prodCard, new Decimal(PRODUCTION_CARD))
+      );
+      w.prodAllBonus.bonuses.push(
+        new Bonus(effCard, new Decimal(EFFICIENCY_CARD))
+      );
+      if (!w.limitStackMulti) w.limitStackMulti = new BonusStack();
+      w.limitStackMulti.bonuses.push(
+        new Bonus(moreDrones, new Decimal(MORE_DRONES_CARD))
+      );
+    });
+    //#endregion
+    //#region Science
+    const technology = this.cards.find((card) => card.id === "r0");
+    sm.technologies.forEach((tech) => {
+      tech.technologyBonus.bonuses.push(
+        new Bonus(technology, new Decimal(TECHNOLOGY_CARD))
+      );
+    });
+    //#endregion
+    //#region War
+    const districts = this.cards.find((card) => card.id === "w0");
+    const materials = this.cards.find((card) => card.id === "w1");
+    const components = this.cards.find((card) => card.id === "w2");
+
+    rm.districts.forEach((dis) => {
+      dis.battleGainMulti.bonuses.push(
+        new Bonus(districts, new Decimal(DISTRICTS_CARD))
+      );
+    });
+    rm.materials.forEach((dis) => {
+      dis.battleGainMulti.bonuses.push(
+        new Bonus(materials, new Decimal(MATERIALS_CARD))
+      );
+    });
+    rm.components.battleGainMulti.bonuses.push(
+      new Bonus(components, new Decimal(COMPONENTS_CARD))
+    );
+    //#endregion
+    //#region Warp
+    this.moreWarp = this.cards.find((card) => card.id === "p0");
+    this.scienceWarp = this.cards.find((card) => card.id === "p1");
+    //#endregion
   }
   addExperience(quantity: Decimal) {
     this.experience = this.experience.plus(quantity);

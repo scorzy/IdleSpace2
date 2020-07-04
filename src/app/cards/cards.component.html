@@ -1,5 +1,8 @@
 <h2>Cards</h2>
-<div fxLayout="row" fxLayoutGap="10px">
+<button nzType="primary" nz-button (click)="confirm()" class="confirmButton">
+  Confirm
+</button>
+<div fxLayout="row" fxLayoutGap="10px" fxLayout.xs="column">
   <div fxFlex.xs="0 0 calc(100%)" fxFlex.gt-xs="0 0 calc(50% -10px)">
     <h3>Available</h3>
     <div
@@ -21,7 +24,12 @@
     </div>
   </div>
   <div fxFlex.xs="0 0 calc(100%)" fxFlex.gt-xs="0 0 calc(50% -10px)">
-    <h3>In Use</h3>
+    <h3>
+      In Use
+      <span class="monospace"
+        >{{ inUse.length }} /{{ ms.game.prestigeManager.maxCards }}</span
+      >
+    </h3>
     <div
       cdkDropList
       #doneList="cdkDropList"
@@ -30,6 +38,7 @@
       class="job-list"
       (cdkDropListDropped)="drop($event)"
       id="backlog"
+      [cdkDropListEnterPredicate]="maxPredicate"
     >
       <app-prestige-card
         cdkDrag

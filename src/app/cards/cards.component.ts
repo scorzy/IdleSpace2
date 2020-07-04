@@ -1,11 +1,21 @@
-import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  HostBinding,
+  AfterContentInit,
+  AfterViewInit
+} from "@angular/core";
 import { PrestigeCard } from "../model/prestige/prestigeCard";
 import { MainService } from "../main.service";
 import {
   CdkDragDrop,
   moveItemInArray,
-  transferArrayItem
+  transferArrayItem,
+  CdkDrag,
+  CdkDropList
 } from "@angular/cdk/drag-drop";
+import { Game } from "../model/game";
 
 @Component({
   selector: "app-cards",
@@ -13,9 +23,10 @@ import {
   styleUrls: ["./cards.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CardsComponent implements OnInit {
+export class CardsComponent implements OnInit, AfterViewInit {
   available: Array<PrestigeCard>;
   inUse: Array<PrestigeCard>;
+  @HostBinding("class.disableAnimation") animationDisabled = true;
   constructor(public ms: MainService) {}
 
   ngOnInit(): void {
@@ -23,6 +34,11 @@ export class CardsComponent implements OnInit {
       (c) => !c.active
     );
     this.inUse = this.ms.game.prestigeManager.cards.filter((c) => c.active);
+  }
+  ngAfterViewInit() {
+    setTimeout(() => {
+      this.animationDisabled = false;
+    });
   }
   getCardId(index: number, card: PrestigeCard) {
     return card.id;
@@ -42,5 +58,15 @@ export class CardsComponent implements OnInit {
         event.currentIndex
       );
     }
+  }
+  maxPredicate(item: CdkDrag<PrestigeCard>, list: CdkDropList) {
+    return (
+      list &&
+      list.getSortedItems().length < Game.getGame().prestigeManager.maxCards
+    );
+  }
+  confirm() {
+    this.ms.game.prestigeManager.cards.forEach((card) => (card.active = false));
+    this.inUse.forEach((card) => (card.active = true));
   }
 }
