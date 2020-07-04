@@ -4,6 +4,7 @@ import { MAX_SEARCH_JOB } from "../CONSTANTS";
 
 export class AutoSearch extends AbstractAutobuyer {
   maxLevel = 0;
+  id = "as";
   automate(): boolean {
     const em = Game.getGame().enemyManager;
     if (em.toDo.length + em.enemies.length >= MAX_SEARCH_JOB) return false;

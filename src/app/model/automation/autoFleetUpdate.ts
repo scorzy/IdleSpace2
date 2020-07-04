@@ -2,6 +2,7 @@ import { AbstractAutobuyer } from "./abstractAutoBuyer";
 import { Game } from "../game";
 
 export class AutoFleetUpdate extends AbstractAutobuyer {
+  id = "fu";
   automate(): boolean {
     const sm = Game.getGame().shipyardManager;
     if (sm.designerView) return false;
@@ -18,9 +19,9 @@ export class AutoFleetUpdate extends AbstractAutobuyer {
         if (mod.level < mod.module.maxLevel - 1) {
           mod.level = mod.module.maxLevel - 1;
           up = true;
-          if (mod.module.maxLevel - 1 < newMinMax) {
-            newMinMax = mod.module.maxLevel - 1;
-          }
+        }
+        if (mod.module.maxLevel - 1 < newMinMax) {
+          newMinMax = mod.module.maxLevel - 1;
         }
       });
       if (up) {

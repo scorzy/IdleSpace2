@@ -49,11 +49,12 @@ export class AutomationManager {
     return { o: this.on, l: this.autobuyers.map((a) => a.getSave()) };
   }
   load(save: any) {
+    console.log(save);
     if (!("l" in save)) return false;
     if ("o" in save) this.on = save.o;
     for (const data of save.l) {
       if ("i" in data) {
-        const auto = this.autobuyers.find((a) => a.id === data.i);
+        const auto = this.autobuyers.find((a) => a.id == data.i);
         if (auto) {
           auto.load(data);
         }

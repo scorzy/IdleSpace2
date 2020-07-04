@@ -20,9 +20,14 @@ export class TimePipe implements PipeTransform {
   transform(value: number | Decimal, format?: number): any {
     if (!(value instanceof Decimal) && value > ONE_HUNDRED_YEARS) {
       value = new Decimal(value);
+      if (value.eq(Decimal.MAX_VALUE)) {
+        return "∞";
+      }
     }
     if (value instanceof Decimal && value.gt(ONE_HUNDRED_YEARS)) {
-      return this.pipeFormat.transform(value.div(SECONDS_IN_YEAR)) + " years";
+      return (
+        this.pipeFormat.transform(value.div(SECONDS_IN_YEAR).floor()) + " years"
+      );
     }
     if (value instanceof Decimal) {
       value = value.toNumber();

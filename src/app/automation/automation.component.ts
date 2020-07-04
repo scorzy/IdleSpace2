@@ -1,4 +1,10 @@
-import { Component, OnInit, ChangeDetectionStrategy } from "@angular/core";
+import {
+  Component,
+  OnInit,
+  ChangeDetectionStrategy,
+  HostBinding,
+  AfterViewInit
+} from "@angular/core";
 import { MainService } from "../main.service";
 
 @Component({
@@ -7,8 +13,13 @@ import { MainService } from "../main.service";
   styleUrls: ["./automation.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AutomationComponent implements OnInit {
+export class AutomationComponent implements OnInit, AfterViewInit {
+  @HostBinding("class.disableAnimation") animationDisabled = true;
   constructor(public ms: MainService) {}
-
   ngOnInit(): void {}
+  ngAfterViewInit() {
+    setTimeout(() => {
+      this.animationDisabled = false;
+    });
+  }
 }
