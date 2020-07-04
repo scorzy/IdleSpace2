@@ -210,8 +210,8 @@ export const modules: ModuleData[] = [
     id: "L",
     name: "Laser",
     damage: MODULE_DAMAGE,
-    shieldDamagePercent: 75,
-    armourDamagePercent: 125,
+    shieldDamagePercent: 80,
+    armourDamagePercent: 120,
     energy: -1,
     technologies: [
       { technologyId: TECHNOLOGIES.MilitaryEngineering.id, multi: 1 },
@@ -302,8 +302,8 @@ export const modules: ModuleData[] = [
     energy: -1,
     damage: MODULE_DAMAGE,
     price: DEFAULT_MODULE_PRICE,
-    shieldDamagePercent: 125,
-    armourDamagePercent: 75,
+    shieldDamagePercent: 120,
+    armourDamagePercent: 80,
     technologies: [
       { technologyId: TECHNOLOGIES.MilitaryEngineering.id, multi: 1 },
       { technologyId: TECHNOLOGIES.Propulsion.id, multi: 1 }

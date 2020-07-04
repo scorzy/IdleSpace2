@@ -251,7 +251,7 @@ export const UNITS: IUnitData[] = [
     production: [
       ["R", 1],
       ["S", -5],
-      ["E", -2]
+      ["E", -1]
     ],
     prices: [
       ["M", 20],
@@ -276,9 +276,9 @@ export const UNITS: IUnitData[] = [
     description: "",
     colorClass: "component-color",
     production: [
-      ["x", 1],
-      ["A", -5],
-      ["E", -2]
+      ["x", 0.1],
+      ["A", -2],
+      ["E", -1]
     ],
     prices: [
       ["M", 50],

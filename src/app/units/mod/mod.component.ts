@@ -71,8 +71,11 @@ export class ModComponent extends BaseComponentComponent
       .plus(1)
       .floor();
     this.droneRestart = this.droneRestart.min(this.unit.limitTemp.minus(ONE));
-    this.componentGain = this.componentGain.minus(
-      this.droneRestart.times(this.unit.componentsTemp)
+    this.componentGain = this.componentGain
+      .minus(this.droneRestart.times(this.unit.componentsTemp))
+      .max(0);
+    this.componentTotal = this.ms.game.resourceManager.components.quantity.plus(
+      this.componentGain
     );
 
     this.componentNeed = this.unit.limitTemp

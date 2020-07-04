@@ -156,7 +156,7 @@ export class Enemy {
       this.weaponDefenceRatio = 0.2 + Math.random() * 0.5;
       const sm = Game.getGame().shipyardManager;
       const maxShip = Math.floor(
-        1 + (11 * this.level) / (25 + Math.random() * 20 + this.level)
+        2 + (11 * this.level) / (25 + Math.random() * 20 + this.level)
       );
       let designNum = 1 + Math.random() * (Math.min(this.level, 100) / 20);
       defPercent =
@@ -206,12 +206,25 @@ export class Enemy {
       const allowedShipTypes = sm.shipTypes.slice(0, maxShip);
       this.favouriteWeapons = [];
       const maxWeapons = Math.floor(1 + Math.random() * 4);
-      const zeroPercentWeapons = this.level > 10 && maxWeapons > 3;
-      const allowedWeapons = sm.allWeapons.filter(
-        (w) =>
-          zeroPercentWeapons ||
-          (w.armourDamagePercent > 0 && w.shieldDamagePercent > 0)
-      );
+      let allowedWeapons: Module[];
+
+      if (this.level <= 5) {
+        allowedWeapons = sm.allWeapons.filter(
+          (w) =>
+            w.armourDamagePercent > 0 &&
+            w.shieldDamagePercent > 0 &&
+            w.armourDamagePercent < 150 &&
+            w.shieldDamagePercent < 150
+        );
+      } else if (this.level <= 10 || maxWeapons <= 3) {
+        allowedWeapons = sm.allWeapons.filter(
+          (w) => w.armourDamagePercent > 0 && w.shieldDamagePercent > 0
+        );
+      } else {
+        allowedWeapons = sm.allWeapons.slice(0);
+      }
+      console.log(allowedWeapons);
+
       for (let i = 0; i < maxWeapons; i++) {
         this.favouriteWeapons.push(sample(allowedWeapons));
       }

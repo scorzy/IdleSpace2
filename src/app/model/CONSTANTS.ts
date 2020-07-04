@@ -6,7 +6,7 @@ export const INFINITY = new Decimal(Number.POSITIVE_INFINITY);
 
 //  Units
 export const UNIT_PRICE_GROW_RATE = 1.04;
-export const BUILDING_PRICE_GROW_RATE = 1.1;
+export const BUILDING_PRICE_GROW_RATE = 1.08;
 export const SPACE_STATION_PRICE = 1e6;
 export const SPACE_STATION_HAB_SPACE = 1e1;
 export const SPACE_STATION_GROW = 10;

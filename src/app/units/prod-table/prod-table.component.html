@@ -35,15 +35,15 @@
               nz-text
               class="monospace"
               [nzType]="data.ratio.gte(0) ? '' : 'danger'"
-              >{{ data.ratio | format }}</span
+              >{{ data.prodPerSecFull | format }}</span
             >
           </td>
           <td class="total">
             <span
               nz-text
               class="monospace"
-              [nzType]="data.prodPerSec.gte(0) ? '' : 'danger'"
-              >{{ data.prodPerSec.times(unit.quantity) | format }}</span
+              [nzType]="data.ratio.gte(0) ? '' : 'danger'"
+              >{{ data.prodPerSecFull.times(unit.quantity) | format }}</span
             >
           </td>
         </tr>
