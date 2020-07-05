@@ -217,16 +217,13 @@
         nzAllowClear="true"
       >
         <nz-option
-          *ngFor="
-            let des of ms.game.shipyardManager.shipDesigns;
-            trackBy: getDesId
-          "
+          *ngFor="let des of otherDesigns; trackBy: getDesId"
           [nzValue]="des"
           [nzLabel]="des.name"
         >
         </nz-option>
       </nz-select>
-      {{ original.next?.name }}
+      <!-- {{ original.next?.name }} -->
     </div>
 
     <nz-alert

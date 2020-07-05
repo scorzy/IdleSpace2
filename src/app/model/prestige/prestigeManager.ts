@@ -75,11 +75,9 @@ export class PrestigeManager {
     starterPack.id = "d0";
     starterPack.name = "Starter Pack";
     starterPack.description =
-      "Drones yields and consume " +
-      DRONE_PRESTIGE_START_OFFER * 100 +
-      "% more";
-    starterPack.price = new Decimal(PRESTIGE_PRICE);
-    starterPack.max = new Decimal(5);
+      "Drones yields and consume " + DRONE_PRESTIGE_PRODUCTION * 100 + "% more";
+    starterPack.price = new Decimal(PRESTIGE_PRICE / 2);
+    starterPack.max = new Decimal(10);
     this.prestigePoints.push(starterPack);
     dronePrestigeList.push(starterPack);
 
@@ -301,7 +299,7 @@ export class PrestigeManager {
     Game.getGame().notificationManager.addNotification(
       new MyNotification(
         NotificationTypes.EXPERIENCE,
-        MainService.formatPipe.transform(quantity, true)
+        "EXP: " + MainService.formatPipe.transform(quantity, true)
       )
     );
   }

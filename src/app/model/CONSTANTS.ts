@@ -36,7 +36,7 @@ export const OPTIMIZE_RES_BONUS = 0.4;
 
 //  Search and enemies
 export const RESEARCH_GROW_RATE = 1.07;
-export const SEARCH_JOB_PRICE = 700;
+export const SEARCH_JOB_PRICE = 600;
 export const EXTRA_OPT_EXP = 1.06;
 export const ENEMY_NAVAL_CAP_LEVEL = 20;
 export const ENEMY_BASE_DISTANCE = new Decimal(25);

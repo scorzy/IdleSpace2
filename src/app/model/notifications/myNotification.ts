@@ -65,7 +65,7 @@ export class MyNotification {
         this.iconClass = Game.getGame().resourceManager.science.colorClass;
         break;
       case NotificationTypes.EXPERIENCE:
-        this.icon = "field-time";
+        this.icon = "arrow-up";
         this.iconClass = Game.getGame().resourceManager.science.colorClass;
         break;
       case NotificationTypes.EXTRA_TIME:

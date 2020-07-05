@@ -81,6 +81,7 @@ export class MainService {
     }
 
     setInterval(this.update.bind(this), 100);
+    setInterval(this.save.bind(this), 60 * 1000);
 
     const dataSave = localStorage.getItem(SAVE_ID);
     if (dataSave) this.loadFromLocalStorage(true);

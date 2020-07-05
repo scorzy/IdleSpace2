@@ -46,7 +46,7 @@ export class ModStack {
     this.recyclingMod = new Mod(RECYCLABLE_MOD);
     this.recyclingMod.bonusValue = MOD_RECYCLING;
     this.mods.push(this.componentsMod, this.recyclingMod, this.droneMod);
-    this.mods.forEach(m => m.reloadBonus());
+    this.mods.forEach((m) => m.reloadBonus());
   }
   reload() {
     this.used = ZERO;
@@ -98,7 +98,10 @@ export class ModStack {
     if ("c" in data && this.recyclingMod) {
       this.recyclingMod.quantity = new Decimal(data.d);
     }
+    this.mods.forEach((m) => {
+      m.uiQuantity = new Decimal(m.quantity);
+    });
     this.reload();
-    this.mods.forEach(m => m.reloadBonus());
+    this.mods.forEach((m) => m.reloadBonus());
   }
 }

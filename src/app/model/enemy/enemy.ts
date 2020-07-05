@@ -228,7 +228,6 @@ export class Enemy {
       } else {
         allowedWeapons = sm.allWeapons.slice(0);
       }
-      console.log(allowedWeapons);
 
       for (let i = 0; i < maxWeapons; i++) {
         this.favouriteWeapons.push(sample(allowedWeapons));

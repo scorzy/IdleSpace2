@@ -37,7 +37,7 @@ export class Worker extends Unit {
       this.components = this.components.minus(
         this.modStack.componentsMod.quantity.times(MOD_COMPONENTS)
       );
-      this.componentsTemp = this.components.minus(
+      this.componentsTemp = this.componentsTemp.minus(
         this.modStack.componentsMod.uiQuantity.times(MOD_COMPONENTS)
       );
     }
@@ -157,6 +157,8 @@ export class Worker extends Unit {
     if (this.modStack) {
       ret.t = this.modStack.getSave();
     }
+    ret.p1 = this.assemblyPriority;
+    ret.p2 = this.assemblyPriorityEnding;
     return ret;
   }
   load(save: any) {
@@ -164,5 +166,7 @@ export class Worker extends Unit {
     if ("t" in save) {
       this.modStack.load(save.t);
     }
+    if ("p1" in save) this.assemblyPriority = save.p1;
+    if ("p2" in save) this.assemblyPriorityEnding = save.p2;
   }
 }

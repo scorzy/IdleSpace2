@@ -434,6 +434,9 @@ export class EnemyManager extends JobManager {
     this.toDo = [];
     this.currentEnemy = null;
     this.enemies = [];
+    for (let i = 0, n = this.fleetsInBattle.length; i < n; i++) {
+      this.fleetsInBattle[i] = null;
+    }
   }
   //#region Save and Load
   getSave(): any {

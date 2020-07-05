@@ -101,7 +101,7 @@ export class ModLineComponent extends BaseComponentComponent
       this.unit.maxMods
         .plus(this.mod.uiQuantity)
         .minus(this.unit.modStack.usedTemp)
-    );
+    ).min(this.unit.maxMods);
     this.mod.uiQuantityString = MainService.formatPipe.transform(
       this.mod.uiQuantity,
       true
