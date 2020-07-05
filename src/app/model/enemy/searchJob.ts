@@ -3,13 +3,6 @@ import { SEARCH_JOB_PRICE, EXTRA_OPT_EXP, PRICE_GROW_RATE } from "../CONSTANTS";
 import { Game } from "../game";
 
 export class SearchJob extends Job {
-  constructor() {
-    super();
-    this.id = SearchJob.LAST_ID;
-    SearchJob.LAST_ID++;
-    this.canDelete = true;
-    this.type = Game.getGame().researchManager.searchTech;
-  }
   //#endregion
   static LAST_ID = 0;
   enemyLevel = 0;
@@ -21,15 +14,24 @@ export class SearchJob extends Job {
   metalOpt = 0;
   scienceOpt = 0;
   componentOpt = 0;
+  max = 1;
   static getPrice(level: number, extraOpt: number): Decimal {
-    return Decimal.multiply(level + 1, SEARCH_JOB_PRICE)
-      .times(Decimal.pow(EXTRA_OPT_EXP, Math.max(extraOpt, 0)))
-      .times(Decimal.pow(PRICE_GROW_RATE, level));
+    extraOpt = Math.max(extraOpt, 0);
+    return Decimal.multiply(level + 1, SEARCH_JOB_PRICE).times(
+      Decimal.pow(PRICE_GROW_RATE, level + extraOpt * 1.5)
+    );
+  }
+  constructor() {
+    super();
+    this.id = SearchJob.LAST_ID;
+    SearchJob.LAST_ID++;
+    this.canDelete = true;
+    this.type = Game.getGame().researchManager.searchTech;
   }
   init() {
     this.name = "Search " + this.enemyLevel;
     this.total = SearchJob.getPrice(
-      this.level,
+      this.enemyLevel,
       this.habitabilityOpt +
         this.distanceOpt * -1 +
         this.energyOpt +
@@ -37,6 +39,7 @@ export class SearchJob extends Job {
         this.scienceOpt +
         this.componentOpt
     );
+    console.log(this.total);
   }
   onCompleted() {
     Game.getGame().enemyManager.generateEnemy(this);

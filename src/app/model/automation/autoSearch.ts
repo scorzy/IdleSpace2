@@ -11,8 +11,9 @@ export class AutoSearch extends AbstractAutobuyer {
 
     let levelToSearch = this.maxLevel;
     if (levelToSearch > em.maxLevel) {
-      if (em.currentEnemy) {
-        levelToSearch = Math.min(this.maxLevel, em.currentEnemy.level + 1);
+      levelToSearch = em.maxLevel;
+      if (em.currentEnemy && em.currentEnemy.level === levelToSearch) {
+        levelToSearch++;
       }
 
       let levels = em.toDo

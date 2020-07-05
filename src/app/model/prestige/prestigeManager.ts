@@ -108,8 +108,8 @@ export class PrestigeManager {
       w.prodAllBonus.bonuses.push(
         new Bonus(starterPack, new Decimal(DRONE_PRESTIGE_START_OFFER))
       );
-      w.prodAllBonus.bonuses.push(
-        new Bonus(droneMulti, new Decimal(DRONE_PRESTIGE_PRODUCTION))
+      w.prodEfficiency.bonuses.push(
+        new Bonus(droneEff, new Decimal(DRONE_PRESTIGE_EFFICIENCY))
       );
       w.prodEfficiency.bonuses.push(
         new Bonus(droneMulti, new Decimal(DRONE_PRESTIGE_EFFICIENCY))

@@ -140,7 +140,9 @@ export class Enemy {
     const maxNavalCap =
       navalCapMulti *
       Math.min(
-        BASE_NAVAL_CAPACITY - 4 + ENEMY_NAVAL_CAP_LEVEL * this.level,
+        BASE_NAVAL_CAPACITY -
+          4 +
+          Math.pow(ENEMY_NAVAL_CAP_LEVEL * this.level, 0.9),
         FLEET_CAPACITY
       );
     let defPercent = 0;
@@ -151,8 +153,10 @@ export class Enemy {
     } else {
       //#region Ships
       this.modLevel =
-        Math.floor(100 * Math.pow(MOD_LEVEL_EXP, this.level) * modLevelMulti) /
-        10;
+        Math.floor(
+          12 * this.level +
+            100 * Math.pow(MOD_LEVEL_EXP, this.level) * modLevelMulti
+        ) / 10;
       this.weaponDefenceRatio = 0.2 + Math.random() * 0.5;
       const sm = Game.getGame().shipyardManager;
       const maxShip = Math.floor(

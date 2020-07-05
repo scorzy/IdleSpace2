@@ -324,6 +324,9 @@ export class Game {
     }
   }
   prestige() {
+    const newMaxCard = Math.floor(
+      (this.enemyManager.maxLevel - 1) / LEVEL_PER_CARD
+    );
     this.prestigeManager.loadNextMultiplier();
     this.resourceManager.prestige();
     this.researchManager.prestige();
@@ -337,9 +340,6 @@ export class Game {
     this.prestigeManager.loadNextMultiplier();
     this.darkMatter = this.darkMatter.plus(this.lockedDarkMatter);
     this.lockedDarkMatter = ZERO;
-    const newMaxCard = Math.floor(
-      (this.enemyManager.maxLevel - 1) / LEVEL_PER_CARD
-    );
     this.prestigeManager.lockedCars = false;
     this.prestigeManager.maxCards = Math.max(
       this.prestigeManager.maxCards,

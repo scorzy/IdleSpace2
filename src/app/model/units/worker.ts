@@ -100,6 +100,7 @@ export class Worker extends Unit {
     this.modStack.mods.forEach((mod) => {
       mod.quantity = mod.uiQuantity;
     });
+    this.manualBought = ZERO;
     this.reloadAll();
     let toAdd = this.quantity.times(recycle);
     let newDrones = toAdd.div(this.components).floor();
