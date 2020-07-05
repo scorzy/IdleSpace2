@@ -11,16 +11,14 @@ export class AutoSearch extends AbstractAutobuyer {
 
     let levelToSearch = this.maxLevel;
     if (levelToSearch > em.maxLevel) {
-      levelToSearch = em.maxLevel;
-      if (em.currentEnemy && em.currentEnemy.level === levelToSearch) {
-        levelToSearch++;
-      }
-
       let levels = em.toDo
         .map((sj) => sj.enemyLevel)
         .concat(em.enemies.map((e) => e.level));
+      levels = levels || [];
+      levels.push(em.maxLevel - 1);
+      if (em.currentEnemy && em.currentEnemy.level === em.maxLevel - 1)
+        levels.push(em.currentEnemy.level);
 
-      if (em.currentEnemy) levels.push(em.currentEnemy.level);
       if (levels.length > 0) {
         levels = levels.sort((a, b) => a - b);
         levelToSearch = levels[0];
@@ -33,7 +31,11 @@ export class AutoSearch extends AbstractAutobuyer {
       }
       levelToSearch++;
     }
-    levelToSearch = Math.max(Math.min(this.maxLevel, levelToSearch), 0);
+    levelToSearch = Math.max(
+      Math.min(this.maxLevel, levelToSearch),
+      0,
+      em.maxLevel - 1
+    );
     em.search(levelToSearch);
     em.sortJobs();
 

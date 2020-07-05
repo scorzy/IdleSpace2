@@ -410,7 +410,8 @@ export const UNITS: IUnitData[] = [
       ["j", 10]
     ],
     unlockQuantity: 1,
-    unitType: UNIT_TYPES.BUILDING
+    unitType: UNIT_TYPES.BUILDING,
+    departments: [RD, PROD_DEP, MAINTENANCE_DEP]
   },
   {
     id: "4",
