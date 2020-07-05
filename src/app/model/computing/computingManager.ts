@@ -153,6 +153,11 @@ export class ComputingManager {
     this.currentSpells.push(spell);
   }
   prestige() {
+    const now = Date.now();
+    this.currentSpells.forEach((spell) => {
+      spell.endTime = now;
+      spell.active = false;
+    });
     this.currentSpells = [this.warpSpell];
     this.currentComputing = 0;
   }

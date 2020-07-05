@@ -1,5 +1,5 @@
 import { Job } from "../job/job";
-import { SEARCH_JOB_PRICE, EXTRA_OPT_EXP } from "../CONSTANTS";
+import { SEARCH_JOB_PRICE, EXTRA_OPT_EXP, PRICE_GROW_RATE } from "../CONSTANTS";
 import { Game } from "../game";
 
 export class SearchJob extends Job {
@@ -22,9 +22,9 @@ export class SearchJob extends Job {
   scienceOpt = 0;
   componentOpt = 0;
   static getPrice(level: number, extraOpt: number): Decimal {
-    return Decimal.multiply(level + 1, SEARCH_JOB_PRICE).times(
-      Decimal.pow(EXTRA_OPT_EXP, Math.max(extraOpt, 0))
-    );
+    return Decimal.multiply(level + 1, SEARCH_JOB_PRICE)
+      .times(Decimal.pow(EXTRA_OPT_EXP, Math.max(extraOpt, 0)))
+      .times(Decimal.pow(PRICE_GROW_RATE, level));
   }
   init() {
     this.name = "Search " + this.enemyLevel;

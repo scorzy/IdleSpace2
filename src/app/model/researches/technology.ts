@@ -82,6 +82,7 @@ export class Technology implements IBase, IUnlockable, ITechnologyData {
   }
   prestige() {
     this.unlocked = false;
+    this.progress = ZERO;
     this.quantity = ZERO;
     this.total = ZERO;
   }

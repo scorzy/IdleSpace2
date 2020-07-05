@@ -126,7 +126,10 @@ export class ShipDesign {
       modSum++;
       this.totalPoints = this.totalPoints + m.size;
       const statsMulti = ShipDesign.getStatsMulti(m);
-      const priceMulti = Decimal.pow(1 + m.level / 5, PRICE_GROW_RATE).times(
+      // const priceMulti = Decimal.pow(1 + m.level / 5, PRICE_GROW_RATE).times(
+      //   statsMulti
+      // );
+      const priceMulti = Decimal.pow(PRICE_GROW_RATE, m.level).times(
         statsMulti
       );
 
@@ -517,6 +520,10 @@ export class ShipDesign {
       }
     }
     this.available = ok;
+  }
+  reloadRecursive() {
+    if (this.next) this.next.reloadRecursive();
+    this.reload();
   }
   //#region Save and Load
   getSave(): any {

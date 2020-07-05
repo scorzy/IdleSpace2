@@ -193,7 +193,7 @@ export class PrestigeManager {
     });
     const moreIdle = new PrestigePoint();
     moreIdle.id = "m1";
-    moreIdle.name = "More Districts";
+    moreIdle.name = "More Idle time";
     moreIdle.description =
       "+" +
       MORE_UP_PRESTIGE * 100 +

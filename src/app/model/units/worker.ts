@@ -144,6 +144,13 @@ export class Worker extends Unit {
     super.postUpdate();
     this.reloadNeedComponent();
   }
+  prestige() {
+    super.prestige();
+    this.modStack.mods.forEach((mod) => {
+      mod.quantity = ZERO;
+    });
+    this.modStack.reload();
+  }
   getSave(): any {
     const ret = super.getSave();
     if (this.modStack) {

@@ -659,6 +659,7 @@ export class ResearchManager extends JobManager {
     this.toDo = [this.researches[0]];
     this.done = [];
     this.backlog = [];
+    this.reloadTechList();
   }
   //#region Save and Load
   getSave(): any {

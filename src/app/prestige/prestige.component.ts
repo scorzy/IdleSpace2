@@ -45,8 +45,8 @@ export class PrestigeComponent extends BaseComponentComponent
   }
   getNextCardSlots(): number {
     const newSlot = Math.floor(
-      this.ms.game.enemyManager.maxLevel / LEVEL_PER_CARD
+      (this.ms.game.enemyManager.maxLevel - 1) / LEVEL_PER_CARD
     );
-    return this.ms.game.prestigeManager.maxCards - newSlot;
+    return Math.max(newSlot - this.ms.game.prestigeManager.maxCards, 0);
   }
 }

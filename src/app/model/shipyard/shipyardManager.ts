@@ -101,7 +101,9 @@ export class ShipyardManager extends JobManager {
         );
       }
     });
-
+    this.unlockDefaultModules();
+  }
+  unlockDefaultModules() {
     this.modules.forEach((mod) => {
       if (!mod.research) {
         mod.unlock();
@@ -551,12 +553,21 @@ export class ShipyardManager extends JobManager {
   prestige() {
     this.modules.forEach((mod) => (mod.unlocked = false));
     this.unlockedModules = true;
+    this.unlockDefaultModules();
     this.toDo = [];
     this.shipDesigns.forEach((des) => {
       des.old = null;
+      des.modules.forEach((mod) => {
+        mod.level = 10;
+        mod.levelUi = "10";
+      });
+      des.reload(true);
       des.fleets.forEach((fl) => {
         fl.shipsQuantity = 0;
       });
+    });
+    this.shipDesigns.forEach((des) => {
+      des.reloadRecursive();
     });
   }
   //#region Save and Load
