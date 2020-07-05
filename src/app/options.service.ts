@@ -9,6 +9,7 @@ export const THEMES = ["dark-green", "dark-blue", "light-green", "light-blue"];
 export class OptionsService {
   static isDark = true;
   static usaFormat = true;
+  static instance: OptionsService;
   formatter: any;
   formatEmitter: EventEmitter<number> = new EventEmitter<number>();
   numFormat = "scientific";
@@ -18,6 +19,8 @@ export class OptionsService {
   darkSide = true;
   darkHeader = true;
   compactCardHeader = false;
+  battleWinNotification = true;
+  battleLostNotification = true;
   constructor() {
     try {
       const n = 1.1;
@@ -28,6 +31,7 @@ export class OptionsService {
     } catch (ex) {}
 
     this.generateFormatter();
+    OptionsService.instance = this;
   }
   generateFormatter() {
     this.formatId++;
@@ -53,7 +57,9 @@ export class OptionsService {
       u: OptionsService.usaFormat,
       t: this.themeId,
       d: this.darkSide,
-      c: this.compactCardHeader
+      c: this.compactCardHeader,
+      bw: this.battleWinNotification,
+      bl: this.battleLostNotification
     };
   }
   load(data: any) {
@@ -61,5 +67,7 @@ export class OptionsService {
     if ("t" in data) this.themeId = data.t;
     if ("d" in data) this.darkSide = data.d;
     if ("c" in data) this.compactCardHeader = data.c;
+    if ("bw" in data) this.battleWinNotification = data.bw;
+    if ("bl" in data) this.battleLostNotification = data.bl;
   }
 }

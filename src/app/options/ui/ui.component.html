@@ -62,4 +62,18 @@
     </nz-form-label>
     <nz-switch name="small" [(ngModel)]="os.compactCardHeader"></nz-switch>
   </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="bw">
+      Battle Win notification
+    </nz-form-label>
+    <nz-switch name="bw" [(ngModel)]="os.battleWinNotification"></nz-switch>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="bl">
+      Battle Lost notification
+    </nz-form-label>
+    <nz-switch name="bl" [(ngModel)]="os.battleLostNotification"></nz-switch>
+  </nz-form-item>
 </form>
