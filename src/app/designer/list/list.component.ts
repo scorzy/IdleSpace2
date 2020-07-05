@@ -45,6 +45,14 @@ export class ListComponent extends BaseComponentComponent
         })
     );
   }
+  ngAfterViewInit() {
+    super.ngAfterViewInit();
+    if (!this.breakpointObserver.isMatched("(min-width: 599px)")) {
+      setTimeout(() => {
+        this.ms.designListCollapsed = false;
+      });
+    }
+  }
   ngOnDestroy() {
     super.ngOnDestroy();
     this.ms.innerContent = true;
