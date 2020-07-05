@@ -250,6 +250,12 @@ export class ShipyardManager extends JobManager {
       this.shipDesigns[index] = newDesign;
     }
 
+    this.shipDesigns.forEach((des) => {
+      if (des.next && des.next.id === newDesign.id) {
+        des.next = newDesign;
+      }
+    });
+
     return true;
   }
   /**
