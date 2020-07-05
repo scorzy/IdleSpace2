@@ -39,7 +39,6 @@ export class SearchJob extends Job {
         this.scienceOpt +
         this.componentOpt
     );
-    console.log(this.total);
   }
   onCompleted() {
     Game.getGame().enemyManager.generateEnemy(this);

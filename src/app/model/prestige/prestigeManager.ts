@@ -20,7 +20,8 @@ import {
   MATERIALS_CARD,
   DISTRICTS_CARD,
   TECHNOLOGY_CARD,
-  COMPUTING_REGENERATION_CARD
+  COMPUTING_REGENERATION_CARD,
+  VELOCITY_PRESTIGE_MULTI
 } from "../CONSTANTS";
 import { Game } from "../game";
 import {
@@ -66,6 +67,7 @@ export class PrestigeManager {
   generateExperience() {
     const rm = Game.getGame().resourceManager;
     const sm = Game.getGame().researchManager;
+    const sp = Game.getGame().shipyardManager;
     //#region Drones
     const dronePrestigeList = new Array<PrestigePoint>();
     //  Drones yields and consume more
@@ -183,6 +185,18 @@ export class PrestigeManager {
     warList.push(compMulti);
     rm.components.battleGainMulti.bonuses.push(
       new Bonus(compMulti, new Decimal(COMPONENT_PRESTIGE_MULTI))
+    );
+
+    const speedMulti = new PrestigePoint();
+    speedMulti.id = "w4";
+    speedMulti.name = "More Velocity";
+    speedMulti.description =
+      "+" + VELOCITY_PRESTIGE_MULTI * 100 + "% ship speed";
+    speedMulti.price = new Decimal(PRESTIGE_PRICE);
+    this.prestigePoints.push(speedMulti);
+    warList.push(speedMulti);
+    sp.velocityBonusStack.bonuses.push(
+      new Bonus(compMulti, new Decimal(VELOCITY_PRESTIGE_MULTI))
     );
     //#endregion
     //#region Misc

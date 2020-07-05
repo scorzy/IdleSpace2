@@ -41,7 +41,7 @@ export const DIFFICULTY_OPT: ISearchOption = {
 export const DISTANCE_OPT: ISearchOption = {
   id: "d",
   name: "Sprawl",
-  min: -100,
+  min: 0,
   max: 100,
   bonusMinStart: 1,
   bonusMaxStart: 1.2,

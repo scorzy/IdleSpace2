@@ -22,7 +22,8 @@ import {
   DEFENCE_MAX_PERCENT,
   PRICE_GROW_RATE,
   DEFAULT_MODULE_PRICE,
-  ENEMY_BASE_DISTANCE
+  ENEMY_BASE_DISTANCE,
+  MOD_DISTANCE_EXP
 } from "../CONSTANTS";
 import { ShipType } from "../shipyard/ShipType";
 import { Module } from "../shipyard/module";
@@ -73,7 +74,7 @@ export class Enemy {
       minMulti = Math.abs(1 / minMulti);
       maxMulti = Math.abs(1 / maxMulti);
     }
-    const powMulti = Math.pow(MOD_LEVEL_EXP, level);
+    const powMulti = Math.pow(MOD_DISTANCE_EXP, level);
     return {
       min: ENEMY_BASE_DISTANCE.times(level + 2)
         .times(minMulti)
