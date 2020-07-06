@@ -47,7 +47,7 @@ export class SpaceStationJob extends Job {
         i < n;
         i++
       ) {
-        if (this.spaceStation.researchesToInspire[i].inspire()) break;
+        this.spaceStation.researchesToInspire[i].inspire();
       }
     }
   }

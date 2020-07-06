@@ -71,6 +71,8 @@ export class Research extends Job implements IUnlockable, IBase {
   technologyBonus: { technology: Technology; multi: number }[];
   computingPerSec = 0;
   type: Technology;
+  parent: Research;
+  unlocked = false;
   constructor(researchData: IResearchData, researchManager: ResearchManager) {
     super();
     this.resData = researchData;
@@ -164,6 +166,20 @@ export class Research extends Job implements IUnlockable, IBase {
         }
       }
     }
+    if (researchData.inspirationSpaceStationId) {
+      const spaceStation = rs.spaceStations.find(
+        (b) => b.id === researchData.inspirationSpaceStationId
+      );
+      if (spaceStation) {
+        spaceStation.researchesToInspire =
+          spaceStation.researchesToInspire || new Array<Research>();
+        spaceStation.researchesToInspire.push(this);
+        if (this.inspirationDescription === "") {
+          this.inspirationDescription = "Build one " + spaceStation.name;
+        }
+      }
+    }
+
     if ("computingPerSec" in researchData) {
       this.computingPerSec = researchData.computingPerSec;
     }
@@ -253,12 +269,14 @@ export class Research extends Job implements IUnlockable, IBase {
   }
   unlock(): boolean {
     const resM = Game.getGame().researchManager;
-    return resM.unlock(this);
+    this.unlocked = resM.unlock(this);
+    return this.unlocked;
   }
   setLevels() {
     if (this.researchToUnlock) {
       this.researchToUnlock.forEach((res) => {
         res.visLevel = this.visLevel + 1;
+        res.parent = this;
         res.setLevels();
       });
     }
@@ -277,6 +295,7 @@ export class Research extends Job implements IUnlockable, IBase {
 
     const rm = Game.getGame().researchManager;
     if (rm.done.indexOf(this) > -1) return false;
+    if (!this.unlocked) return false;
 
     this.inspiration = true;
     const percent = Game.getGame().prestigeManager.inspiration.active

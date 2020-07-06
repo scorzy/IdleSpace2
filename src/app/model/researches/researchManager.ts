@@ -354,7 +354,7 @@ export class ResearchManager extends JobManager {
     }
   }
   makeSpaceStationResearches() {
-    const first = this.researches.find((r) => r.id === "s3");
+    const first = this.researches.find((r) => r.id === "s2");
     first.resData.researchToUnlock.push("i0");
     const builderUpData = RESEARCHES.find((r) => r.id === "or32");
     const spaceStations = Game.getGame().resourceManager.spaceStations;
@@ -702,6 +702,7 @@ export class ResearchManager extends JobManager {
       if (res) {
         res.load(resData);
         this.toDo.push(res);
+        res.unlocked = true;
       }
     }
     for (const resData of data.d) {
@@ -709,6 +710,7 @@ export class ResearchManager extends JobManager {
       if (res) {
         res.load(resData);
         this.done.push(res);
+        res.unlocked = true;
       }
     }
     for (const resData of data.b) {
@@ -716,6 +718,7 @@ export class ResearchManager extends JobManager {
       if (res) {
         res.load(resData);
         this.backlog.push(res);
+        res.unlocked = true;
       }
     }
     if ("e" in data) {

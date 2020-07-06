@@ -40,6 +40,7 @@ export interface IResearchData {
   speedMulti?: number;
   inspirationDescription?: string;
   inspirationBuildingId?: string;
+  inspirationSpaceStationId?: string;
   districtMulti?: number;
   habSpaceMulti?: number;
   miningDistMulti?: number;

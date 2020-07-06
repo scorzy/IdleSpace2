@@ -5,6 +5,16 @@ export const TEN = new Decimal(10);
 export const INFINITY = new Decimal(Number.POSITIVE_INFINITY);
 
 //  Units
+export const Ids = {
+  Miner: "m",
+  Technician: "e",
+  Scientist: "s",
+  Metallurgist: "a",
+  Worker: "w",
+  Searcher: "r",
+  Replicator: "X",
+  NukeSpecialist: "B"
+};
 export const UNIT_PRICE_GROW_RATE = 1.04;
 export const BUILDING_PRICE_GROW_RATE = 1.08;
 export const SPACE_STATION_PRICE = 1e6;
@@ -85,6 +95,7 @@ export const OPTIMIZED_SHIP_PREFIX = "op";
 export const SPACE_STATION_UP_PREFIX = "u";
 export const ORIGIN_1_TECH_MULTI = 1;
 export const ORIGIN_1_TECH_2_MULTI = 0.5;
+export const REPEATABLE_RES_PRICE_MULTI = 0.1;
 
 //  Buildings
 export const ENERGY_STORAGE = 1e4;

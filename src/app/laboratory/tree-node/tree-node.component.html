@@ -5,7 +5,7 @@
 >
   <span class="label" nz-popover [nzPopoverContent]="contentTemplate">
     <i nz-icon [nzType]="res.type.icon" [style.color]="res.type.color"></i>
-    <span [class.text-success]="res.quantity.gte(1)"> {{ res.name }} </span>
+    <span [class.text-success]="res.level > 0"> {{ res.name }} </span>
   </span>
 
   <ng-template #contentTemplate>

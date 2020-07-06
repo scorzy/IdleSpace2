@@ -4,13 +4,16 @@ import { UNITS, UNIT_TYPES } from "./units";
 import {
   OPTIMIZED_SHIP_PREFIX,
   ORIGIN_1_TECH_MULTI,
-  ORIGIN_1_TECH_2_MULTI
+  ORIGIN_1_TECH_2_MULTI,
+  REPEATABLE_RES_PRICE_MULTI,
+  Ids
 } from "../CONSTANTS";
 import { ExclusiveResGroups } from "../researches/exclusiveResGroups";
 
 const megastructures = UNITS.filter(
   (u) => u.unitType === UNIT_TYPES.MEGASTRUCTURE
 ).map((u) => u.id);
+
 export const RESEARCHES: IResearchData[] = [
   //#region Researches
   {
@@ -135,7 +138,7 @@ export const RESEARCHES: IResearchData[] = [
     type: TECHNOLOGIES.Mining,
     technologiesToUnlock: [TECHNOLOGIES.Mining.id],
     prodMulti: [{ unitId: "m", multi: 0.5 }],
-    researchToUnlock: ["N1"],
+    researchToUnlock: ["N1", "N-0"],
     inspirationBuildingId: "1"
   },
   {
@@ -147,7 +150,7 @@ export const RESEARCHES: IResearchData[] = [
     technologiesToUnlock: [TECHNOLOGIES.Energy.id],
     limitMulti: [{ unitId: "E", multi: 1 }],
     effMulti: [{ unitId: "e", multi: 0.1 }],
-    researchToUnlock: ["E0"],
+    researchToUnlock: ["E0", "E-0"],
     inspirationBuildingId: "2"
   },
   {
@@ -178,21 +181,83 @@ export const RESEARCHES: IResearchData[] = [
     type: TECHNOLOGIES.CivilEngineering,
     unitsToUnlock: megastructures
   },
+  //#endregion
+  //#region Search
   {
     id: "hz1",
     name: "Habitable zone",
     description: "",
     type: TECHNOLOGIES.Search,
+    priceMulti: REPEATABLE_RES_PRICE_MULTI,
     unlockFrom: "h",
     districtMulti: 0.2
+  },
+  {
+    id: "hz3",
+    name: "Improved searching",
+    description: "",
+    type: TECHNOLOGIES.Search,
+    priceMulti: REPEATABLE_RES_PRICE_MULTI,
+    unlockFrom: "h0",
+    effMulti: [{ unitId: "r", multi: 0.05 }]
   },
   {
     id: "hz2",
     name: "Optimistic zone",
     description: "",
     type: TECHNOLOGIES.Search,
+    priceMulti: REPEATABLE_RES_PRICE_MULTI,
     unlockFrom: "h1",
     districtMulti: 0.25
+  },
+  //#endregion
+  //#region Energy
+  {
+    id: "E-0",
+    name: "Energy optimization",
+    description: "",
+    type: TECHNOLOGIES.Energy,
+    priceMulti: REPEATABLE_RES_PRICE_MULTI,
+    effMulti: [{ unitId: Ids.Technician, multi: 0.05 }]
+  },
+  {
+    id: "E-1",
+    name: "Renewable energy",
+    description: "",
+    type: TECHNOLOGIES.Energy,
+    unlockFrom: "E0",
+    priceMulti: REPEATABLE_RES_PRICE_MULTI,
+    energyDistMulti: 0.3
+  },
+  //#endregion
+  //#region Mining
+  {
+    id: "N-0",
+    name: "Space mining",
+    description: "",
+    type: TECHNOLOGIES.Mining,
+    priceMulti: REPEATABLE_RES_PRICE_MULTI,
+    prodMulti: [{ unitId: Ids.Miner, multi: 0.1 }]
+  },
+  {
+    id: "N-1",
+    name: "Deep mining",
+    description: "",
+    type: TECHNOLOGIES.Mining,
+    unlockFrom: "N1",
+    priceMulti: REPEATABLE_RES_PRICE_MULTI,
+    miningDistMulti: 0.3
+  },
+  //#endregion
+  //#region Robotic
+  {
+    id: "X-1",
+    name: "Assembly patterns",
+    description: "",
+    type: TECHNOLOGIES.Robotics,
+    unlockFrom: "x",
+    priceMulti: REPEATABLE_RES_PRICE_MULTI,
+    effMulti: [{ unitId: Ids.Metallurgist, multi: 0.05 }]
   },
   //#endregion
   //#region Origin Science
@@ -227,7 +292,8 @@ export const RESEARCHES: IResearchData[] = [
     max: 10,
     description: "",
     type: TECHNOLOGIES.Physics,
-    effMulti: [{ unitId: "s", multi: 0.01, secondUnitId: "i1" }]
+    effMulti: [{ unitId: "s", multi: 0.015, secondUnitId: "i1" }],
+    inspirationSpaceStationId: "i1"
   },
   {
     id: "or13",
@@ -235,7 +301,7 @@ export const RESEARCHES: IResearchData[] = [
     max: 1,
     description: "",
     type: TECHNOLOGIES.Physics,
-    buildingPoints: [{ buildingId: "3", quantity: 1 }],
+    buildingPoints: [{ buildingId: "3", quantity: 2 }],
     technologyBonus: [
       { techId: TECHNOLOGIES.Physics.id, multi: ORIGIN_1_TECH_MULTI * 0.5 }
     ]
@@ -330,7 +396,7 @@ export const RESEARCHES: IResearchData[] = [
       { techId: TECHNOLOGIES.CivilEngineering.id, multi: ORIGIN_1_TECH_MULTI },
       { techId: TECHNOLOGIES.Materials.id, multi: ORIGIN_1_TECH_2_MULTI }
     ],
-    researchToUnlock: ["or31", "or33", "or34"]
+    researchToUnlock: ["or31", "or33", "or34", "or36"]
   },
   {
     id: "or31",
@@ -358,6 +424,7 @@ export const RESEARCHES: IResearchData[] = [
     max: 1,
     description: "",
     type: TECHNOLOGIES.CivilEngineering,
+    researchToUnlock: ["or35"],
     buildingPoints: [
       { buildingId: "1", quantity: 1 },
       { buildingId: "2", quantity: 1 }
@@ -382,6 +449,33 @@ export const RESEARCHES: IResearchData[] = [
       {
         techId: TECHNOLOGIES.CivilEngineering.id,
         multi: ORIGIN_1_TECH_MULTI * 0.25
+      }
+    ]
+  },
+  {
+    id: "or35",
+    name: "Orbital Satellites",
+    max: 10,
+    description: "",
+    type: TECHNOLOGIES.CivilEngineering,
+    effMulti: [{ unitId: Ids.Technician, multi: 0.02, secondUnitId: "i1" }],
+    inspirationSpaceStationId: "i1"
+  },
+  {
+    id: "or36",
+    name: "Primary Industry focus",
+    max: 1,
+    description: "",
+    type: TECHNOLOGIES.CivilEngineering,
+    inspirationBuildingId: "2",
+    limitMulti: [
+      {
+        unitId: Ids.Miner,
+        multi: 0.4
+      },
+      {
+        unitId: Ids.Technician,
+        multi: 0.4
       }
     ]
   }
