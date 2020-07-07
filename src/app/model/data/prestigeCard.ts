@@ -17,7 +17,8 @@ import {
   DM_GAIN_CARD,
   SPELL_DURATION_CARD,
   COMPUTING_REGENERATION_CARD,
-  COMPUTING_MAX_CARD
+  COMPUTING_MAX_CARD,
+  PRODUCTION_PEACE_CARD
 } from "../CONSTANTS";
 
 export const PRESTIGE_CARDS: ISimpleBase[] = [
@@ -46,6 +47,15 @@ export const PRESTIGE_CARDS: ISimpleBase[] = [
     name: "Recycling",
     description: "Increase Drones recycling by " + RECYCLING_CARD * 100 + "%",
     icon: "my:vintage-robot"
+  },
+  {
+    id: "4",
+    name: "Peacefully Efficiency",
+    description:
+      "Drones yields " +
+      PRODUCTION_PEACE_CARD * 100 +
+      "% more when not in war (no enemy on battle screen)",
+    icon: "fa-s:peace"
   },
   //#endregion
   //#region Science

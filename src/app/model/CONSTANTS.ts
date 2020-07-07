@@ -130,6 +130,7 @@ export const SIX_HOURS = 3600 * 6;
 //  Prestige Card
 export const LEVEL_PER_CARD = 10;
 export const PRODUCTION_CARD = 1;
+export const PRODUCTION_PEACE_CARD = 1;
 export const EFFICIENCY_CARD = 0.3;
 export const MORE_DRONES_CARD = 2;
 export const RECYCLING_CARD = 1;

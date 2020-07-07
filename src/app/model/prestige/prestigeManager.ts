@@ -21,7 +21,8 @@ import {
   DISTRICTS_CARD,
   TECHNOLOGY_CARD,
   COMPUTING_REGENERATION_CARD,
-  VELOCITY_PRESTIGE_MULTI
+  VELOCITY_PRESTIGE_MULTI,
+  PRODUCTION_PEACE_CARD
 } from "../CONSTANTS";
 import { Game } from "../game";
 import {
@@ -34,6 +35,7 @@ import { Bonus } from "../bonus/bonus";
 import { PrestigeCard } from "./prestigeCard";
 import { PRESTIGE_CARDS } from "../data/prestigeCard";
 import { BonusStack } from "../bonus/bonusStack";
+import { IBase } from "../iBase";
 
 export class PrestigeManager {
   experience = ZERO;
@@ -228,15 +230,28 @@ export class PrestigeManager {
     const effCard = this.cards.find((card) => card.id === "1");
     const moreDrones = this.cards.find((card) => card.id === "2");
     const recycling = this.cards.find((card) => card.id === "3");
+    const peaceCard = this.cards.find((card) => card.id === "4");
     Game.getGame().recyclingMulti.bonuses.push(
       new Bonus(recycling, new Decimal(RECYCLING_CARD))
     );
+
+    const isInWar: IBase = {
+      id: "inWar",
+      name: "In War",
+      get quantity() {
+        console.log(Game.getGame().enemyManager.currentEnemy ? ZERO : ONE);
+        return Game.getGame().enemyManager.currentEnemy ? ZERO : ONE;
+      }
+    };
 
     rm.workers.forEach((w) => {
       w.prodAllBonus.bonuses.push(
         new Bonus(prodCard, new Decimal(PRODUCTION_CARD))
       );
-      w.prodAllBonus.bonuses.push(
+      w.prodEfficiency.bonuses.push(
+        new Bonus(peaceCard, new Decimal(PRODUCTION_PEACE_CARD), isInWar)
+      );
+      w.prodEfficiency.bonuses.push(
         new Bonus(effCard, new Decimal(EFFICIENCY_CARD))
       );
       if (!w.limitStackMulti) w.limitStackMulti = new BonusStack();
