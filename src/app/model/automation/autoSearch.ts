@@ -16,8 +16,9 @@ export class AutoSearch extends AbstractAutobuyer {
         .concat(em.enemies.map((e) => e.level));
       levels = levels || [];
       levels.push(em.maxLevel - 1);
-      if (em.currentEnemy && em.currentEnemy.level === em.maxLevel - 1)
+      if (em.currentEnemy && em.currentEnemy.level === em.maxLevel - 1) {
         levels.push(em.currentEnemy.level);
+      }
 
       if (levels.length > 0) {
         levels = levels.sort((a, b) => a - b);

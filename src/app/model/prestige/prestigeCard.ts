@@ -1,6 +1,5 @@
 import { IBase, ISimpleBase } from "../iBase";
 import { ONE, ZERO } from "../CONSTANTS";
-import { forOwn } from "lodash-es";
 
 export class PrestigeCard implements IBase {
   id: string;

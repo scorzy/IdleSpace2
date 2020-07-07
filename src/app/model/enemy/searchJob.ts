@@ -1,5 +1,5 @@
 import { Job } from "../job/job";
-import { SEARCH_JOB_PRICE, EXTRA_OPT_EXP, PRICE_GROW_RATE } from "../CONSTANTS";
+import { SEARCH_JOB_PRICE, PRICE_GROW_RATE } from "../CONSTANTS";
 import { Game } from "../game";
 
 export class SearchJob extends Job {

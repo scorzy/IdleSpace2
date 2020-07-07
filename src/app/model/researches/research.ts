@@ -77,7 +77,7 @@ export class Research extends Job implements IUnlockable, IBase {
     super();
     this.resData = researchData;
     this.id = researchData.id;
-    this.name = researchData.name; //+ " " + this.id;
+    this.name = researchData.name; // + " " + this.id;
     this.originalName = this.name;
     this.description = researchData.description;
     this.visId = Research.lastVisId++;

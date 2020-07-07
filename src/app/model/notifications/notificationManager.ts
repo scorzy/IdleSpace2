@@ -13,13 +13,15 @@ export class NotificationManager {
     if (
       noti.type === NotificationTypes.BATTLE_WIN &&
       !OptionsService.instance.battleWinNotification
-    )
+    ) {
       return;
+    }
     if (
       noti.type === NotificationTypes.BATTLE_LOST &&
       !OptionsService.instance.battleLostNotification
-    )
+    ) {
       return;
+    }
 
     MainService?.instance?.notificationEmitter?.emit(noti);
   }

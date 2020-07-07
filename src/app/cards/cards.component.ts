@@ -3,7 +3,6 @@ import {
   OnInit,
   ChangeDetectionStrategy,
   HostBinding,
-  AfterContentInit,
   AfterViewInit
 } from "@angular/core";
 import { PrestigeCard } from "../model/prestige/prestigeCard";
