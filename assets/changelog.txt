@@ -1,4 +1,4 @@
-unreleased
+07/07/2020
 -   fixed/implemented nuke
 -   new card: Peacefully Efficiency
 -   space stations auto buyer
