@@ -1,0 +1,69 @@
+<form nz-form nzLayout="inline">
+  <nz-form-item>
+    <nz-form-label
+      nz-popover
+      nzPopoverTitle="Automation"
+      [nzPopoverContent]="autoInfoTemplate"
+      >Auto
+    </nz-form-label>
+    <nz-form-control>
+      <nz-input-group nzCompact>
+        <nz-select
+          [(ngModel)]="
+            ms.game.automationManager.spaceStationAutoBuyer.autoBuyType
+          "
+          class="autoType"
+          nzSize="small"
+          name="spaceStationAutoBuyer1"
+          (ngModelChange)="buildingAutoBuyChange()"
+        >
+          <nz-option
+            nzLabel="Off"
+            [nzValue]="StationAutoBuyTypes.OFF"
+          ></nz-option>
+          <nz-option
+            nzLabel="Best ratio"
+            [nzValue]="StationAutoBuyTypes.BEST_RATIO"
+          ></nz-option>
+          <nz-option
+            nzLabel="Cheap"
+            [nzValue]="StationAutoBuyTypes.CHEAP"
+          ></nz-option>
+          <nz-option
+            nzLabel="Most space"
+            [nzValue]="StationAutoBuyTypes.MOST_SPACE"
+          ></nz-option>
+        </nz-select>
+        <nz-select
+          nzSize="small"
+          class="autoTime"
+          [(ngModel)]="ms.game.automationManager.spaceStationAutoBuyer.interval"
+          name="spaceStationAutoBuyerI"
+        >
+          <nz-option
+            *ngFor="let interval of INTERVALS; trackBy: getIntervalId"
+            [nzLabel]="interval.label"
+            [nzValue]="interval.value"
+          ></nz-option>
+        </nz-select>
+        <!-- <nz-input-number
+          nzSize="small"
+          [name]="autoBuilding.id + 'P'"
+          [(ngModel)]="autoBuilding.priority"
+        ></nz-input-number> -->
+      </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
+</form>
+
+<ng-template #autoInfoTemplate>
+  Options:
+  <ul>
+    <li>On / Off, Type</li>
+    <li>Interval</li>
+    <li>
+      Priority <br />
+      (bigger number = high priority)
+    </li>
+  </ul>
+</ng-template>

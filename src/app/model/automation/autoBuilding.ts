@@ -8,7 +8,7 @@ export enum BuildingAutoBuyTypes {
   AS_NEED
 }
 export class AutoBuilding extends AbstractAutobuyer {
-  autoBuyType: BuildingAutoBuyTypes = BuildingAutoBuyTypes.ASAP;
+  autoBuyType: BuildingAutoBuyTypes = BuildingAutoBuyTypes.AS_NEED;
   constructor(public building: Building) {
     super();
     this.id = "-" + building.id;
@@ -46,7 +46,7 @@ export class AutoBuilding extends AbstractAutobuyer {
   }
   load(save: any): boolean {
     if (super.load(save)) {
-      this.autoBuyType = save.aut ?? BuildingAutoBuyTypes.ASAP;
+      this.autoBuyType = save.aut ?? BuildingAutoBuyTypes.AS_NEED;
       return true;
     }
   }

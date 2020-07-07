@@ -380,7 +380,7 @@ export class ResearchManager extends JobManager {
         name: "Upgraded " + spaceStations[i].name,
         description: "", // "+30% habitable space from " + spaceStations[i].name,
         type: TECHNOLOGIES.CivilEngineering,
-        priceMulti: 0.8,
+        priceMulti: 0.1,
         stationToUp: [
           {
             stationId: spaceStations[i].id,
