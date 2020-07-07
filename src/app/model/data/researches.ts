@@ -6,7 +6,8 @@ import {
   ORIGIN_1_TECH_MULTI,
   ORIGIN_1_TECH_2_MULTI,
   REPEATABLE_RES_PRICE_MULTI,
-  Ids
+  Ids,
+  MatIds
 } from "../CONSTANTS";
 import { ExclusiveResGroups } from "../researches/exclusiveResGroups";
 
@@ -360,6 +361,7 @@ export const RESEARCHES: IResearchData[] = [
     max: 1,
     description: "",
     type: TECHNOLOGIES.MilitaryEngineering,
+    researchToUnlock: ["or25"],
     buildingPoints: [
       { buildingId: "5", quantity: 1 },
       { buildingId: "10", quantity: 1 }
@@ -371,7 +373,7 @@ export const RESEARCHES: IResearchData[] = [
       },
       { techId: TECHNOLOGIES.Naval.id, multi: ORIGIN_1_TECH_MULTI * 0.25 }
     ],
-    limitMulti: [{ unitId: "b", multi: 1 }]
+    limitMulti: [{ unitId: MatIds.Nuke, multi: 1 }]
   },
   {
     id: "or24",
@@ -380,6 +382,18 @@ export const RESEARCHES: IResearchData[] = [
     description: "",
     type: TECHNOLOGIES.Naval,
     materialMulti: 1
+  },
+  {
+    id: "or25",
+    name: "Military Focus",
+    max: 1,
+    description: "",
+    type: TECHNOLOGIES.MilitaryEngineering,
+    limitMulti: [
+      { unitId: Ids.NukeSpecialist, multi: 0.2 },
+      { unitId: Ids.Worker, multi: 0.2 },
+      { unitId: MatIds.Nuke, multi: 1 }
+    ]
   },
   //#endregion
   //#region Origin Builders

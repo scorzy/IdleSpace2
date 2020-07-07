@@ -16,13 +16,17 @@
         Attack All
       </button>
       <button nz-button nzType="" (click)="nuke()">
-        Nuke
-        <span class="monospace"
-          >{{ needNuke | format }} ({{ nukePercent | percent }})</span
+        Nuke &nbsp;
+        <span class="monospace">
+          {{ needNuke | format: true }} ({{ nukePercent | percent }})</span
         >
       </button>
       <button nz-button nzType="danger" (click)="surrender()">
         Surrender
+      </button>
+      <button nz-button nzType="default" (click)="autoAttackOptions = true">
+        <i nz-icon nzType="setting" nzTheme="outline"></i>
+        Options
       </button>
     </nz-button-group>
     <!-- <nz-button-group>
@@ -33,9 +37,10 @@
       <button nz-button nzType="primary" (click)="attack(4)">Attack 5</button>
     </nz-button-group> -->
 
+    <strong>Automation:</strong>
     <form nz-form [nzLayout]="'inline'" class="auto-attack-form">
       <nz-form-item>
-        <nz-form-label nzFor="auto">Auto Attack</nz-form-label>
+        <nz-form-label nzFor="auto">Attack</nz-form-label>
         <nz-form-control>
           <nz-switch
             name="auto"
@@ -45,17 +50,17 @@
         </nz-form-control>
       </nz-form-item>
 
-      <nz-form-item>
+      <!-- <nz-form-item>
         <nz-form-control>
           <button nz-button nzType="default" (click)="autoAttackOptions = true">
             <i nz-icon nzType="setting" nzTheme="outline"></i>
             Options
           </button>
         </nz-form-control>
-      </nz-form-item>
+      </nz-form-item> -->
 
       <nz-form-item>
-        <nz-form-label nzFor="autoNext">Auto Next</nz-form-label>
+        <nz-form-label nzFor="autoNext">Next</nz-form-label>
         <nz-form-control>
           <nz-switch
             name="autoNext"
@@ -66,12 +71,23 @@
       </nz-form-item>
 
       <nz-form-item>
-        <nz-form-label nzFor="autoReinforce">Auto Reinforce</nz-form-label>
+        <nz-form-label nzFor="autoReinforce">Reinforce</nz-form-label>
         <nz-form-control>
           <nz-switch
             name="autoReinforce"
             id="autoReinforce"
             [(ngModel)]="ms.game.shipyardManager.autoReinforce"
+          ></nz-switch>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label nzFor="autoNext">Nuke</nz-form-label>
+        <nz-form-control>
+          <nz-switch
+            name="autoNuke"
+            id="autoNuke"
+            [(ngModel)]="ms.game.enemyManager.autoNuke"
           ></nz-switch>
         </nz-form-control>
       </nz-form-item>

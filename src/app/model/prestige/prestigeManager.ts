@@ -239,7 +239,6 @@ export class PrestigeManager {
       id: "inWar",
       name: "In War",
       get quantity() {
-        console.log(Game.getGame().enemyManager.currentEnemy ? ZERO : ONE);
         return Game.getGame().enemyManager.currentEnemy ? ZERO : ONE;
       }
     };

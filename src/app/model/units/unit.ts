@@ -97,6 +97,7 @@ export class Unit implements IBase, IUnlockable {
   }
   postUpdate() {
     this.reloadLimit();
+    this.quantity = Decimal.min(this.quantity, this.limit);
 
     if (this._quantityOld.eq(this.quantity)) {
       this.quantity = this._quantityOld;

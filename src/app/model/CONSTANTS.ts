@@ -15,6 +15,16 @@ export const Ids = {
   Replicator: "X",
   NukeSpecialist: "B"
 };
+export const MatIds = {
+  Metal: "M",
+  Energy: "E",
+  Alloy: "A",
+  Science: "S",
+  Production: "W",
+  Search: "R",
+  Components: "x",
+  Nuke: "b"
+};
 export const UNIT_PRICE_GROW_RATE = 1.04;
 export const BUILDING_PRICE_GROW_RATE = 1.08;
 export const SPACE_STATION_PRICE = 1e6;
@@ -52,9 +62,9 @@ export const ENEMY_NAVAL_CAP_LEVEL = 20;
 export const ENEMY_BASE_DISTANCE = new Decimal(25);
 export const MOD_LEVEL_EXP = 1.05;
 export const MOD_DISTANCE_EXP = 1.04;
-export const DEFENCE_START_LEVEL = 14;
+export const DEFENCE_START_LEVEL = 9;
 export const DEFENCE_FINAL_LEVEL = 65;
-export const DEFENCE_MAX_PERCENT = 0.3;
+export const DEFENCE_MAX_PERCENT = 0.4;
 export const DISTRICT_MAX_OPT_END = 80;
 export const DISTRICT_MIN_OPT_END = 40;
 export const SCIENCE_DISTRICT_MULTI = 0.6;
@@ -80,7 +90,7 @@ export const UTILITY_MOD_DECREASE = 0.96;
 export const BASE_CARGO = 1;
 export const BASE_ADAPTIVE_PRECISION = 700;
 
-export const NUKE_DAMAGE = MODULE_ARMOUR * 100;
+export const NUKE_DAMAGE = MODULE_ARMOUR * 1.5;
 
 //  Researches
 export const RESEARCH_BASE_PRICE = 0.1;

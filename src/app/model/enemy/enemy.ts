@@ -161,18 +161,17 @@ export class Enemy {
       this.weaponDefenceRatio = 0.2 + Math.random() * 0.5;
       const sm = Game.getGame().shipyardManager;
       const maxShip = Math.floor(
-        2 + (11 * this.level) / (25 + Math.random() * 20 + this.level)
+        2 + (10 * this.level) / (25 + Math.random() * 20 + this.level)
       );
       let designNum = 1 + Math.random() * (Math.min(this.level, 100) / 20);
       defPercent =
         this.level <= DEFENCE_START_LEVEL
           ? 0
           : Math.max(
-              0.05,
+              0.15,
               Math.min(
                 DEFENCE_MAX_PERCENT,
-                (DEFENCE_MAX_PERCENT * (this.level - DEFENCE_START_LEVEL)) /
-                  DEFENCE_FINAL_LEVEL
+                (DEFENCE_MAX_PERCENT * this.level) / DEFENCE_FINAL_LEVEL
               )
             );
       let defNum = 0;
@@ -255,8 +254,12 @@ export class Enemy {
         sum += des.enemyPriority;
       }
       if (defPercent > 0) {
+        const maxDef = Math.floor(
+          1 + (10 * (this.level - 10)) / (5 + Math.random() * 10 + this.level)
+        );
+        const allowedDefTypes = sm.shipTypes.slice(0, maxDef);
         for (let k = 0; k < defNum; k++) {
-          const type = sample(allowedShipTypes);
+          const type = sample(allowedDefTypes);
           const des = this.generateRandomDesign(type, true);
           this.designs.push(des);
           des.enemyPriority = 2 + Math.floor(Math.random() * 3);
@@ -268,8 +271,9 @@ export class Enemy {
     this.designs.forEach((des) => {
       const navCap =
         maxNavalCap * (des.isDefence ? defPercent : 1 - defPercent);
-      des.enemyQuantity = Math.floor(
-        (navCap * des.enemyPriority) / sum / des.type.navalCapacity
+      des.enemyQuantity = Math.max(
+        1,
+        Math.floor((navCap * des.enemyPriority) / sum / des.type.navalCapacity)
       );
     });
 

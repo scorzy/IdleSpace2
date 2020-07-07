@@ -23,7 +23,9 @@ export class Cell {
   enemyStrength = 1;
   eta = 0;
   addMaterial(material: Unit, quantity: Decimal) {
-    if (!this.materials) { this.materials = []; }
+    if (!this.materials) {
+      this.materials = [];
+    }
     let cellMaterial: IMaterial = this.materials.find(
       (m) => m.material === material
     );
@@ -43,7 +45,9 @@ export class Cell {
   getNuke(): Decimal {
     Game.getGame().enemyManager.reloadNukeDamage();
     const curEnemy = Game.getGame().enemyManager.currentEnemy;
-    if (!curEnemy) { return ZERO; }
+    if (!curEnemy) {
+      return ZERO;
+    }
     let ret = ZERO;
     for (let i = 0, n = curEnemy.designs.length; i < n; i++) {
       if (this.ships[i] > 0 && curEnemy.designs[i].isDefence) {
@@ -56,11 +60,13 @@ export class Cell {
         );
       }
     }
-    return Decimal.ceil(ret);
+    return ret.div(Game.getGame().enemyManager.nukeDamage).ceil();
   }
   nuke(totalDamage: number, all: boolean = false) {
     const curEnemy = Game.getGame().enemyManager.currentEnemy;
-    if (!curEnemy) { return; }
+    if (!curEnemy) {
+      return;
+    }
     for (let i = 0, n = curEnemy.designs.length; i < n; i++) {
       if (this.ships[i] > 0 && curEnemy.designs[i].isDefence) {
         if (!all) {
@@ -91,8 +97,12 @@ export class Cell {
         };
       });
     }
-    if (this.ships) { ret.s = this.ships; }
-    if (this.done) { ret.d = this.done; }
+    if (this.ships) {
+      ret.s = this.ships;
+    }
+    if (this.done) {
+      ret.d = this.done;
+    }
     return ret;
   }
   load(data: any) {
@@ -108,8 +118,12 @@ export class Cell {
         }
       }
     }
-    if ("s" in data) { this.ships = data.s; }
-    if ("d" in data) { this.done = data.d; }
+    if ("s" in data) {
+      this.ships = data.s;
+    }
+    if ("d" in data) {
+      this.done = data.d;
+    }
   }
   //#endregion
 }

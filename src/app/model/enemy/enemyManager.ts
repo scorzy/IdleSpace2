@@ -12,7 +12,8 @@ import {
   VICTORY_WARP_CARD,
   ENEMY_DEFEAT_WARP_CARD,
   EXP_GAIN_CARD,
-  DM_GAIN_CARD
+  DM_GAIN_CARD,
+  ONE
 } from "../CONSTANTS";
 import { MainService } from "src/app/main.service";
 import { BattleRequest } from "../battle/battleRequest";
@@ -44,9 +45,10 @@ export class EnemyManager extends JobManager {
   fleetsInBattle: Array<Cell>;
   maxLevel = 0;
   nukeDamageMulti = new BonusStack();
-  nukeDamage = ZERO;
+  nukeDamage = ONE;
   autoAttackEnabled = false;
   autoNext = false;
+  autoNuke = true;
   autoAttackOptions: AutoAttackOption[];
   private rewardString = "";
   //#region Bonus
@@ -124,7 +126,7 @@ export class EnemyManager extends JobManager {
           this.autoAttackOptions[i].autoAttack &&
           sm.fleetsPercent[i] >= this.autoAttackOptions[i].minPercent
         ) {
-          this.attackCell(i);
+          this.attackCell(i, true);
         }
       }
     }
@@ -148,7 +150,7 @@ export class EnemyManager extends JobManager {
     }
     return true;
   }
-  attackCell(fleetNum: number) {
+  attackCell(fleetNum: number, autoAttack = false) {
     if (this.fleetsInBattle[fleetNum]) {
       return false;
     }
@@ -164,6 +166,9 @@ export class EnemyManager extends JobManager {
       (c) => !c.inBattle && !c.done
     );
     if (toAttack) {
+      if (autoAttack && this.autoNuke) {
+        this.nuke(toAttack.index);
+      }
       toAttack.inBattle = true;
       this.fleetsInBattle[fleetNum] = toAttack;
       const battleRequest = new BattleRequest();
@@ -461,6 +466,7 @@ export class EnemyManager extends JobManager {
     if (this.currentEnemy) {
       ret.c = this.currentEnemy.getSave();
     }
+    if (this.autoNuke) ret.n = true;
     return ret;
   }
   load(data: any) {
@@ -510,6 +516,7 @@ export class EnemyManager extends JobManager {
     if ("x" in data) {
       this.autoNext = data.x;
     }
+    if ("n" in data) this.autoNuke = data.n;
   }
   //#endregion
 }

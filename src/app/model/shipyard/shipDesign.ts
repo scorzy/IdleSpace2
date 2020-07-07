@@ -535,9 +535,6 @@ export class ShipDesign {
       m: this.modules.map((mod) => [mod.module.id, mod.level, mod.size]),
       f: this.fleets.map((fleet) => fleet.getData())
     };
-    if (this.isDefence) {
-      ret.d = this.isDefence;
-    }
     if (this.old) {
       ret.o = this.old.getSave();
     }
@@ -558,9 +555,7 @@ export class ShipDesign {
     if ("n" in data) {
       this.name = data.n;
     }
-    if ("d" in data) {
-      this.isDefence = data.d;
-    }
+
     if ("t" in data) {
       this.type = Game.getGame().shipyardManager.shipTypes.find(
         (t) => t.id === data.t
@@ -597,12 +592,14 @@ export class ShipDesign {
   }
 
   getEnemySave(): any {
-    return {
+    const ret: any = {
       n: this.name,
       t: this.type.id,
       m: this.modules.map((mod) => [mod.module.id, mod.level, mod.size]),
       q: this.enemyQuantity
     };
+    if (this.isDefence) ret.d = true;
+    return ret;
   }
   loadEnemy(data: any): any {
     if ("n" in data) {
@@ -613,6 +610,7 @@ export class ShipDesign {
         (t) => t.id === data.t
       );
     }
+    if ("d" in data) this.isDefence = data.d;
     if (!this.type) {
       return false;
     }

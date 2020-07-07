@@ -277,7 +277,7 @@ export const UNITS: IUnitData[] = [
     colorClass: "component-color",
     production: [
       ["x", 0.1],
-      ["A", -2],
+      ["A", -3],
       ["E", -1]
     ],
     prices: [
@@ -305,8 +305,8 @@ export const UNITS: IUnitData[] = [
     description: "",
     colorClass: "nuke-color",
     production: [
-      ["b", 1],
-      ["A", -5],
+      ["b", 0.1],
+      ["A", -4],
       ["E", -2]
     ],
     prices: [
@@ -463,7 +463,7 @@ export const UNITS: IUnitData[] = [
     colorClass: "component-color",
     prices: [
       ["A", ALLOY_BUILDING_PRICE * 5],
-      ["j", 10]
+      ["j", 20]
     ],
     unlockQuantity: 1,
     unitType: UNIT_TYPES.BUILDING,
@@ -476,7 +476,7 @@ export const UNITS: IUnitData[] = [
     icon: "fa-s:warehouse",
     colorClass: "component-color",
     prices: [
-      ["M", METAL_BUILDING_PRICE],
+      ["A", ALLOY_BUILDING_PRICE],
       ["j", 10]
     ],
     unlockQuantity: 1,
@@ -490,7 +490,7 @@ export const UNITS: IUnitData[] = [
     colorClass: "nuke-color",
     prices: [
       ["A", ALLOY_BUILDING_PRICE * 2],
-      ["j", 10]
+      ["j", 20]
     ],
     unlockQuantity: 1,
     unitType: UNIT_TYPES.BUILDING,
@@ -503,7 +503,7 @@ export const UNITS: IUnitData[] = [
     icon: "fa-s:warehouse",
     colorClass: "nuke-color",
     prices: [
-      ["M", METAL_BUILDING_PRICE],
+      ["A", ALLOY_BUILDING_PRICE],
       ["j", 10]
     ],
     unlockQuantity: 1,
