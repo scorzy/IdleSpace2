@@ -23,17 +23,20 @@ export class Spell implements IBase {
     cp.currentComputing -= this.price;
     this.onActivate();
     this.active = true;
-    this.endTime =
-      Date.now() +
+    this.endTime = Date.now() + this.getDuration();
+  }
+  getDuration(): number {
+    return (
       this.duration *
-        (Game.getGame().prestigeManager.longerSpells.active
-          ? 1 + SPELL_DURATION_CARD
-          : 1);
+      (Game.getGame().prestigeManager.longerSpells.active
+        ? 1 + SPELL_DURATION_CARD
+        : 1)
+    );
   }
   onActivate() {}
 
   get quantity(): Decimal {
-    if (this.active) return this.bonusQuantity;
+    if (this.active && !Game.getGame().firstUpdate) return this.bonusQuantity;
     else return ZERO;
   }
   getAdditiveBonus(): Decimal {
@@ -41,10 +44,14 @@ export class Spell implements IBase {
     else return ZERO;
   }
   getSave(): any {
-    return { i: this.id, a: this.autoCastPriority };
+    return { i: this.id, a: this.autoCastPriority, p: this.percent };
   }
   load(data: any) {
     if (!("i" in data && data.i === this.id)) return false;
     if ("a" in data) this.autoCastPriority = data.a;
+    if ("p" in data) {
+      this.active = true;
+      this.endTime = Date.now() + (this.getDuration() * (100 - data.p)) / 100;
+    }
   }
 }

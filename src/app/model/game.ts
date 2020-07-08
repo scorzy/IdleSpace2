@@ -68,6 +68,7 @@ export class Game {
   idleTimeMultipliers: BonusStack;
   darkMatter = ZERO;
   lockedDarkMatter = ZERO;
+  firstUpdate = true;
 
   private _gameId = "";
   private battleResults: { result: BattleResult; fleet: number }[] = [];
@@ -209,6 +210,7 @@ export class Game {
       this.resourceManager.search.quantity = ZERO;
       // console.log(n + " " + toUpdate);
     }
+    this.firstUpdate = false;
   }
   reloadWorkPerSec() {
     if (this.shipyardManager.toDo.length === 0) {
