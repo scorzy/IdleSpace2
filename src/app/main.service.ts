@@ -29,28 +29,33 @@ export class MainService {
     MainService.formatPipe = _formatPipe;
     MainService.timePipe = _timePipe;
 
-    this.theme = this.document.createElement("link");
-    this.theme.rel = "stylesheet";
-    this.theme.type = "text/css";
-    this.document
-      .querySelector("head")
-      .insertBefore(
-        this.theme,
-        document
-          .getElementsByTagName("head")[0]
-          .getElementsByTagName("style")[0]
-      );
-    this.scrollbarTheme = this.document.createElement("link");
-    this.scrollbarTheme.rel = "stylesheet";
-    this.scrollbarTheme.type = "text/css";
-    this.document
-      .querySelector("head")
-      .insertBefore(
-        this.scrollbarTheme,
-        document
-          .getElementsByTagName("head")[0]
-          .getElementsByTagName("style")[0]
-      );
+    // this.theme = this.document.createElement("link");
+    // this.theme.rel = "stylesheet";
+    // this.theme.type = "text/css";
+    // this.document
+    //   .querySelector("head")
+    //   .insertBefore(
+    //     this.theme,
+    //     document
+    //       .getElementsByTagName("head")[0]
+    //       .getElementsByTagName("style")[0]
+    //   );
+    this.theme = this.document.getElementById("gameTheme") as HTMLLinkElement;
+
+    // this.scrollbarTheme = this.document.createElement("link");
+    // this.scrollbarTheme.rel = "stylesheet";
+    // this.scrollbarTheme.type = "text/css";
+    // this.document
+    //   .querySelector("head")
+    //   .insertBefore(
+    //     this.scrollbarTheme,
+    //     document
+    //       .getElementsByTagName("head")[0]
+    //       .getElementsByTagName("style")[0]
+    //   );
+    this.scrollbarTheme = this.document.getElementById(
+      "scrollTheme"
+    ) as HTMLLinkElement;
 
     // I should check that if the browser supports web workers
     // however i don't really care
