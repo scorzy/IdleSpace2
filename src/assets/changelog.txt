@@ -1,3 +1,8 @@
+08/07/2020
+-   fixed mod page
+-   fixed ship info on design page
+-   fixed css, nuke specialist limit and Production Department bonus
+
 07/07/2020
 -   fixed/implemented nuke
 -   new card: Peacefully Efficiency
