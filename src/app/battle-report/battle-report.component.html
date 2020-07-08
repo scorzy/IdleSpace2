@@ -175,7 +175,7 @@
       <td>{{ data.name }}</td>
       <ng-container *ngFor="let round of listOfSelectedRounds">
         <td *ngFor="let value of listOfSelectedValues">
-          {{ getValue(data, round, value) }}
+          {{ getValue(data, round, value) | format }}
         </td>
       </ng-container>
     </tr>

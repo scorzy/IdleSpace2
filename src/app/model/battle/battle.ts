@@ -9,7 +9,7 @@ export function battle(battleRequest: BattleRequest): any {
   const fleets = [battleRequest.enemyFleet, battleRequest.playerFleet];
   for (let i = 0, n = fleets.length; i < n; i++) {
     const fleet = fleets[i];
-    fleet.forEach(shipData => {
+    fleet.forEach((shipData) => {
       shipData.ships = [];
       shipData.alive = [];
       shipData.targets = i === 0 ? fleets[1] : fleets[0];
@@ -97,7 +97,11 @@ export function battle(battleRequest: BattleRequest): any {
           fleet[m].stats.rounds[round].threatAvg += toAdd;
           fleet[m].stats.total.threatAvg += toAdd;
         }
-        fleet[m].stats.rounds[round].threatAvg /= fleet[m].ships.length;
+        if (fleet[m].ships.length > 0) {
+          fleet[m].stats.rounds[round].threatAvg /= fleet[m].ships.length;
+        } else {
+          fleet[m].stats.rounds[round].threatAvg = 0;
+        }
         fleet[m].stats.total.threatQta += fleet[m].ships.length;
       }
     }
@@ -165,8 +169,8 @@ export function battle(battleRequest: BattleRequest): any {
     //#endregion
     //#region Break
     if (
-      battleRequest.enemyFleet.findIndex(s => s.ships.length > 0) < 0 ||
-      battleRequest.playerFleet.findIndex(s => s.ships.length > 0) < 0
+      battleRequest.enemyFleet.findIndex((s) => s.ships.length > 0) < 0 ||
+      battleRequest.playerFleet.findIndex((s) => s.ships.length > 0) < 0
     ) {
       break;
     }
@@ -175,13 +179,13 @@ export function battle(battleRequest: BattleRequest): any {
   //#endregion
   //#region results
   battleResult.gameId = battleRequest.gameId;
-  battleResult.playerLost = battleRequest.playerFleet.map(data => {
+  battleResult.playerLost = battleRequest.playerFleet.map((data) => {
     return {
       id: data.designId,
       lost: data.quantity - data.ships.length
     };
   });
-  battleResult.enemyLost = battleRequest.enemyFleet.map(data => {
+  battleResult.enemyLost = battleRequest.enemyFleet.map((data) => {
     return {
       id: data.designId,
       lost: data.quantity - data.ships.length
@@ -192,7 +196,7 @@ export function battle(battleRequest: BattleRequest): any {
   battleResult.stats = [];
   for (let i = 0, n = fleets.length; i < n; i++) {
     const fleet = fleets[i];
-    fleet.forEach(shipData => {
+    fleet.forEach((shipData) => {
       for (let z = 0; z < 5; z++) {
         shipData.stats.total.exploded += shipData.stats.rounds[z].exploded;
         shipData.stats.total.kills += shipData.stats.rounds[z].kills;
@@ -235,8 +239,12 @@ export function battle(battleRequest: BattleRequest): any {
         shipData.stats.total.shipHit += shipData.stats.rounds[z].shipHit;
         shipData.stats.total.defenceHit += shipData.stats.rounds[z].defenceHit;
       }
-      shipData.stats.total.threatAvg =
-        shipData.stats.total.threatAvg / shipData.stats.total.threatQta;
+      if (shipData.stats.total.threatQta > 0) {
+        shipData.stats.total.threatAvg =
+          shipData.stats.total.threatAvg / shipData.stats.total.threatQta;
+      } else {
+        shipData.stats.total.threatAvg = 0;
+      }
       battleResult.stats.push(shipData.stats);
     });
   }
@@ -257,7 +265,9 @@ function getTarget(targets: ShipData[], weapon: WeaponData): Ship {
     sum += targets[i].alive.length * weapon.precision;
     sum += shieldPrecision * targets[i].withShield;
     sum += armourPrecision * targets[i].withArmour;
-    if (targets[i].isDefence) { sum += defencePrecision * targets[i].alive.length; }
+    if (targets[i].isDefence) {
+      sum += defencePrecision * targets[i].alive.length;
+    }
   }
   const rand = Math.random() * sum;
   let acc = 0;
@@ -266,14 +276,18 @@ function getTarget(targets: ShipData[], weapon: WeaponData): Ship {
     for (let k = 0, n2 = targets[i].ships.length; k < n2; k++) {
       target = targets[i].ships[k];
       acc += target.threat;
-      if (targets[i].isDefence && target.armour > 0) { acc += defencePrecision; }
+      if (targets[i].isDefence && target.armour > 0) {
+        acc += defencePrecision;
+      }
       if (target.shield > 0) {
         acc += shieldPrecision;
       } else if (target.armour > 0) {
         acc += armourPrecision;
         acc += weapon.precision;
       }
-      if (acc >= rand) { return target; }
+      if (acc >= rand) {
+        return target;
+      }
     }
   }
 }
@@ -366,7 +380,9 @@ function dealDamage(
   //  Remove
   if (target.armour <= 0) {
     const index = target.shipData.alive.indexOf(target);
-    if (index >= 0) { target.shipData.alive.splice(index, 1); }
+    if (index >= 0) {
+      target.shipData.alive.splice(index, 1);
+    }
     target.shipData.withArmour--;
     target.shipData.stats.rounds[round].lost++;
     attacker.shipData.stats.rounds[round].kills++;
