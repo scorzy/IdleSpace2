@@ -92,13 +92,13 @@ export class EditComponent extends BaseComponentComponent
       while (this.design.modules.length < 3) {
         this.addLine();
       }
-      this.changeEmitter.emit("1");
     }
     this.otherDesigns = this.ms.game.shipyardManager.shipDesigns.filter(
       (d) => d !== this.original
     );
 
     this.cd.markForCheck();
+    this.changeEmitter.emit(this.original?.id ?? 100);
   }
   addLine(e?: MouseEvent) {
     if (e) {

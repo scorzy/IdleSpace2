@@ -5,7 +5,9 @@ import {
   EventEmitter,
   OnInit,
   OnDestroy,
-  AfterViewInit
+  AfterViewInit,
+  OnChanges,
+  SimpleChanges
 } from "@angular/core";
 import { ShipDesign } from "../model/shipyard/shipDesign";
 import { BaseComponentComponent } from "../base-component/base-component.component";
@@ -17,7 +19,7 @@ import { BaseComponentComponent } from "../base-component/base-component.compone
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class DesignInfoComponent extends BaseComponentComponent
-  implements OnInit, OnDestroy, AfterViewInit {
+  implements OnInit, OnDestroy, AfterViewInit, OnChanges {
   @Input() original: ShipDesign;
   @Input() design: ShipDesign;
   @Input() size = "middle";
@@ -41,6 +43,9 @@ export class DesignInfoComponent extends BaseComponentComponent
         })
       );
     }
+    this.makeComparisonData();
+  }
+  ngOnChanges(changes: SimpleChanges) {
     this.makeComparisonData();
   }
   makeComparisonData() {
