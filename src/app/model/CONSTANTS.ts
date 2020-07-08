@@ -28,7 +28,7 @@ export const MatIds = {
 export const UNIT_PRICE_GROW_RATE = 1.04;
 export const BUILDING_PRICE_GROW_RATE = 1.08;
 export const SPACE_STATION_PRICE = 1e6;
-export const SPACE_STATION_HAB_SPACE = 1e1;
+export const SPACE_STATION_HAB_SPACE = 50;
 export const SPACE_STATION_GROW = 10;
 export const MOD_PER_ROBOTICS = 0.1;
 export const MOD_PER_OTHERS = 0.2;
@@ -72,7 +72,7 @@ export const COMPONENTS_DISTRICT_MULTI = 0.3;
 export const MAX_SEARCH_JOB = 10;
 export const ENEMY_EXP_START_LEVEL = 2;
 export const ENEMY_BASE_EXP = 5;
-export const ENEMY_EXP_GROW_RATE = 0.5;
+export const ENEMY_EXP_GROW_RATE = 0.2;
 export const DM_PER_LEVEL = 10;
 
 // Modules
