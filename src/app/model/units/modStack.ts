@@ -75,7 +75,7 @@ export class ModStack {
       ret.d = this.droneMod.quantity;
     }
     if (this.recyclingMod && !this.recyclingMod.quantity.eq(0)) {
-      ret.c = this.recyclingMod.quantity;
+      ret.r = this.recyclingMod.quantity;
     }
     return ret;
   }
@@ -95,8 +95,8 @@ export class ModStack {
     if ("d" in data && this.droneMod) {
       this.droneMod.quantity = new Decimal(data.d);
     }
-    if ("c" in data && this.recyclingMod) {
-      this.recyclingMod.quantity = new Decimal(data.d);
+    if ("r" in data && this.recyclingMod) {
+      this.recyclingMod.quantity = new Decimal(data.r);
     }
     this.mods.forEach((m) => {
       m.uiQuantity = new Decimal(m.quantity);

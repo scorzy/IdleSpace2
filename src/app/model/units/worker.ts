@@ -117,10 +117,8 @@ export class Worker extends Unit {
   reloadLimit() {
     if (!super.reloadLimit()) return false;
     if (this.modStack && this.modStack.droneMod) {
+      this.limitTemp = this.limit.times(this.modStack.droneMod.totalBonusTemp);
       this.limit = this.limit.times(this.modStack.droneMod.totalBonus);
-      this.limitTemp = this.limitTemp.times(
-        this.modStack.droneMod.totalBonusTemp
-      );
     }
   }
   reloadAll() {
