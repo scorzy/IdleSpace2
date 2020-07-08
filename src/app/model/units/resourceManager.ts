@@ -556,10 +556,10 @@ export class ResourceManager {
                 new Bonus(building, new Decimal(2), department)
               );
               worker.prodEfficiency.bonuses.push(
-                new Bonus(building, new Decimal(0.1), department)
+                new Bonus(building, new Decimal(0.01), department)
               );
               break;
-            case "m": // Production
+            case "m": // Drones
               this.replicator.limitStack.bonuses.push(
                 new Bonus(building, new Decimal(2), department)
               );

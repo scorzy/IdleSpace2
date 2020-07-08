@@ -315,7 +315,7 @@ export const UNITS: IUnitData[] = [
     ],
     limits: [
       {
-        buildingLimit: "7",
+        buildingLimit: "10",
         buildingLimitQuantity: BUILDING_LIMIT
       }
     ],
