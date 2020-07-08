@@ -41,7 +41,7 @@ export const SHIP_TYPES: ShipTypeData[] = [
   {
     id: 7,
     name: "Battlecruiser",
-    defenceName: "pace Station"
+    defenceName: "Space Station"
   },
   {
     id: 8,

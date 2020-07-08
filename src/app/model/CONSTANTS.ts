@@ -90,7 +90,7 @@ export const UTILITY_MOD_DECREASE = 0.96;
 export const BASE_CARGO = 1;
 export const BASE_ADAPTIVE_PRECISION = 700;
 
-export const NUKE_DAMAGE = MODULE_ARMOUR * 1.5;
+export const NUKE_DAMAGE = MODULE_ARMOUR;
 
 //  Researches
 export const RESEARCH_BASE_PRICE = 0.1;
@@ -111,7 +111,7 @@ export const REPEATABLE_RES_PRICE_MULTI = 0.1;
 export const ENERGY_STORAGE = 1e4;
 export const STORAGE_DEPARTMENT_MULTI = 0.4;
 export const COMPONENT_STORAGE = 1e3;
-export const NUKE_STORAGE = 100;
+export const NUKE_STORAGE = 50;
 export const METAL_BUILDING_PRICE = 1000;
 export const ALLOY_BUILDING_PRICE = 1e3;
 

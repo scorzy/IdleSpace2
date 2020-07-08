@@ -262,9 +262,8 @@ export class ResourceManager {
         k < n2;
         k++
       ) {
-        if (!isLimited) {
-          this.unlockedProductionUnits[i].production[k].reload();
-        } else {
+        this.unlockedProductionUnits[i].production[k].reload();
+        if (isLimited) {
           this.unlockedProductionUnits[i].production[k].prodPerSec = ZERO;
         }
       }

@@ -6,7 +6,7 @@ export class BuilderSpell extends Spell {
   id = "or3";
   name = "Production initiative";
   icon = "fa-s:cog";
-  description = "+30% production, +1% per Factory";
+  description = "+60% production, +3% per Factory";
   colorClass = "production-color";
   duration = 60 * 5 * 1e3;
   price = 5e3;
@@ -17,10 +17,10 @@ export class BuilderSpell extends Spell {
     game.resourceManager.worker.prodEfficiency.bonuses.push(
       new Bonus(
         this,
-        new Decimal(0.3),
+        new Decimal(0.6),
         null,
         game.resourceManager.factory,
-        new Decimal(0.01)
+        new Decimal(0.03)
       )
     );
   }

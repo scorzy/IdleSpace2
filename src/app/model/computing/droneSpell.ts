@@ -6,7 +6,7 @@ const baseBonus = new Decimal(0.2);
 const buildingBonus = new Decimal(0.01);
 export class DroneSpell extends Spell {
   id = "d1";
-  name = "Production initiative";
+  name = "Drones initiative";
   icon = "my:vintage-robot";
   description =
     "Drones yields (" +

@@ -250,7 +250,7 @@ export const UNITS: IUnitData[] = [
     colorClass: "search-color",
     production: [
       ["R", 1],
-      ["S", -5],
+      ["S", -2],
       ["E", -1]
     ],
     prices: [
@@ -276,7 +276,7 @@ export const UNITS: IUnitData[] = [
     description: "",
     colorClass: "component-color",
     production: [
-      ["x", 0.1],
+      ["x", 0.05],
       ["A", -3],
       ["E", -1]
     ],
@@ -305,7 +305,7 @@ export const UNITS: IUnitData[] = [
     description: "",
     colorClass: "nuke-color",
     production: [
-      ["b", 0.1],
+      ["b", 0.05],
       ["A", -4],
       ["E", -2]
     ],
