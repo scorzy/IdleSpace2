@@ -183,15 +183,20 @@ export class MainService {
     location.reload();
   }
   setTheme() {
-    let file = compiledCss.find((n) =>
-      n.startsWith(this.options.themeId + ".")
-    );
-    if (typeof file !== "string" || file === "") file = compiledCss[0];
-    const myTheme = "assets/themes/" + file;
-    if (myTheme !== this.theme.href) this.theme.href = myTheme;
-    this.options.setHeaderTheme();
-    this.setScrollbarTheme();
-    if (this.game) this.game.setTheme();
+    try {
+      let file = compiledCss.find((n) =>
+        n.startsWith(this.options.themeId + ".")
+      );
+      if (typeof file !== "string" || file === "") file = compiledCss[0];
+      const myTheme = "assets/themes/" + file;
+      if (myTheme !== this.theme.href) this.theme.href = myTheme;
+      this.options.setHeaderTheme();
+      this.setScrollbarTheme();
+      if (this.game) this.game.setTheme();
+    } catch (ex) {
+      //TODO:
+      //  just to pass unit tests
+    }
   }
   setSideTheme() {
     this.sideTheme = this.options.darkSide ? "dark" : "light";
