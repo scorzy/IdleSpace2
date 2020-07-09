@@ -118,6 +118,7 @@ export class EnemyManager extends JobManager {
       this.toDo[i].reloadTotalBonus();
       this.toDo[i].reload();
     }
+    Game.getGame().enemyManager.reloadNukeDamage();
     //  Auto Attack
     if (this.currentEnemy && this.autoAttackEnabled) {
       const sm = Game.getGame().shipyardManager;
@@ -423,7 +424,9 @@ export class EnemyManager extends JobManager {
     }
     const nukeNeed = cell.getNuke();
     const rm = Game.getGame().resourceManager;
-    const dmg = nukeNeed.times(Decimal.min(rm.nuke.quantity, nukeNeed));
+    const dmg = Game.getGame().enemyManager.nukeDamage.times(
+      Decimal.min(rm.nuke.quantity, nukeNeed)
+    );
     cell.nuke(dmg.toNumber(), rm.nuke.quantity.gte(nukeNeed));
     rm.nuke.quantity = rm.nuke.quantity.minus(nukeNeed).max(0);
   }

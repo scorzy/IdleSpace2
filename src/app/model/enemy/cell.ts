@@ -75,9 +75,13 @@ export class Cell {
             curEnemy.designs[i].totalShield +
             curEnemy.designs[i].armourReduction +
             curEnemy.designs[i].shieldReduction;
-          const defeated = Math.floor(totalDamage / totalDef);
+          const defeated = Math.min(
+            this.ships[i],
+            Math.floor(totalDamage / totalDef)
+          );
           totalDamage = totalDamage - defeated * totalDef;
           this.ships[i] -= defeated;
+          this.ships[i] = Math.max(this.ships[i], 0);
         } else {
           this.ships[i] = 0;
         }

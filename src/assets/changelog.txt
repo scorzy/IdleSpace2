@@ -1,6 +1,7 @@
 09/07/2020
 -   fixed ship priority
 -   fixed number formatting
+-   fixed nuke
 
 08/07/2020
 -   fixed mod page
