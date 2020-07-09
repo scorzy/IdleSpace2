@@ -228,6 +228,8 @@ export class ShipyardManager extends JobManager {
       for (let i = 0; i < FLEET_NUMBER; i++) {
         newDesign.fleets[i].navalCapPercent =
           oldDesign.fleets[i].navalCapPercent;
+        newDesign.fleets[i].navalCapPercentUi =
+          oldDesign.fleets[i].navalCapPercentUi;
       }
       newDesign.old = oldDesign;
       for (let i = 0, n = this.toDo.length; i < n; i++) {
