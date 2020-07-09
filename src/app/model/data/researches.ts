@@ -258,7 +258,7 @@ export const RESEARCHES: IResearchData[] = [
     type: TECHNOLOGIES.Robotics,
     unlockFrom: "x",
     priceMulti: REPEATABLE_RES_PRICE_MULTI,
-    effMulti: [{ unitId: Ids.Metallurgist, multi: 0.05 }]
+    effMulti: [{ unitId: Ids.Replicator, multi: 0.05 }]
   },
   //#endregion
   //#region Origin Science
