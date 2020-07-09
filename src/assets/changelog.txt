@@ -1,5 +1,6 @@
 09/07/2020
 -   fixed ship priority
+-   fixed number formatting
 
 08/07/2020
 -   fixed mod page

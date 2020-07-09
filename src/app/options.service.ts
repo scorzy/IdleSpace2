@@ -59,7 +59,8 @@ export class OptionsService {
       d: this.darkSide,
       c: this.compactCardHeader,
       bw: this.battleWinNotification,
-      bl: this.battleLostNotification
+      bl: this.battleLostNotification,
+      n: this.numFormat
     };
   }
   load(data: any) {
@@ -69,5 +70,7 @@ export class OptionsService {
     if ("c" in data) this.compactCardHeader = data.c;
     if ("bw" in data) this.battleWinNotification = data.bw;
     if ("bl" in data) this.battleLostNotification = data.bl;
+    if ("n" in data) this.numFormat = data.n;
+    this.generateFormatter();
   }
 }
