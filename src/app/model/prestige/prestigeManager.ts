@@ -189,14 +189,14 @@ export class PrestigeManager {
 
     const speedMulti = new PrestigePoint();
     speedMulti.id = "w4";
-    speedMulti.name = "More Velocity";
+    speedMulti.name = "More Velocity and Acceleration";
     speedMulti.description =
       "+" + VELOCITY_PRESTIGE_MULTI * 100 + "% ship speed";
     speedMulti.price = new Decimal(PRESTIGE_PRICE);
     this.prestigePoints.push(speedMulti);
     warList.push(speedMulti);
     sp.velocityBonusStack.bonuses.push(
-      new Bonus(compMulti, new Decimal(VELOCITY_PRESTIGE_MULTI))
+      new Bonus(speedMulti, new Decimal(VELOCITY_PRESTIGE_MULTI))
     );
     //#endregion
     //#region Misc
