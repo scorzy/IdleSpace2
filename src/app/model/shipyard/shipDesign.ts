@@ -52,6 +52,7 @@ export class ShipDesign {
   enemyPriority = 1;
   enemyQuantity = 0;
   threat = BASE_THREAT;
+  thereatPerRound = 0;
   isDefence = false;
   next: ShipDesign;
   available = false;
@@ -92,6 +93,7 @@ export class ShipDesign {
     this.threat = BASE_THREAT * (this.type.id + 1);
     this.valid = true;
     this.available = true;
+    this.thereatPerRound = 0;
     if (errorCheck) {
       //  Error check
       this.modules
@@ -149,6 +151,7 @@ export class ShipDesign {
       );
       this.threat += m.module.threat * statsMulti;
       this.explosionThreshold += m.module.explosion * statsMulti;
+      this.thereatPerRound += m.module.threat * statsMulti;
 
       this.energy += m.module.energy * m.size * m.level;
       this.price = this.price.plus(priceMulti.times(m.module.price));
@@ -446,6 +449,7 @@ export class ShipDesign {
     // avgModLevel = modSum > 0 ? avgModLevel / modSum : 1;
     // this.threat += this.threat * avgModLevel;
     this.threat = Math.max(MIN_THREAT, this.threat);
+    this.thereatPerRound = Math.max(this.thereatPerRound, 0);
     if (!enemy) {
       this.velocity = this.velocity.times(
         Game.getGame().shipyardManager.velocityBonusStack.totalBonus
@@ -494,6 +498,7 @@ export class ShipDesign {
     ret.armourReduction = this.armourReduction;
     ret.shieldReduction = this.shieldReduction;
     ret.threat = this.threat;
+    ret.thereatPerRound = this.thereatPerRound;
     ret.explosionThreshold = this.explosionThreshold;
     ret.explosionDamage = this.explosionDamage;
     ret.weapons = this.weapons;

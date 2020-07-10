@@ -245,12 +245,12 @@ export class DesignInfoComponent extends BaseComponentComponent
       new: !this.design ? null : this.design.velocity,
       type: !this.design
         ? null
-        : this.original.velocity < this.design.velocity
+        : this.original.velocity > this.design.velocity
         ? "danger"
         : "",
       classes: !this.design
         ? null
-        : this.original.velocity > this.design.velocity
+        : this.original.velocity < this.design.velocity
         ? "text-success"
         : ""
     });
@@ -262,12 +262,12 @@ export class DesignInfoComponent extends BaseComponentComponent
       new: !this.design ? null : this.design.acceleration,
       type: !this.design
         ? null
-        : this.original.acceleration < this.design.acceleration
+        : this.original.acceleration > this.design.acceleration
         ? "danger"
         : "",
       classes: !this.design
         ? null
-        : this.original.acceleration > this.design.acceleration
+        : this.original.acceleration < this.design.acceleration
         ? "text-success"
         : ""
     });
@@ -287,6 +287,15 @@ export class DesignInfoComponent extends BaseComponentComponent
         : this.original.threat < this.design.threat
         ? "text-success"
         : ""
+    });
+    this.comparisonData.push({
+      name: "Threat /round",
+      icon: "my:archery-target",
+      iconClass: "threat-color",
+      original: this.original.thereatPerRound,
+      new: !this.design ? null : this.design.thereatPerRound,
+      type: "",
+      classes: ""
     });
   }
 }

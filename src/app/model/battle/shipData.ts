@@ -20,6 +20,7 @@ export class ShipData {
   explosionThreshold: number;
   explosionDamage: number;
   threat: number;
+  thereatPerRound: number;
   totalThreat: number;
   weapons: WeaponData[];
   quantity: number;

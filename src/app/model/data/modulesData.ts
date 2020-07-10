@@ -9,7 +9,8 @@ import {
   BASE_ACCELERATION,
   BASE_THREAT,
   BASE_CARGO,
-  BASE_ADAPTIVE_PRECISION
+  BASE_ADAPTIVE_PRECISION,
+  BASE_PRECISION
 } from "../CONSTANTS";
 export class ModuleData {
   id: string;
@@ -425,7 +426,7 @@ export const modules: ModuleData[] = [
       { technologyId: TECHNOLOGIES.Computing.id, multi: 1 }
     ],
     energy: -1,
-    precision: 700,
+    precision: BASE_PRECISION,
     adaptivePrecision: BASE_ADAPTIVE_PRECISION,
     armourDamagePercent: 5,
     shieldDamagePercent: 5,
@@ -438,7 +439,7 @@ export const modules: ModuleData[] = [
       { technologyId: TECHNOLOGIES.Robotics.id, multi: 1.2 },
       { technologyId: TECHNOLOGIES.Computing.id, multi: 0.8 }
     ],
-    precision: 500,
+    precision: BASE_PRECISION * 0.75,
     explosion: MODULE_ARMOUR * -1.5,
     armourDamagePercent: 2,
     shieldDamagePercent: 2,

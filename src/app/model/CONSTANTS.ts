@@ -88,7 +88,8 @@ export const BASE_THREAT = 150;
 export const MIN_THREAT = 100;
 export const UTILITY_MOD_DECREASE = 0.96;
 export const BASE_CARGO = 1;
-export const BASE_ADAPTIVE_PRECISION = 700;
+export const BASE_ADAPTIVE_PRECISION = 200;
+export const BASE_PRECISION = 300;
 
 export const NUKE_DAMAGE = MODULE_ARMOUR;
 

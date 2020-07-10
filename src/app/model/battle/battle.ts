@@ -93,7 +93,9 @@ export function battle(battleRequest: BattleRequest): any {
       for (let m = 0, n7 = fleet.length; m < n7; m++) {
         for (let s = 0, n8 = fleet[m].ships.length; s < n8; s++) {
           const toAdd =
-            fleet[m].ships[s].threat + fleet[m].ships[s].accumulatedThreat;
+            fleet[m].ships[s].threat +
+            fleet[m].ships[s].accumulatedThreat +
+            fleet[m].ships[s].shipData.thereatPerRound;
           fleet[m].stats.rounds[round].threatAvg += toAdd;
           fleet[m].stats.total.threatAvg += toAdd;
         }
@@ -261,7 +263,7 @@ function getTarget(targets: ShipData[], weapon: WeaponData): Ship {
   const defencePrecision =
     (weapon.defencePercent - 1) * weapon.adaptivePrecision;
   for (let i = 0, n = targets.length; i < n; i++) {
-    sum += targets[i].totalThreat;
+    sum += targets[i].ships.length * targets[i].threat;
     sum += targets[i].alive.length * weapon.precision;
     sum += shieldPrecision * targets[i].withShield;
     sum += armourPrecision * targets[i].withArmour;
@@ -281,7 +283,8 @@ function getTarget(targets: ShipData[], weapon: WeaponData): Ship {
       }
       if (target.shield > 0) {
         acc += shieldPrecision;
-      } else if (target.armour > 0) {
+      }
+      if (target.armour > 0) {
         acc += armourPrecision;
         acc += weapon.precision;
       }

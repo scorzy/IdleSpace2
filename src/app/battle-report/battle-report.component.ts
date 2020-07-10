@@ -189,10 +189,10 @@ export class BattleReportComponent extends BaseComponentComponent
         ret = "Exploded";
         break;
       case "Quantity":
-        ret = "Quantity - Round Start";
+        ret = "Quantity Start";
         break;
       case "quantityEnd":
-        ret = "Quantity - Round End";
+        ret = "Quantity End";
         break;
       case "OneShotted":
         ret = "One Shotted";
