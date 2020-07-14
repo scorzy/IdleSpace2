@@ -62,6 +62,12 @@ export class Building extends Unit {
     }
     return true;
   }
+  prestige() {
+    super.prestige();
+    this.maxDepartments = 0;
+    this.usedDepartments = 0;
+    this.departments?.forEach((dep) => (dep.quantity = ZERO));
+  }
   //#region Save and Load
   getSave(): any {
     const ret = super.getSave();
