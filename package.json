@@ -40,6 +40,7 @@
     "ant-utils": "^1.2.0",
     "break_infinity.js": "^1.1.1",
     "date-fns": "^2.15.0",
+    "less-plugin-clean-css": "^1.5.1",
     "lodash-es": "^4.17.15",
     "lz-string": "^1.4.4",
     "md5": "^2.2.1",
