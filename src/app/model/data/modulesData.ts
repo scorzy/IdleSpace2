@@ -261,7 +261,7 @@ export const modules: ModuleData[] = [
       { technologyId: TECHNOLOGIES.Physics.id, multi: 1.3 },
       { technologyId: TECHNOLOGIES.MilitaryEngineering.id, multi: 0.7 }
     ],
-
+    threatGainMulti: 2,
     shape: "my:ion-cannon-blast"
   },
   {
@@ -482,6 +482,28 @@ export const modules: ModuleData[] = [
     shieldDamagePercent: 15,
     shieldPercent: 15,
     armourPercent: 15
+  },
+  {
+    id: "cj",
+    name: "Communications Jammer",
+    technologies: [
+      { technologyId: TECHNOLOGIES.MilitaryEngineering.id, multi: 0.8 },
+      { technologyId: TECHNOLOGIES.Computing.id, multi: 1.2 }
+    ],
+    shape: "wifi",
+    energy: -1,
+    threat: MODULE_DAMAGE * 2
+  },
+  {
+    id: "tb",
+    name: "Tractor Beam ",
+    technologies: [
+      { technologyId: TECHNOLOGIES.CivilEngineering.id, multi: 0.7 },
+      { technologyId: TECHNOLOGIES.Physics.id, multi: 1.3 }
+    ],
+    shape: "my:magnet-blast",
+    energy: -2,
+    threat: MODULE_DAMAGE * 4
   },
   //#endregion
   //#region Thrusters

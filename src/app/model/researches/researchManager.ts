@@ -287,7 +287,7 @@ export class ResearchManager extends JobManager {
         }
         //  Physics
         if (res.tech === TECHNOLOGIES.Physics) {
-          if (i === 2) resData.modulesToUnlock = ["p"];
+          if (i === 2) resData.modulesToUnlock = ["p", "tb"];
           if (i === 3) resData.modulesToUnlock = ["O", "H", "G"];
           if (i === 4) resData.modulesToUnlock = ["g"];
           if (i === 5) resData.modulesToUnlock = ["X"];
@@ -305,6 +305,7 @@ export class ResearchManager extends JobManager {
         }
         //  Computing
         if (res.tech === TECHNOLOGIES.Computing) {
+          if (i === 1) resData.modulesToUnlock = ["cj"];
           if (i === 2) resData.modulesToUnlock = ["t"];
         }
 

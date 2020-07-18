@@ -30,6 +30,7 @@ export function battle(battleRequest: BattleRequest): any {
       for (let k = 0, n2 = shipData.weapons.length; k < n2; k++) {
         shipData.weapons[k].armourPercent /= 100;
         shipData.weapons[k].shieldPercent /= 100;
+        shipData.weapons[k].defencePercent /= 100;
       }
       for (let k = 0; k < 5; k++) {
         shipData.stats.rounds[k] = new DesignReport();
@@ -92,10 +93,7 @@ export function battle(battleRequest: BattleRequest): any {
       const fleet = fleets[i];
       for (let m = 0, n7 = fleet.length; m < n7; m++) {
         for (let s = 0, n8 = fleet[m].ships.length; s < n8; s++) {
-          const toAdd =
-            fleet[m].ships[s].threat +
-            fleet[m].ships[s].accumulatedThreat +
-            fleet[m].ships[s].shipData.thereatPerRound;
+          const toAdd = fleet[m].ships[s].threat;
           fleet[m].stats.rounds[round].threatAvg += toAdd;
           fleet[m].stats.total.threatAvg += toAdd;
         }
@@ -120,7 +118,9 @@ export function battle(battleRequest: BattleRequest): any {
         if (round < 4) {
           design.totalThreat = 0;
           for (let k = 0, n3 = design.alive.length; k < n3; k++) {
-            design.alive[k].threat += design.alive[k].accumulatedThreat;
+            design.alive[k].threat +=
+              design.alive[k].accumulatedThreat + design.thereatPerRound;
+            design.alive[k].accumulatedThreat = 0;
             design.totalThreat += design.alive[k].threat;
           }
         }
@@ -263,7 +263,8 @@ function getTarget(targets: ShipData[], weapon: WeaponData): Ship {
   const defencePrecision =
     (weapon.defencePercent - 1) * weapon.adaptivePrecision;
   for (let i = 0, n = targets.length; i < n; i++) {
-    sum += targets[i].ships.length * targets[i].threat;
+    sum += targets[i].totalThreat;
+    // sum += targets[i].ships.length * targets[i].threat;
     sum += targets[i].alive.length * weapon.precision;
     sum += shieldPrecision * targets[i].withShield;
     sum += armourPrecision * targets[i].withArmour;
@@ -277,8 +278,9 @@ function getTarget(targets: ShipData[], weapon: WeaponData): Ship {
   for (let i = 0, n = targets.length; i < n; i++) {
     for (let k = 0, n2 = targets[i].ships.length; k < n2; k++) {
       target = targets[i].ships[k];
+
       acc += target.threat;
-      if (targets[i].isDefence && target.armour > 0) {
+      if (targets[i].isDefence) {
         acc += defencePrecision;
       }
       if (target.shield > 0) {
@@ -304,7 +306,6 @@ function dealDamage(
   let damageToDo = weapon.damage;
   if (target.shipData.isDefence) {
     damageToDo *= weapon.defencePercent;
-  } else {
   }
 
   const fullHealth =
