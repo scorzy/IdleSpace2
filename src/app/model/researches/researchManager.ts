@@ -514,11 +514,14 @@ export class ResearchManager extends JobManager {
         resData.limitMulti.forEach((lim) => {
           const unit = rs.units.find((u) => u.id === lim.unitId);
           if (!unit.limitStackMulti) unit.limitStackMulti = new BonusStack();
+          const second = !lim.secondUnitId
+            ? null
+            : rs.units.find((u) => u.id === lim.secondUnitId);
           unit.limitStackMulti.bonuses.push(
-            new Bonus(res, new Decimal(lim.multi))
+            new Bonus(res, new Decimal(lim.multi), second)
           );
           if (!res.limitMulti) res.limitMulti = [];
-          res.limitMulti.push({ unit, multi: lim.multi });
+          res.limitMulti.push({ unit, multi: lim.multi, second });
         });
       }
       if ("modulesToUnlock" in resData) {

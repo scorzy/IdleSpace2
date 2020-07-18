@@ -112,6 +112,9 @@
   <li *ngFor="let lim of research.limitMulti">
     +{{ lim.multi | percent }} {{ lim.unit.name }}
     <span class="text-secondary">storage</span>
+    <span *ngIf="lim.second">
+      <span class="text-secondary"> per </span> {{ lim.second.name }}
+    </span>
   </li>
   <li *ngIf="research.recycling > 0">
     + {{ research.recycling | format }} recycling

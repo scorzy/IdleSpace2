@@ -281,13 +281,9 @@
         >
           <ng-container *ngIf="limit.unit.quantity.gt(0)">
             <td>{{ limit.unit.name }}</td>
-            <td>{{ limit.unit.quantity | format }}</td>
-            <td>x{{ limit.multiplier.times(100) | format }}%</td>
-            <td>
-              = x{{
-                limit.unit.quantity.times(limit.multiplier).times(100) | format
-              }}%
-            </td>
+            <!-- <td>{{ limit.unit.quantity | format }}</td>
+            <td>x{{ limit.multiplier.times(100) | format }}%</td> -->
+            <td>= x {{ limit.getBonus().times(100) | format }}%</td>
           </ng-container>
         </tr>
       </tbody>

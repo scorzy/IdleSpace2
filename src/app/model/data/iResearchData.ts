@@ -30,7 +30,7 @@ export interface IResearchData {
   prodMulti?: { unitId: string; multi: number; secondUnitId?: string }[];
   effMulti?: { unitId: string; multi: number; secondUnitId?: string }[];
   shipTypeToUnlock?: number;
-  limitMulti?: { unitId: string; multi: number }[];
+  limitMulti?: { unitId: string; multi: number; secondUnitId?: string }[];
   recycling?: number;
   modulesToUnlock?: string[];
   modPoints?: { unitId: string; multi: number }[];

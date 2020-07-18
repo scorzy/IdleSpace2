@@ -266,7 +266,8 @@ export const RESEARCHES: IResearchData[] = [
     id: "or1",
     name: "Scientists origin",
     max: 1,
-    description: "",
+    description:
+      "Droids were originally build for assisting in researches and exploring the space. This path focus on science, physics and searching. It can adapt to any play style.",
     type: TECHNOLOGIES.Physics,
     exclusiveGroup: ExclusiveResGroups.FIRST_ORIGIN,
     researchToUnlock: ["or11", "or13", "or14"],
@@ -293,6 +294,7 @@ export const RESEARCHES: IResearchData[] = [
     max: 10,
     description: "",
     type: TECHNOLOGIES.Physics,
+    researchToUnlock: ["or15", "or16"],
     effMulti: [{ unitId: "s", multi: 0.015, secondUnitId: "i1" }],
     inspirationSpaceStationId: "i1"
   },
@@ -318,13 +320,32 @@ export const RESEARCHES: IResearchData[] = [
       { techId: TECHNOLOGIES.Search.id, multi: ORIGIN_1_TECH_MULTI * 0.5 }
     ]
   },
+  {
+    id: "or15",
+    name: "Scientist Yards",
+    max: 1,
+    description: "",
+    type: TECHNOLOGIES.CivilEngineering,
+    limitMulti: [{ unitId: Ids.Scientist, multi: 0.01, secondUnitId: "i2" }],
+    inspirationSpaceStationId: "i2"
+  },
+  {
+    id: "or16",
+    name: "Searchers Yards",
+    max: 1,
+    description: "",
+    type: TECHNOLOGIES.Search,
+    limitMulti: [{ unitId: Ids.Searcher, multi: 0.01, secondUnitId: "i2" }],
+    inspirationSpaceStationId: "i2"
+  },
   //#endregion
   //#region Origin War
   {
     id: "or2",
     name: "War origin",
     max: 1,
-    description: "",
+    description:
+      "Droids were originally build for warfare. This path focus on battle (active style).",
     type: TECHNOLOGIES.Naval,
     exclusiveGroup: ExclusiveResGroups.FIRST_ORIGIN,
     spellToUnlock: "or2",
@@ -343,8 +364,8 @@ export const RESEARCHES: IResearchData[] = [
     max: 1,
     description: "",
     type: TECHNOLOGIES.Naval,
+    researchToUnlock: ["or27"],
     modulesToUnlock: ["W"],
-    researchToUnlock: ["or22"],
     navalCapacity: 150
   },
   {
@@ -381,6 +402,7 @@ export const RESEARCHES: IResearchData[] = [
     max: 10,
     description: "",
     type: TECHNOLOGIES.Naval,
+    researchToUnlock: ["or26"],
     materialMulti: 1
   },
   {
@@ -395,13 +417,36 @@ export const RESEARCHES: IResearchData[] = [
       { unitId: MatIds.Nuke, multi: 1 }
     ]
   },
+  {
+    id: "or26",
+    name: "Ransack",
+    max: 10,
+    description: "",
+    type: TECHNOLOGIES.Naval,
+    researchToUnlock: ["or22"],
+    materialMulti: 0.2,
+    speedMulti: 0.1
+  },
+  {
+    id: "or27",
+    name: "Grand strategy",
+    max: 1,
+    description: "",
+    type: TECHNOLOGIES.Naval,
+    modulesToUnlock: ["W"],
+    navalCapacity: 200,
+    technologyBonus: [
+      { techId: TECHNOLOGIES.Naval.id, multi: ORIGIN_1_TECH_MULTI }
+    ]
+  },
   //#endregion
   //#region Origin Builders
   {
     id: "or3",
     name: "Builders origin",
     max: 1,
-    description: "",
+    description:
+      "Droids were originally designed for industry. This path focus on idle style, with less reliance on battles.",
     type: TECHNOLOGIES.CivilEngineering,
     exclusiveGroup: ExclusiveResGroups.FIRST_ORIGIN,
     prodMulti: [{ unitId: "w", multi: 0.2 }],
@@ -469,9 +514,10 @@ export const RESEARCHES: IResearchData[] = [
   {
     id: "or35",
     name: "Orbital Satellites",
-    max: 10,
+    max: 1,
     description: "",
     type: TECHNOLOGIES.CivilEngineering,
+    researchToUnlock: ["or37", "or38"],
     effMulti: [{ unitId: Ids.Technician, multi: 0.02, secondUnitId: "i1" }],
     inspirationSpaceStationId: "i1"
   },
@@ -492,6 +538,24 @@ export const RESEARCHES: IResearchData[] = [
         multi: 0.4
       }
     ]
+  },
+  {
+    id: "or37",
+    name: "Mining Drones Yards",
+    max: 1,
+    description: "",
+    type: TECHNOLOGIES.CivilEngineering,
+    limitMulti: [{ unitId: Ids.Miner, multi: 0.01, secondUnitId: "i2" }],
+    inspirationSpaceStationId: "i2"
+  },
+  {
+    id: "or38",
+    name: "Technicians Yards",
+    max: 1,
+    description: "",
+    type: TECHNOLOGIES.CivilEngineering,
+    limitMulti: [{ unitId: Ids.Technician, multi: 0.01, secondUnitId: "i2" }],
+    inspirationSpaceStationId: "i2"
   }
   //#endregion
 ];

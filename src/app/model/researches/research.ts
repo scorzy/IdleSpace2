@@ -50,7 +50,7 @@ export class Research extends Job implements IUnlockable, IBase {
   navalCapacity = 0;
   available = false;
   shipTypeToUnlock: ShipType;
-  limitMulti?: { unit: Unit; multi: number }[];
+  limitMulti?: { unit: Unit; multi: number; second: Unit }[];
   recycling = 0;
   modulesToUnlock: Module[];
   modPoints: { unit: Unit; multi: number }[];
