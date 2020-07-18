@@ -97,13 +97,14 @@ import { ReportListComponent } from "./battle-report/report-list/report-list.com
 import { AutomationComponent } from "./automation/automation.component";
 import { AutoFleetUpComponent } from "./auto-buy/auto-fleet-up/auto-fleet-up.component";
 import { AutoSearchComponent } from "./auto-buy/auto-search/auto-search.component";
-import { SpellBarComponent } from './spell-bar/spell-bar.component';
-import { PrestigeShopComponent } from './prestige-shop/prestige-shop.component';
-import { PrestigeComponent } from './prestige/prestige.component';
-import { WarpComponent } from './warp/warp.component';
-import { CardsComponent } from './cards/cards.component';
-import { PrestigeCardComponent } from './cards/prestige-card/prestige-card.component';
-import { AutoSpaceComponent } from './auto-buy/auto-space/auto-space.component';
+import { SpellBarComponent } from "./spell-bar/spell-bar.component";
+import { PrestigeShopComponent } from "./prestige-shop/prestige-shop.component";
+import { PrestigeComponent } from "./prestige/prestige.component";
+import { WarpComponent } from "./warp/warp.component";
+import { CardsComponent } from "./cards/cards.component";
+import { PrestigeCardComponent } from "./cards/prestige-card/prestige-card.component";
+import { AutoSpaceComponent } from "./auto-buy/auto-space/auto-space.component";
+import { NZ_WAVE_GLOBAL_CONFIG } from "ng-zorro-antd";
 
 registerLocaleData(en);
 
@@ -224,7 +225,13 @@ const ngZorroConfig: NzConfig = {
     MainService,
     OptionsService,
     FormatPipe,
-    TimePipe
+    TimePipe,
+    {
+      provide: NZ_WAVE_GLOBAL_CONFIG,
+      useValue: {
+        disabled: true
+      }
+    }
   ],
   bootstrap: [AppComponent]
 })

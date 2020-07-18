@@ -19,7 +19,7 @@
       [ngForTrackBy]="getDesignId"
       let-i="index"
     >
-      <tr>
+      <tr *ngIf="isEnemy || getQuantity(data, i) > 0">
         <td nzShowExpand [(nzExpand)]="mapOfExpandData[data.id]"></td>
         <td class="name-link" [routerLink]="'/des/edit/' + data.id">
           {{ data.name }}
@@ -32,36 +32,42 @@
         <!-- <td colspan="3"> -->
         <nz-tabset nzSize="small">
           <nz-tab nzTitle="Info">
-            <app-design-info [original]="data" size="small"></app-design-info>
+            <ng-template nz-tab>
+              <app-design-info [original]="data" size="small"></app-design-info>
+            </ng-template>
           </nz-tab>
           <nz-tab nzTitle="Detail">
-            <nz-table
-              #modTable
-              [nzData]="data.modules"
-              nzSize="small"
-              nzFrontPagination="false"
-            >
-              <thead>
-                <th>Module</th>
-                <th>Size</th>
-                <th>Level</th>
-              </thead>
-              <tbody>
-                <ng-template ngFor let-mod [ngForOf]="modTable.data">
-                  <tr>
-                    <td>
-                      <i nz-icon [nzType]="mod.module.shape"></i>
-                      <span class="modName"> {{ mod.module.name }}</span>
-                    </td>
-                    <td>{{ mod.size | number: "1.0-0" }}</td>
-                    <td>{{ mod.level | number: "1.0-2" }}</td>
-                  </tr>
-                </ng-template>
-              </tbody>
-            </nz-table>
+            <ng-template nz-tab>
+              <nz-table
+                #modTable
+                [nzData]="data.modules"
+                nzSize="small"
+                nzFrontPagination="false"
+              >
+                <thead>
+                  <th>Module</th>
+                  <th>Size</th>
+                  <th>Level</th>
+                </thead>
+                <tbody>
+                  <ng-template ngFor let-mod [ngForOf]="modTable.data">
+                    <tr>
+                      <td>
+                        <i nz-icon [nzType]="mod.module.shape"></i>
+                        <span class="modName"> {{ mod.module.name }}</span>
+                      </td>
+                      <td>{{ mod.size | number: "1.0-0" }}</td>
+                      <td>{{ mod.level | number: "1.0-2" }}</td>
+                    </tr>
+                  </ng-template>
+                </tbody>
+              </nz-table>
+            </ng-template>
           </nz-tab>
           <nz-tab nzTitle="Weapons">
-            <app-weapon-view [weapons]="data.weapons"></app-weapon-view>
+            <ng-template nz-tab>
+              <app-weapon-view [weapons]="data.weapons"></app-weapon-view>
+            </ng-template>
           </nz-tab>
         </nz-tabset>
         <!-- </td> -->

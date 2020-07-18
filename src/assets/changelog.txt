@@ -1,3 +1,5 @@
+-   optimizations
+
 18/07/2020
 -   new ship modules "Tractor Beam" and "Communications Jammer"
 -   fixed battle threat

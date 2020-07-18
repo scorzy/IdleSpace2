@@ -101,51 +101,63 @@
 
   <div fxFlex="1 1 calc(50% - 10px)">
     <nz-tabset nzSize="small">
-      <nz-tab nzTitle="Status"><app-fleets-view></app-fleets-view> </nz-tab>
+      <nz-tab nzTitle="Status">
+        <ng-template nz-tab><app-fleets-view></app-fleets-view></ng-template>
+      </nz-tab>
       <nz-tab nzTitle="Fleet 1">
-        <app-ships-view
-          [designs]="ms.game.shipyardManager.shipDesigns"
-          fleetNum="0"
-          nzSize="small"
-          update="true"
-        >
-        </app-ships-view>
+        <ng-template nz-tab>
+          <app-ships-view
+            [designs]="ms.game.shipyardManager.shipDesigns"
+            fleetNum="0"
+            nzSize="small"
+            update="true"
+          >
+          </app-ships-view>
+        </ng-template>
       </nz-tab>
       <nz-tab nzTitle="Fleet 2">
-        <app-ships-view
-          [designs]="ms.game.shipyardManager.shipDesigns"
-          fleetNum="1"
-          nzSize="small"
-          update="true"
-        >
-        </app-ships-view>
+        <ng-template nz-tab>
+          <app-ships-view
+            [designs]="ms.game.shipyardManager.shipDesigns"
+            fleetNum="1"
+            nzSize="small"
+            update="true"
+          >
+          </app-ships-view
+        ></ng-template>
       </nz-tab>
-      <nz-tab nzTitle="Fleet 3">
-        <app-ships-view
-          [designs]="ms.game.shipyardManager.shipDesigns"
-          fleetNum="2"
-          nzSize="small"
-          update="true"
-        >
-        </app-ships-view>
+      <nz-tab nzTitle="Fleet 3"
+        ><ng-template nz-tab>
+          <app-ships-view
+            [designs]="ms.game.shipyardManager.shipDesigns"
+            fleetNum="2"
+            nzSize="small"
+            update="true"
+          >
+          </app-ships-view
+        ></ng-template>
       </nz-tab>
-      <nz-tab nzTitle="Fleet 4">
-        <app-ships-view
-          [designs]="ms.game.shipyardManager.shipDesigns"
-          fleetNum="3"
-          nzSize="small"
-          update="true"
-        >
-        </app-ships-view>
+      <nz-tab nzTitle="Fleet 4"
+        ><ng-template nz-tab>
+          <app-ships-view
+            [designs]="ms.game.shipyardManager.shipDesigns"
+            fleetNum="3"
+            nzSize="small"
+            update="true"
+          >
+          </app-ships-view
+        ></ng-template>
       </nz-tab>
-      <nz-tab nzTitle="Fleet 4">
-        <app-ships-view
-          [designs]="ms.game.shipyardManager.shipDesigns"
-          fleetNum="4"
-          nzSize="small"
-          update="true"
-        >
-        </app-ships-view>
+      <nz-tab nzTitle="Fleet 4"
+        ><ng-template nz-tab>
+          <app-ships-view
+            [designs]="ms.game.shipyardManager.shipDesigns"
+            fleetNum="4"
+            nzSize="small"
+            update="true"
+          >
+          </app-ships-view
+        ></ng-template>
       </nz-tab>
     </nz-tabset>
 
