@@ -13,6 +13,7 @@ import { TimePipe } from "./time.pipe";
 
 export const SAVE_ID = "IS2_save";
 export const GAME_SPEED = 1;
+declare let kongregateAPI: any;
 
 @Injectable({
   providedIn: "root"
@@ -29,30 +30,8 @@ export class MainService {
     MainService.formatPipe = _formatPipe;
     MainService.timePipe = _timePipe;
 
-    // this.theme = this.document.createElement("link");
-    // this.theme.rel = "stylesheet";
-    // this.theme.type = "text/css";
-    // this.document
-    //   .querySelector("head")
-    //   .insertBefore(
-    //     this.theme,
-    //     document
-    //       .getElementsByTagName("head")[0]
-    //       .getElementsByTagName("style")[0]
-    //   );
     this.theme = this.document.getElementById("gameTheme") as HTMLLinkElement;
 
-    // this.scrollbarTheme = this.document.createElement("link");
-    // this.scrollbarTheme.rel = "stylesheet";
-    // this.scrollbarTheme.type = "text/css";
-    // this.document
-    //   .querySelector("head")
-    //   .insertBefore(
-    //     this.scrollbarTheme,
-    //     document
-    //       .getElementsByTagName("head")[0]
-    //       .getElementsByTagName("style")[0]
-    //   );
     this.scrollbarTheme = this.document.getElementById(
       "scrollTheme"
     ) as HTMLLinkElement;
@@ -93,6 +72,28 @@ export class MainService {
     else this.game = new Game();
     this.setTheme();
     this.ready = true;
+
+    //  Kong Api
+    const url =
+      window.location !== window.parent.location
+        ? document.referrer
+        : document.location.href;
+
+    if (url.includes("kongregate") && typeof kongregateAPI !== "undefined") {
+      kongregateAPI.loadAPI(() => {
+        this.kongregate = kongregateAPI.getAPI();
+        console.log("KongregateAPI Loaded");
+
+        setTimeout(() => {
+          try {
+            console.log("Kongregate build");
+            this.sendKong();
+          } catch (e) {
+            console.log("Error: " + e.message);
+          }
+        }, 2 * 60 * 1000);
+      });
+    }
   }
   static formatPipe: FormatPipe;
   static timePipe: TimePipe;
@@ -114,6 +115,7 @@ export class MainService {
   designListCollapsed = false;
   notificationEmitter = new EventEmitter<MyNotification>();
   ready = false;
+  kongregate: any;
 
   update() {
     if (!this.game) return;
@@ -210,6 +212,14 @@ export class MainService {
         : "";
     if (myTheme !== this.scrollbarTheme.href) {
       this.scrollbarTheme.href = myTheme;
+    }
+  }
+  sendKong() {
+    if (!this.game || !this.kongregate) return false;
+    try {
+      this.kongregate.stats.submit("MaxEnemy", this.game.enemyManager.maxLevel);
+    } catch (ex) {
+      console.log(ex);
     }
   }
 }

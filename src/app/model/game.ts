@@ -326,6 +326,11 @@ export class Game {
     }
   }
   prestige() {
+    //  Try to send stats to kongregate
+    try {
+      MainService.instance.sendKong();
+    } catch (ex) {}
+
     const newMaxCard = Math.floor(
       (this.enemyManager.maxLevel - 1) / LEVEL_PER_CARD
     );
