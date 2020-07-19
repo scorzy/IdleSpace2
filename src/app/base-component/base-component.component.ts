@@ -9,7 +9,7 @@ import {
 } from "@angular/core";
 import { Subscription } from "rxjs";
 import { MainService } from "../main.service";
-
+declare let preventScroll;
 @Component({
   selector: "app-base-component",
   templateUrl: "./base-component.component.html",
@@ -35,5 +35,6 @@ export class BaseComponentComponent
     setTimeout(() => {
       this.animationDisabled = false;
     });
+    if (typeof preventScroll === typeof Function) preventScroll();
   }
 }
