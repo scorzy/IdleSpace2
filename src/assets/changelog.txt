@@ -1,4 +1,6 @@
+19/07/2020
 -   new researches
+-   info tab
 -   optimizations
 
 18/07/2020

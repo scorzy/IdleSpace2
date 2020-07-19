@@ -28,6 +28,7 @@ import { PrestigeShopComponent } from "./prestige-shop/prestige-shop.component";
 import { PrestigeComponent } from "./prestige/prestige.component";
 import { WarpComponent } from "./warp/warp.component";
 import { CardsComponent } from "./cards/cards.component";
+import { InfoComponent } from "./info/info.component";
 export const routes: Routes = [
   { path: "", pathMatch: "full", redirectTo: "/units/ws" },
   { path: "des", pathMatch: "full", redirectTo: "/des/add" },
@@ -75,7 +76,8 @@ export const routes: Routes = [
   { path: "expShop", component: PrestigeShopComponent },
   { path: "prestige", component: PrestigeComponent },
   { path: "warp", component: WarpComponent },
-  { path: "cards", component: CardsComponent }
+  { path: "cards", component: CardsComponent },
+  { path: "info", component: InfoComponent }
 ];
 
 @NgModule({

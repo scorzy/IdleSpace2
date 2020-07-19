@@ -367,7 +367,11 @@ function dealDamage(
   }
 
   //  Explosion
-  if (target.armour > 0 && target.armour < target.shipData.explosionThreshold) {
+  if (
+    target.shield <= 0.001 &&
+    target.armour > 0 &&
+    target.armour < target.shipData.explosionThreshold
+  ) {
     const explosion = 1 - target.armour / target.shipData.explosionThreshold;
 
     if (Math.random() < explosion) {
