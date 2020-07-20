@@ -186,27 +186,10 @@ export class EnemyManager extends JobManager {
           continue;
 
         shipData.quantity = playerDesign[i].fleets[fleetNum].shipsQuantity;
-        battleRequest.playerFleet.push(shipData);
 
-        let tempMax = solveEquation(
-          ZERO,
-          playerDesign[i].acceleration,
-          playerDesign[i].velocity,
-          this.currentEnemy.distance.times(-1)
-        );
-
-        for (const sol of tempMax) {
-          if (sol.gt(maxTime)) {
-            maxTime = sol.toNumber();
-          }
-        }
-
-        if (playerDesign[i].old) {
-          const shipDataOld = playerDesign[i].old.getShipData();
-          shipDataOld.designId *= -1;
-          shipDataOld.quantity = playerDesign[i].old.fleets[i].shipsQuantity;
-          battleRequest.playerFleet.push(shipDataOld);
-          tempMax = solveEquation(
+        if (shipData.quantity > 0) {
+          battleRequest.playerFleet.push(shipData);
+          let tempMax = solveEquation(
             ZERO,
             playerDesign[i].acceleration,
             playerDesign[i].velocity,
@@ -215,6 +198,26 @@ export class EnemyManager extends JobManager {
           for (const sol of tempMax) {
             if (sol.gt(maxTime)) {
               maxTime = sol.toNumber();
+            }
+          }
+        }
+
+        if (playerDesign[i].old) {
+          const shipDataOld = playerDesign[i].old.getShipData();
+          shipDataOld.designId *= -1;
+          shipDataOld.quantity = playerDesign[i].old.fleets[i].shipsQuantity;
+          if (shipDataOld.quantity > 0) {
+            battleRequest.playerFleet.push(shipDataOld);
+            let tempMax = solveEquation(
+              ZERO,
+              playerDesign[i].acceleration,
+              playerDesign[i].velocity,
+              this.currentEnemy.distance.times(-1)
+            );
+            for (const sol of tempMax) {
+              if (sol.gt(maxTime)) {
+                maxTime = sol.toNumber();
+              }
             }
           }
         }
