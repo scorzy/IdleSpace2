@@ -28,6 +28,7 @@ export class SearchComponent extends BaseComponentComponent
   searchLevel = 0;
   expectedPrice = ZERO;
   expectedTiles: { unit: Unit; range: SearchRange }[];
+  expectedSearchTime = 0;
   fleetPowerRange: SearchRange = new SearchRange();
   minDistance = ZERO;
   maxDistance = ZERO;
@@ -103,6 +104,20 @@ export class SearchComponent extends BaseComponentComponent
       this.searchLevel,
       this.pointBalance
     );
+    const searchPerSec = this.ms.game.resourceManager.search.makers[0].prodPerSecFull
+      .times(this.ms.game.resourceManager.searcher.operativity / 100)
+      .times(this.ms.game.resourceManager.searcher.quantity);
+    this.expectedSearchTime = 0;
+    if (searchPerSec.gt(0)) {
+      this.ms.game.researchManager.searchTech.bonus.reloadBonus();
+      this.expectedSearchTime = this.expectedPrice
+        .div(
+          searchPerSec.times(
+            this.ms.game.researchManager.searchTech.bonus.totalBonus
+          )
+        )
+        .toNumber();
+    }
 
     this.expectedTiles[0].range = this.ms.game.enemyManager.habitabilityOpt.getRange();
     this.expectedTiles[1].range = this.ms.game.enemyManager.metalOpt.getRange();

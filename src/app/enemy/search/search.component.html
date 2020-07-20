@@ -98,14 +98,14 @@
                 {{ tile.range.max | number: "1.0-0" }}
               </td>
             </tr>
-            <tr>
+            <!-- <tr>
               <td>Fleet Power</td>
               <td class="monospace col2 center">
                 +{{ fleetPowerRange.min | percent: "1.0-0" }} +{{
                   fleetPowerRange.max | percent: "1.0-0"
                 }}
               </td>
-            </tr>
+            </tr> -->
             <tr>
               <td>Distance</td>
               <td class="monospace col2 center">
@@ -116,6 +116,12 @@
               <td>Price</td>
               <td class="monospace col2 center">
                 {{ expectedPrice | format: true }}
+              </td>
+            </tr>
+            <tr>
+              <td>Search Time</td>
+              <td class="monospace col2 center">
+                {{ expectedSearchTime | time }}
               </td>
             </tr>
           </tbody>

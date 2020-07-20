@@ -1,5 +1,6 @@
 20/07/2020
 -   Eta fixed
+-   Added search time in search screen
 
 19/07/2020
 -   new researches
