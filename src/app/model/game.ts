@@ -195,18 +195,25 @@ export class Game {
         this.resourceManager.stopResources();
       }
 
-      const shipWork =
-        this.spaceStationManager.toDo.length > 0
-          ? this.resourceManager.shipyardWork.quantity.times(
-              (100 - this.civilianWorkPercent) / 100
-            )
-          : this.resourceManager.shipyardWork.quantity;
+      if (this.resourceManager.spaceStations[0].unlocked) {
+        const shipWork =
+          this.spaceStationManager.toDo.length > 0
+            ? this.resourceManager.shipyardWork.quantity.times(
+                (100 - this.civilianWorkPercent) / 100
+              )
+            : this.resourceManager.shipyardWork.quantity;
 
-      const civWork = this.resourceManager.shipyardWork.quantity.minus(
-        shipWork
-      );
-      const notAdded = this.shipyardManager.addProgress(shipWork).max(0);
-      this.spaceStationManager.addProgress(civWork.plus(notAdded));
+        const civWork = this.resourceManager.shipyardWork.quantity.minus(
+          shipWork
+        );
+        const notAdded = this.shipyardManager.addProgress(shipWork).max(0);
+        this.spaceStationManager.addProgress(civWork.plus(notAdded));
+      } else {
+        this.shipyardManager
+          .addProgress(this.resourceManager.shipyardWork.quantity)
+          .max(0);
+      }
+
       this.resourceManager.shipyardWork.quantity = ZERO;
       this.enemyManager.addProgress(this.resourceManager.search.quantity);
       this.resourceManager.search.quantity = ZERO;
