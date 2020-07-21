@@ -159,7 +159,7 @@ export class EnemyManager extends JobManager {
     const sd = Game.getGame().shipyardManager.shipDesigns;
     for (let k = 0, n = sd.length; k < n; k++) {
       if (sd[k].fleets[fleetNum].shipsQuantity > 0) playerShip = true;
-      if (sd[k].old?.fleets[fleetNum].shipsQuantity > 0) playerShip = true;
+      if (sd[k].old?.fleets[fleetNum]?.shipsQuantity > 0) playerShip = true;
     }
     if (!playerShip) return false;
 
@@ -181,7 +181,7 @@ export class EnemyManager extends JobManager {
         const shipData = playerDesign[i].getShipData();
         if (
           playerDesign[i].fleets[fleetNum].shipsQuantity < 1 &&
-          playerDesign[i].old?.fleets[fleetNum].shipsQuantity < 1
+          playerDesign[i].old?.fleets[fleetNum]?.shipsQuantity < 1
         )
           continue;
 
