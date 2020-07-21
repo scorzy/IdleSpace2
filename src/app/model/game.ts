@@ -348,6 +348,7 @@ export class Game {
     this.resourceManager.prestige();
     this.researchManager.prestige();
     this.shipyardManager.prestige();
+    this.spaceStationManager.prestige();
     this.enemyManager.prestige();
     this.computingManager.prestige();
     this.battleResults = [];
