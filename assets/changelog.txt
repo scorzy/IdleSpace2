@@ -1,3 +1,6 @@
+21/07/2020
+-   Warps notifications options
+
 20/07/2020
 -   Eta fixed
 -   Added search time in search screen
