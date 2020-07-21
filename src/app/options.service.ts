@@ -21,6 +21,8 @@ export class OptionsService {
   compactCardHeader = false;
   battleWinNotification = true;
   battleLostNotification = true;
+  disableSmallWarpNoti = false;
+  disableAllWarpNoti = false;
   constructor() {
     try {
       const n = 1.1;
@@ -60,7 +62,9 @@ export class OptionsService {
       c: this.compactCardHeader,
       bw: this.battleWinNotification,
       bl: this.battleLostNotification,
-      n: this.numFormat
+      n: this.numFormat,
+      w1: this.disableAllWarpNoti,
+      w2: this.disableSmallWarpNoti
     };
   }
   load(data: any) {
@@ -71,6 +75,8 @@ export class OptionsService {
     if ("bw" in data) this.battleWinNotification = data.bw;
     if ("bl" in data) this.battleLostNotification = data.bl;
     if ("n" in data) this.numFormat = data.n;
+    if ("w1" in data) this.disableAllWarpNoti = data.w1;
+    if ("w2" in data) this.disableSmallWarpNoti = data.w2;
     this.generateFormatter();
   }
 }

@@ -76,4 +76,18 @@
     </nz-form-label>
     <nz-switch name="bl" [(ngModel)]="os.battleLostNotification"></nz-switch>
   </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="w1">
+      Disable all warp notifications
+    </nz-form-label>
+    <nz-switch name="w1" [(ngModel)]="os.disableAllWarpNoti"></nz-switch>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="w2">
+      Disable small(1 sec) warp notifications
+    </nz-form-label>
+    <nz-switch name="w2" [(ngModel)]="os.disableSmallWarpNoti"></nz-switch>
+  </nz-form-item>
 </form>

@@ -162,7 +162,8 @@ export class Game {
         new MyNotification(
           NotificationTypes.WARP,
           "Warp: " + MainService.timePipe.transform(this.timeToWarp, 1)
-        )
+        ),
+        this.timeToWarp
       );
     }
     let toUpdate = delta + this.timeToWarp;
