@@ -4,11 +4,14 @@ import { MainService, GAME_SPEED } from "./main.service";
 import { OptionsService } from "./options.service";
 import { FormatPipe } from "./format.pipe";
 import { TimePipe } from "./time.pipe";
+import { NzModalService } from "ng-zorro-antd";
+import { OverlayModule } from "@angular/cdk/overlay";
 
 describe("MainService", () => {
   beforeEach(() =>
     TestBed.configureTestingModule({
-      providers: [OptionsService, FormatPipe, TimePipe]
+      imports: [OverlayModule],
+      providers: [OptionsService, FormatPipe, TimePipe, NzModalService]
     })
   );
 

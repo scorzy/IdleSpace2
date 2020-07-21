@@ -29,6 +29,8 @@ import {
 } from "../notifications/myNotification";
 import { MegaStructure } from "./megaStructure";
 import { Technology } from "../researches/technology";
+import { MainService } from "src/app/main.service";
+import { OptionsService } from "src/app/options.service";
 
 export class ResourceManager {
   units = new Array<Unit>();
@@ -361,6 +363,17 @@ export class ResourceManager {
         this.firstEndingUnit.name + " Ended"
       )
     );
+
+    if (!OptionsService.instance.disableProdStopNoti) {
+      MainService.instance.modal.warning({
+        nzTitle: "Production stopped",
+        nzContent:
+          "<p>" +
+          this.firstEndingUnit.name +
+          " has ended, all consumers have been stopped. You can reactivate them with the slider.</p>" +
+          "<p>This message can be disabled in the ui options section.</p>"
+      });
+    }
   }
   postUpdate() {
     for (let i = 0, n = this.unlockedUnits.length; i < n; i++) {

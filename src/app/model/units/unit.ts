@@ -2,11 +2,12 @@ import { IUnitData } from "../data/iUnitData";
 import { Production } from "./production";
 import { IBase } from "../iBase";
 import { MultiPrice } from "../prices/multiPrice";
-import { ZERO, ONE, COMPONENT_PRICE } from "../CONSTANTS";
+import { ZERO, ONE, COMPONENT_PRICE, Ids } from "../CONSTANTS";
 import { IUnlockable } from "../iUnlocable";
 import { Game } from "../game";
 import { Bonus } from "../bonus/bonus";
 import { BonusStack } from "../bonus/bonusStack";
+import { MainService } from "src/app/main.service";
 
 export class Unit implements IBase, IUnlockable {
   id = "";
@@ -124,13 +125,14 @@ export class Unit implements IBase, IUnlockable {
       )
     ) {
       this.manualBought = this.manualBought.plus(quantity);
+      const prevQty = new Decimal(this.quantity);
       this.quantity = this.quantity.plus(quantity);
-      this.afterBuy();
+      this.afterBuy(prevQty);
       return true;
     }
     return false;
   }
-  afterBuy(): boolean {
+  afterBuy(prevQuantity = ZERO): boolean {
     const rs = Game.getGame().resourceManager;
     switch (this.id) {
       // case "f":
@@ -141,6 +143,15 @@ export class Unit implements IBase, IUnlockable {
           rs.scientist.unlock();
           rs.science.unlock();
           rs.reloadLists();
+        }
+        break;
+      case Ids.Worker:
+        if (prevQuantity.lt(1) && Game.getGame().firstRun) {
+          MainService.instance.modal.info({
+            nzTitle: "Workers",
+            nzContent:
+              "<p>Workers and some other drones are operative only when needed. Workers will work when you make space ships.</p>"
+          });
         }
         break;
     }

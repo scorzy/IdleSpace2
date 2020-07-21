@@ -23,6 +23,7 @@ export class OptionsService {
   battleLostNotification = true;
   disableSmallWarpNoti = false;
   disableAllWarpNoti = false;
+  disableProdStopNoti = false;
   constructor() {
     try {
       const n = 1.1;
@@ -64,7 +65,8 @@ export class OptionsService {
       bl: this.battleLostNotification,
       n: this.numFormat,
       w1: this.disableAllWarpNoti,
-      w2: this.disableSmallWarpNoti
+      w2: this.disableSmallWarpNoti,
+      ps: this.disableProdStopNoti
     };
   }
   load(data: any) {
@@ -77,6 +79,7 @@ export class OptionsService {
     if ("n" in data) this.numFormat = data.n;
     if ("w1" in data) this.disableAllWarpNoti = data.w1;
     if ("w2" in data) this.disableSmallWarpNoti = data.w2;
+    if ("ps" in data) this.disableProdStopNoti = data.ps;
     this.generateFormatter();
   }
 }

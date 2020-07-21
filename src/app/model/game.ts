@@ -69,6 +69,7 @@ export class Game {
   darkMatter = ZERO;
   lockedDarkMatter = ZERO;
   firstUpdate = true;
+  firstRun = true;
 
   private _gameId = "";
   private battleResults: { result: BattleResult; fleet: number }[] = [];
@@ -353,7 +354,7 @@ export class Game {
       this.prestigeManager.maxCards,
       newMaxCard
     );
-
+    this.firstRun = false;
     this.postUpdate(0);
   }
   scienceWarp(timeToWarp: number) {
@@ -378,13 +379,15 @@ export class Game {
       p: this.computingManager.getSave(),
       t: this.prestigeManager.getSave(),
       k: this.darkMatter,
-      l: this.lockedDarkMatter
+      l: this.lockedDarkMatter,
+      fr: this.firstRun
     };
   }
   load(data: any) {
     if (!("s" in data && "r" in data)) {
       throw new Error("Save not valid");
     }
+    if ("fr" in data) this.firstRun = data.fr;
 
     this.resourceManager.load(data.s);
     this.researchManager.load(data.r);

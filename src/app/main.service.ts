@@ -10,6 +10,7 @@ import {
   MyNotification
 } from "./model/notifications/myNotification";
 import { TimePipe } from "./time.pipe";
+import { NzModalService } from "ng-zorro-antd";
 
 export const SAVE_ID = "IS2_save";
 export const GAME_SPEED = 1;
@@ -23,6 +24,7 @@ export class MainService {
     private _formatPipe: FormatPipe,
     private _timePipe: TimePipe,
     private options: OptionsService,
+    public modal: NzModalService,
     @Inject(DOCUMENT) private document: Document
   ) {
     this.last = Date.now();

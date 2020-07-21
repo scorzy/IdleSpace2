@@ -1,5 +1,6 @@
 21/07/2020
 -   Warps notifications options
+-   Added info modals
 
 20/07/2020
 -   Eta fixed
