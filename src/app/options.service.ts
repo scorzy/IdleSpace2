@@ -25,6 +25,10 @@ export class OptionsService {
   disableAllWarpNoti = false;
   disableProdStopNoti = false;
   showComponentsInfo = true;
+  showDronesStatus = true;
+
+  districtInfo = true;
+  operativityInfo = true;
   constructor() {
     try {
       const n = 1.1;
@@ -68,7 +72,10 @@ export class OptionsService {
       w1: this.disableAllWarpNoti,
       w2: this.disableSmallWarpNoti,
       ps: this.disableProdStopNoti,
-      ci: this.showComponentsInfo
+      ci: this.showComponentsInfo,
+      ds: this.showDronesStatus,
+      t1: this.districtInfo,
+      t2: this.operativityInfo
     };
   }
   load(data: any) {
@@ -83,6 +90,10 @@ export class OptionsService {
     if ("w2" in data) this.disableSmallWarpNoti = data.w2;
     if ("ps" in data) this.disableProdStopNoti = data.ps;
     if ("ci" in data) this.showComponentsInfo = data.ci;
+    if ("ds" in data) this.showDronesStatus = data.ds;
+
+    if ("t1" in data) this.districtInfo = data.t1;
+    if ("t2" in data) this.operativityInfo = data.t2;
     this.generateFormatter();
   }
 }

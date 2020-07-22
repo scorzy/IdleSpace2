@@ -11,6 +11,7 @@ import { Unit } from "../model/units/unit";
 import { ActivatedRoute } from "@angular/router";
 import { fadeIn } from "../animations";
 import { BaseComponentComponent } from "../base-component/base-component.component";
+import { OptionsService } from "../options.service";
 
 @Component({
   selector: "app-units",
@@ -30,6 +31,7 @@ export class UnitsComponent extends BaseComponentComponent
   constructor(
     ms: MainService,
     cd: ChangeDetectorRef,
+    public os: OptionsService,
     private route: ActivatedRoute
   ) {
     super(ms, cd);
@@ -47,5 +49,11 @@ export class UnitsComponent extends BaseComponentComponent
   }
   getId(index: number, unit: Unit) {
     return unit.id;
+  }
+  closeOperativityInfo() {
+    this.os.operativityInfo = false;
+  }
+  closeDistrictInfo() {
+    this.os.districtInfo = false;
   }
 }

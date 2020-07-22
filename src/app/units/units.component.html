@@ -1,4 +1,5 @@
 <div fxLayout="column" fxLayout.gt-xs="row wrap" fxLayoutGap="10px">
+  <!-- Droids -->
   <div
     class="flex-item"
     *ngFor="let unit of ms.game.resourceManager.unlockedWorkers; trackBy: getId"
@@ -11,6 +12,7 @@
     <app-unit-card [unit]="unit"> </app-unit-card>
   </div>
 
+  <!-- Tutorial -->
   <div class="flex-item" *ngIf="!ms.game.resourceManager.scientist.unlocked">
     <nz-card style="width: 100%;" [nzTitle]="locked" nzSize="small">
       <p>To unlock you need:</p>
@@ -42,7 +44,56 @@
       </ul>
     </nz-card>
   </div>
+  <div class="flex-item info-panel" *ngIf="os.operativityInfo">
+    <nz-alert
+      nzType="warning"
+      nzMessage="Drones Info"
+      [nzDescription]="opInfo"
+      nzShowIcon
+      nzCloseText="Dismiss"
+      (nzOnClose)="closeOperativityInfo()"
+    ></nz-alert>
+    <ng-template #opInfo>
+      <p>
+        Drones operativity can be adjusted with the slider. In case you run out
+        resources (like energy) every drones that depend on it will stop working
+        permanently. To fix drag the sliders to the right.<br />
+        Technicians are always 100% operative.
+      </p>
+    </ng-template>
+  </div>
+  <div class="flex-item info-panel" *ngIf="os.districtInfo">
+    <nz-alert
+      nzType="info"
+      nzMessage="Districts Info"
+      [nzDescription]="districtsInfo"
+      nzShowIcon
+      nzCloseText="Dismiss"
+      (nzOnClose)="closeDistrictInfo()"
+    ></nz-alert>
+    <ng-template #districtsInfo>
+      <p>
+        <span class="habSpace-color">
+          <i nz-icon nzType="fa-s:globe"></i>
+          Habitable space </span
+        >,
+        <span class="metal-color">
+          <i nz-icon nzType="my:mining"></i>
+          Mining districts
+        </span>
+        and
+        <span class="energy-color">
+          <i nz-icon nzType="my:solar-power"></i>
+          Energy districts
+        </span>
+        are required to build buildings. Districts can be obtained from battle.
+        It may take a while before you're ready to engage battle, so don't waste
+        them (don't buy batteries!).
+      </p>
+    </ng-template>
+  </div>
 
+  <!-- Buildings -->
   <div
     fxFlex.gt-xs="1 1 310px"
     fxFlex="1"

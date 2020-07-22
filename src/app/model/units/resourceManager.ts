@@ -258,6 +258,7 @@ export class ResourceManager {
             (pro.product.limit.lte(Number.EPSILON) ||
               pro.product.quantity.gte(pro.product.limit))
         ) > -1;
+      this.unlockedProductionUnits[i].isLimited = isLimited;
 
       for (
         let k = 0, n2 = this.unlockedProductionUnits[i].production.length;

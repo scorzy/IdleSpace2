@@ -12,6 +12,61 @@
   "
 >
   <div *ngIf="unit.production.length > 0">
+    <div *ngIf="os.showDronesStatus" class="drone-status">
+      <nz-alert
+        *ngIf="!unit.isLimited && unit.operativity == 100"
+        class="mg-top"
+        nzType="success"
+        nzMessage="100% Operative"
+        nzShowIcon
+      ></nz-alert>
+      <nz-alert
+        *ngIf="
+          !unit.isLimited && unit.operativity > 0 && unit.operativity < 100
+        "
+        class="mg-top"
+        nzType="warning"
+        [nzMessage]="notFull"
+        nzShowIcon
+      ></nz-alert>
+      <ng-template #notFull>
+        {{ unit.operativity }} % Operative
+        <button
+          type="button"
+          style="width: auto;"
+          class="ant-alert-close-icon"
+          (click)="unit.operativity = 100"
+        >
+          <span class="ant-alert-close-text">Set 100%</span>
+        </button>
+      </ng-template>
+      <nz-alert
+        *ngIf="!unit.isLimited && unit.operativity <= 0"
+        class="mg-top"
+        nzType="error"
+        [nzMessage]="stopped"
+        nzShowIcon
+      ></nz-alert>
+      <ng-template #stopped>
+        Stopped
+        <button
+          type="button"
+          style="width: auto;"
+          class="ant-alert-close-icon"
+          (click)="unit.operativity = 100"
+        >
+          <span class="ant-alert-close-text">Set 100%</span>
+        </button>
+      </ng-template>
+      <nz-alert
+        *ngIf="unit.isLimited"
+        class="mg-top"
+        nzType="info"
+        nzMessage="Waiting for work"
+        nzShowIcon
+      ></nz-alert>
+    </div>
+
     <nz-slider
       [(ngModel)]="unit.operativity"
       [nzDisabled]="sliderDisabled"

@@ -47,6 +47,7 @@ export class Unit implements IBase, IUnlockable {
   battleGainMulti: BonusStack;
   workers = new Array<Unit>();
   battleMulti = 1;
+  isLimited = false;
   constructor(public unitData: IUnitData) {
     this.id = unitData.id;
     this.name = unitData.name;

@@ -50,3 +50,18 @@ nz-input-number {
 div.ant-typography {
   margin: 0;
 }
+
+.drone-status {
+  ::ng-deep .ant-alert {
+    padding: 2px 12px 2px 37px;
+  }
+  ::ng-deep .ant-alert-icon {
+    top: 5px;
+  }
+  ::ng-deep .ant-alert-close-icon {
+    top: 2px;
+  }
+  .mg-top {
+    margin-top: 0.4rem;
+  }
+}

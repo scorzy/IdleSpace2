@@ -163,6 +163,7 @@
     <span>Notifications</span>
   </li>
   <li
+    *ngIf="!ms.game.firstRun || ms.game.enemyManager.maxLevel > 1"
     nz-menu-item
     nzMatchRouter
     routerLink="prestige"
@@ -174,6 +175,7 @@
     <span>Prestige</span>
   </li>
   <li
+    *ngIf="!ms.game.firstRun || ms.game.enemyManager.maxLevel > 3"
     nz-menu-item
     nzMatchRouter
     routerLink="expShop"
@@ -185,6 +187,7 @@
     <span>Exp Shop</span>
   </li>
   <li
+    *ngIf="!ms.game.firstRun || ms.game.enemyManager.maxLevel > 8"
     nz-menu-item
     nzMatchRouter
     routerLink="cards"

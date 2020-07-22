@@ -104,4 +104,27 @@
     </nz-form-label>
     <nz-switch name="ci" [(ngModel)]="os.showComponentsInfo"></nz-switch>
   </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="dd">
+      Show drones status
+    </nz-form-label>
+    <nz-switch name="dd" [(ngModel)]="os.showDronesStatus"></nz-switch>
+  </nz-form-item>
+
+  <h2>Tutorial info</h2>
+
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="t2">
+      Show operativity info
+    </nz-form-label>
+    <nz-switch name="t2" [(ngModel)]="os.operativityInfo"></nz-switch>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="t1">
+      Show districts info
+    </nz-form-label>
+    <nz-switch name="t1" [(ngModel)]="os.districtInfo"></nz-switch>
+  </nz-form-item>
 </form>
