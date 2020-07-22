@@ -40,7 +40,6 @@
                 ev.originalEvent.detail * -40 :
                 ev.originalEvent.wheelDelta),
               up = delta > 0;
-console.log($this);
             var prevent = function () {
               ev.stopPropagation();
               ev.preventDefault();
@@ -56,12 +55,10 @@ console.log($this);
             if (!up && -delta > scrollHeight - height - scrollTop) {
               // Scrolling down, but this will take us past the bottom.
               $this.scrollTop(scrollHeight);
-              console.log("prevent 1")
               return prevent();
             } else if (up && delta > scrollTop) {
               // Scrolling up, but this will take us past the top.
               $this.scrollTop(0);
-              console.log("prevent 2")
               return prevent();
             }
           }
@@ -75,5 +72,5 @@ console.log($this);
 <link rel="stylesheet" href="styles.70a6926627afb7291f71.css"></head>
 <body>
   <app-root></app-root>
-<script src="runtime-es2015.0dae8cbc97194c7caed4.js" type="module"></script><script src="runtime-es5.0dae8cbc97194c7caed4.js" nomodule defer></script><script src="polyfills-es5.49c9542644fb4260c74c.js" nomodule defer></script><script src="polyfills-es2015.eba2ff7f6f2f086eed53.js" type="module"></script><script src="scripts.b12e528c5d029b2e6e1c.js" defer></script><script src="main-es2015.011fc741e4d7b9441eab.js" type="module"></script><script src="main-es5.011fc741e4d7b9441eab.js" nomodule defer></script></body>
+<script src="runtime-es2015.0dae8cbc97194c7caed4.js" type="module"></script><script src="runtime-es5.0dae8cbc97194c7caed4.js" nomodule defer></script><script src="polyfills-es5.49c9542644fb4260c74c.js" nomodule defer></script><script src="polyfills-es2015.eba2ff7f6f2f086eed53.js" type="module"></script><script src="scripts.b12e528c5d029b2e6e1c.js" defer></script><script src="main-es2015.fa21b4ea4fd60310d9e8.js" type="module"></script><script src="main-es5.fa21b4ea4fd60310d9e8.js" nomodule defer></script></body>
 </html>

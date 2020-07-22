@@ -1,3 +1,8 @@
+22/07/2020
+-   Drone components info
+-   Space station buff
+-   Disabled megastructure research
+
 21/07/2020
 -   Warps notifications options
 -   Added info modals
