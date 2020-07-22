@@ -1,5 +1,5 @@
 22/07/2020
--   Drone components info
+-   More info
 -   Space station buff
 -   Disabled megastructure research
 
