@@ -56,6 +56,32 @@
         </nz-form-control>
       </nz-form-item>
     </form>
+    <div
+      *ngIf="
+        os.showComponentsInfo && ms.game.resourceManager.components.unlocked
+      "
+      class="text-secondary"
+    >
+      <!-- <i
+        nz-icon
+        nzType="fa-s:microchip"
+        nz-tooltip
+        nzTooltipPlacement="right"
+        nzTitle="Stored components, when full a new drone is created."
+      ></i> -->
+      <span
+        nz-tooltip
+        nzTooltipPlacement="right"
+        nzTitle="Stored components, when full a new drone is created."
+      >
+        Components:
+      </span>
+      <span class="monospace">
+        {{ unit.storedComponents | format }}/{{ unit.components }}
+        {{ unit.componentPercent | percent: "2.0-0" }}
+      </span>
+      <!-- <app-progress [progress]="unit.componentPercent"></app-progress> -->
+    </div>
   </div>
 
   <ng-template #priorityTemplate>

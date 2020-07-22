@@ -138,6 +138,11 @@ export class Worker extends Unit {
       .times(this.components)
       .minus(this.storedComponents)
       .max(0);
+    if (this.components.gt(0)) {
+      this.componentPercent = this.storedComponents
+        .div(this.components)
+        .toNumber();
+    } else this.componentPercent = 1;
   }
   postUpdate() {
     super.postUpdate();

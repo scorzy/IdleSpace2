@@ -1,3 +1,4 @@
+-   Drone components info
 -   Space station buff
 -   Disabled megastructure research
 

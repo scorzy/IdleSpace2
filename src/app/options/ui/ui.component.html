@@ -97,4 +97,11 @@
     </nz-form-label>
     <nz-switch name="pn" [(ngModel)]="os.disableProdStopNoti"></nz-switch>
   </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="ci">
+      Show components info
+    </nz-form-label>
+    <nz-switch name="ci" [(ngModel)]="os.showComponentsInfo"></nz-switch>
+  </nz-form-item>
 </form>

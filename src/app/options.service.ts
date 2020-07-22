@@ -24,6 +24,7 @@ export class OptionsService {
   disableSmallWarpNoti = false;
   disableAllWarpNoti = false;
   disableProdStopNoti = false;
+  showComponentsInfo = true;
   constructor() {
     try {
       const n = 1.1;
@@ -66,7 +67,8 @@ export class OptionsService {
       n: this.numFormat,
       w1: this.disableAllWarpNoti,
       w2: this.disableSmallWarpNoti,
-      ps: this.disableProdStopNoti
+      ps: this.disableProdStopNoti,
+      ci: this.showComponentsInfo
     };
   }
   load(data: any) {
@@ -80,6 +82,7 @@ export class OptionsService {
     if ("w1" in data) this.disableAllWarpNoti = data.w1;
     if ("w2" in data) this.disableSmallWarpNoti = data.w2;
     if ("ps" in data) this.disableProdStopNoti = data.ps;
+    if ("ci" in data) this.showComponentsInfo = data.ci;
     this.generateFormatter();
   }
 }

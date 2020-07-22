@@ -41,7 +41,6 @@
                 ev.originalEvent.detail * -40 :
                 ev.originalEvent.wheelDelta),
               up = delta > 0;
-console.log($this);
             var prevent = function () {
               ev.stopPropagation();
               ev.preventDefault();
@@ -57,12 +56,10 @@ console.log($this);
             if (!up && -delta > scrollHeight - height - scrollTop) {
               // Scrolling down, but this will take us past the bottom.
               $this.scrollTop(scrollHeight);
-              console.log("prevent 1")
               return prevent();
             } else if (up && delta > scrollTop) {
               // Scrolling up, but this will take us past the top.
               $this.scrollTop(0);
-              console.log("prevent 2")
               return prevent();
             }
           }

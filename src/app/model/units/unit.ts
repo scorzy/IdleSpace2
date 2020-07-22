@@ -37,6 +37,7 @@ export class Unit implements IBase, IUnlockable {
   needComponents = ZERO;
   components = COMPONENT_PRICE;
   componentsTemp = COMPONENT_PRICE;
+  componentPercent = 0;
 
   quantity = new Decimal();
   private _quantityOld = this.quantity;
