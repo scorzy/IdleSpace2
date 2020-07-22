@@ -5,7 +5,14 @@
   [nzInlineCollapsed]="isCollapsed && !notCollapsed"
   class="first"
 >
-  <li nz-menu-item nzMatchRouter [routerLink]="'units/w'">
+  <li
+    nz-menu-item
+    nzMatchRouter
+    [routerLink]="'units/w'"
+    nz-tooltip
+    nzTooltipPlacement="right"
+    [nzTitle]="isCollapsed ? 'Workers' : ''"
+  >
     <i nz-icon nzType="my:vintage-robot"></i>
     <span>Workers</span>
   </li>
@@ -18,6 +25,9 @@
     nzMatchRouter
     *ngIf="ms.game.resourceManager.unlockedSpaceStations.length > 0"
     [routerLink]="'space'"
+    nz-tooltip
+    nzTooltipPlacement="right"
+    [nzTitle]="isCollapsed ? 'Space Stations' : ''"
   >
     <i nz-icon nzType="my:defense-satellite"></i>
     <span>Space Stations</span>
@@ -27,6 +37,9 @@
     nzMatchRouter
     [routerLink]="'lab'"
     *ngIf="ms.game.resourceManager.scientist.unlocked"
+    nz-tooltip
+    nzTooltipPlacement="right"
+    [nzTitle]="isCollapsed ? 'Laboratory' : ''"
   >
     <i nz-icon nzType="fa-s:flask"></i>
     <span>Laboratory</span>
@@ -36,6 +49,9 @@
     nzMatchRouter
     [routerLink]="'tech'"
     *ngIf="ms.game.researchManager.researches[0].quantity.gt(0)"
+    nz-tooltip
+    nzTooltipPlacement="right"
+    [nzTitle]="isCollapsed ? 'Technologies' : ''"
   >
     <i nz-icon nzType="fa-s:book"></i>
     <span>Technologies</span>
@@ -45,6 +61,9 @@
     nzMatchRouter
     [routerLink]="'tree'"
     *ngIf="ms.game.resourceManager.scientist.unlocked"
+    nz-tooltip
+    nzTooltipPlacement="right"
+    [nzTitle]="isCollapsed ? 'Tree' : ''"
   >
     <i nz-icon nzType="fa-s:project-diagram"></i>
     <span>Tree</span>
@@ -54,6 +73,9 @@
     nzMatchRouter
     [routerLink]="'fleet'"
     *ngIf="ms.game.researchManager.researches[0].quantity.gt(0)"
+    nz-tooltip
+    nzTooltipPlacement="right"
+    [nzTitle]="isCollapsed ? 'Fleet' : ''"
   >
     <i nz-icon nzType="my:strafe"></i>
     <span>Fleet</span>
@@ -63,6 +85,9 @@
     nzMatchRouter
     [routerLink]="'/des'"
     *ngIf="ms.game.researchManager.researches[0].quantity.gt(0)"
+    nz-tooltip
+    nzTooltipPlacement="right"
+    [nzTitle]="isCollapsed ? 'Designs' : ''"
   >
     <i nz-icon nzType="fa-s:pencil-ruler"></i>
     <span>Designs</span>
@@ -72,6 +97,9 @@
     nzMatchRouter
     [routerLink]="'/modules'"
     *ngIf="ms.game.researchManager.researches[0].quantity.gt(0)"
+    nz-tooltip
+    nzTooltipPlacement="right"
+    [nzTitle]="isCollapsed ? 'Modules' : ''"
   >
     <i nz-icon nzType="fa-s:table"></i>
     <span>Modules</span>
@@ -81,6 +109,9 @@
     nzMatchRouter
     routerLink="enemyList"
     *ngIf="ms.game.researchManager.researches[0].quantity.gt(0)"
+    nz-tooltip
+    nzTooltipPlacement="right"
+    [nzTitle]="isCollapsed ? 'Enemies' : ''"
   >
     <i nz-icon nzType="fa-s:search"></i>
     <span>Enemies</span>
@@ -90,11 +121,21 @@
     nzMatchRouter
     routerLink="battle"
     *ngIf="ms.game.researchManager.researches[0].quantity.gt(0)"
+    nz-tooltip
+    nzTooltipPlacement="right"
+    [nzTitle]="isCollapsed ? 'Battle' : ''"
   >
     <i nz-icon nzType="fa-s:crosshairs"></i>
     <span>Battle</span>
   </li>
-  <li nz-menu-item nzMatchRouter routerLink="automation">
+  <li
+    nz-menu-item
+    nzMatchRouter
+    routerLink="automation"
+    nz-tooltip
+    nzTooltipPlacement="right"
+    [nzTitle]="isCollapsed ? 'Automation' : ''"
+  >
     <i nz-icon nzType="sync"></i>
     <span>Automation</span>
   </li>
@@ -103,35 +144,88 @@
     nzMatchRouter
     routerLink="report-list"
     *ngIf="ms.game.researchManager.researches[0].quantity.gt(0)"
+    nz-tooltip
+    nzTooltipPlacement="right"
+    [nzTitle]="isCollapsed ? 'Reports' : ''"
   >
     <i nz-icon nzType="fa-s:chart-bar"></i>
     <span>Reports</span>
   </li>
-  <li nz-menu-item nzMatchRouter [routerLink]="'noti'">
+  <li
+    nz-menu-item
+    nzMatchRouter
+    [routerLink]="'noti'"
+    nz-tooltip
+    nzTooltipPlacement="right"
+    [nzTitle]="isCollapsed ? 'Notifications' : ''"
+  >
     <i nz-icon nzType="notification" nzTheme="outline"></i>
     <span>Notifications</span>
   </li>
-  <li nz-menu-item nzMatchRouter routerLink="prestige">
+  <li
+    nz-menu-item
+    nzMatchRouter
+    routerLink="prestige"
+    nz-tooltip
+    nzTooltipPlacement="right"
+    [nzTitle]="isCollapsed ? 'Prestige' : ''"
+  >
     <i nz-icon nzType="arrow-up" nzTheme="outline"></i>
     <span>Prestige</span>
   </li>
-  <li nz-menu-item nzMatchRouter routerLink="expShop">
+  <li
+    nz-menu-item
+    nzMatchRouter
+    routerLink="expShop"
+    nz-tooltip
+    nzTooltipPlacement="right"
+    [nzTitle]="isCollapsed ? 'Exp Shop' : ''"
+  >
     <i nz-icon nzType="shop" nzTheme="fill"></i>
     <span>Exp Shop</span>
   </li>
-  <li nz-menu-item nzMatchRouter routerLink="cards">
+  <li
+    nz-menu-item
+    nzMatchRouter
+    routerLink="cards"
+    nz-tooltip
+    nzTooltipPlacement="right"
+    [nzTitle]="isCollapsed ? 'Cards' : ''"
+  >
     <i nz-icon nzType="fa-s:layer-group" nzTheme="fill"></i>
     <span>Cards</span>
   </li>
-  <li nz-menu-item nzMatchRouter routerLink="warp">
+  <li
+    nz-menu-item
+    nzMatchRouter
+    routerLink="warp"
+    *ngIf="!ms.game.firstRun || ms.game.darkMatter.gt(1)"
+    nz-tooltip
+    nzTooltipPlacement="right"
+    [nzTitle]="isCollapsed ? 'Warps' : ''"
+  >
     <i nz-icon nzType="field-time" nzTheme="outline"></i>
     <span>Warps</span>
   </li>
-  <li nz-menu-item nzMatchRouter [routerLink]="'options'">
+  <li
+    nz-menu-item
+    nzMatchRouter
+    [routerLink]="'options'"
+    nz-tooltip
+    nzTooltipPlacement="right"
+    [nzTitle]="isCollapsed ? 'Options' : ''"
+  >
     <i nz-icon nzType="setting"></i>
     <span>Options</span>
   </li>
-  <li nz-menu-item nzMatchRouter [routerLink]="'info'">
+  <li
+    nz-menu-item
+    nzMatchRouter
+    [routerLink]="'info'"
+    nz-tooltip
+    nzTooltipPlacement="right"
+    [nzTitle]="isCollapsed ? 'Info' : ''"
+  >
     <i nz-icon nzType="info-circle" nzTheme="outline"></i>
     <span>Info</span>
   </li>
