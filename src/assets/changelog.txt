@@ -1,3 +1,7 @@
+23/07/2020
+-   Auto search fix
+-   Battle stop  fix
+
 22/07/2020
 -   More info
 -   Space station buff
