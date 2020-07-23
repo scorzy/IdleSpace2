@@ -18,9 +18,7 @@
     {{ ms.game.lockedDarkMatter | time }}
   </strong>
   Dark Matter. Now you have
-  <strong class="monospace">
-    {{ ms.game.darkMatter | time }} </strong
-  >.
+  <strong class="monospace"> {{ ms.game.darkMatter | time }} </strong>.
   <br />
   Your will gain
   <strong class="monospace" [class.text-success]="newSlots > 0">
@@ -31,9 +29,15 @@
 <p>
   Reset everything except "Exp Shop" and ship design. Ship design with locked
   module becomes blueprint. You will be able to defeat enemies again and gain
-  Experience. The "experience multiplier" multiply the effectiveness of
-  experience spent. "experience multiplier" is based on the max level of
-  defeated enemy.
+  Experience.
+  <br />
+  The "experience multiplier" multiply the effectiveness of experience spent.
+  "experience multiplier" is based on the max level of defeated enemy. Every
+  experience point spent is counted as "experience multiplier" instead of one.
+  <br />
+  Defeat an enemy of level
+  <strong class="monospace">{{ nextEnemy | format: true }}</strong> to gain more
+  experience.
 </p>
 
 <button nz-button nzType="primary" nzSize="large" (click)="ms.game.prestige()">

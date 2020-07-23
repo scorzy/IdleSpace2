@@ -6,7 +6,7 @@ import {
   AfterViewInit
 } from "@angular/core";
 import { BaseComponentComponent } from "../base-component/base-component.component";
-import { LEVEL_PER_CARD } from "../model/CONSTANTS";
+import { LEVEL_PER_CARD, ENEMY_EXP_START_LEVEL } from "../model/CONSTANTS";
 
 @Component({
   selector: "app-prestige",
@@ -17,11 +17,20 @@ import { LEVEL_PER_CARD } from "../model/CONSTANTS";
 export class PrestigeComponent extends BaseComponentComponent
   implements OnInit, OnDestroy, AfterViewInit {
   newSlots = 0;
+  nextEnemy = 0;
   ngOnInit() {
     this.newSlots = this.getNextCardSlots();
+    this.nextEnemy = Math.max(
+      this.ms.game.enemyManager.maxLevel,
+      ENEMY_EXP_START_LEVEL
+    );
     super.ngOnInit();
     this.subscriptions.push(
       this.ms.updateEmitter.subscribe((ev) => {
+        this.nextEnemy = Math.max(
+          this.ms.game.enemyManager.maxLevel,
+          ENEMY_EXP_START_LEVEL
+        );
         this.newSlots = this.getNextCardSlots();
       })
     );
