@@ -7,7 +7,11 @@ export class AutoAttackOption {
     return ret;
   }
   load(data: any) {
-    if ("a" in data) { this.autoAttack = data.a; }
-    if ("m" in data) { this.minPercent = data.m; }
+    if ("a" in data) {
+      this.autoAttack = data.a;
+    }
+    if ("m" in data) {
+      this.minPercent = data.m;
+    }
   }
 }

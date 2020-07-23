@@ -30,7 +30,7 @@ import { WarpComponent } from "./warp/warp.component";
 import { CardsComponent } from "./cards/cards.component";
 import { InfoComponent } from "./info/info.component";
 export const routes: Routes = [
-  { path: "", pathMatch: "full", redirectTo: "/units/ws" },
+  { path: "", pathMatch: "full", redirectTo: "/info" },
   { path: "des", pathMatch: "full", redirectTo: "/des/add" },
   { path: "enemyList", pathMatch: "full", redirectTo: "/enemyList/search" },
   { path: "units/:id", pathMatch: "full", component: UnitsComponent },

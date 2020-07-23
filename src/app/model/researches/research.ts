@@ -269,7 +269,8 @@ export class Research extends Job implements IUnlockable, IBase {
   }
   unlock(): boolean {
     const resM = Game.getGame().researchManager;
-    this.unlocked = resM.unlock(this);
+    const result = resM.unlock(this);
+    this.unlocked = this.unlocked || result;
     return this.unlocked;
   }
   setLevels() {
