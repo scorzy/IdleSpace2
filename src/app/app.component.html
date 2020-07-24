@@ -78,7 +78,7 @@
       </span>
       <div class="ant-notification-notice-message">{{ myNoti.title }}</div>
       <!-- prettier-ignore -->
-      <div class="ant-notification-notice-description">{{ myNoti.description }}</div>
+      <div class="ant-notification-notice-description" *ngIf="myNoti.description !== ''">{{ myNoti.description }}</div>
     </div>
   </div>
 </ng-template>

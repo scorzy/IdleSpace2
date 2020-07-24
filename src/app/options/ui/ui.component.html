@@ -112,11 +112,18 @@
     <nz-switch name="dd" [(ngModel)]="os.showDronesStatus"></nz-switch>
   </nz-form-item>
 
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="sp">
+      Space station completed notifications
+    </nz-form-label>
+    <nz-switch name="sp" [(ngModel)]="os.spaceStationNotifications"></nz-switch>
+  </nz-form-item>
+
   <h2>Tutorial info</h2>
 
   <nz-form-item>
     <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="t2">
-      Show operativity info
+      Space Stations completed notifications
     </nz-form-label>
     <nz-switch name="t2" [(ngModel)]="os.operativityInfo"></nz-switch>
   </nz-form-item>

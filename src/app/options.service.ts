@@ -26,6 +26,7 @@ export class OptionsService {
   disableProdStopNoti = false;
   showComponentsInfo = true;
   showDronesStatus = true;
+  spaceStationNotifications = true;
 
   districtInfo = true;
   operativityInfo = true;
@@ -75,7 +76,8 @@ export class OptionsService {
       ci: this.showComponentsInfo,
       ds: this.showDronesStatus,
       t1: this.districtInfo,
-      t2: this.operativityInfo
+      t2: this.operativityInfo,
+      s: this.spaceStationNotifications
     };
   }
   load(data: any) {
@@ -91,6 +93,7 @@ export class OptionsService {
     if ("ps" in data) this.disableProdStopNoti = data.ps;
     if ("ci" in data) this.showComponentsInfo = data.ci;
     if ("ds" in data) this.showDronesStatus = data.ds;
+    if ("s" in data) this.spaceStationNotifications = data.s;
 
     if ("t1" in data) this.districtInfo = data.t1;
     if ("t2" in data) this.operativityInfo = data.t2;

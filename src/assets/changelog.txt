@@ -1,3 +1,7 @@
+24/07/2020
+-   Space station completed notifications options
+-   Threat balancement
+
 23/07/2020
 -   Auto search fix
 -   Battle stop  fix
