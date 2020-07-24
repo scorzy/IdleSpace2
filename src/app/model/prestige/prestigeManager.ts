@@ -22,7 +22,8 @@ import {
   TECHNOLOGY_CARD,
   COMPUTING_REGENERATION_CARD,
   VELOCITY_PRESTIGE_MULTI,
-  PRODUCTION_PEACE_CARD
+  PRODUCTION_PEACE_CARD,
+  BETTER_SPACE_STATION_PRESTIGE
 } from "../CONSTANTS";
 import { Game } from "../game";
 import {
@@ -218,6 +219,23 @@ export class PrestigeManager {
     Game.getGame().idleTimeMultipliers.bonuses.push(
       new Bonus(moreIdle, new Decimal(MORE_UP_PRESTIGE))
     );
+
+    const moreSpaceStationSpace = new PrestigePoint();
+    moreSpaceStationSpace.id = "m2";
+    moreSpaceStationSpace.name = "Better Space Stations";
+    moreSpaceStationSpace.description =
+      "+" +
+      BETTER_SPACE_STATION_PRESTIGE * 100 +
+      "% habitable space from space stations";
+    moreSpaceStationSpace.price = new Decimal(PRESTIGE_PRICE);
+    this.prestigePoints.push(moreSpaceStationSpace);
+    miscList.push(moreSpaceStationSpace);
+    Game.getGame().resourceManager.spaceStations.forEach((spaceStation) => {
+      spaceStation.habSpaceStack.bonuses.push(
+        new Bonus(moreSpaceStationSpace, new Decimal(MORE_UP_PRESTIGE))
+      );
+    });
+
     //#endregion
   }
   generateCards() {

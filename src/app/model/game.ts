@@ -426,6 +426,7 @@ export class Game {
 
     // this.prestigeManager.maxCards = 5;
     // this.darkMatter = new Decimal(1e20);
+    // this.prestigeManager.experience = new Decimal(1e4);
   }
   //#endregion
 }

@@ -137,6 +137,7 @@ export const COMPONENT_PRESTIGE_MULTI = 0.3;
 export const VELOCITY_PRESTIGE_MULTI = 0.1;
 export const MORE_UP_PRESTIGE = 0.5;
 export const SIX_HOURS = 3600 * 6;
+export const BETTER_SPACE_STATION_PRESTIGE = 0.2;
 
 //  Prestige Card
 export const LEVEL_PER_CARD = 10;
