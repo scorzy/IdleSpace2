@@ -61,7 +61,7 @@ export const modules: ModuleData[] = [
     id: "E",
     name: "Stealth Armour",
     armour: MODULE_ARMOUR * 0.7,
-    threatGainMulti: 0.7,
+    threatGainMulti: 0.5,
     threat: BASE_THREAT * -0.5,
     technologies: [
       { technologyId: TECHNOLOGIES.MilitaryEngineering.id, multi: 1 },
@@ -122,7 +122,7 @@ export const modules: ModuleData[] = [
     id: "O",
     name: "Stealth Shield",
     shield: MODULE_SHIELD * 0.7,
-    threatGainMulti: 0.7,
+    threatGainMulti: 0.5,
     threat: BASE_THREAT * -0.5,
     technologies: [
       { technologyId: TECHNOLOGIES.MilitaryEngineering.id, multi: 1 },
@@ -254,14 +254,14 @@ export const modules: ModuleData[] = [
     name: "Ion Cannon",
     energy: -1,
     price: DEFAULT_MODULE_PRICE * 1.5,
-    damage: MODULE_DAMAGE,
+    damage: MODULE_DAMAGE * 0.8,
     shieldDamagePercent: 175,
     armourDamagePercent: 25,
     technologies: [
       { technologyId: TECHNOLOGIES.Physics.id, multi: 1.3 },
       { technologyId: TECHNOLOGIES.MilitaryEngineering.id, multi: 0.7 }
     ],
-    threatGainMulti: 2,
+    threatGainMulti: 2.5,
     shape: "my:ion-cannon-blast"
   },
   {
@@ -355,7 +355,7 @@ export const modules: ModuleData[] = [
       { technologyId: TECHNOLOGIES.CivilEngineering.id, multi: 1 },
       { technologyId: TECHNOLOGIES.Mining.id, multi: 1 }
     ],
-    threatGainMulti: 0.7,
+    threatGainMulti: 0.6,
     shape: "my:mining"
   },
   {
@@ -369,7 +369,7 @@ export const modules: ModuleData[] = [
       { technologyId: TECHNOLOGIES.CivilEngineering.id, multi: 1 },
       { technologyId: TECHNOLOGIES.Energy.id, multi: 1 }
     ],
-    threatGainMulti: 0.7,
+    threatGainMulti: 0.6,
     shape: "my:focused-lightning"
   },
   //#endregion
@@ -453,7 +453,7 @@ export const modules: ModuleData[] = [
       { technologyId: TECHNOLOGIES.Materials.id, multi: 1 }
     ],
     energy: -1,
-    threatGainMulti: 0.4,
+    threatGainMulti: 0.3,
     threat: BASE_THREAT * -1,
     shape: "my:targeting"
   },
@@ -464,7 +464,7 @@ export const modules: ModuleData[] = [
       { technologyId: TECHNOLOGIES.MilitaryEngineering.id, multi: 1 },
       { technologyId: TECHNOLOGIES.Materials.id, multi: 1 }
     ],
-    threatGainMulti: 0.65,
+    threatGainMulti: 0.55,
     shape: "my:cube"
   },
   {
@@ -492,7 +492,7 @@ export const modules: ModuleData[] = [
     ],
     shape: "wifi",
     energy: -1,
-    threat: MODULE_DAMAGE * 2
+    threat: MODULE_DAMAGE * 3
   },
   {
     id: "tb",
@@ -503,7 +503,7 @@ export const modules: ModuleData[] = [
     ],
     shape: "my:magnet-blast",
     energy: -2,
-    threat: MODULE_DAMAGE * 4
+    threat: MODULE_DAMAGE * 5
   },
   //#endregion
   //#region Thrusters
