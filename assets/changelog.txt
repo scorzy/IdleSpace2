@@ -1,3 +1,9 @@
+24/07/2020
+-   Space station completed notifications options
+-   Added "Better Space Stations" to exp shop
+-   Added "Auto Surrender"
+-   Threat balancement
+
 23/07/2020
 -   Auto search fix
 -   Battle stop  fix
