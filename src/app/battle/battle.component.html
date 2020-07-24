@@ -29,13 +29,6 @@
         Options
       </button>
     </nz-button-group>
-    <!-- <nz-button-group>
-      <button nz-button nzType="primary" (click)="attack(0)">Attack 1</button>
-      <button nz-button nzType="primary" (click)="attack(1)">Attack 2</button>
-      <button nz-button nzType="primary" (click)="attack(2)">Attack 3</button>
-      <button nz-button nzType="primary" (click)="attack(3)">Attack 4</button>
-      <button nz-button nzType="primary" (click)="attack(4)">Attack 5</button>
-    </nz-button-group> -->
 
     <strong>Automation:</strong>
     <form nz-form [nzLayout]="'inline'" class="auto-attack-form">
@@ -49,15 +42,6 @@
           ></nz-switch>
         </nz-form-control>
       </nz-form-item>
-
-      <!-- <nz-form-item>
-        <nz-form-control>
-          <button nz-button nzType="default" (click)="autoAttackOptions = true">
-            <i nz-icon nzType="setting" nzTheme="outline"></i>
-            Options
-          </button>
-        </nz-form-control>
-      </nz-form-item> -->
 
       <nz-form-item>
         <nz-form-label nzFor="autoNext">Next</nz-form-label>
@@ -97,6 +81,12 @@
       *ngIf="ms.game.enemyManager.currentEnemy"
       [currentEnemy]="ms.game.enemyManager.currentEnemy"
     ></app-battle-table>
+
+    <br />
+    <span>
+      Losing streak:
+      <span class="monospace">{{ ms.game.enemyManager.lostRow }}</span>
+    </span>
   </div>
 
   <div fxFlex="1 1 calc(50% - 10px)">

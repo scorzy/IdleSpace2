@@ -51,6 +51,7 @@ export class EnemyManager extends JobManager {
   autoNuke = true;
   autoAttackOptions: AutoAttackOption[];
   private rewardString = "";
+  lostRow = 0;
   //#region Bonus
   districtMultiplier: BonusStack = new BonusStack();
   habSpaceMultiplier: BonusStack = new BonusStack();
@@ -265,6 +266,7 @@ export class EnemyManager extends JobManager {
     cell.inBattle = false;
     if (this.currentEnemy) {
       if (cell.done) {
+        this.lostRow = 0;
         this.reward(cell, fleetNum);
         battleResult.won = true;
         //#region Research Inspiration
@@ -303,6 +305,7 @@ export class EnemyManager extends JobManager {
           );
         }
       } else {
+        this.lostRow++;
         Game.getGame().notificationManager.addNotification(
           new MyNotification(
             NotificationTypes.BATTLE_LOST,
@@ -318,6 +321,7 @@ export class EnemyManager extends JobManager {
   }
   surrender() {
     this.currentEnemy = null;
+    this.lostRow = 0;
   }
   reward(cell: Cell, fleetNum: number) {
     //  Card Warp
@@ -463,7 +467,8 @@ export class EnemyManager extends JobManager {
       e: this.enemies.map((en) => en.getSave()),
       t: this.toDo.map((t) => t.getSave()),
       m: this.maxLevel,
-      a: this.autoAttackOptions.map((auto) => auto.getSave())
+      a: this.autoAttackOptions.map((auto) => auto.getSave()),
+      l: this.lostRow
     };
     if (this.autoNext) {
       ret.x = this.autoNext;
@@ -481,6 +486,7 @@ export class EnemyManager extends JobManager {
       ret.c = this.currentEnemy.getSave();
     }
     if (this.autoNuke) ret.n = true;
+
     return ret;
   }
   load(data: any) {
@@ -531,6 +537,7 @@ export class EnemyManager extends JobManager {
       this.autoNext = data.x;
     }
     if ("n" in data) this.autoNuke = data.n;
+    if ("l" in data) this.lostRow = data.l;
   }
   //#endregion
 }

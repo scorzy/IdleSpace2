@@ -5,6 +5,7 @@ import { AutoWorker } from "./autoWorker";
 import { AutoFleetUpdate } from "./autoFleetUpdate";
 import { AutoSearch } from "./autoSearch";
 import { SpaceStationAutoBuyer } from "./spaceStationAutoBuyer";
+import { AutoSurrender } from "./autoSurrender";
 
 export class AutomationManager {
   on = true;
@@ -13,6 +14,7 @@ export class AutomationManager {
   fleetUpdater: AutoFleetUpdate;
   autoSearch: AutoSearch;
   spaceStationAutoBuyer: SpaceStationAutoBuyer;
+  autoSurrender: AutoSurrender;
 
   constructor() {
     const game = Game.getGame();
@@ -31,6 +33,9 @@ export class AutomationManager {
 
     this.spaceStationAutoBuyer = new SpaceStationAutoBuyer();
     this.autobuyers.push(this.spaceStationAutoBuyer);
+
+    this.autoSurrender = new AutoSurrender();
+    this.autobuyers.push(this.autoSurrender);
 
     this.autobuyers.forEach((a) => a.reload());
     this.sort();

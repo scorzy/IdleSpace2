@@ -1,0 +1,47 @@
+<form nz-form nzLayout="inline">
+  <nz-form-item>
+    <nz-form-label
+      nz-popover
+      nzPopoverTitle="Auto Surrender"
+      [nzPopoverContent]="autoInfoTemplate"
+    >
+      On
+    </nz-form-label>
+    <nz-form-control>
+      <nz-input-group nzCompact>
+        <nz-switch
+          name="surr"
+          [(ngModel)]="ms.game.automationManager.autoSurrender.on"
+          nzSize="small"
+        ></nz-switch>
+        <nz-input-number
+          nzSize="small"
+          name="losing-streak"
+          nzMin="1"
+          [(ngModel)]="ms.game.automationManager.autoSurrender.losingStreak"
+        ></nz-input-number>
+        <nz-select
+          nzSize="small"
+          class="autoTime"
+          [(ngModel)]="ms.game.automationManager.autoSurrender.interval"
+          name="surr-i"
+        >
+          <nz-option
+            *ngFor="let interval of INTERVALS; trackBy: getIntervalId"
+            [nzLabel]="interval.label"
+            [nzValue]="interval.value"
+          ></nz-option>
+        </nz-select>
+      </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
+</form>
+
+<ng-template #autoInfoTemplate>
+  Options:
+  <ul>
+    <li>On / Off</li>
+    <li>Losing Streak</li>
+    <li>Interval</li>
+  </ul>
+</ng-template>
