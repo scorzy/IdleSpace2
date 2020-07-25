@@ -13,7 +13,7 @@ import { MainService } from "src/app/main.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { ONE } from "src/app/model/CONSTANTS";
 import { Module } from "src/app/model/shipyard/module";
-import { fadeIn } from "src/app/animations";
+import { fadeIn, fade } from "src/app/animations";
 import { OptionsService } from "src/app/options.service";
 import { BaseComponentComponent } from "src/app/base-component/base-component.component";
 import { IShipModule } from "src/app/model/shipyard/IShipModule";
@@ -24,7 +24,7 @@ declare let numberformat;
   selector: "app-edit",
   templateUrl: "./edit.component.html",
   styleUrls: ["./edit.component.scss"],
-  animations: [fadeIn],
+  animations: [fadeIn, fade],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EditComponent extends BaseComponentComponent

@@ -209,8 +209,13 @@
         Delete Design
       </button>
     </nz-button-group>
+
     <div style="margin-top: 0.5rem;" *ngIf="otherDesigns.length > 0">
-      <nz-form-label>Next Design</nz-form-label>
+      <nz-form-label
+        nz-tooltip
+        nzTooltipTitle="Next design will be used instead of this whe available."
+        >Next Design</nz-form-label
+      >
       <nz-select
         class="next-select"
         [(ngModel)]="original.next"
@@ -227,14 +232,32 @@
     </div>
 
     <nz-alert
+      *ngIf="design.energy < 0"
+      nzType="warning"
+      nzMessage="Energy is to low."
+      @fade
+      nzShowIcon
+    ></nz-alert>
+    <nz-alert
+      *ngIf="design.totalPoints > design.type.maxPoints"
+      nzType="warning"
+      nzMessage="Too many module points."
+      @fade
+      nzShowIcon
+    ></nz-alert>
+    <nz-alert
       *ngIf="!design.available"
       nzType="info"
       nzMessage="Blueprint. Cannot be built."
+      nzShowIcon
+      @fade
     ></nz-alert>
     <nz-alert
       *ngIf="blueprintWarning"
       nzType="error"
       nzMessage="Blueprint. Cannot update existing ships to a blueprint."
+      nzShowIcon
+      @fade
     ></nz-alert>
   </div>
 

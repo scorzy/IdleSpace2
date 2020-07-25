@@ -10,7 +10,7 @@ import {
 import { MainService } from "./main.service";
 import { NzNotificationService } from "ng-zorro-antd/notification";
 import { OptionsService } from "./options.service";
-import { fadeIn } from "./animations";
+import { fadeIn, fade } from "./animations";
 import { Subscription } from "rxjs";
 import {
   MyNotification,
@@ -22,7 +22,7 @@ import {
   templateUrl: "./app.component.html",
   styleUrls: ["./app.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  animations: [fadeIn]
+  animations: [fadeIn, fade]
 })
 export class AppComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
