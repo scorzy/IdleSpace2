@@ -54,6 +54,8 @@ export class Enemy {
   private favouriteWeapons: Module[];
   private favouriteDefences: Module[];
   private basicDefences: Module[];
+  private tankTools: Module[];
+  private precisionTools: Module[];
   private modLevel = 1;
   private weaponDefenceRatio = 0;
   private maxGenerator = 1;
@@ -143,7 +145,7 @@ export class Enemy {
       Math.min(
         BASE_NAVAL_CAPACITY -
           4 +
-          Math.pow(ENEMY_NAVAL_CAP_LEVEL * this.level, 0.9),
+          Math.pow(ENEMY_NAVAL_CAP_LEVEL * this.level, 0.86),
         FLEET_CAPACITY
       );
     let defPercent = 0;
@@ -190,11 +192,6 @@ export class Enemy {
         sm.allGenerators.length - 1
       );
       this.maxGenerator = sm.allGenerators[maxGen].energy;
-      this.favouriteDefences = shuffle(
-        sm.allDefences.filter(
-          (d) => d.armourDamageReduction > 0 || d.shieldDamageReduction
-        )
-      ).slice(0, 2);
       this.preferHighLevGen = Math.random() > 0.5;
       //#endregion
       //#region Defences
@@ -205,6 +202,18 @@ export class Enemy {
       } else if (rnd < 0.32) {
         this.basicDefences.push(sm.shield);
       }
+
+      this.favouriteDefences = shuffle(
+        sm.allDefences.filter(
+          (d) => d.armourDamageReduction > 0 || d.shieldDamageReduction
+        )
+      ).slice(0, 2);
+
+      this.tankTools = shuffle(sm.allOthers.filter((d) => d.threat > 0)).slice(
+        0,
+        1
+      );
+      console.log(this.tankTools);
       //#endregion
       //#region Weapons
       const allowedShipTypes = sm.shipTypes.slice(0, maxShip);
@@ -241,6 +250,12 @@ export class Enemy {
         this.favouriteWeapons.push(favouriteWeapon);
       }
       this.favouriteWeapons.push(favouriteWeapon);
+
+      this.precisionTools = shuffle(
+        sm.allOthers.filter(
+          (mod) => mod.precision > 0 || mod.adaptivePrecision > 0
+        )
+      ).slice(0, 1);
       //#endregion
       sum = 0;
       for (let i = 0; i < designNum; i++) {
@@ -491,33 +506,89 @@ export class Enemy {
         !(energy === 0 && usedPoints - design.type.maxPoints === 1)
       ) {
         if (
-          Math.random() + (lastWasWeapon ? -0.2 : +0.2) >
+          Math.random() + (lastWasWeapon ? -0.1 : +0.1) >
           this.weaponDefenceRatio
         ) {
           // Add Weapon
           module = sample(this.favouriteWeapons);
           lastWasWeapon = true;
+
+          const totalWeapons = design.modules.reduce(
+            (prev, cur) => prev + (cur.module.damage > 0 ? cur.size : 0),
+            0
+          );
+          const totalPrecision = design.modules.reduce(
+            (prev, cur) =>
+              prev +
+              (cur.module.precision > 0 || cur.module.adaptivePrecision > 0
+                ? cur.size
+                : 0),
+            0
+          );
+          if (
+            totalWeapons > 5 &&
+            totalPrecision < totalWeapons * 0.6 &&
+            Math.random() > 0.35
+          ) {
+            module = sample(this.precisionTools);
+          }
         } else {
           // Add Defence
-          const chooseList = this.basicDefences.slice(0);
-          if (design.modules.findIndex((m) => m.module.id === "A") > -1) {
-            this.favouriteDefences.forEach((def) => {
-              if (def.armourDamageReduction > 0) {
-                chooseList.push(def);
-              }
-            });
+          const totalDefences = design.modules.reduce(
+            (prev, cur) =>
+              prev +
+              (cur.module.armour > 0 ||
+              cur.module.shield > 0 ||
+              cur.module.armourDamageReduction > 0 ||
+              cur.module.shieldDamageReduction > 0
+                ? cur.size
+                : 0),
+            0
+          );
+          const totalTank = design.modules.reduce(
+            (prev, cur) => prev + (cur.module.threat ? cur.size : 0),
+            0
+          );
+          let chooseList = this.basicDefences.slice(0);
+          if (
+            totalDefences > 5 &&
+            totalTank < totalDefences * 0.6 &&
+            Math.random() > 0.35
+          ) {
+            chooseList = this.tankTools.slice(0);
+          } else {
+            chooseList = this.basicDefences.slice(0);
+            if (design.modules.some((m) => m.module.id === "A")) {
+              let armourLevel = design.modules.reduce(
+                (prev, cur) => prev + (cur.module.id === "A" ? cur.size : 0),
+                0
+              );
+              if (armourLevel > 2)
+                this.favouriteDefences.forEach((def) => {
+                  if (def.armourDamageReduction > 0) {
+                    chooseList.push(def);
+                    chooseList.push(def);
+                  }
+                });
+            }
+            if (design.modules.some((m) => m.module.id === "s")) {
+              let shieldLevel = design.modules.reduce(
+                (prev, cur) => prev + (cur.module.id === "s" ? cur.size : 0),
+                0
+              );
+              if (shieldLevel > 2)
+                this.favouriteDefences.forEach((def) => {
+                  if (def.shieldDamageReduction > 0) {
+                    chooseList.push(def);
+                    chooseList.push(def);
+                  }
+                });
+            }
           }
-          if (design.modules.findIndex((m) => m.module.id === "s") > -1) {
-            this.favouriteDefences.forEach((def) => {
-              if (def.shieldDamageReduction > 0) {
-                chooseList.push(def);
-              }
-            });
-          }
-
           module = sample(chooseList);
           lastWasWeapon = false;
         }
+
         if (notEnergy && module.energy < 0) {
           module = sm.armour;
         }
@@ -526,6 +597,12 @@ export class Enemy {
           5,
           Math.max(1, Math.floor((design.type.maxPoints - usedPoints) / 4))
         );
+        if (
+          this.tankTools.some((m) => m.id === module.id) ||
+          this.precisionTools.some((m) => m.id === module.id)
+        ) {
+          pointToUse = Math.floor(Math.max(1, pointToUse / 2));
+        }
       } else {
         module = sm.armour;
       }
