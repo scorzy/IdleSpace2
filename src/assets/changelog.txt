@@ -1,3 +1,9 @@
+25/07/2020
+-   New "old style" ui for workers. Cards ui can be re enabled on ui options.
+-   Enemies now equip more modules.
+-   Auto search will delete higher level search or enemy in case there is nothing to attack.
+-   Added various contextual infos and Automation Info section
+
 24/07/2020
 -   Space station completed notifications options
 -   Added "Better Space Stations" to exp shop

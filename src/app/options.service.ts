@@ -27,7 +27,7 @@ export class OptionsService {
   showComponentsInfo = true;
   showDronesStatus = true;
   spaceStationNotifications = true;
-  listUi = false;
+  listUi = true;
   showDescriptions = true;
 
   districtInfo = true;

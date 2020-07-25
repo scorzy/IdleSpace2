@@ -1,16 +1,19 @@
 <div fxLayout="column" fxLayout.gt-xs="row wrap" fxLayoutGap="10px">
   <div
-    fxFlex.xs="0 0 calc(100%)"
-    fxFlex.sm="0 0 calc(50% -10px)"
-    fxFlex.md="0 0 calc(50% -10px)"
-    fxFlex.lg="0 0 calc(60% -10px)"
-    fxFlex.xl="0 0 calc(60% -10px)"
+    fxFlex.xs="1 1 calc(100%)"
+    fxFlex.sm="1 1 calc(100%)"
+    fxFlex.md="1 1 calc(50% -10px)"
+    fxFlex.lg="1 1 calc(60% -10px)"
+    fxFlex.xl="1 1 calc(60% -10px)"
     fxLayout="column"
     fxLayoutGap="12px"
   >
-    <app-unit-card *ngIf="unit" [unit]="unit"> </app-unit-card>
-    <app-unit-card *ngIf="building" [unit]="building"> </app-unit-card>
-    <app-unit-card *ngIf="storage" [unit]="storage"> </app-unit-card>
+    <app-unit-card class="min-width" *ngIf="unit" [unit]="unit">
+    </app-unit-card>
+    <app-unit-card class="min-width" *ngIf="building" [unit]="building">
+    </app-unit-card>
+    <app-unit-card class="min-width" *ngIf="storage" [unit]="storage">
+    </app-unit-card>
 
     <nz-card nzSize="small" *ngIf="unit.makers.length > 0">
       <h3>{{ unit.name }} production:</h3>
@@ -19,13 +22,13 @@
   </div>
 
   <div
-    fxFlex.xs="0 0 calc(100%)"
-    fxFlex.sm="0 0 calc(50% -10px)"
-    fxFlex.md="0 0 calc(50% -10px)"
-    fxFlex.lg="0 0 calc(40% -10px)"
-    fxFlex.xl="0 0 calc(40% -10px)"
+    fxFlex.xs="1 1 calc(100%)"
+    fxFlex.sm="1 1 calc(100%)"
+    fxFlex.md="1 1 calc(50% -10px)"
+    fxFlex.lg="1 1 calc(40% -10px)"
+    fxFlex.xl="1 1 calc(40% -10px)"
   >
-    <div fxLayout="column" fxLayoutGap="10px">
+    <div class="min-width" fxLayout="column" fxLayoutGap="10px">
       <nz-card nzSize="small" *ngIf="unit.production.length > 0">
         <h3>{{ unit.name }} produces:</h3>
         <app-prod-table
