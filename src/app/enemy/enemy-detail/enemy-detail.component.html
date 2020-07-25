@@ -30,6 +30,31 @@
       </nz-button-group>
     </div>
     <div>
+      <nz-alert
+        *ngIf="enemy.level > ms.game.enemyManager.maxLevel"
+        nzType="error"
+        nzMessage="Level is over max level, cannot attack."
+        [nzDescription]="
+          'Defeat any enemy of level ' +
+          ms.game.enemyManager.maxLevel +
+          ' to increase max level.'
+        "
+        nzShowIcon
+      >
+      </nz-alert>
+      <nz-alert
+        *ngIf="ms.game.enemyManager.currentEnemy"
+        nzType="info"
+        [nzMessage]="
+          'You are already attacking ' +
+          ms.game.enemyManager.currentEnemy.name +
+          ' lv. ' +
+          ms.game.enemyManager.currentEnemy.level
+        "
+        nzShowIcon
+      >
+      </nz-alert>
+
       <h3>Tiles</h3>
       <ul class="list-unstyled">
         <li

@@ -18,23 +18,26 @@
         (cdkDropListDropped)="drop($event)"
         id="backlog"
       >
-        <app-job
-          cdkDrag
-          class="job-box"
+        <ng-container
           *ngFor="
             let resToDo of ms.game.researchManager.backlog;
             trackBy: getResId
           "
-          [job]="resToDo"
-          [collection]="ms.game.researchManager.backlog"
-          [showDescription]="false"
         >
-          <div *cdkDragPreview>
-            <nz-card style="width: 300px;" nzSize="small">
-              <app-research-preview [research]="resToDo"></app-research-preview>
-            </nz-card>
-          </div>
-        </app-job>
+          <app-job
+            cdkDrag
+            class="job-box"
+            [job]="resToDo"
+            [collection]="ms.game.researchManager.backlog"
+            [showDescription]="false"
+            nz-popover
+            [nzPopoverContent]="contentTemplate"
+          >
+          </app-job>
+          <ng-template #contentTemplate>
+            <app-research-preview [research]="resToDo"></app-research-preview>
+          </ng-template>
+        </ng-container>
       </div>
     </div>
     <div fxFlex="50" class="research-container">
@@ -48,25 +51,28 @@
         (cdkDropListDropped)="drop($event)"
         id="toDo"
       >
-        <app-job
-          cdkDrag
-          class="job-box"
-          (cdkDragStarted)="start($event)"
-          (cdkDragEnded)="end($event)"
+        <ng-container
           *ngFor="
             let resToDo of ms.game.researchManager.toDo;
             trackBy: getResId
           "
-          [job]="resToDo"
-          [collection]="ms.game.researchManager.toDo"
-          [showDescription]="false"
         >
-          <div *cdkDragPreview>
-            <nz-card style="width: 300px;" nzSize="small">
-              <app-research-preview [research]="resToDo"></app-research-preview>
-            </nz-card>
-          </div>
-        </app-job>
+          <app-job
+            cdkDrag
+            class="job-box"
+            (cdkDragStarted)="start($event)"
+            (cdkDragEnded)="end($event)"
+            [job]="resToDo"
+            [collection]="ms.game.researchManager.toDo"
+            [showDescription]="false"
+            nz-popover
+            [nzPopoverContent]="contentTemplate"
+          >
+          </app-job>
+          <ng-template #contentTemplate>
+            <app-research-preview [research]="resToDo"></app-research-preview>
+          </ng-template>
+        </ng-container>
       </div>
     </div>
   </div>

@@ -74,6 +74,30 @@
         </button>
       </nz-button-group>
     </nz-card>
+
+    <div>
+      <nz-alert
+        *ngIf="ms.game.enemyManager.maxLevel < this.searchLevel"
+        nzType="warning"
+        nzMessage="Search level is bigger than Max level"
+        nzDescription="You wont be able to attack searched enemies."
+        nzShowIcon
+        @fade
+      >
+      </nz-alert>
+      <nz-alert
+        *ngIf="
+          ms.game.enemyManager.toDo.length +
+            ms.game.enemyManager.enemies.length >=
+          MAX_SEARCH_JOB
+        "
+        nzType="info"
+        nzMessage="Search list is full."
+        nzShowIcon
+        @fade
+      >
+      </nz-alert>
+    </div>
   </div>
 
   <div
@@ -91,6 +115,11 @@
           <tbody>
             <tr *ngFor="let tile of expectedTiles; trackBy: getExpTileId">
               <td>
+                <i
+                  nz-icon
+                  [nzType]="tile.unit.icon"
+                  [ngClass]="tile.unit.colorClass"
+                ></i>
                 {{ tile.unit.name }}
               </td>
               <td class="monospace col2 center">
@@ -107,19 +136,25 @@
               </td>
             </tr> -->
             <tr>
-              <td>Distance</td>
+              <td>
+                <i nz-icon nzType="fa-s:arrows-alt-h"></i>
+                Distance
+              </td>
               <td class="monospace col2 center">
                 {{ minDistance | format }} - {{ maxDistance | format }}
               </td>
             </tr>
             <tr>
-              <td>Price</td>
+              <td>
+                <i nz-icon nzType="fa-s:wrench" class="production-color"></i>
+                Price
+              </td>
               <td class="monospace col2 center">
                 {{ expectedPrice | format: true }}
               </td>
             </tr>
             <tr>
-              <td>Search Time</td>
+              <td><i nz-icon nzType="clock-circle"></i> Search Time</td>
               <td class="monospace col2 center">
                 {{ expectedSearchTime | time }}
               </td>
