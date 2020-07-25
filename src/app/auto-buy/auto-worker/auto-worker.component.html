@@ -4,7 +4,7 @@
       nz-popover
       nzPopoverTitle="Automation"
       [nzPopoverContent]="autoInfoTemplate"
-      >Auto
+      >Auto buy
     </nz-form-label>
     <nz-form-control>
       <nz-input-group nzCompact>
@@ -25,30 +25,63 @@
             [nzValue]="interval.value"
           ></nz-option>
         </nz-select>
-        <nz-input-number
-          nzSize="small"
-          [name]="autoWorker.id + 'M'"
-          [(ngModel)]="autoWorker.maxBuy"
-        ></nz-input-number>
-        <nz-input-number
-          nzSize="small"
-          [name]="autoWorker.id + 'P'"
-          [(ngModel)]="autoWorker.priority"
-        ></nz-input-number>
       </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label
+      nz-popover
+      nzPopoverTitle="Max buy"
+      nzPopoverContent="Buy up to 'max buy' at time."
+      >Max buy</nz-form-label
+    >
+    <nz-form-control>
+      <nz-input-number
+        nzSize="small"
+        [name]="autoWorker.id + 'M'"
+        [(ngModel)]="autoWorker.maxBuy"
+      ></nz-input-number>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label
+      nz-popover
+      nzPopoverTitle="Total buy"
+      nzPopoverContent="In case you have at least one replicator, auto buyer stop after 'total buy' units bought."
+      >Total buy</nz-form-label
+    >
+    <nz-form-control>
+      <nz-input-number
+        nzSize="small"
+        [name]="autoWorker.id + 'maxFac'"
+        [(ngModel)]="autoWorker.maxWhenFactory"
+      >
+      </nz-input-number>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label
+      nz-popover
+      nzPopoverTitle="Priority"
+      nzPopoverContent="In case more auto buyer are available on the same update cycle, high priority execute first."
+      >Priority</nz-form-label
+    >
+    <nz-form-control>
+      <nz-input-number
+        nzSize="small"
+        [name]="autoWorker.id + 'P'"
+        [(ngModel)]="autoWorker.priority"
+      ></nz-input-number>
     </nz-form-control>
   </nz-form-item>
 </form>
 
 <ng-template #autoInfoTemplate>
-  Options:
   <ul>
     <li>On / Off</li>
-    <li>Interval</li>
-    <li>Max buy</li>
-    <li>
-      Priority <br />
-      (bigger number = high priority)
-    </li>
+    <li>Interval in seconds</li>
   </ul>
 </ng-template>

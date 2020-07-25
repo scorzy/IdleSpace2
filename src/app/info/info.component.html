@@ -274,6 +274,64 @@
       </p>
     </ng-template>
   </nz-tab>
+  <nz-tab nzTitle="Automation">
+    <ng-template nz-tab>
+      <h2>Automation</h2>
+      <p>
+        Some features of the game can be automated. On
+        <i nz-icon nzType="sync"></i> "Automation" section automation can be
+        enabled or disabled. This include drones auto buy automations. Doesn't
+        include drones assembly with components, auto fight, auto nuke, and auto
+        reinforce.
+      </p>
+      <h3>Drones</h3>
+      <p>
+        Drone auto buy can be configured on each drone card. There are two
+        automations for drones: auto buy with resources and assembly with
+        components. Those options are completely unrelated.
+      </p>
+      <h3>Drones - Comp. priorities</h3>
+      <p>
+        This is the options for components. There are two priorities, the first
+        is used by default, the second is used when the product of that drone
+        are ending. The second should be way higher n order to prevent blackout.
+        Below you can see how many components are reserved for that drone.
+      </p>
+      <h3>Drones - Auto Buy</h3>
+      <p>
+        This automation buy drones with resources, you can set max buy and
+        interval.
+        <br />
+        "Total buy" is the maximum quantity you want to be bought when you have
+        at least one replicator. The price increase exponentially, so at some
+        point buying drones are not worth it.
+        <br />
+        On each update cycle automations are executed from higher priority to
+        low. Usually you can ignore this.
+        <br />
+        <strong>Auto Buy doesn't work in this cases:</strong>
+      </p>
+      <ul>
+        <li>
+          <strong
+            >Production of any resources consumed by this drone are less than
+            1/s:</strong
+          >
+          this prevent some blackout.
+        </li>
+        <li>
+          <strong>Drone is not 100% operative:</strong>
+          There is no reason to buy, increase operativity instead.
+        </li>
+        <li>
+          <strong
+            >Manual buy is greater than "Total buy" and there are
+            replicators:</strong
+          >
+        </li>
+      </ul>
+    </ng-template>
+  </nz-tab>
   <nz-tab nzTitle="Mega Engineering">
     <ng-template nz-tab>
       <h2>Space station</h2>
