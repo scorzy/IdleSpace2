@@ -120,7 +120,7 @@ export const UNITS: IUnitData[] = [
     name: "Miner",
     icon: "my:asteroid",
     colorClass: "metal-color",
-    description: "",
+    description: "Miners yield metal and consume energy.",
     startQuantity: 1,
     production: [
       ["M", 1],
@@ -144,7 +144,7 @@ export const UNITS: IUnitData[] = [
     name: "Technician",
     icon: "my:electric",
     colorClass: "energy-color",
-    description: "",
+    description: "Technicians yield energy.",
     startQuantity: 1,
     production: [["E", 2]],
     prices: [["M", 15]],
@@ -165,7 +165,7 @@ export const UNITS: IUnitData[] = [
     name: "Scientist",
     colorClass: "science-color",
     icon: "fa-s:flask",
-    description: "",
+    description: "Scientists yield science.",
     production: [
       ["S", 1],
       ["M", -1.5],
@@ -189,7 +189,7 @@ export const UNITS: IUnitData[] = [
     name: "Metallurgist",
     icon: "my:metal-bar",
     colorClass: "alloy-color",
-    description: "",
+    description: "Metallurgists turn metal into alloy.",
     production: [
       ["A", 1],
       ["M", -2],
@@ -213,7 +213,7 @@ export const UNITS: IUnitData[] = [
     name: "Worker",
     icon: "fa-s:wrench",
     colorClass: "production-color",
-    description: "",
+    description: "Workers build ships and space stations with alloy.",
     production: [
       ["W", 1],
       ["A", -2],
@@ -246,7 +246,7 @@ export const UNITS: IUnitData[] = [
     id: "r",
     name: "Searcher",
     icon: "my:radar-sweep",
-    description: "",
+    description: "Searchers look for new enemies.",
     colorClass: "search-color",
     production: [
       ["R", 1],
@@ -273,7 +273,7 @@ export const UNITS: IUnitData[] = [
     id: "X",
     name: "Replicator",
     icon: "fa-s:microchip",
-    description: "",
+    description: "Replicators turn alloy into droid components.",
     colorClass: "component-color",
     production: [
       ["x", 0.05],
@@ -302,7 +302,7 @@ export const UNITS: IUnitData[] = [
     id: "B",
     name: "Nuke Specialist",
     icon: "my:rocket",
-    description: "",
+    description: "Nuke Specialists make nuke with alloy.",
     colorClass: "nuke-color",
     production: [
       ["b", 0.05],
@@ -360,7 +360,7 @@ export const UNITS: IUnitData[] = [
   {
     id: "1",
     name: "Mine",
-    description: "+" + BUILDING_LIMIT + " miners",
+    description: "Mines allow you to build more miners.",
     icon: "my:gold-mine",
     colorClass: "metal-color",
     startQuantity: 1,
@@ -375,7 +375,7 @@ export const UNITS: IUnitData[] = [
     id: "2",
     name: "Power Plant",
     icon: "my:solar-power_2",
-    description: "+" + BUILDING_LIMIT + " technicians",
+    description: "Power Plant allow you to build more technicians.",
     colorClass: "energy-color",
     startQuantity: 1,
     prices: [
@@ -388,7 +388,7 @@ export const UNITS: IUnitData[] = [
   {
     id: "8",
     name: "Batteries",
-    description: "+ " + ENERGY_STORAGE + " energy storage",
+    description: "Batteries increases energy capacity.",
     colorClass: "energy-color",
     icon: "my:battery-pack",
     startQuantity: 1,
@@ -404,7 +404,7 @@ export const UNITS: IUnitData[] = [
     name: "Laboratory",
     icon: "fa-s:microscope",
     colorClass: "science-color",
-    description: "+" + BUILDING_LIMIT + " scientists",
+    description: "laboratories allow you to build more scientists.",
     prices: [
       ["M", METAL_BUILDING_PRICE * 2],
       ["j", 10]
@@ -416,7 +416,7 @@ export const UNITS: IUnitData[] = [
   {
     id: "4",
     name: "Foundry",
-    description: "+" + BUILDING_LIMIT + " metallurgists",
+    description: "Foundry allows you to build more metallurgists.",
     icon: "my:foundry-bucket",
     colorClass: "alloy-color",
     prices: [
@@ -430,7 +430,7 @@ export const UNITS: IUnitData[] = [
   {
     id: "5",
     name: "Factory",
-    description: "+" + BUILDING_LIMIT + " workers",
+    description: "Factories allow you to build more workers.",
     icon: "my:factory",
     colorClass: "production-color",
     prices: [
@@ -444,7 +444,7 @@ export const UNITS: IUnitData[] = [
   {
     id: "6",
     name: "Observatory",
-    description: "+" + BUILDING_LIMIT + " searchers",
+    description: "Observatories allow you to build more searchers.",
     icon: "my:observatory",
     colorClass: "search-color",
     prices: [
@@ -458,7 +458,7 @@ export const UNITS: IUnitData[] = [
   {
     id: "7",
     name: "Drone Factory",
-    description: "+" + BUILDING_LIMIT + " replicators",
+    description: "Drone Factories allow you to build more replicators.",
     icon: "my:factory-arm",
     colorClass: "component-color",
     prices: [
@@ -472,7 +472,7 @@ export const UNITS: IUnitData[] = [
   {
     id: "9",
     name: "Drone Depot",
-    description: "+ 1k components storage",
+    description: "Drone Depots increase components storage.",
     icon: "fa-s:warehouse",
     colorClass: "component-color",
     prices: [
@@ -485,7 +485,7 @@ export const UNITS: IUnitData[] = [
   {
     id: "10",
     name: "Nuke Factory",
-    description: "+" + BUILDING_LIMIT + " nuke specialists",
+    description: "Nuke Factory allow you to buy more nuke specialists",
     icon: "my:factory",
     colorClass: "nuke-color",
     prices: [
@@ -499,7 +499,7 @@ export const UNITS: IUnitData[] = [
   {
     id: "11",
     name: "Nuke Silos",
-    description: "+" + NUKE_STORAGE + " nuke storage",
+    description: "Nuke Silos increases nuke storage.",
     icon: "fa-s:warehouse",
     colorClass: "nuke-color",
     prices: [

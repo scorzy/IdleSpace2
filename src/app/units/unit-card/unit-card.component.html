@@ -11,6 +11,9 @@
       : [buyOne, buyMax]
   "
 >
+  <p *ngIf="unit.description !== ''">
+    {{ unit.description }}
+  </p>
   <div *ngIf="unit.production.length > 0">
     <div *ngIf="os.showDronesStatus" class="drone-status">
       <nz-alert

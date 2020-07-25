@@ -22,3 +22,7 @@
     </span>
   </span>
 </div>
+
+<span *ngIf="unit.quantity.gte(unit.limit)">
+  Limit reached, expansions needed.
+</span>
