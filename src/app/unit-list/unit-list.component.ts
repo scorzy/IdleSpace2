@@ -54,4 +54,7 @@ export class UnitListComponent extends BaseComponentComponent
   getId(index: number, unit: Unit) {
     return unit.id;
   }
+  getListId(index: number, sub: any) {
+    return index;
+  }
 }

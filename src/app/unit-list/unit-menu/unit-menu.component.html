@@ -1,0 +1,17 @@
+<i nz-icon [nzType]="unit.icon"></i>
+<span>
+  <span class="name"> {{ unit.name }}&nbsp; </span>
+  <span class="perSec monospace" *ngIf="!unit.perSec.eq(0)">
+    <span [class.text-danger]="unit.perSec.lt(0)">
+      {{ unit.perSec | format }}/s
+    </span>
+  </span>
+  <span
+    *ngIf="unit.limit.lt(Decimal.MAX_VALUE)"
+    class="quantity monospace"
+    [class.text-danger]="unit.quantity.gte(unit.limit)"
+  >
+    {{ unit.quantity | format }}
+    <!-- /{{ unit.limit | format }} -->
+  </span>
+</span>

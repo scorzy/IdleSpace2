@@ -11,6 +11,11 @@
     <app-unit-card *ngIf="unit" [unit]="unit"> </app-unit-card>
     <app-unit-card *ngIf="building" [unit]="building"> </app-unit-card>
     <app-unit-card *ngIf="storage" [unit]="storage"> </app-unit-card>
+
+    <nz-card nzSize="small" *ngIf="unit.makers.length > 0">
+      <h3>{{ unit.name }} production:</h3>
+      <app-prod-info [unit]="unit"></app-prod-info>
+    </nz-card>
   </div>
 
   <div
@@ -20,9 +25,18 @@
     fxFlex.lg="0 0 calc(40% -10px)"
     fxFlex.xl="0 0 calc(40% -10px)"
   >
-    <nz-card nzSize="small">
-      <h3>{{ unit.name }} produces:</h3>
-      <app-prod-table [unit]="unit" [col]="true"></app-prod-table>
-    </nz-card>
+    <div fxLayout="column" fxLayoutGap="10px">
+      <nz-card nzSize="small" *ngIf="unit.production.length > 0">
+        <h3>{{ unit.name }} produces:</h3>
+        <app-prod-table
+          [unit]="unit"
+          [col]="true"
+          [expandable]="true"
+        ></app-prod-table>
+      </nz-card>
+      <nz-card nzSize="small" *ngIf="unit.limitStack">
+        <app-storage [unit]="unit"> </app-storage>
+      </nz-card>
+    </div>
   </div>
 </div>

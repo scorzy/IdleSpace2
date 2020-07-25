@@ -20,7 +20,7 @@ export class ProdTableComponent extends BaseComponentComponent
   implements OnInit, OnDestroy, AfterViewInit {
   @Input() unit: Unit;
   @Input() col = false;
-  ngOnInit(): void {}
+  @Input() expandable = false;
   getProdId(index: number, production: Production) {
     return index + production.producer.id + production.product.id;
   }

@@ -4,14 +4,16 @@
   [nzTitle]="cardTitleTemplate"
   [nzExtra]="extraTemplate"
   [nzActions]="
-    unit.modStack && unit.maxMods.gt(0)
+    unit.buyPrice?.prices?.length === 0
+      ? []
+      : unit.modStack && unit.maxMods.gt(0)
       ? [buyOne, buyMax, mod]
       : building && hasDepartments && building.maxDepartments > 0
       ? [buyOne, buyMax, dep]
       : [buyOne, buyMax]
   "
 >
-  <p *ngIf="unit.description !== ''">
+  <p *ngIf="os.showDescriptions && unit.description !== ''">
     {{ unit.description }}
   </p>
   <div *ngIf="unit.production.length > 0">
@@ -324,61 +326,5 @@
 </ng-template>
 
 <ng-template #limitPopover>
-  <p *ngIf="unit.description !== ''">{{ unit.description }}</p>
-  <div *ngIf="unit.limitStack">
-    <h4>Storage - Additive</h4>
-    <nz-table nzTemplateMode nzSize="middle">
-      <tbody>
-        <tr *ngFor="let limit of unit.limitStack?.bonuses; trackBy: getBonusId">
-          <ng-container
-            *ngIf="
-              limit.unit.quantity.gt(0) &&
-              (!limit.secondMultiplier ||
-                limit.secondMultiplier?.quantity.gt(0))
-            "
-          >
-            <td>
-              {{ limit.unit.name }}
-              <span *ngIf="limit.secondMultiplier">{{
-                limit.secondMultiplier.name
-              }}</span>
-            </td>
-            <td>
-              <span *ngIf="!limit.secondMultiplier; else secondMulti">{{
-                limit.unit.quantity | format
-              }}</span>
-              <ng-template #secondMulti>
-                <span>{{
-                  limit.unit.quantity.times(limit.secondMultiplier.quantity)
-                    | format
-                }}</span>
-              </ng-template>
-            </td>
-            <td>x{{ limit.multiplier | format: true }}</td>
-            <td>
-              = {{ limit.unit.quantity.times(limit.multiplier) | format }}
-            </td>
-          </ng-container>
-        </tr>
-      </tbody>
-    </nz-table>
-    <h4>Storage - Multiplicative</h4>
-    <nz-table nzTemplateMode nzSize="middle">
-      <tbody>
-        <tr
-          *ngFor="
-            let limit of unit.limitStackMulti?.bonuses;
-            trackBy: getBonusId
-          "
-        >
-          <ng-container *ngIf="limit.unit.quantity.gt(0)">
-            <td>{{ limit.unit.name }}</td>
-            <!-- <td>{{ limit.unit.quantity | format }}</td>
-            <td>x{{ limit.multiplier.times(100) | format }}%</td> -->
-            <td>= x {{ limit.getBonus().times(100) | format }}%</td>
-          </ng-container>
-        </tr>
-      </tbody>
-    </nz-table>
-  </div>
+  <app-storage [unit]="unit"></app-storage>
 </ng-template>

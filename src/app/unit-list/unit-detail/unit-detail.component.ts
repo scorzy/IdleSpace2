@@ -53,6 +53,7 @@ export class UnitDetailComponent extends BaseComponentComponent
       (u) => u.id == params.id
     );
     if (!this.unit) this.unit = this.ms.game.resourceManager.unlockedUnits[0];
+    this.ms.lastUnitId = this.unit.id;
 
     this.building = null;
     this.storage = null;

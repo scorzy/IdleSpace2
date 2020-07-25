@@ -51,6 +51,12 @@ export class ResourceManager {
   unlockedSpaceStations = new Array<SpaceStation>();
   megastructures = new Array<Unit>();
   unlockedMegastructures = new Array<Unit>();
+  subLists: {
+    name: string;
+    icon: string;
+    units: Unit[];
+    expanded: boolean;
+  }[] = [];
 
   //#region Units
   metal: Unit;
@@ -222,6 +228,25 @@ export class ResourceManager {
     this.materials.forEach((u) => (u.battleGainMulti = new BonusStack()));
     this.districts.forEach((u) => (u.battleGainMulti = new BonusStack()));
 
+    this.subLists.push({
+      name: "Materials",
+      units: this.unlockedMaterials,
+      icon: "my:cube",
+      expanded: true
+    });
+    this.subLists.push({
+      name: "Workers",
+      units: this.unlockedWorkers,
+      icon: "my:vintage-robot",
+      expanded: true
+    });
+    this.subLists.push({
+      name: "Districts",
+      units: this.districts,
+      icon: "fa-s:globe",
+      expanded: true
+    });
+
     this.reloadLists();
   }
   reloadLists() {
@@ -234,6 +259,8 @@ export class ResourceManager {
     this.unlockedProductionUnits = this.unlockedUnits.filter(
       (u) => u.production.length > 0 || u.makers.length > 0
     );
+    this.subLists[0].units = this.unlockedMaterials;
+    this.subLists[1].units = this.unlockedWorkers;
   }
   /**
    * Reload production stats

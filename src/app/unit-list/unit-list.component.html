@@ -1,3 +1,4 @@
+<!-- [nzTheme]="ms.sideTheme" -->
 <div
   fxLayout="row"
   fxLayout.lt-sm="column-reverse"
@@ -7,36 +8,37 @@
     [nzCollapsible]="isLarge"
     [(nzCollapsed)]="ms.enemyListCollapsed"
     nzCollapsedWidth="50"
-    [nzWidth]="'300px'"
-    [nzTheme]="ms.sideTheme"
+    nzWidth="300px"
+    nzTheme="light"
   >
     <ul
       nz-menu
-      [nzTheme]="ms.sideTheme"
+      nzTheme="light"
       nzMode="inline"
       [nzInlineCollapsed]="ms.enemyListCollapsed"
     >
       <li
-        nz-menu-item
-        nzMatchRouter
+        nz-submenu
+        [nzTitle]="subList.name"
+        [nzIcon]="subList.icon"
+        [(nzOpen)]="subList.expanded"
         *ngFor="
-          let unit of ms.game.resourceManager.unlockedWorkers;
-          trackBy: getId
+          let subList of ms.game.resourceManager.subLists;
+          trackBy: getListId
         "
-        [ngClass]="os.darkSide ? 'menu-dark' : 'menu-light'"
       >
-        <a [routerLink]="'unitDetail/' + unit.id">
-          <i nz-icon [nzType]="unit.icon"></i>
-          <span>
-            <span class="name">
-              {{ unit.name }}
-            </span>
-            <span class="perSec monospace"> {{ unit.perSec | format }}/s </span>
-            <span class="quantity monospace">
-              {{ unit.quantity | format }}
-            </span>
-          </span>
-        </a>
+        <ul class="my-submenu">
+          <li
+            nz-menu-item
+            nzMatchRouter
+            *ngFor="let unit of subList.units; trackBy: getId"
+            class="menu-light"
+          >
+            <a [routerLink]="'unitDetail/' + unit.id">
+              <app-unit-menu [unit]="unit"></app-unit-menu>
+            </a>
+          </li>
+        </ul>
       </li>
     </ul>
   </nz-sider>

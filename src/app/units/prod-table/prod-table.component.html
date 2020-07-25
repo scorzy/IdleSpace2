@@ -50,12 +50,20 @@
       </ng-template>
     </tbody>
   </nz-table>
-  <div>
+  <div *ngIf="!expandable">
     <h3>General bonus</h3>
     <app-sub-table [positiveOnly]="false" [unit]="unit"></app-sub-table>
   </div>
-  <div>
+  <div *ngIf="!expandable">
     <h3>Efficiency bonus</h3>
     <app-sub-table [positiveOnly]="true" [unit]="unit"></app-sub-table>
   </div>
+  <nz-collapse *ngIf="expandable">
+    <nz-collapse-panel nzHeader="General bonus">
+      <app-sub-table [positiveOnly]="false" [unit]="unit"></app-sub-table>
+    </nz-collapse-panel>
+    <nz-collapse-panel nzHeader="Efficiency bonus">
+      <app-sub-table [positiveOnly]="true" [unit]="unit"></app-sub-table>
+    </nz-collapse-panel>
+  </nz-collapse>
 </div>

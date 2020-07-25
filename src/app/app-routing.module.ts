@@ -74,6 +74,7 @@ export const routes: Routes = [
       { path: "search", pathMatch: "full", component: SearchComponent }
     ]
   },
+  { path: "unitList", pathMatch: "full", redirectTo: "unitList/unitDetail/m" },
   {
     path: "unitList",
     component: UnitListComponent,

@@ -109,6 +109,8 @@ import { InfoComponent } from './info/info.component';
 import { AutoSurrenderComponent } from './auto-buy/auto-surrender/auto-surrender.component';
 import { UnitListComponent } from './unit-list/unit-list.component';
 import { UnitDetailComponent } from './unit-list/unit-detail/unit-detail.component';
+import { StorageComponent } from './units/storage/storage.component';
+import { UnitMenuComponent } from './unit-list/unit-menu/unit-menu.component';
 
 registerLocaleData(en);
 
@@ -182,7 +184,9 @@ const ngZorroConfig: NzConfig = {
     InfoComponent,
     AutoSurrenderComponent,
     UnitListComponent,
-    UnitDetailComponent
+    UnitDetailComponent,
+    StorageComponent,
+    UnitMenuComponent
   ],
   imports: [
     BrowserModule,

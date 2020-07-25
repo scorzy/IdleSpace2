@@ -17,6 +17,7 @@ import { BaseComponentComponent } from "src/app/base-component/base-component.co
 import { Technology } from "src/app/model/researches/technology";
 import { Worker } from "src/app/model/units/worker";
 import { Research } from "src/app/model/researches/research";
+import { OptionsService } from "src/app/options.service";
 @Component({
   selector: "app-mod",
   templateUrl: "./mod.component.html",
@@ -39,7 +40,8 @@ export class ModComponent extends BaseComponentComponent
     cd: ChangeDetectorRef,
     private route: ActivatedRoute,
     public breakpointObserver: BreakpointObserver,
-    private router: Router
+    private router: Router,
+    public os: OptionsService
   ) {
     super(ms, cd);
   }
@@ -138,7 +140,10 @@ export class ModComponent extends BaseComponentComponent
   confirm() {
     if (this.disabled) return false;
     this.unit.confirmMods();
-    this.router.navigate(["/units/w"]);
+
+    this.router.navigate(
+      this.os.listUi ? ["/unitList/unitDetail/" + this.unit.id] : ["/units/w"]
+    );
   }
   getModRes(): Research[] {
     return this.unit.modsResearches.filter((res) => res.quantity.gt(0));

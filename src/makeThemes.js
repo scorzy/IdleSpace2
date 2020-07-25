@@ -9,10 +9,13 @@ const compactThemeVars = require("ng-zorro-antd/compact-theme");
 const darkCommon = require("./themes-vars/darkCommon.js");
 const myDarkVars = require("./themes-vars/myDarkVars.js");
 const commonModyVar = require("./themes-vars/commonModyVar");
-
+const green = {
+  "@primary-color": "@green-6"
+};
 const toBuild = [
   {
     name: "dark-blue-2",
+    source: "dark-blue-2",
     modifyVars: {
       ...darkThemeVars,
       ...compactThemeVars,
@@ -23,16 +26,19 @@ const toBuild = [
   },
   {
     name: "dark-green-2",
+    source: "dark-blue-2",
     modifyVars: {
       ...darkThemeVars,
       ...compactThemeVars,
       ...darkCommon,
       ...myDarkVars,
-      ...commonModyVar
+      ...commonModyVar,
+      ...green
     }
   },
   {
     name: "dark-blue",
+    source: "dark-blue",
     modifyVars: {
       ...darkThemeVars,
       ...compactThemeVars,
@@ -42,15 +48,18 @@ const toBuild = [
   },
   {
     name: "dark-green",
+    source: "dark-blue",
     modifyVars: {
       ...darkThemeVars,
       ...compactThemeVars,
       ...darkCommon,
-      ...commonModyVar
+      ...commonModyVar,
+      ...green
     }
   },
   {
     name: "light-blue",
+    source: "light-blue",
     modifyVars: {
       ...compactThemeVars,
       ...commonModyVar
@@ -58,9 +67,11 @@ const toBuild = [
   },
   {
     name: "light-green",
+    source: "light-blue",
     modifyVars: {
       ...compactThemeVars,
-      ...commonModyVar
+      ...commonModyVar,
+      ...green
     }
   }
 ];
@@ -68,7 +79,7 @@ const built = [];
 fsExtra.emptyDirSync("./src/assets/themes/");
 
 toBuild.forEach(function (theme) {
-  fs.readFile("./src/themes/" + theme.name + ".less", function (error, data) {
+  fs.readFile("./src/themes/" + theme.source + ".less", function (error, data) {
     data = data.toString();
     less.render(
       data,

@@ -118,6 +118,7 @@ export class MainService {
   notificationEmitter = new EventEmitter<MyNotification>();
   ready = false;
   kongregate: any;
+  lastUnitId = "M";
 
   update() {
     if (!this.game) return;

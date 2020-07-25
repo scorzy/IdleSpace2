@@ -8,7 +8,9 @@
   <li
     nz-menu-item
     nzMatchRouter
-    [routerLink]="'units/w'"
+    [routerLink]="
+      os.listUi ? 'unitList/unitDetail/' + ms.lastUnitId : 'units/w'
+    "
     nz-tooltip
     nzTooltipPlacement="right"
     [nzTitle]="isCollapsed ? 'Workers' : ''"
@@ -16,17 +18,7 @@
     <i nz-icon nzType="my:vintage-robot"></i>
     <span>Workers</span>
   </li>
-  <!-- <li
-    nz-menu-item
-    nzMatchRouter
-    routerLink="unitList"
-    nz-tooltip
-    nzTooltipPlacement="right"
-    [nzTitle]="isCollapsed ? 'Workers' : ''"
-  >
-    <i nz-icon nzType="my:vintage-robot"></i>
-    <span>Workers</span>
-  </li> -->
+
   <li
     nz-menu-item
     nzMatchRouter

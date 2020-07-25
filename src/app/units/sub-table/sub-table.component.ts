@@ -4,7 +4,8 @@ import {
   Input,
   OnInit,
   OnDestroy,
-  AfterViewInit
+  AfterViewInit,
+  SimpleChanges
 } from "@angular/core";
 import { Unit } from "src/app/model/units/unit";
 import { BaseComponentComponent } from "src/app/base-component/base-component.component";
@@ -31,6 +32,9 @@ export class SubTableComponent extends BaseComponentComponent
   }
   getIndex(index: number, a: any) {
     return index;
+  }
+  ngOnChanges(changes: SimpleChanges): void {
+    this.subData = this.getSubData();
   }
   getSubData(): Array<{
     what: string;
