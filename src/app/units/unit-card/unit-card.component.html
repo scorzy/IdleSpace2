@@ -184,7 +184,10 @@
   <span nz-popover [nzPopoverContent]="limitPopover">
     <i nz-icon [nzType]="unit.icon" [ngClass]="unit.colorClass"></i>
     <strong> {{ unit.name }}</strong>
-    <span class="monospace text-secondary">
+    <span
+      class="monospace text-secondary"
+      [class.text-danger]="unit.limit.lte(unit.quantity)"
+    >
       {{ unit.quantity | format: true }}
       <span *ngIf="unit.limit.lt(Decimal.MAX_VALUE)">
         /{{ unit.limit | format: true }}
@@ -200,7 +203,12 @@
   <span> {{ unit.name }}</span>
 </ng-template>
 <ng-template #description>
-  <span class="monospace" nz-popover [nzPopoverContent]="limitPopover">
+  <span
+    class="monospace"
+    nz-popover
+    [nzPopoverContent]="limitPopover"
+    [class.text-danger]="unit.limit.lte(unit.quantity)"
+  >
     {{ unit.quantity | format: true }}
     <span *ngIf="unit.limit.lt(Decimal.MAX_VALUE)">
       /{{ unit.limit | format: true }}
