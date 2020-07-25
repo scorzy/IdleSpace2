@@ -29,6 +29,8 @@ import { PrestigeComponent } from "./prestige/prestige.component";
 import { WarpComponent } from "./warp/warp.component";
 import { CardsComponent } from "./cards/cards.component";
 import { InfoComponent } from "./info/info.component";
+import { UnitListComponent } from "./unit-list/unit-list.component";
+import { UnitDetailComponent } from "./unit-list/unit-detail/unit-detail.component";
 export const routes: Routes = [
   { path: "", pathMatch: "full", redirectTo: "/info" },
   { path: "des", pathMatch: "full", redirectTo: "/des/add" },
@@ -70,6 +72,17 @@ export const routes: Routes = [
         component: EnemyDetailComponent
       },
       { path: "search", pathMatch: "full", component: SearchComponent }
+    ]
+  },
+  {
+    path: "unitList",
+    component: UnitListComponent,
+    children: [
+      {
+        path: "unitDetail/:id",
+        pathMatch: "full",
+        component: UnitDetailComponent
+      }
     ]
   },
   { path: "automation", pathMatch: "full", component: AutomationComponent },

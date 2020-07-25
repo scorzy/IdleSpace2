@@ -19,6 +19,7 @@ import { BaseComponentComponent } from "src/app/base-component/base-component.co
 export class ProdTableComponent extends BaseComponentComponent
   implements OnInit, OnDestroy, AfterViewInit {
   @Input() unit: Unit;
+  @Input() col = false;
   ngOnInit(): void {}
   getProdId(index: number, production: Production) {
     return index + production.producer.id + production.product.id;

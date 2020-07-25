@@ -79,6 +79,10 @@ export class ResourceManager {
   droneFactory: Building;
   nukeFactory: Building;
 
+  batteries: Building;
+  droneDepot: Building;
+  nukeSilos: Building;
+
   habitableSpace: Unit;
   miningDistrict: Unit;
   energyDistrict: Unit;
@@ -148,6 +152,10 @@ export class ResourceManager {
     this.observatory = this.buildings.find((u) => u.id === "6");
     this.droneFactory = this.buildings.find((u) => u.id === "7");
     this.nukeFactory = this.buildings.find((u) => u.id === "10");
+
+    this.batteries = this.buildings.find((u) => u.id === "8");
+    this.droneDepot = this.buildings.find((u) => u.id === "9");
+    this.nukeSilos = this.buildings.find((u) => u.id === "11");
 
     //  Production
     this.workers.forEach((unit) => {

@@ -1,0 +1,45 @@
+<div
+  fxLayout="row"
+  fxLayout.lt-sm="column-reverse"
+  [class.full-height]="isLarge"
+>
+  <nz-sider
+    [nzCollapsible]="isLarge"
+    [(nzCollapsed)]="ms.enemyListCollapsed"
+    nzCollapsedWidth="50"
+    [nzWidth]="'300px'"
+    [nzTheme]="ms.sideTheme"
+  >
+    <ul
+      nz-menu
+      [nzTheme]="ms.sideTheme"
+      nzMode="inline"
+      [nzInlineCollapsed]="ms.enemyListCollapsed"
+    >
+      <li
+        nz-menu-item
+        nzMatchRouter
+        *ngFor="
+          let unit of ms.game.resourceManager.unlockedWorkers;
+          trackBy: getId
+        "
+        [ngClass]="os.darkSide ? 'menu-dark' : 'menu-light'"
+      >
+        <a [routerLink]="'unitDetail/' + unit.id">
+          <i nz-icon [nzType]="unit.icon"></i>
+          <span>
+            <span class="name">
+              {{ unit.name }}
+            </span>
+            <span class="perSec monospace"> {{ unit.perSec | format }}/s </span>
+            <span class="quantity monospace">
+              {{ unit.quantity | format }}
+            </span>
+          </span>
+        </a>
+      </li>
+    </ul>
+  </nz-sider>
+
+  <div class="inner-content"><router-outlet></router-outlet></div>
+</div>

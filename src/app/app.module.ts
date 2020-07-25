@@ -107,6 +107,8 @@ import { AutoSpaceComponent } from "./auto-buy/auto-space/auto-space.component";
 import { NZ_WAVE_GLOBAL_CONFIG } from "ng-zorro-antd";
 import { InfoComponent } from './info/info.component';
 import { AutoSurrenderComponent } from './auto-buy/auto-surrender/auto-surrender.component';
+import { UnitListComponent } from './unit-list/unit-list.component';
+import { UnitDetailComponent } from './unit-list/unit-detail/unit-detail.component';
 
 registerLocaleData(en);
 
@@ -178,7 +180,9 @@ const ngZorroConfig: NzConfig = {
     PrestigeCardComponent,
     AutoSpaceComponent,
     InfoComponent,
-    AutoSurrenderComponent
+    AutoSurrenderComponent,
+    UnitListComponent,
+    UnitDetailComponent
   ],
   imports: [
     BrowserModule,

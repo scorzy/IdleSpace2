@@ -20,7 +20,6 @@ import { OptionsService } from "src/app/options.service";
   templateUrl: "./enemies-list.component.html",
   styleUrls: ["./enemies-list.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush,
-
   animations: [fadeIn]
 })
 export class EnemiesListComponent extends BaseComponentComponent

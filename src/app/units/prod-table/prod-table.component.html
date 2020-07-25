@@ -1,4 +1,4 @@
-<div fxLayout="rows wrap" fxLayoutGap="1rem">
+<div [fxLayout]="col ? 'column' : 'rows wrap'" fxLayoutGap="1rem">
   <nz-table
     #nestedTable
     #middleTable
@@ -51,11 +51,11 @@
     </tbody>
   </nz-table>
   <div>
-    <h4>General bonus</h4>
+    <h3>General bonus</h3>
     <app-sub-table [positiveOnly]="false" [unit]="unit"></app-sub-table>
   </div>
   <div>
-    <h4>Efficiency bonus</h4>
+    <h3>Efficiency bonus</h3>
     <app-sub-table [positiveOnly]="true" [unit]="unit"></app-sub-table>
   </div>
 </div>
