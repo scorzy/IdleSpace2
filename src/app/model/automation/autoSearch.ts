@@ -7,6 +7,40 @@ export class AutoSearch extends AbstractAutobuyer {
   id = "as";
   automate(): boolean {
     const em = Game.getGame().enemyManager;
+    let nothingToAttack = false;
+    if (
+      em.toDo.length + em.enemies.length >= MAX_SEARCH_JOB &&
+      !em.currentEnemy &&
+      !em.enemies.some((e) => e.level <= em.maxLevel) &&
+      !em.toDo.some((e) => e.level <= em.maxLevel)
+    ) {
+      //  Full and nothing to attack!
+      if (em.toDo.length > 0) {
+        nothingToAttack = true;
+        const maxSearchLv = em.toDo.reduce(
+          (p, c) => (p.level > c.level ? p : c),
+          em.toDo[0]
+        );
+        if (maxSearchLv) {
+          const index = em.toDo.findIndex((j) => j === maxSearchLv);
+          if (index > -1) {
+            em.toDo.splice(index, 1);
+          }
+        }
+      } else if (em.enemies.length > 0) {
+        const maxSearchLv = em.enemies.reduce(
+          (p, c) => (p.level > c.level ? p : c),
+          em.enemies[0]
+        );
+        if (maxSearchLv) {
+          const index = em.enemies.findIndex((j) => j === maxSearchLv);
+          if (index > -1) {
+            em.enemies.splice(index, 1);
+          }
+        }
+      }
+    }
+
     if (em.toDo.length + em.enemies.length >= MAX_SEARCH_JOB) return false;
 
     let levelToSearch = this.maxLevel;
