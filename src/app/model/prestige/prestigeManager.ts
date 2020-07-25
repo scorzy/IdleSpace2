@@ -366,7 +366,7 @@ export class PrestigeManager {
     }
     if ("c" in data) {
       for (const cardId of data.c) {
-        const card = this.cards.find((card) => card.id === cardId);
+        const card = this.cards.find((c) => c.id === cardId);
         if (card) {
           card.active = true;
         }

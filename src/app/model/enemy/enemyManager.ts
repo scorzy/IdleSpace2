@@ -186,13 +186,14 @@ export class EnemyManager extends JobManager {
         try {
           oldShips = playerDesign[i].old?.fleets[fleetNum]?.shipsQuantity;
         } catch (ex) {}
-        if (playerDesign[i].fleets[fleetNum].shipsQuantity < 1 && oldShips < 1)
+        if (playerDesign[i].fleets[fleetNum].shipsQuantity < 1 && oldShips < 1) {
           continue;
+        }
 
         shipData.quantity = playerDesign[i].fleets[fleetNum].shipsQuantity;
         if (shipData.quantity > 0) {
           battleRequest.playerFleet.push(shipData);
-          let tempMax = solveEquation(
+          const tempMax = solveEquation(
             ZERO,
             playerDesign[i].acceleration,
             playerDesign[i].velocity,
@@ -212,7 +213,7 @@ export class EnemyManager extends JobManager {
             playerDesign[i].old.fleets[fleetNum].shipsQuantity;
           if (shipDataOld.quantity > 0) {
             battleRequest.playerFleet.push(shipDataOld);
-            let tempMax = solveEquation(
+            const tempMax = solveEquation(
               ZERO,
               playerDesign[i].acceleration,
               playerDesign[i].velocity,

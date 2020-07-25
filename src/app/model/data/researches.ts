@@ -6,8 +6,8 @@ import {
   ORIGIN_1_TECH_MULTI,
   ORIGIN_1_TECH_2_MULTI,
   REPEATABLE_RES_PRICE_MULTI,
-  Ids,
-  MatIds
+  IDS,
+  MAT_IDS
 } from "../CONSTANTS";
 import { ExclusiveResGroups } from "../researches/exclusiveResGroups";
 
@@ -219,7 +219,7 @@ export const RESEARCHES: IResearchData[] = [
     description: "",
     type: TECHNOLOGIES.Energy,
     priceMulti: REPEATABLE_RES_PRICE_MULTI,
-    effMulti: [{ unitId: Ids.Technician, multi: 0.05 }]
+    effMulti: [{ unitId: IDS.Technician, multi: 0.05 }]
   },
   {
     id: "E-1",
@@ -238,7 +238,7 @@ export const RESEARCHES: IResearchData[] = [
     description: "",
     type: TECHNOLOGIES.Mining,
     priceMulti: REPEATABLE_RES_PRICE_MULTI,
-    prodMulti: [{ unitId: Ids.Miner, multi: 0.1 }]
+    prodMulti: [{ unitId: IDS.Miner, multi: 0.1 }]
   },
   {
     id: "N-1",
@@ -258,7 +258,7 @@ export const RESEARCHES: IResearchData[] = [
     type: TECHNOLOGIES.Robotics,
     unlockFrom: "x",
     priceMulti: REPEATABLE_RES_PRICE_MULTI,
-    effMulti: [{ unitId: Ids.Replicator, multi: 0.05 }]
+    effMulti: [{ unitId: IDS.Replicator, multi: 0.05 }]
   },
   //#endregion
   //#region Origin Science
@@ -326,7 +326,7 @@ export const RESEARCHES: IResearchData[] = [
     max: 1,
     description: "",
     type: TECHNOLOGIES.CivilEngineering,
-    limitMulti: [{ unitId: Ids.Scientist, multi: 0.01, secondUnitId: "i2" }],
+    limitMulti: [{ unitId: IDS.Scientist, multi: 0.01, secondUnitId: "i2" }],
     inspirationSpaceStationId: "i2"
   },
   {
@@ -335,7 +335,7 @@ export const RESEARCHES: IResearchData[] = [
     max: 1,
     description: "",
     type: TECHNOLOGIES.Search,
-    limitMulti: [{ unitId: Ids.Searcher, multi: 0.01, secondUnitId: "i2" }],
+    limitMulti: [{ unitId: IDS.Searcher, multi: 0.01, secondUnitId: "i2" }],
     inspirationSpaceStationId: "i2"
   },
   //#endregion
@@ -394,7 +394,7 @@ export const RESEARCHES: IResearchData[] = [
       },
       { techId: TECHNOLOGIES.Naval.id, multi: ORIGIN_1_TECH_MULTI * 0.25 }
     ],
-    limitMulti: [{ unitId: MatIds.Nuke, multi: 1 }]
+    limitMulti: [{ unitId: MAT_IDS.Nuke, multi: 1 }]
   },
   {
     id: "or24",
@@ -412,9 +412,9 @@ export const RESEARCHES: IResearchData[] = [
     description: "",
     type: TECHNOLOGIES.MilitaryEngineering,
     limitMulti: [
-      { unitId: Ids.NukeSpecialist, multi: 0.2 },
-      { unitId: Ids.Worker, multi: 0.2 },
-      { unitId: MatIds.Nuke, multi: 1 }
+      { unitId: IDS.NukeSpecialist, multi: 0.2 },
+      { unitId: IDS.Worker, multi: 0.2 },
+      { unitId: MAT_IDS.Nuke, multi: 1 }
     ]
   },
   {
@@ -518,7 +518,7 @@ export const RESEARCHES: IResearchData[] = [
     description: "",
     type: TECHNOLOGIES.CivilEngineering,
     researchToUnlock: ["or37", "or38"],
-    effMulti: [{ unitId: Ids.Technician, multi: 0.02, secondUnitId: "i1" }],
+    effMulti: [{ unitId: IDS.Technician, multi: 0.02, secondUnitId: "i1" }],
     inspirationSpaceStationId: "i1"
   },
   {
@@ -530,11 +530,11 @@ export const RESEARCHES: IResearchData[] = [
     inspirationBuildingId: "2",
     limitMulti: [
       {
-        unitId: Ids.Miner,
+        unitId: IDS.Miner,
         multi: 0.4
       },
       {
-        unitId: Ids.Technician,
+        unitId: IDS.Technician,
         multi: 0.4
       }
     ]
@@ -545,7 +545,7 @@ export const RESEARCHES: IResearchData[] = [
     max: 1,
     description: "",
     type: TECHNOLOGIES.CivilEngineering,
-    limitMulti: [{ unitId: Ids.Miner, multi: 0.01, secondUnitId: "i2" }],
+    limitMulti: [{ unitId: IDS.Miner, multi: 0.01, secondUnitId: "i2" }],
     inspirationSpaceStationId: "i2"
   },
   {
@@ -554,7 +554,7 @@ export const RESEARCHES: IResearchData[] = [
     max: 1,
     description: "",
     type: TECHNOLOGIES.CivilEngineering,
-    limitMulti: [{ unitId: Ids.Technician, multi: 0.01, secondUnitId: "i2" }],
+    limitMulti: [{ unitId: IDS.Technician, multi: 0.01, secondUnitId: "i2" }],
     inspirationSpaceStationId: "i2"
   }
   //#endregion

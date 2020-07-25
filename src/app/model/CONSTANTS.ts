@@ -5,7 +5,7 @@ export const TEN = new Decimal(10);
 export const INFINITY = new Decimal(Number.POSITIVE_INFINITY);
 
 //  Units
-export const Ids = {
+export const IDS = {
   Miner: "m",
   Technician: "e",
   Scientist: "s",
@@ -15,7 +15,7 @@ export const Ids = {
   Replicator: "X",
   NukeSpecialist: "B"
 };
-export const MatIds = {
+export const MAT_IDS = {
   Metal: "M",
   Energy: "E",
   Alloy: "A",

@@ -2,7 +2,7 @@ import { IUnitData } from "../data/iUnitData";
 import { Production } from "./production";
 import { IBase } from "../iBase";
 import { MultiPrice } from "../prices/multiPrice";
-import { ZERO, ONE, COMPONENT_PRICE, Ids } from "../CONSTANTS";
+import { ZERO, ONE, COMPONENT_PRICE, IDS } from "../CONSTANTS";
 import { IUnlockable } from "../iUnlocable";
 import { Game } from "../game";
 import { Bonus } from "../bonus/bonus";
@@ -147,7 +147,7 @@ export class Unit implements IBase, IUnlockable {
           rs.reloadLists();
         }
         break;
-      case Ids.Worker:
+      case IDS.Worker:
         if (prevQuantity.lt(1) && Game.getGame().firstRun) {
           MainService.instance.modal.info({
             nzTitle: "Workers",

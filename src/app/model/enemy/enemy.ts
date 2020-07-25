@@ -559,30 +559,32 @@ export class Enemy {
           } else {
             chooseList = this.basicDefences.slice(0);
             if (design.modules.some((m) => m.module.id === "A")) {
-              let armourLevel = design.modules.reduce(
+              const armourLevel = design.modules.reduce(
                 (prev, cur) => prev + (cur.module.id === "A" ? cur.size : 0),
                 0
               );
-              if (armourLevel > 2)
+              if (armourLevel > 2) {
                 this.favouriteDefences.forEach((def) => {
                   if (def.armourDamageReduction > 0) {
                     chooseList.push(def);
                     chooseList.push(def);
                   }
                 });
+              }
             }
             if (design.modules.some((m) => m.module.id === "s")) {
-              let shieldLevel = design.modules.reduce(
+              const shieldLevel = design.modules.reduce(
                 (prev, cur) => prev + (cur.module.id === "s" ? cur.size : 0),
                 0
               );
-              if (shieldLevel > 2)
+              if (shieldLevel > 2) {
                 this.favouriteDefences.forEach((def) => {
                   if (def.shieldDamageReduction > 0) {
                     chooseList.push(def);
                     chooseList.push(def);
                   }
                 });
+              }
             }
           }
           module = sample(chooseList);

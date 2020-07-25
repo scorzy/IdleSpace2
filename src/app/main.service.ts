@@ -198,7 +198,7 @@ export class MainService {
       this.setScrollbarTheme();
       if (this.game) this.game.setTheme();
     } catch (ex) {
-      //TODO:
+      // TODO:
       //  just to pass unit tests
     }
   }

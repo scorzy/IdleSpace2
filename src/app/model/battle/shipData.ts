@@ -8,7 +8,7 @@ export class WeaponData {
   defencePercent: number;
   precision: number;
   adaptivePrecision: number;
-  threatMulti: number = 1;
+  threatMulti = 1;
 }
 export class ShipData {
   designId: number;
