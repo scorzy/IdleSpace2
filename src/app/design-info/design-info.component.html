@@ -6,7 +6,12 @@
 >
   <tbody>
     <tr *ngFor="let data of basicTable.data">
-      <td fxLayout="row" fxLayoutGap="0.3rem">
+      <td
+        fxLayout="row"
+        fxLayoutGap="0.3rem"
+        nz-tooltip
+        [nzTooltipTitle]="data.tooltip"
+      >
         <span [className]="data.iconClass"
           ><i nz-icon [nzType]="data.icon"></i
         ></span>

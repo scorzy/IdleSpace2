@@ -142,8 +142,9 @@
     *ngIf="mod.cargo > 0"
     class="cargo-color"
     nz-tooltip
-    nzTooltipTitle="Cargo, increase metal, energy, alloy and components rewards from battle. Stack additive."
+    nzTooltipTitle="Cargo, increase metal, energy, alloy and components rewards from battle. Stack additive. Total bonus is 'number of ships' * 'cargo bonus'"
     fxLayout="row"
+    1
   >
     <i nz-icon nzType="my:cube"></i>{{ mod.cargo | format }}%
   </span>
@@ -151,7 +152,7 @@
     *ngIf="mod.scienceLab > 0"
     class="science-color"
     nz-tooltip
-    nzTooltipTitle="Science Lab"
+    nzTooltipTitle="Science lab, increase science and search rewards from battle. Stack additive. Total bonus is 'number of ships' * 'science lab bonus'"
     fxLayout="row"
   >
     <i nz-icon nzType="fa-s:flask"></i>{{ mod.scienceLab | format }}
@@ -160,7 +161,7 @@
     *ngIf="mod.velocity > 0"
     class="velocity-color"
     nz-tooltip
-    nzTooltipTitle="Velocity"
+    nzTooltipTitle="Velocity, decrease travel time."
     fxLayout="row"
   >
     <i nz-icon nzType="my:rocket-thruster"></i
@@ -170,7 +171,7 @@
     *ngIf="mod.acceleration > 0"
     class="acceleration-color"
     nz-tooltip
-    nzTooltipTitle="Acceleration"
+    nzTooltipTitle="Acceleration, increase velocity /s^2. Usefully for long travels."
     fxLayout="row"
   >
     <i nz-icon nzType="forward"></i>{{ mod.acceleration | number: "1.0-4" }}
@@ -179,7 +180,7 @@
     *ngIf="mod.threat !== 0"
     class="threat-color"
     nz-tooltip
-    nzTooltipTitle="Threat"
+    nzTooltipTitle="Threat, increase fire drawn from enemy if positive, decrease it otherwise."
     fxLayout="row"
   >
     <i nz-icon nzType="my:archery-target"></i>{{ mod.threat | number: "1.0-0" }}
@@ -188,7 +189,7 @@
     *ngIf="mod.threatGainMulti !== 1"
     class="threat-color"
     nz-tooltip
-    nzTooltipTitle="Threat Multi"
+    nzTooltipTitle="Threat Multi, increase or decrease threat gained from damaging enemies."
     fxLayout="row"
   >
     <i nz-icon nzType="my:target-arrows"></i
@@ -198,7 +199,7 @@
     *ngIf="mod.precision > 0"
     class="threat-color"
     nz-tooltip
-    nzTooltipTitle="Precision"
+    nzTooltipTitle="Precision, increase chance of targeting alive ships or defences."
     fxLayout="row"
   >
     <i nz-icon nzType="my:targeting"></i>{{ mod.precision | number: "1.0-0" }}
@@ -207,7 +208,7 @@
     *ngIf="mod.adaptivePrecision > 0"
     class="threat-color"
     nz-tooltip
-    nzTooltipTitle="Adaptive Precision"
+    nzTooltipTitle="Adaptive Precision, increase chance of targeting whatever weapons are best at. Bonus is proportional to armour damage%, shield damage % and ground defences damage %"
     fxLayout="row"
   >
     <i nz-icon nzType="my:arrow-scope"></i

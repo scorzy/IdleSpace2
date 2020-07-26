@@ -32,6 +32,7 @@ export class DesignInfoComponent extends BaseComponentComponent
     classes?: string;
     icon?: string;
     iconClass?: string;
+    tooltip?: string;
   }[] = [];
 
   ngOnInit() {
@@ -52,6 +53,7 @@ export class DesignInfoComponent extends BaseComponentComponent
     this.comparisonData = [];
     this.comparisonData.push({
       name: "Armour",
+      tooltip: "Increase defence",
       icon: "my:metal-scales",
       iconClass: "armour-damage-color",
       original: this.original.totalArmour,
@@ -69,6 +71,7 @@ export class DesignInfoComponent extends BaseComponentComponent
     });
     this.comparisonData.push({
       name: "Armour dmg. red.",
+      tooltip: "Reduce incoming armour damage by that amount",
       icon: "my:shield-reflect",
       iconClass: "armour-damage-color",
       original: this.original.armourReduction,
@@ -86,6 +89,7 @@ export class DesignInfoComponent extends BaseComponentComponent
     });
     this.comparisonData.push({
       name: "Shield",
+      tooltip: "First defence, is depleted before armour.",
       icon: "my:bubble-field",
       iconClass: "shield-damage-color",
       original: this.original.totalShield,
@@ -103,6 +107,7 @@ export class DesignInfoComponent extends BaseComponentComponent
     });
     this.comparisonData.push({
       name: "Shield dmg. red.",
+      tooltip: "Decrease incoming shield damage by that amount.",
       icon: "my:shield-reflect",
       iconClass: "shield-damage-color",
       original: this.original.shieldReduction,
@@ -120,6 +125,8 @@ export class DesignInfoComponent extends BaseComponentComponent
     });
     this.comparisonData.push({
       name: "Shield Recharge",
+      tooltip:
+        "Recharge shields each turn to the most wounded ships. Completely depleted shields will not be recharged.",
       icon: "my:armor-upgrade",
       iconClass: "shield-damage-color",
       original: this.original.shieldRecharge,
@@ -137,6 +144,8 @@ export class DesignInfoComponent extends BaseComponentComponent
     });
     this.comparisonData.push({
       name: "Avg. Damage",
+      tooltip:
+        "Average damage, this is indicative and damage can vary greatly depending on targets.",
       icon: "my:blaster",
       iconClass: "damage-color",
       original: this.original.totalDamage,
@@ -154,6 +163,8 @@ export class DesignInfoComponent extends BaseComponentComponent
     });
     this.comparisonData.push({
       name: "Explosion",
+      tooltip:
+        "Ships have a chance of exploding on each shoots received if 'current armour' is less than 'explosion' and shields are off.",
       icon: "my:explosion-rays",
       iconClass: "explosion-color",
       original: this.original.explosionThreshold,
@@ -171,6 +182,8 @@ export class DesignInfoComponent extends BaseComponentComponent
     });
     this.comparisonData.push({
       name: "Explosion dmg.",
+      tooltip:
+        "In case of explosion, damage is dealt to attachers. Doesn't work if ships is one shotted or die without explosion.",
       icon: "my:explosion-rays",
       iconClass: "damage-color",
       original: this.original.explosionDamage,
@@ -188,6 +201,7 @@ export class DesignInfoComponent extends BaseComponentComponent
     });
     this.comparisonData.push({
       name: "Price",
+      tooltip: "Amount of production needed to make one ship.",
       icon: "tool",
       iconClass: "damage-color",
       original: this.original.price,
@@ -204,7 +218,9 @@ export class DesignInfoComponent extends BaseComponentComponent
         : ""
     });
     this.comparisonData.push({
-      name: "Cargo",
+      name: "Cargo %",
+      tooltip:
+        "Increase metal, energy, alloy and components received from battles.",
       icon: "my:cube",
       iconClass: "cargo-color",
       original: this.original.cargo,
@@ -221,7 +237,8 @@ export class DesignInfoComponent extends BaseComponentComponent
         : ""
     });
     this.comparisonData.push({
-      name: "Science",
+      name: "Science %",
+      tooltip: "Increase science and search received from battles.",
       icon: "fa-s:flask",
       iconClass: "science-color",
       original: this.original.scienceLab,
@@ -239,6 +256,7 @@ export class DesignInfoComponent extends BaseComponentComponent
     });
     this.comparisonData.push({
       name: "Velocity",
+      tooltip: "Decrease battle eta.",
       icon: "my:rocket-thruster",
       iconClass: "velocity-color",
       original: this.original.velocity,
@@ -256,6 +274,7 @@ export class DesignInfoComponent extends BaseComponentComponent
     });
     this.comparisonData.push({
       name: "Acceleration",
+      tooltip: "Decrease battle eta quadratically.",
       icon: "forward",
       iconClass: "acceleration-color",
       original: this.original.acceleration,
@@ -273,6 +292,7 @@ export class DesignInfoComponent extends BaseComponentComponent
     });
     this.comparisonData.push({
       name: "Threat",
+      tooltip: "Increase chance of drawing enemy fire.",
       icon: "my:archery-target",
       iconClass: "threat-color",
       original: this.original.threat,
@@ -290,6 +310,7 @@ export class DesignInfoComponent extends BaseComponentComponent
     });
     this.comparisonData.push({
       name: "Threat /round",
+      tooltip: "Increase threat every round.",
       icon: "my:archery-target",
       iconClass: "threat-color",
       original: this.original.thereatPerRound,
