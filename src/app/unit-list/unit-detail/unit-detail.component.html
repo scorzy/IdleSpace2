@@ -8,11 +8,26 @@
     fxLayout="column"
     fxLayoutGap="12px"
   >
-    <app-unit-card class="min-width" *ngIf="unit" [unit]="unit">
+    <app-unit-card
+      class="min-width"
+      *ngIf="unit"
+      [unit]="unit"
+      [detailView]="true"
+    >
     </app-unit-card>
-    <app-unit-card class="min-width" *ngIf="building" [unit]="building">
+    <app-unit-card
+      class="min-width"
+      *ngIf="building"
+      [unit]="building"
+      [detailView]="true"
+    >
     </app-unit-card>
-    <app-unit-card class="min-width" *ngIf="storage" [unit]="storage">
+    <app-unit-card
+      class="min-width"
+      *ngIf="storage"
+      [unit]="storage"
+      [detailView]="true"
+    >
     </app-unit-card>
 
     <nz-card nzSize="small" *ngIf="unit.makers.length > 0">

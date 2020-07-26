@@ -16,6 +16,17 @@
   <p *ngIf="os.showDescriptions && unit.description !== ''">
     {{ unit.description }}
   </p>
+
+  <nz-alert
+    *ngIf="
+      detailView && (unit.id === 'e' || unit.id === 'm') && unit.quantity.lt(10)
+    "
+    nzType="info"
+    nzMessage="Buy 10 or more to unlock new stuff."
+    nzShowIcon
+  >
+  </nz-alert>
+
   <div *ngIf="unit.production.length > 0">
     <div *ngIf="os.showDronesStatus" class="drone-status">
       <nz-alert
@@ -186,20 +197,30 @@
 </ng-template>
 
 <ng-template #smallHeader>
-  <span nz-popover [nzPopoverContent]="limitPopover">
+  <span>
     <i nz-icon [nzType]="unit.icon" [ngClass]="unit.colorClass"></i>
     <strong> {{ unit.name }}</strong>
     <span
+      *ngIf="unit.manualBought.gt(0)"
+      class="monospace text-secondary"
+      nz-tooltip
+      nzTooltipTitle="Manual buy quantity, this number increase the price."
+    >
+      ({{ unit.manualBought | format: true }})</span
+    >
+    <span
       class="monospace text-secondary"
       [class.text-danger]="unit.limit.lte(unit.quantity)"
+      nz-popover
+      [nzPopoverContent]="limitPopover"
     >
       {{ unit.quantity | format: true }}
       <span *ngIf="unit.limit.lt(Decimal.MAX_VALUE)">
         /{{ unit.limit | format: true }}
       </span>
     </span>
-  </span></ng-template
->
+  </span>
+</ng-template>
 
 <ng-template #avatarTemplate>
   <i nz-icon [nzType]="unit.icon" [ngClass]="unit.colorClass"></i>
@@ -208,6 +229,14 @@
   <span> {{ unit.name }}</span>
 </ng-template>
 <ng-template #description>
+  <span
+    *ngIf="unit.manualBought.gt(0)"
+    class="monospace text-secondary"
+    nz-tooltip
+    nzTooltipTitle="Manual buy quantity, this number increase the price."
+  >
+    ({{ unit.manualBought | format: true }})</span
+  >
   <span
     class="monospace"
     nz-popover

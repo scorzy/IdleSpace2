@@ -32,6 +32,7 @@ import { OptionsService } from "src/app/options.service";
 export class UnitCardComponent extends BaseComponentComponent
   implements OnInit, OnDestroy, AfterViewInit, OnChanges {
   @Input() unit: Worker;
+  @Input() detailView = false;
   building: Building;
   tplModal: NzModalRef;
   popoverTrigger: string = null;
