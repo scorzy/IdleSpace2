@@ -560,6 +560,10 @@ export class ShipyardManager extends JobManager {
   }
   prestige() {
     this.modules.forEach((mod) => (mod.unlocked = false));
+    this.shipTypes.forEach((type) => {
+      type.unlocked = false;
+    });
+    this.shipTypes[0].unlocked = true;
     this.unlockedModules = true;
     this.unlockDefaultModules();
     this.toDo = [];
