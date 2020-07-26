@@ -1,5 +1,13 @@
 <i nz-icon [nzType]="unit.icon"></i>
 <span>
+  <i
+    nz-icon
+    [nzType]="unit.operativity > 0 ? 'exclamation-circle' : 'pause-circle'"
+    *ngIf="hasProd && unit.operativity < 100"
+    nzTheme="outline"
+    class="text-warning"
+  >
+  </i>
   <span class="name"> {{ unit.name }}&nbsp; </span>
   <span class="perSec monospace" *ngIf="!unit.perSec.eq(0)">
     <span [class.text-danger]="unit.perSec.lt(0)">

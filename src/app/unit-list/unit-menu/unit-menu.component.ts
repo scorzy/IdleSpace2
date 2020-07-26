@@ -19,4 +19,9 @@ export class UnitMenuComponent extends BaseComponentComponent
   implements OnInit, OnDestroy, AfterViewInit {
   @Input() unit: Unit;
   Decimal = Decimal;
+  hasProd = false;
+  ngOnInit() {
+    super.ngOnInit();
+    this.hasProd = this.unit.production.length > 0;
+  }
 }
