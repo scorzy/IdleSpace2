@@ -13,7 +13,7 @@
     *ngIf="mod.armourDamagePercent !== 100"
     class="armour-damage-color"
     nz-tooltip
-    nzTooltipTitle="Armour % Damage"
+    nzTooltipTitle="Percent of damage dealt to Armours"
     fxLayout="row"
   >
     <i nz-icon nzType="my:laser-blast"></i>
@@ -23,7 +23,7 @@
     *ngIf="mod.shieldDamagePercent !== 100"
     class="shield-damage-color"
     nz-tooltip
-    nzTooltipTitle="Shield % Damage"
+    nzTooltipTitle="Percent of damage dealt to Shields"
     fxLayout="row"
   >
     <i nz-icon nzType="my:supersonic-bullet"></i>
@@ -33,7 +33,7 @@
     *ngIf="mod.defenceDamagePercent !== 100"
     class="defence-damage-color"
     nz-tooltip
-    nzTooltipTitle="Defence % Damage"
+    nzTooltipTitle="Percent of damage dealt to ground defences"
     fxLayout="row"
   >
     <i nz-icon nzType="my:falling-bomb"></i>
@@ -142,10 +142,10 @@
     *ngIf="mod.cargo > 0"
     class="cargo-color"
     nz-tooltip
-    nzTooltipTitle="Cargo"
+    nzTooltipTitle="Cargo, increase metal, energy, alloy and components rewards from battle. Stack additive."
     fxLayout="row"
   >
-    <i nz-icon nzType="my:cube"></i>{{ mod.cargo | format }}
+    <i nz-icon nzType="my:cube"></i>{{ mod.cargo | format }}%
   </span>
   <span
     *ngIf="mod.scienceLab > 0"
