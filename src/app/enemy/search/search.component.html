@@ -41,9 +41,13 @@
             trackBy: getOptId
           "
         >
-          <nz-form-label [nzSpan]="7" [nzFor]="opt.id">{{
-            opt.name
-          }}</nz-form-label>
+          <nz-form-label
+            [nzSpan]="7"
+            [nzFor]="opt.id"
+            nz-tooltip
+            [nzTooltipTitle]="opt.tooltip"
+            >{{ opt.name }}</nz-form-label
+          >
           <nz-form-control [nzSpan]="15">
             <nz-slider
               [(ngModel)]="opt.quantity"
@@ -93,6 +97,16 @@
         "
         nzType="info"
         nzMessage="Search list is full."
+        nzShowIcon
+        @fade
+      >
+      </nz-alert>
+
+      <nz-alert
+        *ngIf="pointBalance < 0"
+        nzType="warning"
+        nzMessage="Bonus is negative."
+        nzDescription="You have an increased distance from sprawl but you are not compensating with other bonus. Increasing other bonus (for the same search price) or decreasing sprawl is recommended."
         nzShowIcon
         @fade
       >

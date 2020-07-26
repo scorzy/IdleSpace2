@@ -7,4 +7,5 @@ export interface ISearchOption {
   bonusMinEnd?: number;
   bonusMaxStart?: number;
   bonusMaxEnd?: number;
+  tooltip?: string;
 }
