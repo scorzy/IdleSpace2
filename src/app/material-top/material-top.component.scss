@@ -1,3 +1,6 @@
+* {
+  // font-size: 99%;
+}
 span {
   line-height: 1rem;
   white-space: nowrap;
@@ -16,6 +19,7 @@ span {
   flex-basis: auto;
   flex-grow: 1;
   font-weight: 700;
+  font-size: 99%;
   padding-bottom: 5px;
   padding-top: 5px;
 
@@ -43,10 +47,10 @@ span {
 
 .min-width {
   display: inline-block;
-  margin-right: 0.5rem;
+  margin-right: 0.3rem;
   min-width: 2.5rem;
 }
 .per-sec {
-  min-width: 3.1rem;
+  min-width: 4rem;
   text-align: right;
 }
