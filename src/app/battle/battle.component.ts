@@ -5,7 +5,7 @@ import {
   OnDestroy,
   AfterViewInit
 } from "@angular/core";
-import { FLEET_NUMBER, ZERO } from "../model/CONSTANTS";
+import { FLEET_NUMBER, ZERO, ENEMY_EXP_START_LEVEL } from "../model/CONSTANTS";
 import { Cell } from "../model/enemy/cell";
 import { BaseComponentComponent } from "../base-component/base-component.component";
 
@@ -23,6 +23,8 @@ export class BattleComponent extends BaseComponentComponent
   needNuke = ZERO;
   nukePercent = 0;
   autoAttackOptions = false;
+  expGain = ZERO;
+  darkMatterGain = ZERO;
 
   ngOnInit() {
     this.selectActiveCells();
@@ -37,11 +39,27 @@ export class BattleComponent extends BaseComponentComponent
             .min(1)
             .toNumber();
         }
+        this.reload();
         this.cd.markForCheck();
       })
     );
   }
+  reload() {
+    if (!this.ms.game.enemyManager.currentEnemy) {
+      this.expGain = ZERO;
+      this.darkMatterGain = ZERO;
+    } else {
+      const newExpGain = this.ms.game.enemyManager.getExperience(
+        this.ms.game.enemyManager.currentEnemy.level
+      );
+      if (!newExpGain.eq(this.expGain)) this.expGain = newExpGain;
 
+      const newDm = this.ms.game.enemyManager.getDarkMatter(
+        this.ms.game.enemyManager.currentEnemy.level
+      );
+      if (!newDm.eq(this.darkMatterGain)) this.darkMatterGain = newDm;
+    }
+  }
   attack(num = -1) {
     if (num === -1) {
       for (let i = 0; i < FLEET_NUMBER; i++) {

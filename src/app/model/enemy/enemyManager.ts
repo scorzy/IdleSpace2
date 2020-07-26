@@ -186,7 +186,10 @@ export class EnemyManager extends JobManager {
         try {
           oldShips = playerDesign[i].old?.fleets[fleetNum]?.shipsQuantity;
         } catch (ex) {}
-        if (playerDesign[i].fleets[fleetNum].shipsQuantity < 1 && oldShips < 1) {
+        if (
+          playerDesign[i].fleets[fleetNum].shipsQuantity < 1 &&
+          oldShips < 1
+        ) {
           continue;
         }
 
@@ -379,6 +382,22 @@ export class EnemyManager extends JobManager {
       // mat.quantity = ZERO;
     }
   }
+  getExperience(enemyLevel): Decimal {
+    if (enemyLevel < ENEMY_EXP_START_LEVEL) return ZERO;
+    if (this.currentEnemy.level < this.maxLevel) return ZERO;
+    return Decimal.floor(
+      (ENEMY_BASE_EXP + enemyLevel * ENEMY_EXP_GROW_RATE) *
+        (Game.getGame().prestigeManager.moreExp.active ? 1 + EXP_GAIN_CARD : 1)
+    );
+  }
+  getDarkMatter(enemyLevel): Decimal {
+    if (this.currentEnemy.level < ENEMY_EXP_START_LEVEL) return ZERO;
+    let dmToAdd = Decimal.multiply(DM_PER_LEVEL, this.currentEnemy.level);
+    if (Game.getGame().prestigeManager.moreDM.active) {
+      dmToAdd = dmToAdd.times(1 + DM_GAIN_CARD);
+    }
+    return dmToAdd;
+  }
   defeatEnemy() {
     if (!this.currentEnemy) return false;
 
@@ -390,27 +409,19 @@ export class EnemyManager extends JobManager {
     Game.getGame().researchManager.scavenging.inspire();
 
     if (this.currentEnemy.level >= this.maxLevel) {
-      this.maxLevel++;
       if (this.currentEnemy.level >= ENEMY_EXP_START_LEVEL) {
         const pm = Game.getGame().prestigeManager;
-        const exp = Decimal.floor(
-          (ENEMY_BASE_EXP + this.currentEnemy.level * ENEMY_EXP_GROW_RATE) *
-            (Game.getGame().prestigeManager.moreExp.active
-              ? 1 + EXP_GAIN_CARD
-              : 1)
-        );
+        const exp = this.getExperience(this.currentEnemy.level);
         pm.addExperience(exp);
       }
+      this.maxLevel++;
     }
     let dmToAdd = ZERO;
     if (this.currentEnemy.level >= ENEMY_EXP_START_LEVEL) {
-      dmToAdd = Decimal.multiply(DM_PER_LEVEL, this.currentEnemy.level);
+      dmToAdd = this.getDarkMatter(this.currentEnemy.level);
       Game.getGame().lockedDarkMatter = Game.getGame().lockedDarkMatter.plus(
         dmToAdd
       );
-      if (Game.getGame().prestigeManager.moreDM.active) {
-        dmToAdd = dmToAdd.times(1 + DM_GAIN_CARD);
-      }
     }
     Game.getGame().notificationManager.addNotification(
       new MyNotification(
@@ -418,9 +429,7 @@ export class EnemyManager extends JobManager {
         "Enemy Defeated!" +
           (dmToAdd.lte(0)
             ? ""
-            : " +" +
-              MainService.formatPipe.transform(dmToAdd) +
-              " dark matter"),
+            : " +" + MainService.timePipe.transform(dmToAdd) + " dark matter"),
         "Lv. " +
           MainService.formatPipe.transform(this.currentEnemy.level, true) +
           " " +

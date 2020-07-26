@@ -59,7 +59,7 @@ export class AutoSearch extends AbstractAutobuyer {
         levelToSearch = levels[0];
         for (let i = 1, n = levels.length; i < n; i++) {
           if (levels[i] - 1 > levels[i - 1] || levels[i] >= this.maxLevel) {
-            console.log(levels[i] + "  " + levels[i - 1]);
+            // console.log(levels[i] + "  " + levels[i - 1]);
             break;
           }
           levelToSearch = levels[i];

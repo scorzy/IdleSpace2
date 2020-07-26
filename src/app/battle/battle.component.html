@@ -77,16 +77,54 @@
       </nz-form-item>
     </form>
 
+    <nz-alert
+      nzType="info"
+      nzShowIcon
+      nzMessage="Next attackable enemy will be attacked as soon as possible."
+      *ngIf="
+        !ms.game.enemyManager.currentEnemy && ms.game.enemyManager.autoNext
+      "
+    ></nz-alert>
+
     <app-battle-table
       *ngIf="ms.game.enemyManager.currentEnemy"
       [currentEnemy]="ms.game.enemyManager.currentEnemy"
     ></app-battle-table>
 
-    <br />
-    <span>
-      Losing streak:
-      <span class="monospace">{{ ms.game.enemyManager.lostRow }}</span>
-    </span>
+    <ng-container *ngIf="ms.game.enemyManager.currentEnemy">
+      <br />
+      <span>
+        Losing streak:
+        <span class="monospace">{{ ms.game.enemyManager.lostRow }}</span>
+      </span>
+      <br />
+      <span>
+        Experience reward:
+        <span class="monospace">{{ expGain | format: true }}</span>
+        <span *ngIf="expGain.lte(0)" class="text-warning">
+          Enemy level is too low. Gain experience from lv.
+          <span class="monospace">
+            2
+          </span>
+          every time you defeat enemies of max level (<span class="monospace">{{
+            ms.game.enemyManager.maxLevel | format: true
+          }}</span
+          >).
+        </span>
+      </span>
+      <br />
+      <span>
+        Dark matter reward:
+        <span class="monospace">{{ darkMatterGain | time }}</span
+        >.
+        <span *ngIf="darkMatterGain.lte(0)" class="text-warning"
+          >Enemy level is too low. Gain experience from lv.
+          <span class="monospace">
+            2
+          </span>
+        </span>
+      </span>
+    </ng-container>
   </div>
 
   <div fxFlex="1 1 calc(50% - 10px)">

@@ -213,7 +213,6 @@ export class Enemy {
         0,
         1
       );
-      console.log(this.tankTools);
       //#endregion
       //#region Weapons
       const allowedShipTypes = sm.shipTypes.slice(0, maxShip);
