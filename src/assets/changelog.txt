@@ -1,6 +1,7 @@
 26/07/2020
 -   "Drone production prestige" now act as described
 -   Ui fix
+-   "Disable small(2 sec) warp notifications". Increased from 1 sec to 2 sec
 
 25/07/2020
 -   New "old style" ui for workers. Cards ui can be re enabled on ui options.
