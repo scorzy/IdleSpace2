@@ -6,7 +6,9 @@ import {
   TemplateRef,
   OnInit,
   OnDestroy,
-  AfterViewInit
+  AfterViewInit,
+  SimpleChanges,
+  OnChanges
 } from "@angular/core";
 import { MainService } from "src/app/main.service";
 import { Worker } from "src/app/model/units/worker";
@@ -28,7 +30,7 @@ import { OptionsService } from "src/app/options.service";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UnitCardComponent extends BaseComponentComponent
-  implements OnInit, OnDestroy, AfterViewInit {
+  implements OnInit, OnDestroy, AfterViewInit, OnChanges {
   @Input() unit: Worker;
   building: Building;
   tplModal: NzModalRef;
@@ -52,18 +54,10 @@ export class UnitCardComponent extends BaseComponentComponent
     super(ms, cd);
   }
   ngOnInit() {
-    this.popoverTrigger = "hover";
-    if (this.unit instanceof Building) {
-      this.building = this.unit;
-      this.hasDepartments = this.building?.departments?.length > 0;
-    }
-    this.sliderDisabled = !this.unit.production.find((p) => p.ratio.lt(0));
-    // this.getActions();
-    this.unit.reloadMaxBuy();
-    this.reloadCustomBuy();
+    this.initialize();
+
     this.subscriptions.push(
       this.ms.updateEmitter.subscribe(() => {
-        // this.getActions();
         this.unit.reloadMaxBuy();
         this.reloadCustomBuy();
         this.cd.markForCheck();
@@ -74,6 +68,19 @@ export class UnitCardComponent extends BaseComponentComponent
           this.popoverTrigger = state.matches ? "hover" : "null";
         })
     );
+  }
+  ngOnChanges(changes: SimpleChanges): void {
+    this.initialize();
+  }
+  initialize() {
+    this.popoverTrigger = "hover";
+    if (this.unit instanceof Building) {
+      this.building = this.unit;
+      this.hasDepartments = this.building?.departments?.length > 0;
+    }
+    this.sliderDisabled = !this.unit.production.find((p) => p.ratio.lt(0));
+    this.unit.reloadMaxBuy();
+    this.reloadCustomBuy();
   }
   buyOneAct() {
     this.unit.buy(ONE);
