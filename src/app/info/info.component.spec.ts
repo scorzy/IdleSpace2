@@ -1,16 +1,24 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed } from "@angular/core/testing";
 
-import { InfoComponent } from './info.component';
+import { InfoComponent } from "./info.component";
+import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import { testImports } from "../app.component.spec";
+import { FormatPipe } from "../format.pipe";
+import { MainService } from "../main.service";
+import { OptionsService } from "../options.service";
+import { TimePipe } from "../time.pipe";
 
-describe('InfoComponent', () => {
+describe("InfoComponent", () => {
   let component: InfoComponent;
   let fixture: ComponentFixture<InfoComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ InfoComponent ]
-    })
-    .compileComponents();
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
+      imports: testImports,
+      declarations: [InfoComponent, FormatPipe],
+      providers: [MainService, OptionsService, FormatPipe, TimePipe]
+    }).compileComponents();
   }));
 
   beforeEach(() => {
@@ -19,7 +27,7 @@ describe('InfoComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });
