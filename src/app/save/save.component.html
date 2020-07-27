@@ -5,7 +5,13 @@
   <button nz-button nzType="default" (click)="ms.loadFromLocalStorage()">
     Load
   </button>
-  <button nz-button nzType="danger" (click)="ms.clear()">
+  <button
+    nz-button
+    nzType="danger"
+    nz-popconfirm
+    nzPopconfirmTitle="This is irreversible, Are you sure?"
+    (nzOnConfirm)="ms.clear()"
+  >
     Clear
   </button>
 </nz-button-group>

@@ -105,12 +105,13 @@ import { CardsComponent } from "./cards/cards.component";
 import { PrestigeCardComponent } from "./cards/prestige-card/prestige-card.component";
 import { AutoSpaceComponent } from "./auto-buy/auto-space/auto-space.component";
 import { NZ_WAVE_GLOBAL_CONFIG } from "ng-zorro-antd";
-import { InfoComponent } from './info/info.component';
-import { AutoSurrenderComponent } from './auto-buy/auto-surrender/auto-surrender.component';
-import { UnitListComponent } from './unit-list/unit-list.component';
-import { UnitDetailComponent } from './unit-list/unit-detail/unit-detail.component';
-import { StorageComponent } from './units/storage/storage.component';
-import { UnitMenuComponent } from './unit-list/unit-menu/unit-menu.component';
+import { InfoComponent } from "./info/info.component";
+import { AutoSurrenderComponent } from "./auto-buy/auto-surrender/auto-surrender.component";
+import { UnitListComponent } from "./unit-list/unit-list.component";
+import { UnitDetailComponent } from "./unit-list/unit-detail/unit-detail.component";
+import { StorageComponent } from "./units/storage/storage.component";
+import { UnitMenuComponent } from "./unit-list/unit-menu/unit-menu.component";
+import { NzPopconfirmModule } from "ng-zorro-antd/popconfirm";
 
 registerLocaleData(en);
 
@@ -229,7 +230,8 @@ const ngZorroConfig: NzConfig = {
     NzToolTipModule,
     NzTypographyModule,
     NzCascaderModule,
-    NzDropDownModule
+    NzDropDownModule,
+    NzPopconfirmModule
   ],
   providers: [
     { provide: NZ_I18N, useValue: en_US },
