@@ -1,3 +1,6 @@
+27/07/2020
+-   Fixed Fleet number on Fleet>Jobs
+
 26/07/2020
 -   "Drone production prestige" now act as described
 -   Ui fix
