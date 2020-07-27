@@ -105,20 +105,35 @@
                     selectedOptions[selectedOptions.length - 1]?.mod?.shape
                   "
                 ></i>
-                {{ selectedOptions[selectedOptions.length - 1]?.label }}
+                <span>
+                  {{ selectedOptions[selectedOptions.length - 1]?.label }}
+                </span>
               </span>
             </ng-template>
 
             <ng-template #renderOptTpl let-option let-index="index">
               <span
+                [nz-popover]="option?.mod"
+                [nzPopoverTitle]="option.label"
+                [nzPopoverContent]="modTemplate"
+                nzPopoverPlacement="right"
+                [nzPopoverTrigger]="option?.mod ? 'hover' : 'null'"
+                style="width: 100%;"
+                class="mod-options"
                 nz-typography
                 [nzType]="
                   option?.mod && !option?.mod?.unlocked ? 'warning' : ''
                 "
               >
                 <i nz-icon [nzType]="option?.mod?.shape"></i>
-                {{ option.label }}
+                <span>
+                  {{ option.label }}
+                </span>
               </span>
+
+              <ng-template #modTemplate>
+                <app-module-info [mod]="option?.mod"></app-module-info>
+              </ng-template>
             </ng-template>
 
             <div fxLayout="row" fxLayoutGap="0.5rem">
