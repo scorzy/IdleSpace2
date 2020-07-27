@@ -13,7 +13,12 @@ export class BuildShipsJob extends Job {
   public set name(_name: string) {}
   public get description() {
     return (
-      "Fleet " + this.fleetNum + " Ships: " + this.built + " / " + this.quantity
+      "Fleet " +
+      (1 + this.fleetNum) +
+      " Ships: " +
+      this.built +
+      " / " +
+      this.quantity
     );
   }
   public set description(_description: string) {}
