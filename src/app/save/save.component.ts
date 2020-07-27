@@ -8,6 +8,7 @@ import {
 import { MainService } from "../main.service";
 import { OptionsService } from "../options.service";
 import { Subscription } from "rxjs";
+import { formatDate } from "@angular/common";
 
 @Component({
   selector: "app-save",
@@ -42,5 +43,14 @@ export class SaveComponent implements OnInit, OnDestroy {
   }
   import() {
     this.ms.decompressAndLoad(this.exp.trim());
+  }
+  download() {
+    const myBlob = new Blob([this.exp], { type: "octet/stream" });
+    const link = document.createElement("a");
+    link.href = window.URL.createObjectURL(myBlob);
+    link.setAttribute("download", "IdleSpace2.txt");
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   }
 }
