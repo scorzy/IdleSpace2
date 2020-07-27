@@ -6,7 +6,8 @@
       <th>Date</th>
       <th>Enemy</th>
       <th>Status</th>
-      <th></th>
+      <th>View</th>
+      <th>Download</th>
     </tr>
   </thead>
   <tbody>
@@ -29,6 +30,11 @@
         <a [routerLink]="'/report/' + report.id"
           ><i nz-icon nzType="eye" nzTheme="outline"></i> View</a
         >
+      </td>
+      <td>
+        <button nz-button (click)="download(report.id)" nzType="link">
+          <i nz-icon nzType="fa-s:file-csv"></i>
+        </button>
       </td>
     </tr>
   </tbody>
