@@ -4,6 +4,7 @@ import { Game } from "../game";
 export class AutoFleetUpdate extends AbstractAutobuyer {
   id = "fu";
   automate(): boolean {
+    if (!Game.getGame().resourceManager.worker.unlocked) return false;
     const sm = Game.getGame().shipyardManager;
     if (sm.designerView) return false;
     let updated = false;

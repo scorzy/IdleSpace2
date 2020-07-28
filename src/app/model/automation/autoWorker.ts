@@ -15,6 +15,7 @@ export class AutoWorker extends AbstractAutobuyer {
     if (this.worker.id === "e") this.priority = 5e3;
   }
   automate(): boolean {
+    if (!this.worker.unlocked) return false;
     if (this.worker.operativity < 100) return false;
     if (this.maxBuy < 1) return false;
     if (this.worker.quantity.gte(this.worker.limit)) return false;
@@ -51,8 +52,7 @@ export class AutoWorker extends AbstractAutobuyer {
       return this.worker.buy(
         this.worker.buyPrice.maxBuy.min(this.maxBuy).min(max).floor()
       );
-    }
-    else return false;
+    } else return false;
   }
   //#region Save and Load
   getSave(): any {

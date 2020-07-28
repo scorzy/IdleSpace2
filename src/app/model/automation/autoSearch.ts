@@ -6,6 +6,7 @@ export class AutoSearch extends AbstractAutobuyer {
   maxLevel = 0;
   id = "as";
   automate(): boolean {
+    if (!Game.getGame().resourceManager.searcher.unlocked) return false;
     const em = Game.getGame().enemyManager;
     let nothingToAttack = false;
     if (

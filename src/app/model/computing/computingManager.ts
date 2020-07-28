@@ -70,6 +70,8 @@ export class ComputingManager {
       "Level 1 auto casting start casting on full computing";
   }
   update(delta: number) {
+    if (delta <= 0) return;
+
     //#region Computing
     this.maxComputingStack.reloadAdditiveBonus();
     this.maxComputing =

@@ -16,6 +16,7 @@ export class SpaceStationAutoBuyer extends AbstractAutobuyer {
   }
   automate(): boolean {
     const rm = Game.getGame().resourceManager;
+    if (!rm.worker.unlocked) return false;
     const sp = Game.getGame().spaceStationManager;
     if (!rm.spaceStations[0].unlocked) return false;
     if (sp.toDo.length > 8) return false;
