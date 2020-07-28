@@ -1,3 +1,7 @@
+28/07/2020
+-   Prestige bug fixed
+-   Added some module descriptions
+
 27/07/2020
 -   Fixed Fleet number on Fleet>Jobs
 -   Added save download

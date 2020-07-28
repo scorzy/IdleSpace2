@@ -434,6 +434,7 @@ export const modules: ModuleData[] = [
   {
     id: "X",
     name: "Shield Charger",
+    description: "Recharge shields of ally ships.",
     energy: -2,
     technologies: [
       { technologyId: TECHNOLOGIES.MilitaryEngineering.id, multi: 1 },
@@ -445,6 +446,8 @@ export const modules: ModuleData[] = [
   {
     id: "t",
     name: "Tracking System",
+    description:
+      "Tracking System increase chance finding suitable targets and increase damage.",
     technologies: [
       { technologyId: TECHNOLOGIES.MilitaryEngineering.id, multi: 1 },
       { technologyId: TECHNOLOGIES.Computing.id, multi: 1 }
@@ -459,6 +462,8 @@ export const modules: ModuleData[] = [
   {
     id: "f",
     name: "Assistance Drone",
+    description:
+      "Assistance Drone improve precision, explosion, armour and shields.",
     technologies: [
       { technologyId: TECHNOLOGIES.Robotics.id, multi: 1.2 },
       { technologyId: TECHNOLOGIES.Computing.id, multi: 0.8 }
@@ -472,6 +477,7 @@ export const modules: ModuleData[] = [
   {
     id: "G",
     name: "Clocking Device",
+    description: "Clocking Device decrease threat generated from damage done.",
     technologies: [
       { technologyId: TECHNOLOGIES.Physics.id, multi: 1 },
       { technologyId: TECHNOLOGIES.Materials.id, multi: 1 }
@@ -484,6 +490,7 @@ export const modules: ModuleData[] = [
   {
     id: "b",
     name: "Suppressor",
+    description: "Suppressor decrease threat generated from damage done.",
     technologies: [
       { technologyId: TECHNOLOGIES.MilitaryEngineering.id, multi: 1 },
       { technologyId: TECHNOLOGIES.Materials.id, multi: 1 }
@@ -493,7 +500,8 @@ export const modules: ModuleData[] = [
   },
   {
     id: "W",
-    name: "Coordinator",
+    name: "Coordinator module improve overall fighting capability.",
+    description: "",
     technologies: [
       { technologyId: TECHNOLOGIES.MilitaryEngineering.id, multi: 1 },
       { technologyId: TECHNOLOGIES.Naval.id, multi: 1 }
@@ -510,6 +518,8 @@ export const modules: ModuleData[] = [
   {
     id: "cj",
     name: "Communications Jammer",
+    description:
+      "Communications Jammer blocks enemies communications in order to draw fire.",
     technologies: [
       { technologyId: TECHNOLOGIES.MilitaryEngineering.id, multi: 0.8 },
       { technologyId: TECHNOLOGIES.Computing.id, multi: 1.2 }
@@ -520,7 +530,8 @@ export const modules: ModuleData[] = [
   },
   {
     id: "tb",
-    name: "Tractor Beam ",
+    name: "Tractor Beam",
+    description: "Tractor Beam are the final threat technology.",
     technologies: [
       { technologyId: TECHNOLOGIES.CivilEngineering.id, multi: 0.7 },
       { technologyId: TECHNOLOGIES.Physics.id, multi: 1.3 }

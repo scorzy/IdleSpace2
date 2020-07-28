@@ -114,7 +114,7 @@
             <ng-template #renderOptTpl let-option let-index="index">
               <span
                 [nz-popover]="option?.mod"
-                [nzPopoverTitle]="option.label"
+                [nzPopoverTitle]="modTitleTemplate"
                 [nzPopoverContent]="modTemplate"
                 nzPopoverPlacement="right"
                 [nzPopoverTrigger]="option?.mod ? 'hover' : 'null'"
@@ -131,8 +131,15 @@
                 </span>
               </span>
 
+              <ng-template #modTitleTemplate>
+                <i nz-icon [nzType]="option?.mod?.shape"></i>
+                {{ option.label }}
+              </ng-template>
+
               <ng-template #modTemplate>
-                <app-module-info [mod]="option?.mod"></app-module-info>
+                <div class="mod-info-container">
+                  <app-module-info [mod]="option?.mod"></app-module-info>
+                </div>
               </ng-template>
             </ng-template>
 
