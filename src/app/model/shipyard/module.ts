@@ -10,6 +10,7 @@ import { Research } from "../researches/research";
 export class Module implements IUnlockable {
   id = "";
   name = "";
+  description = "";
   shape = "";
   armour = 0;
   shield = 0;

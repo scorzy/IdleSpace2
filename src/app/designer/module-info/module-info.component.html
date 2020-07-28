@@ -1,3 +1,4 @@
+<p *ngIf="mod.description !== ''">{{ mod.description }}</p>
 <span font="monospace" fxLayout="row">
   <span
     *ngIf="mod.damage > 0"
@@ -144,7 +145,6 @@
     nz-tooltip
     nzTooltipTitle="Cargo, increase metal, energy, alloy and components rewards from battle. Stack additive. Total bonus is 'number of ships' * 'cargo bonus'"
     fxLayout="row"
-    1
   >
     <i nz-icon nzType="my:cube"></i>{{ mod.cargo | format }}%
   </span>

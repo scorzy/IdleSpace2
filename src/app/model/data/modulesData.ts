@@ -15,6 +15,7 @@ import {
 export class ModuleData {
   id: string;
   name: string;
+  description?: string;
   armour?: number;
   shield?: number;
   armourPercent?: number;
@@ -50,6 +51,7 @@ export const modules: ModuleData[] = [
   {
     id: "A",
     name: "Armour",
+    description: "Armour is the second and last layer of hit points of a ship.",
     armour: MODULE_ARMOUR,
     technologies: [
       { technologyId: TECHNOLOGIES.MilitaryEngineering.id, multi: 1 },
@@ -60,6 +62,7 @@ export const modules: ModuleData[] = [
   {
     id: "E",
     name: "Stealth Armour",
+    description: "This armour decrease fire drawn from enemies.",
     armour: MODULE_ARMOUR * 0.7,
     threatGainMulti: 0.5,
     threat: BASE_THREAT * -0.5,
@@ -72,6 +75,7 @@ export const modules: ModuleData[] = [
   {
     id: "B",
     name: "Ablative Armour",
+    description: "An advanced armour that decrease incoming damage.",
     armour: 0.7 * MODULE_ARMOUR,
     armourDamageReduction: 0.25 * MODULE_ARMOUR,
     technologies: [
@@ -83,6 +87,8 @@ export const modules: ModuleData[] = [
   {
     id: "V",
     name: "Reactive Armour",
+    description:
+      "The ultimate armour, increases armour percent and decreases incoming damage and explosion chance.",
     energy: -1,
     explosion: -0.1 * MODULE_ARMOUR,
     armour: 1.5 * MODULE_ARMOUR,
@@ -97,6 +103,7 @@ export const modules: ModuleData[] = [
   {
     id: "D",
     name: "Deflector",
+    description: "Deflector decreases incoming armour damage.",
     energy: -1,
     armour: MODULE_ARMOUR / 5,
     armourDamageReduction: 0.4 * MODULE_ARMOUR,
@@ -110,6 +117,7 @@ export const modules: ModuleData[] = [
   {
     id: "s",
     name: "Shield",
+    description: "Shields are the first layer of hit points of a ship.",
     shield: MODULE_SHIELD,
     energy: -1,
     technologies: [
@@ -121,6 +129,7 @@ export const modules: ModuleData[] = [
   {
     id: "O",
     name: "Stealth Shield",
+    description: "This shield decrease fire drawn from enemies.",
     shield: MODULE_SHIELD * 0.7,
     threatGainMulti: 0.5,
     threat: BASE_THREAT * -0.5,
@@ -133,6 +142,7 @@ export const modules: ModuleData[] = [
   {
     id: "j",
     name: "Jammer",
+    description: "Jammer decrease incoming shield damage.",
     energy: -2,
     shield: MODULE_SHIELD / 5,
     shieldPercent: 8,
@@ -148,6 +158,7 @@ export const modules: ModuleData[] = [
   {
     id: "S",
     name: "Solar Panel",
+    description: "Solar panels generate energy from solar power.",
     energy: 2,
     technologies: [
       { technologyId: TECHNOLOGIES.CivilEngineering.id, multi: 1 },
@@ -158,6 +169,8 @@ export const modules: ModuleData[] = [
   {
     id: "R",
     name: "RTG",
+    description:
+      "Radioisotope thermoelectric generator converts the heat released by the decay of a suitable radioactive material into electricity.",
     energy: 3,
     price: 20,
     shape: "my:mass-driver",
@@ -170,6 +183,8 @@ export const modules: ModuleData[] = [
   {
     id: "I",
     name: "Fission Reactor",
+    description:
+      "Fission Reactors use fission generate electricity by using heat from a self-sustained nuclear chain reaction.",
     energy: 5,
     price: 30,
     shape: "my:reactor",
@@ -183,6 +198,8 @@ export const modules: ModuleData[] = [
   {
     id: "F",
     name: "Fusion Reactor",
+    description:
+      "Fusion Reactors generate electricity by using heat from nuclear fusion reactions.",
     energy: 6,
     price: 80,
     shape: "my:atom",
@@ -194,6 +211,8 @@ export const modules: ModuleData[] = [
   {
     id: "J",
     name: "Antimatter Reactor",
+    description:
+      "Antimatter Reactors generate electricity by using heat from matter and anti matter annihilation.",
     energy: 7,
     price: 40,
     shape: "my:materials-science",
@@ -378,6 +397,8 @@ export const modules: ModuleData[] = [
   {
     id: "C",
     name: "Cargo",
+    description:
+      "Cargo increase metal, energy, alloy and components gained from battles.",
     technologies: [
       { technologyId: TECHNOLOGIES.CivilEngineering.id, multi: 1 },
       { technologyId: TECHNOLOGIES.Materials.id, multi: 1 }
@@ -389,6 +410,7 @@ export const modules: ModuleData[] = [
   {
     id: "N",
     name: "Laboratory",
+    description: "Laboratory increase science and search gained from battles.",
     technologies: [
       { technologyId: TECHNOLOGIES.Physics.id, multi: 1.3 },
       { technologyId: TECHNOLOGIES.Search.id, multi: 0.7 }
@@ -399,6 +421,8 @@ export const modules: ModuleData[] = [
   {
     id: "P",
     name: "Teleporter",
+    description:
+      "Teleporters greatly increase metal, energy, alloy and components gained from battles.",
     technologies: [
       { technologyId: TECHNOLOGIES.CivilEngineering.id, multi: 1 },
       { technologyId: TECHNOLOGIES.Physics.id, multi: 1 }
