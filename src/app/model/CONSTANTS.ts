@@ -76,7 +76,7 @@ export const ENEMY_EXP_GROW_RATE = 0.2;
 export const DM_PER_LEVEL = 10;
 
 // Modules
-export const PRICE_GROW_RATE = 1.05;
+export const PRICE_GROW_RATE = 1.054;
 export const SIZE_MULTI = 0.2;
 export const MODULE_ARMOUR = 200;
 export const MODULE_SHIELD = 200;
