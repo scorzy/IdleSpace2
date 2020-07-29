@@ -9,9 +9,12 @@ export class Components extends Unit {
     return this._uiLimit;
   }
   reloadLimit() {
-    this.limitStack.reloadBonus();
+    // this.limitStack.reloadBonus();
     this.limitStack.reloadAdditiveBonus();
-    this.limit = this.limitStack.totalAdditiveBonus;
+    this.limitStackMulti.reloadBonus();
+    this.limit = this.limitStack.totalAdditiveBonus.times(
+      this.limitStackMulti.totalBonus
+    );
 
     this._uiLimit = new Decimal(this.limit);
     const unlockedWorkers = Game.getGame().resourceManager.unlockedWorkers;

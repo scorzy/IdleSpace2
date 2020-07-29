@@ -1,7 +1,8 @@
 import { IBase } from "../iBase";
-import { ONE, ZERO } from "../CONSTANTS";
+import { ONE, ZERO, EXP_STORAGE } from "../CONSTANTS";
 
 export class Bonus {
+  storage = false;
   constructor(
     public unit: IBase,
     public multiplier: Decimal,
@@ -22,6 +23,8 @@ export class Bonus {
       return ZERO;
     }
     let ret = this.unit.quantity.times(this.multiplier);
+    if (this.storage)
+      ret = ret.times(Decimal.pow(EXP_STORAGE, this.unit.quantity));
     if (this.secondMultiplier) ret = ret.times(this.secondMultiplier.quantity);
     return ret;
   }

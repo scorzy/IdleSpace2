@@ -41,6 +41,7 @@ export const COMPONENT_PRICE = TEN;
 export const MAX_RECYCLING = 0.9;
 export const BUILDING_LIMIT = 20;
 export const DEPARTMENT_TECH_MULTI = new Decimal(0.01);
+export const EXP_STORAGE = 1.1;
 
 //  FLEETS
 export const BASE_NAVAL_CAPACITY = 25;
@@ -110,7 +111,7 @@ export const REPEATABLE_RES_PRICE_MULTI = 0.1;
 
 //  Buildings
 export const ENERGY_STORAGE = 1e4;
-export const STORAGE_DEPARTMENT_MULTI = 0.4;
+export const STORAGE_DEPARTMENT_MULTI = 0.1;
 export const COMPONENT_STORAGE = 1e3;
 export const NUKE_STORAGE = 50;
 export const METAL_BUILDING_PRICE = 1000;

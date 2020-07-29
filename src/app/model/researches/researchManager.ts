@@ -12,7 +12,8 @@ import {
   RESEARCH_TECH_MOD_MULTI,
   PROPULSION_SPEED_MULTI,
   OPTIMIZED_SHIP_PREFIX,
-  SPACE_STATION_UP_PREFIX
+  SPACE_STATION_UP_PREFIX,
+  IDS
 } from "../CONSTANTS";
 import { IResearchData } from "../data/iResearchData";
 import { BonusStack } from "../bonus/bonusStack";
@@ -103,6 +104,9 @@ export class ResearchManager extends JobManager {
       if (i + 1 < 9) {
         resData.researchToUnlock = ["n" + (i + 1)];
       }
+      if (i > 1) {
+        resData.buildingPoints = [{ buildingId: "10", quantity: 1 }];
+      }
       if (i === 1) {
         resData.researchToUnlock.push("b");
       }
@@ -145,7 +149,6 @@ export class ResearchManager extends JobManager {
         tech: TECHNOLOGIES.Computing,
         inspirationBuilding: ""
       },
-
       {
         name: "Robotics",
         id: "x",

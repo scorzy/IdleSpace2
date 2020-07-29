@@ -220,13 +220,16 @@ export class ResourceManager {
       station.habSpace = station.habSpaceOriginal;
     }
 
+    this.materials.forEach((u) => {
+      u.exponentialLimit = true;
+      u.battleGainMulti = new BonusStack();
+    });
+    this.districts.forEach((u) => (u.battleGainMulti = new BonusStack()));
+
     this.units.forEach((u) => u.setRelations());
 
     //  Mods
     this.workers.forEach((w) => w.makeMods());
-
-    this.materials.forEach((u) => (u.battleGainMulti = new BonusStack()));
-    this.districts.forEach((u) => (u.battleGainMulti = new BonusStack()));
 
     this.subLists.push({
       name: "Materials",
@@ -563,37 +566,39 @@ export class ResourceManager {
             case "s": //  Storage
               if (building.id === "2") {
                 department.description =
-                  "+ " +
-                  STORAGE_DEPARTMENT_MULTI * ENERGY_STORAGE +
-                  " energy storage";
-                this.energy.limitStack.bonuses.push(
+                  "+ " + STORAGE_DEPARTMENT_MULTI * 100 + "% energy storage";
+                if (!this.energy.limitStackMulti)
+                  this.energy.limitStackMulti = new BonusStack();
+                this.energy.limitStackMulti.bonuses.push(
                   new Bonus(
                     building,
-                    new Decimal(STORAGE_DEPARTMENT_MULTI * ENERGY_STORAGE),
+                    new Decimal(STORAGE_DEPARTMENT_MULTI),
                     department
                   )
                 );
               } else if (building.id === "7") {
                 department.description =
                   "+ " +
-                  STORAGE_DEPARTMENT_MULTI * COMPONENT_STORAGE +
-                  " components storage";
-                this.components.limitStack.bonuses.push(
+                  STORAGE_DEPARTMENT_MULTI * 100 +
+                  "% components storage";
+                if (!this.components.limitStackMulti)
+                  this.components.limitStackMulti = new BonusStack();
+                this.components.limitStackMulti.bonuses.push(
                   new Bonus(
                     building,
-                    new Decimal(STORAGE_DEPARTMENT_MULTI * COMPONENT_STORAGE),
+                    new Decimal(STORAGE_DEPARTMENT_MULTI),
                     department
                   )
                 );
               } else if (building.id === "10") {
                 department.description =
-                  "+ " +
-                  STORAGE_DEPARTMENT_MULTI * NUKE_STORAGE +
-                  " nuke storage";
-                this.nuke.limitStack.bonuses.push(
+                  "+ " + STORAGE_DEPARTMENT_MULTI * 100 + "% nuke storage";
+                if (!this.nuke.limitStackMulti)
+                  this.nuke.limitStackMulti = new BonusStack();
+                this.nuke.limitStackMulti.bonuses.push(
                   new Bonus(
                     building,
-                    new Decimal(STORAGE_DEPARTMENT_MULTI * NUKE_STORAGE),
+                    new Decimal(STORAGE_DEPARTMENT_MULTI),
                     department
                   )
                 );

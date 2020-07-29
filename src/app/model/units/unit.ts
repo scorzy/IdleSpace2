@@ -48,6 +48,7 @@ export class Unit implements IBase, IUnlockable {
   workers = new Array<Unit>();
   battleMulti = 1;
   isLimited = false;
+  exponentialLimit = false;
   constructor(public unitData: IUnitData) {
     this.id = unitData.id;
     this.name = unitData.name;
@@ -78,9 +79,12 @@ export class Unit implements IBase, IUnlockable {
       this.limitStack = new BonusStack();
       this.unitData.limits.forEach((limit) => {
         const other = rm.units.find((u) => u.id === limit.buildingLimit);
-        this.limitStack.bonuses.push(
-          new Bonus(other, new Decimal(limit.buildingLimitQuantity))
+        const bonus = new Bonus(
+          other,
+          new Decimal(limit.buildingLimitQuantity)
         );
+        bonus.storage = this.exponentialLimit;
+        this.limitStack.bonuses.push(bonus);
         other.workers.push(this);
       });
     }
