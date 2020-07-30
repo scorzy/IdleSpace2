@@ -747,6 +747,7 @@ export class Enemy {
       l: this.level,
       n: this.name,
       i: this.icon,
+      m: this.designs[0].modules[0].level,
       d: this.designs.map((des) => des.getEnemySave()),
       s: this.distance
     };
@@ -768,6 +769,10 @@ export class Enemy {
     if ("l" in data) {
       this.level = data.l;
     }
+    let modLevel = 0;
+    if ("m" in data) {
+      modLevel = data.m;
+    }
     if ("n" in data) {
       this.name = data.n;
     }
@@ -780,7 +785,7 @@ export class Enemy {
     if ("d" in data) {
       this.designs = data.d.map((designData) => {
         const design = new ShipDesign();
-        design.loadEnemy(designData);
+        design.loadEnemy(designData, modLevel);
         return design;
       });
     }

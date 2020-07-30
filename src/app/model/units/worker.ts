@@ -14,6 +14,8 @@ import { Technology } from "../researches/technology";
 import { Research } from "../researches/research";
 import { AutoWorker } from "../automation/autoWorker";
 
+const ASSEMBLY_PRIORITY = 50;
+const ASSEMBLY_PRIORITY_ENDING = 500;
 export class Worker extends Unit {
   modStack: ModStack;
   maxMods: Decimal = ZERO;
@@ -21,8 +23,8 @@ export class Worker extends Unit {
   maxTechMods: { technology: Technology; multi: number }[];
   recycle = ZERO;
   recycleTemp = ZERO;
-  assemblyPriority = 50;
-  assemblyPriorityEnding = 500;
+  assemblyPriority = ASSEMBLY_PRIORITY;
+  assemblyPriorityEnding = ASSEMBLY_PRIORITY_ENDING;
   modsResearches: Research[];
   autoBuyer: AutoWorker;
   constructor(public unitData: IUnitData) {
@@ -160,8 +162,10 @@ export class Worker extends Unit {
     if (this.modStack) {
       ret.t = this.modStack.getSave();
     }
-    ret.p1 = this.assemblyPriority;
-    ret.p2 = this.assemblyPriorityEnding;
+    if (ASSEMBLY_PRIORITY_ENDING !== this.assemblyPriority)
+      ret.p1 = this.assemblyPriority;
+    if (ASSEMBLY_PRIORITY_ENDING !== this.assemblyPriorityEnding)
+      ret.p2 = this.assemblyPriorityEnding;
     return ret;
   }
   load(save: any) {

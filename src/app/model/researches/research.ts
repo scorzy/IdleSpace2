@@ -321,19 +321,25 @@ export class Research extends Job implements IUnlockable, IBase {
     this.reload();
   }
   //#region Save and Load
-  getSave(): any {
+  getSave(done = false): any {
     const ret: any = {};
     ret.i = this.id;
     if (this.progress.gt(0)) {
       ret.p = this.progress;
     }
-    if (this.level > 0) {
-      ret.l = this.level;
+    if (!done) {
+      if (this.level > 0) {
+        ret.l = this.level;
+      }
+    } else {
+      if (this.level !== 1) {
+        ret.l = this.level;
+      }
     }
     if (this.inspiration) ret.s = this.inspiration;
     return ret;
   }
-  load(data: any) {
+  load(data: any, done = false) {
     if (!("i" in data) || data.i !== this.id) {
       return false;
     }
@@ -342,6 +348,8 @@ export class Research extends Job implements IUnlockable, IBase {
     }
     if ("l" in data) {
       this.level = data.l;
+    } else if (done) {
+      this.level = 1;
     }
     this.inspiration = data.s ?? false;
     this.reload();

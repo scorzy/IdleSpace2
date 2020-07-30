@@ -685,7 +685,7 @@ export class ResearchManager extends JobManager {
   getSave(): any {
     const ret: any = {
       d: this.done.map((r) => r.getSave()),
-      t: this.toDo.map((r) => r.getSave()),
+      t: this.toDo.map((r) => r.getSave(true)),
       b: this.backlog.map((r) => r.getSave()),
       e: this.unlockedTechnologies.map((t) => t.getSave()),
       r: this.researchPriority,

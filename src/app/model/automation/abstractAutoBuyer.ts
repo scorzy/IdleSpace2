@@ -29,10 +29,10 @@ export abstract class AbstractAutobuyer {
   getSave(): any {
     const ret: any = {
       i: this.id,
-      l: this.last,
-      p: this.priority,
-      n: this.interval
+      l: this.last
     };
+    if (this.interval !== 1e3) ret.n = this.interval;
+    if (this.priority !== 100) ret.p = this.priority;
     if (this.on) ret.o = this.on;
     return ret;
   }

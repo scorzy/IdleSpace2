@@ -601,15 +601,15 @@ export class ShipDesign {
 
   getEnemySave(): any {
     const ret: any = {
-      n: this.name,
+      // n: this.name,
       t: this.type.id,
-      m: this.modules.map((mod) => [mod.module.id, mod.level, mod.size]),
+      m: this.modules.map((mod) => [mod.module.id, mod.size]),
       q: this.enemyQuantity
     };
     if (this.isDefence) ret.d = true;
     return ret;
   }
-  loadEnemy(data: any): any {
+  loadEnemy(data: any, modLevel: number): any {
     if ("n" in data) {
       this.name = data.n;
     }
@@ -629,8 +629,8 @@ export class ShipDesign {
         );
 
         if (module) {
-          const level = mod[1];
-          const size = mod[2];
+          const level = modLevel || mod[1];
+          const size = mod[mod.length - 1];
           this.modules.push({ module, level, size });
         }
       }
@@ -638,6 +638,7 @@ export class ShipDesign {
     if ("q" in data) {
       this.enemyQuantity = data.q;
     }
+    this.name = this.isDefence ? this.type.defenceName : this.type.name;
     this.reload();
   }
   //#endregion
