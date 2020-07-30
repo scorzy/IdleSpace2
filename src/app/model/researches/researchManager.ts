@@ -236,6 +236,12 @@ export class ResearchManager extends JobManager {
             if (i > 0) {
               resData.buildingPoints = [{ buildingId: "2", quantity: 1 }];
             }
+            resData.limitMulti = [
+              {
+                unitId: "E",
+                multi: 0.5
+              }
+            ];
             break;
         }
         if (i > 0) {
@@ -247,6 +253,12 @@ export class ResearchManager extends JobManager {
               if (i > 0) {
                 resData.buildingPoints = [{ buildingId: "7", quantity: 1 }];
               }
+              resData.limitMulti = [
+                {
+                  unitId: "x",
+                  multi: 0.1
+                }
+              ];
               break;
 
             //  Mining

@@ -3,9 +3,9 @@ import { Game } from "../game";
 
 export class AutoSurrender extends AbstractAutobuyer {
   losingStreak = 5;
+  id = "sr";
   constructor() {
     super();
-    this.id = "as";
   }
   automate(): boolean {
     const game = Game.getGame();

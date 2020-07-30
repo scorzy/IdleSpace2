@@ -384,7 +384,7 @@ export const RESEARCHES: IResearchData[] = [
     type: TECHNOLOGIES.MilitaryEngineering,
     researchToUnlock: ["or25"],
     buildingPoints: [
-      { buildingId: "5", quantity: 1 },
+      { buildingId: "4", quantity: 1 },
       { buildingId: "10", quantity: 1 }
     ],
     technologyBonus: [
@@ -415,6 +415,10 @@ export const RESEARCHES: IResearchData[] = [
       { unitId: IDS.NukeSpecialist, multi: 0.2 },
       { unitId: IDS.Worker, multi: 0.2 },
       { unitId: MAT_IDS.Nuke, multi: 1 }
+    ],
+    buildingPoints: [
+      { buildingId: "5", quantity: 1 },
+      { buildingId: "10", quantity: 1 }
     ]
   },
   {
