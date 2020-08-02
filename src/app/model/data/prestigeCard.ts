@@ -18,7 +18,8 @@ import {
   SPELL_DURATION_CARD,
   COMPUTING_REGENERATION_CARD,
   COMPUTING_MAX_CARD,
-  PRODUCTION_PEACE_CARD
+  PRODUCTION_PEACE_CARD,
+  MORE_HAB_FROM_STATIONS
 } from "../CONSTANTS";
 
 export const PRESTIGE_CARDS: ISimpleBase[] = [
@@ -176,6 +177,15 @@ export const PRESTIGE_CARDS: ISimpleBase[] = [
     id: "m1",
     name: "More Dark Matter",
     description: "Increase Dark Matter gain by " + DM_GAIN_CARD * 100 + "%",
+    icon: "arrow-up"
+  },
+  {
+    id: "m2",
+    name: "Bigger Space Stations",
+    description:
+      "Increase hab. space from space station by " +
+      MORE_HAB_FROM_STATIONS * 100 +
+      "%",
     icon: "arrow-up"
   }
   //#endregion

@@ -23,7 +23,8 @@ import {
   COMPUTING_REGENERATION_CARD,
   VELOCITY_PRESTIGE_MULTI,
   PRODUCTION_PEACE_CARD,
-  BETTER_SPACE_STATION_PRESTIGE
+  BETTER_SPACE_STATION_PRESTIGE,
+  MORE_HAB_FROM_STATIONS
 } from "../CONSTANTS";
 import { Game } from "../game";
 import {
@@ -62,6 +63,7 @@ export class PrestigeManager {
   moreExp: PrestigeCard;
   moreDM: PrestigeCard;
   moreComputing: PrestigeCard;
+  moreHabSpaceFromStations: PrestigeCard;
   //#region
   constructor() {
     this.generateExperience();
@@ -326,6 +328,14 @@ export class PrestigeManager {
     //#region Misc
     this.moreExp = this.cards.find((card) => card.id === "m0");
     this.moreDM = this.cards.find((card) => card.id === "m1");
+    this.moreHabSpaceFromStations = this.cards.find((card) => card.id === "m2");
+    const moreHabBonus = new Bonus(
+      this.moreHabSpaceFromStations,
+      new Decimal(MORE_HAB_FROM_STATIONS)
+    );
+    rm.spaceStations.forEach((spaceStation) => {
+      spaceStation.habSpaceStack.bonuses.push(moreHabBonus);
+    });
     //#endregion
   }
   addExperience(quantity: Decimal) {

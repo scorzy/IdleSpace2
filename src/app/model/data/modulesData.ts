@@ -77,7 +77,7 @@ export const modules: ModuleData[] = [
     name: "Ablative Armour",
     description: "An advanced armour that decrease incoming damage.",
     armour: 0.7 * MODULE_ARMOUR,
-    armourDamageReduction: 0.25 * MODULE_ARMOUR,
+    armourDamageReduction: 0.2 * MODULE_ARMOUR,
     technologies: [
       { technologyId: TECHNOLOGIES.MilitaryEngineering.id, multi: 1 },
       { technologyId: TECHNOLOGIES.Materials.id, multi: 1 }
@@ -93,7 +93,7 @@ export const modules: ModuleData[] = [
     explosion: -0.1 * MODULE_ARMOUR,
     armour: 1.5 * MODULE_ARMOUR,
     armourPercent: 5,
-    armourDamageReduction: 0.2 * MODULE_ARMOUR,
+    armourDamageReduction: 0.15 * MODULE_ARMOUR,
     technologies: [
       { technologyId: TECHNOLOGIES.MilitaryEngineering.id, multi: 1 },
       { technologyId: TECHNOLOGIES.Materials.id, multi: 1 }
@@ -105,8 +105,8 @@ export const modules: ModuleData[] = [
     name: "Deflector",
     description: "Deflector decreases incoming armour damage.",
     energy: -1,
-    armour: MODULE_ARMOUR / 5,
-    armourDamageReduction: 0.4 * MODULE_ARMOUR,
+    armour: MODULE_ARMOUR / 4,
+    armourDamageReduction: 0.25 * MODULE_ARMOUR,
     armourPercent: 8,
     technologies: [
       { technologyId: TECHNOLOGIES.MilitaryEngineering.id, multi: 1 },
@@ -144,9 +144,9 @@ export const modules: ModuleData[] = [
     name: "Jammer",
     description: "Jammer decrease incoming shield damage.",
     energy: -2,
-    shield: MODULE_SHIELD / 5,
+    shield: MODULE_SHIELD / 4,
     shieldPercent: 8,
-    shieldDamageReduction: 0.4 * MODULE_ARMOUR,
+    shieldDamageReduction: 0.25 * MODULE_ARMOUR,
     technologies: [
       { technologyId: TECHNOLOGIES.MilitaryEngineering.id, multi: 1 },
       { technologyId: TECHNOLOGIES.Physics.id, multi: 1 }

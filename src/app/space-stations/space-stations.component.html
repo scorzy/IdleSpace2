@@ -47,7 +47,12 @@
       </thead>
       <tbody>
         <tr *ngFor="let data of stationsTable.data; trackBy: getUnitId">
-          <td>{{ data.name }}</td>
+          <td>
+            {{ data.name }}
+            <span class="monospace">
+              ({{ data.quantity | format: true }})
+            </span>
+          </td>
           <td class="monospace">{{ data.buildPriceNext | format }}</td>
           <td class="monospace">{{ data.habSpace | format }}</td>
           <td class="monospace">{{ data.habSpaceDivPrice | format }}</td>

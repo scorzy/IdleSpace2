@@ -1,5 +1,5 @@
 import { Unit } from "./unit";
-import { ZERO } from "../CONSTANTS";
+import { ZERO, PRICE_GROW_RATE } from "../CONSTANTS";
 import { BonusStack } from "../bonus/bonusStack";
 import { Game } from "../game";
 import { Research } from "../researches/research";
@@ -24,7 +24,7 @@ export class SpaceStation extends Unit {
         }
       }
     }
-    return Decimal.pow(1.1, this.quantity.plus(queued))
+    return Decimal.pow(PRICE_GROW_RATE, this.quantity.plus(queued))
       .times(this.buildPrice)
       .floor();
   }
