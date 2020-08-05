@@ -303,7 +303,10 @@ export class Research extends Job implements IUnlockable, IBase {
       ? INSPIRATION_CARD
       : INSPIRATION_PERCENT;
     const toAdd = this.total.times(percent);
-    if (Game.getGame().prestigeManager.inspirationTechnology.active) {
+    if (
+      this.type.unlocked &&
+      Game.getGame().prestigeManager.inspirationTechnology.active
+    ) {
       this.type.addProgress(toAdd, true);
     }
     this.addProgress(toAdd, true);
