@@ -24,7 +24,7 @@ export class NotificationManager {
     }
     if (noti.type === NotificationTypes.WARP) {
       if (OptionsService.instance.disableAllWarpNoti) return;
-      if (opt < 2 && OptionsService.instance.disableSmallWarpNoti) return;
+      if (opt < 5 && OptionsService.instance.disableSmallWarpNoti) return;
     }
     if (
       noti.type === NotificationTypes.SPACE_STATION_COMPLETED &&
