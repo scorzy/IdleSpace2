@@ -309,7 +309,7 @@ export class Game {
             battleResult
           };
           this.battleStats.unshift(toAdd);
-          this.battleStats.splice(30);
+          this.battleStats.splice(10);
         }
 
         this.shipyardManager.onBattleEnd(battleResult, fleetNum);

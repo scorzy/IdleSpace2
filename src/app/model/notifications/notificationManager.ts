@@ -2,7 +2,7 @@ import { MainService } from "src/app/main.service";
 import { MyNotification, NotificationTypes } from "./myNotification";
 import { OptionsService } from "src/app/options.service";
 
-const MAX_NOTIFICATION = 100;
+const MAX_NOTIFICATION = 50;
 export class NotificationManager {
   notifications = new Array<MyNotification>();
 
