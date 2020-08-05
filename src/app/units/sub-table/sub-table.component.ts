@@ -5,7 +5,8 @@ import {
   OnInit,
   OnDestroy,
   AfterViewInit,
-  SimpleChanges
+  SimpleChanges,
+  OnChanges
 } from "@angular/core";
 import { Unit } from "src/app/model/units/unit";
 import { BaseComponentComponent } from "src/app/base-component/base-component.component";
@@ -17,7 +18,7 @@ import { BaseComponentComponent } from "src/app/base-component/base-component.co
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SubTableComponent extends BaseComponentComponent
-  implements OnInit, OnDestroy, AfterViewInit {
+  implements OnInit, OnDestroy, OnChanges, AfterViewInit {
   // @Input() data: Production;
   @Input() unit: Unit;
   @Input() positiveOnly = false;

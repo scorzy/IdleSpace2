@@ -7,7 +7,7 @@ import {
 } from "@angular/core";
 import { BaseComponentComponent } from "src/app/base-component/base-component.component";
 import { FLEET_NUMBER } from "src/app/model/CONSTANTS";
-import { json2csv, csv2jsonAsync, json2csvAsync } from "json-2-csv";
+import { json2csvAsync } from "json-2-csv";
 
 @Component({
   selector: "app-report-list",
@@ -36,11 +36,11 @@ export class ReportListComponent extends BaseComponentComponent
     const report = this.ms.game.battleStats.find((rep) => rep.id === id);
     if (!report) return;
     // const json = JSON.stringify(report.stats);
-    let arr = [];
+    const arr = [];
     report.stats.forEach((stats) => {
       let round = 1;
       stats.rounds.concat(stats.total).forEach((st) => {
-        let rep: any = {};
+        const rep: any = {};
         rep.designId = stats.designId;
         rep.player = stats.player;
         rep.name = stats.name;

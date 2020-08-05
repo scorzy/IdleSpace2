@@ -23,8 +23,9 @@ export class Bonus {
       return ZERO;
     }
     let ret = this.unit.quantity.times(this.multiplier);
-    if (this.storage)
+    if (this.storage) {
       ret = ret.times(Decimal.pow(EXP_STORAGE, this.unit.quantity));
+    }
     if (this.secondMultiplier) ret = ret.times(this.secondMultiplier.quantity);
     return ret;
   }

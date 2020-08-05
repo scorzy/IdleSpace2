@@ -12,10 +12,7 @@ import { Game } from "../game";
 import sample from "lodash-es/sample";
 import shuffle from "lodash-es/shuffle";
 import {
-  ENEMY_NAVAL_CAP_LEVEL,
   FLEET_CAPACITY,
-  BASE_NAVAL_CAPACITY,
-  MOD_LEVEL_EXP,
   TEN,
   DEFENCE_START_LEVEL,
   DEFENCE_FINAL_LEVEL,

@@ -12,8 +12,7 @@ import {
   RESEARCH_TECH_MOD_MULTI,
   PROPULSION_SPEED_MULTI,
   OPTIMIZED_SHIP_PREFIX,
-  SPACE_STATION_UP_PREFIX,
-  IDS
+  SPACE_STATION_UP_PREFIX
 } from "../CONSTANTS";
 import { IResearchData } from "../data/iResearchData";
 import { BonusStack } from "../bonus/bonusStack";

@@ -162,10 +162,12 @@ export class Worker extends Unit {
     if (this.modStack) {
       ret.t = this.modStack.getSave();
     }
-    if (ASSEMBLY_PRIORITY_ENDING !== this.assemblyPriority)
+    if (ASSEMBLY_PRIORITY_ENDING !== this.assemblyPriority) {
       ret.p1 = this.assemblyPriority;
-    if (ASSEMBLY_PRIORITY_ENDING !== this.assemblyPriorityEnding)
+    }
+    if (ASSEMBLY_PRIORITY_ENDING !== this.assemblyPriorityEnding) {
       ret.p2 = this.assemblyPriorityEnding;
+    }
     return ret;
   }
   load(save: any) {

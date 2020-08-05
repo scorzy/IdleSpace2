@@ -8,7 +8,6 @@ import {
 import { MainService } from "../main.service";
 import { OptionsService } from "../options.service";
 import { Subscription } from "rxjs";
-import { formatDate } from "@angular/common";
 
 @Component({
   selector: "app-save",

@@ -8,7 +8,6 @@ export class AutoSearch extends AbstractAutobuyer {
   automate(): boolean {
     if (!Game.getGame().resourceManager.searcher.unlocked) return false;
     const em = Game.getGame().enemyManager;
-    let nothingToAttack = false;
     if (
       em.toDo.length + em.enemies.length >= MAX_SEARCH_JOB &&
       !em.currentEnemy &&
@@ -17,7 +16,6 @@ export class AutoSearch extends AbstractAutobuyer {
     ) {
       //  Full and nothing to attack!
       if (em.toDo.length > 0) {
-        nothingToAttack = true;
         const maxSearchLv = em.toDo.reduce(
           (p, c) => (p.level > c.level ? p : c),
           em.toDo[0]

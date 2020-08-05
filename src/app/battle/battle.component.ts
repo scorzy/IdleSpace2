@@ -5,7 +5,7 @@ import {
   OnDestroy,
   AfterViewInit
 } from "@angular/core";
-import { FLEET_NUMBER, ZERO, ENEMY_EXP_START_LEVEL } from "../model/CONSTANTS";
+import { FLEET_NUMBER, ZERO } from "../model/CONSTANTS";
 import { Cell } from "../model/enemy/cell";
 import { BaseComponentComponent } from "../base-component/base-component.component";
 

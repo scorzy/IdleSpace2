@@ -9,9 +9,6 @@ import {
   SPACE_STATION_HAB_SPACE,
   ONE,
   STORAGE_DEPARTMENT_MULTI,
-  ENERGY_STORAGE,
-  COMPONENT_STORAGE,
-  NUKE_STORAGE,
   DEPARTMENT_TECH_MULTI,
   BUILDING_PRICE_GROW_RATE
 } from "../CONSTANTS";
@@ -567,8 +564,9 @@ export class ResourceManager {
               if (building.id === "2") {
                 department.description =
                   "+ " + STORAGE_DEPARTMENT_MULTI * 100 + "% energy storage";
-                if (!this.energy.limitStackMulti)
+                if (!this.energy.limitStackMulti) {
                   this.energy.limitStackMulti = new BonusStack();
+                }
                 this.energy.limitStackMulti.bonuses.push(
                   new Bonus(
                     building,
@@ -581,8 +579,9 @@ export class ResourceManager {
                   "+ " +
                   STORAGE_DEPARTMENT_MULTI * 100 +
                   "% components storage";
-                if (!this.components.limitStackMulti)
+                if (!this.components.limitStackMulti) {
                   this.components.limitStackMulti = new BonusStack();
+                }
                 this.components.limitStackMulti.bonuses.push(
                   new Bonus(
                     building,
@@ -593,8 +592,9 @@ export class ResourceManager {
               } else if (building.id === "10") {
                 department.description =
                   "+ " + STORAGE_DEPARTMENT_MULTI * 100 + "% nuke storage";
-                if (!this.nuke.limitStackMulti)
+                if (!this.nuke.limitStackMulti) {
                   this.nuke.limitStackMulti = new BonusStack();
+                }
                 this.nuke.limitStackMulti.bonuses.push(
                   new Bonus(
                     building,
