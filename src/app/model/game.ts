@@ -7,7 +7,8 @@ import {
   TEN,
   SIX_HOURS,
   LEVEL_PER_CARD,
-  UPDATE_WARP_CARD
+  UPDATE_WARP_CARD,
+  NAVAL_CAP_CARD_MULTI
 } from "./CONSTANTS";
 import { EnemyManager } from "./enemy/enemyManager";
 import { BattleResult, Stats } from "./battle/battleResult";
@@ -278,6 +279,9 @@ export class Game {
         .toNumber();
     }
     this.navalCapacity += this.researchManager.navalCapTech.quantity.toNumber();
+    if (this.prestigeManager.navalCapCard.active) {
+      this.navalCapacity *= 1 + NAVAL_CAP_CARD_MULTI;
+    }
     this.navalCapacity = Math.floor(this.navalCapacity);
     this.shipyardManager.reloadFleetCapacity();
   }

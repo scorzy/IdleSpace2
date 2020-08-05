@@ -153,6 +153,7 @@ export const MATERIALS_CARD = 2;
 export const COMPONENTS_CARD = 1;
 export const VICTORY_WARP_CARD = 0.5;
 export const ENEMY_DEFEAT_WARP_CARD = VICTORY_WARP_CARD * 100 * 5;
+export const NAVAL_CAP_CARD_MULTI = 0.2;
 export const UPDATE_WARP_CARD = 1;
 export const INSPIRATION_CARD = 0.7;
 export const EXP_GAIN_CARD = 0.5;

@@ -19,7 +19,8 @@ import {
   COMPUTING_REGENERATION_CARD,
   COMPUTING_MAX_CARD,
   PRODUCTION_PEACE_CARD,
-  MORE_HAB_FROM_STATIONS
+  MORE_HAB_FROM_STATIONS,
+  NAVAL_CAP_CARD_MULTI
 } from "../CONSTANTS";
 
 export const PRESTIGE_CARDS: ISimpleBase[] = [
@@ -119,6 +120,12 @@ export const PRESTIGE_CARDS: ISimpleBase[] = [
       "Warp " + ENEMY_DEFEAT_WARP_CARD + " seconds when you defeat an enemy",
     icon: "my:strafe"
   },
+  {
+    id: "w5",
+    name: "Naval Capacity",
+    description: "+" + NAVAL_CAP_CARD_MULTI * 100 + "% naval capacity",
+    icon: "my:strafe"
+  },
   //#endregion
   //#region Warp
   {
@@ -186,7 +193,7 @@ export const PRESTIGE_CARDS: ISimpleBase[] = [
       "Increase hab. space from space station by " +
       MORE_HAB_FROM_STATIONS * 100 +
       "%",
-    icon: "arrow-up"
+    icon: "my:defense-satellite"
   }
   //#endregion
 ];

@@ -64,6 +64,7 @@ export class PrestigeManager {
   moreDM: PrestigeCard;
   moreComputing: PrestigeCard;
   moreHabSpaceFromStations: PrestigeCard;
+  navalCapCard: PrestigeCard;
   //#region
   constructor() {
     this.generateExperience();
@@ -297,6 +298,7 @@ export class PrestigeManager {
     const components = this.cards.find((card) => card.id === "w2");
     this.victoryWarp = this.cards.find((card) => card.id === "w3");
     this.enemyDefeatWarp = this.cards.find((card) => card.id === "w4");
+    this.navalCapCard = this.cards.find((card) => card.id === "w5");
 
     rm.districts.forEach((dis) => {
       dis.battleGainMulti.bonuses.push(
@@ -311,6 +313,7 @@ export class PrestigeManager {
     rm.components.battleGainMulti.bonuses.push(
       new Bonus(components, new Decimal(COMPONENTS_CARD))
     );
+
     //#endregion
     //#region Warp
     this.moreWarp = this.cards.find((card) => card.id === "p0");

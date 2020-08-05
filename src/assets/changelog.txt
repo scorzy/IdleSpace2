@@ -1,3 +1,5 @@
+-   Naval capacity card
+
 05/08/2020
 -   Enemy rebalanced: decreased enemy levels, increase search and production requirements
 -   Space stations buff
