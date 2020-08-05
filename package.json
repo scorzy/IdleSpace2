@@ -44,7 +44,7 @@
     "less-plugin-clean-css": "^1.5.1",
     "lodash-es": "^4.17.15",
     "lz-string": "^1.4.4",
-    "md5": "^2.2.1",
+    "md5": "^2.3.0",
     "ng-zorro-antd": "^9.3.0",
     "postinstall": "^0.5.1",
     "rxjs": "~6.5.5",
