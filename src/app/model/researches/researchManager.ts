@@ -431,7 +431,8 @@ export class ResearchManager extends JobManager {
         if (!resParent.resData.researchToUnlock) {
           resParent.resData.researchToUnlock = [];
         }
-        resParent.resData.researchToUnlock.push(res.id);
+        if (!resParent.resData.researchToUnlock.some((r) => r === res.id))
+          resParent.resData.researchToUnlock.push(res.id);
       }
     });
     this.researches.forEach((res) => {
