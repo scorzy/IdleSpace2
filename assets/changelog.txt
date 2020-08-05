@@ -1,3 +1,11 @@
+05/08/2020
+-   Enemy rebalanced: decreased enemy levels, increase search and production requirements
+-   Space stations buff
+-   Exponential storage capacity
+-   Reduced damage reduction
+-   Naval capacity card
+-   Various fix
+
 28/07/2020
 -   Prestige bug fixed
 -   Added some module descriptions
