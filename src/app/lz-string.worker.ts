@@ -9,4 +9,6 @@ addEventListener("message", ({ data }) => {
     data.m = LZString.decompressFromEncodedURIComponent(data.m);
   }
   postMessage(data);
+
+  data = null;
 });
