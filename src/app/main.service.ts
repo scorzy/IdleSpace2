@@ -159,6 +159,7 @@ export class MainService {
   private load(save: string) {
     const data = JSON.parse(save);
     this.last = data.t;
+    this.game = null;
     this.game = new Game();
     this.game.load(data.g);
     if ("o" in data) {

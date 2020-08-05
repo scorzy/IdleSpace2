@@ -372,6 +372,7 @@ export class ResearchManager extends JobManager {
     const first = this.researches.find((r) => r.id === "s2");
     first.resData.researchToUnlock.push("i0");
     const builderUpData = RESEARCHES.find((r) => r.id === "or32");
+    builderUpData.stationToUp = [];
     const spaceStations = Game.getGame().resourceManager.spaceStations;
     for (let i = 0, n = spaceStations.length; i < n; i++) {
       // Space station
