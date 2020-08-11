@@ -49,7 +49,9 @@ export class OptionsService {
     try {
       this.formatter = new numberformat.Formatter({
         format: this.numFormat,
-        flavor: "short"
+        flavor: "short",
+        backend: "decimal.js",
+        Decimal: Decimal
       });
     } catch (ex) {
       console.log("Error generate Formatter:" + ex);
