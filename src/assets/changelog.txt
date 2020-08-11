@@ -1,5 +1,6 @@
 11/08/2020
 -   Fixed "Production table" not updating
+-   Fixed multiple origin at the same time
 
 05/08/2020
 -   Enemy rebalanced: decreased enemy levels, increase search and production requirements

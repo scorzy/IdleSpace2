@@ -611,6 +611,11 @@ export class ResearchManager extends JobManager {
     this.researches[0].setLevels();
   }
   unlock(res: Research): boolean {
+    if (
+      res.exclusiveGroup &&
+      this.done.some((r1) => r1.exclusiveGroup === res.exclusiveGroup)
+    )
+      return false;
     if (this.toDo.findIndex((r) => r.id === res.id) > -1) {
       return false;
     }
