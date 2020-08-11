@@ -4,7 +4,9 @@ import {
   Input,
   OnInit,
   OnDestroy,
-  AfterViewInit
+  AfterViewInit,
+  SimpleChanges,
+  OnChanges
 } from "@angular/core";
 import { Unit } from "src/app/model/units/unit";
 import { ZERO } from "src/app/model/CONSTANTS";
@@ -19,7 +21,7 @@ import { IColumnItem } from "src/app/model/utility/iColumnItem";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ProdInfoComponent extends BaseComponentComponent
-  implements OnInit, OnDestroy, AfterViewInit {
+  implements OnInit, OnDestroy, AfterViewInit, OnChanges {
   @Input() unit: Unit;
   totalProd: Decimal;
   totalConsumed: Decimal;
@@ -44,6 +46,10 @@ export class ProdInfoComponent extends BaseComponentComponent
     }
   ];
   ngOnInit() {
+    this.showTable = !!this.unit.makers.find((m) => m.producer.quantity.gt(0));
+    this.getData();
+  }
+  ngOnChanges(changes: SimpleChanges): void {
     this.showTable = !!this.unit.makers.find((m) => m.producer.quantity.gt(0));
     this.getData();
   }
