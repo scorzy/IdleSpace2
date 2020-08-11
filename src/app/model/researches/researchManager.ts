@@ -431,8 +431,9 @@ export class ResearchManager extends JobManager {
         if (!resParent.resData.researchToUnlock) {
           resParent.resData.researchToUnlock = [];
         }
-        if (!resParent.resData.researchToUnlock.some((r) => r === res.id))
+        if (!resParent.resData.researchToUnlock.some((r) => r === res.id)) {
           resParent.resData.researchToUnlock.push(res.id);
+        }
       }
     });
     this.researches.forEach((res) => {
@@ -614,8 +615,9 @@ export class ResearchManager extends JobManager {
     if (
       res.exclusiveGroup &&
       this.done.some((r1) => r1.exclusiveGroup === res.exclusiveGroup)
-    )
+    ) {
       return false;
+    }
     if (this.toDo.findIndex((r) => r.id === res.id) > -1) {
       return false;
     }

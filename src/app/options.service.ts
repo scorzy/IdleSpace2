@@ -51,7 +51,7 @@ export class OptionsService {
         format: this.numFormat,
         flavor: "short",
         backend: "decimal.js",
-        Decimal: Decimal
+        Decimal
       });
     } catch (ex) {
       console.log("Error generate Formatter:" + ex);
