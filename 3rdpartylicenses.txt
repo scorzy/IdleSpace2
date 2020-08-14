@@ -51,6 +51,8 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 
+@angular/cdk/scrolling
+
 @angular/common
 MIT
 
@@ -303,6 +305,68 @@ DO WHAT THE FUCK YOU WANT TO PUBLIC LICENSE
 
 ng-zorro-antd
 MIT
+
+ng-zorro-antd/alert
+
+ng-zorro-antd/avatar
+
+ng-zorro-antd/button
+
+ng-zorro-antd/card
+
+ng-zorro-antd/cascader
+
+ng-zorro-antd/checkbox
+
+ng-zorro-antd/collapse
+
+ng-zorro-antd/drawer
+
+ng-zorro-antd/dropdown
+
+ng-zorro-antd/empty
+
+ng-zorro-antd/form
+
+ng-zorro-antd/input
+
+ng-zorro-antd/input-number
+
+ng-zorro-antd/layout
+
+ng-zorro-antd/list
+
+ng-zorro-antd/menu
+
+ng-zorro-antd/message
+
+ng-zorro-antd/modal
+
+ng-zorro-antd/notification
+
+ng-zorro-antd/pagination
+
+ng-zorro-antd/popconfirm
+
+ng-zorro-antd/popover
+
+ng-zorro-antd/radio
+
+ng-zorro-antd/select
+
+ng-zorro-antd/slider
+
+ng-zorro-antd/spin
+
+ng-zorro-antd/switch
+
+ng-zorro-antd/table
+
+ng-zorro-antd/tabs
+
+ng-zorro-antd/tooltip
+
+ng-zorro-antd/typography
 
 regenerator-runtime
 MIT
