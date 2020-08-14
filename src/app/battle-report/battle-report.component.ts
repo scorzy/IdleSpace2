@@ -70,17 +70,19 @@ export class BattleReportComponent extends BaseComponentComponent
         value: "" + i
       });
     }
-    this.route.paramMap.subscribe((paramMap) => {
-      const result = this.ms.game.battleStats.find(
-        (b) => b.id == paramMap.get("id")
-      );
-      if (result) {
-        this.name =
-          this.listOfFleets[result.fleetNum].label + " " + result.name;
-        this.stats = result.stats;
-      }
-      this.cd.markForCheck();
-    });
+    this.subscriptions.push(
+      this.route.paramMap.subscribe((paramMap) => {
+        const result = this.ms.game.battleStats.find(
+          (b) => b.id == paramMap.get("id")
+        );
+        if (result) {
+          this.name =
+            this.listOfFleets[result.fleetNum].label + " " + result.name;
+          this.stats = result.stats;
+        }
+        this.cd.markForCheck();
+      })
+    );
   }
 
   reload(): void {
