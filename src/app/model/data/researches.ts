@@ -477,7 +477,6 @@ export const RESEARCHES: IResearchData[] = [
     max: 10,
     description: "",
     type: TECHNOLOGIES.CivilEngineering,
-    exclusiveGroup: ExclusiveResGroups.FIRST_ORIGIN,
     stationToUp: [],
     inspirationDescription: "Build any space station"
   },
