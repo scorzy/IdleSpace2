@@ -293,10 +293,18 @@ export class Game {
   }
   processBattles(warpTime: number) {
     const now = performance.now();
+    if (this.enemyManager.currentEnemy) {
+      this.enemyManager.currentEnemy.cells.forEach((c) => {
+        if (c.inBattle && !c.done) {
+          c.eta -= warpTime * 1000;
+        }
+      });
+    }
     for (let i = this.battleResults.length - 1; i >= 0; i--) {
       const battleResult = this.battleResults[i].result;
       const fleetNum = this.battleResults[i].fleet;
       battleResult.endTime -= warpTime * 1000;
+
       if (now >= battleResult.endTime) {
         if (this.enemyManager.currentEnemy && this.updateStats) {
           const toAdd = {

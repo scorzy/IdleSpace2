@@ -2,6 +2,7 @@
 -   Added "Auto save & refresh" as workaround for memory leaks
 -   Improved memory management
 -   Fixed "Advanced Space Stations" not unlocking
+-   Fixed "Battle ETA" in case of warping
 
 11/08/2020
 -   Fixed "Production table" not updating
