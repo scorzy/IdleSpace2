@@ -46,10 +46,13 @@ export class MainService {
     this.lzWorker.onmessage = ({ data }) => {
       if ("a" in data && data.a === "c") {
         //  Compress request
-        if ("t" in data) {
+        if ("t" in data && data.t === "E") {
           this.exportEmitter.emit(data.m);
         } else {
           this.saveToLocalStorage(data.m);
+          if ("t" in data && data.t === "R") {
+            location.reload();
+          }
         }
       } else {
         // Decompress request
@@ -132,9 +135,10 @@ export class MainService {
     this.game.postUpdate(diff);
     this.updateEmitter.emit(this.last);
   }
-  save() {
+  save(refresh = false) {
     const save = this.getSave();
-    this.lzWorker.postMessage({ m: save, a: "c" });
+    if (!refresh) this.lzWorker.postMessage({ m: save, a: "c" });
+    else this.lzWorker.postMessage({ m: save, a: "c", t: "R" });
   }
   export() {
     const save = this.getSave();

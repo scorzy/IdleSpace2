@@ -1,0 +1,40 @@
+<form nz-form nzLayout="inline">
+  <nz-form-item>
+    <nz-form-label
+      nz-popover
+      nzPopoverTitle="Auto Refresh"
+      [nzPopoverContent]="autoInfoTemplate"
+    >
+      On
+    </nz-form-label>
+    <nz-form-control>
+      <nz-input-group nzCompact>
+        <nz-switch
+          name="arho"
+          [(ngModel)]="ms.game.automationManager.autoRefresh.on"
+          nzSize="small"
+        ></nz-switch>
+        <nz-select
+          nzSize="small"
+          class="autoTime"
+          [(ngModel)]="ms.game.automationManager.autoRefresh.interval"
+          name="arht"
+        >
+          <nz-option
+            *ngFor="let interval of INTERVALS; trackBy: getIntervalId"
+            [nzLabel]="interval.label"
+            [nzValue]="interval.value"
+          ></nz-option>
+        </nz-select>
+      </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
+</form>
+
+<ng-template #autoInfoTemplate>
+  Options:
+  <ul>
+    <li>On / Off</li>
+    <li>Interval</li>
+  </ul>
+</ng-template>
