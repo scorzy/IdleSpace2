@@ -7,6 +7,7 @@ import { AutoSearch } from "./autoSearch";
 import { SpaceStationAutoBuyer } from "./spaceStationAutoBuyer";
 import { AutoSurrender } from "./autoSurrender";
 import { AutoRefresh } from "./autoRefresh";
+import { AutoMod } from "./autoMod";
 
 export class AutomationManager {
   on = true;
@@ -25,6 +26,7 @@ export class AutomationManager {
     });
     game.resourceManager.workers.forEach((worker) => {
       this.autobuyers.push(new AutoWorker(worker));
+      this.autobuyers.push(new AutoMod(worker));
     });
 
     this.fleetUpdater = new AutoFleetUpdate();

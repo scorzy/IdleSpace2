@@ -16,7 +16,7 @@ import { parseDecimal } from "src/app/model/utility/parseDecimal";
 import { MainService } from "src/app/main.service";
 import { Worker } from "src/app/model/units/worker";
 import { BreakpointObserver, BreakpointState } from "@angular/cdk/layout";
-import { ZERO } from "src/app/model/CONSTANTS";
+import { ZERO, MAX_MOD_PRESET } from "src/app/model/CONSTANTS";
 import { BaseComponentComponent } from "src/app/base-component/base-component.component";
 
 @Component({
@@ -29,6 +29,11 @@ export class ModLineComponent extends BaseComponentComponent
   implements OnInit, OnDestroy, AfterViewInit, OnChanges {
   @Input() mod: Mod;
   @Input() uiQuantityString: string;
+  @Input() uiPreset0: string;
+  @Input() uiPreset1: string;
+  @Input() uiPreset2: string;
+  @Input() uiPreset3: string;
+  @Input() uiPreset4: string;
   @Input() unit: Worker;
   @Output() modChange = new EventEmitter<boolean>();
   status = "";
@@ -64,9 +69,13 @@ export class ModLineComponent extends BaseComponentComponent
     this.unit.reloadAll();
     this.realMax = this.mod.max.min(this.unit.maxMods);
     this.realMin = this.mod.min.max(this.unit.maxMods.times(-1));
-    const ok =
+    let ok =
       this.mod.uiQuantity.lte(this.realMax) &&
       this.mod.uiQuantity.gte(this.realMin);
+
+    for (let i = 0; i < MAX_MOD_PRESET; i++) {
+      if (this.mod.uiPresets[i].lt(this.mod.min)) ok = false;
+    }
 
     this.status = ok ? "" : "error";
     this.mod.uiOk = ok;
@@ -117,5 +126,11 @@ export class ModLineComponent extends BaseComponentComponent
     );
     this.reload();
     this.cd.markForCheck();
+  }
+  presetChange(index: number) {
+    this.mod.uiPresets[index] = parseDecimal(
+      this.mod.uiPresetString[index] || "0"
+    );
+    this.reload();
   }
 }

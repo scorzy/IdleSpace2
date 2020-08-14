@@ -1,20 +1,24 @@
 import { IModData } from "../data/iModData";
-import { ZERO, ONE } from "../CONSTANTS";
+import { ZERO, ONE, MAX_MOD_PRESET } from "../CONSTANTS";
 
 export class Mod {
   name: string;
   description = "";
   quantity = ZERO;
+  presets = new Array<Decimal>();
   max: Decimal = Decimal.MAX_VALUE;
   min: Decimal = Decimal.MAX_VALUE.times(-1);
   uiQuantityString = "";
+  uiPresetString = new Array<string>();
   uiQuantity = ZERO;
+  uiPresets = new Array<Decimal>();
   totalBonus = ONE;
   totalBonusTemp = ONE;
   totalBonusAbs = ONE;
   totalBonusTempAbs = ONE;
   bonusValue = 0.1;
   uiOk = true;
+
   constructor(iModData: IModData) {
     this.name = iModData.name;
     this.description = iModData.description;
@@ -23,6 +27,11 @@ export class Mod {
     }
     if ("min" in iModData) {
       this.min = new Decimal(iModData.min);
+    }
+    for (let i = 0; i < MAX_MOD_PRESET; i++) {
+      this.presets.push(ZERO);
+      this.uiPresets.push(ZERO);
+      this.uiPresetString.push("");
     }
   }
   reloadBonus() {
@@ -38,5 +47,11 @@ export class Mod {
       this.bonusValue,
       this.uiQuantity.abs()
     ).plus(1);
+  }
+  loadPresets(data: any) {
+    for (let i = 0; i < MAX_MOD_PRESET && i < data.length; i++) {
+      this.presets[i] = new Decimal(data[i]);
+      this.uiPresets[i] = this.presets[i];
+    }
   }
 }

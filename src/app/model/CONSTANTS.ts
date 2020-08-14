@@ -42,6 +42,7 @@ export const MAX_RECYCLING = 0.9;
 export const BUILDING_LIMIT = 20;
 export const DEPARTMENT_TECH_MULTI = new Decimal(0.01);
 export const EXP_STORAGE = 1.1;
+export const MAX_MOD_PRESET = 5;
 
 //  FLEETS
 export const BASE_NAVAL_CAPACITY = 25;

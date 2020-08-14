@@ -32,6 +32,11 @@
           *ngFor="let mod of unit.modStack.mods; trackBy: getModId"
           [mod]="mod"
           [uiQuantityString]="mod.uiQuantityString"
+          [uiPreset0]="mod.uiPresetString[0]"
+          [uiPreset1]="mod.uiPresetString[1]"
+          [uiPreset2]="mod.uiPresetString[2]"
+          [uiPreset3]="mod.uiPresetString[3]"
+          [uiPreset4]="mod.uiPresetString[4]"
           [unit]="unit"
           (modChange)="onModChange($event)"
         ></app-mod-line>
@@ -45,10 +50,29 @@
         >
           Confirm
         </button>
-        <button nz-button nzType="default" (click)="cancel()">Cancel</button>
+        <button nz-button nzType="default" (click)="cancel()">
+          Reset mods
+        </button>
+
+        <button
+          nz-button
+          nzType="primary"
+          [disabled]="disabled"
+          (click)="confirmPresets()"
+        >
+          Save Presets
+        </button>
+        <button nz-button nzType="default" (click)="cancelPresets()">
+          Reset presets
+        </button>
       </nz-input-group>
+
       <nz-alert nzType="warning" nzShowIcon [nzDescription]="infoRef">
       </nz-alert>
+    </nz-card>
+
+    <nz-card nzSize="small" nzTitle="Mod Automation">
+      <app-auto-mod [autoMod]="unit.autoMod"></app-auto-mod>
     </nz-card>
   </div>
   <div>
@@ -62,10 +86,10 @@
             <i nz-icon [nzType]="prod.product.icon"></i>
             {{ prod.product.name }}
           </td>
-          <td style="min-width: 4rem;">
+          <td class="min-w">
             <span class="monospace">{{ prod.prodPerSecFull | format }}</span>
           </td>
-          <td style="min-width: 4rem;">
+          <td class="min-w">
             <span class="monospace" [ngClass]="getProdClass(prod)">{{
               prod.prodPerSecMod | format
             }}</span>

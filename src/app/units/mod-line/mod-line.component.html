@@ -1,9 +1,9 @@
 <nz-form-item>
-  <nz-form-label [nzSpan]="isLarge ? 10 : null">
+  <nz-form-label [nzSpan]="isLarge ? 8 : null">
     <span nz-tooltip [nzTooltipTitle]="mod.description">{{ mod.name }}</span>
   </nz-form-label>
   <nz-form-control
-    [nzSpan]="isLarge ? 14 : null"
+    [nzSpan]="isLarge ? 16 : null"
     [nzValidateStatus]="status"
     nzErrorTip="Should be between {{ realMin | format: true }} and {{
       realMax | format: true
@@ -30,6 +30,54 @@
       <button nz-button nzType="default" (click)="max()" nzSize="small">
         MAX
       </button>
+    </nz-input-group>
+
+    <nz-input-group nzCompact>
+      <input
+        class="inputBox monospace"
+        type="text"
+        nzSize="small"
+        nz-input
+        [(ngModel)]="mod.uiPresetString[0]"
+        (change)="presetChange(0)"
+        [name]="unit.id + '0_p'"
+      />
+      <input
+        class="inputBox monospace"
+        type="text"
+        nzSize="small"
+        nz-input
+        [(ngModel)]="mod.uiPresetString[1]"
+        (change)="presetChange(1)"
+        [name]="unit.id + '1_p'"
+      />
+      <input
+        class="inputBox monospace"
+        type="text"
+        nzSize="small"
+        nz-input
+        [(ngModel)]="mod.uiPresetString[2]"
+        (change)="presetChange(2)"
+        [name]="unit.id + '2_p'"
+      />
+      <input
+        class="inputBox monospace"
+        type="text"
+        nzSize="small"
+        nz-input
+        [(ngModel)]="mod.uiPresetString[3]"
+        (change)="presetChange(3)"
+        [name]="unit.id + '3_p'"
+      />
+      <input
+        class="inputBox monospace"
+        type="text"
+        nzSize="small"
+        nz-input
+        [(ngModel)]="mod.uiPresetString[4]"
+        (change)="presetChange(4)"
+        [name]="unit.id + '4_p'"
+      />
     </nz-input-group>
   </nz-form-control>
 </nz-form-item>

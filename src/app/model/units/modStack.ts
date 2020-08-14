@@ -13,7 +13,8 @@ import {
   MOD_ENERGY_MULTI,
   MOD_COMPONENTS,
   MOD_RECYCLING,
-  ZERO
+  ZERO,
+  MAX_MOD_PRESET
 } from "../CONSTANTS";
 
 export class ModStack {
@@ -59,23 +60,41 @@ export class ModStack {
   }
   getSave(): any {
     const ret: any = {};
-    if (this.efficiencyMod && !this.efficiencyMod.quantity.eq(0)) {
-      ret.e = this.efficiencyMod.quantity;
+    if (this.efficiencyMod) {
+      if (!this.efficiencyMod.quantity.eq(0)) {
+        ret.e = this.efficiencyMod.quantity;
+      }
+      ret.ep = this.efficiencyMod.presets;
     }
-    if (this.prodMultiMod && !this.prodMultiMod.quantity.eq(0)) {
-      ret.p = this.prodMultiMod.quantity;
+    if (this.prodMultiMod) {
+      if (!this.prodMultiMod.quantity.eq(0)) {
+        ret.p = this.prodMultiMod.quantity;
+      }
+      ret.pp = this.prodMultiMod.presets;
     }
-    if (this.energyMod && !this.energyMod.quantity.eq(0)) {
-      ret.q = this.energyMod.quantity;
+    if (this.energyMod) {
+      if (!this.energyMod.quantity.eq(0)) {
+        ret.q = this.energyMod.quantity;
+      }
+      ret.qp = this.energyMod.presets;
     }
-    if (this.componentsMod && !this.componentsMod.quantity.eq(0)) {
-      ret.c = this.componentsMod.quantity;
+    if (this.componentsMod) {
+      if (!this.componentsMod.quantity.eq(0)) {
+        ret.c = this.componentsMod.quantity;
+      }
+      ret.cp = this.componentsMod.presets;
     }
-    if (this.droneMod && !this.droneMod.quantity.eq(0)) {
-      ret.d = this.droneMod.quantity;
+    if (this.droneMod) {
+      if (!this.droneMod.quantity.eq(0)) {
+        ret.d = this.droneMod.quantity;
+      }
+      ret.dp = this.droneMod.presets;
     }
-    if (this.recyclingMod && !this.recyclingMod.quantity.eq(0)) {
-      ret.r = this.recyclingMod.quantity;
+    if (this.recyclingMod) {
+      if (!this.recyclingMod.quantity.eq(0)) {
+        ret.r = this.recyclingMod.quantity;
+      }
+      ret.rp = this.recyclingMod.presets;
     }
     return ret;
   }
@@ -83,21 +102,45 @@ export class ModStack {
     if ("e" in data && this.efficiencyMod) {
       this.efficiencyMod.quantity = new Decimal(data.e);
     }
+    if ("ep" in data && this.efficiencyMod) {
+      this.efficiencyMod.loadPresets(data.ep);
+    }
+
     if ("p" in data && this.prodMultiMod) {
       this.prodMultiMod.quantity = new Decimal(data.p);
     }
+    if ("pp" in data && this.prodMultiMod) {
+      this.prodMultiMod.loadPresets(data.pp);
+    }
+
     if ("q" in data && this.energyMod) {
       this.energyMod.quantity = new Decimal(data.q);
     }
+    if ("qp" in data && this.energyMod) {
+      this.energyMod.loadPresets(data.qp);
+    }
+
     if ("c" in data && this.componentsMod) {
       this.componentsMod.quantity = new Decimal(data.c);
     }
+    if ("cp" in data && this.componentsMod) {
+      this.componentsMod.loadPresets(data.cp);
+    }
+
     if ("d" in data && this.droneMod) {
       this.droneMod.quantity = new Decimal(data.d);
     }
+    if ("dp" in data && this.droneMod) {
+      this.droneMod.loadPresets(data.dp);
+    }
+
     if ("r" in data && this.recyclingMod) {
       this.recyclingMod.quantity = new Decimal(data.r);
     }
+    if ("rp" in data && this.recyclingMod) {
+      this.recyclingMod.loadPresets(data.rp);
+    }
+
     this.mods.forEach((m) => {
       m.uiQuantity = new Decimal(m.quantity);
     });

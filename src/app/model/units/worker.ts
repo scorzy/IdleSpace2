@@ -13,6 +13,7 @@ import { IUnitData } from "../data/iUnitData";
 import { Technology } from "../researches/technology";
 import { Research } from "../researches/research";
 import { AutoWorker } from "../automation/autoWorker";
+import { AutoMod } from "../automation/autoMod";
 
 const ASSEMBLY_PRIORITY = 50;
 const ASSEMBLY_PRIORITY_ENDING = 500;
@@ -27,6 +28,8 @@ export class Worker extends Unit {
   assemblyPriorityEnding = ASSEMBLY_PRIORITY_ENDING;
   modsResearches: Research[];
   autoBuyer: AutoWorker;
+  autoMod: AutoMod;
+  modPage = false;
   constructor(public unitData: IUnitData) {
     super(unitData);
   }
@@ -94,14 +97,15 @@ export class Worker extends Unit {
     }
     this.maxMods = this.maxMods.times(multi).floor();
   }
-  confirmMods() {
+  confirmMods(auto = false) {
     let recycle = this.recycle.plus(Game.getGame().baseRecycling);
     recycle = recycle.times(Game.getGame().recyclingMulti.totalBonus);
     recycle = recycle.min(this.components.times(0.9));
     this.quantity = ONE;
-    this.modStack.mods.forEach((mod) => {
-      mod.quantity = mod.uiQuantity;
-    });
+    if (!auto)
+      this.modStack.mods.forEach((mod) => {
+        mod.quantity = mod.uiQuantity;
+      });
     this.manualBought = ZERO;
     this.reloadAll();
     let toAdd = this.quantity.times(recycle);
