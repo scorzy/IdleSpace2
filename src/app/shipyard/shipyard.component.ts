@@ -11,16 +11,16 @@ import { ShipDesign } from "../model/shipyard/shipDesign";
 import { CdkDragDrop, moveItemInArray } from "@angular/cdk/drag-drop";
 import { ActivatedRoute } from "@angular/router";
 import { FleetShips } from "../model/shipyard/fleetShips";
-import { fadeIn } from "../animations";
 import { BaseComponentComponent } from "../base-component/base-component.component";
 import { FLEET_NUMBER, FLEET_CAPACITY } from "../model/CONSTANTS";
+import { trigger } from "@angular/animations";
 
 @Component({
   selector: "app-shipyard",
   templateUrl: "./shipyard.component.html",
   styleUrls: ["./shipyard.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  animations: [fadeIn]
+  animations: [trigger("noop", [])]
 })
 export class ShipyardComponent extends BaseComponentComponent
   implements OnInit, OnDestroy, AfterViewInit {

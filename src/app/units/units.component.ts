@@ -9,16 +9,16 @@ import {
 import { MainService } from "../main.service";
 import { Unit } from "../model/units/unit";
 import { ActivatedRoute } from "@angular/router";
-import { fadeIn } from "../animations";
 import { BaseComponentComponent } from "../base-component/base-component.component";
 import { OptionsService } from "../options.service";
+import { trigger } from "@angular/animations";
 
 @Component({
   selector: "app-units",
   templateUrl: "./units.component.html",
   styleUrls: ["./units.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  animations: [fadeIn]
+  animations: [trigger("noop", [])]
 })
 export class UnitsComponent extends BaseComponentComponent
   implements OnInit, OnDestroy, AfterViewInit {

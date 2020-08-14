@@ -7,17 +7,17 @@ import {
 } from "@angular/core";
 import { Unit } from "../model/units/unit";
 import { CdkDragDrop, moveItemInArray } from "@angular/cdk/drag-drop";
-import { fadeIn } from "../animations";
 import { BaseComponentComponent } from "../base-component/base-component.component";
 import { SpaceStation } from "../model/units/spaceStation";
 import { UNIT_TYPES } from "../model/data/units";
+import { trigger } from "@angular/animations";
 
 @Component({
   selector: "app-space-stations",
   templateUrl: "./space-stations.component.html",
   styleUrls: ["./space-stations.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  animations: [fadeIn]
+  animations: [trigger("noop", [])]
 })
 export class SpaceStationsComponent extends BaseComponentComponent
   implements OnInit, OnDestroy, AfterViewInit {

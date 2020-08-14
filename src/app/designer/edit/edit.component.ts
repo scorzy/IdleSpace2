@@ -13,18 +13,18 @@ import { MainService } from "src/app/main.service";
 import { ActivatedRoute, Router } from "@angular/router";
 import { ONE } from "src/app/model/CONSTANTS";
 import { Module } from "src/app/model/shipyard/module";
-import { fadeIn, fade } from "src/app/animations";
 import { OptionsService } from "src/app/options.service";
 import { BaseComponentComponent } from "src/app/base-component/base-component.component";
 import { IShipModule } from "src/app/model/shipyard/IShipModule";
 import { NzCascaderOption } from "ng-zorro-antd/cascader/typings";
+import { trigger } from "@angular/animations";
 declare let numberformat;
 
 @Component({
   selector: "app-edit",
   templateUrl: "./edit.component.html",
   styleUrls: ["./edit.component.scss"],
-  animations: [fadeIn, fade],
+  animations: [trigger("noop", [])],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class EditComponent extends BaseComponentComponent

@@ -10,19 +10,19 @@ import {
 import { MainService } from "./main.service";
 import { NzNotificationService } from "ng-zorro-antd/notification";
 import { OptionsService } from "./options.service";
-import { fadeIn, fade } from "./animations";
 import { Subscription } from "rxjs";
 import {
   MyNotification,
   NotificationTypes
 } from "./model/notifications/myNotification";
+import { trigger } from "@angular/animations";
 
 @Component({
   selector: "app-root",
   templateUrl: "./app.component.html",
   styleUrls: ["./app.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  animations: [fadeIn, fade]
+  animations: [trigger("noop", [])]
 })
 export class AppComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];

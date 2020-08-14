@@ -257,14 +257,12 @@
       *ngIf="design.energy < 0"
       nzType="warning"
       nzMessage="Energy is to low."
-      @fade
       nzShowIcon
     ></nz-alert>
     <nz-alert
       *ngIf="design.totalPoints > design.type.maxPoints"
       nzType="warning"
       nzMessage="Too many module points."
-      @fade
       nzShowIcon
     ></nz-alert>
     <nz-alert
@@ -272,14 +270,12 @@
       nzType="info"
       nzMessage="Blueprint. Cannot be built."
       nzShowIcon
-      @fade
     ></nz-alert>
     <nz-alert
       *ngIf="blueprintWarning"
       nzType="error"
       nzMessage="Blueprint. Cannot update existing ships to a blueprint."
       nzShowIcon
-      @fade
     ></nz-alert>
   </div>
 

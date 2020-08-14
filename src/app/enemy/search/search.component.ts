@@ -15,13 +15,13 @@ import { ZERO, MAX_SEARCH_JOB } from "src/app/model/CONSTANTS";
 import { Unit } from "src/app/model/units/unit";
 import { Enemy } from "src/app/model/enemy/enemy";
 import { BaseComponentComponent } from "src/app/base-component/base-component.component";
-import { fadeIn, fade } from "src/app/animations";
+import { trigger } from "@angular/animations";
 
 @Component({
   selector: "app-search",
   templateUrl: "./search.component.html",
   styleUrls: ["./search.component.scss"],
-  animations: [fadeIn, fade],
+  animations: [trigger("noop", [])],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SearchComponent extends BaseComponentComponent

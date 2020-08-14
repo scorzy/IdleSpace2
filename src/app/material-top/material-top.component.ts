@@ -9,18 +9,18 @@ import {
 } from "@angular/core";
 import { MainService } from "../main.service";
 import { Unit } from "../model/units/unit";
-import { fadeIn } from "../animations";
 import { NzModalRef, NzModalService } from "ng-zorro-antd/modal";
 import { BreakpointObserver } from "@angular/cdk/layout";
 import { OptionsService } from "../options.service";
 import { BaseComponentComponent } from "../base-component/base-component.component";
+import { trigger } from "@angular/animations";
 
 @Component({
   selector: "app-material-top",
   templateUrl: "./material-top.component.html",
   styleUrls: ["./material-top.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  animations: [fadeIn]
+  animations: [trigger("noop", [])]
 })
 export class MaterialTopComponent extends BaseComponentComponent
   implements OnInit, OnDestroy, AfterViewInit {

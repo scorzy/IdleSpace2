@@ -9,18 +9,18 @@ import {
 import { MainService } from "src/app/main.service";
 import { ActivatedRoute } from "@angular/router";
 import { Enemy } from "src/app/model/enemy/enemy";
-import { fadeIn } from "src/app/animations";
 import { CdkDragDrop, moveItemInArray } from "@angular/cdk/drag-drop";
 import { BreakpointObserver, BreakpointState } from "@angular/cdk/layout";
 import { BaseComponentComponent } from "src/app/base-component/base-component.component";
 import { OptionsService } from "src/app/options.service";
+import { trigger } from "@angular/animations";
 
 @Component({
   selector: "app-enemies-list",
   templateUrl: "./enemies-list.component.html",
   styleUrls: ["./enemies-list.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  animations: [fadeIn]
+  animations: [trigger("noop", [])]
 })
 export class EnemiesListComponent extends BaseComponentComponent
   implements OnInit, OnDestroy, AfterViewInit {
