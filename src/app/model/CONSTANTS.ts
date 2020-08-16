@@ -73,8 +73,8 @@ export const SCIENCE_DISTRICT_MULTI = 0.6;
 export const COMPONENTS_DISTRICT_MULTI = 0.3;
 export const MAX_SEARCH_JOB = 10;
 export const ENEMY_EXP_START_LEVEL = 2;
-export const ENEMY_BASE_EXP = 5;
-export const ENEMY_EXP_GROW_RATE = 0.2;
+export const ENEMY_BASE_EXP = 4;
+export const ENEMY_EXP_GROW_RATE = 0.15;
 export const DM_PER_LEVEL = 10;
 
 // Modules
@@ -142,7 +142,7 @@ export const SIX_HOURS = 3600 * 6;
 export const BETTER_SPACE_STATION_PRESTIGE = 0.2;
 
 //  Prestige Card
-export const LEVEL_PER_CARD = 10;
+export const LEVEL_PER_CARD = 12;
 export const PRODUCTION_CARD = 1;
 export const PRODUCTION_PEACE_CARD = 1;
 export const EFFICIENCY_CARD = 0.3;
