@@ -6,6 +6,7 @@ import {
   MyNotification,
   NotificationTypes
 } from "../notifications/myNotification";
+import { EXTRA_DISTRICTS_FROM_STATIONS } from "../CONSTANTS";
 
 export class SpaceStationJob extends Job {
   constructor(public spaceStation: SpaceStation) {
@@ -23,18 +24,29 @@ export class SpaceStationJob extends Job {
     return this.spaceStation.name;
   }
   onCompleted() {
+    const game = Game.getGame();
     this.spaceStation.quantity = this.spaceStation.quantity.plus(1);
     if (this.spaceStation.unitData.unitType === UNIT_TYPES.SPACE_STATION) {
-      const habSpace = Game.getGame().resourceManager.habitableSpace;
+      const habSpace = game.resourceManager.habitableSpace;
       habSpace.quantity = habSpace.quantity.plus(this.spaceStation.habSpace);
+      if (game.prestigeManager.extraMiningDistricts.active) {
+        game.resourceManager.miningDistrict.quantity = game.resourceManager.miningDistrict.quantity.plus(
+          this.spaceStation.habSpace.times(EXTRA_DISTRICTS_FROM_STATIONS)
+        );
+      }
+      if (game.prestigeManager.extraEnergyDistricts.active) {
+        game.resourceManager.energyDistrict.quantity = game.resourceManager.energyDistrict.quantity.plus(
+          this.spaceStation.habSpace.times(EXTRA_DISTRICTS_FROM_STATIONS)
+        );
+      }
     } else if (
       this.spaceStation.unitData.unitType === UNIT_TYPES.MEGASTRUCTURE
     ) {
-      const sm = Game.getGame().spaceStationManager;
+      const sm = game.spaceStationManager;
       sm.megaBuilt = sm.megaBuilt.plus(1);
     }
 
-    Game.getGame().notificationManager.addNotification(
+    game.notificationManager.addNotification(
       new MyNotification(
         NotificationTypes.SPACE_STATION_COMPLETED,
         this.spaceStation.name + " completed."

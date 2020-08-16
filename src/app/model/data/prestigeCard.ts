@@ -20,7 +20,8 @@ import {
   COMPUTING_MAX_CARD,
   PRODUCTION_PEACE_CARD,
   MORE_HAB_FROM_STATIONS,
-  NAVAL_CAP_CARD_MULTI
+  NAVAL_CAP_CARD_MULTI,
+  EXTRA_DISTRICTS_FROM_STATIONS
 } from "../CONSTANTS";
 
 export const PRESTIGE_CARDS: ISimpleBase[] = [
@@ -193,15 +194,6 @@ export const PRESTIGE_CARDS: ISimpleBase[] = [
     icon: "arrow-up"
   },
   {
-    id: "m2",
-    name: "Bigger Space Stations",
-    description:
-      "Increase hab. space from space station by " +
-      MORE_HAB_FROM_STATIONS * 100 +
-      "%",
-    icon: "my:defense-satellite"
-  },
-  {
     id: "m3",
     name: "More Departments",
     description: "Increase departments by 100%",
@@ -212,6 +204,33 @@ export const PRESTIGE_CARDS: ISimpleBase[] = [
     name: "Prestige multi doesn't decrease",
     description: "Prestige multi doesn't decrease on prestige.",
     icon: "arrow-up"
+  },
+  {
+    id: "m2",
+    name: "Bigger Space Stations",
+    description:
+      "Increase hab. space from space station by " +
+      MORE_HAB_FROM_STATIONS * 100 +
+      "%",
+    icon: "my:defense-satellite"
+  },
+  {
+    id: "m5",
+    name: "Space Mining",
+    description:
+      "Space stations grants mining districts. Equal to " +
+      EXTRA_DISTRICTS_FROM_STATIONS * 100 +
+      "% of hab space.",
+    icon: "my:defense-satellite"
+  },
+  {
+    id: "m6",
+    name: "Solar Energy",
+    description:
+      "Space stations grants energetic districts. Equal to " +
+      EXTRA_DISTRICTS_FROM_STATIONS * 100 +
+      "% of hab space.",
+    icon: "my:defense-satellite"
   }
   //#endregion
 ];

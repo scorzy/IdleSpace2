@@ -163,3 +163,4 @@ export const SPELL_DURATION_CARD = 1;
 export const COMPUTING_REGENERATION_CARD = 1;
 export const COMPUTING_MAX_CARD = 1;
 export const MORE_HAB_FROM_STATIONS = 10;
+export const EXTRA_DISTRICTS_FROM_STATIONS = 0.1;

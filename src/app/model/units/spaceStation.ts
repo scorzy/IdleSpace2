@@ -1,5 +1,9 @@
 import { Unit } from "./unit";
-import { ZERO, PRICE_GROW_RATE } from "../CONSTANTS";
+import {
+  ZERO,
+  PRICE_GROW_RATE,
+  EXTRA_DISTRICTS_FROM_STATIONS
+} from "../CONSTANTS";
 import { BonusStack } from "../bonus/bonusStack";
 import { Game } from "../game";
 import { Research } from "../researches/research";
@@ -42,6 +46,23 @@ export class SpaceStation extends Unit {
     habSpace.quantity = habSpace.quantity.plus(
       Decimal.minus(this.habSpace, old).times(this.quantity)
     );
+    const extraDistricts = Decimal.minus(this.habSpace, old).times(
+      EXTRA_DISTRICTS_FROM_STATIONS
+    );
+    if (extraDistricts.gt(0)) {
+      const game = Game.getGame();
+      if (game.prestigeManager.extraMiningDistricts.active) {
+        game.resourceManager.miningDistrict.quantity = game.resourceManager.miningDistrict.quantity.plus(
+          extraDistricts.times(this.quantity)
+        );
+      }
+      if (game.prestigeManager.extraEnergyDistricts.active) {
+        game.resourceManager.energyDistrict.quantity = game.resourceManager.energyDistrict.quantity.plus(
+          extraDistricts.times(this.quantity)
+        );
+      }
+    }
+
     this.habSpaceDivPrice = this.habSpace.div(this.buildPriceNext).times(1e12);
   }
 }
