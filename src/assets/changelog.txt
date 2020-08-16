@@ -1,4 +1,5 @@
 -   Auto mod
+-   Auto departments
 
 14/08/2020
 -   Added "Auto save & refresh" as workaround for memory leaks

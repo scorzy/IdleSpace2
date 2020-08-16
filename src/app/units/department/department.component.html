@@ -19,29 +19,57 @@
   </span>
 
   <table class="margin-top">
-    <tr *ngFor="let dep of building.departments; trackBy: getDepId">
-      <td
-        class="title"
-        nz-popover
-        [nzTitle]="dep.name"
-        [nzPopoverContent]="dep.description"
-      >
-        {{ dep.name }}
-      </td>
-      <td class="monospace quantity">
-        {{ dep.quantity | format: true }}
-      </td>
-      <td>
-        <button
-          nz-button
-          nzSize="small"
-          nzType="secondary"
-          [disabled]="building.usedDepartments >= building.maxDepartments"
-          (click)="building.addDep(dep)"
+    <thead>
+      <tr>
+        <th class="table-head">
+          Name
+        </th>
+        <th class="table-head">
+          Qty
+        </th>
+        <th></th>
+        <th class="table-head">
+          Priority
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let dep of building.departments; trackBy: getDepId">
+        <td
+          class="title"
+          nz-popover
+          [nzTitle]="dep.name"
+          [nzPopoverContent]="dep.description"
         >
-          +1
-        </button>
-      </td>
-    </tr>
+          {{ dep.name }}
+        </td>
+        <td class="monospace quantity">
+          {{ dep.quantity | format: true }}
+        </td>
+        <td>
+          <button
+            nz-button
+            nzSize="small"
+            nzType="secondary"
+            [disabled]="building.usedDepartments >= building.maxDepartments"
+            (click)="building.addDep(dep)"
+          >
+            +1
+          </button>
+        </td>
+        <td>
+          <nz-input-number
+            nzSize="small"
+            nzMin="0"
+            nzMax="100"
+            [(ngModel)]="dep.priority"
+          ></nz-input-number>
+        </td>
+      </tr>
+    </tbody>
   </table>
+
+  <br />
+  <nz-switch [(ngModel)]="building.autoDepartments" nzSize="small"></nz-switch>
+  <label class="my-label"> Auto assign</label>
 </nz-card>

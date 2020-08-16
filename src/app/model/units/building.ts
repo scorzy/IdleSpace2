@@ -11,6 +11,7 @@ export class Department implements IDepartmentData, IBase {
   name: string;
   description: string;
   quantity = ZERO;
+  priority = 0;
 
   constructor(depData: IDepartmentData) {
     assign(this, depData);
@@ -24,6 +25,7 @@ export class Building extends Unit {
   departmentResearches: Array<Research>;
   researchesToInspire: Array<Research>;
   autoBuyer: AutoBuilding;
+  autoDepartments = false;
 
   addDep(dep: Department) {
     if (this.usedDepartments < this.maxDepartments) {
@@ -51,6 +53,29 @@ export class Building extends Unit {
   postUpdate() {
     super.postUpdate();
     this.reloadMaxDep();
+    if (this.autoDepartments && this.maxDepartments > this.usedDepartments) {
+      let priSum = 0;
+      let dep: Department;
+      let minPercent = Decimal.MAX_VALUE;
+      for (let i = 0; i < this.departments.length; i++) {
+        priSum += this.departments[i].priority;
+      }
+      for (let i = 0; i < this.departments.length; i++) {
+        if (this.departments[i].priority > 0) {
+          const percent = this.departments[i].quantity
+            .div(this.departments[i].priority)
+            .div(priSum);
+          if (percent.lt(minPercent)) {
+            minPercent = percent;
+            dep = this.departments[i];
+          }
+        }
+      }
+      if (dep) {
+        this.addDep(dep);
+        this.reloadMaxDep();
+      }
+    }
   }
   /**
    * Inspire first research available
@@ -79,20 +104,28 @@ export class Building extends Unit {
         if (!dep.quantity.eq(0)) {
           depSave.q = dep.quantity;
         }
+        if (dep.priority !== 0) {
+          depSave.r = dep.priority;
+        }
         return depSave;
       });
     }
+    ret.aDe = this.autoDepartments;
 
     return ret;
   }
   load(save: any) {
     if (!super.load(save)) return false;
+    if ("aDe" in save) this.autoDepartments = save.aDe;
     if ("d" in save) {
       for (const depSave of save.d) {
         if ("q" in depSave) {
           const department = this.departments.find((d) => d.id === depSave.i);
           if (department) {
             department.quantity = new Decimal(depSave.q);
+            if ("r" in depSave) {
+              department.priority = depSave.r;
+            }
             this.usedDepartments += department.quantity.toNumber();
           }
         }
