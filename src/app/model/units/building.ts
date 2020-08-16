@@ -5,6 +5,7 @@ import { Research } from "../researches/research";
 import { IBase } from "../iBase";
 import { ZERO } from "../CONSTANTS";
 import { AutoBuilding } from "../automation/autoBuilding";
+import { Game } from "../game";
 
 export class Department implements IDepartmentData, IBase {
   id: string;
@@ -48,6 +49,9 @@ export class Building extends Unit {
             this.departmentResearches[i].quantity.toNumber();
         }
       }
+    }
+    if (Game.getGame().prestigeManager.doubleDepartmentsCard.active) {
+      this.maxDepartments *= 2;
     }
   }
   postUpdate() {

@@ -61,7 +61,7 @@ export const PRESTIGE_CARDS: ISimpleBase[] = [
   },
   {
     id: "5",
-    name: "Double mods",
+    name: "More mods",
     description: "Drones have 50% more mods",
     icon: "fa-s:microchip"
   },
@@ -200,6 +200,12 @@ export const PRESTIGE_CARDS: ISimpleBase[] = [
       MORE_HAB_FROM_STATIONS * 100 +
       "%",
     icon: "my:defense-satellite"
+  },
+  {
+    id: "m3",
+    name: "More Departments",
+    description: "Increase departments by 100%",
+    icon: "fa-s:building"
   }
   //#endregion
 ];

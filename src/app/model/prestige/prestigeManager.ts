@@ -66,6 +66,7 @@ export class PrestigeManager {
   moreHabSpaceFromStations: PrestigeCard;
   navalCapCard: PrestigeCard;
   doubleModsCard: PrestigeCard;
+  doubleDepartmentsCard: PrestigeCard;
   //#endregion
   constructor() {
     this.generateExperience();
@@ -334,6 +335,7 @@ export class PrestigeManager {
     this.moreExp = this.cards.find((card) => card.id === "m0");
     this.moreDM = this.cards.find((card) => card.id === "m1");
     this.moreHabSpaceFromStations = this.cards.find((card) => card.id === "m2");
+    this.doubleDepartmentsCard = this.cards.find((card) => card.id === "m3");
     const moreHabBonus = new Bonus(
       this.moreHabSpaceFromStations,
       new Decimal(MORE_HAB_FROM_STATIONS)
