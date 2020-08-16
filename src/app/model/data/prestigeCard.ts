@@ -206,6 +206,12 @@ export const PRESTIGE_CARDS: ISimpleBase[] = [
     name: "More Departments",
     description: "Increase departments by 100%",
     icon: "fa-s:building"
+  },
+  {
+    id: "m4",
+    name: "Prestige multi doesn't decrease",
+    description: "Prestige multi doesn't decrease on prestige.",
+    icon: "arrow-up"
   }
   //#endregion
 ];

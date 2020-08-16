@@ -1,7 +1,8 @@
 -   Auto mod
 -   Auto departments
--   More mod card
--   More departments card
+-   "More mod" card
+-   "More departments" card
+-   "Prestige multi doesn't decrease" card
 
 14/08/2020
 -   Added "Auto save & refresh" as workaround for memory leaks

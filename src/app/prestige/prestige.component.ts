@@ -48,7 +48,7 @@ export class PrestigeComponent extends BaseComponentComponent
         this.ms.game.prestigeManager.prestigeMultiplier
       )
     ) {
-      return "text-error";
+      return "text-danger";
     }
     return "";
   }

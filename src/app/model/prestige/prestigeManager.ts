@@ -67,6 +67,7 @@ export class PrestigeManager {
   navalCapCard: PrestigeCard;
   doubleModsCard: PrestigeCard;
   doubleDepartmentsCard: PrestigeCard;
+  noDecreasePrestige: PrestigeCard;
   //#endregion
   constructor() {
     this.generateExperience();
@@ -336,6 +337,7 @@ export class PrestigeManager {
     this.moreDM = this.cards.find((card) => card.id === "m1");
     this.moreHabSpaceFromStations = this.cards.find((card) => card.id === "m2");
     this.doubleDepartmentsCard = this.cards.find((card) => card.id === "m3");
+    this.noDecreasePrestige = this.cards.find((card) => card.id === "m4");
     const moreHabBonus = new Bonus(
       this.moreHabSpaceFromStations,
       new Decimal(MORE_HAB_FROM_STATIONS)
@@ -356,9 +358,18 @@ export class PrestigeManager {
   }
   loadNextMultiplier() {
     const maxEnemyLevel = Game.getGame().enemyManager.maxLevel;
-    this.nextPrestigeMultiplier = ONE.plus(
+
+    let newNextPrestigeMultiplier = ONE.plus(
       maxEnemyLevel * PRESTIGE_MULTI_PER_LEVEL
     ).pow(PRESTIGE_MULTI_EXP);
+
+    if (this.noDecreasePrestige.active) {
+      this.nextPrestigeMultiplier = this.prestigeMultiplier.max(
+        newNextPrestigeMultiplier
+      );
+    } else {
+      this.nextPrestigeMultiplier = newNextPrestigeMultiplier;
+    }
   }
 
   //#region Save and Load
