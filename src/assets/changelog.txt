@@ -1,6 +1,6 @@
 -   Auto mod
 -   Auto departments
--   Balancement: less experience and cards
+-   Balancement: less experience and cards, buildings prices
 -   "More mod" card
 -   "More departments" card
 -   "Prestige multi doesn't decrease" card

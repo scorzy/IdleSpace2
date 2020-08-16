@@ -116,7 +116,7 @@ export const STORAGE_DEPARTMENT_MULTI = 0.1;
 export const COMPONENT_STORAGE = 1e3;
 export const NUKE_STORAGE = 50;
 export const METAL_BUILDING_PRICE = 1000;
-export const ALLOY_BUILDING_PRICE = 1e3;
+export const ALLOY_BUILDING_PRICE = 1e4;
 
 //  Megastructures
 export const MEGA_PRICE_MULTI = 1e3;
