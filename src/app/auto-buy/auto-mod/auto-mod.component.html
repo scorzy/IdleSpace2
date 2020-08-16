@@ -1,11 +1,6 @@
 <form nz-form nzLayout="inline">
   <nz-form-item>
-    <nz-form-label
-      nz-popover
-      nzPopoverTitle="Automation"
-      [nzPopoverContent]="autoInfoTemplate"
-      >Auto Mod
-    </nz-form-label>
+    <nz-form-label>Auto Mod </nz-form-label>
     <nz-form-control>
       <nz-input-group nzCompact>
         <nz-switch
@@ -32,6 +27,25 @@
   <nz-form-item>
     <nz-form-label
       nz-popover
+      nzPopoverTitle="Min. components %"
+      nzPopoverContent="Minimum percentage of components required for auto modding."
+    >
+      Min. components %
+    </nz-form-label>
+    <nz-form-control>
+      <nz-input-number
+        nzSize="small"
+        [name]="autoMod.id + 'cp'"
+        nzMin="0"
+        nzMax="100"
+        [(ngModel)]="autoMod.minCompPercent"
+      ></nz-input-number>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label
+      nz-popover
       nzPopoverTitle="Priority"
       nzPopoverContent="In case more auto buyer are available on the same update cycle, high priority execute first."
       >Priority</nz-form-label
@@ -45,11 +59,3 @@
     </nz-form-control>
   </nz-form-item>
 </form>
-
-<ng-template #autoInfoTemplate>
-  <ul>
-    <li>On / Off</li>
-    <li>Interval in seconds</li>
-    <li>Priority</li>
-  </ul>
-</ng-template>

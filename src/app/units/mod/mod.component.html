@@ -147,6 +147,33 @@
       </tbody>
     </nz-table>
   </div>
+  <div>
+    <nz-table nzTemplateMode>
+      <thead>
+        <tr>
+          <th>Preset</th>
+          <th colspan="2" class="req-head">Mod Required</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let req of [0, 1, 2, 3, 4]">
+          <td>
+            {{ req + 1 }}
+          </td>
+          <td class="monospace min-w">
+            {{ modRequired[req] | format: true }}
+          </td>
+          <td
+            class="monospace min-w"
+            [class.text-success]="modRequired[req].gt(modRequiredTemp[req])"
+            [class.text-danger]="modRequired[req].lt(modRequiredTemp[req])"
+          >
+            {{ modRequiredTemp[req] | format: true }}
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
 </div>
 <!-- nzSize="middle" -->
 

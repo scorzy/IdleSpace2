@@ -75,6 +75,7 @@ export class ModLineComponent extends BaseComponentComponent
 
     for (let i = 0; i < MAX_MOD_PRESET; i++) {
       if (this.mod.uiPresets[i].lt(this.mod.min)) ok = false;
+      if (this.mod.uiPresets[i].gt(this.mod.max)) ok = false;
     }
 
     this.status = ok ? "" : "error";

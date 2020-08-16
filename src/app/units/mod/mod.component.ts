@@ -34,6 +34,8 @@ export class ModComponent extends BaseComponentComponent
   componentGain = ZERO;
   componentNeed = ZERO;
   componentPercent = 0;
+  modRequired = new Array<Decimal>();
+  modRequiredTemp = new Array<Decimal>();
 
   constructor(
     ms: MainService,
@@ -46,6 +48,8 @@ export class ModComponent extends BaseComponentComponent
     super(ms, cd);
   }
   ngOnInit() {
+    this.modRequired = [ZERO, ZERO, ZERO, ZERO, ZERO];
+    this.modRequiredTemp = [ZERO, ZERO, ZERO, ZERO, ZERO];
     this.reloadComp();
     this.subscriptions.push(
       this.ms.updateEmitter.subscribe((n) => {
@@ -89,6 +93,22 @@ export class ModComponent extends BaseComponentComponent
       .min(100)
       .floor()
       .toNumber();
+
+    for (let i = 0; i < MAX_MOD_PRESET; i++) {
+      let req = ZERO;
+      let reqTemp = ZERO;
+      for (let k = 0; k < this.unit.modStack.mods.length; k++) {
+        reqTemp = reqTemp.plus(this.unit.modStack.mods[k].uiPresets[i]);
+        req = req.plus(this.unit.modStack.mods[k].presets[i]);
+      }
+      for (let k = 0; k < this.unit.modStack.mods.length; k++) {
+        reqTemp = reqTemp.max(this.unit.modStack.mods[k].uiPresets[i].abs());
+        req = req.max(this.unit.modStack.mods[k].presets[i].abs());
+      }
+      if (!this.modRequiredTemp[i].eq(reqTemp))
+        this.modRequiredTemp[i] = reqTemp;
+      if (!this.modRequired[i].eq(req)) this.modRequired[i] = req;
+    }
   }
   getUnit(id: string) {
     this.unit = this.ms.game.resourceManager.workers.find((u) => id === u.id);
