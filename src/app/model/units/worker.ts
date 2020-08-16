@@ -95,6 +95,9 @@ export class Worker extends Unit {
         }
       }
     }
+    if (Game.getGame().prestigeManager.doubleModsCard.active) {
+      this.maxMods = this.maxMods.times(1.5);
+    }
     this.maxMods = this.maxMods.times(multi).floor();
   }
   confirmMods(auto = false) {

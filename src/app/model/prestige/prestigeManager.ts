@@ -65,7 +65,8 @@ export class PrestigeManager {
   moreComputing: PrestigeCard;
   moreHabSpaceFromStations: PrestigeCard;
   navalCapCard: PrestigeCard;
-  //#region
+  doubleModsCard: PrestigeCard;
+  //#endregion
   constructor() {
     this.generateExperience();
     this.generateCards();
@@ -254,6 +255,7 @@ export class PrestigeManager {
     const moreDrones = this.cards.find((card) => card.id === "2");
     const recycling = this.cards.find((card) => card.id === "3");
     const peaceCard = this.cards.find((card) => card.id === "4");
+    this.doubleModsCard = this.cards.find((card) => card.id === "5");
     Game.getGame().recyclingMulti.bonuses.push(
       new Bonus(recycling, new Decimal(RECYCLING_CARD))
     );

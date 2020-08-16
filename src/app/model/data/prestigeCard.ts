@@ -59,6 +59,12 @@ export const PRESTIGE_CARDS: ISimpleBase[] = [
       "% more when not in war (no enemy on battle screen)",
     icon: "fa-s:peace"
   },
+  {
+    id: "5",
+    name: "Double mods",
+    description: "Drones have 50% more mods",
+    icon: "fa-s:microchip"
+  },
   //#endregion
   //#region Science
   {
