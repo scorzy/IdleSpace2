@@ -273,16 +273,16 @@ export const UNITS: IUnitData[] = [
     id: "X",
     name: "Replicator",
     icon: "fa-s:microchip",
-    description: "Replicators turn alloy into droid components.",
+    description: "Replicators turn alloy into droids components.",
     colorClass: "component-color",
     production: [
       ["x", 0.05],
-      ["A", -3],
-      ["E", -1]
+      ["A", -4],
+      ["E", -2]
     ],
     prices: [
-      ["M", 50],
-      ["A", 20]
+      ["M", 100],
+      ["A", 70]
     ],
     limits: [
       {
@@ -306,12 +306,12 @@ export const UNITS: IUnitData[] = [
     colorClass: "nuke-color",
     production: [
       ["b", 0.05],
-      ["A", -4],
+      ["A", -5],
       ["E", -2]
     ],
     prices: [
-      ["M", 30],
-      ["A", 15]
+      ["M", 50],
+      ["A", 30]
     ],
     limits: [
       {
