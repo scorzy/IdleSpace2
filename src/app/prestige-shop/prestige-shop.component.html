@@ -69,8 +69,10 @@
                   .gt(ms.game.prestigeManager.experience)
               "
             >
-              Buy {{ buyOpt | format: true }} for
-              {{ prestige.price.times(buyOpt) | format: true }} exp
+              <span>
+                Buy {{ buyOpt | format: true }} for
+                {{ prestige.price.times(buyOpt) | format: true }} exp</span
+              >
             </button>
           </ng-container>
         </div>

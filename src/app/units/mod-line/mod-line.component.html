@@ -11,10 +11,10 @@
   >
     <nz-input-group nzCompact>
       <button nz-button nzType="default" (click)="min()" nzSize="small">
-        MIN
+        <span>MIN</span>
       </button>
       <button nz-button nzType="default" (click)="plus(-1)" nzSize="small">
-        -
+        <span>-</span>
       </button>
       <input
         class="inputBox monospace"
@@ -25,10 +25,10 @@
         (change)="valueChange()"
       />
       <button nz-button nzType="default" (click)="plus()" nzSize="small">
-        +
+        <span>+</span>
       </button>
       <button nz-button nzType="default" (click)="max()" nzSize="small">
-        MAX
+        <span>MAX</span>
       </button>
     </nz-input-group>
 

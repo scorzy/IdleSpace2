@@ -189,7 +189,7 @@
               *ngIf="design.modules.length < design.type.maxModule"
             >
               <i nz-icon nzType="plus"></i>
-              Add Module
+              <span>Add Module</span>
             </button>
           </div>
         </nz-form-control>
@@ -212,11 +212,11 @@
         (click)="update()"
       >
         <i nz-icon nzType="save" nzTheme="outline"></i>
-        Update
+        <span>Update</span>
       </button>
       <button nz-button nzType="info" (click)="maximize()">
         <i nz-icon nzType="arrow-up" nzTheme="outline"></i>
-        Maximize
+        <span>Maximize</span>
       </button>
       <button
         nz-button
@@ -224,11 +224,11 @@
         *ngIf="original.old"
         (click)="original.deleteOutDated()"
       >
-        Delete Outdated
+        <span>Delete Outdated</span>
       </button>
       <button nz-button nzType="danger" (click)="delete()">
         <i nz-icon nzType="delete" nzTheme="outline"></i>
-        Delete Design
+        <span>Delete Design</span>
       </button>
     </nz-button-group>
 

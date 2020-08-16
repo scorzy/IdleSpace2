@@ -48,10 +48,10 @@
           [disabled]="disabled"
           (click)="confirm()"
         >
-          Confirm
+          <span>Confirm</span>
         </button>
         <button nz-button nzType="default" (click)="cancel()">
-          Reset mods
+          <span>Reset mods</span>
         </button>
 
         <button
@@ -60,10 +60,10 @@
           [disabled]="disabled"
           (click)="confirmPresets()"
         >
-          Save Presets
+          <span>Save Presets</span>
         </button>
         <button nz-button nzType="default" (click)="cancelPresets()">
-          Reset presets
+          <span>Reset presets</span>
         </button>
       </nz-input-group>
 

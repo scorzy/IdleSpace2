@@ -32,7 +32,9 @@
             {{ buyOpt | format: true }}
           </span>
           <span *ngIf="i < 2; else plural"> {{ period.name }} </span>
-          <ng-template #plural> {{ period.plural }} </ng-template>
+          <ng-template #plural>
+            <span>{{ period.plural }}</span>
+          </ng-template>
         </button>
       </ng-container>
     </div>

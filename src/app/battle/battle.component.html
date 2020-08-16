@@ -13,20 +13,20 @@
     </h2>
     <nz-button-group *ngIf="ms.game.enemyManager.currentEnemy">
       <button nz-button nzType="primary" (click)="attack(-1)">
-        Attack
+        <span>Attack</span>
       </button>
       <button nz-button nzType="" (click)="nuke()">
-        Nuke &nbsp;
+        <span>Nuke &nbsp;</span>
         <span class="monospace nuke-btn">
           {{ needNuke | format: true }} ({{ nukePercent | percent }})</span
         >
       </button>
       <button nz-button nzType="danger" (click)="surrender()">
-        Surrender
+        <span>Surrender</span>
       </button>
       <button nz-button nzType="default" (click)="autoAttackOptions = true">
         <i nz-icon nzType="setting" nzTheme="outline"></i>
-        Options
+        <span>Options</span>
       </button>
     </nz-button-group>
 
