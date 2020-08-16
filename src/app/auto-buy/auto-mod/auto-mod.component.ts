@@ -7,7 +7,6 @@ import {
   Input
 } from "@angular/core";
 import { BaseComponentComponent } from "src/app/base-component/base-component.component";
-import { AutoWorker } from "src/app/model/automation/autoWorker";
 import { INTERVALS } from "src/app/model/automation/intervals";
 import { AutoMod } from "src/app/model/automation/autoMod";
 

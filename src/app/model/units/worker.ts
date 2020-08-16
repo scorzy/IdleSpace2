@@ -105,10 +105,11 @@ export class Worker extends Unit {
     recycle = recycle.times(Game.getGame().recyclingMulti.totalBonus);
     recycle = recycle.min(this.components.times(0.9));
     this.quantity = ONE;
-    if (!auto)
+    if (!auto) {
       this.modStack.mods.forEach((mod) => {
         mod.quantity = mod.uiQuantity;
       });
+    }
     this.manualBought = ZERO;
     this.reloadAll();
     let toAdd = this.quantity.times(recycle);

@@ -13,8 +13,7 @@ import {
   MOD_ENERGY_MULTI,
   MOD_COMPONENTS,
   MOD_RECYCLING,
-  ZERO,
-  MAX_MOD_PRESET
+  ZERO
 } from "../CONSTANTS";
 
 export class ModStack {

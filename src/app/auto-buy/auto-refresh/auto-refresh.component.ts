@@ -6,7 +6,6 @@ import {
   AfterViewInit
 } from "@angular/core";
 import { BaseComponentComponent } from "src/app/base-component/base-component.component";
-import { INTERVALS } from "src/app/model/automation/intervals";
 
 @Component({
   selector: "app-auto-refresh",

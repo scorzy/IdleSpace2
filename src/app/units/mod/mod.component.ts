@@ -97,16 +97,17 @@ export class ModComponent extends BaseComponentComponent
     for (let i = 0; i < MAX_MOD_PRESET; i++) {
       let req = ZERO;
       let reqTemp = ZERO;
-      for (let k = 0; k < this.unit.modStack.mods.length; k++) {
-        reqTemp = reqTemp.plus(this.unit.modStack.mods[k].uiPresets[i]);
-        req = req.plus(this.unit.modStack.mods[k].presets[i]);
+      for (let mod of this.unit.modStack.mods) {
+        reqTemp = reqTemp.plus(mod.uiPresets[i]);
+        req = req.plus(mod.presets[i]);
       }
-      for (let k = 0; k < this.unit.modStack.mods.length; k++) {
-        reqTemp = reqTemp.max(this.unit.modStack.mods[k].uiPresets[i].abs());
-        req = req.max(this.unit.modStack.mods[k].presets[i].abs());
+      for (let mod of this.unit.modStack.mods) {
+        reqTemp = reqTemp.max(mod.uiPresets[i].abs());
+        req = req.max(mod.presets[i].abs());
       }
-      if (!this.modRequiredTemp[i].eq(reqTemp))
+      if (!this.modRequiredTemp[i].eq(reqTemp)) {
         this.modRequiredTemp[i] = reqTemp;
+      }
       if (!this.modRequired[i].eq(req)) this.modRequired[i] = req;
     }
   }

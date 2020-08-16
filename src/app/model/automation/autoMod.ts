@@ -2,7 +2,6 @@ import { AbstractAutobuyer } from "./abstractAutoBuyer";
 import { Worker } from "../units/worker";
 import { MAX_MOD_PRESET, ZERO, ONE } from "../CONSTANTS";
 import { Game } from "../game";
-import { ms } from "date-fns/locale";
 
 export class AutoMod extends AbstractAutobuyer {
   minCompPercent = 0;
@@ -51,13 +50,13 @@ export class AutoMod extends AbstractAutobuyer {
       componentGain = componentGain
         .minus(droneRestart.times(this.worker.componentsTemp))
         .max(0);
-      let componentTotal = Game.getGame().resourceManager.components.quantity.plus(
+      const componentTotal = Game.getGame().resourceManager.components.quantity.plus(
         componentGain
       );
-      let componentNeed = this.worker.limitTemp
+      const componentNeed = this.worker.limitTemp
         .minus(droneRestart)
         .times(this.worker.componentsTemp);
-      let componentPercent = componentTotal
+      const componentPercent = componentTotal
         .div(componentNeed)
         .times(100)
         .min(100)

@@ -363,7 +363,7 @@ export class PrestigeManager {
   loadNextMultiplier() {
     const maxEnemyLevel = Game.getGame().enemyManager.maxLevel;
 
-    let newNextPrestigeMultiplier = ONE.plus(
+    const newNextPrestigeMultiplier = ONE.plus(
       maxEnemyLevel * PRESTIGE_MULTI_PER_LEVEL
     ).pow(PRESTIGE_MULTI_EXP);
 
