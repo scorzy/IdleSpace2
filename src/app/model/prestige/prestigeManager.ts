@@ -70,6 +70,7 @@ export class PrestigeManager {
   noDecreasePrestige: PrestigeCard;
   extraMiningDistricts: PrestigeCard;
   extraEnergyDistricts: PrestigeCard;
+  doubleRepeatableResearches: PrestigeCard;
   //#endregion
   constructor() {
     this.generateExperience();
@@ -292,6 +293,9 @@ export class PrestigeManager {
     const technology = this.cards.find((card) => card.id === "r0");
     this.inspiration = this.cards.find((card) => card.id === "r1");
     this.inspirationTechnology = this.cards.find((card) => card.id === "r2");
+    this.doubleRepeatableResearches = this.cards.find(
+      (card) => card.id === "r3"
+    );
     sm.technologies.forEach((tech) => {
       tech.technologyBonus.bonuses.push(
         new Bonus(technology, new Decimal(TECHNOLOGY_CARD))

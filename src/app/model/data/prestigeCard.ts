@@ -91,6 +91,12 @@ export const PRESTIGE_CARDS: ISimpleBase[] = [
     description: "Research boosts also increase the relative technology",
     icon: "fa-s:flask"
   },
+  {
+    id: "r3",
+    name: "Level 20 Researches",
+    description: "Repeatable researches can be repeated 10 more times.",
+    icon: "fa-s:flask"
+  },
   //#endregion
   //#region War
   {
