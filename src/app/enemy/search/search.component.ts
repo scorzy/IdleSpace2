@@ -27,7 +27,6 @@ import { trigger } from "@angular/animations";
 export class SearchComponent extends BaseComponentComponent
   implements OnInit, OnDestroy, AfterViewInit {
   MAX_SEARCH_JOB = MAX_SEARCH_JOB;
-  searchLevel = 0;
   expectedPrice = ZERO;
   expectedTiles: { unit: Unit; range: SearchRange }[];
   expectedSearchTime = 0;
@@ -73,7 +72,7 @@ export class SearchComponent extends BaseComponentComponent
     );
   }
   search() {
-    this.ms.game.enemyManager.search(this.searchLevel);
+    this.ms.game.enemyManager.search(this.ms.game.enemyManager.searchLevel);
   }
   getJobId(index: number, searchJob: SearchJob) {
     return searchJob.id;
@@ -103,7 +102,7 @@ export class SearchComponent extends BaseComponentComponent
       this.ms.game.enemyManager.scienceOpt.quantity +
       this.ms.game.enemyManager.componentOpt.quantity;
     this.expectedPrice = SearchJob.getPrice(
-      this.searchLevel,
+      this.ms.game.enemyManager.searchLevel,
       this.pointBalance
     );
     const searchPerSec = this.ms.game.resourceManager.search.makers[0].prodPerSecFull
@@ -128,7 +127,7 @@ export class SearchComponent extends BaseComponentComponent
     this.expectedTiles[4].range = this.ms.game.enemyManager.componentOpt.getRange();
 
     const distanceRange = Enemy.getDistance(
-      this.searchLevel,
+      this.ms.game.enemyManager.searchLevel,
       this.ms.game.enemyManager.distanceOpt.quantity
     );
     this.minDistance = distanceRange.min;

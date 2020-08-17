@@ -51,6 +51,7 @@ export class EnemyManager extends JobManager {
   autoNuke = true;
   autoAttackOptions: AutoAttackOption[];
   private rewardString = "";
+  searchLevel = 0;
   lostRow = 0;
   //#region Bonus
   districtMultiplier: BonusStack = new BonusStack();

@@ -25,7 +25,7 @@
           <nz-form-label [nzSpan]="7" nzFor="level">Level</nz-form-label>
           <nz-form-control [nzSpan]="15">
             <nz-input-number
-              [(ngModel)]="searchLevel"
+              [(ngModel)]="ms.game.enemyManager.searchLevel"
               (ngModelChange)="reload()"
               [nzMin]="0"
               [nzStep]="1"
@@ -81,7 +81,7 @@
 
     <div>
       <nz-alert
-        *ngIf="ms.game.enemyManager.maxLevel < this.searchLevel"
+        *ngIf="ms.game.enemyManager.maxLevel < ms.game.enemyManager.searchLevel"
         nzType="warning"
         nzMessage="Search level is higher than Max level"
         nzDescription="You wont be able to attack searched enemies."
