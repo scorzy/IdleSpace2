@@ -1,7 +1,8 @@
 17/08/2020
 -   Optional priority one on full computing
--   Improved mods page
+-   Improved module page
 -   Ui fixes
+-   More themes
 
 16/08/2020
 -   Auto mod
