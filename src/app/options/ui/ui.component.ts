@@ -15,7 +15,7 @@ export class UiComponent implements OnInit {
   themes = [];
   constructor(public ms: MainService, public os: OptionsService) {}
   ngOnInit(): void {
-    this.themes = compiledCss.map((theme) => {
+    this.themes = compiledCss.sort().map((theme) => {
       let str = theme;
       const end = theme.indexOf(".");
       if (end > 0) {
