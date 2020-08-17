@@ -121,7 +121,13 @@
   </li>
   <li *ngIf="research.speedMulti > 0">
     +{{ research.speedMulti | percent }}
-    <span class="text-secondary">ship</span> velocity and acceleration
+    <span class="text-secondary">ship</span> velocity
+    <span class="text-secondary">and</span>
+    acceleration
+  </li>
+  <li *ngIf="research.accelerationMulti > 0">
+    +{{ research.accelerationMulti | percent }}
+    <span class="text-secondary">ship</span> acceleration
   </li>
   <li *ngIf="research.spellToUnlock">
     <i

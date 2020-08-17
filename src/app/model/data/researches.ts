@@ -261,6 +261,26 @@ export const RESEARCHES: IResearchData[] = [
     effMulti: [{ unitId: IDS.Replicator, multi: 0.05 }]
   },
   //#endregion
+  //#region Propulsion
+  {
+    id: "P-1",
+    name: "Gravity assist",
+    description: "",
+    unlockFrom: "P2",
+    type: TECHNOLOGIES.Propulsion,
+    accelerationMulti: 0.05,
+    max: 10
+  },
+  {
+    id: "P-2",
+    name: "Black Hole Gravity assist",
+    description: "",
+    unlockFrom: "P5",
+    type: TECHNOLOGIES.Propulsion,
+    accelerationMulti: 0.1,
+    max: 10
+  },
+  //#endregion
   //#region Origin Science
   {
     id: "or1",

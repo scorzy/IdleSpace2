@@ -49,6 +49,7 @@ export class ShipyardManager extends JobManager {
   shipyardPage = false;
   unlockedModules = true;
   velocityBonusStack = new BonusStack();
+  accelerationStack = new BonusStack();
   autoReinforce = false;
   constructor() {
     super();
@@ -100,6 +101,11 @@ export class ShipyardManager extends JobManager {
           new Bonus(res, new Decimal(res.speedMulti))
         );
       }
+      if (res?.accelerationMulti > 0) {
+        this.accelerationStack.bonuses.push(
+          new Bonus(res, new Decimal(res.accelerationMulti))
+        );
+      }
     });
     this.unlockDefaultModules();
   }
@@ -143,6 +149,7 @@ export class ShipyardManager extends JobManager {
   }
   postUpdate() {
     this.velocityBonusStack.reloadBonus();
+    this.accelerationStack.reloadBonus();
     this.reloadFleetPercent();
     if (this.unlockedModules) {
       this.reloadLists();

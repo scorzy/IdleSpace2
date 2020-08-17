@@ -58,6 +58,7 @@ export class Research extends Job implements IUnlockable, IBase {
   shipProductionBonus: { shipType: ShipType; multi: number }[];
   shipProductionBonusAll: number;
   speedMulti: number;
+  accelerationMulti: number;
   inspiration = false;
   inspirationDescription = "";
   districtMultiplier: number;
@@ -151,6 +152,7 @@ export class Research extends Job implements IUnlockable, IBase {
       });
     }
     this.speedMulti = researchData.speedMulti ?? 0;
+    this.accelerationMulti = researchData.accelerationMulti ?? 0;
 
     if (researchData.inspirationBuildingId) {
       const building = rs.buildings.find(

@@ -457,6 +457,9 @@ export class ShipDesign {
       this.acceleration = this.acceleration.times(
         Game.getGame().shipyardManager.velocityBonusStack.totalBonus
       );
+      this.acceleration = this.acceleration.times(
+        Game.getGame().shipyardManager.accelerationStack.totalBonus
+      );
     }
   }
   getCopy(errorCheck = true) {
