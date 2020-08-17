@@ -12,9 +12,9 @@ module.exports = {
   "@collapse-header-padding": "6px",
   "@table-padding-vertical-md": "5px",
   "@table-padding-horizontal-md": "6px",
-  "@notification-padding-vertical": "8px",
-  "@notification-padding-horizontal": "12px",
-  "@notification-margin-bottom": "8px",
+  "@notification-padding-vertical": "4px",
+  "@notification-padding-horizontal": "6px",
+  "@notification-margin-bottom": "4px",
   "@card-actions-li-margin": "2px 0",
   "@notification-width": "300px"
 };

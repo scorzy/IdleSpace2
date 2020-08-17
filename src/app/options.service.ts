@@ -98,12 +98,9 @@ export class OptionsService {
     if ("bw" in data) this.battleWinNotification = data.bw;
     if ("bl" in data) this.battleLostNotification = data.bl;
     if ("n" in data) this.numFormat = data.n;
-    if ("w1" in data) this.allWarpNoti = !data.w1;
-    if ("w2" in data) this.smallWarpNoti = !data.w2;
-    if ("w3" in data) this.allWarpNoti = !data.w3;
-    if ("w4" in data) this.smallWarpNoti = !data.w4;
-    if ("ps" in data) this.prodStopNoti = !data.ps;
-    if ("psn" in data) this.prodStopNoti = !data.psn;
+    if ("w3" in data) this.allWarpNoti = data.w3;
+    if ("w4" in data) this.smallWarpNoti = data.w4;
+    if ("psn" in data) this.prodStopNoti = data.psn;
     if ("ci" in data) this.showComponentsInfo = data.ci;
     if ("ds" in data) this.showDronesStatus = data.ds;
     if ("s" in data) this.spaceStationNotifications = data.s;
