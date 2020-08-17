@@ -130,4 +130,17 @@ export class ShipyardComponent extends BaseComponentComponent
     }
     return ret;
   }
+  copyOne() {
+    this.ms.game.shipyardManager.shipDesigns.forEach((des) => {
+      for (let i = 1; i < FLEET_NUMBER; i++) {
+        des.fleets[i].navalCapPercentUi = des.fleets[0].navalCapPercentUi;
+      }
+    });
+  }
+  setFleets(index: number) {
+    for (let i = 0; i < FLEET_NUMBER; i++) {
+      this.ms.game.shipyardManager.fleetNavCapPriorityUi[i] =
+        index >= i ? 1 : 0;
+    }
+  }
 }

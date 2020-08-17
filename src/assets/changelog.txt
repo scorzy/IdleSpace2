@@ -6,6 +6,7 @@
 -   "Battle Warp" card
 -   "Level 20 Researches" card
 -   Two new researches
+-   Shipyard utilities
 
 16/08/2020
 -   Auto mod
