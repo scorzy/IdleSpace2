@@ -21,9 +21,9 @@ export class OptionsService {
   compactCardHeader = false;
   battleWinNotification = true;
   battleLostNotification = true;
-  disableSmallWarpNoti = false;
-  disableAllWarpNoti = false;
-  disableProdStopNoti = false;
+  smallWarpNoti = true;
+  allWarpNoti = true;
+  prodStopNoti = true;
   showComponentsInfo = true;
   showDronesStatus = true;
   spaceStationNotifications = true;
@@ -74,9 +74,9 @@ export class OptionsService {
       bw: this.battleWinNotification,
       bl: this.battleLostNotification,
       n: this.numFormat,
-      w1: this.disableAllWarpNoti,
-      w2: this.disableSmallWarpNoti,
-      ps: this.disableProdStopNoti,
+      w3: this.allWarpNoti,
+      w4: this.smallWarpNoti,
+      psn: this.prodStopNoti,
       ci: this.showComponentsInfo,
       ds: this.showDronesStatus,
       t1: this.districtInfo,
@@ -87,6 +87,10 @@ export class OptionsService {
     };
   }
   load(data: any) {
+    if ("ps" in data) this.prodStopNoti = !data.ps;
+    if ("w1" in data) this.allWarpNoti = !data.w1;
+    if ("w2" in data) this.smallWarpNoti = !data.w2;
+
     if ("u" in data) OptionsService.usaFormat = data.u;
     if ("t" in data) this.themeId = data.t;
     if ("d" in data) this.darkSide = data.d;
@@ -94,9 +98,12 @@ export class OptionsService {
     if ("bw" in data) this.battleWinNotification = data.bw;
     if ("bl" in data) this.battleLostNotification = data.bl;
     if ("n" in data) this.numFormat = data.n;
-    if ("w1" in data) this.disableAllWarpNoti = data.w1;
-    if ("w2" in data) this.disableSmallWarpNoti = data.w2;
-    if ("ps" in data) this.disableProdStopNoti = data.ps;
+    if ("w1" in data) this.allWarpNoti = !data.w1;
+    if ("w2" in data) this.smallWarpNoti = !data.w2;
+    if ("w3" in data) this.allWarpNoti = !data.w3;
+    if ("w4" in data) this.smallWarpNoti = !data.w4;
+    if ("ps" in data) this.prodStopNoti = !data.ps;
+    if ("psn" in data) this.prodStopNoti = !data.psn;
     if ("ci" in data) this.showComponentsInfo = data.ci;
     if ("ds" in data) this.showDronesStatus = data.ds;
     if ("s" in data) this.spaceStationNotifications = data.s;

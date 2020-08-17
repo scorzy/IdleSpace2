@@ -64,38 +64,10 @@
   </nz-form-item>
 
   <nz-form-item>
-    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="bw">
-      Battle Win notification
-    </nz-form-label>
-    <nz-switch name="bw" [(ngModel)]="os.battleWinNotification"></nz-switch>
-  </nz-form-item>
-
-  <nz-form-item>
-    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="bl">
-      Battle Lost notification
-    </nz-form-label>
-    <nz-switch name="bl" [(ngModel)]="os.battleLostNotification"></nz-switch>
-  </nz-form-item>
-
-  <nz-form-item>
-    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="w1">
-      Disable all warp notifications
-    </nz-form-label>
-    <nz-switch name="w1" [(ngModel)]="os.disableAllWarpNoti"></nz-switch>
-  </nz-form-item>
-
-  <nz-form-item>
-    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="w2">
-      Disable small(5 sec) warp notifications
-    </nz-form-label>
-    <nz-switch name="w2" [(ngModel)]="os.disableSmallWarpNoti"></nz-switch>
-  </nz-form-item>
-
-  <nz-form-item>
     <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="pn">
-      Disable "Production stopped" modal
+      "Production stopped" modal
     </nz-form-label>
-    <nz-switch name="pn" [(ngModel)]="os.disableProdStopNoti"></nz-switch>
+    <nz-switch name="pn" [(ngModel)]="os.prodStopNoti"></nz-switch>
   </nz-form-item>
 
   <nz-form-item>
@@ -113,13 +85,6 @@
   </nz-form-item>
 
   <nz-form-item>
-    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="sp">
-      Space station completed notifications
-    </nz-form-label>
-    <nz-switch name="sp" [(ngModel)]="os.spaceStationNotifications"></nz-switch>
-  </nz-form-item>
-
-  <nz-form-item>
     <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="listUi">
       List ui for workers
     </nz-form-label>
@@ -131,6 +96,43 @@
       Show descriptions
     </nz-form-label>
     <nz-switch name="showDesc" [(ngModel)]="os.showDescriptions"></nz-switch>
+  </nz-form-item>
+
+  <h2>Notifications</h2>
+
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="sp">
+      Space station completed notifications
+    </nz-form-label>
+    <nz-switch name="sp" [(ngModel)]="os.spaceStationNotifications"></nz-switch>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="bw">
+      Battle Win notification
+    </nz-form-label>
+    <nz-switch name="bw" [(ngModel)]="os.battleWinNotification"></nz-switch>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="bl">
+      Battle Lost notification
+    </nz-form-label>
+    <nz-switch name="bl" [(ngModel)]="os.battleLostNotification"></nz-switch>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="w1">
+      All warp notifications
+    </nz-form-label>
+    <nz-switch name="w1" [(ngModel)]="os.allWarpNoti"></nz-switch>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="w2">
+      Small(5 sec) warp notifications
+    </nz-form-label>
+    <nz-switch name="w2" [(ngModel)]="os.smallWarpNoti"></nz-switch>
   </nz-form-item>
 
   <h2>Tutorial info</h2>
