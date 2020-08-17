@@ -293,6 +293,9 @@ export class Game {
   }
   processBattles(warpTime: number) {
     const now = performance.now();
+    if (this.prestigeManager.battleWarp.active) {
+      warpTime *= 2;
+    }
     if (this.enemyManager.currentEnemy) {
       this.enemyManager.currentEnemy.cells.forEach((c) => {
         if (c.inBattle && !c.done) {

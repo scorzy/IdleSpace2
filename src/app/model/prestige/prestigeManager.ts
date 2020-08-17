@@ -71,6 +71,7 @@ export class PrestigeManager {
   extraMiningDistricts: PrestigeCard;
   extraEnergyDistricts: PrestigeCard;
   doubleRepeatableResearches: PrestigeCard;
+  battleWarp: PrestigeCard;
   //#endregion
   constructor() {
     this.generateExperience();
@@ -329,6 +330,7 @@ export class PrestigeManager {
     this.moreWarp = this.cards.find((card) => card.id === "p0");
     this.scienceWarp = this.cards.find((card) => card.id === "p1");
     this.updateWarp = this.cards.find((card) => card.id === "p2");
+    this.battleWarp = this.cards.find((card) => card.id === "p3");
     //#endregion
     //#region Computing
     this.longerSpells = this.cards.find((card) => card.id === "s0");

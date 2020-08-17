@@ -3,6 +3,9 @@
 -   Improved module page
 -   Ui fixes
 -   More themes
+-   "Battle Warp" card
+-   "Level 20 Researches" card
+-   Two new researches
 
 16/08/2020
 -   Auto mod

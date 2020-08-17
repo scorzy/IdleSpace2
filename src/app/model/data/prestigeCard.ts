@@ -161,6 +161,12 @@ export const PRESTIGE_CARDS: ISimpleBase[] = [
       "Game update longer than " + UPDATE_WARP_CARD + " hours become warps",
     icon: "field-time"
   },
+  {
+    id: "p3",
+    name: "Battle Warp",
+    description: "Warps are double effective at reducing battle times.",
+    icon: "field-time"
+  },
   //#endregion
   //#region Spells
   {
