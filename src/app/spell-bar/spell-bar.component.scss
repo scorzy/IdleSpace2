@@ -1,12 +1,12 @@
 .bottom-spells {
   left: -50%;
+  opacity: 0.65;
   padding-left: 10px;
   padding-right: 10px;
   position: relative;
-  opacity: 0.65;
   top: -1px;
-  z-index: 100;
   transition: opacity 0.5s;
+  z-index: 100;
   &:hover {
     opacity: 1;
   }
