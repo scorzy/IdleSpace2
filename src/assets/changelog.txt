@@ -1,3 +1,9 @@
+17/08/2020
+-   Optional priority one on full computing
+-   Improved mods page
+-   Ui fixes
+
+16/08/2020
 -   Auto mod
 -   Auto departments
 -   Balancement: less experience and cards, buildings prices

@@ -279,12 +279,18 @@ export class Research extends Job implements IUnlockable, IBase {
 
     return this.unlocked;
   }
-  setLevels() {
+  setLevels(specialRes: Research = null) {
     if (this.researchToUnlock) {
       this.researchToUnlock.forEach((res) => {
         res.visLevel = this.visLevel + 1;
         res.parent = this;
-        res.setLevels();
+        const special = specialRes || (this.exclusiveGroup ? this : null);
+        if (special && this.modulesToUnlock) {
+          this.modulesToUnlock.forEach(
+            (mod) => (mod.specialResearch = special)
+          );
+        }
+        res.setLevels(special);
       });
     }
     this.initialPrice = new Decimal(RESEARCH_BASE_PRICE).times(

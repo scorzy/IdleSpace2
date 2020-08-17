@@ -52,6 +52,7 @@
           </span>
           <app-module-info [mod]="mod"></app-module-info>
         </div>
+
         <div fxLayout="row wrap">
           <span
             *ngFor="let item of mod.technologies"
@@ -68,6 +69,56 @@
               [style.color]="item.technology.color"
             ></i>
             <span class="monospace">{{ item.multi * 100 | format }}%</span>
+          </span>
+        </div>
+
+        <div
+          fxLayout="row wrap"
+          fxLayoutGap="0.3rem"
+          *ngIf="mod.research"
+          class="researches"
+        >
+          <span
+            fxLayoutAlign="center center"
+            nz-popover
+            [nzPopoverContent]="contentTemplate"
+          >
+            <i
+              nz-icon
+              [nzType]="mod.research.type?.icon"
+              [style.color]="mod.research.type?.color"
+              class="res-icon"
+            ></i>
+            <span>{{ mod.research.name }}</span>
+
+            <ng-template #contentTemplate>
+              <app-research-preview
+                [noProgress]="true"
+                [research]="mod.research"
+              ></app-research-preview>
+            </ng-template>
+          </span>
+
+          <span
+            fxLayoutAlign="center center"
+            *ngIf="mod.specialResearch"
+            nz-popover
+            [nzPopoverContent]="contentTemplate2"
+          >
+            <i
+              nz-icon
+              [nzType]="mod.specialResearch.type?.icon"
+              [style.color]="mod.specialResearch.type?.color"
+              class="res-icon"
+            ></i>
+            <span>{{ mod.specialResearch.name }}</span>
+
+            <ng-template #contentTemplate2>
+              <app-research-preview
+                [noProgress]="true"
+                [research]="mod.specialResearch"
+              ></app-research-preview>
+            </ng-template>
           </span>
         </div>
       </div>

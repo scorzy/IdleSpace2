@@ -436,8 +436,8 @@ export class Game {
     if ("l" in data) this.lockedDarkMatter = new Decimal(data.l);
     this.postUpdate(0);
 
-    this.prestigeManager.maxCards = 70;
-    this.prestigeManager.lockedCars = false;
+    // this.prestigeManager.maxCards = 70;
+    // this.prestigeManager.lockedCars = false;
     // this.darkMatter = new Decimal(1e20);
     // this.prestigeManager.experience = new Decimal(1e4);
   }

@@ -6,6 +6,7 @@ import {
 } from "@angular/core";
 import { MainService } from "src/app/main.service";
 import { Module } from "src/app/model/shipyard/module";
+import { Research } from "src/app/model/researches/research";
 
 @Component({
   selector: "app-modules",
@@ -50,10 +51,10 @@ export class ModulesComponent implements OnInit, OnDestroy {
         break;
     }
     if (this.status === "u") {
-      this.modules = this.modules.filter(m => m.unlocked);
+      this.modules = this.modules.filter((m) => m.unlocked);
     }
     if (this.status === "l") {
-      this.modules = this.modules.filter(m => !m.unlocked);
+      this.modules = this.modules.filter((m) => !m.unlocked);
     }
   }
 }
