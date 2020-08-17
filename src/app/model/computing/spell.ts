@@ -16,6 +16,7 @@ export class Spell implements IBase {
   duration = 30;
   percent = 0;
   autoCastPriority = 0;
+  onFull = false;
   activate() {
     if (this.active) return false;
     const cp = Game.getGame().computingManager;
@@ -43,12 +44,23 @@ export class Spell implements IBase {
     if (this.active) return this.bonusQuantity;
     else return ZERO;
   }
-  getSave(): any {
-    return { i: this.id, a: this.autoCastPriority, p: this.percent };
+  getSave(partial = false): any {
+    let ret: any = {
+      i: this.id,
+      a: this.autoCastPriority
+    };
+    if (this.onFull) {
+      ret.f = this.onFull;
+    }
+    if (!partial) {
+      ret.p = this.percent;
+    }
+    return ret;
   }
   load(data: any) {
     if (!("i" in data && data.i === this.id)) return false;
     if ("a" in data) this.autoCastPriority = data.a;
+    if ("f" in data) this.onFull = data.f;
     if ("p" in data) {
       this.active = true;
       this.endTime = Date.now() + (this.getDuration() * (100 - data.p)) / 100;

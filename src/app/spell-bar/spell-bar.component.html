@@ -49,7 +49,9 @@
         </div>
         <div *ngIf="spell.duration > 0">
           <i nz-icon nzType="fa-r:hourglass"></i>
-          <span class="monospace"> {{ spell.duration / 1000 | time: 1 }} </span>
+          <span class="monospace">
+            {{ spell.getDuration() / 1000 | time: 1 }}
+          </span>
         </div>
       </div>
       <div *ngIf="ms.game.computingManager.autoCastResearch1.level > 0">
@@ -70,12 +72,22 @@
             >3</label
           >
         </nz-radio-group>
+        <div
+          class="full-switch"
+          *ngIf="
+            spell.autoCastPriority === value1 &&
+            ms.game.computingManager.autoCastResearchFull.level > 0
+          "
+        >
+          <nz-switch [(ngModel)]="spell.onFull" nzSize="small"></nz-switch>
+          <label>On Full Computing</label>
+        </div>
       </div>
     </ng-template>
   </div>
 
   <div class="computing" fxLayoutAlign="center center" fxLayout="column">
-    <span class="monospace">
+    <span class="monospace cur-comp">
       {{ ms.game.computingManager.currentComputing | format: false:2 }}/{{
         ms.game.computingManager.maxComputing | format: false:2
       }}

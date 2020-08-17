@@ -3,8 +3,13 @@
   padding-left: 10px;
   padding-right: 10px;
   position: relative;
+  opacity: 0.65;
   top: -1px;
   z-index: 100;
+  transition: opacity 0.5s;
+  &:hover {
+    opacity: 1;
+  }
 }
 .spell {
   i {
@@ -43,10 +48,11 @@
     width: 0.4rem;
   }
 }
-.bottom-spells {
-  opacity: 0.65;
-  transition: opacity 0.5s;
-  &:hover {
-    opacity: 1;
-  }
+
+.full-switch {
+  display: inline;
+  margin-left: 0.5rem;
+}
+.cur-comp {
+  min-width: 7rem;
 }

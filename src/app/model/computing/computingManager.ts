@@ -116,11 +116,14 @@ export class ComputingManager {
     //#endregion
     //#region Auto Cast
     let nextLevelOk = true;
-    let oneLv1 =
-      this.currentSpells.findIndex(
-        (sp) => sp.autoCastPriority === 1 && sp.active
-      ) > 0;
-    for (let i = 1; i < 5; i++) {
+    // let oneLv1 =
+    //   this.currentSpells.findIndex(
+    //     (sp) => sp.autoCastPriority === 1 && sp.active
+    //   ) > 0;
+    let max = this.autoCastResearch1.level > 0 ? 1 : 0;
+    max += this.autoCastResearch2.level > 0 ? 1 : 0;
+    max += this.autoCastResearch3.level > 0 ? 1 : 0;
+    for (let i = 1; i < max; i++) {
       if (this.currentSpells.findIndex((sp) => sp.autoCastPriority === i) < 0) {
         break;
       }
@@ -129,17 +132,18 @@ export class ComputingManager {
         if (
           !this.currentSpells[k].active &&
           (i !== 1 ||
-            oneLv1 ||
+            // oneLv1 ||
+            !this.currentSpells[k].onFull ||
             this.autoCastResearchFull.level < 1 ||
             this.currentComputing >= this.maxComputing)
         ) {
           this.currentSpells[k].activate();
-          if (
-            this.currentSpells[k].autoCastPriority === 1 &&
-            this.currentSpells[k].active
-          ) {
-            oneLv1 = true;
-          }
+          // if (
+          //   this.currentSpells[k].autoCastPriority === 1 &&
+          //   this.currentSpells[k].active
+          // ) {
+          //   oneLv1 = true;
+          // }
         }
 
         nextLevelOk = nextLevelOk && this.currentSpells[k].active;
@@ -167,11 +171,22 @@ export class ComputingManager {
   getSave(): any {
     return {
       c: this.currentComputing,
-      s: this.currentSpells.map((sp) => sp.getSave())
+      s: this.currentSpells.map((sp) => sp.getSave()),
+      a: this.spells
+        .filter((sp) => !this.currentSpells.some((csp) => csp === sp))
+        .map((sp) => sp.getSave(true))
     };
   }
   load(data: any) {
     if ("c" in data) this.currentComputing = data.c;
+    if ("a" in data) {
+      for (let i = 0, n = data.a.length; i < n; i++) {
+        const spell = this.spells.find((sp) => sp.id === data.s[i]?.i);
+        if (spell) {
+          spell.load(data.s[i]);
+        }
+      }
+    }
     if ("s" in data) {
       for (let i = 0, n = data.s.length; i < n; i++) {
         const spell = this.spells.find((sp) => sp.id === data.s[i]?.i);
