@@ -33,35 +33,59 @@
           [uiQuantityString]="mod.uiQuantityString"
           [priorityUi]="mod.priorityUi"
           [unit]="unit"
+          [auto]="unit.autoMod.on"
           (modChange)="onModChange($event)"
         ></app-mod-line>
       </form>
-      <nz-input-group nzCompact>
-        <button
-          nz-button
-          nzType="primary"
-          [disabled]="disabled"
-          (click)="confirm()"
-        >
-          <span>Confirm</span>
-        </button>
-        <button nz-button nzType="default" (click)="cancel()">
-          <span>Reset mods</span>
-        </button>
 
-        <button
-          nz-button
-          nzType="primary"
-          [disabled]="disabled"
-          (click)="savePriorities()"
-        >
-          <span>Save Priorities</span>
-        </button>
-        <button nz-button nzType="default" (click)="resetPriorities()">
-          <span>Reset Priorities</span>
-        </button>
-      </nz-input-group>
+      <div fxLayout="row wrap" fxLayoutGap="1rem">
+        <nz-radio-group [(ngModel)]="unit.autoMod.on" nzButtonStyle="solid">
+          <label nz-radio-button [nzValue]="false">Manual</label>
+          <label nz-radio-button [nzValue]="true">
+            Auto
+          </label>
+        </nz-radio-group>
 
+        <div fxLayoutGap="1rem">
+          <nz-input-group nzCompact>
+            <button
+              *ngIf="!unit.autoMod.on"
+              nz-button
+              nzType="primary"
+              [disabled]="disabled"
+              (click)="confirm()"
+            >
+              <span>Confirm</span>
+            </button>
+            <button
+              nz-button
+              nzType="default"
+              (click)="cancel()"
+              *ngIf="!unit.autoMod.on"
+            >
+              <span>Reset mods</span>
+            </button>
+
+            <button
+              *ngIf="unit.autoMod.on"
+              nz-button
+              nzType="primary"
+              [disabled]="disabled"
+              (click)="savePriorities()"
+            >
+              <span>Save Priorities</span>
+            </button>
+            <button
+              nz-button
+              nzType="default"
+              *ngIf="unit.autoMod.on"
+              (click)="resetPriorities()"
+            >
+              <span>Reset Priorities</span>
+            </button>
+          </nz-input-group>
+        </div>
+      </div>
       <nz-alert nzType="warning" nzShowIcon [nzDescription]="infoRef">
       </nz-alert>
     </nz-card>

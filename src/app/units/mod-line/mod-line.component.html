@@ -10,7 +10,7 @@
     }}"
   >
     <div fxLayout="row wrap" fxLayoutGap="1rem">
-      <nz-input-group nzCompact>
+      <nz-input-group *ngIf="!auto" nzCompact>
         <button nz-button nzType="default" (click)="min()" nzSize="small">
           <span>MIN</span>
         </button>
@@ -36,6 +36,7 @@
       </nz-input-group>
 
       <nz-input-number
+        *ngIf="auto"
         nz-tooltip
         nzTooltipTitle="Priority"
         class="inputBox monospace"
@@ -44,7 +45,25 @@
         [nzMin]="-10000"
         [nzMax]="10000"
         [nzStep]="1"
+        (ngModelChange)="valueChangeAuto()"
       ></nz-input-number>
+
+      <span
+        class="monospace auto-qty"
+        *ngIf="auto"
+        nz-tooltip
+        nzTooltipTitle="Current Quantity"
+        >{{ mod.quantity | format: true }}</span
+      >
+      <span
+        class="monospace auto-qty"
+        *ngIf="auto"
+        nz-tooltip
+        nzTooltipTitle="Expected Quantity"
+        [class.text-success]="mod.uiQuantity.gt(mod.quantity)"
+        [class.text-danger]="mod.uiQuantity.lt(mod.quantity)"
+        >{{ mod.uiQuantity | format: true }}</span
+      >
     </div>
   </nz-form-control>
 </nz-form-item>

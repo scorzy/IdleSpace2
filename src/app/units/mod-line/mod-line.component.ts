@@ -31,6 +31,7 @@ export class ModLineComponent extends BaseComponentComponent
   @Input() uiQuantityString: string;
   @Input() priorityUi: number;
   @Input() unit: Worker;
+  @Input() auto = false;
   @Output() modChange = new EventEmitter<boolean>();
   status = "";
   isLarge = true;
@@ -44,6 +45,7 @@ export class ModLineComponent extends BaseComponentComponent
     super(ms, cd);
   }
   ngOnInit() {
+    super.ngOnInit();
     this.subscriptions.push(
       this.breakpointObserver
         .observe(["(min-width: 899px)"])
@@ -59,6 +61,11 @@ export class ModLineComponent extends BaseComponentComponent
   valueChange(): void {
     this.mod.uiQuantity = parseDecimal(this.mod.uiQuantityString);
     this.mod.reloadBonus();
+    this.reload();
+  }
+  valueChangeAuto(): void {
+    this.unit.loadTempAutoMods(false);
+    this.unit.modStack.mods.forEach((m) => m.reloadBonus());
     this.reload();
   }
   reload(noEmit = false) {

@@ -158,6 +158,74 @@ export class Worker extends Unit {
     super.postUpdate();
     this.reloadNeedComponent();
   }
+  loadTempAutoMods(actual = true) {
+    for (let mod of this.modStack.mods) {
+      mod.uiQuantity = ZERO;
+    }
+    for (let i = 0; i < 7; i++) {
+      let priSumPos = 0;
+      let priSumNeg = 0;
+      let positiveMods = this.maxMods;
+
+      //  Reload priorities
+      for (let mod of this.modStack.mods) {
+        positiveMods = positiveMods.minus(mod.uiQuantity);
+        if (mod.getPriority(actual) === 0) continue;
+        if (mod.getPriority(actual) > 0) {
+          if (mod.uiQuantity.lt(mod.max) && mod.uiQuantity.lt(this.maxMods)) {
+            priSumPos += mod.getPriority(actual);
+          }
+        } else {
+          if (
+            mod.uiQuantity.gt(mod.min) &&
+            mod.uiQuantity.gt(this.maxMods.times(-1))
+          ) {
+            priSumNeg += mod.getPriority(actual);
+          }
+        }
+      }
+      //  Positive mods
+      if (priSumNeg < 0 && i === 0) {
+        for (let mod of this.modStack.mods) {
+          if (mod.getPriority(actual) >= 0) continue;
+          if (
+            mod.uiQuantity.lte(mod.min) ||
+            mod.uiQuantity.lte(this.maxMods.times(-1))
+          )
+            continue;
+
+          const modPerPriority = this.maxMods.div(priSumPos);
+          let toAdd = modPerPriority.times(mod.getPriority(actual));
+          toAdd = toAdd.max(mod.min.minus(mod.uiQuantity));
+          toAdd = toAdd.max(this.maxMods.times(-1).minus(mod.uiQuantity));
+          toAdd = toAdd.floor();
+          if (toAdd.gte(0)) toAdd = ZERO;
+          if (toAdd.lt(0)) {
+            mod.uiQuantity = mod.uiQuantity.plus(toAdd);
+            positiveMods = positiveMods.minus(toAdd);
+          }
+        }
+      }
+      //  Negative Mods
+      if (priSumPos > 0) {
+        for (let mod of this.modStack.mods) {
+          if (mod.getPriority(actual) <= 0) continue;
+          if (mod.uiQuantity.gte(mod.max) || mod.uiQuantity.gte(this.maxMods))
+            continue;
+
+          const modPerPriority = positiveMods.div(priSumPos);
+          let toAdd = modPerPriority.times(mod.getPriority(actual));
+          toAdd = toAdd.min(mod.max.minus(mod.uiQuantity));
+          toAdd = toAdd.min(this.maxMods.minus(mod.uiQuantity));
+          toAdd = toAdd.floor();
+          if (toAdd.lte(0)) toAdd = ZERO;
+          if (toAdd.gt(0)) {
+            mod.uiQuantity = mod.uiQuantity.plus(toAdd);
+          }
+        }
+      }
+    }
+  }
   prestige() {
     super.prestige();
     this.modStack.mods.forEach((mod) => {
