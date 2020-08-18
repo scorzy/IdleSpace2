@@ -17,7 +17,6 @@ export class Mod {
   uiOk = true;
   priority = 0;
   priorityUi = 0;
-  autoQty = ZERO;
 
   constructor(iModData: IModData) {
     this.name = iModData.name;

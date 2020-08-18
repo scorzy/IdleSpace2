@@ -16,7 +16,7 @@ export class AutoMod extends AbstractAutobuyer {
     let toMod = false;
 
     for (let mod of this.worker.modStack.mods) {
-      mod.autoQty = ZERO;
+      mod.uiQuantity = ZERO;
     }
     for (let i = 0; i < 7; i++) {
       let priSumPos = 0;
@@ -25,16 +25,19 @@ export class AutoMod extends AbstractAutobuyer {
 
       //  Reload priorities
       for (let mod of this.worker.modStack.mods) {
-        positiveMods = positiveMods.minus(mod.autoQty);
+        positiveMods = positiveMods.minus(mod.uiQuantity);
         if (mod.priority === 0) continue;
         if (mod.priority > 0) {
-          if (mod.autoQty.lt(mod.max) && mod.autoQty.lt(this.worker.maxMods)) {
+          if (
+            mod.uiQuantity.lt(mod.max) &&
+            mod.uiQuantity.lt(this.worker.maxMods)
+          ) {
             priSumPos += mod.priority;
           }
         } else {
           if (
-            mod.autoQty.gt(mod.min) &&
-            mod.autoQty.gt(this.worker.maxMods.times(-1))
+            mod.uiQuantity.gt(mod.min) &&
+            mod.uiQuantity.gt(this.worker.maxMods.times(-1))
           ) {
             priSumNeg += mod.priority;
           }
@@ -45,19 +48,21 @@ export class AutoMod extends AbstractAutobuyer {
         for (let mod of this.worker.modStack.mods) {
           if (mod.priority >= 0) continue;
           if (
-            mod.autoQty.lte(mod.min) ||
-            mod.autoQty.lte(this.worker.maxMods.times(-1))
+            mod.uiQuantity.lte(mod.min) ||
+            mod.uiQuantity.lte(this.worker.maxMods.times(-1))
           )
             continue;
 
           const modPerPriority = this.worker.maxMods.div(priSumPos);
           let toAdd = modPerPriority.times(mod.priority);
-          toAdd = toAdd.max(mod.min.minus(mod.autoQty));
-          toAdd = toAdd.max(this.worker.maxMods.times(-1).minus(mod.autoQty));
+          toAdd = toAdd.max(mod.min.minus(mod.uiQuantity));
+          toAdd = toAdd.max(
+            this.worker.maxMods.times(-1).minus(mod.uiQuantity)
+          );
           toAdd = toAdd.floor();
           if (toAdd.gte(0)) toAdd = ZERO;
           if (toAdd.lt(0)) {
-            mod.autoQty = mod.autoQty.plus(toAdd);
+            mod.uiQuantity = mod.uiQuantity.plus(toAdd);
             positiveMods = positiveMods.minus(toAdd);
           }
         }
@@ -66,28 +71,33 @@ export class AutoMod extends AbstractAutobuyer {
       if (priSumPos > 0) {
         for (let mod of this.worker.modStack.mods) {
           if (mod.priority <= 0) continue;
-          if (mod.autoQty.gte(mod.max) || mod.autoQty.gte(this.worker.maxMods))
+          if (
+            mod.uiQuantity.gte(mod.max) ||
+            mod.uiQuantity.gte(this.worker.maxMods)
+          )
             continue;
 
           const modPerPriority = positiveMods.div(priSumPos);
           let toAdd = modPerPriority.times(mod.priority);
-          toAdd = toAdd.min(mod.max.minus(mod.autoQty));
-          toAdd = toAdd.min(this.worker.maxMods.minus(mod.autoQty));
+          toAdd = toAdd.min(mod.max.minus(mod.uiQuantity));
+          toAdd = toAdd.min(this.worker.maxMods.minus(mod.uiQuantity));
           toAdd = toAdd.floor();
           if (toAdd.lte(0)) toAdd = ZERO;
           if (toAdd.gt(0)) {
-            mod.autoQty = mod.autoQty.plus(toAdd);
+            mod.uiQuantity = mod.uiQuantity.plus(toAdd);
           }
         }
       }
     }
     for (let mod of this.worker.modStack.mods) {
-      if (!mod.quantity.eq(mod.autoQty)) {
+      if (!mod.quantity.eq(mod.uiQuantity)) {
         toMod = true;
         break;
       }
     }
     if (toMod) {
+      this.worker.reloadComponentPrice();
+      this.worker.reloadLimit();
       let recycle = this.worker.recycle.plus(Game.getGame().baseRecycling);
       recycle = recycle.min(this.worker.components.times(0.9));
       let componentGain = this.worker.quantity.times(recycle);
@@ -116,7 +126,7 @@ export class AutoMod extends AbstractAutobuyer {
         for (let k = 0, n = this.worker.modStack.mods.length; k < n; k++) {
           this.worker.modStack.mods[k].quantity = this.worker.modStack.mods[
             k
-          ].autoQty;
+          ].uiQuantity;
         }
         this.worker.confirmMods(true);
         return true;
