@@ -16,7 +16,7 @@ export class FormatPipe implements PipeTransform {
     }
 
     let str = "";
-    if (value1.abs().lt(1e3)) {
+    if (value1.abs().lt(1e4)) {
       let num = value1.abs().toNumber();
       const digits = integer || num >= 100 ? 0 : num < 10 ? 2 : 1;
       if (num < 100) {

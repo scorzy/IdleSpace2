@@ -148,7 +148,9 @@
         Components:
       </span>
       <span class="monospace">
-        {{ unit.storedComponents | format }}/{{ unit.components }}
+        {{ unit.storedComponents | format }}/{{
+          unit.components | format: true
+        }}
         {{ unit.componentPercent | percent: "2.0-0" }}
       </span>
       <!-- <app-progress [progress]="unit.componentPercent"></app-progress> -->

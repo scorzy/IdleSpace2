@@ -1,5 +1,6 @@
 18/08/2020
 -   Auto modding based on priorities
+-   Number formatting after 1e4 instead 1e3
 
 17/08/2020
 -   Optional priority one on full computing
