@@ -18,6 +18,7 @@ import { Technology } from "src/app/model/researches/technology";
 import { Worker } from "src/app/model/units/worker";
 import { Research } from "src/app/model/researches/research";
 import { OptionsService } from "src/app/options.service";
+import { NzMessageService } from "ng-zorro-antd/message";
 @Component({
   selector: "app-mod",
   templateUrl: "./mod.component.html",
@@ -43,7 +44,8 @@ export class ModComponent extends BaseComponentComponent
     private route: ActivatedRoute,
     public breakpointObserver: BreakpointObserver,
     private router: Router,
-    public os: OptionsService
+    public os: OptionsService,
+    private message: NzMessageService
   ) {
     super(ms, cd);
   }
@@ -93,23 +95,6 @@ export class ModComponent extends BaseComponentComponent
       .min(100)
       .floor()
       .toNumber();
-
-    for (let i = 0; i < MAX_MOD_PRESET; i++) {
-      let req = ZERO;
-      let reqTemp = ZERO;
-      for (let mod of this.unit.modStack.mods) {
-        reqTemp = reqTemp.plus(mod.uiPresets[i]);
-        req = req.plus(mod.presets[i]);
-      }
-      for (let mod of this.unit.modStack.mods) {
-        reqTemp = reqTemp.max(mod.uiPresets[i].abs());
-        req = req.max(mod.presets[i].abs());
-      }
-      if (!this.modRequiredTemp[i].eq(reqTemp)) {
-        this.modRequiredTemp[i] = reqTemp;
-      }
-      if (!this.modRequired[i].eq(req)) this.modRequired[i] = req;
-    }
   }
   getUnit(id: string) {
     this.unit = this.ms.game.resourceManager.workers.find((u) => id === u.id);
@@ -119,12 +104,7 @@ export class ModComponent extends BaseComponentComponent
       m.uiQuantityString = m.uiQuantity.eq(0)
         ? "0"
         : MainService.formatPipe.transform(m.uiQuantity, true);
-      for (let i = 0; i < MAX_MOD_PRESET; i++) {
-        m.uiPresets[i] = m.presets[i];
-        m.uiPresetString[i] = m.uiPresets[i].eq(0)
-          ? "0"
-          : MainService.formatPipe.transform(m.uiPresets[i], true);
-      }
+      m.priorityUi = m.priority;
     });
     this.unit.modStack.mods.forEach((m) => m.reloadBonus());
     this.unit.production.forEach((prod) => {
@@ -142,6 +122,7 @@ export class ModComponent extends BaseComponentComponent
       m.uiQuantity = m.quantity;
       m.uiQuantityString = MainService.formatPipe.transform(m.uiQuantity, true);
     });
+    this.message.info("Mods restored.");
     this.cd.markForCheck();
   }
   getModId(index: number, mod: Mod) {
@@ -177,24 +158,17 @@ export class ModComponent extends BaseComponentComponent
       this.os.listUi ? ["/unitList/unitDetail/" + this.unit.id] : ["/units/w"]
     );
   }
-  confirmPresets() {
-    this.unit.modStack.mods.forEach((m) => {
-      for (let i = 0; i < MAX_MOD_PRESET; i++) {
-        m.presets[i] = m.uiPresets[i];
-      }
+  savePriorities() {
+    this.unit.modStack.mods.forEach((mod) => {
+      mod.priority = mod.priorityUi;
     });
+    this.message.success("Priorities saved.");
   }
-  cancelPresets() {
-    this.unit.modStack.mods.forEach((m) => {
-      for (let i = 0; i < MAX_MOD_PRESET; i++) {
-        m.uiPresets[i] = m.presets[i];
-        m.uiPresetString[i] = MainService.formatPipe.transform(
-          m.uiPresets[i],
-          true
-        );
-      }
+  resetPriorities() {
+    this.unit.modStack.mods.forEach((mod) => {
+      mod.priorityUi = mod.priority;
     });
-    this.cd.markForCheck();
+    this.message.info("Priorities restored.");
   }
   getModRes(): Research[] {
     return this.unit.modsResearches.filter((res) => res.quantity.gt(0));

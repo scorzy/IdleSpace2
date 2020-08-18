@@ -112,8 +112,8 @@ import { UnitDetailComponent } from "./unit-list/unit-detail/unit-detail.compone
 import { StorageComponent } from "./units/storage/storage.component";
 import { UnitMenuComponent } from "./unit-list/unit-menu/unit-menu.component";
 import { NzPopconfirmModule } from "ng-zorro-antd/popconfirm";
-import { AutoRefreshComponent } from './auto-buy/auto-refresh/auto-refresh.component';
-import { AutoModComponent } from './auto-buy/auto-mod/auto-mod.component';
+import { AutoRefreshComponent } from "./auto-buy/auto-refresh/auto-refresh.component";
+import { AutoModComponent } from "./auto-buy/auto-mod/auto-mod.component";
 
 registerLocaleData(en);
 
@@ -235,7 +235,8 @@ const ngZorroConfig: NzConfig = {
     NzTypographyModule,
     NzCascaderModule,
     NzDropDownModule,
-    NzPopconfirmModule
+    NzPopconfirmModule,
+    NzMessageModule
   ],
   providers: [
     { provide: NZ_I18N, useValue: en_US },

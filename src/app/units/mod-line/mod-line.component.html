@@ -9,75 +9,42 @@
       realMax | format: true
     }}"
   >
-    <nz-input-group nzCompact>
-      <button nz-button nzType="default" (click)="min()" nzSize="small">
-        <span>MIN</span>
-      </button>
-      <button nz-button nzType="default" (click)="plus(-1)" nzSize="small">
-        <span>-</span>
-      </button>
-      <input
-        class="inputBox monospace"
-        type="text"
-        nzSize="small"
-        nz-input
-        [(ngModel)]="mod.uiQuantityString"
-        (change)="valueChange()"
-      />
-      <button nz-button nzType="default" (click)="plus()" nzSize="small">
-        <span>+</span>
-      </button>
-      <button nz-button nzType="default" (click)="max()" nzSize="small">
-        <span>MAX</span>
-      </button>
-    </nz-input-group>
+    <div fxLayout="row wrap" fxLayoutGap="1rem">
+      <nz-input-group nzCompact>
+        <button nz-button nzType="default" (click)="min()" nzSize="small">
+          <span>MIN</span>
+        </button>
+        <button nz-button nzType="default" (click)="plus(-1)" nzSize="small">
+          <span>-</span>
+        </button>
+        <input
+          nz-tooltip
+          nzTooltipTitle="Desired Quantity"
+          class="inputBox monospace"
+          type="text"
+          nzSize="small"
+          nz-input
+          [(ngModel)]="mod.uiQuantityString"
+          (change)="valueChange()"
+        />
+        <button nz-button nzType="default" (click)="plus()" nzSize="small">
+          <span>+</span>
+        </button>
+        <button nz-button nzType="default" (click)="max()" nzSize="small">
+          <span>MAX</span>
+        </button>
+      </nz-input-group>
 
-    <nz-input-group nzCompact>
-      <input
+      <nz-input-number
+        nz-tooltip
+        nzTooltipTitle="Priority"
         class="inputBox monospace"
-        type="text"
         nzSize="small"
-        nz-input
-        [(ngModel)]="mod.uiPresetString[0]"
-        (change)="presetChange(0)"
-        [name]="unit.id + '0_p'"
-      />
-      <input
-        class="inputBox monospace"
-        type="text"
-        nzSize="small"
-        nz-input
-        [(ngModel)]="mod.uiPresetString[1]"
-        (change)="presetChange(1)"
-        [name]="unit.id + '1_p'"
-      />
-      <input
-        class="inputBox monospace"
-        type="text"
-        nzSize="small"
-        nz-input
-        [(ngModel)]="mod.uiPresetString[2]"
-        (change)="presetChange(2)"
-        [name]="unit.id + '2_p'"
-      />
-      <input
-        class="inputBox monospace"
-        type="text"
-        nzSize="small"
-        nz-input
-        [(ngModel)]="mod.uiPresetString[3]"
-        (change)="presetChange(3)"
-        [name]="unit.id + '3_p'"
-      />
-      <input
-        class="inputBox monospace"
-        type="text"
-        nzSize="small"
-        nz-input
-        [(ngModel)]="mod.uiPresetString[4]"
-        (change)="presetChange(4)"
-        [name]="unit.id + '4_p'"
-      />
-    </nz-input-group>
+        [(ngModel)]="mod.priorityUi"
+        [nzMin]="-10000"
+        [nzMax]="10000"
+        [nzStep]="1"
+      ></nz-input-number>
+    </div>
   </nz-form-control>
 </nz-form-item>

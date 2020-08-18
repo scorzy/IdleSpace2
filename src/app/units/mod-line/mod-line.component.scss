@@ -1,5 +1,12 @@
 .inputBox {
   height: 22px;
   max-width: 5rem;
-  text-align: center;
+  text-align: center !important;
+}
+// ::ng-deep .ant-input-number-input {
+//   text-align: center !important;
+// }
+.ant-input,
+.ant-input-group {
+  width: auto;
 }

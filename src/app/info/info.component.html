@@ -344,14 +344,23 @@
         </ul>
         <h3>Drones - Auto Modding</h3>
         <p>
-          You can create up to five mod preset for each drone by filling up the
-          boxes under each mod line. Auto mod uses the preset which requires the
-          higher number of mods. You can specify the minimum percentage of
-          components that must be available before modding.
+          On the modding screen, you can set up auto modding. The last box of
+          each line is the priority. Auto modding doesn't consider existing
+          mods, allocated mods will be overrated. Mods are rounded floor, a few
+          mods may be not allocated.
+          <br />
+          Negative priorities are calculated in proportion to total positive
+          priorities, if you want any mod to be as low as possible, regardless
+          of positive mods, put -10000.
+          <br />
+          By default auto mod execute each time the new configuration differ
+          from the actual configuration, in practice every time you gains new
+          mods. To prevent unwanted modding increase "Min. components %" or the
+          automation interval.
         </p>
       </ng-template>
     </nz-tab>
-    <nz-tab nzTitle="Components & modding">
+    <nz-tab nzTitle="Components">
       <ng-template nz-tab>
         <h2>Components</h2>
         <p>

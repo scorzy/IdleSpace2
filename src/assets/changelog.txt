@@ -1,3 +1,6 @@
+18/08/2020
+-   Auto modding based on priorities
+
 17/08/2020
 -   Optional priority one on full computing
 -   Improved module page

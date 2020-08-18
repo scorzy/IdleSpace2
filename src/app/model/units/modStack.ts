@@ -63,37 +63,38 @@ export class ModStack {
       if (!this.efficiencyMod.quantity.eq(0)) {
         ret.e = this.efficiencyMod.quantity;
       }
-      ret.ep = this.efficiencyMod.presets;
+      ret.eL = this.efficiencyMod.priority;
     }
     if (this.prodMultiMod) {
       if (!this.prodMultiMod.quantity.eq(0)) {
         ret.p = this.prodMultiMod.quantity;
       }
-      ret.pp = this.prodMultiMod.presets;
+      if (this.prodMultiMod.priority !== 0) ret.pL = this.prodMultiMod.priority;
     }
     if (this.energyMod) {
       if (!this.energyMod.quantity.eq(0)) {
         ret.q = this.energyMod.quantity;
       }
-      ret.qp = this.energyMod.presets;
+      if (this.energyMod.priority !== 0) ret.qL = this.energyMod.priority;
     }
     if (this.componentsMod) {
       if (!this.componentsMod.quantity.eq(0)) {
         ret.c = this.componentsMod.quantity;
       }
-      ret.cp = this.componentsMod.presets;
+      if (this.componentsMod.priority !== 0)
+        ret.cL = this.componentsMod.priority;
     }
     if (this.droneMod) {
       if (!this.droneMod.quantity.eq(0)) {
         ret.d = this.droneMod.quantity;
       }
-      ret.dp = this.droneMod.presets;
+      if (this.droneMod.priority !== 0) ret.dL = this.droneMod.priority;
     }
     if (this.recyclingMod) {
       if (!this.recyclingMod.quantity.eq(0)) {
         ret.r = this.recyclingMod.quantity;
       }
-      ret.rp = this.recyclingMod.presets;
+      if (this.recyclingMod.priority !== 0) ret.rL = this.recyclingMod.priority;
     }
     return ret;
   }
@@ -101,43 +102,43 @@ export class ModStack {
     if ("e" in data && this.efficiencyMod) {
       this.efficiencyMod.quantity = new Decimal(data.e);
     }
-    if ("ep" in data && this.efficiencyMod) {
-      this.efficiencyMod.loadPresets(data.ep);
+    if ("eL" in data && this.efficiencyMod) {
+      this.efficiencyMod.priority = data.eL;
     }
 
     if ("p" in data && this.prodMultiMod) {
       this.prodMultiMod.quantity = new Decimal(data.p);
     }
-    if ("pp" in data && this.prodMultiMod) {
-      this.prodMultiMod.loadPresets(data.pp);
+    if ("pL" in data && this.prodMultiMod) {
+      this.prodMultiMod.priority = data.pL;
     }
 
     if ("q" in data && this.energyMod) {
       this.energyMod.quantity = new Decimal(data.q);
     }
-    if ("qp" in data && this.energyMod) {
-      this.energyMod.loadPresets(data.qp);
+    if ("qL" in data && this.energyMod) {
+      this.energyMod.priority = data.qL;
     }
 
     if ("c" in data && this.componentsMod) {
       this.componentsMod.quantity = new Decimal(data.c);
     }
-    if ("cp" in data && this.componentsMod) {
-      this.componentsMod.loadPresets(data.cp);
+    if ("cL" in data && this.componentsMod) {
+      this.componentsMod.priority = data.cL;
     }
 
     if ("d" in data && this.droneMod) {
       this.droneMod.quantity = new Decimal(data.d);
     }
-    if ("dp" in data && this.droneMod) {
-      this.droneMod.loadPresets(data.dp);
+    if ("dL" in data && this.droneMod) {
+      this.droneMod.priority = data.dL;
     }
 
     if ("r" in data && this.recyclingMod) {
       this.recyclingMod.quantity = new Decimal(data.r);
     }
-    if ("rp" in data && this.recyclingMod) {
-      this.recyclingMod.loadPresets(data.rp);
+    if ("rL" in data && this.recyclingMod) {
+      this.recyclingMod.priority = data.rL;
     }
 
     this.mods.forEach((m) => {

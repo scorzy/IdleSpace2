@@ -29,11 +29,7 @@ export class ModLineComponent extends BaseComponentComponent
   implements OnInit, OnDestroy, AfterViewInit, OnChanges {
   @Input() mod: Mod;
   @Input() uiQuantityString: string;
-  @Input() uiPreset0: string;
-  @Input() uiPreset1: string;
-  @Input() uiPreset2: string;
-  @Input() uiPreset3: string;
-  @Input() uiPreset4: string;
+  @Input() priorityUi: number;
   @Input() unit: Worker;
   @Output() modChange = new EventEmitter<boolean>();
   status = "";
@@ -72,11 +68,6 @@ export class ModLineComponent extends BaseComponentComponent
     let ok =
       this.mod.uiQuantity.lte(this.realMax) &&
       this.mod.uiQuantity.gte(this.realMin);
-
-    for (let i = 0; i < MAX_MOD_PRESET; i++) {
-      if (this.mod.uiPresets[i].lt(this.mod.min)) ok = false;
-      if (this.mod.uiPresets[i].gt(this.mod.max)) ok = false;
-    }
 
     this.status = ok ? "" : "error";
     this.mod.uiOk = ok;
@@ -127,11 +118,5 @@ export class ModLineComponent extends BaseComponentComponent
     );
     this.reload();
     this.cd.markForCheck();
-  }
-  presetChange(index: number) {
-    this.mod.uiPresets[index] = parseDecimal(
-      this.mod.uiPresetString[index] || "0"
-    );
-    this.reload();
   }
 }

@@ -5,19 +5,19 @@ export class Mod {
   name: string;
   description = "";
   quantity = ZERO;
-  presets = new Array<Decimal>();
   max: Decimal = Decimal.MAX_VALUE;
   min: Decimal = Decimal.MAX_VALUE.times(-1);
   uiQuantityString = "";
-  uiPresetString = new Array<string>();
   uiQuantity = ZERO;
-  uiPresets = new Array<Decimal>();
   totalBonus = ONE;
   totalBonusTemp = ONE;
   totalBonusAbs = ONE;
   totalBonusTempAbs = ONE;
   bonusValue = 0.1;
   uiOk = true;
+  priority = 0;
+  priorityUi = 0;
+  autoQty = ZERO;
 
   constructor(iModData: IModData) {
     this.name = iModData.name;
@@ -27,11 +27,6 @@ export class Mod {
     }
     if ("min" in iModData) {
       this.min = new Decimal(iModData.min);
-    }
-    for (let i = 0; i < MAX_MOD_PRESET; i++) {
-      this.presets.push(ZERO);
-      this.uiPresets.push(ZERO);
-      this.uiPresetString.push("");
     }
   }
   reloadBonus() {
@@ -47,11 +42,5 @@ export class Mod {
       this.bonusValue,
       this.uiQuantity.abs()
     ).plus(1);
-  }
-  loadPresets(data: any) {
-    for (let i = 0; i < MAX_MOD_PRESET && i < data.length; i++) {
-      this.presets[i] = new Decimal(data[i]);
-      this.uiPresets[i] = this.presets[i];
-    }
   }
 }
