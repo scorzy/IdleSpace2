@@ -232,10 +232,16 @@ export class Worker extends Unit {
     let toUse = this.maxMods.minus(used);
     for (let i = 0; i < 7; i++) {
       let sortedMods = this.modStack.mods
-        .filter((m) => m.priority > 0 && m.uiQuantity.lt(this.maxMods))
-        .sort((a, b) => a.priority - b.priority);
+        .filter(
+          (m) => m.getPriority(actual) > 0 && m.uiQuantity.lt(this.maxMods)
+        )
+        .sort((a, b) => a.getPriority(actual) - b.getPriority(actual));
       sortedMods.forEach((m) => {
-        if (toUse.gt(0) && m.uiQuantity.lte(this.maxMods)) {
+        if (
+          toUse.gt(0) &&
+          m.uiQuantity.lte(this.maxMods) &&
+          m.uiQuantity.lte(m.max)
+        ) {
           m.uiQuantity = m.uiQuantity.plus(1);
           toUse = toUse.minus(1);
         }
