@@ -379,6 +379,7 @@ export class Game {
     );
     this.firstRun = false;
     this.postUpdate(0);
+    MainService.instance.lastUnitId = "m";
   }
   scienceWarp(timeToWarp: number) {
     const totalScience = this.resourceManager.science.makers

@@ -1,5 +1,7 @@
 19/08/2020
 -   Unused mods are auto assigned to higher priority in orderly fashion
+-   Fixed issues with speed and acceleration
+-   After prestige worker page point to "Miner"
 
 18/08/2020
 -   Auto modding based on priorities
