@@ -1,3 +1,6 @@
+19/08/2020
+-   Unused mods are auto assigned to higher priority in orderly fashion
+
 18/08/2020
 -   Auto modding based on priorities
 -   Number formatting after 1e4 instead 1e3
