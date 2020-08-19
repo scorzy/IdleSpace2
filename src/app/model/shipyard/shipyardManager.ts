@@ -148,8 +148,18 @@ export class ShipyardManager extends JobManager {
     return shipDesign.id;
   }
   postUpdate() {
+    let oldSpeed = this.velocityBonusStack.totalBonus;
+    let oldAcc = this.accelerationStack.totalBonus;
     this.velocityBonusStack.reloadBonus();
     this.accelerationStack.reloadBonus();
+    if (
+      !oldSpeed.eq(this.velocityBonusStack.totalBonus) ||
+      !oldAcc.eq(this.accelerationStack.totalBonus)
+    ) {
+      for (let i = 0, n = this.shipDesigns.length; i < n; i++) {
+        this.shipDesigns[i].reload();
+      }
+    }
     this.reloadFleetPercent();
     if (this.unlockedModules) {
       this.reloadLists();
