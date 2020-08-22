@@ -17,6 +17,7 @@ export class SpaceStation extends Unit {
   priceDivDabSpace = ZERO;
   buildPriceNext = ZERO;
   researchesToInspire: Array<Research>;
+  level = 0;
 
   getBuildPrice(index = Number.POSITIVE_INFINITY) {
     const toDoList = Game.getGame().spaceStationManager.toDo;

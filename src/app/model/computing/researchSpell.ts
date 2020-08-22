@@ -6,7 +6,7 @@ export class ResearchSpell extends Spell {
   id = "or1";
   name = "Research initiative";
   icon = "fa-s:flask";
-  description = "+30% research, +1% per Research Lab";
+  description = "+30% research, +1.5% per Research Lab";
   colorClass = "science-color";
   duration = 60 * 5 * 1e3;
   price = 5e3;
@@ -17,10 +17,10 @@ export class ResearchSpell extends Spell {
     game.resourceManager.scientist.prodEfficiency.bonuses.push(
       new Bonus(
         this,
-        new Decimal(0.3),
+        new Decimal(0.4),
         null,
         game.resourceManager.laboratory,
-        new Decimal(0.01)
+        new Decimal(0.015)
       )
     );
   }

@@ -206,6 +206,7 @@ export class ResourceManager {
     //  Space Stations
     for (let i = 0, n = this.spaceStations.length; i < n; i++) {
       const station = this.spaceStations[i];
+      station.level = i;
       station.habSpaceStack = new BonusStack();
       station.buildPrice = Decimal.pow(SPACE_STATION_GROW, i + 1).times(
         SPACE_STATION_PRICE

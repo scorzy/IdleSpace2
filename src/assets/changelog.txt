@@ -1,8 +1,10 @@
 -   Prestige info page
 -   "Mod Warp" card
+-   "Space Station Warp" card
 -   Decreased exponential grow of space station price from 1.06 to 1.04
 -   Doubled technology gain multiplier of origins
 -   Space station page display "price/space" instead of "1e12 * space/price"
+-   "Research initiative" buff from +1% per research lab to +1.5%
 
 19/08/2020
 -   Unused mods are auto assigned to higher priority in orderly fashion

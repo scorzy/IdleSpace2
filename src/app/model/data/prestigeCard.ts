@@ -174,6 +174,12 @@ export const PRESTIGE_CARDS: ISimpleBase[] = [
       "Warp (1 + log10('mod used')) seconds when modding any worker.",
     icon: "field-time"
   },
+  {
+    id: "p5",
+    name: "Space Station Warp",
+    description: "Warp (1 + level) seconds when completing a space station.",
+    icon: "field-time"
+  },
   //#endregion
   //#region Spells
   {

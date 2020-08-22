@@ -62,6 +62,10 @@ export class SpaceStationJob extends Job {
         this.spaceStation.researchesToInspire[i].inspire();
       }
     }
+    if (Game.getGame().prestigeManager.spaceStationWarp.active) {
+      Game.getGame().timeToWarp =
+        Game.getGame().timeToWarp + 1 + this.spaceStation.level;
+    }
   }
   reload() {
     const toDoList = Game.getGame().spaceStationManager.toDo;
