@@ -122,6 +122,10 @@ export class Worker extends Unit {
     components.quantity = components.quantity.plus(toAdd);
     Game.getGame().resourceManager.deployComponents();
     Game.getGame().researchManager.robotics.inspire();
+    if (Game.getGame().prestigeManager.modWarp.active) {
+      Game.getGame().timeToWarp =
+        Game.getGame().timeToWarp + (this.modStack.used.log10() + 1);
+    }
     this.reloadAll();
   }
   reloadLimit() {

@@ -167,6 +167,13 @@ export const PRESTIGE_CARDS: ISimpleBase[] = [
     description: "Warps are double effective at reducing battle times.",
     icon: "field-time"
   },
+  {
+    id: "p4",
+    name: "Mod Warp",
+    description:
+      "Warp (1 + log10('mod used')) seconds when modding any worker.",
+    icon: "field-time"
+  },
   //#endregion
   //#region Spells
   {
