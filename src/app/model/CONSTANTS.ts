@@ -106,8 +106,8 @@ export const TIER_ONE_RES_PRICE_MULTI = 10;
 export const INSPIRATION_PERCENT = 0.35;
 export const OPTIMIZED_SHIP_PREFIX = "op";
 export const SPACE_STATION_UP_PREFIX = "u";
-export const ORIGIN_1_TECH_MULTI = 1;
-export const ORIGIN_1_TECH_2_MULTI = 0.5;
+export const ORIGIN_1_TECH_MULTI = 2;
+export const ORIGIN_1_TECH_2_MULTI = 1;
 export const REPEATABLE_RES_PRICE_MULTI = 0.1;
 
 //  Buildings

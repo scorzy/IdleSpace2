@@ -1,5 +1,8 @@
 -   Prestige info page
 -   "Mod Warp" card
+-   Decreased exponential grow of space station price from 1.06 to 1.04
+-   Doubled technology gain multiplier of origins
+-   Space station page display "price/space" instead of "1e12 * space/price"
 
 19/08/2020
 -   Unused mods are auto assigned to higher priority in orderly fashion

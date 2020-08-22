@@ -2,7 +2,8 @@ import { Unit } from "./unit";
 import {
   ZERO,
   PRICE_GROW_RATE,
-  EXTRA_DISTRICTS_FROM_STATIONS
+  EXTRA_DISTRICTS_FROM_STATIONS,
+  UNIT_PRICE_GROW_RATE
 } from "../CONSTANTS";
 import { BonusStack } from "../bonus/bonusStack";
 import { Game } from "../game";
@@ -13,7 +14,7 @@ export class SpaceStation extends Unit {
   habSpace = ZERO;
   habSpaceOriginal = ZERO;
   habSpaceStack: BonusStack;
-  habSpaceDivPrice = ZERO;
+  priceDivDabSpace = ZERO;
   buildPriceNext = ZERO;
   researchesToInspire: Array<Research>;
 
@@ -28,7 +29,7 @@ export class SpaceStation extends Unit {
         }
       }
     }
-    return Decimal.pow(PRICE_GROW_RATE, this.quantity.plus(queued))
+    return Decimal.pow(UNIT_PRICE_GROW_RATE, this.quantity.plus(queued))
       .times(this.buildPrice)
       .floor();
   }
@@ -63,6 +64,6 @@ export class SpaceStation extends Unit {
       }
     }
 
-    this.habSpaceDivPrice = this.habSpace.div(this.buildPriceNext).times(1e12);
+    this.priceDivDabSpace = this.buildPriceNext.div(this.habSpace);
   }
 }
