@@ -12,7 +12,7 @@ import { ActivatedRoute, ParamMap, Router } from "@angular/router";
 import { Mod } from "src/app/model/units/mod";
 import { Production } from "src/app/model/units/production";
 import { BreakpointObserver, BreakpointState } from "@angular/cdk/layout";
-import { ZERO, ONE, MAX_MOD_PRESET } from "src/app/model/CONSTANTS";
+import { ZERO, ONE } from "src/app/model/CONSTANTS";
 import { BaseComponentComponent } from "src/app/base-component/base-component.component";
 import { Technology } from "src/app/model/researches/technology";
 import { Worker } from "src/app/model/units/worker";

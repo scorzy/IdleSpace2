@@ -1,5 +1,5 @@
 import { IModData } from "../data/iModData";
-import { ZERO, ONE, MAX_MOD_PRESET } from "../CONSTANTS";
+import { ZERO, ONE } from "../CONSTANTS";
 
 export class Mod {
   name: string;

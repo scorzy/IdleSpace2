@@ -148,8 +148,8 @@ export class ShipyardManager extends JobManager {
     return shipDesign.id;
   }
   postUpdate() {
-    let oldSpeed = this.velocityBonusStack.totalBonus;
-    let oldAcc = this.accelerationStack.totalBonus;
+    const oldSpeed = this.velocityBonusStack.totalBonus;
+    const oldAcc = this.accelerationStack.totalBonus;
     this.velocityBonusStack.reloadBonus();
     this.accelerationStack.reloadBonus();
     if (

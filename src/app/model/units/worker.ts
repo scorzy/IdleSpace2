@@ -163,7 +163,7 @@ export class Worker extends Unit {
     this.reloadNeedComponent();
   }
   loadTempAutoMods(actual = true) {
-    for (let mod of this.modStack.mods) {
+    for (const mod of this.modStack.mods) {
       mod.uiQuantity = ZERO;
     }
     for (let i = 0; i < 7; i++) {
@@ -172,7 +172,7 @@ export class Worker extends Unit {
       let positiveMods = this.maxMods;
 
       //  Reload priorities
-      for (let mod of this.modStack.mods) {
+      for (const mod of this.modStack.mods) {
         positiveMods = positiveMods.minus(mod.uiQuantity);
         if (mod.getPriority(actual) === 0) continue;
         if (mod.getPriority(actual) > 0) {
@@ -190,13 +190,14 @@ export class Worker extends Unit {
       }
       //  Positive mods
       if (priSumNeg < 0 && i === 0) {
-        for (let mod of this.modStack.mods) {
+        for (const mod of this.modStack.mods) {
           if (mod.getPriority(actual) >= 0) continue;
           if (
             mod.uiQuantity.lte(mod.min) ||
             mod.uiQuantity.lte(this.maxMods.times(-1))
-          )
+          ) {
             continue;
+          }
 
           const modPerPriority = this.maxMods.div(priSumPos);
           let toAdd = modPerPriority.times(mod.getPriority(actual));
@@ -212,10 +213,11 @@ export class Worker extends Unit {
       }
       //  Negative Mods
       if (priSumPos > 0) {
-        for (let mod of this.modStack.mods) {
+        for (const mod of this.modStack.mods) {
           if (mod.getPriority(actual) <= 0) continue;
-          if (mod.uiQuantity.gte(mod.max) || mod.uiQuantity.gte(this.maxMods))
+          if (mod.uiQuantity.gte(mod.max) || mod.uiQuantity.gte(this.maxMods)) {
             continue;
+          }
 
           const modPerPriority = positiveMods.div(priSumPos);
           let toAdd = modPerPriority.times(mod.getPriority(actual));
@@ -230,12 +232,12 @@ export class Worker extends Unit {
       }
     }
     let used = ZERO;
-    for (let mod of this.modStack.mods) {
+    for (const mod of this.modStack.mods) {
       used = mod.uiQuantity.plus(used);
     }
     let toUse = this.maxMods.minus(used);
     for (let i = 0; i < 7; i++) {
-      let sortedMods = this.modStack.mods
+      const sortedMods = this.modStack.mods
         .filter(
           (m) => m.getPriority(actual) > 0 && m.uiQuantity.lt(this.maxMods)
         )

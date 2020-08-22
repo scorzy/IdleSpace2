@@ -43,6 +43,7 @@ export class PrestigeManager {
   experience = ZERO;
   prestigeMultiplier = ONE;
   nextPrestigeMultiplier = ONE;
+  realNextPrestigeMultiplier = ONE;
   prestigePoints = new Array<PrestigePoint>();
   tabs = new Array<{
     name: string;
@@ -371,16 +372,24 @@ export class PrestigeManager {
   loadNextMultiplier() {
     const maxEnemyLevel = Game.getGame().enemyManager.maxLevel;
 
-    const newNextPrestigeMultiplier = ONE.plus(
+    const realNextPrestigeMultiplier = ONE.plus(
       maxEnemyLevel * PRESTIGE_MULTI_PER_LEVEL
     ).pow(PRESTIGE_MULTI_EXP);
+    let nextPrestigeMultiplier;
 
     if (this.noDecreasePrestige.active) {
-      this.nextPrestigeMultiplier = this.prestigeMultiplier.max(
-        newNextPrestigeMultiplier
+      nextPrestigeMultiplier = this.prestigeMultiplier.max(
+        realNextPrestigeMultiplier
       );
     } else {
-      this.nextPrestigeMultiplier = newNextPrestigeMultiplier;
+      nextPrestigeMultiplier = realNextPrestigeMultiplier;
+    }
+
+    if (!this.realNextPrestigeMultiplier.eq(realNextPrestigeMultiplier)) {
+      this.realNextPrestigeMultiplier = realNextPrestigeMultiplier;
+    }
+    if (!this.nextPrestigeMultiplier.eq(nextPrestigeMultiplier)) {
+      this.nextPrestigeMultiplier = nextPrestigeMultiplier;
     }
   }
 

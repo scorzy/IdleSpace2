@@ -45,7 +45,7 @@ export class Spell implements IBase {
     else return ZERO;
   }
   getSave(partial = false): any {
-    let ret: any = {
+    const ret: any = {
       i: this.id,
       a: this.autoCastPriority
     };

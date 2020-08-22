@@ -16,7 +16,7 @@ import { parseDecimal } from "src/app/model/utility/parseDecimal";
 import { MainService } from "src/app/main.service";
 import { Worker } from "src/app/model/units/worker";
 import { BreakpointObserver, BreakpointState } from "@angular/cdk/layout";
-import { ZERO, MAX_MOD_PRESET } from "src/app/model/CONSTANTS";
+import { ZERO } from "src/app/model/CONSTANTS";
 import { BaseComponentComponent } from "src/app/base-component/base-component.component";
 
 @Component({
@@ -72,7 +72,7 @@ export class ModLineComponent extends BaseComponentComponent
     this.unit.reloadAll();
     this.realMax = this.mod.max.min(this.unit.maxMods);
     this.realMin = this.mod.min.max(this.unit.maxMods.times(-1));
-    let ok =
+    const ok =
       this.mod.uiQuantity.lte(this.realMax) &&
       this.mod.uiQuantity.gte(this.realMin);
 

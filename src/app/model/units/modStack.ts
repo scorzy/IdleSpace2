@@ -81,8 +81,9 @@ export class ModStack {
       if (!this.componentsMod.quantity.eq(0)) {
         ret.c = this.componentsMod.quantity;
       }
-      if (this.componentsMod.priority !== 0)
+      if (this.componentsMod.priority !== 0) {
         ret.cL = this.componentsMod.priority;
+      }
     }
     if (this.droneMod) {
       if (!this.droneMod.quantity.eq(0)) {

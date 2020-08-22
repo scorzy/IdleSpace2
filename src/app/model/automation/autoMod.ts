@@ -1,6 +1,6 @@
 import { AbstractAutobuyer } from "./abstractAutoBuyer";
 import { Worker } from "../units/worker";
-import { MAX_MOD_PRESET, ZERO, ONE } from "../CONSTANTS";
+import { ONE } from "../CONSTANTS";
 import { Game } from "../game";
 
 export class AutoMod extends AbstractAutobuyer {
@@ -15,7 +15,7 @@ export class AutoMod extends AbstractAutobuyer {
 
     let toMod = false;
     this.worker.loadTempAutoMods();
-    for (let mod of this.worker.modStack.mods) {
+    for (const mod of this.worker.modStack.mods) {
       if (!mod.quantity.eq(mod.uiQuantity)) {
         toMod = true;
         break;

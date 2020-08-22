@@ -9,6 +9,16 @@
   <strong class="monospace" [ngClass]="getMultiplierClass()">
     {{ ms.game.prestigeManager.nextPrestigeMultiplier | format }}
   </strong>
+
+  <br />
+  <span>
+    Without cards, experience multiplier would be (1 + max_enemy_level *0.1)^1.2
+    =
+    <span class="monospace">
+      {{ ms.game.prestigeManager.realNextPrestigeMultiplier | format }}
+    </span>
+  </span>
+
   <br />
   Your will gain
   <strong
@@ -18,7 +28,8 @@
     {{ ms.game.lockedDarkMatter | time }}
   </strong>
   Dark Matter. Now you have
-  <strong class="monospace"> {{ ms.game.darkMatter | time }} </strong>.
+  <strong class="monospace"> {{ ms.game.darkMatter | time }}</strong
+  >.
   <br />
   Your will gain
   <strong class="monospace" [class.text-success]="newSlots > 0">
