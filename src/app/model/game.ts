@@ -438,6 +438,7 @@ export class Game {
     if ("t" in data) this.prestigeManager.load(data.t);
     if ("k" in data) this.darkMatter = new Decimal(data.k);
     if ("l" in data) this.lockedDarkMatter = new Decimal(data.l);
+    this.researchManager.researches.forEach((res) => res.reload());
     this.postUpdate(0);
 
     // this.prestigeManager.maxCards = 70;
