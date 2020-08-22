@@ -1,4 +1,5 @@
--   Mod Warp
+-   Prestige info page
+-   "Mod Warp" card
 
 19/08/2020
 -   Unused mods are auto assigned to higher priority in orderly fashion
