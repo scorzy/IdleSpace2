@@ -1,7 +1,6 @@
 import { Unit } from "./unit";
 import {
   ZERO,
-  PRICE_GROW_RATE,
   EXTRA_DISTRICTS_FROM_STATIONS,
   UNIT_PRICE_GROW_RATE
 } from "../CONSTANTS";

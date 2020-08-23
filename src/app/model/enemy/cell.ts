@@ -22,6 +22,7 @@ export class Cell {
   ships: Array<number>;
   enemyStrength = 1;
   eta = 0;
+  antiMissiles = ZERO;
   addMaterial(material: Unit, quantity: Decimal) {
     if (!this.materials) {
       this.materials = [];
@@ -60,7 +61,8 @@ export class Cell {
         );
       }
     }
-    return ret.div(Game.getGame().enemyManager.nukeDamage).ceil();
+    ret = ret.div(Game.getGame().enemyManager.nukeDamage).ceil();
+    return this.antiMissiles.plus(ret);
   }
   nuke(totalDamage: number, all: boolean = false) {
     const curEnemy = Game.getGame().enemyManager.currentEnemy;
@@ -107,6 +109,7 @@ export class Cell {
     if (this.done) {
       ret.d = this.done;
     }
+    if (this.antiMissiles.gt(0)) ret.a = this.antiMissiles;
     return ret;
   }
   load(data: any) {
@@ -128,6 +131,7 @@ export class Cell {
     if ("d" in data) {
       this.done = data.d;
     }
+    if ("a" in data) this.antiMissiles = new Decimal(data.a);
   }
   //#endregion
 }

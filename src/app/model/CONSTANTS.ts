@@ -76,6 +76,10 @@ export const ENEMY_EXP_START_LEVEL = 2;
 export const ENEMY_BASE_EXP = 4;
 export const ENEMY_EXP_GROW_RATE = 0.15;
 export const DM_PER_LEVEL = 10;
+export const ANTI_MISSILES_START_LV = 50;
+export const ANTI_MISSILES_END_LV = 1000;
+export const ANTI_MISSILES_START_PERCENTAGE = 0.1;
+export const ANTI_MISSILES_END_PERCENTAGE = 100;
 
 // Modules
 export const PRICE_GROW_RATE = 1.06;

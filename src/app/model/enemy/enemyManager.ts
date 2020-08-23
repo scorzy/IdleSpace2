@@ -448,13 +448,24 @@ export class EnemyManager extends JobManager {
     if (!cell) {
       return false;
     }
-    const nukeNeed = cell.getNuke();
     const rm = Game.getGame().resourceManager;
-    const dmg = Game.getGame().enemyManager.nukeDamage.times(
-      Decimal.min(rm.nuke.quantity, nukeNeed)
-    );
-    cell.nuke(dmg.toNumber(), rm.nuke.quantity.gte(nukeNeed));
-    rm.nuke.quantity = rm.nuke.quantity.minus(nukeNeed).max(0);
+    if (cell.antiMissiles.gt(0)) {
+      if (cell.antiMissiles.lte(rm.nuke.quantity)) {
+        rm.nuke.quantity = rm.nuke.quantity.minus(cell.antiMissiles);
+        cell.antiMissiles = ZERO;
+      } else {
+        cell.antiMissiles = cell.antiMissiles.minus(rm.nuke.quantity);
+        rm.nuke.quantity = ZERO;
+      }
+    }
+    if (cell.antiMissiles.lte(0)) {
+      const nukeNeed = cell.getNuke();
+      const dmg = Game.getGame().enemyManager.nukeDamage.times(
+        Decimal.min(rm.nuke.quantity, nukeNeed)
+      );
+      cell.nuke(dmg.toNumber(), rm.nuke.quantity.gte(nukeNeed));
+      rm.nuke.quantity = rm.nuke.quantity.minus(nukeNeed).max(0);
+    }
   }
   reloadNukeDamage() {
     this.nukeDamageMulti.reloadBonus();

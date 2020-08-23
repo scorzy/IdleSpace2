@@ -8,6 +8,8 @@ import {
 } from "@angular/core";
 import { ShipDesign } from "../model/shipyard/shipDesign";
 import { BaseComponentComponent } from "../base-component/base-component.component";
+import { ZERO } from "../model/CONSTANTS";
+import { Enemy } from "../model/enemy/enemy";
 
 @Component({
   selector: "app-ships-view",
@@ -23,6 +25,7 @@ export class ShipsViewComponent extends BaseComponentComponent
   @Input() fleetNum = 0;
   @Input() nzSize = "middle";
   @Input() update = false;
+  @Input() enemy: Enemy;
   mapOfExpandData: { [key: string]: boolean } = {};
   ngOnInit() {
     if (this.update) {
@@ -41,6 +44,13 @@ export class ShipsViewComponent extends BaseComponentComponent
           ]
         : design.enemyQuantity
       : design.fleets[this.fleetNum].shipsQuantity;
+  }
+  getAntiMissiles(): Decimal {
+    if (!this.enemy) return ZERO;
+
+    return this.enemyCell && this.fleetNum >= 0
+      ? this.ms.game.enemyManager.currentEnemy.cells[this.fleetNum].antiMissiles
+      : this.enemy.antiMissiles;
   }
   getDesignId(index: number, design: ShipDesign) {
     return design.id;

@@ -29,7 +29,6 @@
         </td>
       </tr>
       <tr [nzExpand]="mapOfExpandData[data.id]">
-        <!-- <td colspan="3"> -->
         <nz-tabset nzSize="small">
           <nz-tab nzTitle="Info">
             <ng-template nz-tab>
@@ -70,8 +69,14 @@
             </ng-template>
           </nz-tab>
         </nz-tabset>
-        <!-- </td> -->
       </tr>
     </ng-template>
+    <tr *ngIf="isEnemy && enemy && enemy.antiMissiles.gt(0)">
+      <td></td>
+      <td nz-tooltip nzTooltipTitle="One Anti Missile block one nuke.">
+        Anti Missiles
+      </td>
+      <td class="monospace">{{ getAntiMissiles() | format: true }}</td>
+    </tr>
   </tbody>
 </nz-table>

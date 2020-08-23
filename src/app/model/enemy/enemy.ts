@@ -20,7 +20,13 @@ import {
   PRICE_GROW_RATE,
   DEFAULT_MODULE_PRICE,
   ENEMY_BASE_DISTANCE,
-  MOD_DISTANCE_EXP
+  MOD_DISTANCE_EXP,
+  ZERO,
+  ANTI_MISSILES_START_PERCENTAGE,
+  ANTI_MISSILES_START_LV,
+  ANTI_MISSILES_END_PERCENTAGE,
+  ANTI_MISSILES_END_LV,
+  NUKE_DAMAGE
 } from "../CONSTANTS";
 import { ShipType } from "../shipyard/ShipType";
 import { Module } from "../shipyard/module";
@@ -48,6 +54,7 @@ export class Enemy {
   tiles: Array<ExtraTile> = [];
   distance = ENEMY_BASE_DISTANCE;
   totalStrength = 1;
+  antiMissiles = ZERO;
   private favouriteWeapons: Module[];
   private favouriteDefences: Module[];
   private basicDefences: Module[];
@@ -302,6 +309,31 @@ export class Enemy {
       this.designs[i].id = i;
     }
     this.reloadTotalNavalCap();
+
+    //#region Anti missiles
+    this.antiMissiles = ZERO;
+    if (this.level >= ANTI_MISSILES_START_LV) {
+      let totalDefenceHealth = ZERO;
+      for (const des of this.designs) {
+        if (!des.isDefence) continue;
+        totalDefenceHealth = totalDefenceHealth.plus(
+          (des.totalArmour +
+            des.totalShield +
+            des.armourReduction +
+            des.shieldReduction) *
+            des.enemyQuantity
+        );
+      }
+      if (totalDefenceHealth.gt(0)) {
+        const percent =
+          ANTI_MISSILES_START_PERCENTAGE +
+          ((this.level - ANTI_MISSILES_START_LV) /
+            (ANTI_MISSILES_END_LV - ANTI_MISSILES_START_LV)) *
+            (ANTI_MISSILES_END_PERCENTAGE - ANTI_MISSILES_START_PERCENTAGE);
+        this.antiMissiles = totalDefenceHealth.times(percent).div(NUKE_DAMAGE);
+      }
+    }
+    //#endregion
     //#endregion
   }
   generateCells() {
@@ -338,6 +370,7 @@ export class Enemy {
         const cell = new Cell();
         cellRow.push(cell);
         cell.ships = this.designs.map((des) => des.enemyQuantity);
+        cell.antiMissiles = this.antiMissiles;
       }
       for (let k = 0; k < 10; k++) {
         cellRow[k].index = i * 10 + k;
@@ -748,6 +781,7 @@ export class Enemy {
       d: this.designs.map((des) => des.getEnemySave()),
       s: this.distance
     };
+    if (this.antiMissiles.gt(0)) ret.a = this.antiMissiles;
     if (this.cells) {
       ret.c = this.cells.map((c) => c.getSave());
     }
@@ -779,6 +813,7 @@ export class Enemy {
     if ("s" in data) {
       this.distance = new Decimal(data.s);
     }
+    if ("a" in data) this.antiMissiles = new Decimal(data.a);
     if ("d" in data) {
       this.designs = data.d.map((designData) => {
         const design = new ShipDesign();
