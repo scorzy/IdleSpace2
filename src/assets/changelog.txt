@@ -1,3 +1,6 @@
+23/08/2020
+-   Updated warp spell description
+
 22/08/2020
 -   Prestige info page
 -   "Mod Warp" card

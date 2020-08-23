@@ -5,7 +5,11 @@ export class WarpSpell extends Spell {
   id = "1";
   name = "Warp";
   icon = "field-time";
-  description = "Warp 30 seconds";
+  get description(): string {
+    return Game.getGame().prestigeManager.moreWarp.active
+      ? "Warp one minute"
+      : "Warp 30 seconds";
+  }
   colorClass = "science-color";
   duration = 0;
   price = 3000;
