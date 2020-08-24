@@ -123,7 +123,7 @@ export class ComputingManager {
     let max = this.autoCastResearch1.level > 0 ? 1 : 0;
     max += this.autoCastResearch2.level > 0 ? 1 : 0;
     max += this.autoCastResearch3.level > 0 ? 1 : 0;
-    for (let i = 1; i < max; i++) {
+    for (let i = 1; i <= max; i++) {
       if (this.currentSpells.findIndex((sp) => sp.autoCastPriority === i) < 0) {
         break;
       }

@@ -1,5 +1,6 @@
 -   Starter pack bonus decreased from 20% to 15%
 -   Increased building prices for replicators and nuke
+-   Fixed spells not auto casting
 
 23/08/2020
 -   Added Anti Missiles
