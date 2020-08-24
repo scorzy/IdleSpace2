@@ -8,6 +8,7 @@
 -   Cargo and Lab info on battle screen
 -   New Cards "Kill Streak: Speed" and "Kill Streak: Resources"
 -   Fixed spells not auto casting
+-   Space Station Warp: warp decreased to "1 + level/2" from "1 + level"
 
 23/08/2020
 -   Added Anti Missiles
