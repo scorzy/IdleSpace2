@@ -470,8 +470,10 @@ export const modules: ModuleData[] = [
     ],
     precision: BASE_PRECISION * 0.75,
     explosion: MODULE_ARMOUR * -1.5,
-    armourDamagePercent: 2,
-    shieldDamagePercent: 2,
+    armourDamagePercent: 6,
+    shieldDamagePercent: 6,
+    armourPercent: 8,
+    shieldPercent: 8,
     shape: "my:vintage-robot"
   },
   {
@@ -500,8 +502,8 @@ export const modules: ModuleData[] = [
   },
   {
     id: "W",
-    name: "Coordinator module improve overall fighting capability.",
-    description: "",
+    name: "Coordinator",
+    description: "Coordinator module improve overall fighting capability.",
     technologies: [
       { technologyId: TECHNOLOGIES.MilitaryEngineering.id, multi: 1 },
       { technologyId: TECHNOLOGIES.Naval.id, multi: 1 }

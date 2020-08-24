@@ -1,6 +1,16 @@
 <p *ngIf="mod.description !== ''">{{ mod.description }}</p>
 <span font="monospace" fxLayout="row">
   <span
+    *ngIf="mod.price > 0"
+    class="production-color"
+    nz-tooltip
+    nzTooltipTitle="Price"
+    fxLayout="row"
+  >
+    <i nz-icon nzType="fa-s:wrench"></i>
+    <span>{{ mod.price | number: "1.0-0" }}</span>
+  </span>
+  <span
     *ngIf="mod.damage > 0"
     class="damage-color"
     nz-tooltip
