@@ -441,8 +441,8 @@ export class Game {
     this.researchManager.researches.forEach((res) => res.reload());
     this.postUpdate(0);
 
-    this.prestigeManager.maxCards = 70;
-    this.prestigeManager.lockedCars = false;
+    // this.prestigeManager.maxCards = 70;
+    // this.prestigeManager.lockedCars = false;
     // this.darkMatter = new Decimal(1e20);
     // this.prestigeManager.experience = new Decimal(1e4);
   }
