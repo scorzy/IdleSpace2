@@ -36,8 +36,8 @@ export class Worker extends Unit {
   reloadComponentPrice() {
     const baseRecycling = Game.getGame().baseRecycling;
     const recyclingMulti = Game.getGame().recyclingMulti.totalBonus;
-    this.components = COMPONENT_PRICE;
-    this.componentsTemp = COMPONENT_PRICE;
+    this.components = this.componentBasePrice;
+    this.componentsTemp =  this.componentBasePrice;
     if (this.modStack && this.modStack.componentsMod) {
       this.components = this.components.minus(
         this.modStack.componentsMod.quantity.times(MOD_COMPONENTS)

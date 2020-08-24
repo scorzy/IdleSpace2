@@ -25,4 +25,5 @@ export interface IUnitData {
   mods?: { technologyId: string; multi: number }[];
   departments?: IDepartmentData[];
   battleMulti?: number;
+  componentsPrice?:number;
 }

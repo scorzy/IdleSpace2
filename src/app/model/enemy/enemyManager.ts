@@ -406,8 +406,10 @@ export class EnemyManager extends JobManager {
       Game.getGame().timeToWarp += ENEMY_DEFEAT_WARP_CARD;
     }
 
-    Game.getGame().researchManager.searching.inspire();
-    Game.getGame().researchManager.scavenging.inspire();
+    const rm =  Game.getGame().researchManager
+    rm.searching.inspire();
+    rm.scavenging.inspire();
+    rm.assimilation.inspire();
 
     if (this.currentEnemy.level >= this.maxLevel) {
       if (this.currentEnemy.level >= ENEMY_EXP_START_LEVEL) {

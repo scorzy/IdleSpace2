@@ -35,6 +35,7 @@ export class Unit implements IBase, IUnlockable {
   limitStackMulti: BonusStack;
   storedComponents = ZERO;
   needComponents = ZERO;
+  componentBasePrice = COMPONENT_PRICE;
   components = COMPONENT_PRICE;
   componentsTemp = COMPONENT_PRICE;
   componentPercent = 0;
@@ -69,6 +70,9 @@ export class Unit implements IBase, IUnlockable {
     if ("battleMulti" in unitData) {
       this.battleMulti = unitData.battleMulti;
     }
+    if("componentsPrice"in unitData){
+      this.componentBasePrice =new Decimal( unitData.componentsPrice )
+    } 
   }
   public get uiLimit() {
     return this.limit;

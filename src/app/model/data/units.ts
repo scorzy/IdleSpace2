@@ -96,7 +96,7 @@ export const UNITS: IUnitData[] = [
     ],
     showUiLimit: true,
     unitType: UNIT_TYPES.MATERIAL,
-    battleMulti: 0.2
+    battleMulti: 0.5
   },
   {
     id: "b",
@@ -182,7 +182,8 @@ export const UNITS: IUnitData[] = [
     mods: [
       { technologyId: TECHNOLOGIES.Robotics.id, multi: MOD_PER_ROBOTICS },
       { technologyId: TECHNOLOGIES.Computing.id, multi: MOD_PER_OTHERS }
-    ]
+    ],
+    componentsPrice:15
   },
   {
     id: "a",
@@ -206,7 +207,8 @@ export const UNITS: IUnitData[] = [
     mods: [
       { technologyId: TECHNOLOGIES.Robotics.id, multi: MOD_PER_ROBOTICS },
       { technologyId: TECHNOLOGIES.Materials.id, multi: MOD_PER_OTHERS }
-    ]
+    ],
+    componentsPrice:15
   },
   {
     id: "w",
@@ -240,7 +242,8 @@ export const UNITS: IUnitData[] = [
         technologyId: TECHNOLOGIES.CivilEngineering.id,
         multi: MOD_PER_OTHERS / 2.5
       }
-    ]
+    ],
+    componentsPrice:20
   },
   {
     id: "r",
@@ -267,7 +270,8 @@ export const UNITS: IUnitData[] = [
     mods: [
       { technologyId: TECHNOLOGIES.Robotics.id, multi: MOD_PER_ROBOTICS },
       { technologyId: TECHNOLOGIES.Search.id, multi: MOD_PER_OTHERS }
-    ]
+    ],
+    componentsPrice:20
   },
   {
     id: "X",
@@ -296,7 +300,8 @@ export const UNITS: IUnitData[] = [
         technologyId: TECHNOLOGIES.Robotics.id,
         multi: MOD_PER_ROBOTICS + MOD_PER_OTHERS + 0.1
       }
-    ]
+    ],
+    componentsPrice:40
   },
   {
     id: "B",
@@ -324,7 +329,8 @@ export const UNITS: IUnitData[] = [
       { technologyId: TECHNOLOGIES.Robotics.id, multi: MOD_PER_ROBOTICS },
       { technologyId: TECHNOLOGIES.Naval.id, multi: MOD_PER_OTHERS / 2.5 },
       { technologyId: TECHNOLOGIES.Propulsion.id, multi: MOD_PER_OTHERS / 2.5 }
-    ]
+    ],
+    componentsPrice:40
   },
   //#endregion
   //#region Districts

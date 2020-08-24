@@ -39,6 +39,7 @@ export class ResearchManager extends JobManager {
   searching: Research;
   scavenging: Research;
   robotics: Research;
+  assimilation:Research;
   //#endregion
   //#region Technologies
   militaryEngTech: Technology;
@@ -89,6 +90,7 @@ export class ResearchManager extends JobManager {
     this.nukeResearch = this.researches.find((res) => res.id === "b");
     this.searching = this.researches.find((res) => res.id === "h");
     this.scavenging = this.researches.find((res) => res.id === "ns");
+    this.assimilation = this.researches.find((res) => res.id === "ns1");
     this.robotics = this.researches.find((res) => res.id === "x");
 
     for (let i = 0; i < 9; i++) {

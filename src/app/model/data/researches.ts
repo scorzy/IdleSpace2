@@ -168,10 +168,20 @@ export const RESEARCHES: IResearchData[] = [
     name: "Scavenging",
     description: "Increase materials gain from battles",
     type: TECHNOLOGIES.Naval,
+    researchToUnlock:["ns1"],
     materialMulti: 1,
     battleMulti: [
       { materialId: "M", multi: 1 },
       { materialId: "E", multi: 1 }
+    ],
+    inspirationDescription: "Defeat an enemy"
+  },{
+    id: "ns1",
+    name: "Assimilation",
+    description: "Increase components gain from battles",
+    type: TECHNOLOGIES.Naval,
+    battleMulti: [
+      { materialId: MAT_IDS.Components, multi: 1 }
     ],
     inspirationDescription: "Defeat an enemy"
   },
