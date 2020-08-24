@@ -1,3 +1,4 @@
+24/08/2020
 -   Starter pack bonus decreased from 20% to 15%
 -   Increased building prices for replicators and nuke
 -   Increased components prices of drones
@@ -5,6 +6,7 @@
 -   New research "Assimilation"; +100% Components from enemies, repeatable
 -   Cargo and Assistance Drone buff
 -   Cargo and Lab info on battle screen
+-   New Cards "Kill Streak: Speed" and "Kill Streak: Resources"
 -   Fixed spells not auto casting
 
 23/08/2020

@@ -13,7 +13,8 @@ import {
   ENEMY_DEFEAT_WARP_CARD,
   EXP_GAIN_CARD,
   DM_GAIN_CARD,
-  ONE
+  ONE,
+  KILL_STREAK_GAIN_CARD
 } from "../CONSTANTS";
 import { MainService } from "src/app/main.service";
 import { BattleRequest } from "../battle/battleRequest";
@@ -53,6 +54,7 @@ export class EnemyManager extends JobManager {
   private rewardString = "";
   searchLevel = 0;
   lostRow = 0;
+  killStreak = 0;
   //#region Bonus
   districtMultiplier: BonusStack = new BonusStack();
   habSpaceMultiplier: BonusStack = new BonusStack();
@@ -145,6 +147,8 @@ export class EnemyManager extends JobManager {
     if (this.currentEnemy || enemy.level > this.maxLevel) {
       return false;
     }
+    this.killStreak = 0;
+    this.lostRow = 0;
     this.currentEnemy = enemy;
     this.currentEnemy.generateCells();
     const index = this.enemies.indexOf(enemy);
@@ -272,6 +276,7 @@ export class EnemyManager extends JobManager {
     if (this.currentEnemy) {
       if (cell.done) {
         this.lostRow = 0;
+        this.killStreak++;
         this.reward(cell, fleetNum);
         battleResult.won = true;
         //#region Research Inspiration
@@ -311,6 +316,7 @@ export class EnemyManager extends JobManager {
         }
       } else {
         this.lostRow++;
+        this.killStreak = 0;
         Game.getGame().notificationManager.addNotification(
           new MyNotification(
             NotificationTypes.BATTLE_LOST,
@@ -327,6 +333,7 @@ export class EnemyManager extends JobManager {
   surrender() {
     this.currentEnemy = null;
     this.lostRow = 0;
+    this.killStreak = 0;
   }
   getCargo(fleetNum: number, asPercent = false): Decimal {
     let cargo = ZERO;
@@ -377,6 +384,9 @@ export class EnemyManager extends JobManager {
         } else toAdd = toAdd.times(cargo);
       }
       if (toAdd.gt(0)) {
+        if (Game.getGame().prestigeManager.killStreakGain.active) {
+          toAdd = toAdd.times(1 + KILL_STREAK_GAIN_CARD * this.killStreak);
+        }
         mat.material.unlock();
         mat.material.quantity = mat.material.quantity.plus(toAdd);
         this.rewardString +=
@@ -407,6 +417,8 @@ export class EnemyManager extends JobManager {
   }
   defeatEnemy() {
     if (!this.currentEnemy) return false;
+    this.killStreak = 0;
+    this.lostRow = 0;
 
     if (Game.getGame().prestigeManager.enemyDefeatWarp.active) {
       Game.getGame().timeToWarp += ENEMY_DEFEAT_WARP_CARD;
@@ -498,7 +510,8 @@ export class EnemyManager extends JobManager {
       t: this.toDo.map((t) => t.getSave()),
       m: this.maxLevel,
       a: this.autoAttackOptions.map((auto) => auto.getSave()),
-      l: this.lostRow
+      l: this.lostRow,
+      k: this.killStreak
     };
     if (this.autoNext) {
       ret.x = this.autoNext;
@@ -568,6 +581,7 @@ export class EnemyManager extends JobManager {
     }
     if ("n" in data) this.autoNuke = data.n;
     if ("l" in data) this.lostRow = data.l;
+    if ("k" in data) this.killStreak = data.k;
   }
   //#endregion
 }

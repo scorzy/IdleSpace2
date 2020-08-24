@@ -99,14 +99,18 @@
       </span>
       <br />
       <span>
+        Kill streak:
+        <span class="monospace">{{ ms.game.enemyManager.killStreak }}</span>
+      </span>
+      <br />
+      <span>
         Experience reward:
         <span class="monospace">{{ expGain | format: true }}</span>
         <span *ngIf="expGain.lte(0)" class="text-warning">
           Enemy level is too low. Gain experience from lv.
-          <span class="monospace">
-            2
-          </span>
-          every time you defeat enemies of max level (<span class="monospace">{{
+          <span class="monospace"> 2 </span>
+          every time you defeat enemies of max level (actual max lv is
+          <span class="monospace">{{
             ms.game.enemyManager.maxLevel | format: true
           }}</span
           >).
@@ -119,9 +123,7 @@
         >.
         <span *ngIf="darkMatterGain.lte(0)" class="text-warning"
           >Enemy level is too low. Gain experience from lv.
-          <span class="monospace">
-            2
-          </span>
+          <span class="monospace"> 2 </span>
         </span>
       </span>
     </ng-container>

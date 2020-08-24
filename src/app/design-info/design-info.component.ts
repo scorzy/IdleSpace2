@@ -18,7 +18,8 @@ import { BaseComponentComponent } from "../base-component/base-component.compone
   styleUrls: ["./design-info.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DesignInfoComponent extends BaseComponentComponent
+export class DesignInfoComponent
+  extends BaseComponentComponent
   implements OnInit, OnDestroy, AfterViewInit, OnChanges {
   @Input() original: ShipDesign;
   @Input() design: ShipDesign;

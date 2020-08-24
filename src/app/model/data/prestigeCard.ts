@@ -21,7 +21,9 @@ import {
   PRODUCTION_PEACE_CARD,
   MORE_HAB_FROM_STATIONS,
   NAVAL_CAP_CARD_MULTI,
-  EXTRA_DISTRICTS_FROM_STATIONS
+  EXTRA_DISTRICTS_FROM_STATIONS,
+  KILL_STREAK_SPEED_CARD,
+  KILL_STREAK_GAIN_CARD
 } from "../CONSTANTS";
 
 export const PRESTIGE_CARDS: ISimpleBase[] = [
@@ -137,6 +139,22 @@ export const PRESTIGE_CARDS: ISimpleBase[] = [
     id: "w5",
     name: "Naval Capacity",
     description: "+" + NAVAL_CAP_CARD_MULTI * 100 + "% naval capacity",
+    icon: "my:strafe"
+  },
+  {
+    id: "w6",
+    name: "Kill Streak: Speed",
+    description:
+      "+" +
+      KILL_STREAK_SPEED_CARD * 100 +
+      "% speed and acceleration per kill streak",
+    icon: "my:strafe"
+  },
+  {
+    id: "w7",
+    name: "Kill Streak: Resources",
+    description:
+      "+" + KILL_STREAK_GAIN_CARD * 100 + "% battle gains per kill streak",
     icon: "my:strafe"
   },
   //#endregion

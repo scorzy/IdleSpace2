@@ -24,7 +24,9 @@ import {
   VELOCITY_PRESTIGE_MULTI,
   PRODUCTION_PEACE_CARD,
   BETTER_SPACE_STATION_PRESTIGE,
-  MORE_HAB_FROM_STATIONS
+  MORE_HAB_FROM_STATIONS,
+  KILL_STREAK_GAIN_CARD,
+  KILL_STREAK_SPEED_CARD
 } from "../CONSTANTS";
 import { Game } from "../game";
 import {
@@ -75,6 +77,7 @@ export class PrestigeManager {
   battleWarp: PrestigeCard;
   modWarp: PrestigeCard;
   spaceStationWarp: PrestigeCard;
+  killStreakGain: PrestigeCard;
   //#endregion
   constructor() {
     this.generateExperience();
@@ -265,6 +268,7 @@ export class PrestigeManager {
     const rm = Game.getGame().resourceManager;
     const sm = Game.getGame().researchManager;
     const cm = Game.getGame().computingManager;
+    const sy = Game.getGame().shipyardManager;
     //#region Drones
     this.cards = PRESTIGE_CARDS.map((data) => new PrestigeCard(data));
     const prodCard = this.cards.find((card) => card.id === "0");
@@ -321,19 +325,36 @@ export class PrestigeManager {
     this.victoryWarp = this.cards.find((card) => card.id === "w3");
     this.enemyDefeatWarp = this.cards.find((card) => card.id === "w4");
     this.navalCapCard = this.cards.find((card) => card.id === "w5");
+    const killStreakSpeed = this.cards.find((card) => card.id === "w6");
+    this.killStreakGain = this.cards.find((card) => card.id === "w7");
 
+    const killStreak: IBase = {
+      id: "kiS",
+      name: "Kill Streak",
+      get quantity() {
+        return new Decimal(Game.getGame().enemyManager.killStreak);
+      }
+    };
+
+    const districtsBon = new Bonus(districts, new Decimal(DISTRICTS_CARD));
     rm.districts.forEach((dis) => {
-      dis.battleGainMulti.bonuses.push(
-        new Bonus(districts, new Decimal(DISTRICTS_CARD))
-      );
+      dis.battleGainMulti.bonuses.push(districtsBon);
     });
+
+    const matBon = new Bonus(materials, new Decimal(MATERIALS_CARD));
     rm.materials.forEach((dis) => {
-      dis.battleGainMulti.bonuses.push(
-        new Bonus(materials, new Decimal(MATERIALS_CARD))
-      );
+      dis.battleGainMulti.bonuses.push(matBon);
     });
-    rm.components.battleGainMulti.bonuses.push(
-      new Bonus(components, new Decimal(COMPONENTS_CARD))
+
+    const compBon = new Bonus(components, new Decimal(COMPONENTS_CARD));
+    rm.components.battleGainMulti.bonuses.push(compBon);
+
+    sy.velocityBonusStack.bonuses.push(
+      new Bonus(
+        killStreakSpeed,
+        new Decimal(KILL_STREAK_SPEED_CARD),
+        killStreak
+      )
     );
 
     //#endregion
