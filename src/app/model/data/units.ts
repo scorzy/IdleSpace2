@@ -463,7 +463,7 @@ export const UNITS: IUnitData[] = [
     colorClass: "component-color",
     prices: [
       ["A", ALLOY_BUILDING_PRICE * 10],
-      ["j", 50]
+      ["j", 100]
     ],
     unlockQuantity: 1,
     unitType: UNIT_TYPES.BUILDING,
@@ -476,8 +476,8 @@ export const UNITS: IUnitData[] = [
     icon: "fa-s:warehouse",
     colorClass: "component-color",
     prices: [
-      ["A", ALLOY_BUILDING_PRICE * 5],
-      ["j", 50]
+      ["A", ALLOY_BUILDING_PRICE * 10],
+      ["j", 100]
     ],
     unlockQuantity: 1,
     unitType: UNIT_TYPES.BUILDING
@@ -490,7 +490,7 @@ export const UNITS: IUnitData[] = [
     colorClass: "nuke-color",
     prices: [
       ["A", ALLOY_BUILDING_PRICE * 5],
-      ["j", 20]
+      ["j", 50]
     ],
     unlockQuantity: 1,
     unitType: UNIT_TYPES.BUILDING,
@@ -504,7 +504,7 @@ export const UNITS: IUnitData[] = [
     colorClass: "nuke-color",
     prices: [
       ["A", ALLOY_BUILDING_PRICE * 5],
-      ["j", 20]
+      ["j", 50]
     ],
     unlockQuantity: 1,
     unitType: UNIT_TYPES.BUILDING
