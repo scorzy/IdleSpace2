@@ -72,7 +72,7 @@
     "karma-jasmine": "~2.0.1",
     "karma-jasmine-html-reporter": "^1.5.4",
     "less": "^3.12.2",
-    "prettier": "^2.0.5",
+    "prettier": "^2.1.0",
     "protractor": "^5.4.4",
     "rxjs-tslint-rules": "^4.34.0",
     "stylelint": "^13.6.1",
@@ -82,7 +82,7 @@
     "ts-node": "~7.0.0",
     "tslint": "~5.15.0",
     "tslint-config-prettier": "^1.18.0",
-    "tslint-etc": "^1.13.1",
+    "tslint-etc": "^1.13.4",
     "typescript": "~3.7.5",
     "webpack-bundle-analyzer": "^3.8.0"
   }

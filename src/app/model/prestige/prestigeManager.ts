@@ -123,15 +123,23 @@ export class PrestigeManager {
       prestige: dronePrestigeList
     });
     rm.workers.forEach((w) => {
-      w.prodAllBonus.bonuses.push(
-        new Bonus(starterPack, new Decimal(DRONE_PRESTIGE_START_OFFER))
+      const startBon = new Bonus(
+        starterPack,
+        new Decimal(DRONE_PRESTIGE_START_OFFER)
       );
-      w.prodAllBonus.bonuses.push(
-        new Bonus(droneMulti, new Decimal(DRONE_PRESTIGE_PRODUCTION))
+      w.prodAllBonus.bonuses.push(startBon);
+
+      const prodBon = new Bonus(
+        droneMulti,
+        new Decimal(DRONE_PRESTIGE_PRODUCTION)
       );
-      w.prodEfficiency.bonuses.push(
-        new Bonus(droneEff, new Decimal(DRONE_PRESTIGE_EFFICIENCY))
+      w.prodAllBonus.bonuses.push(prodBon);
+
+      const effBon = new Bonus(
+        droneEff,
+        new Decimal(DRONE_PRESTIGE_EFFICIENCY)
       );
+      w.prodEfficiency.bonuses.push(effBon);
     });
     //#endregion
     //#region Science

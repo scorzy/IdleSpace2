@@ -1,3 +1,5 @@
+-   Starter pack bonus decreased from 20% to 15%
+
 23/08/2020
 -   Added Anti Missiles
 -   Updated warp spell description
