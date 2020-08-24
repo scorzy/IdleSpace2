@@ -38,5 +38,29 @@
         </span>
       </td>
     </tr>
+    <tr>
+      <td class="fleet-td-1">
+        <span
+          nz-tooltip
+          nzTooltipTitle="Increase metal, energy and components gained from battles"
+          >Cargo</span
+        >
+      </td>
+      <td *ngFor="let i of fleets">
+        <span class="monospace"> +{{ cargo[i] | format }}% </span>
+      </td>
+    </tr>
+    <tr>
+      <td class="fleet-td-1">
+        <span
+          nz-tooltip
+          nzTooltipTitle="Increase science and search gained from battle"
+          >Lab</span
+        >
+      </td>
+      <td *ngFor="let i of fleets">
+        <span class="monospace"> +{{ lab[i] | format }}% </span>
+      </td>
+    </tr>
   </tbody>
 </nz-table>

@@ -328,15 +328,7 @@ export class EnemyManager extends JobManager {
     this.currentEnemy = null;
     this.lostRow = 0;
   }
-  reward(cell: Cell, fleetNum: number) {
-    //  Card Warp
-    if (Game.getGame().prestigeManager.victoryWarp.active) {
-      Game.getGame().timeToWarp += VICTORY_WARP_CARD;
-    }
-
-    if (cell.materials.length < 1) {
-      return;
-    }
+  getCargo(fleetNum: number, asPercent = false): Decimal {
     let cargo = ZERO;
     const playerDesign = Game.getGame().shipyardManager.shipDesigns;
     for (let i = 0, n = playerDesign.length; i < n; i++) {
@@ -346,8 +338,10 @@ export class EnemyManager extends JobManager {
         )
       );
     }
-    cargo = cargo.div(100).plus(1);
-
+    return asPercent ? cargo : cargo.div(100).plus(1);
+  }
+  getLab(fleetNum: number, asPercent = false): Decimal {
+    const playerDesign = Game.getGame().shipyardManager.shipDesigns;
     let scienceLab = ZERO;
     for (let i = 0, n = playerDesign.length; i < n; i++) {
       scienceLab = scienceLab.plus(
@@ -356,7 +350,19 @@ export class EnemyManager extends JobManager {
         )
       );
     }
-    scienceLab = scienceLab.div(100).plus(1);
+    return asPercent ? scienceLab : scienceLab.div(100).plus(1);
+  }
+  reward(cell: Cell, fleetNum: number) {
+    //  Card Warp
+    if (Game.getGame().prestigeManager.victoryWarp.active) {
+      Game.getGame().timeToWarp += VICTORY_WARP_CARD;
+    }
+
+    if (cell.materials.length < 1) {
+      return;
+    }
+    let cargo = this.getCargo(fleetNum);
+    let scienceLab = this.getLab(fleetNum);
 
     for (let i = 0, n = cell.materials.length; i < n; i++) {
       const mat = cell.materials[i];
@@ -406,7 +412,7 @@ export class EnemyManager extends JobManager {
       Game.getGame().timeToWarp += ENEMY_DEFEAT_WARP_CARD;
     }
 
-    const rm =  Game.getGame().researchManager
+    const rm = Game.getGame().researchManager;
     rm.searching.inspire();
     rm.scavenging.inspire();
     rm.assimilation.inspire();
