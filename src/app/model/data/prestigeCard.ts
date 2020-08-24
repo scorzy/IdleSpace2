@@ -195,7 +195,7 @@ export const PRESTIGE_CARDS: ISimpleBase[] = [
   {
     id: "p5",
     name: "Space Station Warp",
-    description: "Warp (1 + level) seconds when completing a space station.",
+    description: "Warp (1 + level/2) seconds when completing a space station.",
     icon: "field-time"
   },
   //#endregion

@@ -64,7 +64,7 @@ export class SpaceStationJob extends Job {
     }
     if (Game.getGame().prestigeManager.spaceStationWarp.active) {
       Game.getGame().timeToWarp =
-        Game.getGame().timeToWarp + 1 + this.spaceStation.level;
+        Game.getGame().timeToWarp + 1 + this.spaceStation.level / 2;
     }
   }
   reload() {
