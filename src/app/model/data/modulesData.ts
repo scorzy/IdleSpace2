@@ -90,10 +90,10 @@ export const modules: ModuleData[] = [
     description:
       "The ultimate armour, increases armour percent and decreases incoming damage and explosion chance.",
     energy: -1,
-    explosion: -0.1 * MODULE_ARMOUR,
-    armour: 1.5 * MODULE_ARMOUR,
-    armourPercent: 5,
-    armourDamageReduction: 0.15 * MODULE_ARMOUR,
+    explosion: -3 * MODULE_ARMOUR,
+    armour: 2 * MODULE_ARMOUR,
+    armourPercent: 15,
+    armourDamageReduction: 0.16 * MODULE_ARMOUR,
     technologies: [
       { technologyId: TECHNOLOGIES.MilitaryEngineering.id, multi: 1 },
       { technologyId: TECHNOLOGIES.Materials.id, multi: 1 }
@@ -514,8 +514,8 @@ export const modules: ModuleData[] = [
     adaptivePrecision: BASE_ADAPTIVE_PRECISION / 4,
     armourDamagePercent: 15,
     shieldDamagePercent: 15,
-    shieldPercent: 15,
-    armourPercent: 15
+    shieldPercent: 10,
+    armourPercent: 10
   },
   {
     id: "cj",
