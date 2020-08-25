@@ -1,5 +1,7 @@
 25/08/2020
 -   Auto 100%
+-   Increased stats of "Reactive Armour"
+-   Reduced armour% and shield% of "Coordinator" 
 
 24/08/2020
 -   Starter pack bonus decreased from 20% to 15%
