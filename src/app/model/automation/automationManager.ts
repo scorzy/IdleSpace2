@@ -8,6 +8,7 @@ import { SpaceStationAutoBuyer } from "./spaceStationAutoBuyer";
 import { AutoSurrender } from "./autoSurrender";
 import { AutoRefresh } from "./autoRefresh";
 import { AutoMod } from "./autoMod";
+import { AutoFull } from "./autoFull";
 
 export class AutomationManager {
   on = true;
@@ -18,6 +19,7 @@ export class AutomationManager {
   spaceStationAutoBuyer: SpaceStationAutoBuyer;
   autoSurrender: AutoSurrender;
   autoRefresh: AutoRefresh;
+  autoFull: AutoFull;
 
   constructor() {
     const game = Game.getGame();
@@ -43,6 +45,9 @@ export class AutomationManager {
 
     this.autoRefresh = new AutoRefresh();
     this.autobuyers.push(this.autoRefresh);
+
+    this.autoFull = new AutoFull();
+    this.autobuyers.push(this.autoFull);
 
     this.autobuyers.forEach((a) => a.reload());
     this.sort();

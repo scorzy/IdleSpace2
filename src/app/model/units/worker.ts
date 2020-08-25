@@ -4,7 +4,6 @@ import { Game } from "../game";
 import {
   ONE,
   ZERO,
-  COMPONENT_PRICE,
   MOD_COMPONENTS,
   MOD_RECYCLING,
   MAX_RECYCLING

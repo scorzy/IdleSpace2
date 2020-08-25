@@ -1,0 +1,42 @@
+<form nz-form nzLayout="inline">
+  <nz-form-item>
+    <nz-form-label>On</nz-form-label>
+    <nz-form-control>
+      <nz-input-group nzCompact>
+        <nz-switch
+          name="aFull"
+          [(ngModel)]="ms.game.automationManager.autoFull.on"
+          nzSize="small"
+        ></nz-switch>
+        <nz-select
+          nzSize="small"
+          class="autoTime"
+          [(ngModel)]="ms.game.automationManager.autoFull.interval"
+          name="aFull_i"
+        >
+          <nz-option
+            *ngFor="let interval of INTERVALS; trackBy: getIntervalId"
+            [nzLabel]="interval.label"
+            [nzValue]="interval.value"
+          ></nz-option>
+        </nz-select>
+      </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
+
+  <!-- <nz-form-item>
+    <nz-form-label
+      nz-popover
+      nzPopoverTitle="Priority"
+      nzPopoverContent="In case more auto buyer are available on the same update cycle, high priority execute first."
+      >Priority</nz-form-label
+    >
+    <nz-form-control>
+      <nz-input-number
+        nzSize="small"
+        name="Full_P"
+        [(ngModel)]="ms.game.automationManager.autoFull.priority"
+      ></nz-input-number>
+    </nz-form-control>
+  </nz-form-item> -->
+</form>

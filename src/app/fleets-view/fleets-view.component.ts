@@ -39,8 +39,8 @@ export class FleetsViewComponent
   }
   setStats() {
     for (let i = 0; i < FLEET_NUMBER; i++) {
-      let newCargo = this.ms.game.enemyManager.getCargo(i, true);
-      let newLab = this.ms.game.enemyManager.getLab(i, true);
+      const newCargo = this.ms.game.enemyManager.getCargo(i, true);
+      const newLab = this.ms.game.enemyManager.getLab(i, true);
       if (!this.cargo[i].eq(newCargo)) this.cargo[i] = newCargo;
       if (!this.lab[i].eq(newLab)) this.lab[i] = newLab;
     }

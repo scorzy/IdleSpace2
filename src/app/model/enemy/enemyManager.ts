@@ -368,8 +368,8 @@ export class EnemyManager extends JobManager {
     if (cell.materials.length < 1) {
       return;
     }
-    let cargo = this.getCargo(fleetNum);
-    let scienceLab = this.getLab(fleetNum);
+    const cargo = this.getCargo(fleetNum);
+    const scienceLab = this.getLab(fleetNum);
 
     for (let i = 0, n = cell.materials.length; i < n; i++) {
       const mat = cell.materials[i];

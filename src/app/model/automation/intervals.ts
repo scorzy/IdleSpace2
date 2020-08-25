@@ -24,8 +24,16 @@ export const INTERVALS = [
     label: "5 min"
   },
   {
+    value: 10 * 6e4,
+    label: "10 min"
+  },
+  {
     value: 20 * 6e4,
     label: "20 min"
+  },
+  {
+    value: 40 * 6e4,
+    label: "40 min"
   },
   {
     value: 60 * 6e4,
