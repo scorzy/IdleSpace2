@@ -122,6 +122,17 @@
       <span>Sort</span>
     </button>
 
+    <div>
+      <label>Auto Origin:</label>
+      <nz-select [(ngModel)]="ms.game.researchManager.autoOrigin">
+        <nz-option
+          [nzValue]="origin"
+          [nzLabel]="origin.name"
+          *ngFor="let origin of origins; trackBy: getResId"
+        ></nz-option>
+      </nz-select>
+    </div>
+
     <ul class="list-unstyled technology-list">
       <li
         *ngFor="

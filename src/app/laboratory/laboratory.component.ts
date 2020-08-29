@@ -15,6 +15,7 @@ import {
 } from "@angular/cdk/drag-drop";
 import { IJobType } from "../model/data/iResearchData";
 import { BaseComponentComponent } from "../base-component/base-component.component";
+import { ExclusiveResGroups } from "../model/researches/exclusiveResGroups";
 
 @Component({
   selector: "app-laboratory",
@@ -22,9 +23,14 @@ import { BaseComponentComponent } from "../base-component/base-component.compone
   styleUrls: ["./laboratory.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class LaboratoryComponent extends BaseComponentComponent
+export class LaboratoryComponent
+  extends BaseComponentComponent
   implements OnInit, OnDestroy, AfterViewInit {
+  origins: Research[];
   ngOnInit() {
+    this.origins = this.ms.game.researchManager.researches.filter(
+      (res) => res.exclusiveGroup === ExclusiveResGroups.FIRST_ORIGIN
+    );
     this.reloadUi();
     this.subscriptions.push(
       this.ms.updateEmitter.subscribe(() => {

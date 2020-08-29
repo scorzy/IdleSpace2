@@ -18,6 +18,7 @@ import { IResearchData } from "../data/iResearchData";
 import { BonusStack } from "../bonus/bonusStack";
 import { convertToRoman } from "ant-utils";
 import { Unit } from "../units/unit";
+import { ExclusiveResGroups } from "./exclusiveResGroups";
 
 const SHIP_RESEARCH_NAV_CAP_MULTI = 5;
 
@@ -34,12 +35,13 @@ export class ResearchManager extends JobManager {
   drag = false;
   sort = true;
   researchNotAdded = ZERO;
+  autoOrigin: Research;
   //#region Researches
   nukeResearch: Research;
   searching: Research;
   scavenging: Research;
   robotics: Research;
-  assimilation:Research;
+  assimilation: Research;
   //#endregion
   //#region Technologies
   militaryEngTech: Technology;
@@ -629,7 +631,13 @@ export class ResearchManager extends JobManager {
     if (this.backlog.findIndex((r) => r.id === res.id) > -1) {
       return false;
     }
-    if (this.newJobsOnBacklog || res.exclusiveGroup) this.backlog.push(res);
+    if (
+      this.newJobsOnBacklog ||
+      (res.exclusiveGroup &&
+        !this.toDo.some((r) => r.exclusiveGroup === res.exclusiveGroup) &&
+        res !== this.autoOrigin)
+    )
+      this.backlog.push(res);
     else this.toDo.push(res);
 
     return true;
@@ -711,6 +719,7 @@ export class ResearchManager extends JobManager {
         .map((res) => res.getSave())
     };
     if (this.newJobsOnBacklog) ret.k = this.newJobsOnBacklog;
+    if (this.autoOrigin) ret.a = this.autoOrigin.id;
     return ret;
   }
   load(data: any) {
@@ -760,6 +769,9 @@ export class ResearchManager extends JobManager {
     }
     if ("r" in data) {
       this.researchPriority = data.r;
+    }
+    if ("a" in data) {
+      this.autoOrigin = this.researches.find((res) => res.id === data.a);
     }
     this.done.forEach((res) => {
       res.onCompleted(true);
