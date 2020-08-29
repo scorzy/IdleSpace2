@@ -1,3 +1,6 @@
+29/08/2020
+-   Fixed black screen
+
 25/08/2020
 -   Auto 100%
 -   Increased stats of "Reactive Armour"
