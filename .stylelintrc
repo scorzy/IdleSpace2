@@ -4,5 +4,7 @@
     "stylelint-config-recommended",
     "stylelint-config-sass-guidelines",
     "stylelint-prettier/recommended"
-  ]
+  ],"rules": {
+    "selector-type-no-unknown": null
+  }
 }

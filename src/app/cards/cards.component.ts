@@ -27,7 +27,7 @@ export class CardsComponent implements OnInit, AfterViewInit {
   available: Array<PrestigeCard>;
   inUse: Array<PrestigeCard>;
   LEVEL_PER_CARD = LEVEL_PER_CARD;
-  @HostBinding("class.disableAnimation") animationDisabled = true;
+  @HostBinding("class.disable-animation") animationDisabled = true;
   constructor(public ms: MainService) {}
 
   ngOnInit(): void {

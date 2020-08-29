@@ -18,7 +18,7 @@ declare let preventScroll;
 })
 export class BaseComponentComponent
   implements OnInit, OnDestroy, AfterViewInit {
-  @HostBinding("class.disableAnimation") animationDisabled = true;
+  @HostBinding("class.disable-animation") animationDisabled = true;
   protected subscriptions: Subscription[] = [];
   constructor(public ms: MainService, protected cd: ChangeDetectorRef) {}
   ngOnInit() {

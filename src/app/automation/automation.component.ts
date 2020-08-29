@@ -14,7 +14,7 @@ import { MainService } from "../main.service";
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AutomationComponent implements OnInit, AfterViewInit {
-  @HostBinding("class.disableAnimation") animationDisabled = true;
+  @HostBinding("class.disable-animation") animationDisabled = true;
   constructor(public ms: MainService) {}
   ngOnInit(): void {}
   ngAfterViewInit() {

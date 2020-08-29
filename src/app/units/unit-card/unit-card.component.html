@@ -1,5 +1,5 @@
 <nz-card
-  style="width: 100%;"
+  style="width: 100%"
   nzSize="small"
   [nzTitle]="cardTitleTemplate"
   [nzExtra]="extraTemplate"
@@ -49,7 +49,7 @@
         {{ unit.operativity }} % Operative
         <button
           type="button"
-          style="width: auto;"
+          style="width: auto"
           class="ant-alert-close-icon"
           (click)="unit.operativity = 100"
         >
@@ -67,7 +67,7 @@
         Stopped
         <button
           type="button"
-          style="width: auto;"
+          style="width: auto"
           class="ant-alert-close-icon"
           (click)="unit.operativity = 100"
         >
@@ -176,7 +176,7 @@
 </nz-card>
 
 <ng-template #extraTemplate>
-  <span class="infoIcon" *ngIf="unit.production.length > 0">
+  <span class="info-icon" *ngIf="unit.production.length > 0">
     <span
       nz-popover
       [nzPopoverContent]="contentTemplate"

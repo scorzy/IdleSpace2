@@ -7,7 +7,7 @@ import {
 } from "@angular/core";
 import { BaseComponentComponent } from "../base-component/base-component.component";
 
-interface iPeriod {
+interface IPeriod {
   time: number;
   name: string;
   plural: string;
@@ -20,9 +20,10 @@ interface iPeriod {
   styleUrls: ["./warp.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class WarpComponent extends BaseComponentComponent
+export class WarpComponent
+  extends BaseComponentComponent
   implements OnInit, OnDestroy, AfterViewInit {
-  periods: iPeriod[] = [
+  periods: IPeriod[] = [
     {
       time: 60,
       name: "Minute",
@@ -63,7 +64,7 @@ export class WarpComponent extends BaseComponentComponent
 
   buyOptions = [1, 2, 5, 10, 30];
 
-  getPeriodId(index: number, period: iPeriod) {
+  getPeriodId(index: number, period: IPeriod) {
     return period.id;
   }
   /**
