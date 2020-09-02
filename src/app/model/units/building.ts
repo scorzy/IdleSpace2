@@ -123,7 +123,7 @@ export class Building extends Unit {
     if ("aDe" in save) this.autoDepartments = save.aDe;
     if ("d" in save) {
       for (const depSave of save.d) {
-        if ("q" in depSave) {
+        if ("i" in depSave) {
           const department = this.departments.find((d) => d.id === depSave.i);
           if (department) {
             department.quantity = new Decimal(depSave.q);

@@ -547,8 +547,8 @@ export class EnemyManager extends JobManager {
         return job;
       });
     }
-    if ("c" in data && "C"in data.c) {
-      console.log(data.c)
+
+    if ("c" in data && "c" in data.c) {
       this.currentEnemy = new Enemy();
       this.currentEnemy.load(data.c);
     }

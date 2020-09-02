@@ -633,7 +633,7 @@ export class ResourceManager {
   //#region Save and Load
   getSave(): any {
     return {
-      l: this.unlockedUnits.map((u) => u.getSave())
+      l: this.units.map((u) => u.getSave())
     };
   }
   load(data: any) {

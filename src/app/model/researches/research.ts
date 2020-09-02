@@ -251,7 +251,7 @@ export class Research extends Job implements IUnlockable, IBase {
      * First Research
      * Generate enemies and drone design
      */
-    if (this.id === "m") {
+    if (this.id === "m" && !force) {
       const em = Game.getGame().enemyManager;
       for (let i = 0; i < 3; i++) {
         const enemyJob = new SearchJob();
