@@ -1,3 +1,6 @@
+2/09/2020
+-   Fixed issues with save
+
 29/08/2020
 -   Fixed black screen
 -   Auto Origin
