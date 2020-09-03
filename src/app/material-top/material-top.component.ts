@@ -22,11 +22,13 @@ import { trigger } from "@angular/animations";
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [trigger("noop", [])]
 })
-export class MaterialTopComponent extends BaseComponentComponent
+export class MaterialTopComponent
+  extends BaseComponentComponent
   implements OnInit, OnDestroy, AfterViewInit {
   tplModal: NzModalRef;
   popoverTrigger: string = null;
   Decimal = Decimal;
+  buyString = "Max";
 
   constructor(
     ms: MainService,
@@ -70,5 +72,15 @@ export class MaterialTopComponent extends BaseComponentComponent
   }
   destroyTplModal() {
     this.tplModal.destroy();
+  }
+
+  setCustomBuy(fixed: boolean, num: number, text: string) {
+    this.ms.game.buyFixed = fixed;
+    if (this.ms.game.buyFixed) {
+      this.ms.game.customBuy = new Decimal(num);
+    } else {
+      this.ms.game.customBuyPercent = num;
+    }
+    this.buyString = text;
   }
 }
