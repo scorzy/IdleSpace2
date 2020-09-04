@@ -219,7 +219,7 @@ export const PRESTIGE_CARDS: ISimpleBase[] = [
     id: "s2",
     name: "More Computing",
     description:
-      "Increase computing regeneration by " + COMPUTING_MAX_CARD * 100 + "%",
+      "Increase maximum computing by " + COMPUTING_MAX_CARD * 100 + "%",
     icon: "my:computing"
   },
   //#endregion
