@@ -10,7 +10,8 @@ import {
   ONE,
   STORAGE_DEPARTMENT_MULTI,
   DEPARTMENT_TECH_MULTI,
-  BUILDING_PRICE_GROW_RATE
+  BUILDING_PRICE_GROW_RATE,
+  EXTRA_DISTRICTS_FROM_STATIONS
 } from "../CONSTANTS";
 import { Price } from "../prices/price";
 import { Components } from "./components";
@@ -417,9 +418,68 @@ export class ResourceManager {
       this.unlockedUnits[i].postUpdate();
     }
     this.deployComponents();
+    let habSpaceStation = ZERO;
+    let extraMining = ZERO;
+    let extraEnergy = ZERO;
+    const game = Game.getGame();
     for (let i = 0, n = this.spaceStations.length; i < n; i++) {
       this.spaceStations[i].reloadHabSpace();
     }
+    for (let i = 0, n = this.spaceStations.length; i < n; i++) {
+      let space = this.spaceStations[i].habSpace.times(
+        this.spaceStations[i].quantity
+      );
+      habSpaceStation = habSpaceStation.plus(space);
+      if (game.prestigeManager.extraMiningDistricts.active) {
+        extraMining = extraMining.plus(
+          space.times(EXTRA_DISTRICTS_FROM_STATIONS)
+        );
+      }
+      if (game.prestigeManager.extraEnergyDistricts.active) {
+        extraEnergy = extraEnergy.plus(
+          space.times(EXTRA_DISTRICTS_FROM_STATIONS)
+        );
+      }
+    }
+
+    let habTotal = this.habitableSpace.quantity;
+    let miningTotal = this.miningDistrict.quantity;
+    let energyTotal = this.energyDistrict.quantity;
+
+    for (let i = 0, n = this.buildings.length; i < n; i++) {
+      this.buildings[i].buyPrice.availableIn;
+
+      let price = this.buildings[i].buyPrice.prices[
+        this.buildings[i].buyPrice.prices.length - 1
+      ];
+      let spent = Decimal.sumGeometricSeries(
+        this.buildings[i].quantity,
+        price.cost,
+        price.growRate,
+        1
+      );
+      switch (price.spendable) {
+        case game.resourceManager.habitableSpace:
+          habTotal = habTotal.plus(spent);
+          break;
+        case game.resourceManager.miningDistrict:
+          miningTotal = miningTotal.plus(spent);
+          break;
+        case game.resourceManager.energyDistrict:
+          energyTotal = energyTotal.plus(spent);
+          break;
+      }
+    }
+
+    game.resourceManager.habitableSpace.spaceStationPercent = habSpaceStation
+      .div(habTotal)
+      .toNumber();
+    game.resourceManager.miningDistrict.spaceStationPercent = extraMining
+      .div(miningTotal)
+      .toNumber();
+    game.resourceManager.energyDistrict.spaceStationPercent = extraEnergy
+      .div(energyTotal)
+      .toNumber();
   }
   deployComponents() {
     if (this.components.quantity.lte(0.1)) {

@@ -115,6 +115,7 @@ import { NzPopconfirmModule } from "ng-zorro-antd/popconfirm";
 import { AutoRefreshComponent } from "./auto-buy/auto-refresh/auto-refresh.component";
 import { AutoModComponent } from "./auto-buy/auto-mod/auto-mod.component";
 import { AutoFullComponent } from './auto-buy/auto-full/auto-full.component';
+import { DistrictInfoComponent } from './units/district-info/district-info.component';
 
 registerLocaleData(en);
 
@@ -193,7 +194,8 @@ const ngZorroConfig: NzConfig = {
     UnitMenuComponent,
     AutoRefreshComponent,
     AutoModComponent,
-    AutoFullComponent
+    AutoFullComponent,
+    DistrictInfoComponent
   ],
   imports: [
     BrowserModule,

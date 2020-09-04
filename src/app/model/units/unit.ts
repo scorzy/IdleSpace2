@@ -50,6 +50,7 @@ export class Unit implements IBase, IUnlockable {
   battleMulti = 1;
   isLimited = false;
   exponentialLimit = false;
+  spaceStationPercent = 0;
   constructor(public unitData: IUnitData) {
     this.id = unitData.id;
     this.name = unitData.name;
@@ -70,9 +71,9 @@ export class Unit implements IBase, IUnlockable {
     if ("battleMulti" in unitData) {
       this.battleMulti = unitData.battleMulti;
     }
-    if("componentsPrice"in unitData){
-      this.componentBasePrice =new Decimal( unitData.componentsPrice )
-    } 
+    if ("componentsPrice" in unitData) {
+      this.componentBasePrice = new Decimal(unitData.componentsPrice);
+    }
   }
   public get uiLimit() {
     return this.limit;

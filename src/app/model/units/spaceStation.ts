@@ -11,6 +11,8 @@ import { Research } from "../researches/research";
 export class SpaceStation extends Unit {
   buildPrice = ZERO;
   habSpace = ZERO;
+  miningDistricts = ZERO;
+  energyDistricts = ZERO;
   habSpaceOriginal = ZERO;
   habSpaceStack: BonusStack;
   priceDivDabSpace = ZERO;
@@ -42,26 +44,34 @@ export class SpaceStation extends Unit {
     }
     const habSpace = Game.getGame().resourceManager.habitableSpace;
     const old = this.habSpace;
+    const oldMining = this.miningDistricts;
+    const oldEnergy = this.energyDistricts;
     this.habSpaceStack.reloadBonus();
     this.habSpace = this.habSpaceOriginal.times(this.habSpaceStack.totalBonus);
     habSpace.quantity = habSpace.quantity.plus(
       Decimal.minus(this.habSpace, old).times(this.quantity)
     );
-    const extraDistricts = Decimal.minus(this.habSpace, old).times(
-      EXTRA_DISTRICTS_FROM_STATIONS
-    );
-    if (extraDistricts.gt(0)) {
-      const game = Game.getGame();
-      if (game.prestigeManager.extraMiningDistricts.active) {
+
+    const game = Game.getGame();
+    if (game.prestigeManager.extraMiningDistricts.active) {
+      this.miningDistricts = this.habSpace.times(EXTRA_DISTRICTS_FROM_STATIONS);
+      const extraDistricts = this.miningDistricts.minus(oldMining);
+      if (extraDistricts.gt(0))
         game.resourceManager.miningDistrict.quantity = game.resourceManager.miningDistrict.quantity.plus(
           extraDistricts.times(this.quantity)
         );
-      }
-      if (game.prestigeManager.extraEnergyDistricts.active) {
+    } else {
+      this.miningDistricts = ZERO;
+    }
+    if (game.prestigeManager.extraEnergyDistricts.active) {
+      this.energyDistricts = this.habSpace.times(EXTRA_DISTRICTS_FROM_STATIONS);
+      const extraDistricts = this.energyDistricts.minus(oldEnergy);
+      if (extraDistricts.gt(0))
         game.resourceManager.energyDistrict.quantity = game.resourceManager.energyDistrict.quantity.plus(
           extraDistricts.times(this.quantity)
         );
-      }
+    } else {
+      this.energyDistricts = ZERO;
     }
 
     this.priceDivDabSpace = this.buildPriceNext.div(this.habSpace);
