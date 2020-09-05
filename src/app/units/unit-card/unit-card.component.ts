@@ -29,7 +29,8 @@ import { OptionsService } from "src/app/options.service";
   styleUrls: ["./unit-card.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class UnitCardComponent extends BaseComponentComponent
+export class UnitCardComponent
+  extends BaseComponentComponent
   implements OnInit, OnDestroy, AfterViewInit, OnChanges {
   @Input() unit: Worker;
   @Input() detailView = false;
@@ -44,6 +45,7 @@ export class UnitCardComponent extends BaseComponentComponent
   ONE = ONE;
   customBuy = ONE;
   hasDepartments = false;
+  isDistrict = false;
   constructor(
     ms: MainService,
     cd: ChangeDetectorRef,
@@ -74,6 +76,10 @@ export class UnitCardComponent extends BaseComponentComponent
     this.initialize();
   }
   initialize() {
+    this.isDistrict =
+      this.unit === this.ms.game.resourceManager.habitableSpace ||
+      this.unit === this.ms.game.resourceManager.miningDistrict ||
+      this.unit === this.ms.game.resourceManager.energyDistrict;
     this.popoverTrigger = "hover";
     if (this.unit instanceof Building) {
       this.building = this.unit;

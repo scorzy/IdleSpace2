@@ -1,4 +1,12 @@
-Space Station:
-<span class="monospace percent">
-  {{ district.spaceStationPercent | percent }}
-</span>
+<div class="max-width">
+  Battle:
+  <span class="monospace percent">
+    {{ 1 - district.spaceStationPercent | percent }}
+  </span>
+  <br />
+
+  Space Station:
+  <span class="monospace percent">
+    {{ district.spaceStationPercent | percent }}
+  </span>
+</div>
