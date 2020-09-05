@@ -26,6 +26,12 @@
             [nzValue]="interval.value"
           ></nz-option>
         </nz-select>
+        <nz-input-number
+          [(ngModel)]="ms.game.automationManager.fleetUpdater.maxLevel"
+          name="maxLvF"
+          id="maxLvF"
+          nzMin="0"
+        ></nz-input-number>
       </nz-input-group>
     </nz-form-control>
   </nz-form-item>
@@ -36,5 +42,6 @@
   <ul>
     <li>On / Off</li>
     <li>Interval</li>
+    <li>Max Level; 0 equals unlimited</li>
   </ul>
 </ng-template>

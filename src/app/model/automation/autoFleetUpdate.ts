@@ -3,6 +3,7 @@ import { Game } from "../game";
 
 export class AutoFleetUpdate extends AbstractAutobuyer {
   id = "fu";
+  maxLevel = 0;
   automate(): boolean {
     if (!Game.getGame().resourceManager.worker.unlocked) return false;
     const sm = Game.getGame().shipyardManager;
@@ -17,12 +18,16 @@ export class AutoFleetUpdate extends AbstractAutobuyer {
       let up = false;
       let newMinMax = Number.POSITIVE_INFINITY;
       copy.modules.forEach((mod) => {
-        if (mod.level < mod.module.maxLevel - 1) {
-          mod.level = mod.module.maxLevel - 1;
+        const max =
+          this.maxLevel > 0
+            ? Math.min(mod.module.maxLevel - 1, this.maxLevel)
+            : mod.module.maxLevel - 1;
+        if (mod.level < max) {
+          mod.level = max;
           up = true;
         }
-        if (mod.module.maxLevel - 1 < newMinMax) {
-          newMinMax = mod.module.maxLevel - 1;
+        if (max < newMinMax) {
+          newMinMax = max;
         }
       });
       if (up) {
@@ -48,4 +53,17 @@ export class AutoFleetUpdate extends AbstractAutobuyer {
 
     return updated;
   }
+  //#region Save and Load
+  getSave(): any {
+    const ret = super.getSave();
+    if (this.maxLevel > 0) ret.ma = this.maxLevel;
+    return ret;
+  }
+  load(save: any): boolean {
+    if (super.load(save)) {
+      if ("ma" in save) this.maxLevel = save.ma;
+      return true;
+    }
+  }
+  //#endregion
 }
