@@ -24,6 +24,10 @@ export class OptionsService {
   smallWarpNoti = true;
   allWarpNoti = true;
   prodStopNoti = true;
+  expNoti = true;
+  enemyDefeatNoti = true;
+  researchNoti = true;
+
   showComponentsInfo = true;
   showDronesStatus = true;
   spaceStationNotifications = true;
@@ -83,7 +87,10 @@ export class OptionsService {
       t2: this.operativityInfo,
       s: this.spaceStationNotifications,
       l: this.listUi,
-      f: this.showDescriptions
+      f: this.showDescriptions,
+      en: this.expNoti,
+      ed: this.enemyDefeatNoti,
+      rn: this.researchNoti
     };
   }
   load(data: any) {
@@ -106,6 +113,9 @@ export class OptionsService {
     if ("s" in data) this.spaceStationNotifications = data.s;
     if ("l" in data) this.listUi = data.l;
     if ("f" in data) this.showDescriptions = data.f;
+    if ("en" in data) this.expNoti = data.en;
+    if ("ed" in data) this.enemyDefeatNoti = data.ed;
+    if ("rn" in data) this.researchNoti = data.rn;
 
     if ("t1" in data) this.districtInfo = data.t1;
     if ("t2" in data) this.operativityInfo = data.t2;

@@ -32,6 +32,24 @@ export class NotificationManager {
     ) {
       return;
     }
+    if (
+      noti.type === NotificationTypes.EXPERIENCE &&
+      !OptionsService.instance.expNoti
+    ) {
+      return;
+    }
+    if (
+      noti.type === NotificationTypes.ENEMY_DEFEATED &&
+      !OptionsService.instance.enemyDefeatNoti
+    ) {
+      return;
+    }
+    if (
+      noti.type === NotificationTypes.RESEARCH &&
+      !OptionsService.instance.researchNoti
+    ) {
+      return;
+    }
 
     MainService?.instance?.notificationEmitter?.emit(noti);
   }

@@ -143,6 +143,27 @@
     <nz-switch name="w2" [(ngModel)]="os.smallWarpNoti"></nz-switch>
   </nz-form-item>
 
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="w2">
+      Experience notifications
+    </nz-form-label>
+    <nz-switch name="experience" [(ngModel)]="os.expNoti"></nz-switch>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="w2">
+      Enemy defeat notifications
+    </nz-form-label>
+    <nz-switch name="defeat" [(ngModel)]="os.enemyDefeatNoti"></nz-switch>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="w2">
+      Research notifications
+    </nz-form-label>
+    <nz-switch name="research" [(ngModel)]="os.researchNoti"></nz-switch>
+  </nz-form-item>
+
   <h2>Tutorial info</h2>
 
   <nz-form-item>
