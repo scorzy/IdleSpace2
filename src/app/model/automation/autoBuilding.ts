@@ -9,6 +9,7 @@ export enum BuildingAutoBuyTypes {
 }
 export class AutoBuilding extends AbstractAutobuyer {
   autoBuyType: BuildingAutoBuyTypes = BuildingAutoBuyTypes.AS_NEED;
+  maxBuy = 1;
   constructor(public building: Building) {
     super();
     this.id = "-" + building.id;
@@ -21,7 +22,7 @@ export class AutoBuilding extends AbstractAutobuyer {
     let ret = false;
     switch (this.autoBuyType) {
       case BuildingAutoBuyTypes.ASAP:
-        ret = this.building.buy(ONE);
+        ret = this.building.buy(new Decimal(this.maxBuy));
         break;
       case BuildingAutoBuyTypes.AS_NEED:
         if (
@@ -42,11 +43,13 @@ export class AutoBuilding extends AbstractAutobuyer {
   getSave(): any {
     const ret = super.getSave();
     ret.aut = this.autoBuyType;
+    if (this.maxBuy !== 1) ret.mb = this.maxBuy;
     return ret;
   }
   load(save: any): boolean {
     if (super.load(save)) {
       this.autoBuyType = save.aut ?? BuildingAutoBuyTypes.AS_NEED;
+      if ("mb" in save) this.maxBuy = save.mb;
       return true;
     }
   }

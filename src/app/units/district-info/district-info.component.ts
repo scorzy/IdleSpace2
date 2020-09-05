@@ -2,9 +2,14 @@ import {
   Component,
   OnInit,
   ChangeDetectionStrategy,
-  Input
+  Input,
+  OnDestroy,
+  AfterViewInit,
+  ChangeDetectorRef
 } from "@angular/core";
 import { Unit } from "src/app/model/units/unit";
+import { BaseComponentComponent } from "src/app/base-component/base-component.component";
+import { MainService } from "src/app/main.service";
 
 @Component({
   selector: "app-district-info",
@@ -12,10 +17,11 @@ import { Unit } from "src/app/model/units/unit";
   styleUrls: ["./district-info.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DistrictInfoComponent implements OnInit {
+export class DistrictInfoComponent
+  extends BaseComponentComponent
+  implements OnInit, OnDestroy, AfterViewInit {
   @Input() district: Unit;
-
-  constructor() {}
-
-  ngOnInit(): void {}
+  constructor(ms: MainService, cd: ChangeDetectorRef) {
+    super(ms, cd);
+  }
 }

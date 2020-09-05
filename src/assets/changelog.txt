@@ -1,5 +1,6 @@
 5/09/2020
 -   Districts percent info
+-   Buildings max buy
 
 3/09/2020
 -   Buy menu on top

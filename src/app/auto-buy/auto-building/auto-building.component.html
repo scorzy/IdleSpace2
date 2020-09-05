@@ -40,12 +40,41 @@
             [nzValue]="interval.value"
           ></nz-option>
         </nz-select>
-        <nz-input-number
-          nzSize="small"
-          [name]="autoBuilding.id + 'P'"
-          [(ngModel)]="autoBuilding.priority"
-        ></nz-input-number>
       </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item
+    *ngIf="autoBuilding.autoBuyType !== BuildingAutoBuyTypes.AS_NEED"
+  >
+    <nz-form-label
+      nz-popover
+      nzPopoverTitle="Max buy"
+      nzPopoverContent="Buy up to 'max buy' at time. Works only with 'Asap' mode."
+      >Max buy</nz-form-label
+    >
+    <nz-form-control>
+      <nz-input-number
+        nzSize="small"
+        [name]="autoBuilding.id + 'M'"
+        [(ngModel)]="autoBuilding.maxBuy"
+      ></nz-input-number>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label
+      nz-popover
+      nzPopoverTitle="Priority"
+      nzPopoverContent="In case more auto buyer are available on the same update cycle, high priority execute first."
+      >Priority
+    </nz-form-label>
+    <nz-form-control>
+      <nz-input-number
+        nzSize="small"
+        [name]="autoBuilding.id + 'P'"
+        [(ngModel)]="autoBuilding.priority"
+      ></nz-input-number>
     </nz-form-control>
   </nz-form-item>
 </form>
@@ -55,9 +84,5 @@
   <ul>
     <li>On / Off, Type</li>
     <li>Interval</li>
-    <li>
-      Priority <br />
-      (bigger number = high priority)
-    </li>
   </ul>
 </ng-template>
