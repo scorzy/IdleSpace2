@@ -33,12 +33,6 @@ export class Unit implements IBase, IUnlockable {
   private _oldLimit = Decimal.MAX_VALUE;
   limitStack: BonusStack;
   limitStackMulti: BonusStack;
-  storedComponents = ZERO;
-  needComponents = ZERO;
-  componentBasePrice = COMPONENT_PRICE;
-  components = COMPONENT_PRICE;
-  componentsTemp = COMPONENT_PRICE;
-  componentPercent = 0;
 
   quantity = new Decimal();
   private _quantityOld = this.quantity;
@@ -70,9 +64,6 @@ export class Unit implements IBase, IUnlockable {
     }
     if ("battleMulti" in unitData) {
       this.battleMulti = unitData.battleMulti;
-    }
-    if ("componentsPrice" in unitData) {
-      this.componentBasePrice = new Decimal(unitData.componentsPrice);
     }
   }
   public get uiLimit() {
@@ -201,6 +192,7 @@ export class Unit implements IBase, IUnlockable {
   getSave(): any {
     const ret: any = {};
     ret.i = this.id;
+    if (this.unlocked) ret.un = this.unlocked;
     if (this.operativity !== 100) {
       ret.o = this.operativity;
     }
@@ -215,6 +207,9 @@ export class Unit implements IBase, IUnlockable {
   load(save: any) {
     if (!("i" in save) || save.i !== this.id) {
       return false;
+    }
+    if ("un" in save) {
+      this.unlocked = save.un;
     }
     if ("o" in save) {
       this.operativity = save.o;

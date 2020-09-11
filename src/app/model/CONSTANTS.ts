@@ -25,6 +25,14 @@ export const MAT_IDS = {
   Components: "x",
   Nuke: "b"
 };
+export const MEGA_IDS = {
+  DysonSphere: "m0",
+  MegaLaboratory: "m1",
+  MegaFoundry: "m2",
+  MegaShipyard: "m3",
+  MegaTelescope: "m4",
+  MegaNaval: "m5"
+};
 export const UNIT_PRICE_GROW_RATE = 1.04;
 export const BUILDING_PRICE_GROW_RATE = 1.08;
 export const SPACE_STATION_PRICE = 1e6;
@@ -124,6 +132,9 @@ export const ALLOY_BUILDING_PRICE = 1e4;
 
 //  Megastructures
 export const MEGA_PRICE_MULTI = 1e3;
+export const MEGA_WORKER_MULTI = 0.3;
+export const MEGA_EFF_MULTI = 0.1;
+export const MEGA_NAVAL_MULTI = 0.2;
 
 //  Computing
 export const BASE_COMPUTING = 1e4;

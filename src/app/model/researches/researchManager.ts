@@ -95,16 +95,16 @@ export class ResearchManager extends JobManager {
     this.assimilation = this.researches.find((res) => res.id === "ns1");
     this.robotics = this.researches.find((res) => res.id === "x");
 
-    for (let i = 0; i < 9; i++) {
+    for (let i = 0; i < 10; i++) {
       const resData: IResearchData = {
         id: "n" + i,
         max: 1,
-        name: "Naval Logistics " + convertToRoman(i),
+        name: "Naval Logistics " + i,
         description: "Increase Naval Capacity",
         type: TECHNOLOGIES.Naval,
-        navalCapacity: 30 * Math.pow(1.8, i)
+        navalCapacity: 30 * Math.pow(1.75, i)
       };
-      if (i + 1 < 9) {
+      if (i + 1 < 10) {
         resData.researchToUnlock = ["n" + (i + 1)];
       }
       if (i > 1) {
@@ -178,7 +178,7 @@ export class ResearchManager extends JobManager {
         const resData: IResearchData = {
           id: res.id + i,
           max: 1,
-          name: res.name + " " + convertToRoman(i + 1),
+          name: res.name + " " + (i + 1) + " " + (res.id + i),
           description: res.name,
           type: res.tech
         };

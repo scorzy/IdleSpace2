@@ -36,7 +36,11 @@ export abstract class Job {
     const prev = this.progress;
     this.progress = this.progress.plus(toAdd);
     let ret: Decimal;
-    if (this.progress.gte(this.total) || this.total.lte(0)) {
+    if (
+      this.progress.gte(this.total) ||
+      this.total.lte(0) ||
+      this.progress.div(this.total).gte(0.9999)
+    ) {
       // Completed !
       ret = this.progress.minus(this.total);
       ret = ret.div(this.totalBonus);

@@ -8,7 +8,12 @@ import {
   COMPONENT_STORAGE,
   METAL_BUILDING_PRICE,
   ALLOY_BUILDING_PRICE,
-  BUILDING_LIMIT
+  BUILDING_LIMIT,
+  IDS,
+  MEGA_WORKER_MULTI,
+  MEGA_EFF_MULTI,
+  MEGA_IDS,
+  MEGA_NAVAL_MULTI
 } from "../CONSTANTS";
 import { RD, PROD_DEP, STORAGE_DEP, MAINTENANCE_DEP } from "./departments";
 export enum UNIT_TYPES {
@@ -183,7 +188,7 @@ export const UNITS: IUnitData[] = [
       { technologyId: TECHNOLOGIES.Robotics.id, multi: MOD_PER_ROBOTICS },
       { technologyId: TECHNOLOGIES.Computing.id, multi: MOD_PER_OTHERS }
     ],
-    componentsPrice:15
+    componentsPrice: 15
   },
   {
     id: "a",
@@ -208,7 +213,7 @@ export const UNITS: IUnitData[] = [
       { technologyId: TECHNOLOGIES.Robotics.id, multi: MOD_PER_ROBOTICS },
       { technologyId: TECHNOLOGIES.Materials.id, multi: MOD_PER_OTHERS }
     ],
-    componentsPrice:15
+    componentsPrice: 15
   },
   {
     id: "w",
@@ -243,7 +248,7 @@ export const UNITS: IUnitData[] = [
         multi: MOD_PER_OTHERS / 2.5
       }
     ],
-    componentsPrice:20
+    componentsPrice: 20
   },
   {
     id: "r",
@@ -271,7 +276,7 @@ export const UNITS: IUnitData[] = [
       { technologyId: TECHNOLOGIES.Robotics.id, multi: MOD_PER_ROBOTICS },
       { technologyId: TECHNOLOGIES.Search.id, multi: MOD_PER_OTHERS }
     ],
-    componentsPrice:20
+    componentsPrice: 20
   },
   {
     id: "X",
@@ -301,7 +306,7 @@ export const UNITS: IUnitData[] = [
         multi: MOD_PER_ROBOTICS + MOD_PER_OTHERS + 0.1
       }
     ],
-    componentsPrice:40
+    componentsPrice: 40
   },
   {
     id: "B",
@@ -330,7 +335,7 @@ export const UNITS: IUnitData[] = [
       { technologyId: TECHNOLOGIES.Naval.id, multi: MOD_PER_OTHERS / 2.5 },
       { technologyId: TECHNOLOGIES.Propulsion.id, multi: MOD_PER_OTHERS / 2.5 }
     ],
-    componentsPrice:40
+    componentsPrice: 40
   },
   //#endregion
   //#region Districts
@@ -563,27 +568,49 @@ export const UNITS: IUnitData[] = [
   //#endregion
   //#region MegaStructure
   {
-    id: "m0",
+    id: MEGA_IDS.DysonSphere,
     name: "Dyson Sphere",
     description: "",
-    unitType: UNIT_TYPES.MEGASTRUCTURE
+    unitType: UNIT_TYPES.MEGASTRUCTURE,
+    workerMulti: [{ workerId: IDS.Technician, multi: MEGA_WORKER_MULTI }],
+    effMulti: [{ workerId: IDS.Technician, multi: MEGA_EFF_MULTI }]
   },
   {
-    id: "m1",
+    id: MEGA_IDS.MegaLaboratory,
     name: "Mega Laboratory",
     description: "",
-    unitType: UNIT_TYPES.MEGASTRUCTURE
+    unitType: UNIT_TYPES.MEGASTRUCTURE,
+    workerMulti: [{ workerId: IDS.Scientist, multi: MEGA_WORKER_MULTI }],
+    effMulti: [{ workerId: IDS.Scientist, multi: MEGA_EFF_MULTI }]
   },
   {
-    id: "m2",
+    id: MEGA_IDS.MegaFoundry,
     name: "Mega Foundry",
     description: "",
-    unitType: UNIT_TYPES.MEGASTRUCTURE
+    unitType: UNIT_TYPES.MEGASTRUCTURE,
+    workerMulti: [{ workerId: IDS.Metallurgist, multi: MEGA_WORKER_MULTI }],
+    effMulti: [{ workerId: IDS.Metallurgist, multi: MEGA_EFF_MULTI }]
   },
   {
-    id: "m3",
+    id: MEGA_IDS.MegaShipyard,
     name: "Mega Shipyard",
     description: "",
+    unitType: UNIT_TYPES.MEGASTRUCTURE,
+    workerMulti: [{ workerId: IDS.Worker, multi: MEGA_WORKER_MULTI }],
+    effMulti: [{ workerId: IDS.Worker, multi: MEGA_EFF_MULTI }]
+  },
+  {
+    id: MEGA_IDS.MegaTelescope,
+    name: "Mega Telescope",
+    description: "",
+    unitType: UNIT_TYPES.MEGASTRUCTURE,
+    workerMulti: [{ workerId: IDS.Searcher, multi: MEGA_WORKER_MULTI }],
+    effMulti: [{ workerId: IDS.Searcher, multi: MEGA_EFF_MULTI }]
+  },
+  {
+    id: MEGA_IDS.MegaNaval,
+    name: "Mega Coordination Center",
+    description: "+ " + MEGA_NAVAL_MULTI * 100 + "% naval capacity",
     unitType: UNIT_TYPES.MEGASTRUCTURE
   }
   //#endregion

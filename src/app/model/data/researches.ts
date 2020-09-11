@@ -7,13 +7,10 @@ import {
   ORIGIN_1_TECH_2_MULTI,
   REPEATABLE_RES_PRICE_MULTI,
   IDS,
-  MAT_IDS
+  MAT_IDS,
+  MEGA_IDS
 } from "../CONSTANTS";
 import { ExclusiveResGroups } from "../researches/exclusiveResGroups";
-
-const megastructures = UNITS.filter(
-  (u) => u.unitType === UNIT_TYPES.MEGASTRUCTURE
-).map((u) => u.id);
 
 export const RESEARCHES: IResearchData[] = [
   //#region Researches
@@ -581,6 +578,62 @@ export const RESEARCHES: IResearchData[] = [
     type: TECHNOLOGIES.CivilEngineering,
     limitMulti: [{ unitId: IDS.Technician, multi: 0.01, secondUnitId: "i2" }],
     inspirationSpaceStationId: "i2"
+  },
+  //#endregion
+  //#region MegStructures
+  {
+    id: "M" + MEGA_IDS.DysonSphere,
+    name: "Dyson Sphere",
+    max: 1,
+    description: "",
+    type: TECHNOLOGIES.Energy,
+    unitsToUnlock: [MEGA_IDS.DysonSphere],
+    unlockFrom: "E8"
+  },
+  {
+    id: "M" + MEGA_IDS.MegaFoundry,
+    name: "Mega Foundry",
+    max: 1,
+    description: "",
+    type: TECHNOLOGIES.Materials,
+    unitsToUnlock: [MEGA_IDS.MegaFoundry],
+    unlockFrom: "M8"
+  },
+  {
+    id: "M" + MEGA_IDS.MegaLaboratory,
+    name: "Mega Laboratory",
+    max: 1,
+    description: "",
+    type: TECHNOLOGIES.Physics,
+    unitsToUnlock: [MEGA_IDS.MegaLaboratory],
+    unlockFrom: "p8"
+  },
+  {
+    id: "M" + MEGA_IDS.MegaShipyard,
+    name: "Mega Shipyard",
+    max: 1,
+    description: "",
+    type: TECHNOLOGIES.CivilEngineering,
+    unitsToUnlock: [MEGA_IDS.MegaShipyard],
+    unlockFrom: "i6"
+  },
+  {
+    id: "M" + MEGA_IDS.MegaTelescope,
+    name: "Mega Telescope",
+    max: 1,
+    description: "",
+    type: TECHNOLOGIES.Search,
+    unitsToUnlock: [MEGA_IDS.MegaTelescope],
+    unlockFrom: "h8"
+  },
+  {
+    id: "M" + MEGA_IDS.MegaNaval,
+    name: "Mega Coordination Center",
+    max: 1,
+    description: "",
+    type: TECHNOLOGIES.Naval,
+    unitsToUnlock: [MEGA_IDS.MegaNaval],
+    unlockFrom: "n9"
   }
   //#endregion
 ];

@@ -39,9 +39,7 @@
             ></i>
             Hab. Space
           </th>
-          <th>
-            Price/Space
-          </th>
+          <th>Price/Space</th>
           <th>Queue?</th>
         </tr>
       </thead>
@@ -93,7 +91,10 @@
       </div>
 
       <ng-container
-        *ngFor="let mega of ms.game.resourceManager.unlockedMegastructures"
+        *ngFor="
+          let mega of ms.game.resourceManager.unlockedMegastructures;
+          trackBy: getUnitId
+        "
       >
         <button
           class="mega-button"
@@ -101,14 +102,27 @@
           nz-popover
           nzType="primary"
           [nzPopoverTitle]="mega.name"
-          [nzPopoverContent]="mega.description"
+          [nzPopoverContent]="megaTemplate"
           (click)="addStation(mega)"
         >
           {{ mega.name }}
-          <span *ngIf="mega.quantity.gt(0)" class="monospace">
+          <span *ngIf="mega.quantity.gt(0)" class="monospace mega-qta">
             {{ mega.quantity | format: true }}
           </span>
         </button>
+        <ng-template #megaTemplate>
+          <p *ngIf="mega.description !== ''">{{ mega.description }}</p>
+          <ul class="list-unstyled">
+            <li *ngFor="let wm of mega.workerMulti">
+              +{{ wm.multi | percent }}
+              <span class="text-secondary">maximum</span> {{ wm.worker.name }}
+            </li>
+            <li *ngFor="let wf of mega.effMulti">
+              {{ wf.worker.name }} <span class="text-secondary">yields</span>
+              {{ wf.multi | percent }} more
+            </li>
+          </ul>
+        </ng-template>
       </ng-container>
     </div>
   </div>

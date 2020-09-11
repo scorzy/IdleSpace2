@@ -11,7 +11,8 @@ import {
   STORAGE_DEPARTMENT_MULTI,
   DEPARTMENT_TECH_MULTI,
   BUILDING_PRICE_GROW_RATE,
-  EXTRA_DISTRICTS_FROM_STATIONS
+  EXTRA_DISTRICTS_FROM_STATIONS,
+  MEGA_IDS
 } from "../CONSTANTS";
 import { Price } from "../prices/price";
 import { Components } from "./components";
@@ -47,8 +48,8 @@ export class ResourceManager {
   unlockedBuildings = new Array<Building>();
   spaceStations = new Array<SpaceStation>();
   unlockedSpaceStations = new Array<SpaceStation>();
-  megastructures = new Array<Unit>();
-  unlockedMegastructures = new Array<Unit>();
+  megastructures = new Array<MegaStructure>();
+  unlockedMegastructures = new Array<MegaStructure>();
   subLists: {
     name: string;
     icon: string;
@@ -91,6 +92,8 @@ export class ResourceManager {
   miningDistrict: Unit;
   energyDistrict: Unit;
   shipyardWork: Unit;
+
+  megaNaval: MegaStructure;
   //#endregion
   constructor() {}
   makeUnits() {
@@ -161,6 +164,10 @@ export class ResourceManager {
     this.droneDepot = this.buildings.find((u) => u.id === "9");
     this.nukeSilos = this.buildings.find((u) => u.id === "11");
 
+    this.megaNaval = this.megastructures.find(
+      (u) => u.id === MEGA_IDS.MegaNaval
+    );
+
     //  Production
     this.workers.forEach((unit) => {
       const unitData = UNITS.find((u) => u.id === unit.id);
@@ -199,9 +206,6 @@ export class ResourceManager {
     );
     this.districts = this.units.filter(
       (u) => u.unitData.unitType === UNIT_TYPES.DISTRICT
-    );
-    this.megastructures = this.units.filter(
-      (u) => u.unitData.unitType === UNIT_TYPES.MEGASTRUCTURE
     );
 
     //  Space Stations
@@ -698,12 +702,12 @@ export class ResourceManager {
   }
   load(data: any) {
     if (!("l" in data)) {
-      throw new Error("Save not valid! missin units");
+      throw new Error("Save not valid! missing units");
     }
     for (const uData of data.l) {
       const unit = this.units.find((u) => u.id === uData.i);
-      unit.unlocked = true;
       unit.load(uData);
+      if (unit.quantity.gt(0)) unit.unlocked = true;
     }
     this.reloadLists();
   }

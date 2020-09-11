@@ -8,7 +8,8 @@ import {
   SIX_HOURS,
   LEVEL_PER_CARD,
   UPDATE_WARP_CARD,
-  NAVAL_CAP_CARD_MULTI
+  NAVAL_CAP_CARD_MULTI,
+  MEGA_NAVAL_MULTI
 } from "./CONSTANTS";
 import { EnemyManager } from "./enemy/enemyManager";
 import { BattleResult, Stats } from "./battle/battleResult";
@@ -176,7 +177,7 @@ export class Game {
     this.automationManager.update();
 
     let n = 0;
-    while (toUpdate > 0) {
+    while (toUpdate > 0 && n < 20) {
       n++;
       this.resourceManager.shipyardWork.limit = this.shipyardManager
         .getWorkNeeded()
@@ -279,6 +280,12 @@ export class Game {
         .toNumber();
     }
     this.navalCapacity += this.researchManager.navalCapTech.quantity.toNumber();
+    if (this.resourceManager.megaNaval.quantity.gt(0)) {
+      this.navalCapacity *=
+        1 +
+        this.resourceManager.megaNaval.quantity.toNumber() * MEGA_NAVAL_MULTI;
+    }
+
     if (this.prestigeManager.navalCapCard.active) {
       this.navalCapacity *= 1 + NAVAL_CAP_CARD_MULTI;
     }

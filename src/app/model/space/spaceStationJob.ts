@@ -49,7 +49,7 @@ export class SpaceStationJob extends Job {
     game.notificationManager.addNotification(
       new MyNotification(
         NotificationTypes.SPACE_STATION_COMPLETED,
-        this.spaceStation.name + " completed."
+        this.spaceStation.name //+ " completed."
       )
     );
 

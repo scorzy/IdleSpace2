@@ -6,7 +6,8 @@ import {
   ZERO,
   MOD_COMPONENTS,
   MOD_RECYCLING,
-  MAX_RECYCLING
+  MAX_RECYCLING,
+  COMPONENT_PRICE
 } from "../CONSTANTS";
 import { IUnitData } from "../data/iUnitData";
 import { Technology } from "../researches/technology";
@@ -29,14 +30,24 @@ export class Worker extends Unit {
   autoBuyer: AutoWorker;
   autoMod: AutoMod;
   modPage = false;
+
+  storedComponents = ZERO;
+  needComponents = ZERO;
+  componentBasePrice = COMPONENT_PRICE;
+  components = COMPONENT_PRICE;
+  componentsTemp = COMPONENT_PRICE;
+  componentPercent = 0;
   constructor(public unitData: IUnitData) {
     super(unitData);
+    if ("componentsPrice" in unitData) {
+      this.componentBasePrice = new Decimal(unitData.componentsPrice);
+    }
   }
   reloadComponentPrice() {
     const baseRecycling = Game.getGame().baseRecycling;
     const recyclingMulti = Game.getGame().recyclingMulti.totalBonus;
     this.components = this.componentBasePrice;
-    this.componentsTemp =  this.componentBasePrice;
+    this.componentsTemp = this.componentBasePrice;
     if (this.modStack && this.modStack.componentsMod) {
       this.components = this.components.minus(
         this.modStack.componentsMod.quantity.times(MOD_COMPONENTS)
