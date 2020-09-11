@@ -1,3 +1,6 @@
+11/09/2020
+-   Research boost notification options
+
 5/09/2020
 -   Districts percent info
 -   Buildings max buy

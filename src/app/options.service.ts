@@ -27,6 +27,7 @@ export class OptionsService {
   expNoti = true;
   enemyDefeatNoti = true;
   researchNoti = true;
+  researchBoostNoti = true;
 
   showComponentsInfo = true;
   showDronesStatus = true;
@@ -90,7 +91,8 @@ export class OptionsService {
       f: this.showDescriptions,
       en: this.expNoti,
       ed: this.enemyDefeatNoti,
-      rn: this.researchNoti
+      rn: this.researchNoti,
+      rb: this.researchBoostNoti
     };
   }
   load(data: any) {
@@ -116,6 +118,7 @@ export class OptionsService {
     if ("en" in data) this.expNoti = data.en;
     if ("ed" in data) this.enemyDefeatNoti = data.ed;
     if ("rn" in data) this.researchNoti = data.rn;
+    if ("rb" in data) this.researchBoostNoti = data.rb;
 
     if ("t1" in data) this.districtInfo = data.t1;
     if ("t2" in data) this.operativityInfo = data.t2;

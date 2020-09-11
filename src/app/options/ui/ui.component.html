@@ -144,24 +144,34 @@
   </nz-form-item>
 
   <nz-form-item>
-    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="w2">
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="experience">
       Experience notifications
     </nz-form-label>
     <nz-switch name="experience" [(ngModel)]="os.expNoti"></nz-switch>
   </nz-form-item>
 
   <nz-form-item>
-    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="w2">
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="defeat">
       Enemy defeat notifications
     </nz-form-label>
     <nz-switch name="defeat" [(ngModel)]="os.enemyDefeatNoti"></nz-switch>
   </nz-form-item>
 
   <nz-form-item>
-    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="w2">
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="research">
       Research notifications
     </nz-form-label>
     <nz-switch name="research" [(ngModel)]="os.researchNoti"></nz-switch>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="research-boost">
+      Research boost notifications
+    </nz-form-label>
+    <nz-switch
+      name="research-boost"
+      [(ngModel)]="os.researchBoostNoti"
+    ></nz-switch>
   </nz-form-item>
 
   <h2>Tutorial info</h2>

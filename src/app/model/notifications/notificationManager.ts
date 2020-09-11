@@ -50,6 +50,12 @@ export class NotificationManager {
     ) {
       return;
     }
+    if (
+      noti.type === NotificationTypes.RESEARCH_INSPIRED &&
+      !OptionsService.instance.researchBoostNoti
+    ) {
+      return;
+    }
 
     MainService?.instance?.notificationEmitter?.emit(noti);
   }
