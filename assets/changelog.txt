@@ -1,5 +1,6 @@
 12/09/2020
 -   Megastructure
+-   Warps keyboard shortcuts (options section)
 
 11/09/2020
 -   Research boost notification options
