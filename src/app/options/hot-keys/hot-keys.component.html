@@ -1,0 +1,46 @@
+<h2>Keyboard shortcuts</h2>
+<h4>Dark Matter Warp: key - minutes</h4>
+
+<form nz-form>
+  <nz-form-item *ngFor="let warpKey of os.warpKeys; let i = index">
+    <nz-form-control>
+      <nz-input-group nzCompact="true">
+        <input
+          class="key-input"
+          nz-input
+          placeholder="key"
+          [name]="'k' + warpKey.id"
+          [(ngModel)]="warpKey.key"
+        />
+        <nz-input-number
+          nzMin="0"
+          [(ngModel)]="warpKey.minutes"
+          [name]="'m' + warpKey.id"
+        >
+        </nz-input-number>
+
+        <i
+          nz-icon
+          nzType="minus-circle-o"
+          class="dynamic-delete-button"
+          (click)="removeField(warpKey)"
+        ></i>
+      </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-control>
+      <button
+        nz-button
+        nzType="dashed"
+        class="add-button"
+        (click)="addLine($event)"
+        *ngIf="os.warpKeys.length < 10"
+      >
+        <i nz-icon nzType="plus"></i>
+        <span>Add</span>
+      </button>
+    </nz-form-control>
+  </nz-form-item>
+</form>

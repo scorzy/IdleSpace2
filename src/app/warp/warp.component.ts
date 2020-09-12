@@ -72,9 +72,7 @@ export class WarpComponent
    * @param time seconds
    */
   warp(time: number) {
-    if (this.ms.game.darkMatter.lt(time)) return false;
-    this.ms.game.darkMatter = this.ms.game.darkMatter.minus(time);
-    this.ms.game.timeToWarp = this.ms.game.timeToWarp + time;
+    this.ms.game.warp(time);
   }
   isEnabled() {}
 }

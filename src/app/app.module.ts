@@ -116,6 +116,7 @@ import { AutoRefreshComponent } from "./auto-buy/auto-refresh/auto-refresh.compo
 import { AutoModComponent } from "./auto-buy/auto-mod/auto-mod.component";
 import { AutoFullComponent } from './auto-buy/auto-full/auto-full.component';
 import { DistrictInfoComponent } from './units/district-info/district-info.component';
+import { HotKeysComponent } from './options/hot-keys/hot-keys.component';
 
 registerLocaleData(en);
 
@@ -195,7 +196,8 @@ const ngZorroConfig: NzConfig = {
     AutoRefreshComponent,
     AutoModComponent,
     AutoFullComponent,
-    DistrictInfoComponent
+    DistrictInfoComponent,
+    HotKeysComponent
   ],
   imports: [
     BrowserModule,

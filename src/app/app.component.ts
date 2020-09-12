@@ -5,7 +5,8 @@ import {
   ViewChild,
   TemplateRef,
   ChangeDetectionStrategy,
-  ChangeDetectorRef
+  ChangeDetectorRef,
+  HostListener
 } from "@angular/core";
 import { MainService } from "./main.service";
 import { NzNotificationService } from "ng-zorro-antd/notification";
@@ -77,5 +78,11 @@ export class AppComponent implements OnInit, OnDestroy {
   }
   ngOnDestroy() {
     this.subscriptions.forEach((sub: Subscription) => sub.unsubscribe());
+  }
+  @HostListener("window:keyup", ["$event"])
+  onKey(event: KeyboardEvent) {
+    if ((<Element>event.target).tagName !== "BODY") return;
+    const warp = this.os.warpKeys.find((k) => k.key === event.key);
+    if (warp && warp.minutes > 0) this.ms.game.warp(warp.minutes * 60);
   }
 }

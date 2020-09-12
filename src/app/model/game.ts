@@ -397,6 +397,15 @@ export class Game {
       totalScience.times(timeToWarp)
     );
   }
+  /**
+   * Warp with Dark Matter
+   * @param time warp in seconds
+   */
+  warp(time: number) {
+    if (this.darkMatter.lt(time)) return false;
+    this.darkMatter = this.darkMatter.minus(time);
+    this.timeToWarp = this.timeToWarp + time;
+  }
   //#region Save and Load
   getSave(): any {
     return {

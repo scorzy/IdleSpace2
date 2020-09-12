@@ -37,6 +37,12 @@ export class OptionsService {
 
   districtInfo = true;
   operativityInfo = true;
+  warpKeys: {
+    id: number;
+    key: string;
+    minutes: number;
+  }[];
+  lastWarpId = 3;
   constructor() {
     try {
       const n = 1.1;
@@ -48,6 +54,15 @@ export class OptionsService {
 
     this.generateFormatter();
     OptionsService.instance = this;
+    this.warpKeys = [
+      {
+        id: 1,
+        key: "m",
+        minutes: 1
+      },
+      { id: 2, key: "h", minutes: 60 },
+      { id: 3, key: "g", minutes: 1440 }
+    ];
   }
   generateFormatter() {
     this.formatId++;
@@ -92,7 +107,8 @@ export class OptionsService {
       en: this.expNoti,
       ed: this.enemyDefeatNoti,
       rn: this.researchNoti,
-      rb: this.researchBoostNoti
+      rb: this.researchBoostNoti,
+      wk: this.warpKeys.map((warpKey) => [warpKey.key, warpKey.minutes])
     };
   }
   load(data: any) {
@@ -123,5 +139,17 @@ export class OptionsService {
     if ("t1" in data) this.districtInfo = data.t1;
     if ("t2" in data) this.operativityInfo = data.t2;
     this.generateFormatter();
+
+    if ("wk" in data) {
+      this.warpKeys = [];
+      this.lastWarpId = 1;
+      for (let warpKey of data.wk) {
+        this.warpKeys.push({
+          id: ++this.lastWarpId,
+          key: warpKey[0],
+          minutes: warpKey[1]
+        });
+      }
+    }
   }
 }
