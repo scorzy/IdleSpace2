@@ -31,7 +31,9 @@ export const MEGA_IDS = {
   MegaFoundry: "m2",
   MegaShipyard: "m3",
   MegaTelescope: "m4",
-  MegaNaval: "m5"
+  MegaNaval: "m5",
+  Gateway: "m6",
+  MegaComputing: "m7"
 };
 export const UNIT_PRICE_GROW_RATE = 1.04;
 export const BUILDING_PRICE_GROW_RATE = 1.08;
@@ -135,6 +137,8 @@ export const MEGA_PRICE_MULTI = 1e3;
 export const MEGA_WORKER_MULTI = 0.3;
 export const MEGA_EFF_MULTI = 0.1;
 export const MEGA_NAVAL_MULTI = 0.2;
+export const MEGA_SPEED_MULTI = 0.3;
+export const MEGA_COMPUTING_MULTI = 0.3;
 
 //  Computing
 export const BASE_COMPUTING = 1e4;
@@ -181,3 +185,4 @@ export const MORE_HAB_FROM_STATIONS = 10;
 export const EXTRA_DISTRICTS_FROM_STATIONS = 0.1;
 export const KILL_STREAK_SPEED_CARD = 0.02;
 export const KILL_STREAK_GAIN_CARD = 0.02;
+export const MEGA_BUILD_SPEED_CARD = 100;

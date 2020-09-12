@@ -12,7 +12,8 @@ import {
   DEPARTMENT_TECH_MULTI,
   BUILDING_PRICE_GROW_RATE,
   EXTRA_DISTRICTS_FROM_STATIONS,
-  MEGA_IDS
+  MEGA_IDS,
+  MEGA_SPEED_MULTI
 } from "../CONSTANTS";
 import { Price } from "../prices/price";
 import { Components } from "./components";
@@ -94,6 +95,8 @@ export class ResourceManager {
   shipyardWork: Unit;
 
   megaNaval: MegaStructure;
+  gateway: MegaStructure;
+  megaComputing: MegaStructure;
   //#endregion
   constructor() {}
   makeUnits() {
@@ -166,6 +169,10 @@ export class ResourceManager {
 
     this.megaNaval = this.megastructures.find(
       (u) => u.id === MEGA_IDS.MegaNaval
+    );
+    this.gateway = this.megastructures.find((u) => u.id === MEGA_IDS.Gateway);
+    this.megaComputing = this.megastructures.find(
+      (u) => u.id === MEGA_IDS.MegaComputing
     );
 
     //  Production
@@ -689,7 +696,11 @@ export class ResourceManager {
       }
     });
   }
-  setRelations() {}
+  setRelations() {
+    Game.getGame().shipyardManager.accelerationStack.bonuses.push(
+      new Bonus(this.gateway, new Decimal(MEGA_SPEED_MULTI))
+    );
+  }
   prestige() {
     this.units.forEach((u) => u.prestige());
     this.reloadLists();

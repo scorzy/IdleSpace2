@@ -61,7 +61,9 @@ export class SpaceStationManager extends JobManager {
     }
     const rs = Game.getGame().resourceManager;
     data.t.forEach((jobData) => {
-      const unit = rs.spaceStations.find((s) => s.id === jobData.i);
+      const unit =
+        rs.spaceStations.find((s) => s.id === jobData.i) ||
+        rs.megastructures.find((s) => s.id === jobData.i);
       if (unit) {
         const job = new SpaceStationJob(unit);
         job.load(jobData);

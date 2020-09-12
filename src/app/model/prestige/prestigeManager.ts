@@ -77,6 +77,7 @@ export class PrestigeManager {
   modWarp: PrestigeCard;
   spaceStationWarp: PrestigeCard;
   killStreakGain: PrestigeCard;
+  megaBuildSpeed: PrestigeCard;
   //#endregion
   constructor() {
     this.generateExperience();
@@ -381,6 +382,7 @@ export class PrestigeManager {
     this.noDecreasePrestige = this.cards.find((card) => card.id === "m4");
     this.extraMiningDistricts = this.cards.find((card) => card.id === "m5");
     this.extraEnergyDistricts = this.cards.find((card) => card.id === "m6");
+    this.megaBuildSpeed = this.cards.find((card) => card.id === "m7");
     const moreHabBonus = new Bonus(
       this.moreHabSpaceFromStations,
       new Decimal(MORE_HAB_FROM_STATIONS)

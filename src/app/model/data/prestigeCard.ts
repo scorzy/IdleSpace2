@@ -23,7 +23,8 @@ import {
   NAVAL_CAP_CARD_MULTI,
   EXTRA_DISTRICTS_FROM_STATIONS,
   KILL_STREAK_SPEED_CARD,
-  KILL_STREAK_GAIN_CARD
+  KILL_STREAK_GAIN_CARD,
+  MEGA_BUILD_SPEED_CARD
 } from "../CONSTANTS";
 
 export const PRESTIGE_CARDS: ISimpleBase[] = [
@@ -273,6 +274,13 @@ export const PRESTIGE_CARDS: ISimpleBase[] = [
       "Space stations grants energetic districts. Equal to " +
       EXTRA_DISTRICTS_FROM_STATIONS * 100 +
       "% of hab space.",
+    icon: "my:defense-satellite"
+  },
+  {
+    id: "m7",
+    name: "Mega Engineering",
+    description:
+      "+" + MEGA_BUILD_SPEED_CARD * 100 + "% megastructures build speed.",
     icon: "my:defense-satellite"
   }
   //#endregion

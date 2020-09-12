@@ -7,6 +7,7 @@ import { SizePipe } from "../size.pipe";
 import { MainService } from "../main.service";
 import { OptionsService } from "../options.service";
 import { TimePipe } from "../time.pipe";
+import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
 
 describe("CardsComponent", () => {
   let component: CardsComponent;
@@ -14,6 +15,7 @@ describe("CardsComponent", () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
       imports: testImports,
       declarations: [CardsComponent, FormatPipe, SizePipe],
       providers: [MainService, OptionsService, FormatPipe, TimePipe]

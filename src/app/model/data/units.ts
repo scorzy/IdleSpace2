@@ -13,7 +13,9 @@ import {
   MEGA_WORKER_MULTI,
   MEGA_EFF_MULTI,
   MEGA_IDS,
-  MEGA_NAVAL_MULTI
+  MEGA_NAVAL_MULTI,
+  MEGA_SPEED_MULTI,
+  MEGA_COMPUTING_MULTI
 } from "../CONSTANTS";
 import { RD, PROD_DEP, STORAGE_DEP, MAINTENANCE_DEP } from "./departments";
 export enum UNIT_TYPES {
@@ -611,6 +613,18 @@ export const UNITS: IUnitData[] = [
     id: MEGA_IDS.MegaNaval,
     name: "Mega Coordination Center",
     description: "+ " + MEGA_NAVAL_MULTI * 100 + "% naval capacity",
+    unitType: UNIT_TYPES.MEGASTRUCTURE
+  },
+  {
+    id: MEGA_IDS.Gateway,
+    name: "Gateway",
+    description: "+ " + MEGA_SPEED_MULTI * 100 + "% acceleration",
+    unitType: UNIT_TYPES.MEGASTRUCTURE
+  },
+  {
+    id: MEGA_IDS.MegaComputing,
+    name: "Mega Computing Center",
+    description: "+ " + MEGA_COMPUTING_MULTI * 100 + "% computing /s",
     unitType: UNIT_TYPES.MEGASTRUCTURE
   }
   //#endregion

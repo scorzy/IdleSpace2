@@ -6,18 +6,30 @@ import {
   MyNotification,
   NotificationTypes
 } from "../notifications/myNotification";
-import { EXTRA_DISTRICTS_FROM_STATIONS } from "../CONSTANTS";
+import {
+  EXTRA_DISTRICTS_FROM_STATIONS,
+  MEGA_BUILD_SPEED_CARD
+} from "../CONSTANTS";
+import { MegaStructure } from "../units/megaStructure";
 
 export class SpaceStationJob extends Job {
   constructor(public spaceStation: SpaceStation) {
     super();
     this.canDelete = true;
     this.type = Game.getGame().researchManager.civilEngTech;
+    this.reloadTotalBonus();
     this.reload();
     this.spaceStation.reloadBuildPrice();
   }
   get totalBonus(): Decimal {
-    return this.type.bonus.totalBonus;
+    if (
+      this.spaceStation instanceof MegaStructure &&
+      Game.getGame().prestigeManager.megaBuildSpeed.active
+    ) {
+      return this.type.bonus.totalBonus.times(MEGA_BUILD_SPEED_CARD);
+    } else {
+      return this.type.bonus.totalBonus;
+    }
   }
   set totalBonus(bon: Decimal) {}
   get name(): string {

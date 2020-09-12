@@ -279,6 +279,15 @@ export const RESEARCHES: IResearchData[] = [
     accelerationMulti: 0.1,
     max: 10
   },
+  {
+    id: "P-3",
+    name: "Wormhole travel",
+    description: "",
+    unlockFrom: "P8",
+    type: TECHNOLOGIES.Propulsion,
+    accelerationMulti: 0.15,
+    max: 10
+  },
   //#endregion
   //#region Origin Science
   {
@@ -634,6 +643,24 @@ export const RESEARCHES: IResearchData[] = [
     type: TECHNOLOGIES.Naval,
     unitsToUnlock: [MEGA_IDS.MegaNaval],
     unlockFrom: "n9"
+  },
+  {
+    id: "M" + MEGA_IDS.Gateway,
+    name: "Gateway",
+    max: 1,
+    description: "",
+    type: TECHNOLOGIES.Propulsion,
+    unitsToUnlock: [MEGA_IDS.Gateway],
+    unlockFrom: "P-3"
+  },
+  {
+    id: "M" + MEGA_IDS.MegaComputing,
+    name: "Mega Computing Center",
+    max: 1,
+    description: "",
+    type: TECHNOLOGIES.Computing,
+    unitsToUnlock: [MEGA_IDS.MegaComputing],
+    unlockFrom: "c8"
   }
   //#endregion
 ];

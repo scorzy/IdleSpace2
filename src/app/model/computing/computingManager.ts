@@ -3,7 +3,8 @@ import { Spell } from "./spell";
 import {
   BASE_COMPUTING,
   COMPUTING_TECH_BONUS,
-  COMPUTING_MAX_CARD
+  COMPUTING_MAX_CARD,
+  MEGA_COMPUTING_MULTI
 } from "../CONSTANTS";
 import { WarpSpell } from "./warp";
 import { Research } from "../researches/research";
@@ -48,6 +49,10 @@ export class ComputingManager {
       new Bonus(
         Game.getGame().researchManager.computingTech,
         new Decimal(COMPUTING_TECH_BONUS)
+      ),
+      new Bonus(
+        Game.getGame().resourceManager.megaComputing,
+        new Decimal(MEGA_COMPUTING_MULTI)
       )
     );
     const rm = Game.getGame().researchManager;
