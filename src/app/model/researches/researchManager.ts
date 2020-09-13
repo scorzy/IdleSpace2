@@ -178,7 +178,7 @@ export class ResearchManager extends JobManager {
         const resData: IResearchData = {
           id: res.id + i,
           max: 1,
-          name: res.name + " " + (i + 1) + " " + (res.id + i),
+          name: res.name + " " + (i + 1),
           description: res.name,
           type: res.tech
         };
