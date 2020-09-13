@@ -31,6 +31,8 @@ import { CardsComponent } from "./cards/cards.component";
 import { InfoComponent } from "./info/info.component";
 import { UnitListComponent } from "./unit-list/unit-list.component";
 import { UnitDetailComponent } from "./unit-list/unit-detail/unit-detail.component";
+import { ChallengeListComponent } from "./challenge-list/challenge-list.component";
+import { ChallengeComponent } from "./challenge-list/challenge/challenge.component";
 export const routes: Routes = [
   { path: "", pathMatch: "full", redirectTo: "/info" },
   { path: "des", pathMatch: "full", redirectTo: "/des/add" },
@@ -91,7 +93,18 @@ export const routes: Routes = [
   { path: "prestige", component: PrestigeComponent },
   { path: "warp", component: WarpComponent },
   { path: "cards", component: CardsComponent },
-  { path: "info", component: InfoComponent }
+  { path: "info", component: InfoComponent },
+  {
+    path: "challenges",
+    component: ChallengeListComponent,
+    children: [
+      {
+        path: ":id",
+        pathMatch: "full",
+        component: ChallengeComponent
+      }
+    ]
+  }
 ];
 
 @NgModule({

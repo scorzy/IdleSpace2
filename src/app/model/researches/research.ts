@@ -279,7 +279,7 @@ export class Research extends Job implements IUnlockable, IBase {
       Game.getGame().notificationManager.addNotification(
         new MyNotification(
           NotificationTypes.RESEARCH,
-          this.name //+ " completed!"
+          this.name // + " completed!"
         )
       );
       this.inspiration = false;

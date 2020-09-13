@@ -437,7 +437,7 @@ export class ResourceManager {
       this.spaceStations[i].reloadHabSpace();
     }
     for (let i = 0, n = this.spaceStations.length; i < n; i++) {
-      let space = this.spaceStations[i].habSpace.times(
+      const space = this.spaceStations[i].habSpace.times(
         this.spaceStations[i].quantity
       );
       habSpaceStation = habSpaceStation.plus(space);
@@ -460,10 +460,10 @@ export class ResourceManager {
     for (let i = 0, n = this.buildings.length; i < n; i++) {
       this.buildings[i].buyPrice.availableIn;
 
-      let price = this.buildings[i].buyPrice.prices[
+      const price = this.buildings[i].buyPrice.prices[
         this.buildings[i].buyPrice.prices.length - 1
       ];
-      let spent = Decimal.sumGeometricSeries(
+      const spent = Decimal.sumGeometricSeries(
         this.buildings[i].quantity,
         price.cost,
         price.growRate,

@@ -15,7 +15,7 @@ export class MegaStructure extends SpaceStation {
     const rm = Game.getGame().resourceManager;
     if ("workerMulti" in unitData) {
       this.workerMulti = [];
-      for (let wm of unitData.workerMulti) {
+      for (const wm of unitData.workerMulti) {
         const worker = rm.workers.find((w) => w.id === wm.workerId);
         this.workerMulti.push({ worker, multi: wm.multi });
         if (!worker.limitStackMulti) {
@@ -28,7 +28,7 @@ export class MegaStructure extends SpaceStation {
     }
     if ("effMulti" in unitData) {
       this.effMulti = [];
-      for (let ef of unitData.effMulti) {
+      for (const ef of unitData.effMulti) {
         const worker = rm.workers.find((w) => w.id === ef.workerId);
         this.effMulti.push({ worker, multi: ef.multi });
         worker.prodEfficiency.bonuses.push(

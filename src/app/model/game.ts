@@ -9,7 +9,8 @@ import {
   LEVEL_PER_CARD,
   UPDATE_WARP_CARD,
   NAVAL_CAP_CARD_MULTI,
-  MEGA_NAVAL_MULTI
+  MEGA_NAVAL_MULTI,
+  ONE
 } from "./CONSTANTS";
 import { EnemyManager } from "./enemy/enemyManager";
 import { BattleResult, Stats } from "./battle/battleResult";
@@ -24,6 +25,8 @@ import {
 import { MainService } from "../main.service";
 import { PrestigeManager } from "./prestige/prestigeManager";
 import { BonusStack } from "./bonus/bonusStack";
+import { ChallengeManager } from "./challenge/challengeManager";
+import { Challenge } from "./challenge/challenge";
 
 /**
  * Game is the main class that orchestrate everything game related
@@ -42,6 +45,7 @@ export class Game {
   automationManager: AutomationManager;
   computingManager: ComputingManager;
   prestigeManager: PrestigeManager;
+  challengeManager: ChallengeManager;
 
   navalCapacity: number = BASE_NAVAL_CAPACITY;
 
@@ -106,6 +110,7 @@ export class Game {
     this.resourceManager.setRelations();
     this.automationManager = new AutomationManager();
     this.prestigeManager = new PrestigeManager();
+    this.challengeManager = new ChallengeManager();
 
     this.setTheme();
 
@@ -388,6 +393,12 @@ export class Game {
     this.postUpdate(0);
     MainService.instance.lastUnitId = "m";
   }
+  startChallenge(challenge: Challenge) {
+    if (!this.challengeManager.startChallenge(challenge)) return;
+    this.prestige();
+    this.prestigeManager.prestigeMultiplier = ONE;
+    this.postUpdate(0);
+  }
   scienceWarp(timeToWarp: number) {
     const totalScience = this.resourceManager.science.makers
       .filter((p) => p.ratio.gt(0) && p.producer.quantity.gt(0))
@@ -420,7 +431,8 @@ export class Game {
       t: this.prestigeManager.getSave(),
       k: this.darkMatter,
       l: this.lockedDarkMatter,
-      fr: this.firstRun
+      fr: this.firstRun,
+      j: this.challengeManager.getSave()
     };
   }
   load(data: any) {
@@ -454,6 +466,7 @@ export class Game {
     if ("t" in data) this.prestigeManager.load(data.t);
     if ("k" in data) this.darkMatter = new Decimal(data.k);
     if ("l" in data) this.lockedDarkMatter = new Decimal(data.l);
+    if ("j" in data) this.challengeManager.load(data.j);
     this.researchManager.researches.forEach((res) => res.reload());
     this.postUpdate(0);
 

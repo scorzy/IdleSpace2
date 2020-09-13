@@ -186,3 +186,6 @@ export const EXTRA_DISTRICTS_FROM_STATIONS = 0.1;
 export const KILL_STREAK_SPEED_CARD = 0.02;
 export const KILL_STREAK_GAIN_CARD = 0.02;
 export const MEGA_BUILD_SPEED_CARD = 100;
+
+//  Challenges
+export const CHALLENGE_REPEAT_LEVEL = 100;

@@ -1,6 +1,5 @@
 import { IResearchData } from "./iResearchData";
 import { TECHNOLOGIES } from "./technologyData";
-import { UNITS, UNIT_TYPES } from "./units";
 import {
   OPTIMIZED_SHIP_PREFIX,
   ORIGIN_1_TECH_MULTI,

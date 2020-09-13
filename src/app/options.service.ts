@@ -143,7 +143,7 @@ export class OptionsService {
     if ("wk" in data) {
       this.warpKeys = [];
       this.lastWarpId = 1;
-      for (let warpKey of data.wk) {
+      for (const warpKey of data.wk) {
         this.warpKeys.push({
           id: ++this.lastWarpId,
           key: warpKey[0],

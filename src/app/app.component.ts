@@ -81,7 +81,7 @@ export class AppComponent implements OnInit, OnDestroy {
   }
   @HostListener("window:keyup", ["$event"])
   onKey(event: KeyboardEvent) {
-    if ((<Element>event.target).tagName !== "BODY") return;
+    if ((event.target as Element).tagName !== "BODY") return;
     const warp = this.os.warpKeys.find((k) => k.key === event.key);
     if (warp && warp.minutes > 0) this.ms.game.warp(warp.minutes * 60);
   }

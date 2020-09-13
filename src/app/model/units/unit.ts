@@ -2,7 +2,7 @@ import { IUnitData } from "../data/iUnitData";
 import { Production } from "./production";
 import { IBase } from "../iBase";
 import { MultiPrice } from "../prices/multiPrice";
-import { ZERO, ONE, COMPONENT_PRICE, IDS } from "../CONSTANTS";
+import { ZERO, ONE, IDS } from "../CONSTANTS";
 import { IUnlockable } from "../iUnlocable";
 import { Game } from "../game";
 import { Bonus } from "../bonus/bonus";

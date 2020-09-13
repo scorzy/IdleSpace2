@@ -117,6 +117,8 @@ import { AutoModComponent } from "./auto-buy/auto-mod/auto-mod.component";
 import { AutoFullComponent } from './auto-buy/auto-full/auto-full.component';
 import { DistrictInfoComponent } from './units/district-info/district-info.component';
 import { HotKeysComponent } from './options/hot-keys/hot-keys.component';
+import { ChallengeListComponent } from './challenge-list/challenge-list.component';
+import { ChallengeComponent } from './challenge-list/challenge/challenge.component';
 
 registerLocaleData(en);
 
@@ -197,7 +199,9 @@ const ngZorroConfig: NzConfig = {
     AutoModComponent,
     AutoFullComponent,
     DistrictInfoComponent,
-    HotKeysComponent
+    HotKeysComponent,
+    ChallengeListComponent,
+    ChallengeComponent
   ],
   imports: [
     BrowserModule,

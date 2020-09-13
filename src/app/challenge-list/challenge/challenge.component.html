@@ -1,0 +1,24 @@
+<h2>{{ challenge?.name }}</h2>
+
+<h4>Win Condition</h4>
+<p>
+  Defeat enemy level
+  <strong class="monospace">{{ challenge.nextLevel | format }}</strong>
+</p>
+
+<h4>Description</h4>
+<p>{{ challenge?.description }}</p>
+
+<h4>Reward</h4>
+<p>{{ challenge?.reward }}</p>
+
+<h4>
+  Completions:
+  <span class="monospace">{{ challenge?.quantity | format: true }}</span>
+</h4>
+
+<h4>Unlock Condition</h4>
+<p>
+  Defeat enemy level
+  <span class="monospace">{{ challenge.unlockLevel | format }}</span>
+</p>

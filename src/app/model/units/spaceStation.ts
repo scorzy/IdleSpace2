@@ -56,20 +56,22 @@ export class SpaceStation extends Unit {
     if (game.prestigeManager.extraMiningDistricts.active) {
       this.miningDistricts = this.habSpace.times(EXTRA_DISTRICTS_FROM_STATIONS);
       const extraDistricts = this.miningDistricts.minus(oldMining);
-      if (extraDistricts.gt(0))
+      if (extraDistricts.gt(0)) {
         game.resourceManager.miningDistrict.quantity = game.resourceManager.miningDistrict.quantity.plus(
           extraDistricts.times(this.quantity)
         );
+      }
     } else {
       this.miningDistricts = ZERO;
     }
     if (game.prestigeManager.extraEnergyDistricts.active) {
       this.energyDistricts = this.habSpace.times(EXTRA_DISTRICTS_FROM_STATIONS);
       const extraDistricts = this.energyDistricts.minus(oldEnergy);
-      if (extraDistricts.gt(0))
+      if (extraDistricts.gt(0)) {
         game.resourceManager.energyDistrict.quantity = game.resourceManager.energyDistrict.quantity.plus(
           extraDistricts.times(this.quantity)
         );
+      }
     } else {
       this.energyDistricts = ZERO;
     }
