@@ -1,9 +1,11 @@
 import { CHALLENGES } from "../data/challenges";
 import { Challenge } from "./challenge";
+import { Game } from "../game";
 
 export class ChallengeManager {
   challenges: Challenge[];
   activeChallenge: Challenge;
+  baseChallenge: Challenge;
   constructor() {
     this.challenges = [];
     CHALLENGES.forEach((cData) => {
@@ -11,6 +13,7 @@ export class ChallengeManager {
       challenge.init(cData);
       this.challenges.push(challenge);
     });
+    this.baseChallenge = this.challenges.find((c) => c.id === "0");
   }
   startChallenge(challenge: Challenge): boolean {
     if (this.activeChallenge) return false;
@@ -19,6 +22,14 @@ export class ChallengeManager {
   }
   quitChallenge() {
     this.activeChallenge = null;
+  }
+  onEnemyDefeated(enemyLevel: number) {
+    this.activeChallenge?.advance(enemyLevel);
+    for (let challenge of this.challenges) {
+      if (enemyLevel >= challenge.unlockLevel) {
+        challenge.unlocked = true;
+      }
+    }
   }
 
   //#region Save and Load
@@ -38,6 +49,14 @@ export class ChallengeManager {
     }
     if ("a" in save) {
       this.activeChallenge = this.challenges.find((ch) => ch.id === save.a);
+    }
+  }
+  afterLoad() {
+    const maxLevel = Game.getGame().enemyManager.maxLevel - 1;
+    for (let challenge of this.challenges) {
+      if (maxLevel >= challenge.unlockLevel) {
+        challenge.unlocked = true;
+      }
     }
   }
   //#endregion

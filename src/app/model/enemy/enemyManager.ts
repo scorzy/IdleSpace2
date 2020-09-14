@@ -399,11 +399,15 @@ export class EnemyManager extends JobManager {
       // mat.quantity = ZERO;
     }
   }
-  getExperience(enemyLevel): Decimal {
+  getExperience(enemyLevel: number): Decimal {
     if (enemyLevel < ENEMY_EXP_START_LEVEL) return ZERO;
     if (this.currentEnemy.level < this.maxLevel) return ZERO;
+    const baseChallengeExtra = Math.min(
+      Math.floor(enemyLevel / 100),
+      Game.getGame().challengeManager.baseChallenge.quantity.toNumber()
+    );
     return Decimal.floor(
-      (ENEMY_BASE_EXP + enemyLevel * ENEMY_EXP_GROW_RATE) *
+      (ENEMY_BASE_EXP + baseChallengeExtra + enemyLevel * ENEMY_EXP_GROW_RATE) *
         (Game.getGame().prestigeManager.moreExp.active ? 1 + EXP_GAIN_CARD : 1)
     );
   }
@@ -417,6 +421,7 @@ export class EnemyManager extends JobManager {
   }
   defeatEnemy() {
     if (!this.currentEnemy) return false;
+    Game.getGame().challengeManager.onEnemyDefeated(this.currentEnemy.level);
     this.killStreak = 0;
     this.lostRow = 0;
 

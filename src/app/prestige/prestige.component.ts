@@ -14,7 +14,8 @@ import { LEVEL_PER_CARD, ENEMY_EXP_START_LEVEL } from "../model/CONSTANTS";
   styleUrls: ["./prestige.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PrestigeComponent extends BaseComponentComponent
+export class PrestigeComponent
+  extends BaseComponentComponent
   implements OnInit, OnDestroy, AfterViewInit {
   newSlots = 0;
   nextEnemy = 0;
@@ -57,5 +58,8 @@ export class PrestigeComponent extends BaseComponentComponent
       (this.ms.game.enemyManager.maxLevel - 1) / LEVEL_PER_CARD
     );
     return Math.max(newSlot - this.ms.game.prestigeManager.maxCards, 0);
+  }
+  quitChallenge() {
+    this.ms.game.quitChallenge();
   }
 }

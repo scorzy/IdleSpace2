@@ -189,3 +189,4 @@ export const MEGA_BUILD_SPEED_CARD = 100;
 
 //  Challenges
 export const CHALLENGE_REPEAT_LEVEL = 100;
+export const CHALLENGE_REWARD_EXP = 5e3;

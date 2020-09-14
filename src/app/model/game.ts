@@ -399,6 +399,10 @@ export class Game {
     this.prestigeManager.prestigeMultiplier = ONE;
     this.postUpdate(0);
   }
+  quitChallenge() {
+    this.challengeManager.activeChallenge = null;
+    this.postUpdate(0);
+  }
   scienceWarp(timeToWarp: number) {
     const totalScience = this.resourceManager.science.makers
       .filter((p) => p.ratio.gt(0) && p.producer.quantity.gt(0))
@@ -467,6 +471,7 @@ export class Game {
     if ("k" in data) this.darkMatter = new Decimal(data.k);
     if ("l" in data) this.lockedDarkMatter = new Decimal(data.l);
     if ("j" in data) this.challengeManager.load(data.j);
+    this.challengeManager.afterLoad();
     this.researchManager.researches.forEach((res) => res.reload());
     this.postUpdate(0);
 

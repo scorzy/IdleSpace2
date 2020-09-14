@@ -1,17 +1,24 @@
 import forOwn from "lodash-es/forOwn";
-import { CHALLENGE_REPEAT_LEVEL, ZERO } from "../CONSTANTS";
+import {
+  CHALLENGE_REPEAT_LEVEL,
+  ZERO,
+  CHALLENGE_REWARD_EXP
+} from "../CONSTANTS";
 import { iChallengeData } from "../data/challenges";
 import { IBase } from "../iBase";
+import { Game } from "../game";
 
 export class Challenge implements IBase {
   id = "";
   name = "";
   description = "";
-  reward = "";
+  rewards: string[] = new Array<string>();
   quantity = ZERO;
   unlockLevel = 0;
   startLevel = 100;
   nextLevel = 100;
+  unlocked = false;
+  experiencePerCompletions = CHALLENGE_REWARD_EXP;
 
   icon = "";
   colorClass = "";
@@ -34,6 +41,9 @@ export class Challenge implements IBase {
   advance(enemyLevel: number) {
     if (enemyLevel >= this.nextLevel) {
       this.quantity = this.quantity.plus(1);
+      const expToAdd = this.quantity.times(this.experiencePerCompletions);
+      if (expToAdd.gt(0))
+        Game.getGame().prestigeManager.addExperience(expToAdd);
       this.reload();
     }
   }
@@ -42,12 +52,14 @@ export class Challenge implements IBase {
   getSave(): any {
     return {
       i: this.id,
-      q: this.quantity
+      q: this.quantity,
+      u: this.unlocked
     };
   }
   load(save: any) {
     if (!("i" in save && save.i === this.id)) return;
     if ("q" in save) this.quantity = new Decimal(save.q);
+    if ("u" in save) this.unlocked = save.u;
     this.reload();
   }
   //#endregion

@@ -1,24 +1,56 @@
 <h2>{{ challenge?.name }}</h2>
 
-<h4>Win Condition</h4>
+<h3>Win Condition</h3>
 <p>
   Defeat enemy level
   <strong class="monospace">{{ challenge.nextLevel | format }}</strong>
 </p>
 
-<h4>Description</h4>
+<h3>Description</h3>
 <p>{{ challenge?.description }}</p>
 
-<h4>Reward</h4>
-<p>{{ challenge?.reward }}</p>
+<h3>Rewards</h3>
+<ul>
+  <li *ngIf="challenge.experiencePerCompletions > 0">
+    +<span class="monospace"
+      >{{ challenge.experiencePerCompletions | format: true }} experience per
+      completions</span
+    >
+  </li>
+  <li *ngFor="let reward of challenge.rewards">{{ reward }}</li>
+</ul>
 
-<h4>
+<h3>
   Completions:
-  <span class="monospace">{{ challenge?.quantity | format: true }}</span>
-</h4>
+  <strong class="monospace">{{ challenge?.quantity | format: true }}</strong>
+</h3>
 
-<h4>Unlock Condition</h4>
-<p>
+<h3>Unlock Condition</h3>
+<nz-alert
+  class="unlock-alert"
+  [nzType]="this.challenge.unlocked ? 'success' : 'error'"
+  [nzMessage]="condition"
+  nzShowIcon
+></nz-alert>
+
+<ng-template #condition>
   Defeat enemy level
   <span class="monospace">{{ challenge.unlockLevel | format }}</span>
-</p>
+</ng-template>
+
+<button
+  *ngIf="this.challenge.unlocked"
+  nz-button
+  nzType="primary"
+  nzSize="large"
+  [disabled]="ms.game.challengeManager.activeChallenge"
+  (click)="startChallenge()"
+  nz-tooltip
+  [nzTooltipTitle]="
+    ms.game.challengeManager.activeChallenge
+      ? 'You are already in a challenge'
+      : ''
+  "
+>
+  <span>Start Challenge</span>
+</button>

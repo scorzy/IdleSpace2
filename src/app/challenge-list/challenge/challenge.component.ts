@@ -49,4 +49,7 @@ export class ChallengeComponent
     );
     this.cd.markForCheck();
   }
+  startChallenge() {
+    this.ms.game.startChallenge(this.challenge);
+  }
 }
