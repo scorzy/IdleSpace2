@@ -10,7 +10,7 @@ import {
 import { BaseComponentComponent } from "src/app/base-component/base-component.component";
 import { Unit } from "src/app/model/units/unit";
 import { MainService } from "src/app/main.service";
-import { NzModalService } from "ng-zorro-antd";
+import { NzModalService } from "ng-zorro-antd/modal";
 import { BreakpointObserver } from "@angular/cdk/layout";
 import { Router, ActivatedRoute } from "@angular/router";
 import { Building } from "src/app/model/units/building";
@@ -22,7 +22,8 @@ import { IDS } from "src/app/model/CONSTANTS";
   styleUrls: ["./unit-detail.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class UnitDetailComponent extends BaseComponentComponent
+export class UnitDetailComponent
+  extends BaseComponentComponent
   implements OnInit, OnDestroy, AfterViewInit {
   @Input() unit: Unit;
   @Input() building: Building;

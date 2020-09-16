@@ -10,7 +10,7 @@ import {
   MyNotification
 } from "./model/notifications/myNotification";
 import { TimePipe } from "./time.pipe";
-import { NzModalService } from "ng-zorro-antd";
+import { NzModalService } from "ng-zorro-antd/modal";
 
 export const SAVE_ID = "IS2_save";
 export const GAME_SPEED = 1;

@@ -104,7 +104,6 @@ import { WarpComponent } from "./warp/warp.component";
 import { CardsComponent } from "./cards/cards.component";
 import { PrestigeCardComponent } from "./cards/prestige-card/prestige-card.component";
 import { AutoSpaceComponent } from "./auto-buy/auto-space/auto-space.component";
-import { NZ_WAVE_GLOBAL_CONFIG } from "ng-zorro-antd";
 import { InfoComponent } from "./info/info.component";
 import { AutoSurrenderComponent } from "./auto-buy/auto-surrender/auto-surrender.component";
 import { UnitListComponent } from "./unit-list/unit-list.component";
@@ -114,11 +113,11 @@ import { UnitMenuComponent } from "./unit-list/unit-menu/unit-menu.component";
 import { NzPopconfirmModule } from "ng-zorro-antd/popconfirm";
 import { AutoRefreshComponent } from "./auto-buy/auto-refresh/auto-refresh.component";
 import { AutoModComponent } from "./auto-buy/auto-mod/auto-mod.component";
-import { AutoFullComponent } from './auto-buy/auto-full/auto-full.component';
-import { DistrictInfoComponent } from './units/district-info/district-info.component';
-import { HotKeysComponent } from './options/hot-keys/hot-keys.component';
-import { ChallengeListComponent } from './challenge-list/challenge-list.component';
-import { ChallengeComponent } from './challenge-list/challenge/challenge.component';
+import { AutoFullComponent } from "./auto-buy/auto-full/auto-full.component";
+import { DistrictInfoComponent } from "./units/district-info/district-info.component";
+import { HotKeysComponent } from "./options/hot-keys/hot-keys.component";
+import { ChallengeListComponent } from "./challenge-list/challenge-list.component";
+import { ChallengeComponent } from "./challenge-list/challenge/challenge.component";
 
 registerLocaleData(en);
 
@@ -254,13 +253,7 @@ const ngZorroConfig: NzConfig = {
     MainService,
     OptionsService,
     FormatPipe,
-    TimePipe,
-    {
-      provide: NZ_WAVE_GLOBAL_CONFIG,
-      useValue: {
-        disabled: true
-      }
-    }
+    TimePipe
   ],
   bootstrap: [AppComponent]
 })

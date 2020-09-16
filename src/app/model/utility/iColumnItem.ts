@@ -3,7 +3,7 @@ import {
   NzTableSortFn,
   NzTableFilterList,
   NzTableFilterFn
-} from "ng-zorro-antd";
+} from "ng-zorro-antd/table";
 
 export interface IColumnItem {
   name: string;
