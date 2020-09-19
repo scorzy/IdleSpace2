@@ -24,6 +24,12 @@ export class Cell {
   eta = 0;
   antiMissiles = ZERO;
   addMaterial(material: Unit, quantity: Decimal) {
+    if (
+      Game.getGame().challengeManager.noHabSpaceChallenge.isActive &&
+      material === Game.getGame().resourceManager.habitableSpace
+    )
+      return;
+
     if (!this.materials) {
       this.materials = [];
     }

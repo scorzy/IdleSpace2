@@ -24,7 +24,8 @@ import {
   EXTRA_DISTRICTS_FROM_STATIONS,
   KILL_STREAK_SPEED_CARD,
   KILL_STREAK_GAIN_CARD,
-  MEGA_BUILD_SPEED_CARD
+  MEGA_BUILD_SPEED_CARD,
+  CHALLENGE_XP_MULTI
 } from "../CONSTANTS";
 
 export const PRESTIGE_CARDS: ISimpleBase[] = [
@@ -282,6 +283,17 @@ export const PRESTIGE_CARDS: ISimpleBase[] = [
     description:
       "+" + MEGA_BUILD_SPEED_CARD * 100 + "% megastructures build speed.",
     icon: "my:defense-satellite"
+  },
+  //#endregion
+  //#region Challenges
+  {
+    id: "c0",
+    name: "Challenge multiplier",
+    description:
+      "Increase experience multiplier by " +
+      CHALLENGE_XP_MULTI * 100 +
+      "% per challenge completed.",
+    icon: "arrow-up"
   }
   //#endregion
 ];

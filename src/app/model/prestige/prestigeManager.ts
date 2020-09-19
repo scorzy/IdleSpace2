@@ -25,7 +25,8 @@ import {
   PRODUCTION_PEACE_CARD,
   BETTER_SPACE_STATION_PRESTIGE,
   MORE_HAB_FROM_STATIONS,
-  KILL_STREAK_SPEED_CARD
+  KILL_STREAK_SPEED_CARD,
+  CHALLENGE_XP_MULTI
 } from "../CONSTANTS";
 import { Game } from "../game";
 import {
@@ -78,6 +79,7 @@ export class PrestigeManager {
   spaceStationWarp: PrestigeCard;
   killStreakGain: PrestigeCard;
   megaBuildSpeed: PrestigeCard;
+  challengeMultiplier: PrestigeCard;
   //#endregion
   constructor() {
     this.generateExperience();
@@ -391,6 +393,10 @@ export class PrestigeManager {
       spaceStation.habSpaceStack.bonuses.push(moreHabBonus);
     });
     //#endregion
+    //#region challenges
+    this.challengeMultiplier = this.cards.find((card) => card.id === "c0");
+
+    //#endregion
   }
   addExperience(quantity: Decimal) {
     this.experience = this.experience.plus(quantity);
@@ -404,11 +410,19 @@ export class PrestigeManager {
   loadNextMultiplier() {
     const maxEnemyLevel = Game.getGame().enemyManager.maxLevel;
 
-    const realNextPrestigeMultiplier = ONE.plus(
+    let realNextPrestigeMultiplier = ONE.plus(
       maxEnemyLevel * PRESTIGE_MULTI_PER_LEVEL
     ).pow(PRESTIGE_MULTI_EXP);
-    let nextPrestigeMultiplier;
+    if (this.challengeMultiplier.active) {
+      realNextPrestigeMultiplier = realNextPrestigeMultiplier.times(
+        1 +
+          Game.getGame()
+            .challengeManager.completed.times(CHALLENGE_XP_MULTI)
+            .toNumber()
+      );
+    }
 
+    let nextPrestigeMultiplier = ONE;
     if (this.noDecreasePrestige.active) {
       nextPrestigeMultiplier = this.prestigeMultiplier.max(
         realNextPrestigeMultiplier
@@ -457,7 +471,6 @@ export class PrestigeManager {
     }
     if ("a" in data) this.maxCards = data.a;
     if ("l" in data) this.lockedCars = data.l;
-    // this.experience = new Decimal(200);
   }
   //#endregion
 }

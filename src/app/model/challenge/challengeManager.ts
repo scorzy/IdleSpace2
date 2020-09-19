@@ -6,19 +6,24 @@ import {
   DRONE_CHALLENGE_REWARD,
   XS_CHALLENGE_REWARD,
   SCIENCE_CHALLENGE_SCIENTIST_MULTI,
-  SCIENCE_CHALLENGE_WAR_MULTI
+  SCIENCE_CHALLENGE_WAR_MULTI,
+  ONE_SHOT_CHALLENGE_REWARD,
+  ZERO,
+  NO_HAB_CHALLENGE_MULTI
 } from "../CONSTANTS";
 
 export class ChallengeManager {
   challenges: Challenge[];
   activeChallenge: Challenge;
+  completed = ZERO;
   //#region Challenges
   baseChallenge: Challenge;
   droneChallenge: Challenge;
   xsChallenge: Challenge;
   scienceChallenge: Challenge;
   noNukeChallenge: Challenge;
-  oneShot: Challenge;
+  oneShotChallenge: Challenge;
+  noHabSpaceChallenge: Challenge;
   //#endregion
   constructor() {
     this.challenges = [];
@@ -39,7 +44,8 @@ export class ChallengeManager {
     this.xsChallenge = this.challenges.find((c) => c.id === "2");
     this.scienceChallenge = this.challenges.find((c) => c.id === "3");
     this.noNukeChallenge = this.challenges.find((c) => c.id === "4");
-    this.oneShot = this.challenges.find((c) => c.id === "5");
+    this.oneShotChallenge = this.challenges.find((c) => c.id === "5");
+    this.noHabSpaceChallenge = this.challenges.find((c) => c.id === "6");
 
     //  Drone challenge
     const droneChallengeBonus = new Bonus(
@@ -68,6 +74,24 @@ export class ChallengeManager {
 
     //  No Nuke challenge
     tm.nukeResearch.noUnlockChallenges = [this.noNukeChallenge];
+
+    //  One Shot challenge
+    const oneShotChallengeBonus = new Bonus(
+      this.droneChallenge,
+      new Decimal(ONE_SHOT_CHALLENGE_REWARD)
+    );
+    sm.velocityBonusStack.bonuses.push(oneShotChallengeBonus);
+    sm.accelerationStack.bonuses.push(oneShotChallengeBonus);
+    sm.shipsProductionBonuses.push(oneShotChallengeBonus);
+
+    //  No hab space challenge
+    const moreHabBonus = new Bonus(
+      this.noHabSpaceChallenge,
+      new Decimal(NO_HAB_CHALLENGE_MULTI)
+    );
+    rm.spaceStations.forEach((spaceStation) => {
+      spaceStation.habSpaceStack.bonuses.push(moreHabBonus);
+    });
   }
   startChallenge(challenge: Challenge): boolean {
     if (this.activeChallenge) return false;
@@ -83,6 +107,12 @@ export class ChallengeManager {
       if (enemyLevel >= challenge.unlockLevel) {
         challenge.unlocked = true;
       }
+    }
+  }
+  postUpdate() {
+    this.completed = ZERO;
+    for (let i = 0, n = this.challenges.length; i < n; i++) {
+      this.completed = this.completed.plus(this.challenges[i].quantity);
     }
   }
 

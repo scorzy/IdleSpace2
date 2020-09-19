@@ -259,7 +259,8 @@ export class EnemyManager extends JobManager {
     }
     let done = true;
     if (this.currentEnemy) {
-      const oneShotChallenge = Game.getGame().challengeManager.oneShot.isActive;
+      const oneShotChallenge = Game.getGame().challengeManager.oneShotChallenge
+        .isActive;
       for (let i = 0, n = this.currentEnemy.designs.length; i < n; i++) {
         const designId = this.currentEnemy.designs[i].id;
         const lostD = battleResult.enemyLost.find((en) => en.id === designId);

@@ -6,7 +6,9 @@ import {
   SCIENCE_CHALLENGE_SCIENTIST_MULTI,
   SCIENCE_CHALLENGE_WAR_MULTI,
   NUKE_CHALLENGE_EFF_MULTI,
-  NUKE_CHALLENGE_STORAGE_MULTI
+  NUKE_CHALLENGE_STORAGE_MULTI,
+  ONE_SHOT_CHALLENGE_REWARD,
+  NO_HAB_CHALLENGE_MULTI
 } from "../CONSTANTS";
 
 export interface iChallengeData {
@@ -69,7 +71,7 @@ export const CHALLENGES: iChallengeData[] = [
         "% more science",
       "+ " + SCIENCE_CHALLENGE_WAR_MULTI * 100 + " science from battles"
     ],
-    unlockLevel: 500,
+    unlockLevel: 600,
     startLevel: 100,
     experiencePerCompletions: CHALLENGE_REWARD_EXP * 5
   },
@@ -91,9 +93,27 @@ export const CHALLENGES: iChallengeData[] = [
     name: "One Shot",
     description:
       "Your Experience Multiplier will reset to one. Enemies regenerate 100% of their ships after combat, in case the have at least one ship. Nuke can be used normally.",
-    rewards: [""],
+    rewards: [
+      "+" +
+        ONE_SHOT_CHALLENGE_REWARD * 100 +
+        "% ships build speed, speed and acceleration x completion"
+    ],
     unlockLevel: 400,
     startLevel: 100,
-    experiencePerCompletions: CHALLENGE_REWARD_EXP
+    experiencePerCompletions: CHALLENGE_REWARD_EXP * 2
+  },
+  {
+    id: "6",
+    name: "No Hab Space",
+    description:
+      "Your Experience Multiplier will reset to one. You don't gain habitable space from enemies.",
+    rewards: [
+      "+" +
+        NO_HAB_CHALLENGE_MULTI * 100 +
+        " space station hab space x completion"
+    ],
+    unlockLevel: 500,
+    startLevel: 100,
+    experiencePerCompletions: CHALLENGE_REWARD_EXP * 2
   }
 ];

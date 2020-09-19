@@ -248,6 +248,7 @@ export class Game {
     }
   }
   postUpdate(delta: number) {
+    this.challengeManager.postUpdate();
     this.computingManager.update(delta);
     this.reloadWorkPerSec();
     for (let i = 0, n = this.researchManager.technologies.length; i < n; i++) {
@@ -480,7 +481,7 @@ export class Game {
     this.postUpdate(0);
 
     // this.prestigeManager.maxCards = 70;
-    // this.prestigeManager.lockedCars = false;
+    this.prestigeManager.lockedCars = false;
     // this.darkMatter = new Decimal(1e20);
     // this.prestigeManager.experience = new Decimal(1e4);
     this.challengeManager.scienceChallenge.quantity = new Decimal(1);
