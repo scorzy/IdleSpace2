@@ -29,6 +29,7 @@ import {
 import { ExclusiveResGroups } from "./exclusiveResGroups";
 import { Spell } from "../computing/spell";
 import { Bonus } from "../bonus/bonus";
+import { Challenge } from "../challenge/challenge";
 
 export class Research extends Job implements IUnlockable, IBase {
   static lastVisId = 0;
@@ -41,7 +42,8 @@ export class Research extends Job implements IUnlockable, IBase {
     if (this._max < 2) return this._max;
     if (!Game.getGame().prestigeManager) return this._max;
     return (
-      this._max *
+      (this._max +
+        Game.getGame().challengeManager?.scienceChallenge.quantity.toNumber()) *
       (Game.getGame().prestigeManager.doubleRepeatableResearches.active ? 2 : 1)
     );
   }
@@ -85,6 +87,7 @@ export class Research extends Job implements IUnlockable, IBase {
   type: Technology;
   parent: Research;
   unlocked = false;
+  noUnlockChallenges: Challenge[];
   constructor(researchData: IResearchData, researchManager: ResearchManager) {
     super();
     this.resData = researchData;
@@ -147,9 +150,7 @@ export class Research extends Job implements IUnlockable, IBase {
         };
       });
     }
-    if ("shipProductionBonusAll" in researchData) {
-      this.shipProductionBonusAll = researchData.shipProductionBonusAll;
-    }
+
     this.type = researchManager.technologies.find(
       (tec) => tec.id === researchData.type.id
     );
@@ -229,12 +230,17 @@ export class Research extends Job implements IUnlockable, IBase {
         game.resourceManager.reloadLists();
       }
       if (this.researchToUnlock) {
-        this.researchToUnlock.forEach((u) => u.unlock());
+        this.researchToUnlock.forEach((u) => {
+          if (!u.noUnlockChallenges?.some((no) => no.isActive)) u.unlock();
+        });
       }
       if (this.technologiesToUnlock) {
         this.technologiesToUnlock.forEach((tech) => tech.unlock());
       }
-      if (this.shipTypeToUnlock) {
+      if (
+        this.shipTypeToUnlock &&
+        Game.getGame().challengeManager.activeChallenge?.id !== "1"
+      ) {
         this.shipTypeToUnlock.unlocked = true;
       }
       if (this.modulesToUnlock) {

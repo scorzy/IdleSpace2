@@ -605,6 +605,12 @@ export class ResearchManager extends JobManager {
           (s) => s.id === resData.spellToUnlock
         );
       }
+      if ("shipProductionBonusAll" in resData) {
+        res.shipProductionBonusAll = resData.shipProductionBonusAll;
+        sm.shipsProductionBonuses.push(
+          new Bonus(res, new Decimal(res.shipProductionBonusAll))
+        );
+      }
     });
 
     this.toDo = [this.researches[0]];
@@ -636,8 +642,7 @@ export class ResearchManager extends JobManager {
         res !== this.autoOrigin)
     ) {
       this.backlog.push(res);
-    }
-    else this.toDo.push(res);
+    } else this.toDo.push(res);
 
     return true;
   }

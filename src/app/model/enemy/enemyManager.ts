@@ -259,12 +259,13 @@ export class EnemyManager extends JobManager {
     }
     let done = true;
     if (this.currentEnemy) {
+      const oneShotChallenge = Game.getGame().challengeManager.oneShot.isActive;
       for (let i = 0, n = this.currentEnemy.designs.length; i < n; i++) {
         const designId = this.currentEnemy.designs[i].id;
         const lostD = battleResult.enemyLost.find((en) => en.id === designId);
         if (lostD) {
-          cell.ships[i] -= lostD.lost;
-          cell.ships[i] = Math.floor(Math.max(cell.ships[i], 0));
+          const newNum = Math.floor(Math.max(cell.ships[i] - lostD.lost, 0));
+          if (newNum < 1 || !oneShotChallenge) cell.ships[i] = newNum;
         }
         if (cell.ships[i] > 0) {
           done = false;

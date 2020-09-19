@@ -1,11 +1,25 @@
 import { CHALLENGES } from "../data/challenges";
 import { Challenge } from "./challenge";
 import { Game } from "../game";
+import { Bonus } from "../bonus/bonus";
+import {
+  DRONE_CHALLENGE_REWARD,
+  XS_CHALLENGE_REWARD,
+  SCIENCE_CHALLENGE_SCIENTIST_MULTI,
+  SCIENCE_CHALLENGE_WAR_MULTI
+} from "../CONSTANTS";
 
 export class ChallengeManager {
   challenges: Challenge[];
   activeChallenge: Challenge;
+  //#region Challenges
   baseChallenge: Challenge;
+  droneChallenge: Challenge;
+  xsChallenge: Challenge;
+  scienceChallenge: Challenge;
+  noNukeChallenge: Challenge;
+  oneShot: Challenge;
+  //#endregion
   constructor() {
     this.challenges = [];
     CHALLENGES.forEach((cData) => {
@@ -13,7 +27,47 @@ export class ChallengeManager {
       challenge.init(cData);
       this.challenges.push(challenge);
     });
+    this.challenges = this.challenges.sort(
+      (a, b) => a.unlockLevel - b.unlockLevel
+    );
+    const sm = Game.getGame().shipyardManager;
+    const rm = Game.getGame().resourceManager;
+    const tm = Game.getGame().researchManager;
+
     this.baseChallenge = this.challenges.find((c) => c.id === "0");
+    this.droneChallenge = this.challenges.find((c) => c.id === "1");
+    this.xsChallenge = this.challenges.find((c) => c.id === "2");
+    this.scienceChallenge = this.challenges.find((c) => c.id === "3");
+    this.noNukeChallenge = this.challenges.find((c) => c.id === "4");
+    this.oneShot = this.challenges.find((c) => c.id === "5");
+
+    //  Drone challenge
+    const droneChallengeBonus = new Bonus(
+      this.droneChallenge,
+      new Decimal(DRONE_CHALLENGE_REWARD)
+    );
+    sm.velocityBonusStack.bonuses.push(droneChallengeBonus);
+    sm.accelerationStack.bonuses.push(droneChallengeBonus);
+    sm.shipsProductionBonuses.push(droneChallengeBonus);
+
+    //  XS challenge
+    rm.worker.prodEfficiency.bonuses.push(
+      new Bonus(this.xsChallenge, new Decimal(XS_CHALLENGE_REWARD))
+    );
+
+    //  Science challenge
+    rm.scientist.prodEfficiency.bonuses.push(
+      new Bonus(
+        this.scienceChallenge,
+        new Decimal(SCIENCE_CHALLENGE_SCIENTIST_MULTI)
+      )
+    );
+    rm.science.battleGainMulti.bonuses.push(
+      new Bonus(this.scienceChallenge, new Decimal(SCIENCE_CHALLENGE_WAR_MULTI))
+    );
+
+    //  No Nuke challenge
+    tm.nukeResearch.noUnlockChallenges = [this.noNukeChallenge];
   }
   startChallenge(challenge: Challenge): boolean {
     if (this.activeChallenge) return false;

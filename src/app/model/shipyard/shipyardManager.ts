@@ -51,6 +51,7 @@ export class ShipyardManager extends JobManager {
   velocityBonusStack = new BonusStack();
   accelerationStack = new BonusStack();
   autoReinforce = false;
+  shipsProductionBonuses = new Array<Bonus>();
   constructor() {
     super();
     this.fleetNavCapPriority.fill(0);
@@ -107,6 +108,7 @@ export class ShipyardManager extends JobManager {
         );
       }
     });
+
     this.unlockDefaultModules();
   }
   unlockDefaultModules() {

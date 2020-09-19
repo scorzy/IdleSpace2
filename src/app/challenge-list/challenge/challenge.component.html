@@ -26,7 +26,11 @@
 </h3>
 
 <h3>Unlock Condition</h3>
-<nz-alert
+<p>
+  Defeat enemy level
+  <span class="monospace">{{ challenge.unlockLevel | format }}</span>
+</p>
+<!-- <nz-alert
   class="unlock-alert"
   [nzType]="this.challenge.unlocked ? 'success' : 'error'"
   [nzMessage]="condition"
@@ -36,7 +40,7 @@
 <ng-template #condition>
   Defeat enemy level
   <span class="monospace">{{ challenge.unlockLevel | format }}</span>
-</ng-template>
+</ng-template> -->
 
 <button
   *ngIf="this.challenge.unlocked"

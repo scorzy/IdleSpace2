@@ -18,6 +18,7 @@ import { BaseComponentComponent } from "src/app/base-component/base-component.co
 import { IShipModule } from "src/app/model/shipyard/IShipModule";
 import { NzCascaderOption } from "ng-zorro-antd/cascader/typings";
 import { trigger } from "@angular/animations";
+import { ALL_SIZES, Sizes } from "src/app/model/data/sizes";
 declare let numberformat;
 
 @Component({
@@ -27,7 +28,8 @@ declare let numberformat;
   animations: [trigger("noop", [])],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class EditComponent extends BaseComponentComponent
+export class EditComponent
+  extends BaseComponentComponent
   implements OnInit, OnDestroy, AfterViewInit {
   @Input() design: ShipDesign;
   original: ShipDesign;
@@ -37,6 +39,7 @@ export class EditComponent extends BaseComponentComponent
   otherDesigns: Array<ShipDesign>;
   blueprintWarning = false;
   nzOptions: NzCascaderOption[];
+  sizes = ALL_SIZES;
 
   constructor(
     ms: MainService,
@@ -46,6 +49,9 @@ export class EditComponent extends BaseComponentComponent
     private router: Router
   ) {
     super(ms, cd);
+    if (this.ms.game.challengeManager.xsChallenge.quantity.gte(1)) {
+      this.sizes = ALL_SIZES.concat(Sizes.Titanic);
+    }
   }
   ngAfterViewInit(): void {
     setTimeout(() => {

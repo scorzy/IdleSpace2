@@ -13,7 +13,8 @@ import {
   BUILDING_PRICE_GROW_RATE,
   EXTRA_DISTRICTS_FROM_STATIONS,
   MEGA_IDS,
-  MEGA_SPEED_MULTI
+  MEGA_SPEED_MULTI,
+  SCIENCE_CHALLENGE_LIMIT
 } from "../CONSTANTS";
 import { Price } from "../prices/price";
 import { Components } from "./components";
@@ -336,6 +337,10 @@ export class ResourceManager {
             this.unlockedProductionUnits[i].makers[i2].producer.quantity
           )
         );
+      }
+
+      if (Game.getGame().challengeManager.scienceChallenge.isActive) {
+        this.science.perSec = this.science.perSec.min(SCIENCE_CHALLENGE_LIMIT);
       }
 
       // End times
@@ -719,6 +724,24 @@ export class ResourceManager {
       const unit = this.units.find((u) => u.id === uData.i);
       unit.load(uData);
       if (unit.quantity.gt(0)) unit.unlocked = true;
+    }
+    if (this.scientist.unlocked) {
+      this.science.unlock();
+    }
+    if (this.metallurgist.unlocked) {
+      this.alloy.unlock();
+    }
+    if (this.worker.unlocked) {
+      this.shipyardWork.unlock();
+    }
+    if (this.searcher.unlocked) {
+      this.search.unlock();
+    }
+    if (this.replicator.unlocked) {
+      this.components.unlock();
+    }
+    if (this.nukeDrone.unlocked) {
+      this.nuke.unlock();
     }
     this.reloadLists();
   }

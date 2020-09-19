@@ -87,21 +87,20 @@ export abstract class Job {
   abstract getSave(): any;
   delete() {}
   addShipBonus(shipType: ShipType) {
+    this.bonuses = new BonusStack();
+
     Game.getGame().researchManager.researches.forEach((res) => {
       if (res.shipProductionBonus) {
         res.shipProductionBonus.forEach((bon) => {
           if (bon.shipType === shipType) {
-            if (!this.bonuses) this.bonuses = new BonusStack();
             this.bonuses.bonuses.push(new Bonus(res, new Decimal(bon.multi)));
           }
         });
       }
-      if (res.shipProductionBonusAll) {
-        if (!this.bonuses) this.bonuses = new BonusStack();
-        this.bonuses.bonuses.push(
-          new Bonus(res, new Decimal(res.shipProductionBonusAll))
-        );
-      }
+    });
+
+    Game.getGame().shipyardManager.shipsProductionBonuses.forEach((bonus) => {
+      this.bonuses.bonuses.push(bonus);
     });
   }
 }

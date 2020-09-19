@@ -118,7 +118,7 @@
                 [nzPopoverContent]="modTemplate"
                 nzPopoverPlacement="right"
                 [nzPopoverTrigger]="option?.mod ? 'hover' : 'null'"
-                style="width: 100%;"
+                style="width: 100%"
                 class="mod-options"
                 nz-typography
                 [nzType]="
@@ -149,15 +149,15 @@
                 [name]="'size' + i"
                 [(ngModel)]="line.size"
                 (ngModelChange)="reload()"
-                style="width: 7rem;"
+                style="width: 7rem"
               >
                 <nz-option
-                  *ngFor="let size of line.module.sizes; trackBy: getSizeId"
+                  *ngFor="let size of sizes; trackBy: getSizeId"
                   [nzValue]="size"
                   [nzLabel]="size | sizePipe"
                 ></nz-option>
               </nz-select>
-              <div style="line-height: 0;">
+              <div style="line-height: 0">
                 <input
                   nz-input
                   [(ngModel)]="line.levelUi"
@@ -180,7 +180,7 @@
 
       <nz-form-item>
         <nz-form-control>
-          <div fxLayout="row" fxLayoutAlign="center" style="width: 100%;">
+          <div fxLayout="row" fxLayoutAlign="center" style="width: 100%">
             <button
               nz-button
               nzType="dashed"
@@ -232,7 +232,7 @@
       </button>
     </nz-button-group>
 
-    <div style="margin-top: 0.5rem;" *ngIf="otherDesigns.length > 0">
+    <div style="margin-top: 0.5rem" *ngIf="otherDesigns.length > 0">
       <nz-form-label
         nz-tooltip
         nzTooltipTitle="Next design will be used instead of this whe available."

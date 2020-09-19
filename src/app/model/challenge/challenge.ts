@@ -47,6 +47,9 @@ export class Challenge implements IBase {
       this.reload();
     }
   }
+  get isActive(): boolean {
+    return Game.getGame().challengeManager.activeChallenge?.id === this.id;
+  }
 
   //#region Save and Load
   getSave(): any {

@@ -105,12 +105,13 @@ export class Game {
     this.researchManager.setRelations();
     this.resourceManager.makeUnitsMods();
     this.resourceManager.makeDepartments();
-    this.shipyardManager.afterResearchesInit();
 
     this.resourceManager.setRelations();
     this.automationManager = new AutomationManager();
     this.prestigeManager = new PrestigeManager();
     this.challengeManager = new ChallengeManager();
+
+    this.shipyardManager.afterResearchesInit();
 
     this.setTheme();
 
@@ -444,6 +445,7 @@ export class Game {
       throw new Error("Save not valid");
     }
     if ("fr" in data) this.firstRun = data.fr;
+    if ("j" in data) this.challengeManager.load(data.j);
 
     this.resourceManager.load(data.s);
     this.researchManager.load(data.r);
@@ -470,7 +472,9 @@ export class Game {
     if ("t" in data) this.prestigeManager.load(data.t);
     if ("k" in data) this.darkMatter = new Decimal(data.k);
     if ("l" in data) this.lockedDarkMatter = new Decimal(data.l);
-    if ("j" in data) this.challengeManager.load(data.j);
+
+    this.enemyManager.maxLevel = 900;
+
     this.challengeManager.afterLoad();
     this.researchManager.researches.forEach((res) => res.reload());
     this.postUpdate(0);
@@ -479,6 +483,7 @@ export class Game {
     // this.prestigeManager.lockedCars = false;
     // this.darkMatter = new Decimal(1e20);
     // this.prestigeManager.experience = new Decimal(1e4);
+    this.challengeManager.scienceChallenge.quantity = new Decimal(1);
   }
   //#endregion
 }

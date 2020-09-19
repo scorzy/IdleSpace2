@@ -24,5 +24,7 @@ const sizeNames = [
 export function getSizeName(size: Sizes, short = false): string {
   return size < 6
     ? sizeNames[size - 1][short ? 0 : 1]
-    : (short ? "T " : "Titan ") + (size - 4);
+    : short
+    ? "T "
+    : "Titan ";
 }

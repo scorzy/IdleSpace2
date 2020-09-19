@@ -103,6 +103,16 @@ export class ShipDesign {
           mod.warningTip = "";
           mod.validateStatus = "";
 
+          if (
+            Game.getGame().challengeManager.xsChallenge.isActive &&
+            mod.size > 1
+          ) {
+            this.available = false;
+            mod.warningTip =
+              mod.warningTip + "XS only challenge! Size unavailable.";
+            mod.validateStatus = "warning";
+          }
+
           if (!mod.module.unlocked) {
             this.available = false;
             mod.warningTip = mod.warningTip + "Blueprint.";
@@ -438,6 +448,12 @@ export class ShipDesign {
       points <= this.type.maxPoints;
 
     if (!this.type.unlocked) {
+      this.available = false;
+    }
+    if (
+      Game.getGame().challengeManager.xsChallenge.isActive &&
+      this.modules.some((mod) => mod.module && mod.size > 1)
+    ) {
       this.available = false;
     }
     if (!this.available) {

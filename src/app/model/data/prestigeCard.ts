@@ -96,8 +96,8 @@ export const PRESTIGE_CARDS: ISimpleBase[] = [
   },
   {
     id: "r3",
-    name: "Level 20 Researches",
-    description: "Repeatable researches can be repeated 10 more times.",
+    name: "Double Level Researches",
+    description: "Repeatable researches can be repeated double times.",
     icon: "fa-s:flask"
   },
   //#endregion

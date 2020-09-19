@@ -23,7 +23,9 @@
         "sider",
         "spec",
         "stylelint",
-        "unsubscribe"
+        "unsubscribe",
+        "yeild",
+        "yeilds"
     ],
     "typescript.tsdk": "node_modules/typescript/lib"
 }

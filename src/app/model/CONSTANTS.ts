@@ -190,3 +190,10 @@ export const MEGA_BUILD_SPEED_CARD = 100;
 //  Challenges
 export const CHALLENGE_REPEAT_LEVEL = 100;
 export const CHALLENGE_REWARD_EXP = 5e3;
+export const DRONE_CHALLENGE_REWARD = 0.1;
+export const XS_CHALLENGE_REWARD = 0.2;
+export const SCIENCE_CHALLENGE_LIMIT = 100;
+export const SCIENCE_CHALLENGE_SCIENTIST_MULTI = 0.1;
+export const SCIENCE_CHALLENGE_WAR_MULTI = 2;
+export const NUKE_CHALLENGE_STORAGE_MULTI = 2;
+export const NUKE_CHALLENGE_EFF_MULTI = 1;
