@@ -7,6 +7,40 @@
   <div fxFlex.lt-md="100%" fxFlex="0 1 calc(60% - 10px)">
     <h2>Fleets</h2>
 
+    <nz-button-group>
+      <button nz-button nzType="primary" (click)="confirm()">
+        <span>Confirm</span>
+      </button>
+      <button nz-button (click)="reinforceAll()">
+        <span>Reinforce All</span>
+      </button>
+      <button nz-button (click)="copyOne()">
+        <span>Copy all from Fleet 1</span>
+      </button>
+      <button nz-button nz-dropdown [nzDropdownMenu]="menu">
+        <span>Fleets priorities</span><i nz-icon nzType="down"></i>
+      </button>
+      <nz-dropdown-menu #menu="nzDropdownMenu">
+        <ul nz-menu>
+          <li nz-menu-item (click)="setFleets(0)">
+            <a>Fleet 1</a>
+          </li>
+          <li nz-menu-item (click)="setFleets(1)">
+            <a>2 Fleets</a>
+          </li>
+          <li nz-menu-item (click)="setFleets(2)">
+            <a>3 Fleets</a>
+          </li>
+          <li nz-menu-item (click)="setFleets(3)">
+            <a>4 Fleets</a>
+          </li>
+          <li nz-menu-item (click)="setFleets(4)">
+            <a>5 Fleets</a>
+          </li>
+        </ul>
+      </nz-dropdown-menu>
+    </nz-button-group>
+
     <nz-collapse>
       <nz-collapse-panel
         *ngFor="let panel of panels; let i = index; trackBy: getPanelId"
@@ -151,40 +185,6 @@
         </button> -->
       </nz-collapse-panel>
     </nz-collapse>
-
-    <nz-button-group>
-      <button nz-button nzType="primary" (click)="confirm()">
-        <span>Confirm</span>
-      </button>
-      <button nz-button (click)="reinforceAll()">
-        <span>Reinforce All</span>
-      </button>
-      <button nz-button (click)="copyOne()">
-        <span>Copy all from Fleet 1</span>
-      </button>
-      <button nz-button nz-dropdown [nzDropdownMenu]="menu">
-        <span>Fleets priorities</span><i nz-icon nzType="down"></i>
-      </button>
-      <nz-dropdown-menu #menu="nzDropdownMenu">
-        <ul nz-menu>
-          <li nz-menu-item (click)="setFleets(0)">
-            <a>Fleet 1</a>
-          </li>
-          <li nz-menu-item (click)="setFleets(1)">
-            <a>2 Fleets</a>
-          </li>
-          <li nz-menu-item (click)="setFleets(2)">
-            <a>3 Fleets</a>
-          </li>
-          <li nz-menu-item (click)="setFleets(3)">
-            <a>4 Fleets</a>
-          </li>
-          <li nz-menu-item (click)="setFleets(4)">
-            <a>5 Fleets</a>
-          </li>
-        </ul>
-      </nz-dropdown-menu>
-    </nz-button-group>
 
     <nz-alert
       *ngIf="warning"
