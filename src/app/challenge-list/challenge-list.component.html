@@ -25,7 +25,9 @@
         "
       >
         <a [routerLink]="challenge.id">
-          <strong>{{ challenge.name }}</strong>
+          <strong [class.text-danger]="!challenge.unlocked">{{
+            challenge.name
+          }}</strong>
         </a>
       </li>
     </ul>

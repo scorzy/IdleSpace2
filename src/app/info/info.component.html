@@ -60,9 +60,13 @@
             by your own. To do so research "Search" from laboratory screen and
             than buy searchers. Note that searchers consume science.
           </li>
-          <li>
+          <!-- <li>
             Click <i nz-icon nzType="fa-s:search"></i> Enemies, click Search.
             Activate "Auto search" on <i nz-icon nzType="sync"></i> Automation.
+          </li> -->
+          <li>
+            Automation unlock when you defeat an enemy of level
+            {{ AUTOMATION_UNLOCKED_LEVEL }}.
           </li>
         </ol>
         <h2>Next goals</h2>
@@ -73,9 +77,7 @@
             Robotics as fast as you can. It unlock replicators, a drone that
             will help making new drones, including itself.
           </li>
-          <li>
-            Research new ships and modules, improve ships designs.
-          </li>
+          <li>Research new ships and modules, improve ships designs.</li>
           <li>
             To increase battle speed equip thrusters (travel eta is from the
             slowest ship) and/or activate more fleets to fight more tiles at the
@@ -292,6 +294,10 @@
       <ng-template nz-tab>
         <h2>Automation</h2>
         <p>
+          <li>
+            Automation unlock when you defeat an enemy of level
+            {{ AUTOMATION_UNLOCKED_LEVEL }}.
+          </li>
           Some features of the game can be automated. On
           <i nz-icon nzType="sync"></i> "Automation" section automation can be
           enabled or disabled. This include drones auto buy automations. Doesn't
@@ -435,6 +441,23 @@
           unlocked by prestige and never reset. Cards are not effected by
           "experience multiplier" and can be changed only one time per prestige
           run.
+        </p>
+      </ng-template>
+    </nz-tab>
+    <nz-tab nzTitle="Challenges">
+      <ng-template nz-tab>
+        <h3>Challenges</h3>
+        <p>
+          Challenges can be accessed through the Rebirth page. The first
+          challenge unlock when you defeat enemy level 150.
+          <br />
+          Starting a challenge will perform a prestige and reset the Experience
+          Multiplier. Experience Multiplier reset even if you have the "Prestige
+          multi doesn't decrease" card. During a challenge you can prestige and
+          increase the exp. multiplier as normally.
+          <br />
+          Challenges can be completed several times. Each time you complete a
+          challenge the win condition increase by 100.
         </p>
       </ng-template>
     </nz-tab>

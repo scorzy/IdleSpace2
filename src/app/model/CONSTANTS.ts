@@ -138,7 +138,7 @@ export const MEGA_WORKER_MULTI = 0.3;
 export const MEGA_EFF_MULTI = 0.1;
 export const MEGA_NAVAL_MULTI = 0.2;
 export const MEGA_SPEED_MULTI = 0.3;
-export const MEGA_COMPUTING_MULTI = 0.3;
+export const MEGA_COMPUTING_MULTI = 0.2;
 
 //  Computing
 export const BASE_COMPUTING = 1e4;
@@ -159,6 +159,7 @@ export const VELOCITY_PRESTIGE_MULTI = 0.1;
 export const MORE_UP_PRESTIGE = 1;
 export const SIX_HOURS = 3600 * 6;
 export const BETTER_SPACE_STATION_PRESTIGE = 0.2;
+export const AUTOMATION_UNLOCKED_LEVEL = 2;
 
 //  Prestige Card
 export const LEVEL_PER_CARD = 12;

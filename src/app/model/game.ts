@@ -10,7 +10,8 @@ import {
   UPDATE_WARP_CARD,
   NAVAL_CAP_CARD_MULTI,
   MEGA_NAVAL_MULTI,
-  ONE
+  ONE,
+  AUTOMATION_UNLOCKED_LEVEL
 } from "./CONSTANTS";
 import { EnemyManager } from "./enemy/enemyManager";
 import { BattleResult, Stats } from "./battle/battleResult";
@@ -76,6 +77,7 @@ export class Game {
   lockedDarkMatter = ZERO;
   firstUpdate = true;
   firstRun = true;
+  automationUnlocked = false;
 
   private _gameId = "";
   private battleResults: { result: BattleResult; fleet: number }[] = [];
@@ -180,7 +182,9 @@ export class Game {
     this.timeToWarp = 0;
     this.processBattles(warped);
 
-    this.automationManager.update();
+    if (this.automationUnlocked) {
+      this.automationManager.update();
+    }
 
     let n = 0;
     while (toUpdate > 0 && n < 20) {
@@ -438,13 +442,15 @@ export class Game {
       k: this.darkMatter,
       l: this.lockedDarkMatter,
       fr: this.firstRun,
-      j: this.challengeManager.getSave()
+      j: this.challengeManager.getSave(),
+      u: this.automationUnlocked
     };
   }
   load(data: any) {
     if (!("s" in data && "r" in data)) {
       throw new Error("Save not valid");
     }
+    if ("u" in data) this.automationUnlocked = data.u;
     if ("fr" in data) this.firstRun = data.fr;
     if ("j" in data) this.challengeManager.load(data.j);
 
@@ -474,17 +480,24 @@ export class Game {
     if ("k" in data) this.darkMatter = new Decimal(data.k);
     if ("l" in data) this.lockedDarkMatter = new Decimal(data.l);
 
-    this.enemyManager.maxLevel = 900;
+    if (
+      !this.firstRun ||
+      this.enemyManager.maxLevel >= AUTOMATION_UNLOCKED_LEVEL
+    ) {
+      this.automationUnlocked = true;
+    }
+
+    // this.enemyManager.maxLevel = 900;
 
     this.challengeManager.afterLoad();
     this.researchManager.researches.forEach((res) => res.reload());
     this.postUpdate(0);
 
     // this.prestigeManager.maxCards = 70;
-    this.prestigeManager.lockedCars = false;
+    // this.prestigeManager.lockedCars = false;
     // this.darkMatter = new Decimal(1e20);
     // this.prestigeManager.experience = new Decimal(1e4);
-    this.challengeManager.scienceChallenge.quantity = new Decimal(1);
+    // this.challengeManager.scienceChallenge.quantity = new Decimal(1);
   }
   //#endregion
 }

@@ -168,11 +168,11 @@
   </ng-template>
 
   <app-auto-building
-    *ngIf="building?.autoBuyer"
+    *ngIf="building?.autoBuyer && ms.game.automationUnlocked"
     [autoBuilding]="building?.autoBuyer"
   ></app-auto-building>
   <app-auto-worker
-    *ngIf="unit?.autoBuyer && !building"
+    *ngIf="unit?.autoBuyer && !building && ms.game.automationUnlocked"
     [autoWorker]="unit?.autoBuyer"
   ></app-auto-worker>
 </nz-card>

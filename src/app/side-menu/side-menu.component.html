@@ -128,6 +128,7 @@
     <span>Battle</span>
   </li>
   <li
+    *ngIf="ms.game.automationUnlocked"
     nz-menu-item
     nzMatchRouter
     routerLink="automation"
@@ -162,7 +163,7 @@
     <span>Notifications</span>
   </li>
   <li
-    *ngIf="!ms.game.firstRun || ms.game.enemyManager.maxLevel > 1"
+    *ngIf="!ms.game.firstRun || ms.game.enemyManager.maxLevel > 3"
     nz-menu-item
     nzMatchRouter
     routerLink="prestige"
@@ -174,7 +175,7 @@
     <span>Prestige</span>
   </li>
   <li
-    *ngIf="!ms.game.firstRun || ms.game.enemyManager.maxLevel > 1"
+    *ngIf="!ms.game.firstRun || ms.game.enemyManager.maxLevel > 3"
     nz-menu-item
     nzMatchRouter
     routerLink="expShop"

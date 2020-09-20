@@ -59,7 +59,13 @@
   >
     <span>Prestige</span>
   </button>
-  <button nz-button nzType="default" nzSize="large" routerLink="/challenges/0">
+  <button
+    nz-button
+    nzType="default"
+    nzSize="large"
+    routerLink="/challenges/0"
+    *ngIf="this.ms.game.challengeManager.challenges[0].unlocked"
+  >
     <span>Challenges</span>
   </button>
   <button
@@ -72,7 +78,7 @@
     nzPopconfirmPlacement="bottom"
     (nzOnConfirm)="quitChallenge()"
   >
-    <span>Quit current challenge</span>
+    <span>Quit {{ this.ms.game.challengeManager.activeChallenge?.name }}</span>
   </button>
 </nz-button-group>
 

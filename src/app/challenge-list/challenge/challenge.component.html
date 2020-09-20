@@ -12,10 +12,9 @@
 <h3>Rewards</h3>
 <ul>
   <li *ngIf="challenge.experiencePerCompletions > 0">
-    +<span class="monospace"
-      >{{ challenge.experiencePerCompletions | format: true }} experience per
-      completions</span
-    >
+    <span class="monospace"
+      >{{ challenge.experiencePerCompletions | format: true }} </span
+    >experience per completions
   </li>
   <li *ngFor="let reward of challenge.rewards">{{ reward }}</li>
 </ul>

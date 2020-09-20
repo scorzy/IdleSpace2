@@ -6,7 +6,11 @@ import {
   OnDestroy,
   AfterViewInit
 } from "@angular/core";
-import { INSPIRATION_PERCENT, FLEET_CAPACITY } from "../model/CONSTANTS";
+import {
+  INSPIRATION_PERCENT,
+  FLEET_CAPACITY,
+  AUTOMATION_UNLOCKED_LEVEL
+} from "../model/CONSTANTS";
 import { MainService } from "../main.service";
 import { ActivatedRoute } from "@angular/router";
 import { BreakpointObserver, BreakpointState } from "@angular/cdk/layout";
@@ -18,11 +22,13 @@ import { BaseComponentComponent } from "../base-component/base-component.compone
   styleUrls: ["./info.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class InfoComponent extends BaseComponentComponent
+export class InfoComponent
+  extends BaseComponentComponent
   implements OnInit, OnDestroy, AfterViewInit {
   INSPIRATION_PERCENT = INSPIRATION_PERCENT;
   FLEET_CAPACITY = FLEET_CAPACITY;
   tabPosition = "left";
+  AUTOMATION_UNLOCKED_LEVEL = AUTOMATION_UNLOCKED_LEVEL;
   constructor(
     ms: MainService,
     cd: ChangeDetectorRef,

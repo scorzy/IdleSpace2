@@ -19,6 +19,7 @@ export interface iChallengeData {
   unlockLevel: number;
   startLevel: number;
   experiencePerCompletions?: number;
+  icon?: string;
 }
 export const CHALLENGES: iChallengeData[] = [
   {
@@ -69,7 +70,7 @@ export const CHALLENGES: iChallengeData[] = [
       "Scientists yeild " +
         SCIENCE_CHALLENGE_SCIENTIST_MULTI * 100 +
         "% more science",
-      "+ " + SCIENCE_CHALLENGE_WAR_MULTI * 100 + " science from battles"
+      "+ " + SCIENCE_CHALLENGE_WAR_MULTI * 100 + "% science from battles"
     ],
     unlockLevel: 600,
     startLevel: 100,

@@ -14,7 +14,8 @@ import {
   EXP_GAIN_CARD,
   DM_GAIN_CARD,
   ONE,
-  KILL_STREAK_GAIN_CARD
+  KILL_STREAK_GAIN_CARD,
+  AUTOMATION_UNLOCKED_LEVEL
 } from "../CONSTANTS";
 import { MainService } from "src/app/main.service";
 import { BattleRequest } from "../battle/battleRequest";
@@ -437,6 +438,9 @@ export class EnemyManager extends JobManager {
     rm.assimilation.inspire();
 
     if (this.currentEnemy.level >= this.maxLevel) {
+      if (this.currentEnemy.level >= AUTOMATION_UNLOCKED_LEVEL) {
+        Game.getGame().automationUnlocked = true;
+      }
       if (this.currentEnemy.level >= ENEMY_EXP_START_LEVEL) {
         const pm = Game.getGame().prestigeManager;
         const exp = this.getExperience(this.currentEnemy.level);
