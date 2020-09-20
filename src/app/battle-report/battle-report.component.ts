@@ -18,7 +18,8 @@ import { ActivatedRoute } from "@angular/router";
   styleUrls: ["./battle-report.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class BattleReportComponent extends BaseComponentComponent
+export class BattleReportComponent
+  extends BaseComponentComponent
   implements OnInit, OnDestroy, AfterViewInit {
   fleet = -1;
   report = -1;
@@ -73,7 +74,7 @@ export class BattleReportComponent extends BaseComponentComponent
     this.subscriptions.push(
       this.route.paramMap.subscribe((paramMap) => {
         const result = this.ms.game.battleStats.find(
-          (b) => b.id == paramMap.get("id")
+          (b) => b.id === paramMap.get("id")
         );
         if (result) {
           this.name =

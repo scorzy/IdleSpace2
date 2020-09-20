@@ -463,8 +463,6 @@ export class ResourceManager {
     let energyTotal = this.energyDistrict.quantity;
 
     for (let i = 0, n = this.buildings.length; i < n; i++) {
-      this.buildings[i].buyPrice.availableIn;
-
       const price = this.buildings[i].buyPrice.prices[
         this.buildings[i].buyPrice.prices.length - 1
       ];

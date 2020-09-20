@@ -4,7 +4,7 @@ import {
   ZERO,
   CHALLENGE_REWARD_EXP
 } from "../CONSTANTS";
-import { iChallengeData } from "../data/challenges";
+import { IChallengeData } from "../data/challenges";
 import { IBase } from "../iBase";
 import { Game } from "../game";
 
@@ -23,7 +23,7 @@ export class Challenge implements IBase {
   icon = "";
   colorClass = "";
 
-  init(data: iChallengeData) {
+  init(data: IChallengeData) {
     forOwn(
       this,
       function (value: any, key: string) {
@@ -42,8 +42,9 @@ export class Challenge implements IBase {
     if (enemyLevel >= this.nextLevel) {
       this.quantity = this.quantity.plus(1);
       const expToAdd = this.quantity.times(this.experiencePerCompletions);
-      if (expToAdd.gt(0))
+      if (expToAdd.gt(0)) {
         Game.getGame().prestigeManager.addExperience(expToAdd);
+      }
       this.reload();
     }
   }

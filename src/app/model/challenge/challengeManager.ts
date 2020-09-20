@@ -103,7 +103,7 @@ export class ChallengeManager {
   }
   onEnemyDefeated(enemyLevel: number) {
     this.activeChallenge?.advance(enemyLevel);
-    for (let challenge of this.challenges) {
+    for (const challenge of this.challenges) {
       if (enemyLevel >= challenge.unlockLevel) {
         challenge.unlocked = true;
       }
@@ -137,7 +137,7 @@ export class ChallengeManager {
   }
   afterLoad() {
     const maxLevel = Game.getGame().enemyManager.maxLevel - 1;
-    for (let challenge of this.challenges) {
+    for (const challenge of this.challenges) {
       if (maxLevel >= challenge.unlockLevel) {
         challenge.unlocked = true;
       }

@@ -11,7 +11,7 @@ import {
   NO_HAB_CHALLENGE_MULTI
 } from "../CONSTANTS";
 
-export interface iChallengeData {
+export interface IChallengeData {
   id: string;
   name: string;
   description: string;
@@ -21,7 +21,7 @@ export interface iChallengeData {
   experiencePerCompletions?: number;
   icon?: string;
 }
-export const CHALLENGES: iChallengeData[] = [
+export const CHALLENGES: IChallengeData[] = [
   {
     id: "0",
     name: "Tutorial Challenge",

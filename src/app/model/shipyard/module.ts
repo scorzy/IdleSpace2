@@ -1,7 +1,6 @@
 import { DEFAULT_MODULE_PRICE } from "../CONSTANTS";
 import { ModuleData } from "../data/modulesData";
 import { IUnlockable } from "../iUnlocable";
-import { ALL_SIZES } from "../data/sizes";
 import { Technology } from "../researches/technology";
 import { Game } from "../game";
 import forOwn from "lodash-es/forOwn";

@@ -61,10 +61,10 @@ export class Building extends Unit {
       let priSum = 0;
       let dep: Department;
       let minPercent = Decimal.MAX_VALUE;
-      for (let i = 0; i < this.departments.length; i++) {
+      for (let i = 0, n = this.departments.length; i < n; i++) {
         priSum += this.departments[i].priority;
       }
-      for (let i = 0; i < this.departments.length; i++) {
+      for (let i = 0, n = this.departments.length; i < n; i++) {
         if (this.departments[i].priority > 0) {
           const percent = this.departments[i].quantity
             .div(this.departments[i].priority)

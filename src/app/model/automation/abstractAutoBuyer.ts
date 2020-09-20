@@ -37,6 +37,7 @@ export abstract class AbstractAutobuyer {
     return ret;
   }
   load(save: any) {
+    // tslint:disable-next-line:triple-equals
     if (!("i" in save || save.i != this.id)) return false;
 
     if ("l" in save) this.last = save.l;

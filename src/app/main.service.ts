@@ -51,7 +51,7 @@ export class MainService {
         } else {
           this.saveToLocalStorage(data.m);
           if ("t" in data && data.t === "R") {
-            location.reload(true);
+            location.reload();
           }
         }
       } else {

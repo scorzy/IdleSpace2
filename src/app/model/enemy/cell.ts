@@ -27,8 +27,9 @@ export class Cell {
     if (
       Game.getGame().challengeManager.noHabSpaceChallenge.isActive &&
       material === Game.getGame().resourceManager.habitableSpace
-    )
+    ) {
       return;
+    }
 
     if (!this.materials) {
       this.materials = [];

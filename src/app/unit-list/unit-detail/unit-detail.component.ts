@@ -51,6 +51,7 @@ export class UnitDetailComponent
   }
   getUnits(params: any) {
     this.unit = this.ms.game.resourceManager.units.find(
+      // tslint:disable-next-line:triple-equals
       (u) => u.id == params.id
     );
     if (!this.unit) this.unit = this.ms.game.resourceManager.unlockedUnits[0];

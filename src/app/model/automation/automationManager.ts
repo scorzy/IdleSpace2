@@ -75,6 +75,7 @@ export class AutomationManager {
     if ("o" in save) this.on = save.o;
     for (const data of save.l) {
       if ("i" in data) {
+        // tslint:disable-next-line:triple-equals
         const auto = this.autobuyers.find((a) => a.id == data.i);
         if (auto) {
           auto.load(data);
