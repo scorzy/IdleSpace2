@@ -12,7 +12,7 @@ import { BaseComponentComponent } from "src/app/base-component/base-component.co
 import { MainService } from "src/app/main.service";
 import { Challenge } from "src/app/model/challenge/challenge";
 import { OptionsService } from "src/app/options.service";
-
+import { convertToRoman } from "ant-utils";
 @Component({
   selector: "app-challenge",
   templateUrl: "./challenge.component.html",
@@ -23,6 +23,7 @@ export class ChallengeComponent
   extends BaseComponentComponent
   implements OnInit, OnDestroy, AfterViewInit {
   @Input() challenge: Challenge;
+  romanNum = "";
   constructor(
     ms: MainService,
     public os: OptionsService,
@@ -47,9 +48,17 @@ export class ChallengeComponent
     this.challenge = this.ms.game.challengeManager.challenges.find(
       (c) => c.id === id
     );
+    this.romanNum = "";
+    if (this.challenge.quantity.gt(1)) {
+      this.romanNum = convertToRoman(this.challenge.quantity.plus(1));
+    }
     this.cd.markForCheck();
   }
   startChallenge() {
     this.ms.game.startChallenge(this.challenge);
+  }
+  stopStartChallenge() {
+    this.ms.game.quitChallenge();
+    this.startChallenge();
   }
 }

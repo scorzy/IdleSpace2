@@ -60,7 +60,7 @@ export const CHALLENGES: IChallengeData[] = [
   },
   {
     id: "3",
-    name: "Limited science",
+    name: "Limited Science",
     description:
       "Your Experience Multiplier will reset to one. Science output is capped to " +
       SCIENCE_CHALLENGE_LIMIT +

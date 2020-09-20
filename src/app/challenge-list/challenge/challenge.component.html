@@ -1,15 +1,17 @@
-<h2>{{ challenge?.name }}</h2>
+<h2>{{ challenge?.name }} {{ romanNum }}</h2>
 
-<h3>Win Condition</h3>
 <p>
-  Defeat enemy level
-  <strong class="monospace">{{ challenge.nextLevel | format }}</strong>
+  <strong class="inline-title">Win Condition:</strong>
+  <span class="inline-sub-title">
+    Defeat enemy level
+    <strong class="monospace">{{ challenge.nextLevel | format }}</strong>
+  </span>
 </p>
 
-<h3>Description</h3>
+<strong class="desc-title">Description:</strong>
 <p>{{ challenge?.description }}</p>
 
-<h3>Rewards</h3>
+<strong>Rewards:</strong>
 <ul>
   <li *ngIf="challenge.experiencePerCompletions > 0">
     <span class="monospace"
@@ -19,30 +21,22 @@
   <li *ngFor="let reward of challenge.rewards">{{ reward }}</li>
 </ul>
 
-<h3>
-  Completions:
-  <strong class="monospace">{{ challenge?.quantity | format: true }}</strong>
-</h3>
-
-<h3>Unlock Condition</h3>
 <p>
-  Defeat enemy level
-  <span class="monospace">{{ challenge.unlockLevel | format }}</span>
+  <strong>
+    Completions:
+    <strong class="monospace">{{ challenge?.quantity | format: true }}</strong>
+  </strong>
 </p>
-<!-- <nz-alert
-  class="unlock-alert"
-  [nzType]="this.challenge.unlocked ? 'success' : 'error'"
-  [nzMessage]="condition"
-  nzShowIcon
-></nz-alert>
-
-<ng-template #condition>
-  Defeat enemy level
-  <span class="monospace">{{ challenge.unlockLevel | format }}</span>
-</ng-template> -->
+<p>
+  <strong class="inline-title">Unlock Condition:</strong>
+  <span class="inline-sub-title">
+    Defeat enemy level
+    <span class="monospace">{{ challenge.unlockLevel | format }}</span>
+  </span>
+</p>
 
 <button
-  *ngIf="this.challenge.unlocked"
+  *ngIf="this.challenge.unlocked && !ms.game.challengeManager.activeChallenge"
   nz-button
   nzType="primary"
   nzSize="large"
@@ -55,5 +49,25 @@
       : ''
   "
 >
-  <span>Start Challenge</span>
+  <span>Start {{ challenge?.name }}</span>
+</button>
+<button
+  *ngIf="
+    this.challenge.unlocked &&
+    ms.game.challengeManager.activeChallenge &&
+    ms.game.challengeManager.activeChallenge !== this.challenge
+  "
+  nz-button
+  nzType="primary"
+  nzDanger
+  nzSize="large"
+  (click)="stopStartChallenge()"
+  nz-tooltip
+  [nzTooltipTitle]="
+    ms.game.challengeManager.activeChallenge
+      ? 'You are already in a challenge'
+      : ''
+  "
+>
+  <span>Quit current challenge and start {{ challenge?.name }}</span>
 </button>

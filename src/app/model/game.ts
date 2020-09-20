@@ -487,7 +487,7 @@ export class Game {
       this.automationUnlocked = true;
     }
 
-    // this.enemyManager.maxLevel = 900;
+    //  this.enemyManager.maxLevel = 900;
 
     this.challengeManager.afterLoad();
     this.researchManager.researches.forEach((res) => res.reload());
