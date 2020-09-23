@@ -10,7 +10,8 @@ import {
   ONE,
   TIER_ONE_RES_PRICE_MULTI,
   INSPIRATION_PERCENT,
-  INSPIRATION_CARD
+  INSPIRATION_CARD,
+  GAME_VERSION
 } from "../CONSTANTS";
 import { IUnlockable } from "../iUnlocable";
 import { Game } from "../game";
@@ -30,6 +31,7 @@ import { ExclusiveResGroups } from "./exclusiveResGroups";
 import { Spell } from "../computing/spell";
 import { Bonus } from "../bonus/bonus";
 import { Challenge } from "../challenge/challenge";
+import { BonusStack } from "../bonus/bonusStack";
 
 export class Research extends Job implements IUnlockable, IBase {
   static lastVisId = 0;
@@ -88,6 +90,7 @@ export class Research extends Job implements IUnlockable, IBase {
   parent: Research;
   unlocked = false;
   noUnlockChallenges: Challenge[];
+  requiredChallenge: { challenge: Challenge; level: number };
   constructor(researchData: IResearchData, researchManager: ResearchManager) {
     super();
     this.resData = researchData;
@@ -200,6 +203,196 @@ export class Research extends Job implements IUnlockable, IBase {
 
     this.reload();
   }
+  setRelations() {
+    const rs = Game.getGame().resourceManager;
+    const sm = Game.getGame().shipyardManager;
+    const em = Game.getGame().enemyManager;
+    const cm = Game.getGame().computingManager;
+    const rm = Game.getGame().researchManager;
+
+    if ("researchToUnlock" in this.resData) {
+      this.researchToUnlock = this.resData.researchToUnlock.map((unlId) =>
+        rm.researches.find((resToUnl) => resToUnl.id === unlId)
+      );
+    }
+    if ("unitsToUnlock" in this.resData) {
+      this.unitsToUnlock = this.resData.unitsToUnlock.map((unlId) =>
+        Game.getGame().resourceManager.units.find((unit) => unit.id === unlId)
+      );
+    }
+    if ("researchBonus" in this.resData) {
+      this.resData.researchBonus.forEach((resBonusData) => {
+        resBonusData.type.bonus.bonuses.push(
+          new Bonus(this, new Decimal(resBonusData.bonus))
+        );
+      });
+    }
+    if ("battleMulti" in this.resData) {
+      this.resData.battleMulti.forEach((multi) => {
+        const material = rs.units.find((u) => u.id === multi.materialId);
+        if (material) {
+          material.battleGainMulti.bonuses.push(
+            new Bonus(this, new Decimal(multi.multi))
+          );
+          if (!this.battleMulti) this.battleMulti = [];
+          this.battleMulti.push({
+            material,
+            multi: new Decimal(multi.multi).toNumber()
+          });
+        }
+      });
+    }
+    if ("prodMulti" in this.resData) {
+      this.resData.prodMulti.forEach((multi) => {
+        const unit = rs.units.find((u) => u.id === multi.unitId);
+        let secondUnit: Unit = null;
+        if (multi.secondUnitId) {
+          secondUnit = rs.units.find((u) => u.id === multi.secondUnitId);
+        }
+        if (unit) {
+          unit.prodAllBonus.bonuses.push(
+            new Bonus(this, new Decimal(multi.multi), secondUnit)
+          );
+          if (!this.prodMulti) this.prodMulti = [];
+          this.prodMulti.push({
+            unit,
+            multi: multi.multi,
+            secondUnit
+          });
+        }
+      });
+    }
+    if ("effMulti" in this.resData) {
+      this.resData.effMulti.forEach((multi) => {
+        const unit = rs.units.find((u) => u.id === multi.unitId);
+        let secondUnit: Unit = null;
+        if (multi.secondUnitId) {
+          secondUnit = rs.units.find((u) => u.id === multi.secondUnitId);
+        }
+        if (unit) {
+          unit.prodEfficiency.bonuses.push(
+            new Bonus(this, new Decimal(multi.multi), secondUnit)
+          );
+          if (!this.effMulti) this.effMulti = [];
+          this.effMulti.push({
+            unit,
+            multi: multi.multi,
+            secondUnit
+          });
+        }
+      });
+    }
+    if ("stationToUp" in this.resData) {
+      this.resData.stationToUp.forEach((stu) => {
+        const station = rs.spaceStations.find((u) => u.id === stu.stationId);
+        if (!this.spaceStationsToUp) this.spaceStationsToUp = [];
+        this.spaceStationsToUp.push({
+          spaceStation: station,
+          multi: stu.habSpace
+        });
+        station.habSpaceStack.bonuses.push(new Bonus(this, new Decimal(0.3)));
+        station.researchesToInspire =
+          station.researchesToInspire || new Array<Research>();
+        station.researchesToInspire.push(this);
+        if (this.inspirationDescription === "") {
+          this.inspirationDescription = "Build one " + station.name;
+        }
+      });
+    }
+    if ("limitMulti" in this.resData) {
+      this.resData.limitMulti.forEach((lim) => {
+        const unit = rs.units.find((u) => u.id === lim.unitId);
+        if (!unit.limitStackMulti) unit.limitStackMulti = new BonusStack();
+        const second = !lim.secondUnitId
+          ? null
+          : rs.units.find((u) => u.id === lim.secondUnitId);
+        unit.limitStackMulti.bonuses.push(
+          new Bonus(this, new Decimal(lim.multi), second)
+        );
+        if (!this.limitMulti) this.limitMulti = [];
+        this.limitMulti.push({ unit, multi: lim.multi, second });
+      });
+    }
+    if ("modulesToUnlock" in this.resData) {
+      this.resData.modulesToUnlock.forEach((modId) => {
+        const mod = sm.modules.find((m) => m.id === modId);
+        if (!this.modulesToUnlock) this.modulesToUnlock = [];
+        this.modulesToUnlock.push(mod);
+        mod.research = this;
+      });
+    }
+    if ("buildingPoints" in this.resData) {
+      this.resData.buildingPoints.forEach((bp) => {
+        const building = rs.buildings.find((b) => b.id === bp.buildingId);
+        if (!this.buildingPoints) this.buildingPoints = [];
+        this.buildingPoints.push({ building, quantity: bp.quantity });
+        if (!building.departmentResearches) {
+          building.departmentResearches = [];
+        }
+        building.departmentResearches.push(this);
+      });
+    }
+
+    if ("districtMulti" in this.resData) {
+      this.districtMultiplier = this.resData.districtMulti;
+      em.districtMultiplier.bonuses.push(
+        new Bonus(this, new Decimal(this.districtMultiplier))
+      );
+    }
+    if ("habSpaceMulti" in this.resData) {
+      this.habSpaceMulti = this.resData.habSpaceMulti;
+      em.habSpaceMultiplier.bonuses.push(
+        new Bonus(this, new Decimal(this.habSpaceMulti))
+      );
+    }
+    if ("miningDistMulti" in this.resData) {
+      this.miningDistMulti = this.resData.miningDistMulti;
+      em.miningDistMultiplier.bonuses.push(
+        new Bonus(this, new Decimal(this.miningDistMulti))
+      );
+    }
+    if ("energyDistMulti" in this.resData) {
+      this.energyDistMulti = this.resData.energyDistMulti;
+      em.energyDistMultiplier.bonuses.push(
+        new Bonus(this, new Decimal(this.energyDistMulti))
+      );
+    }
+    if ("materialMulti" in this.resData) {
+      this.materialMulti = this.resData.materialMulti;
+      em.resourceMultiplier.bonuses.push(
+        new Bonus(this, new Decimal(this.materialMulti))
+      );
+    }
+    if ("scienceMulti" in this.resData) {
+      this.scienceMulti = this.resData.scienceMulti;
+      em.resourceMultiplier.bonuses.push(
+        new Bonus(this, new Decimal(this.scienceMulti))
+      );
+    }
+    if ("spellToUnlock" in this.resData) {
+      this.spellToUnlock = cm.spells.find(
+        (s) => s.id === this.resData.spellToUnlock
+      );
+    }
+    if ("shipProductionBonusAll" in this.resData) {
+      this.shipProductionBonusAll = this.resData.shipProductionBonusAll;
+      sm.shipsProductionBonuses.push(
+        new Bonus(this, new Decimal(this.shipProductionBonusAll))
+      );
+    }
+  }
+  setChallengesRelations() {
+    const cm = Game.getGame().challengeManager;
+
+    if ("requiredChallenge" in this.resData) {
+      this.requiredChallenge = {
+        challenge: cm.challenges.find(
+          (ch) => ch.id === this.resData.requiredChallenge.challengeId
+        ),
+        level: this.resData.requiredChallenge.level
+      };
+    }
+  }
   reload(): void {
     super.reload();
     this.name =
@@ -220,7 +413,7 @@ export class Research extends Job implements IUnlockable, IBase {
       .reduce((p, c) => p.min(c), INFINITY)
       .toNumber();
   }
-  onCompleted(force = false): void {
+  onCompleted(force = false, oldGameVersion = GAME_VERSION): void {
     super.onCompleted();
 
     if (this.level < 2 || force) {
@@ -243,7 +436,7 @@ export class Research extends Job implements IUnlockable, IBase {
       ) {
         this.shipTypeToUnlock.unlocked = true;
       }
-      if (this.modulesToUnlock) {
+      if (this.modulesToUnlock && (!force || oldGameVersion === 0)) {
         this.modulesToUnlock.forEach((m) => m.unlock());
       }
       game.navalCapacity += this.navalCapacity;
@@ -292,6 +485,15 @@ export class Research extends Job implements IUnlockable, IBase {
     }
   }
   unlock(): boolean {
+    if (
+      this.requiredChallenge &&
+      this.requiredChallenge.challenge.quantity.lte(
+        this.requiredChallenge.level
+      )
+    ) {
+      return false;
+    }
+
     const resM = Game.getGame().researchManager;
     const result = resM.unlock(this);
     this.unlocked = this.unlocked || result;

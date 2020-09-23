@@ -44,6 +44,7 @@ export class ModuleData {
   adaptivePrecision?: number;
   threatGainMulti?: number;
   defenceDamagePercent?: number;
+  affectedWeaponsTechnologies?: string[];
 }
 
 export const modules: ModuleData[] = [
@@ -541,6 +542,34 @@ export const modules: ModuleData[] = [
     shape: "my:magnet-blast",
     energy: -2,
     threat: MODULE_DAMAGE * 5
+  },
+  {
+    id: "ps",
+    name: "Armor-piercing shell",
+    description: "Armor-piercing shell. Propulsion weapons only.",
+    price: 20,
+    technologies: [
+      { technologyId: TECHNOLOGIES.MilitaryEngineering.id, multi: 0.8 },
+      { technologyId: TECHNOLOGIES.Materials.id, multi: 1.2 }
+    ],
+    shape: "my:cube",
+    affectedWeaponsTechnologies: [TECHNOLOGIES.Propulsion.id],
+    armourDamagePercent: 16,
+    shieldDamagePercent: -5
+  },
+  {
+    id: "es",
+    name: "Anti-shield shell",
+    description: "Anti shield shell. Propulsion weapons only.",
+    price: 50,
+    technologies: [
+      { technologyId: TECHNOLOGIES.MilitaryEngineering.id, multi: 0.8 },
+      { technologyId: TECHNOLOGIES.Materials.id, multi: 1.2 }
+    ],
+    shape: "my:cube",
+    affectedWeaponsTechnologies: [TECHNOLOGIES.Propulsion.id],
+    armourDamagePercent: -5,
+    shieldDamagePercent: 16
   },
   //#endregion
   //#region Thrusters

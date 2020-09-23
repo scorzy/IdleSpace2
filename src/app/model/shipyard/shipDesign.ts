@@ -199,37 +199,45 @@ export class ShipDesign {
 
       // Weapons
       this.weapons.forEach((weapon) => {
-        weapon.precision += m.module.precision * statsMulti;
-        weapon.adaptivePrecision += m.module.adaptivePrecision * statsMulti;
-        let multi = 1;
-        if (weapon.level > m.level) {
-          multi = Math.pow(UTILITY_MOD_DECREASE, weapon.level - m.level);
-        }
-        if (m.module.armourDamagePercent !== 100) {
-          weapon.armourPercent *= Math.pow(
-            1 + (m.module.armourDamagePercent * multi) / 100,
-            statsMultiNoLevel
-          );
-        }
-        if (m.module.shieldDamagePercent !== 100) {
-          weapon.shieldPercent *= Math.pow(
-            1 + (m.module.shieldDamagePercent * multi) / 100,
-            statsMultiNoLevel
-          );
-        }
-        if (m.module.defenceDamagePercent !== 100) {
-          weapon.defencePercent *= Math.pow(
-            1 + (m.module.defenceDamagePercent * multi) / 100,
-            statsMultiNoLevel
-          );
-        }
-        if (m.module.threatGainMulti !== 1) {
-          weapon.threatMulti *= Math.pow(
-            1 + (m.module.threatGainMulti - 1) * multi,
-            statsMultiNoLevel
-          );
+        if (
+          !m.module.affectedWeaponsTechnologies ||
+          m.module.affectedWeaponsTechnologies.some((tec) =>
+            weapon.module.technologies.some((wTec) => wTec.technology === tec)
+          )
+        ) {
+          weapon.precision += m.module.precision * statsMulti;
+          weapon.adaptivePrecision += m.module.adaptivePrecision * statsMulti;
+          let multi = 1;
+          if (weapon.level > m.level) {
+            multi = Math.pow(UTILITY_MOD_DECREASE, weapon.level - m.level);
+          }
+          if (m.module.armourDamagePercent !== 100) {
+            weapon.armourPercent *= Math.pow(
+              1 + (m.module.armourDamagePercent * multi) / 100,
+              statsMultiNoLevel
+            );
+          }
+          if (m.module.shieldDamagePercent !== 100) {
+            weapon.shieldPercent *= Math.pow(
+              1 + (m.module.shieldDamagePercent * multi) / 100,
+              statsMultiNoLevel
+            );
+          }
+          if (m.module.defenceDamagePercent !== 100) {
+            weapon.defencePercent *= Math.pow(
+              1 + (m.module.defenceDamagePercent * multi) / 100,
+              statsMultiNoLevel
+            );
+          }
+          if (m.module.threatGainMulti !== 1) {
+            weapon.threatMulti *= Math.pow(
+              1 + (m.module.threatGainMulti - 1) * multi,
+              statsMultiNoLevel
+            );
+          }
         }
       });
+
       // Armour %
       if (m.module.armourPercent > 0) {
         const multiGainMax =
@@ -325,6 +333,16 @@ export class ShipDesign {
             if (!this.modules[k].module || this.modules[k].module.damage <= 0) {
               continue;
             }
+            if (
+              m.module.affectedWeaponsTechnologies &&
+              !m.module.affectedWeaponsTechnologies.some((tec) =>
+                this.modules[k].module.technologies.some(
+                  (wTec) => wTec.technology === tec
+                )
+              )
+            ) {
+              continue;
+            }
 
             let multi = 1;
             let multiGainReal = multiGainMax;
@@ -365,6 +383,16 @@ export class ShipDesign {
 
           for (let k = 0, n2 = this.modules.length; k < n2; k++) {
             if (!this.modules[k].module || this.modules[k].module.damage <= 0) {
+              continue;
+            }
+            if (
+              m.module.affectedWeaponsTechnologies &&
+              !m.module.affectedWeaponsTechnologies.some((tec) =>
+                this.modules[k].module.technologies.some(
+                  (wTec) => wTec.technology === tec
+                )
+              )
+            ) {
               continue;
             }
 

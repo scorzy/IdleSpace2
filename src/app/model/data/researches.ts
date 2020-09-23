@@ -7,7 +7,9 @@ import {
   REPEATABLE_RES_PRICE_MULTI,
   IDS,
   MAT_IDS,
-  MEGA_IDS
+  MEGA_IDS,
+  ANTI_ARMOUR_SHELL_LEVEL,
+  ANTI_SHIELD_SHELL_LEVEL
 } from "../CONSTANTS";
 import { ExclusiveResGroups } from "../researches/exclusiveResGroups";
 
@@ -286,6 +288,28 @@ export const RESEARCHES: IResearchData[] = [
     type: TECHNOLOGIES.Propulsion,
     accelerationMulti: 0.15,
     max: 10
+  },
+  //#endregion
+  //#region Materials
+  {
+    id: "M-1",
+    name: "Armour-piercing shell",
+    description: "Improve armour damage of propulsion weapons.",
+    unlockFrom: "M3",
+    type: TECHNOLOGIES.Materials,
+    max: 1,
+    modulesToUnlock: ["ps"],
+    requiredChallenge: { challengeId: "7", level: ANTI_ARMOUR_SHELL_LEVEL }
+  },
+  {
+    id: "M-2",
+    name: "Anti-shield shell",
+    description: "Improve shield damage of propulsion weapons.",
+    unlockFrom: "M8",
+    type: TECHNOLOGIES.Materials,
+    max: 1,
+    modulesToUnlock: ["es"],
+    requiredChallenge: { challengeId: "7", level: ANTI_SHIELD_SHELL_LEVEL }
   },
   //#endregion
   //#region Origin Science

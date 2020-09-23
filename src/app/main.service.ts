@@ -13,7 +13,7 @@ import { TimePipe } from "./time.pipe";
 import { NzModalService } from "ng-zorro-antd/modal";
 
 export const SAVE_ID = "IS2_save";
-export const GAME_SPEED = 1;
+export const GAME_SPEED = 1e4;
 declare let kongregateAPI: any;
 
 @Injectable({

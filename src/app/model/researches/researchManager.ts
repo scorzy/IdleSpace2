@@ -2,7 +2,6 @@ import { JobManager } from "../job/jobManager";
 import { RESEARCHES } from "../data/researches";
 import { Research } from "./research";
 import { Game } from "../game";
-import { Bonus } from "../bonus/bonus";
 import { Technology } from "./technology";
 import { TECHNOLOGIES } from "../data/technologyData";
 import {
@@ -15,8 +14,6 @@ import {
   SPACE_STATION_UP_PREFIX
 } from "../CONSTANTS";
 import { IResearchData } from "../data/iResearchData";
-import { BonusStack } from "../bonus/bonusStack";
-import { Unit } from "../units/unit";
 
 const SHIP_RESEARCH_NAV_CAP_MULTI = 5;
 
@@ -421,10 +418,6 @@ export class ResearchManager extends JobManager {
     }
   }
   setRelations() {
-    const rs = Game.getGame().resourceManager;
-    const sm = Game.getGame().shipyardManager;
-    const em = Game.getGame().enemyManager;
-    const cm = Game.getGame().computingManager;
     this.researches.forEach((res) => {
       if ("unlockFrom" in res.resData) {
         const resParent = this.researches.find(
@@ -438,186 +431,17 @@ export class ResearchManager extends JobManager {
         }
       }
     });
-    this.researches.forEach((res) => {
-      const resData = res.resData;
 
-      if ("researchToUnlock" in resData) {
-        res.researchToUnlock = resData.researchToUnlock.map((unlId) =>
-          this.researches.find((resToUnl) => resToUnl.id === unlId)
-        );
-      }
-      if ("unitsToUnlock" in resData) {
-        res.unitsToUnlock = resData.unitsToUnlock.map((unlId) =>
-          Game.getGame().resourceManager.units.find((unit) => unit.id === unlId)
-        );
-      }
-      if ("researchBonus" in resData) {
-        resData.researchBonus.forEach((resBonusData) => {
-          resBonusData.type.bonus.bonuses.push(
-            new Bonus(res, new Decimal(resBonusData.bonus))
-          );
-        });
-      }
-      if ("battleMulti" in resData) {
-        resData.battleMulti.forEach((multi) => {
-          const material = rs.units.find((u) => u.id === multi.materialId);
-          if (material) {
-            material.battleGainMulti.bonuses.push(
-              new Bonus(res, new Decimal(multi.multi))
-            );
-            if (!res.battleMulti) res.battleMulti = [];
-            res.battleMulti.push({
-              material,
-              multi: new Decimal(multi.multi).toNumber()
-            });
-          }
-        });
-      }
-      if ("prodMulti" in resData) {
-        resData.prodMulti.forEach((multi) => {
-          const unit = rs.units.find((u) => u.id === multi.unitId);
-          let secondUnit: Unit = null;
-          if (multi.secondUnitId) {
-            secondUnit = rs.units.find((u) => u.id === multi.secondUnitId);
-          }
-          if (unit) {
-            unit.prodAllBonus.bonuses.push(
-              new Bonus(res, new Decimal(multi.multi), secondUnit)
-            );
-            if (!res.prodMulti) res.prodMulti = [];
-            res.prodMulti.push({
-              unit,
-              multi: multi.multi,
-              secondUnit
-            });
-          }
-        });
-      }
-      if ("effMulti" in resData) {
-        resData.effMulti.forEach((multi) => {
-          const unit = rs.units.find((u) => u.id === multi.unitId);
-          let secondUnit: Unit = null;
-          if (multi.secondUnitId) {
-            secondUnit = rs.units.find((u) => u.id === multi.secondUnitId);
-          }
-          if (unit) {
-            unit.prodEfficiency.bonuses.push(
-              new Bonus(res, new Decimal(multi.multi), secondUnit)
-            );
-            if (!res.effMulti) res.effMulti = [];
-            res.effMulti.push({
-              unit,
-              multi: multi.multi,
-              secondUnit
-            });
-          }
-        });
-      }
-      if ("stationToUp" in resData) {
-        resData.stationToUp.forEach((stu) => {
-          const station = rs.spaceStations.find((u) => u.id === stu.stationId);
-          if (!res.spaceStationsToUp) res.spaceStationsToUp = [];
-          res.spaceStationsToUp.push({
-            spaceStation: station,
-            multi: stu.habSpace
-          });
-          station.habSpaceStack.bonuses.push(new Bonus(res, new Decimal(0.3)));
-          station.researchesToInspire =
-            station.researchesToInspire || new Array<Research>();
-          station.researchesToInspire.push(res);
-          if (res.inspirationDescription === "") {
-            res.inspirationDescription = "Build one " + station.name;
-          }
-        });
-      }
-      if ("limitMulti" in resData) {
-        resData.limitMulti.forEach((lim) => {
-          const unit = rs.units.find((u) => u.id === lim.unitId);
-          if (!unit.limitStackMulti) unit.limitStackMulti = new BonusStack();
-          const second = !lim.secondUnitId
-            ? null
-            : rs.units.find((u) => u.id === lim.secondUnitId);
-          unit.limitStackMulti.bonuses.push(
-            new Bonus(res, new Decimal(lim.multi), second)
-          );
-          if (!res.limitMulti) res.limitMulti = [];
-          res.limitMulti.push({ unit, multi: lim.multi, second });
-        });
-      }
-      if ("modulesToUnlock" in resData) {
-        resData.modulesToUnlock.forEach((modId) => {
-          const mod = sm.modules.find((m) => m.id === modId);
-          if (!res.modulesToUnlock) res.modulesToUnlock = [];
-          res.modulesToUnlock.push(mod);
-          mod.research = res;
-        });
-      }
-      if ("buildingPoints" in resData) {
-        resData.buildingPoints.forEach((bp) => {
-          const building = rs.buildings.find((b) => b.id === bp.buildingId);
-          if (!res.buildingPoints) res.buildingPoints = [];
-          res.buildingPoints.push({ building, quantity: bp.quantity });
-          if (!building.departmentResearches) {
-            building.departmentResearches = [];
-          }
-          building.departmentResearches.push(res);
-        });
-      }
-
-      if ("districtMulti" in resData) {
-        res.districtMultiplier = resData.districtMulti;
-        em.districtMultiplier.bonuses.push(
-          new Bonus(res, new Decimal(res.districtMultiplier))
-        );
-      }
-      if ("habSpaceMulti" in resData) {
-        res.habSpaceMulti = resData.habSpaceMulti;
-        em.habSpaceMultiplier.bonuses.push(
-          new Bonus(res, new Decimal(res.habSpaceMulti))
-        );
-      }
-      if ("miningDistMulti" in resData) {
-        res.miningDistMulti = resData.miningDistMulti;
-        em.miningDistMultiplier.bonuses.push(
-          new Bonus(res, new Decimal(res.miningDistMulti))
-        );
-      }
-      if ("energyDistMulti" in resData) {
-        res.energyDistMulti = resData.energyDistMulti;
-        em.energyDistMultiplier.bonuses.push(
-          new Bonus(res, new Decimal(res.energyDistMulti))
-        );
-      }
-      if ("materialMulti" in resData) {
-        res.materialMulti = resData.materialMulti;
-        em.resourceMultiplier.bonuses.push(
-          new Bonus(res, new Decimal(res.materialMulti))
-        );
-      }
-      if ("scienceMulti" in resData) {
-        res.scienceMulti = resData.scienceMulti;
-        em.resourceMultiplier.bonuses.push(
-          new Bonus(res, new Decimal(res.scienceMulti))
-        );
-      }
-      if ("spellToUnlock" in resData) {
-        res.spellToUnlock = cm.spells.find(
-          (s) => s.id === resData.spellToUnlock
-        );
-      }
-      if ("shipProductionBonusAll" in resData) {
-        res.shipProductionBonusAll = resData.shipProductionBonusAll;
-        sm.shipsProductionBonuses.push(
-          new Bonus(res, new Decimal(res.shipProductionBonusAll))
-        );
-      }
-    });
+    this.researches.forEach((res) => res.setRelations());
 
     this.toDo = [this.researches[0]];
     this.done = [];
     this.backlog = [];
 
     this.researches[0].setLevels();
+  }
+  setChallengesRelations() {
+    this.researches.forEach((res) => res.setChallengesRelations());
   }
   unlock(res: Research): boolean {
     if (
@@ -726,7 +550,7 @@ export class ResearchManager extends JobManager {
     if (this.autoOrigin) ret.a = this.autoOrigin.id;
     return ret;
   }
-  load(data: any) {
+  load(data: any, oldGameVersion: number) {
     this.toDo = [];
     this.done = [];
     this.backlog = [];
@@ -778,7 +602,7 @@ export class ResearchManager extends JobManager {
       this.autoOrigin = this.researches.find((res) => res.id === data.a);
     }
     this.done.forEach((res) => {
-      res.onCompleted(true);
+      res.onCompleted(true, oldGameVersion);
     });
     this.reloadTechList();
   }

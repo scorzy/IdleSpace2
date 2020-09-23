@@ -5,6 +5,7 @@ import { Technology } from "../researches/technology";
 import { Game } from "../game";
 import forOwn from "lodash-es/forOwn";
 import { Research } from "../researches/research";
+import { TECHNOLOGIES } from "../data/technologyData";
 
 export class Module implements IUnlockable {
   id = "";
@@ -41,6 +42,7 @@ export class Module implements IUnlockable {
   research: Research;
   specialResearch: Research;
   groupId = 0;
+  affectedWeaponsTechnologies?: Technology[];
   constructor() {}
   init(moduleData: ModuleData) {
     forOwn(
@@ -65,6 +67,12 @@ export class Module implements IUnlockable {
         };
       });
     }
+    if ("affectedWeaponsTechnologies" in moduleData) {
+      this.affectedWeaponsTechnologies = moduleData.affectedWeaponsTechnologies.map(
+        (tec) =>
+          Game.getGame().researchManager.technologies.find((t) => t.id === tec)
+      );
+    }
   }
   reloadMaxLevel() {
     this.maxLevel = 11;
@@ -81,6 +89,15 @@ export class Module implements IUnlockable {
     if (this.unlocked) {
       return false;
     }
+    if (
+      Game.getGame().challengeManager.noPhysics.isActive &&
+      this.technologies.some(
+        (tec) => tec.technology.id === TECHNOLOGIES.Physics.id
+      )
+    ) {
+      return false;
+    }
+
     this.unlocked = true;
     return true;
   }

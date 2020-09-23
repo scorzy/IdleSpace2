@@ -52,4 +52,5 @@ export interface IResearchData {
   spellToUnlock?: string;
   technologyBonus?: { techId: string; multi: number }[];
   computingPerSec?: number;
+  requiredChallenge?: { challengeId: string; level: number };
 }

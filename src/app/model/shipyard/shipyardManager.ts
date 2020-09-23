@@ -607,10 +607,19 @@ export class ShipyardManager extends JobManager {
       d: this.shipDesigns.map((des) => des.getSave()),
       t: this.toDo.map((j) => j.getSave()),
       n: this.fleetNavCapPriority,
-      r: this.autoReinforce
+      r: this.autoReinforce,
+      u: this.modules.filter((m) => m.unlocked).map((m) => m.id)
     };
   }
   load(data: any) {
+    if ("u" in data) {
+      for (const modId of data.u) {
+        const module = this.modules.find((m) => m.id === modId);
+        if (module) {
+          module.unlock();
+        }
+      }
+    }
     if ("d" in data) {
       this.shipDesigns = data.d.map((d) => {
         const design = new ShipDesign();

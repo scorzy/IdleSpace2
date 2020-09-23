@@ -8,7 +8,9 @@ import {
   NUKE_CHALLENGE_EFF_MULTI,
   NUKE_CHALLENGE_STORAGE_MULTI,
   ONE_SHOT_CHALLENGE_REWARD,
-  NO_HAB_CHALLENGE_MULTI
+  NO_HAB_CHALLENGE_MULTI,
+  ANTI_ARMOUR_SHELL_LEVEL,
+  ANTI_SHIELD_SHELL_LEVEL
 } from "../CONSTANTS";
 
 export interface IChallengeData {
@@ -112,6 +114,23 @@ export const CHALLENGES: IChallengeData[] = [
       "+" +
         NO_HAB_CHALLENGE_MULTI * 100 +
         " space station hab space x completion"
+    ],
+    unlockLevel: 500,
+    startLevel: 100,
+    experiencePerCompletions: CHALLENGE_REWARD_EXP * 2
+  },
+  {
+    id: "7",
+    name: "No Physics",
+    description:
+      "Your Experience Multiplier will reset to one. Ships components with Physics don't unlock.",
+    rewards: [
+      "Lv. " +
+        ANTI_ARMOUR_SHELL_LEVEL +
+        ": unlock Armour-piercing shell ship module",
+      "Lv. " +
+        ANTI_SHIELD_SHELL_LEVEL +
+        ": unlock Anti-shield shell ship module"
     ],
     unlockLevel: 500,
     startLevel: 100,

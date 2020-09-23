@@ -6,6 +6,30 @@
 ></nz-card-meta>
 
 <ul class="list-unstyled">
+  <li *ngIf="research.requiredChallenge">
+    <i
+      nz-icon
+      class="bottom-icon"
+      [nzType]="
+        research.requiredChallenge.challenge.quantity.gte(
+          research.requiredChallenge.level
+        )
+          ? 'check'
+          : 'stop'
+      "
+      [ngClass]="
+        research.requiredChallenge.challenge.quantity.gte(
+          research.requiredChallenge.level
+        )
+          ? 'text-success'
+          : 'text-danger'
+      "
+    ></i>
+    <span class="text-secondary"> Require challenge: </span
+    >{{ research.requiredChallenge.challenge.name }}
+    <span class="text-secondary"> lv.</span>
+    <span class="monospace">{{ research.requiredChallenge.level }}</span>
+  </li>
   <li *ngFor="let unit of research.unitsToUnlock; trackBy: getId">
     <span class="text-secondary">Unlock unit:</span> {{ unit.name }}
   </li>
@@ -28,39 +52,25 @@
   </li>
   <li *ngFor="let effMulti of research.effMulti; trackBy: getId">
     {{ effMulti.unit.name }}
-    <span class="text-secondary">
-      yields
-    </span>
+    <span class="text-secondary"> yields </span>
     <span class="monospace">{{ effMulti.multi | percent }}</span>
-    <span class="text-secondary">
-      more
-    </span>
-    <span class="text-secondary" *ngIf="effMulti.secondUnit">
-      per
-    </span>
+    <span class="text-secondary"> more </span>
+    <span class="text-secondary" *ngIf="effMulti.secondUnit"> per </span>
     {{ effMulti.secondUnit?.name }}
   </li>
   <li *ngFor="let prodMulti of research.prodMulti; trackBy: getId">
     {{ prodMulti.unit.name }}
-    <span class="text-secondary">
-      yields and consume
-    </span>
+    <span class="text-secondary"> yields and consume </span>
     <span class="monospace">{{ prodMulti.multi | percent }}</span>
-    <span class="text-secondary">
-      more
-    </span>
-    <span class="text-secondary" *ngIf="prodMulti.secondUnit">
-      per
-    </span>
+    <span class="text-secondary"> more </span>
+    <span class="text-secondary" *ngIf="prodMulti.secondUnit"> per </span>
     {{ prodMulti.secondUnit?.name }}
   </li>
   <li *ngFor="let techMulti of research.technologyBonus; trackBy: getId">
     <span class="text-secondary"> +</span
     ><span class="monospace">{{ techMulti.multi | percent }} </span>
     {{ techMulti.technology.name }}
-    <span class="text-secondary">
-      technology progress
-    </span>
+    <span class="text-secondary"> technology progress </span>
   </li>
   <li *ngIf="research.districtMultiplier">
     +{{ research.districtMultiplier | percent }} districts

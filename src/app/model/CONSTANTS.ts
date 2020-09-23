@@ -1,3 +1,8 @@
+/**
+ * Game version used for save
+ */
+export const GAME_VERSION = 1;
+
 //  Utility
 export const ZERO = new Decimal(0);
 export const ONE = new Decimal(1);
@@ -191,7 +196,7 @@ export const CHALLENGE_XP_MULTI = 0.02;
 
 //  Challenges
 export const CHALLENGE_REPEAT_LEVEL = 100;
-export const CHALLENGE_REWARD_EXP = 5e3;
+export const CHALLENGE_REWARD_EXP = 1e4;
 export const DRONE_CHALLENGE_REWARD = 0.1;
 export const XS_CHALLENGE_REWARD = 0.2;
 export const SCIENCE_CHALLENGE_LIMIT = 100;
@@ -201,3 +206,5 @@ export const NUKE_CHALLENGE_STORAGE_MULTI = 2;
 export const NUKE_CHALLENGE_EFF_MULTI = 1;
 export const ONE_SHOT_CHALLENGE_REWARD = 0.2;
 export const NO_HAB_CHALLENGE_MULTI = 5;
+export const ANTI_ARMOUR_SHELL_LEVEL = 2;
+export const ANTI_SHIELD_SHELL_LEVEL = 6;

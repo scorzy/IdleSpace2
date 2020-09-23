@@ -11,7 +11,8 @@ import {
   NAVAL_CAP_CARD_MULTI,
   MEGA_NAVAL_MULTI,
   ONE,
-  AUTOMATION_UNLOCKED_LEVEL
+  AUTOMATION_UNLOCKED_LEVEL,
+  GAME_VERSION
 } from "./CONSTANTS";
 import { EnemyManager } from "./enemy/enemyManager";
 import { BattleResult, Stats } from "./battle/battleResult";
@@ -112,6 +113,7 @@ export class Game {
     this.automationManager = new AutomationManager();
     this.prestigeManager = new PrestigeManager();
     this.challengeManager = new ChallengeManager();
+    this.researchManager.setChallengesRelations();
 
     this.shipyardManager.afterResearchesInit();
 
@@ -443,19 +445,22 @@ export class Game {
       l: this.lockedDarkMatter,
       fr: this.firstRun,
       j: this.challengeManager.getSave(),
-      u: this.automationUnlocked
+      u: this.automationUnlocked,
+      v: GAME_VERSION
     };
   }
   load(data: any) {
     if (!("s" in data && "r" in data)) {
       throw new Error("Save not valid");
     }
+    const saveVersion = "v" in data ? data.v : 0;
+
     if ("u" in data) this.automationUnlocked = data.u;
     if ("fr" in data) this.firstRun = data.fr;
     if ("j" in data) this.challengeManager.load(data.j);
 
     this.resourceManager.load(data.s);
-    this.researchManager.load(data.r);
+    this.researchManager.load(data.r, saveVersion);
     //  Reload module status
     this.shipyardManager.postUpdate();
     if ("d" in data) {
@@ -487,7 +492,16 @@ export class Game {
       this.automationUnlocked = true;
     }
 
-    //  this.enemyManager.maxLevel = 900;
+    //  Fix No Physics challenge
+    if (this.challengeManager.noPhysics.isActive) {
+      this.shipyardManager.modules.forEach((mod) => {
+        if (mod.technologies.some((tec) => tec.technology.id === "p")) {
+          mod.unlocked = false;
+        }
+      });
+    }
+
+    this.enemyManager.maxLevel = 900;
 
     this.challengeManager.afterLoad();
     this.researchManager.researches.forEach((res) => res.reload());
