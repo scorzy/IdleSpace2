@@ -35,39 +35,46 @@
   </span>
 </p>
 
-<button
-  *ngIf="this.challenge.unlocked && !ms.game.challengeManager.activeChallenge"
-  nz-button
-  nzType="primary"
-  nzSize="large"
-  [disabled]="ms.game.challengeManager.activeChallenge"
-  (click)="startChallenge()"
-  nz-tooltip
-  [nzTooltipTitle]="
-    ms.game.challengeManager.activeChallenge
-      ? 'You are already in a challenge'
-      : ''
-  "
->
-  <span>Start {{ challenge?.name }}</span>
-</button>
-<button
-  *ngIf="
-    this.challenge.unlocked &&
-    ms.game.challengeManager.activeChallenge &&
-    ms.game.challengeManager.activeChallenge !== this.challenge
-  "
-  nz-button
-  nzType="primary"
-  nzDanger
-  nzSize="large"
-  (click)="stopStartChallenge()"
-  nz-tooltip
-  [nzTooltipTitle]="
-    ms.game.challengeManager.activeChallenge
-      ? 'You are already in a challenge'
-      : ''
-  "
->
-  <span>Quit current challenge and start {{ challenge?.name }}</span>
-</button>
+<nz-button-group>
+  <button
+    *ngIf="this.challenge.unlocked && !ms.game.challengeManager.activeChallenge"
+    nz-button
+    nzType="primary"
+    nzSize="large"
+    [disabled]="ms.game.challengeManager.activeChallenge"
+    (click)="startChallenge()"
+    nz-tooltip
+    [nzTooltipTitle]="
+      ms.game.challengeManager.activeChallenge
+        ? 'You are already in a challenge'
+        : ''
+    "
+  >
+    <span>Start {{ challenge?.name }}</span>
+  </button>
+  <button
+    *ngIf="
+      this.challenge.unlocked &&
+      ms.game.challengeManager.activeChallenge &&
+      ms.game.challengeManager.activeChallenge !== this.challenge
+    "
+    nz-button
+    nzType="primary"
+    nzDanger
+    nzSize="large"
+    (click)="stopStartChallenge()"
+    nz-tooltip
+    [nzTooltipTitle]="
+      ms.game.challengeManager.activeChallenge
+        ? 'You are already in a challenge'
+        : ''
+    "
+  >
+    <span>Quit current challenge and start {{ challenge?.name }}</span>
+  </button>
+
+  <button nz-button nzSize="large" nzType="secondary" routerLink="/prestige">
+    <i nz-icon nzType="left"></i>
+    <span>Back</span>
+  </button>
+</nz-button-group>
