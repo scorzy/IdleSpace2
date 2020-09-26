@@ -5,7 +5,11 @@ import { SHIP_TYPES } from "../data/shipTypes";
 import { modules } from "../data/modulesData";
 import { JobManager } from "../job/jobManager";
 import { Game } from "../game";
-import { FLEET_NUMBER, FLEET_CAPACITY } from "../CONSTANTS";
+import {
+  FLEET_NUMBER,
+  FLEET_CAPACITY,
+  FLEET_CAPACITY_CARD
+} from "../CONSTANTS";
 import { BuildShipsJob } from "./buildShipsJob";
 import { Job } from "../job/job";
 import { UpdateShipJob } from "./updateShipJob";
@@ -283,6 +287,9 @@ export class ShipyardManager extends JobManager {
    * Calculate fleets capacity and num of ships to build
    */
   reloadFleetCapacity() {
+    const maxFleetCap = Game.getGame().prestigeManager.fleetCapCard.active
+      ? FLEET_CAPACITY_CARD
+      : FLEET_CAPACITY;
     for (let k = 0, n = this.shipDesigns.length; k < n; k++) {
       this.shipDesigns[k].reloadAvailability();
     }
@@ -294,8 +301,10 @@ export class ShipyardManager extends JobManager {
       sum += Math.max(this.fleetNavCapPriority[i], 0);
     }
     for (let i = 0; i < FLEET_NUMBER; i++) {
-      this.fleetsCapacity[i] =
-        (navalCapacity * Math.max(this.fleetNavCapPriority[i], 0)) / sum;
+      this.fleetsCapacity[i] = Math.min(
+        maxFleetCap,
+        (navalCapacity * Math.max(this.fleetNavCapPriority[i], 0)) / sum
+      );
     }
 
     for (let i = 0; i < FLEET_NUMBER; i++) {
@@ -374,8 +383,10 @@ export class ShipyardManager extends JobManager {
     }
 
     for (let i = 0; i < FLEET_NUMBER; i++) {
-      this.fleetsCapacityUi[i] =
-        (navalCapacity * Math.max(this.fleetNavCapPriorityUi[i], 0)) / sum;
+      this.fleetsCapacityUi[i] = Math.min(
+        maxFleetCap,
+        (navalCapacity * Math.max(this.fleetNavCapPriorityUi[i], 0)) / sum
+      );
     }
     //  Reload ships number
     for (let i = 0; i < FLEET_NUMBER; i++) {

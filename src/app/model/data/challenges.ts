@@ -113,7 +113,7 @@ export const CHALLENGES: IChallengeData[] = [
     rewards: [
       "+" +
         NO_HAB_CHALLENGE_MULTI * 100 +
-        " space station hab space x completion"
+        "% hab space from space stations x completion"
     ],
     unlockLevel: 500,
     startLevel: 100,

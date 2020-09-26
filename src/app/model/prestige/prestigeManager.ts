@@ -80,6 +80,7 @@ export class PrestigeManager {
   killStreakGain: PrestigeCard;
   megaBuildSpeed: PrestigeCard;
   challengeMultiplier: PrestigeCard;
+  fleetCapCard: PrestigeCard;
   //#endregion
   constructor() {
     this.generateExperience();
@@ -329,6 +330,7 @@ export class PrestigeManager {
     this.navalCapCard = this.cards.find((card) => card.id === "w5");
     const killStreakSpeed = this.cards.find((card) => card.id === "w6");
     this.killStreakGain = this.cards.find((card) => card.id === "w7");
+    this.fleetCapCard = this.cards.find((card) => card.id === "w8");
 
     const killStreak: IBase = {
       id: "kiS",

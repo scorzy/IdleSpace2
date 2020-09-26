@@ -303,6 +303,7 @@ export class Game {
       this.navalCapacity *= 1 + NAVAL_CAP_CARD_MULTI;
     }
     this.navalCapacity = Math.floor(this.navalCapacity);
+
     this.shipyardManager.reloadFleetCapacity();
   }
   onBattleEnd(battleResult: BattleResult, fleetNum: number) {
@@ -501,7 +502,7 @@ export class Game {
       });
     }
 
-    this.enemyManager.maxLevel = 900;
+    // this.enemyManager.maxLevel = 900;
 
     this.challengeManager.afterLoad();
     this.researchManager.researches.forEach((res) => res.reload());

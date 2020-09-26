@@ -63,6 +63,7 @@ export const MAX_MOD_PRESET = 5;
 export const BASE_NAVAL_CAPACITY = 25;
 export const FLEET_NUMBER = 5;
 export const FLEET_CAPACITY = 5e3;
+export const FLEET_CAPACITY_CARD = 7e3;
 export const FLEET_CAPACITY_MULTI = 10;
 
 //  Ships

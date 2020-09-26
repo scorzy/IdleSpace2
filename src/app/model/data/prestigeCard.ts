@@ -25,7 +25,9 @@ import {
   KILL_STREAK_SPEED_CARD,
   KILL_STREAK_GAIN_CARD,
   MEGA_BUILD_SPEED_CARD,
-  CHALLENGE_XP_MULTI
+  CHALLENGE_XP_MULTI,
+  FLEET_CAPACITY_CARD,
+  FLEET_CAPACITY
 } from "../CONSTANTS";
 
 export const PRESTIGE_CARDS: ISimpleBase[] = [
@@ -157,6 +159,16 @@ export const PRESTIGE_CARDS: ISimpleBase[] = [
     name: "Kill Streak: Resources",
     description:
       "+" + KILL_STREAK_GAIN_CARD * 100 + "% battle gains per kill streak",
+    icon: "my:strafe"
+  },
+  {
+    id: "w8",
+    name: "More fleet capacity",
+    description:
+      "Increase maximum fleet capacity to " +
+      FLEET_CAPACITY_CARD +
+      " from " +
+      FLEET_CAPACITY,
     icon: "my:strafe"
   },
   //#endregion
