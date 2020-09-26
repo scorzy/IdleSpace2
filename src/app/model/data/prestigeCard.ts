@@ -264,7 +264,8 @@ export const PRESTIGE_CARDS: ICardData[] = [
     id: "m4",
     name: "Prestige multi doesn't decrease",
     description: "Prestige multi doesn't decrease on prestige.",
-    icon: "arrow-up"
+    icon: "arrow-up",
+    cardRequired: 2
   },
   {
     id: "m2",
