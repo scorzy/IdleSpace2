@@ -34,4 +34,12 @@
   <nz-card nzTitle="Auto 100%" nzSize="small" style="width: 270px">
     <app-auto-full></app-auto-full>
   </nz-card>
+  <nz-card
+    *ngIf="ms.game.prestigeManager.autoPrestigeCard.active"
+    nzTitle="Auto Prestige"
+    nzSize="small"
+    style="width: 500px"
+  >
+    <app-auto-prestige></app-auto-prestige>
+  </nz-card>
 </div>

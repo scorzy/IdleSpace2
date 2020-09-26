@@ -14,6 +14,7 @@ export abstract class AbstractAutobuyer {
   interval = 1e3;
   execute(dateTime: number): boolean {
     if (!this.on) return false;
+    if (this.interval <= 0) return false;
     if (dateTime < this.last + this.interval) return false;
 
     if (this.automate()) {

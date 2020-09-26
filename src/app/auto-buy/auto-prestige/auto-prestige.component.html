@@ -1,0 +1,56 @@
+<form nz-form nzLayout="inline">
+  <nz-form-item>
+    <nz-form-label>On</nz-form-label>
+    <nz-form-control>
+      <nz-switch
+        name="autoPrestige"
+        [(ngModel)]="ms.game.automationManager.autoPrestige.on"
+        nzSize="small"
+      ></nz-switch>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label>hh</nz-form-label>
+    <nz-form-control>
+      <nz-input-number
+        [(ngModel)]="hours"
+        [nzSize]="'small'"
+        [nzMin]="0"
+        [nzMax]="24"
+        [nzStep]="1"
+        name="autoP-hours"
+        (ngModelChange)="setInterval()"
+      ></nz-input-number>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label>mm</nz-form-label>
+    <nz-form-control>
+      <nz-input-number
+        [(ngModel)]="minutes"
+        [nzSize]="'small'"
+        [nzMin]="0"
+        [nzMax]="60"
+        [nzStep]="1"
+        name="autoP-minutes"
+        (ngModelChange)="setInterval()"
+      ></nz-input-number>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label>Min Level</nz-form-label>
+    <nz-form-control>
+      <nz-input-number
+        [(ngModel)]="ms.game.automationManager.autoPrestige.minLevel"
+        [nzSize]="'small'"
+        [nzMin]="0"
+        [nzMax]="60"
+        [nzStep]="1"
+        name="autoP-level"
+      ></nz-input-number>
+    </nz-form-control>
+  </nz-form-item>
+</form>

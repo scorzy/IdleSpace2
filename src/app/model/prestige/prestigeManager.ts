@@ -81,6 +81,7 @@ export class PrestigeManager {
   megaBuildSpeed: PrestigeCard;
   challengeMultiplier: PrestigeCard;
   fleetCapCard: PrestigeCard;
+  autoPrestigeCard: PrestigeCard;
   //#endregion
   constructor() {
     this.generateExperience();
@@ -272,8 +273,8 @@ export class PrestigeManager {
     const sm = Game.getGame().researchManager;
     const cm = Game.getGame().computingManager;
     const sy = Game.getGame().shipyardManager;
-    //#region Drones
     this.cards = PRESTIGE_CARDS.map((data) => new PrestigeCard(data));
+    //#region Drones
     const prodCard = this.cards.find((card) => card.id === "0");
     const effCard = this.cards.find((card) => card.id === "1");
     const moreDrones = this.cards.find((card) => card.id === "2");
@@ -387,6 +388,7 @@ export class PrestigeManager {
     this.extraMiningDistricts = this.cards.find((card) => card.id === "m5");
     this.extraEnergyDistricts = this.cards.find((card) => card.id === "m6");
     this.megaBuildSpeed = this.cards.find((card) => card.id === "m7");
+    this.autoPrestigeCard = this.cards.find((card) => card.id === "m8");
     const moreHabBonus = new Bonus(
       this.moreHabSpaceFromStations,
       new Decimal(MORE_HAB_FROM_STATIONS)

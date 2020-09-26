@@ -9,6 +9,7 @@ import { AutoSurrender } from "./autoSurrender";
 import { AutoRefresh } from "./autoRefresh";
 import { AutoMod } from "./autoMod";
 import { AutoFull } from "./autoFull";
+import { AutoPrestige } from "./autoPrestige";
 
 export class AutomationManager {
   on = true;
@@ -20,6 +21,7 @@ export class AutomationManager {
   autoSurrender: AutoSurrender;
   autoRefresh: AutoRefresh;
   autoFull: AutoFull;
+  autoPrestige: AutoPrestige;
 
   constructor() {
     const game = Game.getGame();
@@ -48,6 +50,9 @@ export class AutomationManager {
 
     this.autoFull = new AutoFull();
     this.autobuyers.push(this.autoFull);
+
+    this.autoPrestige = new AutoPrestige();
+    this.autobuyers.push(this.autoPrestige);
 
     this.autobuyers.forEach((a) => a.reload());
     this.sort();

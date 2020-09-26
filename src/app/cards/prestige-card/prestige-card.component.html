@@ -1,11 +1,16 @@
-<nz-card nzSize="small" style="width: 100%;">
+<nz-card nzSize="small" style="width: 100%">
   <nz-card-meta
     [nzAvatar]="avatarTemplate"
-    [nzTitle]="card.name"
+    [nzTitle]="titleTemplate"
     [nzDescription]="card.description"
   ></nz-card-meta>
 </nz-card>
 
 <ng-template #avatarTemplate>
   <i nz-icon [nzType]="card.icon"></i>
+</ng-template>
+
+<ng-template #titleTemplate>
+  <span>{{ card.name }}</span>
+  <span class="monospace card-req">{{ card.cardRequired }}</span>
 </ng-template>

@@ -30,7 +30,11 @@ import {
   FLEET_CAPACITY
 } from "../CONSTANTS";
 
-export const PRESTIGE_CARDS: ISimpleBase[] = [
+export interface ICardData extends ISimpleBase {
+  cardRequired?: number;
+}
+
+export const PRESTIGE_CARDS: ICardData[] = [
   //#region Drones
   {
     id: "0",
@@ -296,6 +300,13 @@ export const PRESTIGE_CARDS: ISimpleBase[] = [
       "+" + MEGA_BUILD_SPEED_CARD * 100 + "% megastructures build speed.",
     icon: "my:defense-satellite"
   },
+  {
+    id: "m8",
+    name: "Auto Prestige",
+    description: "Unlock auto prestige.",
+    icon: "sync",
+    cardRequired: 10
+  },
   //#endregion
   //#region Challenges
   {
@@ -305,7 +316,8 @@ export const PRESTIGE_CARDS: ISimpleBase[] = [
       "Increase experience multiplier by " +
       CHALLENGE_XP_MULTI * 100 +
       "% per challenge completed.",
-    icon: "arrow-up"
+    icon: "arrow-up",
+    cardRequired: 5
   }
   //#endregion
 ];

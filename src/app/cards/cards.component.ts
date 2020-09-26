@@ -26,6 +26,7 @@ import { LEVEL_PER_CARD } from "../model/CONSTANTS";
 export class CardsComponent implements OnInit, AfterViewInit {
   available: Array<PrestigeCard>;
   inUse: Array<PrestigeCard>;
+  points = 0;
   LEVEL_PER_CARD = LEVEL_PER_CARD;
   @HostBinding("class.disable-animation") animationDisabled = true;
   constructor(public ms: MainService) {}
@@ -35,11 +36,15 @@ export class CardsComponent implements OnInit, AfterViewInit {
       (c) => !c.active
     );
     this.inUse = this.ms.game.prestigeManager.cards.filter((c) => c.active);
+    this.reloadPoints();
   }
   ngAfterViewInit() {
     setTimeout(() => {
       this.animationDisabled = false;
     });
+  }
+  reloadPoints() {
+    this.points = this.inUse.reduce((p, c) => p + c.cardRequired, 0);
   }
   getCardId(index: number, card: PrestigeCard) {
     return card.id;
@@ -59,11 +64,15 @@ export class CardsComponent implements OnInit, AfterViewInit {
         event.currentIndex
       );
     }
+    this.reloadPoints();
   }
-  maxPredicate(item: CdkDrag<PrestigeCard>, list: CdkDropList) {
+  maxPredicate(item: CdkDrag<PrestigeCard>, list: CdkDropList<PrestigeCard>) {
+    const points = list
+      .getSortedItems()
+      .reduce((p, c) => p + c.data.cardRequired, 0);
     return (
-      list &&
-      list.getSortedItems().length < Game.getGame().prestigeManager.maxCards
+      points + item.data.cardRequired - 1 <
+      Game.getGame().prestigeManager.maxCards
     );
   }
   confirm() {

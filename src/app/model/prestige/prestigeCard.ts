@@ -1,5 +1,6 @@
-import { IBase, ISimpleBase } from "../iBase";
+import { IBase } from "../iBase";
 import { ONE, ZERO } from "../CONSTANTS";
+import { ICardData } from "../data/prestigeCard";
 
 export class PrestigeCard implements IBase {
   id: string;
@@ -8,11 +9,13 @@ export class PrestigeCard implements IBase {
   icon?: string;
   colorClass?: string;
   active = false;
-  constructor(data: ISimpleBase) {
+  cardRequired = 1;
+  constructor(data: ICardData) {
     this.id = data.id;
     this.name = data.name;
     this.description = data.description;
     this.icon = data?.icon;
+    this.cardRequired = data?.cardRequired ?? 1;
   }
   get quantity(): Decimal {
     if (this.active) return ONE;

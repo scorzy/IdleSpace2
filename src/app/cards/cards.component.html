@@ -15,6 +15,7 @@
       <app-prestige-card
         cdkDrag
         class="job-box"
+        [cdkDragData]="cardAv"
         *ngFor="let cardAv of available; trackBy: getCardId"
         [card]="cardAv"
       >
@@ -23,10 +24,13 @@
   </div>
   <div fxFlex.xs="0 0 calc(100%)" fxFlex.gt-xs="0 0 calc(37% -10px)">
     <h3>
-      In Use
-      <span class="monospace"
-        >{{ inUse.length }} /{{ ms.game.prestigeManager.maxCards }}</span
-      >
+      <span class="point-in-use">
+        Card point in use:
+        <span class="monospace"
+          >{{ points }} /{{ ms.game.prestigeManager.maxCards }}</span
+        >
+      </span>
+      Card in use: <span class="monospace">{{ inUse.length }}</span>
     </h3>
     <div
       cdkDropList
@@ -40,6 +44,7 @@
     >
       <app-prestige-card
         cdkDrag
+        [cdkDragData]="cardUse"
         class="job-box"
         *ngFor="let cardUse of inUse; trackBy: getCardId"
         [card]="cardUse"
