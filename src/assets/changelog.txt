@@ -2,6 +2,7 @@
 -   Challenges
 -   More cards
 -   Mega Computing Center bonus decreased from 30% to 20%
+-   Automation unlock at level 2
 
 12/09/2020
 -   Megastructure
