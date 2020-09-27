@@ -65,7 +65,18 @@
   </nz-tabset>
 </ng-container>
 
-<br /><br />
+<br />
+<span *ngIf="ms.lastSave > 0"
+  >Last Local Save: {{ ms.lastSave | date: "medium" }}</span
+>
+<br />
+<span *ngIf="ms.lastPlayFabSave > 0"
+  >Last PlayFab Save: {{ ms.lastPlayFabSave | date: "medium" }}</span
+>
+<p>
+  Game auto save on local storage every minute. Save on PlayFab every 10
+  minutes. <br />Data may be cleared from PlayFab's servers.
+</p>
 <a
   href="https://scorzy.github.io/IdleSpace2/assets/changelog.txt"
   target="_blank"

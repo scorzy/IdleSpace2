@@ -66,7 +66,7 @@ export class MainService {
       } else {
         // Decompress request
         if ("t" in data && data.t === "P") {
-          this.onPlayFabDecompress(data.m);
+          this.onPlayFabDecompress(data.m, data.a);
         } else {
           this.load(data.m);
         }
@@ -142,6 +142,7 @@ export class MainService {
   loadedDate = 0;
   playfabDate = 0;
   playFabData = "";
+  lastSave = 0;
 
   update() {
     if (!this.game) return;
@@ -184,6 +185,7 @@ export class MainService {
       new MyNotification(NotificationTypes.SAVE, "Game Saved")
     );
     this.saveEmitter.emit(1);
+    this.lastSave = Date.now();
   }
   private load(save: string) {
     const data = JSON.parse(save);
@@ -197,6 +199,7 @@ export class MainService {
     this.setTheme();
     this.setSideTheme();
     this.loadedDate = this.last;
+    this.lastSave = this.last;
     this.notificationEmitter.emit(
       new MyNotification(
         NotificationTypes.LOAD,
@@ -276,9 +279,7 @@ export class MainService {
       PlayFab.settings.titleId = PLAYFAB_TITLE_ID;
       console.log("Logged in to playFab");
       this.message.success("Logged in");
-      if (this.kongregate) {
-        this.loadPlayFab();
-      }
+      this.loadPlayFab(true);
     }
     this.saveEmitter.emit();
   }
@@ -342,7 +343,7 @@ export class MainService {
         requestData,
         this.saveToPlayFabCallback.bind(this)
       );
-      this.lastPlayFabSave = Date.now();
+      this.saveToLocalStorage(save);
     } catch (e) {
       console.log(e);
     }
@@ -353,6 +354,7 @@ export class MainService {
       return false;
     }
     if (data) {
+      this.lastPlayFabSave = Date.now();
       console.log("Game Saved!");
       this.game.notificationManager.addNotification(
         new MyNotification(NotificationTypes.SAVE, "Game Saved to PlayFab")
@@ -360,7 +362,7 @@ export class MainService {
       return true;
     }
   }
-  loadPlayFab() {
+  loadPlayFab(auto = false) {
     if (
       !this.playFabId ||
       typeof PlayFab === "undefined" ||
@@ -430,9 +432,9 @@ export class MainService {
       this.message.success("Email sent");
     }
   }
-  private onPlayFabDecompress(save: string) {
-    if (save === "") {
-      this.message.error("Nothing to load.");
+  private onPlayFabDecompress(save: string, auto = false) {
+    if (!save || save === "") {
+      if (!auto) this.message.error("Nothing to load.");
       return;
     }
     if (this.loadedDate === 0) {
