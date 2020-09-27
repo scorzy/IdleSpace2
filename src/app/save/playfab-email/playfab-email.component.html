@@ -1,0 +1,55 @@
+<form nz-form [nzLayout]="'inline'">
+  <nz-form-item>
+    <nz-form-control nzErrorTip="Please input your username!">
+      <nz-input-group nzPrefixIcon="user">
+        <input
+          [(ngModel)]="playFabEmail"
+          nz-input
+          placeholder="Email"
+          name="playFabEmail"
+        />
+      </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item *ngIf="type !== 3">
+    <nz-form-control nzErrorTip="Please input your Password!">
+      <nz-input-group nzPrefixIcon="lock">
+        <input
+          name="playFabPsw"
+          [(ngModel)]="playFabPsw"
+          nz-input
+          type="password"
+          placeholder="Password"
+        />
+      </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item *ngIf="type === 2">
+    <nz-form-control nzErrorTip="Please input your Password!">
+      <nz-input-group nzPrefixIcon="lock">
+        <input
+          name="playFabPsw2"
+          [(ngModel)]="playFabPsw2"
+          nz-input
+          type="password"
+          placeholder="Password"
+        />
+      </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
+</form>
+
+<button *ngIf="type === 1" nz-button nzType="primary" (click)="playFabLogin()">
+  Log in
+</button>
+<button
+  *ngIf="type === 2"
+  nz-button
+  nzType="primary"
+  (click)="registerPlayFab()"
+>
+  Register
+</button>
+<button *ngIf="type === 3" nz-button nzType="primary" (click)="recover()">
+  Recover
+</button>

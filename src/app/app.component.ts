@@ -17,6 +17,7 @@ import {
   NotificationTypes
 } from "./model/notifications/myNotification";
 import { trigger } from "@angular/animations";
+import { NzMessageService } from "ng-zorro-antd/message";
 
 @Component({
   selector: "app-root",
@@ -40,7 +41,8 @@ export class AppComponent implements OnInit, OnDestroy {
     public ms: MainService,
     public os: OptionsService,
     private notification: NzNotificationService,
-    private cd: ChangeDetectorRef
+    private cd: ChangeDetectorRef,
+    private message: NzMessageService
   ) {}
 
   open(): void {

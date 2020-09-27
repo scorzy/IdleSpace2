@@ -11,10 +11,14 @@ import {
 } from "./model/notifications/myNotification";
 import { TimePipe } from "./time.pipe";
 import { NzModalService } from "ng-zorro-antd/modal";
+import { NzMessageService } from "ng-zorro-antd/message";
 
 export const SAVE_ID = "IS2_save";
+export const PLAYFAB_TITLE_ID = "C0DC9";
+const SAVE_INTERVAL_PLAYFAB = 10 * 60 * 1000;
 export const GAME_SPEED = 1;
 declare let kongregateAPI: any;
+declare let PlayFab: any;
 
 @Injectable({
   providedIn: "root"
@@ -25,6 +29,7 @@ export class MainService {
     private _timePipe: TimePipe,
     private options: OptionsService,
     public modal: NzModalService,
+    private message: NzMessageService,
     @Inject(DOCUMENT) private document: Document
   ) {
     this.last = Date.now();
@@ -49,14 +54,22 @@ export class MainService {
         if ("t" in data && data.t === "E") {
           this.exportEmitter.emit(data.m);
         } else {
-          this.saveToLocalStorage(data.m);
-          if ("t" in data && data.t === "R") {
-            location.reload();
+          if ("t" in data && data.t === "P") {
+            this.savePlayFab(data.m);
+          } else {
+            this.saveToLocalStorage(data.m);
+            if ("t" in data && data.t === "R") {
+              location.reload();
+            }
           }
         }
       } else {
         // Decompress request
-        this.load(data.m);
+        if ("t" in data && data.t === "P") {
+          this.onPlayFabDecompress(data.m);
+        } else {
+          this.load(data.m);
+        }
       }
     };
 
@@ -71,6 +84,7 @@ export class MainService {
 
     setInterval(this.update.bind(this), 100);
     setInterval(this.save.bind(this), 60 * 1000);
+    setInterval(this.saveToPlayFab.bind(this), SAVE_INTERVAL_PLAYFAB);
 
     const dataSave = localStorage.getItem(SAVE_ID);
     if (dataSave) this.loadFromLocalStorage(true);
@@ -88,6 +102,7 @@ export class MainService {
       kongregateAPI.loadAPI(() => {
         this.kongregate = kongregateAPI.getAPI();
         console.log("KongregateAPI Loaded");
+        this.playFabKongLogin();
 
         setTimeout(() => {
           try {
@@ -122,6 +137,11 @@ export class MainService {
   ready = false;
   kongregate: any;
   lastUnitId = "M";
+  playFabId = "";
+  lastPlayFabSave = 0;
+  loadedDate = 0;
+  playfabDate = 0;
+  playFabData = "";
 
   update() {
     if (!this.game) return;
@@ -139,6 +159,11 @@ export class MainService {
     const save = this.getSave();
     if (!refresh) this.lzWorker.postMessage({ m: save, a: "c" });
     else this.lzWorker.postMessage({ m: save, a: "c", t: "R" });
+  }
+  saveToPlayFab() {
+    if (this.playFabId === "") return;
+    const save = this.getSave();
+    this.lzWorker.postMessage({ m: save, a: "c", t: "P" });
   }
   export() {
     const save = this.getSave();
@@ -171,6 +196,7 @@ export class MainService {
     }
     this.setTheme();
     this.setSideTheme();
+    this.loadedDate = this.last;
     this.notificationEmitter.emit(
       new MyNotification(
         NotificationTypes.LOAD,
@@ -230,4 +256,228 @@ export class MainService {
       console.log(ex);
     }
   }
+
+  //#region PlayFab
+  playFabLoginEmail(email: string, psw: string) {
+    PlayFab.ClientApi.LoginWithEmailAddress(
+      { TitleId: PLAYFAB_TITLE_ID, Email: email, Password: psw },
+      this.logInCallBack.bind(this)
+    );
+  }
+  private logInCallBack(data, error) {
+    if (error) {
+      console.log(error.errorMessage);
+      this.message.error(error.errorMessage);
+      return;
+    }
+    if (data) {
+      // console.log(data);
+      this.playFabId = data.data.PlayFabId;
+      PlayFab.settings.titleId = PLAYFAB_TITLE_ID;
+      console.log("Logged in to playFab");
+      this.message.success("Logged in");
+      if (this.kongregate) {
+        this.loadPlayFab();
+      }
+    }
+    this.saveEmitter.emit();
+  }
+  registerPlayFab(email: string, psw: string) {
+    PlayFab.ClientApi.RegisterPlayFabUser(
+      {
+        TitleId: PLAYFAB_TITLE_ID,
+        Email: email,
+        Password: psw,
+        RequireBothUsernameAndEmail: false
+      },
+      this.registerPlayFabCallback.bind(this)
+    );
+  }
+  private registerPlayFabCallback(data, error) {
+    if (error) {
+      console.log(error.errorMessage);
+      this.message.error(error.errorMessage);
+      return;
+    }
+    if (data) {
+      console.log("User Registered");
+      this.message.success("User Registered");
+    }
+    this.saveEmitter.emit();
+  }
+  private savePlayFab(save: string) {
+    if (
+      !save ||
+      save.length < 2 ||
+      !this.playFabId ||
+      typeof PlayFab === "undefined" ||
+      typeof PlayFab.ClientApi === "undefined"
+    ) {
+      return false;
+    }
+
+    // Cut compressed object into strings of 10,000 bytes for PlayFab
+    const chunks = save.match(/.{1,10000}/g);
+    if (chunks.length > 10) {
+      this.game.notificationManager.addNotification(
+        new MyNotification(
+          NotificationTypes.SAVE,
+          "Error saving to cloud",
+          "size limit exceeded"
+        )
+      );
+    }
+    // convert array into object with numbers as keys
+    // const data = $.extend({}, chunks);
+    const data: any = {};
+    for (let i = 0; i < chunks.length; i++) data[i] = chunks[i];
+
+    const requestData = {
+      TitleId: PLAYFAB_TITLE_ID,
+      PlayFabId: this.playFabId,
+      Data: data
+    };
+    try {
+      PlayFab.ClientApi.UpdateUserData(
+        requestData,
+        this.saveToPlayFabCallback.bind(this)
+      );
+      this.lastPlayFabSave = Date.now();
+    } catch (e) {
+      console.log(e);
+    }
+  }
+  private saveToPlayFabCallback(data, error) {
+    if (error) {
+      console.log(error);
+      return false;
+    }
+    if (data) {
+      console.log("Game Saved!");
+      this.game.notificationManager.addNotification(
+        new MyNotification(NotificationTypes.SAVE, "Game Saved to PlayFab")
+      );
+      return true;
+    }
+  }
+  loadPlayFab() {
+    if (
+      !this.playFabId ||
+      typeof PlayFab === "undefined" ||
+      typeof PlayFab.ClientApi === "undefined"
+    ) {
+      console.log(this.playFabId, PlayFab);
+      return false;
+    }
+    const requestData = {
+      Keys: ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "save"],
+      PlayFabId: this.playFabId
+    };
+    try {
+      console.log("attempting to send load request");
+      PlayFab.ClientApi.GetUserData(
+        requestData,
+        this.loadFromPlayFabCallback.bind(this)
+      );
+      console.log("sent load request");
+    } catch (e) {
+      console.log(e);
+    }
+  }
+  private loadFromPlayFabCallback(data, error) {
+    try {
+      // console.log(data, error);
+      if (error) {
+        console.log(error);
+        this.message.error(error.errorMessage);
+        return;
+      }
+
+      if (data) {
+        if (data.data.Data) {
+          const raw = Object.values(data.data.Data)
+            .map((val: any) => {
+              return val.Value;
+            })
+            .join("");
+          // console.log(raw);
+          this.lzWorker.postMessage({ m: raw, a: "d", t: "P" });
+        }
+      }
+    } catch (e) {
+      console.log(e);
+      this.message.error("PlayFab Load error");
+    }
+  }
+  recoverPassword(email: string) {
+    PlayFab.settings.titleId = PLAYFAB_TITLE_ID;
+    PlayFab.ClientApi.SendAccountRecoveryEmail(
+      {
+        TitleId: PLAYFAB_TITLE_ID,
+        Email: email
+      },
+      this.recoverCallback.bind(this)
+    );
+  }
+  private recoverCallback(data, error) {
+    if (error) {
+      console.log(error);
+      this.message.error(error.errorMessage);
+      return;
+    }
+    if (data) {
+      console.log(data);
+      this.message.success("Email sent");
+    }
+  }
+  private onPlayFabDecompress(save: string) {
+    if (save === "") {
+      this.message.error("Nothing to load.");
+      return;
+    }
+    if (this.loadedDate === 0) {
+      this.load(save);
+    } else {
+      const data = JSON.parse(save);
+      this.playfabDate = data.t;
+      this.modal.confirm({
+        nzTitle: "Do you Want to load from PlayFab?",
+        nzContent:
+          "<ul><li>Cloud Save: " +
+          formatDate(this.playfabDate, "medium", "EN") +
+          "</li><li>Local Save: " +
+          formatDate(this.loadedDate, "medium", "EN") +
+          "</li></ul>",
+        nzOnOk: () => this.load(save)
+      });
+    }
+  }
+  private playFabKongLogin() {
+    if (!this.kongregate) {
+      this.message.error("You need to be logged in to Kongregate.");
+      return;
+    }
+
+    try {
+      const authTicket = this.kongregate.services.getGameAuthToken();
+      const requestData = {
+        TitleId: PLAYFAB_TITLE_ID,
+        KongregateId: this.kongregate.services.getUserId(),
+        AuthTicket: authTicket,
+        CreateAccount: true
+      };
+      try {
+        PlayFab.ClientApi.LoginWithKongregate(
+          requestData,
+          this.logInCallBack.bind(this)
+        );
+      } catch (e) {
+        console.log("Unable to send login request to PlayFab.");
+        this.message.error("Unable to send login request to PlayFab.");
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  }
+  //#endregion
 }
