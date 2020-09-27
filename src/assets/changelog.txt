@@ -1,5 +1,6 @@
 27/09/2020
 -   Fix space stations prices not refreshing after prestige
+-   Added 1000 options on exp shop
 
 26/09/2020
 -   Challenges
