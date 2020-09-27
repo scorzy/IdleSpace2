@@ -5,7 +5,9 @@ import {
   ChangeDetectorRef,
   OnInit,
   OnDestroy,
-  AfterViewInit
+  AfterViewInit,
+  Output,
+  EventEmitter
 } from "@angular/core";
 import { MainService } from "../main.service";
 import { ShipDesign } from "../model/shipyard/shipDesign";
@@ -20,10 +22,12 @@ import { trigger } from "@angular/animations";
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [trigger("noop", [])]
 })
-export class SideMenuComponent extends BaseComponentComponent
+export class SideMenuComponent
+  extends BaseComponentComponent
   implements OnInit, OnDestroy, AfterViewInit {
   @Input() isCollapsed = false;
   @Input() notCollapsed = false;
+  @Output() onSelect = new EventEmitter();
   buyString = "Max";
 
   constructor(
