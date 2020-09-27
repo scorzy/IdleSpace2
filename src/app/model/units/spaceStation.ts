@@ -78,4 +78,9 @@ export class SpaceStation extends Unit {
 
     this.priceDivDabSpace = this.buildPriceNext.div(this.habSpace);
   }
+  prestige() {
+    super.prestige();
+    this.reloadHabSpace();
+    this.reloadBuildPrice();
+  }
 }
