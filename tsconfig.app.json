@@ -8,6 +8,6 @@
   "include": ["src/**/*.d.ts"],
   "exclude": ["src/test.ts", "src/**/*.spec.ts", "**/*.worker.ts"],
   "angularCompilerOptions": {
-    "enableIvy": false
+    "enableIvy": true
   }
 }

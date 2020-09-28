@@ -14,14 +14,14 @@
     nz-tooltip
     nzTooltipPlacement="right"
     [nzTitle]="isCollapsed ? 'Workers' : ''"
-    (click)="onSelect.emit()"
+    (click)="select.emit()"
   >
     <i nz-icon nzType="my:vintage-robot"></i>
     <span>Workers</span>
   </li>
 
   <li
-    (click)="onSelect.emit()"
+    (click)="select.emit()"
     nz-menu-item
     nzMatchRouter
     *ngIf="ms.game.resourceManager.unlockedSpaceStations.length > 0"
@@ -34,7 +34,7 @@
     <span>Space Stations</span>
   </li>
   <li
-    (click)="onSelect.emit()"
+    (click)="select.emit()"
     nz-menu-item
     nzMatchRouter
     [routerLink]="'lab'"
@@ -47,7 +47,7 @@
     <span>Laboratory</span>
   </li>
   <li
-    (click)="onSelect.emit()"
+    (click)="select.emit()"
     nz-menu-item
     nzMatchRouter
     [routerLink]="'tech'"
@@ -60,7 +60,7 @@
     <span>Technologies</span>
   </li>
   <li
-    (click)="onSelect.emit()"
+    (click)="select.emit()"
     nz-menu-item
     nzMatchRouter
     [routerLink]="'tree'"
@@ -73,7 +73,7 @@
     <span>Tree</span>
   </li>
   <li
-    (click)="onSelect.emit()"
+    (click)="select.emit()"
     nz-menu-item
     nzMatchRouter
     [routerLink]="'fleet'"
@@ -86,7 +86,7 @@
     <span>Fleet</span>
   </li>
   <li
-    (click)="onSelect.emit()"
+    (click)="select.emit()"
     nz-menu-item
     nzMatchRouter
     [routerLink]="'/des'"
@@ -99,7 +99,7 @@
     <span>Designs</span>
   </li>
   <li
-    (click)="onSelect.emit()"
+    (click)="select.emit()"
     nz-menu-item
     nzMatchRouter
     [routerLink]="'/modules'"
@@ -112,7 +112,7 @@
     <span>Modules</span>
   </li>
   <li
-    (click)="onSelect.emit()"
+    (click)="select.emit()"
     nz-menu-item
     nzMatchRouter
     routerLink="enemyList"
@@ -125,7 +125,7 @@
     <span>Enemies</span>
   </li>
   <li
-    (click)="onSelect.emit()"
+    (click)="select.emit()"
     nz-menu-item
     nzMatchRouter
     routerLink="battle"
@@ -138,7 +138,7 @@
     <span>Battle</span>
   </li>
   <li
-    (click)="onSelect.emit()"
+    (click)="select.emit()"
     *ngIf="ms.game.automationUnlocked"
     nz-menu-item
     nzMatchRouter
@@ -151,7 +151,7 @@
     <span>Automation</span>
   </li>
   <li
-    (click)="onSelect.emit()"
+    (click)="select.emit()"
     nz-menu-item
     nzMatchRouter
     routerLink="report-list"
@@ -164,7 +164,7 @@
     <span>Reports</span>
   </li>
   <li
-    (click)="onSelect.emit()"
+    (click)="select.emit()"
     nz-menu-item
     nzMatchRouter
     [routerLink]="'noti'"
@@ -176,7 +176,7 @@
     <span>Notifications</span>
   </li>
   <li
-    (click)="onSelect.emit()"
+    (click)="select.emit()"
     *ngIf="!ms.game.firstRun || ms.game.enemyManager.maxLevel > 3"
     nz-menu-item
     nzMatchRouter
@@ -189,7 +189,7 @@
     <span>Prestige</span>
   </li>
   <li
-    (click)="onSelect.emit()"
+    (click)="select.emit()"
     *ngIf="!ms.game.firstRun || ms.game.enemyManager.maxLevel > 3"
     nz-menu-item
     nzMatchRouter
@@ -202,7 +202,7 @@
     <span>Exp Shop</span>
   </li>
   <li
-    (click)="onSelect.emit()"
+    (click)="select.emit()"
     *ngIf="!ms.game.firstRun || ms.game.enemyManager.maxLevel > 8"
     nz-menu-item
     nzMatchRouter
@@ -215,7 +215,7 @@
     <span>Cards</span>
   </li>
   <li
-    (click)="onSelect.emit()"
+    (click)="select.emit()"
     nz-menu-item
     nzMatchRouter
     routerLink="warp"
@@ -228,7 +228,7 @@
     <span>Warps</span>
   </li>
   <li
-    (click)="onSelect.emit()"
+    (click)="select.emit()"
     nz-menu-item
     nzMatchRouter
     [routerLink]="'options'"
@@ -240,7 +240,7 @@
     <span>Options</span>
   </li>
   <li
-    (click)="onSelect.emit()"
+    (click)="select.emit()"
     nz-menu-item
     nzMatchRouter
     [routerLink]="'info'"

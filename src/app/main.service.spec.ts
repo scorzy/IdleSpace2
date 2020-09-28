@@ -4,7 +4,8 @@ import { MainService, GAME_SPEED } from "./main.service";
 import { OptionsService } from "./options.service";
 import { FormatPipe } from "./format.pipe";
 import { TimePipe } from "./time.pipe";
-import { NzModalService, NzMessageService } from "ng-zorro-antd";
+import { NzModalService } from 'ng-zorro-antd/modal';
+import { NzMessageService } from 'ng-zorro-antd/message';
 import { OverlayModule } from "@angular/cdk/overlay";
 
 describe("MainService", () => {

@@ -62,7 +62,8 @@
     "rxjs-no-internal": {
       "severity": "error"
     },
-    "no-unused-declaration": true
+    "no-unused-declaration": true,
+    "nz-secondary-entry-imports": true
   },
-  "rulesDirectory": ["codelyzer"]
+  "rulesDirectory": ["codelyzer", "node_modules/nz-tslint-rules"]
 }
