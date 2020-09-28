@@ -574,6 +574,12 @@ export class ShipDesign {
         }
       }
     }
+    if (
+      Game.getGame().challengeManager.xsChallenge.isActive &&
+      this.modules.some((mod) => mod.module && mod.size > 1)
+    ) {
+      ok = false;
+    }
     this.available = ok;
   }
   reloadRecursive() {
