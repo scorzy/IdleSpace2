@@ -4,7 +4,7 @@ const md5 = require("md5");
 const fsExtra = require("fs-extra");
 const LessPluginCleanCSS = require("less-plugin-clean-css");
 const darkThemeVars = require("ng-zorro-antd/dark-theme");
-const compactThemeVars = require("ng-zorro-antd/compact-theme");
+const compactThemeVars = require("./themes-vars/myCompactVar.js");
 const aliyunTheme = require("@ant-design/aliyun-theme").default;
 
 const darkCommon = require("./themes-vars/darkCommon.js");
@@ -117,40 +117,40 @@ base.forEach((theme) => {
 
 const built = [];
 fsExtra.emptyDirSync("./src/assets/themes/");
-
 let i = 0;
-toBuild.forEach(function (theme) {
-  setTimeout(() => {
-    fs.readFile("./src/themes/" + theme.source + ".less", function (
-      error,
-      data
-    ) {
-      data = data.toString();
-      less.render(
-        data,
-        {
-          javascriptEnabled: true,
-          compress: true,
-          plugins: [new LessPluginCleanCSS({ advanced: true })],
-          modifyVars: theme.modifyVars
-        },
-        function (e, css) {
-          var hash = md5(css.css);
-          fs.writeFileSync(
-            "./src/assets/themes/" + theme.name + "." + hash + ".css",
-            css.css
+const nThread = 8;
+
+function render(i) {
+  let theme = toBuild[i];
+  fs.readFile("./src/themes/" + theme.source + ".less", function (error, data) {
+    data = data.toString();
+    less.render(
+      data,
+      {
+        javascriptEnabled: true,
+        compress: true,
+        plugins: [new LessPluginCleanCSS({ advanced: true })],
+        modifyVars: theme.modifyVars
+      },
+      function (e, css) {
+        var hash = md5(css.css);
+        fs.writeFileSync(
+          "./src/assets/themes/" + theme.name + "." + hash + ".css",
+          css.css
+        );
+        built.push(theme.name + "." + hash + ".css");
+        if (i + nThread < toBuild.length) render(i + nThread);
+        if (toBuild.length === toBuild.length) {
+          fs.writeFile(
+            "./src/app/model/data/themes.json",
+            JSON.stringify(built, null, " "),
+            function () {}
           );
-          built.push(theme.name + "." + hash + ".css");
-          if (toBuild.length === toBuild.length) {
-            fs.writeFile(
-              "./src/app/model/data/themes.json",
-              JSON.stringify(built, null, " "),
-              function () {}
-            );
-          }
         }
-      );
-    });
-  }, 1e3 * i);
-  i++;
-});
+      }
+    );
+  });
+}
+for (let thread = 0; thread < nThread; thread++) {
+  setTimeout(() => render(thread));
+}

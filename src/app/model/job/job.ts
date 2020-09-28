@@ -12,15 +12,39 @@ export interface MyIcon {
 export abstract class Job {
   progress = ZERO;
   total: Decimal;
-  max = 1;
+  private _max = 1;
+  public get max() {
+    return this._max;
+  }
+  public set max(value) {
+    this._max = value;
+  }
   level = 0;
   initialPrice: Decimal;
   growRate = 1.1;
-  description: string;
-  name: string;
+  private _description: string;
+  public get description(): string {
+    return this._description;
+  }
+  public set description(value: string) {
+    this._description = value;
+  }
+  private _name: string;
+  public get name(): string {
+    return this._name;
+  }
+  public set name(value: string) {
+    this._name = value;
+  }
   progressPercent = 0;
   timeToEnd?: number;
-  totalBonus: Decimal = ONE;
+  private _totalBonus: Decimal = ONE;
+  public get totalBonus(): Decimal {
+    return this._totalBonus;
+  }
+  public set totalBonus(value: Decimal) {
+    this._totalBonus = value;
+  }
   bonuses: BonusStack;
   totalBonusUi = ZERO;
   type: IJobType;

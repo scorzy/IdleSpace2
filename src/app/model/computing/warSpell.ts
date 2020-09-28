@@ -6,12 +6,12 @@ export class WarSpell extends Spell {
   id = "or2";
   name = "War initiative";
   icon = "my:medal";
-  description = "+60% ship velocity, +30% districts from battle";
   colorClass = "explosion-color";
   duration = 60 * 5 * 1e3;
   price = 5e3;
   constructor() {
     super();
+    this.description = "+60% ship velocity, +30% districts from battle";
     const game = Game.getGame();
 
     game.shipyardManager.velocityBonusStack.bonuses.push(

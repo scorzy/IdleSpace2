@@ -14,7 +14,7 @@ export class SearchJob extends Job {
   metalOpt = 0;
   scienceOpt = 0;
   componentOpt = 0;
-  max = 1;
+
   static getPrice(level: number, extraOpt: number): Decimal {
     extraOpt = Math.max(extraOpt, 0);
     return Decimal.multiply(level + 1, SEARCH_JOB_PRICE).times(
@@ -27,6 +27,7 @@ export class SearchJob extends Job {
     SearchJob.LAST_ID++;
     this.canDelete = true;
     this.type = Game.getGame().researchManager.searchTech;
+    this.max = 1;
   }
   init() {
     this.name = "Search " + this.enemyLevel;

@@ -6,12 +6,12 @@ export class BuilderSpell extends Spell {
   id = "or3";
   name = "Production initiative";
   icon = "fa-s:cog";
-  description = "+60% production, +3% per Factory";
   colorClass = "production-color";
   duration = 60 * 5 * 1e3;
   price = 5e3;
   constructor() {
     super();
+    this.description = "+60% production, +3% per Factory";
     const game = Game.getGame();
 
     game.resourceManager.worker.prodEfficiency.bonuses.push(

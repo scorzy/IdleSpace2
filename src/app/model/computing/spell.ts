@@ -7,7 +7,13 @@ export class Spell implements IBase {
   icon: string;
   colorClass: string;
   name: string;
-  description: string;
+  private _description: string;
+  public get description(): string {
+    return this._description;
+  }
+  public set description(value: string) {
+    this._description = value;
+  }
   endTime: number;
   active = false;
   bonusQuantity = ONE;

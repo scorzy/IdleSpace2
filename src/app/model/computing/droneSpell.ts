@@ -8,17 +8,17 @@ export class DroneSpell extends Spell {
   id = "d1";
   name = "Drones initiative";
   icon = "my:vintage-robot";
-  description =
-    "Drones yields (" +
-    baseBonus.times(100).toString() +
-    " + " +
-    buildingBonus.times(100).toString() +
-    " per relative building)% more resources";
   colorClass = "production-color";
   duration = 60 * 5 * 1e3;
   price = 3e3;
   constructor() {
     super();
+    this.description =
+      "Drones yields (" +
+      baseBonus.times(100).toString() +
+      " + " +
+      buildingBonus.times(100).toString() +
+      " per relative building)% more resources";
     const game = Game.getGame();
 
     const workers = [

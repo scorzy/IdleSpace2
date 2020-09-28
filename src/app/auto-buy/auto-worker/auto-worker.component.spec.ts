@@ -1,4 +1,8 @@
-import { async, ComponentFixture, TestBed } from "@angular/core/testing";
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync
+} from "@angular/core/testing";
 
 import { AutoWorkerComponent } from "./auto-worker.component";
 import { Game } from "src/app/model/game";
@@ -12,13 +16,15 @@ describe("AutoWorkerComponent", () => {
   let component: AutoWorkerComponent;
   let fixture: ComponentFixture<AutoWorkerComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: testImports,
-      declarations: [AutoWorkerComponent, FormatPipe],
-      providers: [MainService, OptionsService, FormatPipe, TimePipe]
-    }).compileComponents();
-  }));
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        imports: testImports,
+        declarations: [AutoWorkerComponent, FormatPipe],
+        providers: [MainService, OptionsService, FormatPipe, TimePipe]
+      }).compileComponents();
+    })
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(AutoWorkerComponent);

@@ -1,4 +1,8 @@
-import { async, ComponentFixture, TestBed } from "@angular/core/testing";
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync
+} from "@angular/core/testing";
 import { ResearchPreviewComponent } from "./research-preview.component";
 import { MainService } from "src/app/main.service";
 import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
@@ -12,14 +16,16 @@ describe("ResearchPreviewComponent", () => {
   let component: ResearchPreviewComponent;
   let fixture: ComponentFixture<ResearchPreviewComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      schemas: [CUSTOM_ELEMENTS_SCHEMA],
-      imports: testImports,
-      declarations: [ResearchPreviewComponent, FormatPipe, TimePipe],
-      providers: [MainService, OptionsService, FormatPipe, TimePipe]
-    }).compileComponents();
-  }));
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        schemas: [CUSTOM_ELEMENTS_SCHEMA],
+        imports: testImports,
+        declarations: [ResearchPreviewComponent, FormatPipe, TimePipe],
+        providers: [MainService, OptionsService, FormatPipe, TimePipe]
+      }).compileComponents();
+    })
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ResearchPreviewComponent);

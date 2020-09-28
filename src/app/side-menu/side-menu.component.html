@@ -13,240 +13,240 @@
     "
     nz-tooltip
     nzTooltipPlacement="right"
-    [nzTitle]="isCollapsed ? 'Workers' : ''"
-    (click)="select.emit()"
+    [nzTooltipTitle]="isCollapsed ? 'Workers' : ''"
+    (click)="selectLink.emit()"
   >
     <i nz-icon nzType="my:vintage-robot"></i>
     <span>Workers</span>
   </li>
 
   <li
-    (click)="select.emit()"
+    (click)="selectLink.emit()"
     nz-menu-item
     nzMatchRouter
     *ngIf="ms.game.resourceManager.unlockedSpaceStations.length > 0"
     [routerLink]="'space'"
     nz-tooltip
     nzTooltipPlacement="right"
-    [nzTitle]="isCollapsed ? 'Space Stations' : ''"
+    [nzTooltipTitle]="isCollapsed ? 'Space Stations' : ''"
   >
     <i nz-icon nzType="my:defense-satellite"></i>
     <span>Space Stations</span>
   </li>
   <li
-    (click)="select.emit()"
+    (click)="selectLink.emit()"
     nz-menu-item
     nzMatchRouter
     [routerLink]="'lab'"
     *ngIf="ms.game.resourceManager.scientist.unlocked"
     nz-tooltip
     nzTooltipPlacement="right"
-    [nzTitle]="isCollapsed ? 'Laboratory' : ''"
+    [nzTooltipTitle]="isCollapsed ? 'Laboratory' : ''"
   >
     <i nz-icon nzType="fa-s:flask"></i>
     <span>Laboratory</span>
   </li>
   <li
-    (click)="select.emit()"
+    (click)="selectLink.emit()"
     nz-menu-item
     nzMatchRouter
     [routerLink]="'tech'"
     *ngIf="ms.game.researchManager.researches[0].quantity.gt(0)"
     nz-tooltip
     nzTooltipPlacement="right"
-    [nzTitle]="isCollapsed ? 'Technologies' : ''"
+    [nzTooltipTitle]="isCollapsed ? 'Technologies' : ''"
   >
     <i nz-icon nzType="fa-s:book"></i>
     <span>Technologies</span>
   </li>
   <li
-    (click)="select.emit()"
+    (click)="selectLink.emit()"
     nz-menu-item
     nzMatchRouter
     [routerLink]="'tree'"
     *ngIf="ms.game.resourceManager.scientist.unlocked"
     nz-tooltip
     nzTooltipPlacement="right"
-    [nzTitle]="isCollapsed ? 'Tree' : ''"
+    [nzTooltipTitle]="isCollapsed ? 'Tree' : ''"
   >
     <i nz-icon nzType="fa-s:project-diagram"></i>
     <span>Tree</span>
   </li>
   <li
-    (click)="select.emit()"
+    (click)="selectLink.emit()"
     nz-menu-item
     nzMatchRouter
     [routerLink]="'fleet'"
     *ngIf="ms.game.researchManager.researches[0].quantity.gt(0)"
     nz-tooltip
     nzTooltipPlacement="right"
-    [nzTitle]="isCollapsed ? 'Fleet' : ''"
+    [nzTooltipTitle]="isCollapsed ? 'Fleet' : ''"
   >
     <i nz-icon nzType="my:strafe"></i>
     <span>Fleet</span>
   </li>
   <li
-    (click)="select.emit()"
+    (click)="selectLink.emit()"
     nz-menu-item
     nzMatchRouter
     [routerLink]="'/des'"
     *ngIf="ms.game.researchManager.researches[0].quantity.gt(0)"
     nz-tooltip
     nzTooltipPlacement="right"
-    [nzTitle]="isCollapsed ? 'Designs' : ''"
+    [nzTooltipTitle]="isCollapsed ? 'Designs' : ''"
   >
     <i nz-icon nzType="fa-s:pencil-ruler"></i>
     <span>Designs</span>
   </li>
   <li
-    (click)="select.emit()"
+    (click)="selectLink.emit()"
     nz-menu-item
     nzMatchRouter
     [routerLink]="'/modules'"
     *ngIf="ms.game.researchManager.researches[0].quantity.gt(0)"
     nz-tooltip
     nzTooltipPlacement="right"
-    [nzTitle]="isCollapsed ? 'Modules' : ''"
+    [nzTooltipTitle]="isCollapsed ? 'Modules' : ''"
   >
     <i nz-icon nzType="fa-s:table"></i>
     <span>Modules</span>
   </li>
   <li
-    (click)="select.emit()"
+    (click)="selectLink.emit()"
     nz-menu-item
     nzMatchRouter
     routerLink="enemyList"
     *ngIf="ms.game.researchManager.researches[0].quantity.gt(0)"
     nz-tooltip
     nzTooltipPlacement="right"
-    [nzTitle]="isCollapsed ? 'Enemies' : ''"
+    [nzTooltipTitle]="isCollapsed ? 'Enemies' : ''"
   >
     <i nz-icon nzType="fa-s:search"></i>
     <span>Enemies</span>
   </li>
   <li
-    (click)="select.emit()"
+    (click)="selectLink.emit()"
     nz-menu-item
     nzMatchRouter
     routerLink="battle"
     *ngIf="ms.game.researchManager.researches[0].quantity.gt(0)"
     nz-tooltip
     nzTooltipPlacement="right"
-    [nzTitle]="isCollapsed ? 'Battle' : ''"
+    [nzTooltipTitle]="isCollapsed ? 'Battle' : ''"
   >
     <i nz-icon nzType="fa-s:crosshairs"></i>
     <span>Battle</span>
   </li>
   <li
-    (click)="select.emit()"
+    (click)="selectLink.emit()"
     *ngIf="ms.game.automationUnlocked"
     nz-menu-item
     nzMatchRouter
     routerLink="automation"
     nz-tooltip
     nzTooltipPlacement="right"
-    [nzTitle]="isCollapsed ? 'Automation' : ''"
+    [nzTooltipTitle]="isCollapsed ? 'Automation' : ''"
   >
     <i nz-icon nzType="sync"></i>
     <span>Automation</span>
   </li>
   <li
-    (click)="select.emit()"
+    (click)="selectLink.emit()"
     nz-menu-item
     nzMatchRouter
     routerLink="report-list"
     *ngIf="ms.game.researchManager.researches[0].quantity.gt(0)"
     nz-tooltip
     nzTooltipPlacement="right"
-    [nzTitle]="isCollapsed ? 'Reports' : ''"
+    [nzTooltipTitle]="isCollapsed ? 'Reports' : ''"
   >
     <i nz-icon nzType="fa-s:chart-bar"></i>
     <span>Reports</span>
   </li>
   <li
-    (click)="select.emit()"
+    (click)="selectLink.emit()"
     nz-menu-item
     nzMatchRouter
     [routerLink]="'noti'"
     nz-tooltip
     nzTooltipPlacement="right"
-    [nzTitle]="isCollapsed ? 'Notifications' : ''"
+    [nzTooltipTitle]="isCollapsed ? 'Notifications' : ''"
   >
     <i nz-icon nzType="notification" nzTheme="outline"></i>
     <span>Notifications</span>
   </li>
   <li
-    (click)="select.emit()"
+    (click)="selectLink.emit()"
     *ngIf="!ms.game.firstRun || ms.game.enemyManager.maxLevel > 3"
     nz-menu-item
     nzMatchRouter
     routerLink="prestige"
     nz-tooltip
     nzTooltipPlacement="right"
-    [nzTitle]="isCollapsed ? 'Prestige' : ''"
+    [nzTooltipTitle]="isCollapsed ? 'Prestige' : ''"
   >
     <i nz-icon nzType="arrow-up" nzTheme="outline"></i>
     <span>Prestige</span>
   </li>
   <li
-    (click)="select.emit()"
+    (click)="selectLink.emit()"
     *ngIf="!ms.game.firstRun || ms.game.enemyManager.maxLevel > 3"
     nz-menu-item
     nzMatchRouter
     routerLink="expShop"
     nz-tooltip
     nzTooltipPlacement="right"
-    [nzTitle]="isCollapsed ? 'Exp Shop' : ''"
+    [nzTooltipTitle]="isCollapsed ? 'Exp Shop' : ''"
   >
     <i nz-icon nzType="shop" nzTheme="fill"></i>
     <span>Exp Shop</span>
   </li>
   <li
-    (click)="select.emit()"
+    (click)="selectLink.emit()"
     *ngIf="!ms.game.firstRun || ms.game.enemyManager.maxLevel > 8"
     nz-menu-item
     nzMatchRouter
     routerLink="cards"
     nz-tooltip
     nzTooltipPlacement="right"
-    [nzTitle]="isCollapsed ? 'Cards' : ''"
+    [nzTooltipTitle]="isCollapsed ? 'Cards' : ''"
   >
     <i nz-icon nzType="fa-s:layer-group" nzTheme="fill"></i>
     <span>Cards</span>
   </li>
   <li
-    (click)="select.emit()"
+    (click)="selectLink.emit()"
     nz-menu-item
     nzMatchRouter
     routerLink="warp"
     *ngIf="!ms.game.firstRun || ms.game.darkMatter.gt(1)"
     nz-tooltip
     nzTooltipPlacement="right"
-    [nzTitle]="isCollapsed ? 'Warps' : ''"
+    [nzTooltipTitle]="isCollapsed ? 'Warps' : ''"
   >
     <i nz-icon nzType="field-time" nzTheme="outline"></i>
     <span>Warps</span>
   </li>
   <li
-    (click)="select.emit()"
+    (click)="selectLink.emit()"
     nz-menu-item
     nzMatchRouter
     [routerLink]="'options'"
     nz-tooltip
     nzTooltipPlacement="right"
-    [nzTitle]="isCollapsed ? 'Options' : ''"
+    [nzTooltipTitle]="isCollapsed ? 'Options' : ''"
   >
     <i nz-icon nzType="setting"></i>
     <span>Options</span>
   </li>
   <li
-    (click)="select.emit()"
+    (click)="selectLink.emit()"
     nz-menu-item
     nzMatchRouter
     [routerLink]="'info'"
     nz-tooltip
     nzTooltipPlacement="right"
-    [nzTitle]="isCollapsed ? 'Info' : ''"
+    [nzTooltipTitle]="isCollapsed ? 'Info' : ''"
   >
     <i nz-icon nzType="info-circle" nzTheme="outline"></i>
     <span>Info</span>
@@ -258,7 +258,7 @@
   </li>
 
   <nz-dropdown-menu #buyMenu="nzDropdownMenu">
-    <ul nz-menu nzSelectable>
+    <ul nz-menu nzselectLinkable>
       <li nz-menu-item (click)="setCustomBuy(false, 0.5, 'Half')">Buy Half</li>
       <li nz-menu-item (click)="setCustomBuy(false, 1, 'Max')">Buy Max</li>
       <li nz-menu-item (click)="setCustomBuy(true, 10, '10')">Buy 10</li>

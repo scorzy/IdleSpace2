@@ -39,18 +39,18 @@ export class Research extends Job implements IUnlockable, IBase {
   visId = 0;
   visLevel = 0;
   private originalName: string;
-  private _max = 1;
+  private _max2 = 1;
   get max() {
-    if (this._max < 2) return this._max;
-    if (!Game.getGame().prestigeManager) return this._max;
+    if (this._max2 < 2) return this._max2;
+    if (!Game.getGame().prestigeManager) return this._max2;
     return (
-      (this._max +
+      (this._max2 +
         Game.getGame().challengeManager?.scienceChallenge.quantity.toNumber()) *
       (Game.getGame().prestigeManager.doubleRepeatableResearches.active ? 2 : 1)
     );
   }
   set max(val: number) {
-    this._max = val;
+    this._max2 = val;
   }
   unitsToUnlock?: Unit[];
   researchToUnlock?: Research[];
@@ -106,7 +106,7 @@ export class Research extends Job implements IUnlockable, IBase {
     const rs = Game.getGame().resourceManager;
     const sm = Game.getGame().shipyardManager;
 
-    this._max = researchData.max ?? 10;
+    this._max2 = researchData.max ?? 10;
     this.growRate = researchData.growRate ?? RESEARCH_GROW_RATE;
 
     if ("unitsToUnlock" in researchData) {

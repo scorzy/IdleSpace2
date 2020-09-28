@@ -6,7 +6,9 @@ export class ResearchSpell extends Spell {
   id = "or1";
   name = "Research initiative";
   icon = "fa-s:flask";
-  description = "+30% research, +1.5% per Research Lab";
+  get description() {
+    return "+30% research, +1.5% per Research Lab";
+  }
   colorClass = "science-color";
   duration = 60 * 5 * 1e3;
   price = 5e3;
