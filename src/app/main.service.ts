@@ -13,12 +13,13 @@ import { TimePipe } from "./time.pipe";
 import { NzModalService } from "ng-zorro-antd/modal";
 import { NzMessageService } from "ng-zorro-antd/message";
 
+declare let kongregateAPI: any;
+declare let PlayFab: any;
+
 export const SAVE_ID = "IS2_save";
 export const PLAYFAB_TITLE_ID = "C0DC9";
 const SAVE_INTERVAL_PLAYFAB = 10 * 60 * 1000;
 export const GAME_SPEED = 1;
-declare let kongregateAPI: any;
-declare let PlayFab: any;
 
 @Injectable({
   providedIn: "root"

@@ -17,6 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "allowedCommonJsDependencies": ["@ant-design/colors", "json-2-csv"],
             "showCircularDependencies": false,
             "outputPath": "dist/IdleSpace2",
             "index": "src/index.html",
