@@ -19,7 +19,7 @@ declare let PlayFab: any;
 
 export const SAVE_ID = "IS2_save";
 export const PLAYFAB_TITLE_ID = "C0DC9";
-const SAVE_INTERVAL_PLAYFAB = 10 * 60 * 1000;
+const SAVE_INTERVAL_PLAYFAB = 3 * 60 * 1000;
 export const GAME_SPEED = 1;
 
 @Injectable({
