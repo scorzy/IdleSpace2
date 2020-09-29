@@ -15,7 +15,7 @@
     "make-themes2": "lessc --js ./src/themes/dark-green.less ./src/darkThemeGreen.css",
     "make-themes": "node --max-old-space-size=8192 ./src/makeThemes.js",
     "make-icons": "node ./src/makeIcons.js",
-    "analyze": "webpack-bundle-analyzer dist/IdleSpace2/stats-es2015.json",
+    "analyze": "webpack-bundle-analyzer dist/IdleSpace2/stats.json",
     "build:analyze": "npm run build:stats && npm run analyze",
     "lint:styles": "stylelint \"src/**/*.scss\"",
     "lint:styles:fix": "stylelint \"src/**/*.scss\" --fix",
