@@ -34,6 +34,24 @@ export class MainService {
     private message: NzMessageService,
     @Inject(DOCUMENT) private document: Document
   ) {
+    this.bc = new BroadcastChannel("IS2_channel");
+    this.bc.postMessage("Open");
+    this.bc.postMessage("Ask");
+    this.bc.onmessage = (message) => {
+      const data = message.data;
+      switch (data) {
+        case "Ask":
+          this.bc.postMessage("Already");
+          break;
+        case "Already":
+          this.pageOk = false;
+          this.game = null;
+          this.updateEmitter.emit(-1);
+          break;
+      }
+    };
+
+    if (!this.pageOk) return;
     this.last = Date.now();
     MainService.instance = this;
     MainService.formatPipe = _formatPipe;
@@ -88,6 +106,7 @@ export class MainService {
     setInterval(this.save.bind(this), 60 * 1000);
     setInterval(this.saveToPlayFab.bind(this), SAVE_INTERVAL_PLAYFAB);
 
+    if (!this.pageOk) return;
     const dataSave = localStorage.getItem(SAVE_ID);
     if (dataSave) this.loadFromLocalStorage(true);
     else this.game = new Game();
@@ -145,9 +164,12 @@ export class MainService {
   playfabDate = 0;
   playFabData = "";
   lastSave = 0;
+  pageOk = true;
+  bc: BroadcastChannel;
 
   update() {
     if (!this.game) return;
+    if (!this.pageOk) return;
 
     const now = Date.now();
     let diff = now - this.last;
@@ -159,16 +181,22 @@ export class MainService {
     this.updateEmitter.emit(this.last);
   }
   save(refresh = false) {
+    if (!this.pageOk) return;
     const save = this.getSave();
     if (!refresh) this.lzWorker.postMessage({ m: save, a: "c" });
     else this.lzWorker.postMessage({ m: save, a: "c", t: "R" });
   }
   saveSync() {
+    if (!this.game) return;
+    if (!this.pageOk) return;
+
     this.saveToLocalStorage(
       LZString.compressToEncodedURIComponent(this.getSave())
     );
   }
   saveToPlayFab() {
+    if (!this.game) return;
+    if (!this.pageOk) return;
     if (this.playFabId === "") return;
     const save = this.getSave();
     this.lzWorker.postMessage({ m: save, a: "c", t: "P" });
@@ -195,13 +223,16 @@ export class MainService {
     this.lastSave = Date.now();
   }
   private load(save: string) {
-    const data = JSON.parse(save);
-    this.last = data.t;
+    if (!this.pageOk) return;
     this.game = null;
     this.game = new Game();
-    this.game.load(data.g);
-    if ("o" in data) {
-      this.options.load(data.o);
+    if (save !== "") {
+      const data = JSON.parse(save);
+      this.last = data.t;
+      this.game.load(data.g);
+      if ("o" in data) {
+        this.options.load(data.o);
+      }
     }
     this.setTheme();
     this.setSideTheme();
@@ -226,6 +257,9 @@ export class MainService {
   }
   clear() {
     localStorage.removeItem(SAVE_ID);
+    location.reload();
+  }
+  reload() {
     location.reload();
   }
   setTheme() {

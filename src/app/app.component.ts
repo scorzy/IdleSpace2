@@ -35,7 +35,7 @@ export class AppComponent implements OnInit, OnDestroy {
   @ViewChild("closeNoti", { static: true })
   private closeNoti: TemplateRef<any>;
   loadMessage = "";
-
+  pageOk = true;
   visible = false;
   constructor(
     public ms: MainService,
