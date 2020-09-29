@@ -12,6 +12,7 @@ import {
 import { TimePipe } from "./time.pipe";
 import { NzModalService } from "ng-zorro-antd/modal";
 import { NzMessageService } from "ng-zorro-antd/message";
+import * as LZString from "lz-string";
 
 declare let kongregateAPI: any;
 declare let PlayFab: any;
@@ -161,6 +162,11 @@ export class MainService {
     const save = this.getSave();
     if (!refresh) this.lzWorker.postMessage({ m: save, a: "c" });
     else this.lzWorker.postMessage({ m: save, a: "c", t: "R" });
+  }
+  saveSync() {
+    this.saveToLocalStorage(
+      LZString.compressToEncodedURIComponent(this.getSave())
+    );
   }
   saveToPlayFab() {
     if (this.playFabId === "") return;

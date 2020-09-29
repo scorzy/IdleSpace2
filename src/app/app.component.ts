@@ -90,4 +90,11 @@ export class AppComponent implements OnInit, OnDestroy {
   closeDrawer() {
     this.visible = false;
   }
+
+  @HostListener("window:beforeunload", ["$event"])
+  beforeUnloadHandler(event: any) {
+    event.preventDefault();
+    this.ms.saveSync();
+    this.ms.saveToPlayFab();
+  }
 }
