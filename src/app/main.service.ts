@@ -26,6 +26,36 @@ export const GAME_SPEED = 1;
   providedIn: "root"
 })
 export class MainService {
+  static formatPipe: FormatPipe;
+  static timePipe: TimePipe;
+  static battleWorkers = new Array<Worker>(FLEET_NUMBER);
+  static instance: MainService;
+
+  theme: HTMLLinkElement;
+  scrollbarTheme: HTMLLinkElement;
+  isCollapsed = true;
+  sideTheme = "dark";
+  innerContent = true;
+  game: Game;
+  last: number;
+  updateEmitter = new EventEmitter<number>();
+  saveEmitter = new EventEmitter<number>();
+  exportEmitter = new EventEmitter<string>();
+  lzWorker: Worker;
+  enemyListCollapsed = false;
+  designListCollapsed = false;
+  notificationEmitter = new EventEmitter<MyNotification>();
+  ready = false;
+  kongregate: any;
+  lastUnitId = "M";
+  playFabId = "";
+  lastPlayFabSave = 0;
+  loadedDate = 0;
+  playfabDate = 0;
+  playFabData = "";
+  lastSave = 0;
+  pageOk = true;
+  // bc: BroadcastChannel;
   constructor(
     private _formatPipe: FormatPipe,
     private _timePipe: TimePipe,
@@ -34,22 +64,22 @@ export class MainService {
     private message: NzMessageService,
     @Inject(DOCUMENT) private document: Document
   ) {
-    this.bc = new BroadcastChannel("IS2_channel");
-    this.bc.postMessage("Open");
-    this.bc.postMessage("Ask");
-    this.bc.onmessage = (message) => {
-      const data = message.data;
-      switch (data) {
-        case "Ask":
-          this.bc.postMessage("Already");
-          break;
-        case "Already":
-          this.pageOk = false;
-          this.game = null;
-          this.updateEmitter.emit(-1);
-          break;
-      }
-    };
+    // this.bc = new BroadcastChannel("IS2_channel");
+    // this.bc.postMessage("Open");
+    // this.bc.postMessage("Ask");
+    // this.bc.onmessage = (message) => {
+    //   const data = message.data;
+    //   switch (data) {
+    //     case "Ask":
+    //       this.bc.postMessage("Already");
+    //       break;
+    //     case "Already":
+    //       this.pageOk = false;
+    //       this.game = null;
+    //       this.updateEmitter.emit(-1);
+    //       break;
+    //   }
+    // };
 
     if (!this.pageOk) return;
     this.last = Date.now();
@@ -136,37 +166,6 @@ export class MainService {
       });
     }
   }
-  static formatPipe: FormatPipe;
-  static timePipe: TimePipe;
-  static battleWorkers = new Array<Worker>(FLEET_NUMBER);
-  static instance: MainService;
-
-  theme: HTMLLinkElement;
-  scrollbarTheme: HTMLLinkElement;
-  isCollapsed = true;
-  sideTheme = "dark";
-  innerContent = true;
-  game: Game;
-  last: number;
-  updateEmitter = new EventEmitter<number>();
-  saveEmitter = new EventEmitter<number>();
-  exportEmitter = new EventEmitter<string>();
-  lzWorker: Worker;
-  enemyListCollapsed = false;
-  designListCollapsed = false;
-  notificationEmitter = new EventEmitter<MyNotification>();
-  ready = false;
-  kongregate: any;
-  lastUnitId = "M";
-  playFabId = "";
-  lastPlayFabSave = 0;
-  loadedDate = 0;
-  playfabDate = 0;
-  playFabData = "";
-  lastSave = 0;
-  pageOk = true;
-  bc: BroadcastChannel;
-
   update() {
     if (!this.game) return;
     if (!this.pageOk) return;
