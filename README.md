@@ -1,17 +1,19 @@
-# IdleSpace2
+# [IdleSpace2](https://scorzy.github.io/IdleSpace2)
 
-This is the successor of IdleSpace. It's not completed yet. 
+This is the successor of IdleSpace. It's not completed yet.
 
+- Kongregate: https://www.kongregate.com/games/scorzy88/idlespace-2
+- Discord: https://discord.gg/cGbsVgj
+- Github: https://scorzy.github.io/IdleSpace2
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.3.
+The game is powered by Angular and NG-Zorro.
 
 ## Development server
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
 ## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+Run `npm run make-themes` for making css assets. Run `npm run build` to build the game.
 
 ## Running unit tests
 
