@@ -13,7 +13,8 @@ import { BaseComponentComponent } from "src/app/base-component/base-component.co
   styleUrls: ["./auto-refresh.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AutoRefreshComponent extends BaseComponentComponent
+export class AutoRefreshComponent
+  extends BaseComponentComponent
   implements OnInit, OnDestroy, AfterViewInit {
   INTERVALS = [
     // {

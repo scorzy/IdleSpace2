@@ -22,7 +22,8 @@ import { trigger } from "@angular/animations";
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [trigger("noop", [])]
 })
-export class EnemiesListComponent extends BaseComponentComponent
+export class EnemiesListComponent
+  extends BaseComponentComponent
   implements OnInit, OnDestroy, AfterViewInit {
   isLarge = true;
   constructor(

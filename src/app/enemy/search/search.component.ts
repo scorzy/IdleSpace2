@@ -24,7 +24,8 @@ import { trigger } from "@angular/animations";
   animations: [trigger("noop", [])],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SearchComponent extends BaseComponentComponent
+export class SearchComponent
+  extends BaseComponentComponent
   implements OnInit, OnDestroy, AfterViewInit {
   MAX_SEARCH_JOB = MAX_SEARCH_JOB;
   expectedPrice = ZERO;

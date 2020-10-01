@@ -15,7 +15,8 @@ import { json2csvAsync } from "json-2-csv";
   styleUrls: ["./report-list.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ReportListComponent extends BaseComponentComponent
+export class ReportListComponent
+  extends BaseComponentComponent
   implements OnInit, OnDestroy, AfterViewInit {
   listOfFleets: Array<{ label: string; value: string }> = [];
   ngOnInit() {

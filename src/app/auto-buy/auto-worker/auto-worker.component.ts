@@ -16,7 +16,8 @@ import { BaseComponentComponent } from "src/app/base-component/base-component.co
   styleUrls: ["./auto-worker.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AutoWorkerComponent extends BaseComponentComponent
+export class AutoWorkerComponent
+  extends BaseComponentComponent
   implements OnInit, OnDestroy, AfterViewInit {
   @Input() autoWorker: AutoWorker;
   INTERVALS = INTERVALS;

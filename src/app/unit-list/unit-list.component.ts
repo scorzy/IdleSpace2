@@ -19,7 +19,8 @@ import { Unit } from "../model/units/unit";
   styleUrls: ["./unit-list.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class UnitListComponent extends BaseComponentComponent
+export class UnitListComponent
+  extends BaseComponentComponent
   implements OnInit, OnDestroy, AfterViewInit {
   isLarge = true;
   constructor(

@@ -14,7 +14,8 @@ import { INTERVALS } from "src/app/model/automation/intervals";
   styleUrls: ["./auto-surrender.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AutoSurrenderComponent extends BaseComponentComponent
+export class AutoSurrenderComponent
+  extends BaseComponentComponent
   implements OnInit, OnDestroy, AfterViewInit {
   INTERVALS = INTERVALS;
 

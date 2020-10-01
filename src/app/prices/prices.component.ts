@@ -17,7 +17,8 @@ import { ONE } from "../model/CONSTANTS";
   styleUrls: ["./prices.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PricesComponent extends BaseComponentComponent
+export class PricesComponent
+  extends BaseComponentComponent
   implements OnInit, OnDestroy, AfterViewInit {
   @Input() unit: Unit;
   @Input() quantity: Decimal = ONE;

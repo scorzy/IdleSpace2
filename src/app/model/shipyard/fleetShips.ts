@@ -13,8 +13,12 @@ export class FleetShips {
     };
   }
   load(data: any) {
-    if ("s" in data) { this.shipsQuantity = data.s; }
-    if ("n" in data) { this.navalCapPercent = data.n; }
+    if ("s" in data) {
+      this.shipsQuantity = data.s;
+    }
+    if ("n" in data) {
+      this.navalCapPercent = data.n;
+    }
     this.navalCapPercentUi = this.navalCapPercent;
   }
   //#endregion

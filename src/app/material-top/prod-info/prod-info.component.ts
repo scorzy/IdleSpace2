@@ -20,7 +20,8 @@ import { IColumnItem } from "src/app/model/utility/iColumnItem";
   styleUrls: ["./prod-info.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProdInfoComponent extends BaseComponentComponent
+export class ProdInfoComponent
+  extends BaseComponentComponent
   implements OnInit, OnDestroy, AfterViewInit, OnChanges {
   @Input() unit: Unit;
   totalProd: Decimal;

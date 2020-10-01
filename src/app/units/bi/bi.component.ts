@@ -20,7 +20,8 @@ import { BaseComponentComponent } from "src/app/base-component/base-component.co
   styleUrls: ["./bi.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class BiComponent extends BaseComponentComponent
+export class BiComponent
+  extends BaseComponentComponent
   implements OnInit, OnDestroy, AfterViewInit {
   @Input() unit: Unit;
   Number = Number;

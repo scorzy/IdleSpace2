@@ -18,7 +18,8 @@ import { BaseComponentComponent } from "src/app/base-component/base-component.co
   styleUrls: ["./cell.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CellComponent extends BaseComponentComponent
+export class CellComponent
+  extends BaseComponentComponent
   implements OnInit, OnDestroy, AfterViewInit, OnChanges {
   @Input() cell: Cell;
   icons: string[];

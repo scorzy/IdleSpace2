@@ -15,7 +15,8 @@ import { Unit } from "src/app/model/units/unit";
   styleUrls: ["./unit-menu.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class UnitMenuComponent extends BaseComponentComponent
+export class UnitMenuComponent
+  extends BaseComponentComponent
   implements OnInit, OnDestroy, AfterViewInit {
   @Input() unit: Unit;
   Decimal = Decimal;

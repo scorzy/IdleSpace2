@@ -20,7 +20,8 @@ import { trigger } from "@angular/animations";
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [trigger("noop", [])]
 })
-export class UnitsComponent extends BaseComponentComponent
+export class UnitsComponent
+  extends BaseComponentComponent
   implements OnInit, OnDestroy, AfterViewInit {
   public get units(): Array<Unit> {
     if (this.param === "b") {

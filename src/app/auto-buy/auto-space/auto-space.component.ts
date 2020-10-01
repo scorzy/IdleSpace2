@@ -15,7 +15,8 @@ import { StationAutoBuyTypes } from "src/app/model/automation/spaceStationAutoBu
   styleUrls: ["./auto-space.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AutoSpaceComponent extends BaseComponentComponent
+export class AutoSpaceComponent
+  extends BaseComponentComponent
   implements OnInit, OnDestroy, AfterViewInit {
   INTERVALS = INTERVALS;
   StationAutoBuyTypes = StationAutoBuyTypes;

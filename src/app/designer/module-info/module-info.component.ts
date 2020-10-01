@@ -15,7 +15,8 @@ import { BaseComponentComponent } from "src/app/base-component/base-component.co
   styleUrls: ["./module-info.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ModuleInfoComponent extends BaseComponentComponent
+export class ModuleInfoComponent
+  extends BaseComponentComponent
   implements OnInit, OnDestroy, AfterViewInit {
   @Input() mod: Module;
   ngOnInit() {}

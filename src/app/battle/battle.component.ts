@@ -15,7 +15,8 @@ import { BaseComponentComponent } from "../base-component/base-component.compone
   styleUrls: ["./battle.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class BattleComponent extends BaseComponentComponent
+export class BattleComponent
+  extends BaseComponentComponent
   implements OnInit, OnDestroy, AfterViewInit {
   fleetNum = 0;
   cell = 0;

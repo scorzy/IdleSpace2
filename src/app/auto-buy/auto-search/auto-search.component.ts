@@ -14,7 +14,8 @@ import { INTERVALS } from "src/app/model/automation/intervals";
   styleUrls: ["./auto-search.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AutoSearchComponent extends BaseComponentComponent
+export class AutoSearchComponent
+  extends BaseComponentComponent
   implements OnInit, OnDestroy, AfterViewInit {
   INTERVALS = INTERVALS;
 

@@ -17,7 +17,8 @@ import { Enemy } from "../model/enemy/enemy";
   styleUrls: ["./ships-view.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ShipsViewComponent extends BaseComponentComponent
+export class ShipsViewComponent
+  extends BaseComponentComponent
   implements OnInit, OnDestroy, AfterViewInit {
   @Input() designs: ShipDesign[];
   @Input() isEnemy = false;

@@ -14,7 +14,8 @@ import { BaseComponentComponent } from "../base-component/base-component.compone
   styleUrls: ["./technologies.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TechnologiesComponent extends BaseComponentComponent
+export class TechnologiesComponent
+  extends BaseComponentComponent
   implements OnInit, OnDestroy, AfterViewInit {
   ngOnInit() {
     this.reloadUi();

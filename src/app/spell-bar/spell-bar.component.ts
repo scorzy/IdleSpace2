@@ -17,7 +17,8 @@ import { MainService } from "../main.service";
   styleUrls: ["./spell-bar.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SpellBarComponent extends BaseComponentComponent
+export class SpellBarComponent
+  extends BaseComponentComponent
   implements OnInit, OnDestroy, AfterViewInit {
   valueNo = 0;
   value1 = 1;

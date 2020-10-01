@@ -1,8 +1,4 @@
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync
-} from "@angular/core/testing";
+import { ComponentFixture, TestBed, waitForAsync } from "@angular/core/testing";
 
 import { NotificationListComponent } from "./notification-list.component";
 import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";

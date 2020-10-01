@@ -19,7 +19,8 @@ import { BreakpointObserver, BreakpointState } from "@angular/cdk/layout";
   styleUrls: ["./department.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class DepartmentComponent extends BaseComponentComponent
+export class DepartmentComponent
+  extends BaseComponentComponent
   implements OnInit, OnDestroy, AfterViewInit {
   @Input() building: Building;
   isLarge = true;

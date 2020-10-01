@@ -25,7 +25,8 @@ import { NzMessageService } from "ng-zorro-antd/message";
   styleUrls: ["./mod.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ModComponent extends BaseComponentComponent
+export class ModComponent
+  extends BaseComponentComponent
   implements OnInit, OnDestroy, AfterViewInit {
   @Input() unit: Worker;
   disabled = false;

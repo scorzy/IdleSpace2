@@ -15,7 +15,8 @@ import { BaseComponentComponent } from "../base-component/base-component.compone
   templateUrl: "./job.component.html",
   styleUrls: ["./job.component.scss"]
 })
-export class JobComponent extends BaseComponentComponent
+export class JobComponent
+  extends BaseComponentComponent
   implements OnInit, OnDestroy, AfterViewInit {
   @Input() job: Job;
   @Input() collection: Job[];

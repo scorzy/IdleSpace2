@@ -16,7 +16,8 @@ import { AutoMod } from "src/app/model/automation/autoMod";
   styleUrls: ["./auto-mod.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AutoModComponent extends BaseComponentComponent
+export class AutoModComponent
+  extends BaseComponentComponent
   implements OnInit, OnDestroy, AfterViewInit {
   @Input() autoMod: AutoMod;
   INTERVALS = INTERVALS;

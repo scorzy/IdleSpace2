@@ -22,7 +22,8 @@ import { trigger } from "@angular/animations";
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [trigger("noop", [])]
 })
-export class ShipyardComponent extends BaseComponentComponent
+export class ShipyardComponent
+  extends BaseComponentComponent
   implements OnInit, OnDestroy, AfterViewInit {
   fleetNum = 0;
   warning = false;

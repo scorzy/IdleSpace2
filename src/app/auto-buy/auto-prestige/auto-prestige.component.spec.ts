@@ -1,8 +1,4 @@
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync
-} from "@angular/core/testing";
+import { ComponentFixture, TestBed, waitForAsync } from "@angular/core/testing";
 
 import { AutoPrestigeComponent } from "./auto-prestige.component";
 import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";

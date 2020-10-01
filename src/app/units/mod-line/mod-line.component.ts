@@ -25,7 +25,8 @@ import { BaseComponentComponent } from "src/app/base-component/base-component.co
   styleUrls: ["./mod-line.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ModLineComponent extends BaseComponentComponent
+export class ModLineComponent
+  extends BaseComponentComponent
   implements OnInit, OnDestroy, AfterViewInit, OnChanges {
   @Input() mod: Mod;
   @Input() uiQuantityString: string;

@@ -19,7 +19,8 @@
     "build:analyze": "npm run build:stats && npm run analyze",
     "lint:styles": "stylelint \"src/**/*.scss\"",
     "lint:styles:fix": "stylelint \"src/**/*.scss\" --fix",
-    "release": "ngh --dir=dist/IdleSpace2"
+    "release": "ngh --dir=dist/IdleSpace2",
+    "pretty": "prettier --write \"./**/*.{ts,js,jsx,json}\"" 
   },
   "private": true,
   "dependencies": {

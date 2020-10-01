@@ -13,7 +13,8 @@ import { BaseComponentComponent } from "src/app/base-component/base-component.co
   styleUrls: ["./html-tree.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class HtmlTreeComponent extends BaseComponentComponent
+export class HtmlTreeComponent
+  extends BaseComponentComponent
   implements OnInit, OnDestroy, AfterViewInit {
   ngOnInit(): void {}
 }

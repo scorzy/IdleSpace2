@@ -13,5 +13,6 @@ import { BaseComponentComponent } from "../base-component/base-component.compone
   styleUrls: ["./notification-list.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class NotificationListComponent extends BaseComponentComponent
+export class NotificationListComponent
+  extends BaseComponentComponent
   implements OnInit, OnDestroy, AfterViewInit {}

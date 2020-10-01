@@ -15,7 +15,8 @@ import { BaseComponentComponent } from "../base-component/base-component.compone
   styleUrls: ["./weapon-view.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class WeaponViewComponent extends BaseComponentComponent
+export class WeaponViewComponent
+  extends BaseComponentComponent
   implements OnInit, OnDestroy, AfterViewInit {
   @Input() weapons: Weapon[];
   ngOnInit() {}

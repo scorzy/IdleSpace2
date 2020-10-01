@@ -16,7 +16,8 @@ import { Bonus } from "src/app/model/bonus/bonus";
   styleUrls: ["./storage.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class StorageComponent extends BaseComponentComponent
+export class StorageComponent
+  extends BaseComponentComponent
   implements OnInit, OnDestroy, AfterViewInit {
   @Input() unit: Unit;
   hasMulti = false;

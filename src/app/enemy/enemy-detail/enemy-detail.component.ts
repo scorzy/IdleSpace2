@@ -18,7 +18,8 @@ import { BaseComponentComponent } from "src/app/base-component/base-component.co
   styleUrls: ["./enemy-detail.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class EnemyDetailComponent extends BaseComponentComponent
+export class EnemyDetailComponent
+  extends BaseComponentComponent
   implements OnInit, OnDestroy, AfterViewInit {
   @Input() enemy: Enemy;
 

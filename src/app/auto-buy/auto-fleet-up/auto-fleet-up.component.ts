@@ -14,7 +14,8 @@ import { INTERVALS } from "src/app/model/automation/intervals";
   styleUrls: ["./auto-fleet-up.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AutoFleetUpComponent extends BaseComponentComponent
+export class AutoFleetUpComponent
+  extends BaseComponentComponent
   implements OnInit, OnDestroy, AfterViewInit {
   INTERVALS = INTERVALS;
 

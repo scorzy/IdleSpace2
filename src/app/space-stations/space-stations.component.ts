@@ -19,7 +19,8 @@ import { trigger } from "@angular/animations";
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [trigger("noop", [])]
 })
-export class SpaceStationsComponent extends BaseComponentComponent
+export class SpaceStationsComponent
+  extends BaseComponentComponent
   implements OnInit, OnDestroy, AfterViewInit {
   sortName: string | null = "id";
   sortValue: string | null = "ascend";

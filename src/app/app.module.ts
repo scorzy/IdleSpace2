@@ -118,8 +118,8 @@ import { DistrictInfoComponent } from "./units/district-info/district-info.compo
 import { HotKeysComponent } from "./options/hot-keys/hot-keys.component";
 import { ChallengeListComponent } from "./challenge-list/challenge-list.component";
 import { ChallengeComponent } from "./challenge-list/challenge/challenge.component";
-import { AutoPrestigeComponent } from './auto-buy/auto-prestige/auto-prestige.component';
-import { PlayfabEmailComponent } from './save/playfab-email/playfab-email.component';
+import { AutoPrestigeComponent } from "./auto-buy/auto-prestige/auto-prestige.component";
+import { PlayfabEmailComponent } from "./save/playfab-email/playfab-email.component";
 
 registerLocaleData(en);
 

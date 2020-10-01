@@ -16,7 +16,8 @@ import { BaseComponentComponent } from "src/app/base-component/base-component.co
   styleUrls: ["./prod-table.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ProdTableComponent extends BaseComponentComponent
+export class ProdTableComponent
+  extends BaseComponentComponent
   implements OnInit, OnDestroy, AfterViewInit {
   @Input() unit: Unit;
   @Input() col = false;

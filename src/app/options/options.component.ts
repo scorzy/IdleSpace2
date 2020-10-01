@@ -17,7 +17,8 @@ import { BreakpointObserver, BreakpointState } from "@angular/cdk/layout";
   styleUrls: ["./options.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class OptionsComponent extends BaseComponentComponent
+export class OptionsComponent
+  extends BaseComponentComponent
   implements OnInit, OnDestroy, AfterViewInit {
   tabPosition = "left";
   constructor(

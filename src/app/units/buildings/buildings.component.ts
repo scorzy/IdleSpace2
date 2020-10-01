@@ -14,7 +14,8 @@ import { Unit } from "src/app/model/units/unit";
   styleUrls: ["./buildings.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class BuildingsComponent extends BaseComponentComponent
+export class BuildingsComponent
+  extends BaseComponentComponent
   implements OnInit, OnDestroy, AfterViewInit {
   units: Unit[];
   ngOnInit() {

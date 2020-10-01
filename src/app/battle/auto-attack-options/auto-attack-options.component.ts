@@ -13,5 +13,6 @@ import { BaseComponentComponent } from "src/app/base-component/base-component.co
   styleUrls: ["./auto-attack-options.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class AutoAttackOptionsComponent extends BaseComponentComponent
+export class AutoAttackOptionsComponent
+  extends BaseComponentComponent
   implements OnInit, OnDestroy, AfterViewInit {}
