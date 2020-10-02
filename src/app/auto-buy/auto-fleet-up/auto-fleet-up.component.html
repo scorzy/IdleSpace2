@@ -26,15 +26,19 @@
             [nzValue]="interval.value"
           ></nz-option>
         </nz-select>
-        <nz-input-number
-          [(ngModel)]="ms.game.automationManager.fleetUpdater.maxLevel"
-          name="maxLvF"
-          id="maxLvF"
-          nzMin="0"
-        ></nz-input-number>
       </nz-input-group>
     </nz-form-control>
   </nz-form-item>
+
+  <nz-form-label> Max module level </nz-form-label>
+  <nz-form-control>
+    <nz-input-number
+      [(ngModel)]="ms.game.automationManager.fleetUpdater.maxLevel"
+      name="maxLvF"
+      id="maxLvF"
+      nzMin="0"
+    ></nz-input-number>
+  </nz-form-control>
 </form>
 
 <ng-template #autoInfoTemplate>

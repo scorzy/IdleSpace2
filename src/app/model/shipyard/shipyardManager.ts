@@ -599,6 +599,7 @@ export class ShipyardManager extends JobManager {
     this.toDo = [];
     this.shipDesigns.forEach((des) => {
       des.old = null;
+      des.rev = 0;
       des.modules.forEach((mod) => {
         mod.level = 10;
         mod.levelUi = "10";
