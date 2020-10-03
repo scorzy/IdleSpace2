@@ -247,11 +247,11 @@ export class ResourceManager {
       infrastructure.speedStack = new BonusStack();
       infrastructure.buildPrice = Decimal.pow(
         SPACE_STATION_GROW,
-        i * 2 + 1
+        i * 2 + 3
       ).times(SPACE_STATION_PRICE);
       infrastructure.buildPriceNext = infrastructure.buildPrice;
       infrastructure.speedOriginal = Decimal.mul(
-        i * 15 + 5,
+        Math.pow(10, i),
         INFRASTRUCTURE_BONUS
       );
       infrastructure.speedBonus = infrastructure.speedOriginal;

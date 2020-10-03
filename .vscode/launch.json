@@ -5,11 +5,20 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Launch Chrome",
+            "request": "launch",
+            "type": "pwa-chrome",
+            "url": "http://localhost:4200",
+            "webRoot": "${workspaceFolder}"
+        },
+
+        {
             "type": "chrome",
             "request": "launch",
             "name": "Launch Chrome against localhost",
             "url": "http://localhost:4200",
-            "webRoot": "${workspaceFolder}","runtimeExecutable": "/bin/google-chrome-stable"
+            "webRoot": "${workspaceFolder}",
+            "runtimeExecutable": "/bin/google-chrome-stable"
         }
     ]
 }

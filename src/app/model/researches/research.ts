@@ -314,6 +314,8 @@ export class Research extends Job implements IUnlockable, IBase {
         infrastructure.speedStack.bonuses.push(
           new Bonus(this, new Decimal(infraBon.bonus))
         );
+        infrastructure.researchesToInspire =
+          infrastructure.researchesToInspire || new Array<Research>();
         infrastructure.researchesToInspire.push(this);
         if (this.inspirationDescription === "") {
           this.inspirationDescription = "Build one " + infrastructure.name;

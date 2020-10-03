@@ -399,7 +399,7 @@ export class ResearchManager extends JobManager {
         stationToUp: [
           {
             stationId: spaceStations[i].id,
-            habSpace: 1
+            habSpace: 0.5
           }
         ]
       };
@@ -411,6 +411,26 @@ export class ResearchManager extends JobManager {
         stationId: spaceStations[i].id,
         habSpace: 0.2
       });
+    }
+
+    const infrastructure = Game.getGame().resourceManager.infrastructures;
+    for (let i = 0, n = infrastructure.length; i < n; i++) {
+      // Upgrade
+      const resDataUp: IResearchData = {
+        id: SPACE_STATION_UP_PREFIX + infrastructure[i].id,
+        name: "Upgraded " + infrastructure[i].name,
+        description: "",
+        unlockFrom: "S" + infrastructure[i].id,
+        type: TECHNOLOGIES.CivilEngineering,
+        priceMulti: 0.1,
+        infrastructureToUp: [
+          {
+            infraId: infrastructure[i].id,
+            bonus: 1
+          }
+        ]
+      };
+      this.researches.push(new Research(resDataUp, this));
     }
   }
   setRelations() {

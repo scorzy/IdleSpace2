@@ -10,6 +10,11 @@ import { AutoRefresh } from "./autoRefresh";
 import { AutoMod } from "./autoMod";
 import { AutoFull } from "./autoFull";
 import { AutoPrestige } from "./autoPrestige";
+import { Infrastructure } from "../units/infrastructure";
+import {
+  InfrastructureAutoBuyer,
+  InfrastructureAutoBuyTypes
+} from "./infrastructureAutoBuyer";
 
 export class AutomationManager {
   on = true;
@@ -22,6 +27,7 @@ export class AutomationManager {
   autoRefresh: AutoRefresh;
   autoFull: AutoFull;
   autoPrestige: AutoPrestige;
+  autoInfrastructure: InfrastructureAutoBuyer;
 
   constructor() {
     const game = Game.getGame();
@@ -53,6 +59,9 @@ export class AutomationManager {
 
     this.autoPrestige = new AutoPrestige();
     this.autobuyers.push(this.autoPrestige);
+
+    this.autoInfrastructure = new InfrastructureAutoBuyer();
+    this.autobuyers.push(this.autoInfrastructure);
 
     this.autobuyers.forEach((a) => a.reload());
     this.sort();

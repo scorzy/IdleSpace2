@@ -90,7 +90,8 @@
               ></i>
               Price
             </th>
-            <th>Speed & Acc</th>
+            <th>Bonus</th>
+            <th>Tot. Bonus</th>
             <th>Bonus/Space</th>
             <th>Queue?</th>
           </tr>
@@ -109,9 +110,8 @@
               </span>
             </td>
             <td class="monospace">{{ infra.buildPriceNext | format }}</td>
-            <td class="monospace">
-              {{ infra.speedBonus.times(100) | format }}%
-            </td>
+            <td class="monospace">{{ infra.speedBonusUi | format }}%</td>
+            <td class="monospace">{{ infra.totalBonus | format }}%</td>
             <td class="monospace">{{ infra.priceDivBonus | format }}</td>
             <td>
               <button
