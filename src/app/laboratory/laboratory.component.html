@@ -77,7 +77,7 @@
     </div>
   </div>
 
-  <div fxFlex="25" class="info-div">
+  <div fxFlex="25" class="info-div" fxLayoutGap="1rem">
     <div>
       <strong>Research /s: </strong>
       <span class="monospace">{{
@@ -133,20 +133,34 @@
       </nz-select>
     </div>
 
-    <ul class="list-unstyled technology-list">
-      <li
-        *ngFor="
-          let item of ms.game.researchManager.unlockedTechnologies;
-          trackBy: getTypeId
-        "
-      >
-        <span [style.color]="item.color"
-          ><i nz-icon [nzType]="item.icon"></i
-        ></span>
+    <div>
+      <strong>Tech. Bonuses </strong>
+      <i
+        class="info-icon"
+        nz-icon
+        nzType="info-circle"
+        nzTheme="outline"
+        nz-tooltip
+        nzTooltipTitle="Technologies grant research bonus equal to 5% x tech. level"
+      ></i>
 
-        {{ item.name }}
-        <span class="monospace">+{{ item.bonus.totalBonusUi | format }}%</span>
-      </li>
-    </ul>
+      <ul class="list-unstyled">
+        <li
+          *ngFor="
+            let item of ms.game.researchManager.unlockedTechnologies;
+            trackBy: getTypeId
+          "
+        >
+          <span [style.color]="item.color"
+            ><i nz-icon [nzType]="item.icon"></i
+          ></span>
+
+          {{ item.name }}
+          <span class="monospace"
+            >+{{ item.bonus.totalBonusUi | format }}%</span
+          >
+        </li>
+      </ul>
+    </div>
   </div>
 </div>

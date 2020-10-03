@@ -1,6 +1,6 @@
 import { AbstractAutobuyer } from "./abstractAutoBuyer";
 import { Game } from "../game";
-import { SpaceStation } from "../units/spaceStation";
+import { AbstractSpaceStation } from "../units/abstractSpaceStation";
 
 export enum StationAutoBuyTypes {
   OFF,
@@ -21,7 +21,7 @@ export class SpaceStationAutoBuyer extends AbstractAutobuyer {
     if (!rm.spaceStations[0].unlocked) return false;
     if (sp.toDo.length > 8) return false;
 
-    let selectedStation: SpaceStation;
+    let selectedStation: AbstractSpaceStation;
     switch (this.autoBuyType) {
       case StationAutoBuyTypes.BEST_RATIO:
         selectedStation = rm.unlockedSpaceStations.reduce(
@@ -51,7 +51,9 @@ export class SpaceStationAutoBuyer extends AbstractAutobuyer {
 
     if (selectedStation) {
       sp.addJob(selectedStation);
+      return true;
     }
+    return false;
   }
   reload() {
     if (!this.on) this.autoBuyType = StationAutoBuyTypes.OFF;

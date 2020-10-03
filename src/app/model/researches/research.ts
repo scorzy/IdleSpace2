@@ -32,6 +32,7 @@ import { Spell } from "../computing/spell";
 import { Bonus } from "../bonus/bonus";
 import { Challenge } from "../challenge/challenge";
 import { BonusStack } from "../bonus/bonusStack";
+import { Infrastructure } from "../units/infrastructure";
 
 export class Research extends Job implements IUnlockable, IBase {
   static lastVisId = 0;
@@ -91,6 +92,7 @@ export class Research extends Job implements IUnlockable, IBase {
   unlocked = false;
   noUnlockChallenges: Challenge[];
   requiredChallenge: { challenge: Challenge; level: number };
+  infrastructureToUp: { infrastructure: Infrastructure; bonus: number }[];
   constructor(researchData: IResearchData, researchManager: ResearchManager) {
     super();
     this.resData = researchData;
@@ -296,6 +298,27 @@ export class Research extends Job implements IUnlockable, IBase {
         station.researchesToInspire.push(this);
         if (this.inspirationDescription === "") {
           this.inspirationDescription = "Build one " + station.name;
+        }
+      });
+    }
+    if ("infrastructureToUp" in this.resData) {
+      this.resData.infrastructureToUp.forEach((infraBon) => {
+        const infrastructure = rs.infrastructures.find(
+          (inf) => inf.id === infraBon.infraId
+        );
+        if (!this.infrastructureToUp) this.infrastructureToUp = [];
+        this.infrastructureToUp.push({
+          infrastructure,
+          bonus: infraBon.bonus
+        });
+        infrastructure.speedStack.bonuses.push(
+          new Bonus(this, new Decimal(infraBon.bonus))
+        );
+        infrastructure.researchesToInspire =
+          infrastructure.researchesToInspire || new Array<Research>();
+        infrastructure.researchesToInspire.push(this);
+        if (this.inspirationDescription === "") {
+          this.inspirationDescription = "Build one " + infrastructure.name;
         }
       });
     }

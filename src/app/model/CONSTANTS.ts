@@ -40,10 +40,18 @@ export const MEGA_IDS = {
   Gateway: "m6",
   MegaComputing: "m7"
 };
+export const STRU_IDS = {
+  SpacePort: "s0",
+  Skyhook: "s1",
+  RotatingSkyhook: "s2",
+  SuperTether: "s3"
+};
 export const UNIT_PRICE_GROW_RATE = 1.04;
 export const BUILDING_PRICE_GROW_RATE = 1.08;
 export const SPACE_STATION_PRICE = 1e6;
+export const SPACE_INFRASTRUCTURE_PRICE = 1e10;
 export const SPACE_STATION_HAB_SPACE = 500;
+export const INFRASTRUCTURE_BONUS = 0.01;
 export const SPACE_STATION_GROW = 10;
 export const MOD_PER_ROBOTICS = 0.1;
 export const MOD_PER_OTHERS = 0.2;
@@ -209,3 +217,10 @@ export const ONE_SHOT_CHALLENGE_REWARD = 0.2;
 export const NO_HAB_CHALLENGE_MULTI = 5;
 export const ANTI_ARMOUR_SHELL_LEVEL = 2;
 export const ANTI_SHIELD_SHELL_LEVEL = 6;
+export const EXPANDING_CHALLENGE_DOUBLING_TIME = 15 * 60;
+export const EXPANDING_CHALLENGE_REWARD = 0.3;
+export const SPACE_PORT_LEVEL = 3;
+export const SKYHOOK_LEVEL = 4;
+export const ROTATING_SKYHOOK_LEVEL = 6;
+export const SUPER_TETHER_LEVEL = 8;
+export const INFRASTRUCTURE_AUTO_LEVEL = 3;

@@ -120,6 +120,7 @@ import { ChallengeListComponent } from "./challenge-list/challenge-list.componen
 import { ChallengeComponent } from "./challenge-list/challenge/challenge.component";
 import { AutoPrestigeComponent } from "./auto-buy/auto-prestige/auto-prestige.component";
 import { PlayfabEmailComponent } from "./save/playfab-email/playfab-email.component";
+import { AutoInfraComponent } from './auto-buy/auto-infra/auto-infra.component';
 
 registerLocaleData(en);
 
@@ -204,7 +205,8 @@ const ngZorroConfig: NzConfig = {
     ChallengeListComponent,
     ChallengeComponent,
     AutoPrestigeComponent,
-    PlayfabEmailComponent
+    PlayfabEmailComponent,
+    AutoInfraComponent
   ],
   imports: [
     BrowserModule,

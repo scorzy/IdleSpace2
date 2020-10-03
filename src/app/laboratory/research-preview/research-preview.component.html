@@ -92,6 +92,10 @@
     <span class="text-secondary">{{ hsbBonus.spaceStation.name }}</span> +
     {{ hsbBonus.multi | percent }} habitable space
   </li>
+  <li *ngFor="let hsbBonus of research.infrastructureToUp">
+    <span class="text-secondary">{{ hsbBonus.infrastructure.name }}</span> +
+    {{ hsbBonus.bonus | percent }} speed and acceleration bonus
+  </li>
   <li *ngFor="let battleMulti of research.battleMulti">
     +{{ battleMulti.multi | percent }}
     {{ battleMulti.material.name }}

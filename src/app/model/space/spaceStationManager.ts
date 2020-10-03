@@ -9,10 +9,12 @@ import {
   ZERO
 } from "../CONSTANTS";
 import { MegaStructure } from "../units/megaStructure";
+import { AbstractSpaceStation } from "../units/abstractSpaceStation";
+import { CivilianJob } from "./civilianJob";
 
 export class SpaceStationManager extends JobManager {
-  toDo = new Array<SpaceStationJob>();
-  done = new Array<SpaceStationJob>();
+  toDo = new Array<CivilianJob>();
+  done = new Array<CivilianJob>();
   megaInitialPrice = ONE;
   nextMegaPrice = ONE;
   megaBuilt = ZERO;
@@ -31,11 +33,19 @@ export class SpaceStationManager extends JobManager {
     }
     this.nextMegaPrice = MegaStructure.getMegaBuildPrice();
   }
-  addJob(unit: SpaceStation) {
+  addJob(unit: AbstractSpaceStation) {
     if (!unit) {
       return false;
     }
-    const job = new SpaceStationJob(unit);
+    let job: CivilianJob;
+    if (unit instanceof SpaceStation) {
+      job = new SpaceStationJob(unit);
+    } else if (unit instanceof MegaStructure) {
+      job = new SpaceStationJob(unit);
+    } else {
+      job = new CivilianJob(unit);
+    }
+
     this.toDo.push(job);
     Game.getGame().reloadWorkPerSec();
     unit.reloadBuildPrice();

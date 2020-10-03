@@ -197,7 +197,9 @@
 .ant-card-small > .ant-card-body {
   padding-top: 0;
 }
-
+* {
+  user-select: none;
+}
 .disable-animation * {
   transition: none !important;
 }

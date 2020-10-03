@@ -1,43 +1,16 @@
-import { Unit } from "./unit";
-import {
-  ZERO,
-  EXTRA_DISTRICTS_FROM_STATIONS,
-  UNIT_PRICE_GROW_RATE
-} from "../CONSTANTS";
+import { ZERO, EXTRA_DISTRICTS_FROM_STATIONS, ONE } from "../CONSTANTS";
 import { BonusStack } from "../bonus/bonusStack";
 import { Game } from "../game";
-import { Research } from "../researches/research";
+import { AbstractSpaceStation } from "./abstractSpaceStation";
 
-export class SpaceStation extends Unit {
-  buildPrice = ZERO;
+export class SpaceStation extends AbstractSpaceStation {
   habSpace = ZERO;
   miningDistricts = ZERO;
   energyDistricts = ZERO;
   habSpaceOriginal = ZERO;
+  priceDivDabSpace = ONE;
   habSpaceStack: BonusStack;
-  priceDivDabSpace = ZERO;
-  buildPriceNext = ZERO;
-  researchesToInspire: Array<Research>;
-  level = 0;
 
-  getBuildPrice(index = Number.POSITIVE_INFINITY) {
-    const toDoList = Game.getGame().spaceStationManager.toDo;
-    let queued = 0;
-
-    if (toDoList.length > 0) {
-      for (let i = 0, n = Math.min(index, toDoList.length); i < n; i++) {
-        if (toDoList[i].spaceStation === this) {
-          queued++;
-        }
-      }
-    }
-    return Decimal.pow(UNIT_PRICE_GROW_RATE, this.quantity.plus(queued))
-      .times(this.buildPrice)
-      .floor();
-  }
-  reloadBuildPrice() {
-    this.buildPriceNext = this.getBuildPrice();
-  }
   reloadHabSpace() {
     if (!this.habSpaceStack) {
       return false;
@@ -81,6 +54,5 @@ export class SpaceStation extends Unit {
   prestige() {
     super.prestige();
     this.reloadHabSpace();
-    this.reloadBuildPrice();
   }
 }

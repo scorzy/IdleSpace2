@@ -1,3 +1,8 @@
+3/10/2020
+-   New challenge: Expanding Universe
+-   Increased "More velocity and acceleration" exp shop bonus from 10% to 15%
+-   Disabled text selection
+
 28/09/2020
 -   Fix "XS only" challenge not working
 

@@ -1,0 +1,62 @@
+<form nz-form nzLayout="inline">
+  <nz-form-item>
+    <nz-form-label
+      nz-popover
+      nzPopoverTitle="Automation"
+      [nzPopoverContent]="autoInfoTemplate"
+      >Auto
+    </nz-form-label>
+    <nz-form-control>
+      <nz-input-group nzCompact>
+        <nz-select
+          [(ngModel)]="ms.game.automationManager.autoInfrastructure.autoBuyType"
+          class="auto-type"
+          nzSize="small"
+          name="infraAutoBuyer"
+          (ngModelChange)="buildingAutoBuyChange()"
+        >
+          <nz-option
+            nzLabel="Off"
+            [nzValue]="InfrastructureAutoBuyTypes.OFF"
+          ></nz-option>
+          <nz-option
+            nzLabel="Best ratio"
+            [nzValue]="InfrastructureAutoBuyTypes.BEST_RATIO"
+          ></nz-option>
+          <nz-option
+            nzLabel="Cheap"
+            [nzValue]="InfrastructureAutoBuyTypes.CHEAP"
+          ></nz-option>
+          <nz-option
+            nzLabel="Most Bonus"
+            [nzValue]="InfrastructureAutoBuyTypes.MOST_BONUS"
+          ></nz-option>
+        </nz-select>
+        <nz-select
+          nzSize="small"
+          class="autoTime"
+          [(ngModel)]="ms.game.automationManager.autoInfrastructure.interval"
+          name="autoInfrastructureI"
+        >
+          <nz-option
+            *ngFor="let interval of INTERVALS; trackBy: getIntervalId"
+            [nzLabel]="interval.label"
+            [nzValue]="interval.value"
+          ></nz-option>
+        </nz-select>
+      </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
+</form>
+
+<ng-template #autoInfoTemplate>
+  Options:
+  <ul>
+    <li>On / Off, Type</li>
+    <li>Interval</li>
+    <li>
+      Priority <br />
+      (bigger number = high priority)
+    </li>
+  </ul>
+</ng-template>

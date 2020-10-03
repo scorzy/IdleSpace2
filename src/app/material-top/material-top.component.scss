@@ -11,7 +11,7 @@ span {
   flex-direction: row;
 }
 
-.mainContainer {
+.main-container {
   align-content: center;
   align-items: center;
   cursor: pointer;
@@ -37,7 +37,7 @@ span {
 }
 
 @media only screen and (max-width: 1000px) {
-  .mainContainer {
+  .main-container {
     [nz-icon] {
       margin-left: 7px;
       margin-right: 7px;
