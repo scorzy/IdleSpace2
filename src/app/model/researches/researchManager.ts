@@ -399,7 +399,7 @@ export class ResearchManager extends JobManager {
         stationToUp: [
           {
             stationId: spaceStations[i].id,
-            habSpace: 0.5
+            habSpace: 1
           }
         ]
       };
@@ -426,7 +426,7 @@ export class ResearchManager extends JobManager {
         infrastructureToUp: [
           {
             infraId: infrastructure[i].id,
-            bonus: 1
+            bonus: 0.15
           }
         ]
       };

@@ -10,7 +10,11 @@ import {
   MEGA_IDS,
   ANTI_ARMOUR_SHELL_LEVEL,
   ANTI_SHIELD_SHELL_LEVEL,
-  STRU_IDS
+  STRU_IDS,
+  SPACE_PORT_LEVEL,
+  ROTATING_SKYHOOK_LEVEL,
+  SKYHOOK_LEVEL,
+  SUPER_TETHER_LEVEL
 } from "../CONSTANTS";
 import { ExclusiveResGroups } from "../researches/exclusiveResGroups";
 
@@ -695,7 +699,8 @@ export const RESEARCHES: IResearchData[] = [
     description: "",
     type: TECHNOLOGIES.Propulsion,
     unitsToUnlock: [STRU_IDS.SpacePort],
-    unlockFrom: "P1"
+    unlockFrom: "P1",
+    requiredChallenge: { challengeId: "8", level: SPACE_PORT_LEVEL }
   },
   {
     id: "S" + STRU_IDS.Skyhook,
@@ -704,7 +709,8 @@ export const RESEARCHES: IResearchData[] = [
     description: "",
     type: TECHNOLOGIES.Propulsion,
     unitsToUnlock: [STRU_IDS.Skyhook],
-    unlockFrom: "P2"
+    unlockFrom: "P2",
+    requiredChallenge: { challengeId: "8", level: SKYHOOK_LEVEL }
   },
   {
     id: "S" + STRU_IDS.RotatingSkyhook,
@@ -713,7 +719,8 @@ export const RESEARCHES: IResearchData[] = [
     description: "",
     type: TECHNOLOGIES.Propulsion,
     unitsToUnlock: [STRU_IDS.RotatingSkyhook],
-    unlockFrom: "P4"
+    unlockFrom: "P4",
+    requiredChallenge: { challengeId: "8", level: ROTATING_SKYHOOK_LEVEL }
   },
   {
     id: "S" + STRU_IDS.SuperTether,
@@ -722,7 +729,8 @@ export const RESEARCHES: IResearchData[] = [
     description: "",
     type: TECHNOLOGIES.Propulsion,
     unitsToUnlock: [STRU_IDS.SuperTether],
-    unlockFrom: "P6"
+    unlockFrom: "P6",
+    requiredChallenge: { challengeId: "8", level: SUPER_TETHER_LEVEL }
   }
   //#endregion
 ];

@@ -8,7 +8,6 @@ import {
 import { BaseComponentComponent } from "src/app/base-component/base-component.component";
 import { InfrastructureAutoBuyTypes } from "src/app/model/automation/infrastructureAutoBuyer";
 import { INTERVALS } from "src/app/model/automation/intervals";
-import { StationAutoBuyTypes } from "src/app/model/automation/spaceStationAutoBuyer";
 
 @Component({
   selector: "app-auto-infra",

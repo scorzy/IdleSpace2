@@ -6,6 +6,7 @@ import {
   AfterViewInit
 } from "@angular/core";
 import { MainService } from "../main.service";
+import { INFRASTRUCTURE_AUTO_LEVEL } from "../model/CONSTANTS";
 
 @Component({
   selector: "app-automation",
@@ -15,6 +16,7 @@ import { MainService } from "../main.service";
 })
 export class AutomationComponent implements OnInit, AfterViewInit {
   @HostBinding("class.disable-animation") animationDisabled = true;
+  INFRASTRUCTURE_AUTO_LEVEL = INFRASTRUCTURE_AUTO_LEVEL;
   constructor(public ms: MainService) {}
   ngOnInit(): void {}
   ngAfterViewInit() {

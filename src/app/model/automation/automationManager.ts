@@ -10,10 +10,8 @@ import { AutoRefresh } from "./autoRefresh";
 import { AutoMod } from "./autoMod";
 import { AutoFull } from "./autoFull";
 import { AutoPrestige } from "./autoPrestige";
-import { Infrastructure } from "../units/infrastructure";
 import {
-  InfrastructureAutoBuyer,
-  InfrastructureAutoBuyTypes
+  InfrastructureAutoBuyer
 } from "./infrastructureAutoBuyer";
 
 export class AutomationManager {

@@ -25,7 +25,16 @@
   <nz-card nzTitle="Auto space stations" nzSize="small" style="width: 270px">
     <app-auto-space></app-auto-space>
   </nz-card>
-  <nz-card nzTitle="Auto infrastructure" nzSize="small" style="width: 270px">
+  <nz-card
+    nzTitle="Auto infrastructure"
+    *ngIf="
+      ms.game.challengeManager.expandingChallenge.quantity.gte(
+        INFRASTRUCTURE_AUTO_LEVEL
+      )
+    "
+    nzSize="small"
+    style="width: 270px"
+  >
     <app-auto-infra></app-auto-infra>
   </nz-card>
   <nz-card nzTitle="Auto surrender" nzSize="small" style="width: 270px">

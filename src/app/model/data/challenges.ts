@@ -10,7 +10,13 @@ import {
   ONE_SHOT_CHALLENGE_REWARD,
   NO_HAB_CHALLENGE_MULTI,
   ANTI_ARMOUR_SHELL_LEVEL,
-  ANTI_SHIELD_SHELL_LEVEL
+  ANTI_SHIELD_SHELL_LEVEL,
+  EXPANDING_CHALLENGE_REWARD,
+  SPACE_PORT_LEVEL,
+  ROTATING_SKYHOOK_LEVEL,
+  SKYHOOK_LEVEL,
+  SUPER_TETHER_LEVEL,
+  INFRASTRUCTURE_AUTO_LEVEL
 } from "../CONSTANTS";
 
 export interface IChallengeData {
@@ -135,5 +141,25 @@ export const CHALLENGES: IChallengeData[] = [
     unlockLevel: 500,
     startLevel: 100,
     experiencePerCompletions: CHALLENGE_REWARD_EXP * 2
+  },
+  {
+    id: "8",
+    name: "Expanding Universe",
+    description:
+      "Your Experience Multiplier will reset to one. Enemy searching time and travel distances increase overtime, doubling every 15 minutes.",
+    rewards: [
+      "+" +
+        EXPANDING_CHALLENGE_REWARD * 100 +
+        "% searching, velocity and acceleration x completion",
+      "Unlock a tier of space infrastructures in order to decrease travel time:",
+      "Lv. " + SPACE_PORT_LEVEL + " Space Port",
+      "Lv. " + INFRASTRUCTURE_AUTO_LEVEL + " automation",
+      "Lv. " + SKYHOOK_LEVEL + " Skyhook",
+      "Lv. " + ROTATING_SKYHOOK_LEVEL + " Rotating Skyhook",
+      "Lv. " + SUPER_TETHER_LEVEL + " Super Tether"
+    ],
+    unlockLevel: 600,
+    startLevel: 100,
+    experiencePerCompletions: CHALLENGE_REWARD_EXP * 3
   }
 ];

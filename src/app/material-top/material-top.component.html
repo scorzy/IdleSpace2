@@ -4,7 +4,7 @@
       let item of ms.game.resourceManager.unlockedMaterials;
       trackBy: getId
     "
-    class="mainContainer"
+    class="main-container"
   >
     <i nz-icon [nzType]="item.icon" [ngClass]="item.colorClass"></i>
     <div
@@ -49,18 +49,18 @@
   </div>
 
   <!-- Naval Capacity -->
-  <div class="mainContainer">
+  <div class="main-container">
     <i nz-icon nzType="my:strafe"></i>
     <div class="container">
-      <span class="monospace min-width">{{
-        ms.game.navalCapacity | format: true
-      }}</span>
+      <span class="monospace min-width">
+        {{ ms.game.navalCapacity | format: true }}
+      </span>
     </div>
   </div>
 
   <!-- Districts -->
   <div
-    class="mainContainer habSpace-color"
+    class="main-container habSpace-color"
     nz-popover
     [nzPopoverTitle]="habTitleTemplate"
     [nzPopoverContent]="habInfoTemplate"
@@ -74,7 +74,7 @@
     </div>
   </div>
   <div
-    class="mainContainer metal-color"
+    class="main-container metal-color"
     nz-popover
     [nzPopoverTitle]="miningTitleTemplate"
     [nzPopoverContent]="miningInfoTemplate"
@@ -88,7 +88,7 @@
     </div>
   </div>
   <div
-    class="mainContainer energy-color"
+    class="main-container energy-color"
     nz-popover
     [nzPopoverTitle]="energyTitleTemplate"
     [nzPopoverContent]="energyInfoTemplate"
@@ -102,7 +102,20 @@
     </div>
   </div>
 
-  <div class="mainContainer buy-menu">
+  <div class="main-container">
+    <span
+      nz-popover
+      nzPopoverTitle="Expanding Universe"
+      nzPopoverContent="Multiplier for searching and distance"
+    >
+      <i nz-icon nzType="arrows-alt" nzTheme="outline"></i>
+      <span class="monospace"
+        >x{{ ms.game.challengeManager.expandingFactor | format }}</span
+      >
+    </span>
+  </div>
+
+  <div class="main-container buy-menu">
     <span nz-dropdown [nzDropdownMenu]="buyMenu">
       <i nz-icon nzType="shopping-cart"></i>
       <span>Buy {{ buyString }}</span>

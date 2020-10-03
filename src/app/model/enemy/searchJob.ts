@@ -17,9 +17,13 @@ export class SearchJob extends Job {
 
   static getPrice(level: number, extraOpt: number): Decimal {
     extraOpt = Math.max(extraOpt, 0);
-    return Decimal.multiply(level + 1, SEARCH_JOB_PRICE).times(
+    let ret = Decimal.multiply(level + 1, SEARCH_JOB_PRICE).times(
       Decimal.pow(PRICE_GROW_RATE, level + extraOpt * 1.5)
     );
+    if (Game.getGame().challengeManager.expandingChallenge.isActive) {
+      ret = ret.times(Game.getGame().challengeManager.expandingFactor);
+    }
+    return ret;
   }
   constructor() {
     super();

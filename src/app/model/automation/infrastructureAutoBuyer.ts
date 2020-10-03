@@ -1,3 +1,4 @@
+import { INFRASTRUCTURE_AUTO_LEVEL } from "../CONSTANTS";
 import { Game } from "../game";
 import { Infrastructure } from "../units/infrastructure";
 import { AbstractAutobuyer } from "./abstractAutoBuyer";
@@ -15,6 +16,13 @@ export class InfrastructureAutoBuyer extends AbstractAutobuyer {
     this.id = "Ifab";
   }
   automate(): boolean {
+    if (
+      Game.getGame().challengeManager.expandingChallenge.quantity.lt(
+        INFRASTRUCTURE_AUTO_LEVEL
+      )
+    ) {
+      return false;
+    }
     const rm = Game.getGame().resourceManager;
     if (!rm.worker.unlocked) return false;
     if (!rm.infrastructures[0].unlocked) return false;
@@ -50,7 +58,9 @@ export class InfrastructureAutoBuyer extends AbstractAutobuyer {
     }
     if (selectedStation) {
       sp.addJob(selectedStation);
+      return true;
     }
+    return false;
   }
   reload() {
     if (!this.on) this.autoBuyType = InfrastructureAutoBuyTypes.OFF;

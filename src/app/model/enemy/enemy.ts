@@ -26,7 +26,8 @@ import {
   ANTI_MISSILES_START_LV,
   ANTI_MISSILES_END_PERCENTAGE,
   ANTI_MISSILES_END_LV,
-  NUKE_DAMAGE
+  NUKE_DAMAGE,
+  ONE
 } from "../CONSTANTS";
 import { ShipType } from "../shipyard/ShipType";
 import { Module } from "../shipyard/module";
@@ -81,12 +82,18 @@ export class Enemy {
       maxMulti = Math.abs(1 / maxMulti);
     }
     const powMulti = Math.pow(MOD_DISTANCE_EXP, level);
+    let challengeMulti = ONE;
+    if (Game.getGame().challengeManager.expandingChallenge.isActive) {
+      challengeMulti = Game.getGame().challengeManager.expandingFactor;
+    }
     return {
       min: ENEMY_BASE_DISTANCE.times(level + 2)
         .times(minMulti)
+        .times(challengeMulti)
         .times(powMulti),
       max: ENEMY_BASE_DISTANCE.times(level + 2)
         .times(maxMulti)
+        .times(challengeMulti)
         .times(powMulti)
     };
   }

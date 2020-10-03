@@ -12,7 +12,17 @@
       [nzTipFormatter]="formatter"
     ></nz-slider>
 
-    <h2>Space Stations</h2>
+    <h2>
+      Space Stations
+      <i
+        class="info-icon"
+        nz-icon
+        nzType="info-circle"
+        nzTheme="outline"
+        nz-tooltip
+        nzTooltipTitle="Space Stations grant habitable space. Build price increases exponentially."
+      ></i>
+    </h2>
     <nz-table
       #stationsTable
       nzSize="small"
@@ -72,7 +82,17 @@
       class="infrastructures"
       *ngIf="ms.game.resourceManager.unlockedInfrastructures.length > 0"
     >
-      <h2>Infrastructures</h2>
+      <h2>
+        Infrastructures
+        <i
+          class="info-icon"
+          nz-icon
+          nzType="info-circle"
+          nzTheme="outline"
+          nz-tooltip
+          nzTooltipTitle="Infrastructures improve ships speed and acceleration. Build price increases exponentially."
+        ></i>
+      </h2>
       <nz-table
         #infraTable
         nzSize="small"
@@ -90,9 +110,19 @@
               ></i>
               Price
             </th>
-            <th>Bonus</th>
-            <th>Tot. Bonus</th>
-            <th>Bonus/Space</th>
+            <th
+              nz-tooltip
+              nzTooltipTitle="Increase ships speed and acceleration"
+            >
+              Bonus
+            </th>
+            <th
+              nz-tooltip
+              nzTooltipTitle="Increase ships speed and acceleration"
+            >
+              Tot. Bonus
+            </th>
+            <th>Price/Bonus</th>
             <th>Queue?</th>
           </tr>
         </thead>

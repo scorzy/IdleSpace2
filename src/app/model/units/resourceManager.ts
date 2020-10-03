@@ -15,7 +15,8 @@ import {
   MEGA_IDS,
   MEGA_SPEED_MULTI,
   SCIENCE_CHALLENGE_LIMIT,
-  INFRASTRUCTURE_BONUS
+  INFRASTRUCTURE_BONUS,
+  SPACE_INFRASTRUCTURE_PRICE
 } from "../CONSTANTS";
 import { Price } from "../prices/price";
 import { Components } from "./components";
@@ -248,10 +249,10 @@ export class ResourceManager {
       infrastructure.buildPrice = Decimal.pow(
         SPACE_STATION_GROW,
         i * 2 + 3
-      ).times(SPACE_STATION_PRICE);
+      ).times(SPACE_INFRASTRUCTURE_PRICE);
       infrastructure.buildPriceNext = infrastructure.buildPrice;
       infrastructure.speedOriginal = Decimal.mul(
-        Math.pow(10, i),
+        Math.pow(2, i),
         INFRASTRUCTURE_BONUS
       );
       infrastructure.speedBonus = infrastructure.speedOriginal;
@@ -742,9 +743,9 @@ export class ResourceManager {
     //  Infrastructures
     for (let i = 0, n = this.infrastructures.length; i < n; i++) {
       const infrastructure = this.infrastructures[i];
-      sm.velocityBonusStack.bonuses.push(
-        new Bonus(infrastructure, infrastructure.speedBonus)
-      );
+      const infraBonus = new Bonus(infrastructure, infrastructure.speedBonus);
+      sm.velocityBonusStack.bonuses.push(infraBonus);
+      sm.accelerationStack.bonuses.push(infraBonus);
     }
   }
   prestige() {

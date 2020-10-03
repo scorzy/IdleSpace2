@@ -51,7 +51,9 @@ export class SpaceStationAutoBuyer extends AbstractAutobuyer {
 
     if (selectedStation) {
       sp.addJob(selectedStation);
+      return true;
     }
+    return false;
   }
   reload() {
     if (!this.on) this.autoBuyType = StationAutoBuyTypes.OFF;
