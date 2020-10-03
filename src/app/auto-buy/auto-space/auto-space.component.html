@@ -40,6 +40,7 @@
           [(ngModel)]="ms.game.automationManager.spaceStationAutoBuyer.interval"
           name="spaceStationAutoBuyerI"
         >
+          <nz-option nzLabel="0.1 sec" [nzValue]="zeroSec"></nz-option>
           <nz-option
             *ngFor="let interval of INTERVALS; trackBy: getIntervalId"
             [nzLabel]="interval.label"

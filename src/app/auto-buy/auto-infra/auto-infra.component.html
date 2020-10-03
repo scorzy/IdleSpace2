@@ -38,6 +38,7 @@
           [(ngModel)]="ms.game.automationManager.autoInfrastructure.interval"
           name="autoInfrastructureI"
         >
+          <nz-option nzLabel="0.1 sec" [nzValue]="zeroSec"></nz-option>
           <nz-option
             *ngFor="let interval of INTERVALS; trackBy: getIntervalId"
             [nzLabel]="interval.label"

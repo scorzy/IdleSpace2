@@ -19,6 +19,7 @@ export class AutoSpaceComponent
   extends BaseComponentComponent
   implements OnInit, OnDestroy, AfterViewInit {
   INTERVALS = INTERVALS;
+  zeroSec = 0.01;
   StationAutoBuyTypes = StationAutoBuyTypes;
 
   getIntervalId(index: number, interval: any) {

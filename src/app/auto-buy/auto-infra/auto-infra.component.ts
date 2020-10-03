@@ -19,6 +19,7 @@ export class AutoInfraComponent
   extends BaseComponentComponent
   implements OnInit, OnDestroy, AfterViewInit {
   INTERVALS = INTERVALS;
+  zeroSec = 0.01;
   InfrastructureAutoBuyTypes = InfrastructureAutoBuyTypes;
 
   getIntervalId(index: number, interval: any) {
