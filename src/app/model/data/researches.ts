@@ -9,7 +9,8 @@ import {
   MAT_IDS,
   MEGA_IDS,
   ANTI_ARMOUR_SHELL_LEVEL,
-  ANTI_SHIELD_SHELL_LEVEL
+  ANTI_SHIELD_SHELL_LEVEL,
+  STRU_IDS
 } from "../CONSTANTS";
 import { ExclusiveResGroups } from "../researches/exclusiveResGroups";
 
@@ -684,6 +685,44 @@ export const RESEARCHES: IResearchData[] = [
     type: TECHNOLOGIES.Computing,
     unitsToUnlock: [MEGA_IDS.MegaComputing],
     unlockFrom: "c8"
+  },
+  //#endregion
+  //#region Infrastructure
+  {
+    id: "S" + STRU_IDS.SpacePort,
+    name: "Space Port",
+    max: 1,
+    description: "",
+    type: TECHNOLOGIES.Propulsion,
+    unitsToUnlock: [STRU_IDS.SpacePort],
+    unlockFrom: "P1"
+  },
+  {
+    id: "S" + STRU_IDS.Skyhook,
+    name: "Skyhook",
+    max: 1,
+    description: "",
+    type: TECHNOLOGIES.Propulsion,
+    unitsToUnlock: [STRU_IDS.Skyhook],
+    unlockFrom: "P2"
+  },
+  {
+    id: "S" + STRU_IDS.RotatingSkyhook,
+    name: "Rotating Skyhook",
+    max: 1,
+    description: "",
+    type: TECHNOLOGIES.Propulsion,
+    unitsToUnlock: [STRU_IDS.RotatingSkyhook],
+    unlockFrom: "P4"
+  },
+  {
+    id: "S" + STRU_IDS.SuperTether,
+    name: "Super Tether",
+    max: 1,
+    description: "",
+    type: TECHNOLOGIES.Propulsion,
+    unitsToUnlock: [STRU_IDS.SuperTether],
+    unlockFrom: "P6"
   }
   //#endregion
 ];

@@ -15,7 +15,8 @@ import {
   MEGA_IDS,
   MEGA_NAVAL_MULTI,
   MEGA_SPEED_MULTI,
-  MEGA_COMPUTING_MULTI
+  MEGA_COMPUTING_MULTI,
+  STRU_IDS
 } from "../CONSTANTS";
 import { RD, PROD_DEP, STORAGE_DEP, MAINTENANCE_DEP } from "./departments";
 export enum UNIT_TYPES {
@@ -24,7 +25,8 @@ export enum UNIT_TYPES {
   DISTRICT,
   BUILDING,
   SPACE_STATION,
-  MEGASTRUCTURE
+  MEGASTRUCTURE,
+  INFRASTRUCTURE
 }
 
 export const UNITS: IUnitData[] = [
@@ -626,6 +628,32 @@ export const UNITS: IUnitData[] = [
     name: "Mega Computing Center",
     description: "+ " + MEGA_COMPUTING_MULTI * 100 + "% computing /s",
     unitType: UNIT_TYPES.MEGASTRUCTURE
+  },
+  //#endregion
+  //#region skyhook
+  {
+    id: STRU_IDS.SpacePort,
+    name: "Space Port",
+    description: "",
+    unitType: UNIT_TYPES.INFRASTRUCTURE
+  },
+  {
+    id: STRU_IDS.Skyhook,
+    name: "Skyhook",
+    description: "",
+    unitType: UNIT_TYPES.INFRASTRUCTURE
+  },
+  {
+    id: STRU_IDS.RotatingSkyhook,
+    name: "Rotating Skyhook",
+    description: "",
+    unitType: UNIT_TYPES.INFRASTRUCTURE
+  },
+  {
+    id: STRU_IDS.SuperTether,
+    name: "Super Tether",
+    description: "",
+    unitType: UNIT_TYPES.INFRASTRUCTURE
   }
   //#endregion
 ];

@@ -4,9 +4,7 @@
   fxLayoutAlign="flex-start"
   fxLayoutGap.gt-sm="10px"
 >
-  <div fxFlex.lt-sm="100%" fxFlex="0 1 calc(55% - 10px)" fxFlex.lt-md="100%">
-    <h2>Space Stations</h2>
-
+  <div fxFlex.lt-sm="100%" fxFlex="0 1 calc(60% - 10px)" fxFlex.lt-md="100%">
     <label>Civilian Work Priority: {{ ms.game.civilianWorkPercent }}% </label>
     <nz-slider
       [(ngModel)]="ms.game.civilianWorkPercent"
@@ -14,9 +12,10 @@
       [nzTipFormatter]="formatter"
     ></nz-slider>
 
+    <h2>Space Stations</h2>
     <nz-table
       #stationsTable
-      nzSize="middle"
+      nzSize="small"
       [nzData]="listOfStations"
       [nzShowPagination]="false"
     >
@@ -67,6 +66,67 @@
         </tr>
       </tbody>
     </nz-table>
+
+    <!-- Infrastructures -->
+    <div
+      class="infrastructures"
+      *ngIf="ms.game.resourceManager.unlockedInfrastructures.length > 0"
+    >
+      <h2>Infrastructures</h2>
+      <nz-table
+        #infraTable
+        nzSize="small"
+        nzTemplateMode
+        [nzShowPagination]="false"
+      >
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>
+              <i
+                nz-icon
+                [nzType]="ms.game.resourceManager.shipyardWork.icon"
+                [ngClass]="ms.game.resourceManager.shipyardWork.colorClass"
+              ></i>
+              Price
+            </th>
+            <th>Speed & Acc</th>
+            <th>Bonus/Space</th>
+            <th>Queue?</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="
+              let infra of ms.game.resourceManager.unlockedInfrastructures;
+              trackBy: getUnitId
+            "
+          >
+            <td>
+              {{ infra.name }}
+              <span class="monospace">
+                ({{ infra.quantity | format: true }})
+              </span>
+            </td>
+            <td class="monospace">{{ infra.buildPriceNext | format }}</td>
+            <td class="monospace">
+              {{ infra.speedBonus.times(100) | format }}%
+            </td>
+            <td class="monospace">{{ infra.priceDivBonus | format }}</td>
+            <td>
+              <button
+                nz-button
+                nzType="primary"
+                nzSize="small"
+                (click)="addStation(infra)"
+              >
+                <span>Queue</span>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </nz-table>
+    </div>
 
     <!-- Megastructures -->
     <div

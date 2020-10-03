@@ -40,10 +40,17 @@ export const MEGA_IDS = {
   Gateway: "m6",
   MegaComputing: "m7"
 };
+export const STRU_IDS = {
+  SpacePort: "s0",
+  Skyhook: "s1",
+  RotatingSkyhook: "s2",
+  SuperTether: "s3"
+};
 export const UNIT_PRICE_GROW_RATE = 1.04;
 export const BUILDING_PRICE_GROW_RATE = 1.08;
 export const SPACE_STATION_PRICE = 1e6;
 export const SPACE_STATION_HAB_SPACE = 500;
+export const INFRASTRUCTURE_BONUS = 0.01;
 export const SPACE_STATION_GROW = 10;
 export const MOD_PER_ROBOTICS = 0.1;
 export const MOD_PER_OTHERS = 0.2;

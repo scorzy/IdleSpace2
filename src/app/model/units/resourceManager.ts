@@ -14,7 +14,8 @@ import {
   EXTRA_DISTRICTS_FROM_STATIONS,
   MEGA_IDS,
   MEGA_SPEED_MULTI,
-  SCIENCE_CHALLENGE_LIMIT
+  SCIENCE_CHALLENGE_LIMIT,
+  INFRASTRUCTURE_BONUS
 } from "../CONSTANTS";
 import { Price } from "../prices/price";
 import { Components } from "./components";
@@ -32,6 +33,7 @@ import { MegaStructure } from "./megaStructure";
 import { Technology } from "../researches/technology";
 import { MainService } from "src/app/main.service";
 import { OptionsService } from "src/app/options.service";
+import { Infrastructure } from "./infrastructure";
 
 export class ResourceManager {
   units = new Array<Unit>();
@@ -52,6 +54,8 @@ export class ResourceManager {
   unlockedSpaceStations = new Array<SpaceStation>();
   megastructures = new Array<MegaStructure>();
   unlockedMegastructures = new Array<MegaStructure>();
+  infrastructures = new Array<Infrastructure>();
+  unlockedInfrastructures = new Array<Infrastructure>();
   subLists: {
     name: string;
     icon: string;
@@ -123,6 +127,11 @@ export class ResourceManager {
             const s = new SpaceStation(unitData);
             this.spaceStations.push(s);
             this.units.push(s);
+            break;
+          case UNIT_TYPES.INFRASTRUCTURE:
+            const p = new Infrastructure(unitData);
+            this.infrastructures.push(p);
+            this.units.push(p);
             break;
           case UNIT_TYPES.MEGASTRUCTURE:
             const m = new MegaStructure(unitData);
@@ -231,6 +240,23 @@ export class ResourceManager {
       station.habSpace = station.habSpaceOriginal;
     }
 
+    //  Infrastructure
+    for (let i = 0, n = this.infrastructures.length; i < n; i++) {
+      const infrastructure = this.infrastructures[i];
+      infrastructure.level = i;
+      infrastructure.speedStack = new BonusStack();
+      infrastructure.buildPrice = Decimal.pow(
+        SPACE_STATION_GROW,
+        i * 2 + 1
+      ).times(SPACE_STATION_PRICE);
+      infrastructure.buildPriceNext = infrastructure.buildPrice;
+      infrastructure.speedOriginal = Decimal.mul(
+        i * 15 + 5,
+        INFRASTRUCTURE_BONUS
+      );
+      infrastructure.speedBonus = infrastructure.speedOriginal;
+    }
+
     this.materials.forEach((u) => {
       u.exponentialLimit = true;
       u.battleGainMulti = new BonusStack();
@@ -269,6 +295,9 @@ export class ResourceManager {
     this.unlockedWorkers = this.workers.filter((u) => u.unlocked);
     this.unlockedBuildings = this.buildings.filter((u) => u.unlocked);
     this.unlockedSpaceStations = this.spaceStations.filter((u) => u.unlocked);
+    this.unlockedInfrastructures = this.infrastructures.filter(
+      (u) => u.unlocked
+    );
     this.unlockedMegastructures = this.megastructures.filter((u) => u.unlocked);
     this.unlockedProductionUnits = this.unlockedUnits.filter(
       (u) => u.production.length > 0 || u.makers.length > 0
@@ -494,6 +523,11 @@ export class ResourceManager {
     game.resourceManager.energyDistrict.spaceStationPercent = extraEnergy
       .div(energyTotal)
       .toNumber();
+
+    //  Infrastructures
+    for (let i = 0, n = this.infrastructures.length; i < n; i++) {
+      this.infrastructures[i].reloadBonus();
+    }
   }
   deployComponents() {
     if (this.components.quantity.lte(0.1)) {
@@ -700,9 +734,18 @@ export class ResourceManager {
     });
   }
   setRelations() {
-    Game.getGame().shipyardManager.accelerationStack.bonuses.push(
+    const sm = Game.getGame().shipyardManager; //  Gateway
+    sm.accelerationStack.bonuses.push(
       new Bonus(this.gateway, new Decimal(MEGA_SPEED_MULTI))
     );
+
+    //  Infrastructures
+    for (let i = 0, n = this.infrastructures.length; i < n; i++) {
+      const infrastructure = this.infrastructures[i];
+      sm.velocityBonusStack.bonuses.push(
+        new Bonus(infrastructure, infrastructure.speedBonus)
+      );
+    }
   }
   prestige() {
     this.units.forEach((u) => u.prestige());

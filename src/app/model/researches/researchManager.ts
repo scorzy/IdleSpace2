@@ -404,10 +404,6 @@ export class ResearchManager extends JobManager {
         ]
       };
       resData.researchToUnlock.push(resDataUp.id);
-      // if (i === 5) {
-      // TODO: implement megastructures
-      // resData.researchToUnlock.push("me");
-      // }
       this.researches.push(new Research(resDataUp, this));
       this.researches.push(new Research(resData, this));
 
