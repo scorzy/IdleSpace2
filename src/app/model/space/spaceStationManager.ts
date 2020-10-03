@@ -11,6 +11,7 @@ import {
 import { MegaStructure } from "../units/megaStructure";
 import { AbstractSpaceStation } from "../units/abstractSpaceStation";
 import { CivilianJob } from "./civilianJob";
+import { MegaStructureJob } from "./megaStructureJob";
 
 export class SpaceStationManager extends JobManager {
   toDo = new Array<CivilianJob>();
@@ -38,9 +39,9 @@ export class SpaceStationManager extends JobManager {
       return false;
     }
     let job: CivilianJob;
-    if (unit instanceof SpaceStation) {
-      job = new SpaceStationJob(unit);
-    } else if (unit instanceof MegaStructure) {
+    if (unit instanceof MegaStructure) {
+      job = new MegaStructureJob(unit);
+    } else if (unit instanceof SpaceStation) {
       job = new SpaceStationJob(unit);
     } else {
       job = new CivilianJob(unit);
