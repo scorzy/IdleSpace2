@@ -20,7 +20,8 @@
     "lint:styles": "stylelint \"src/**/*.scss\"",
     "lint:styles:fix": "stylelint \"src/**/*.scss\" --fix",
     "release": "ngh --dir=dist/IdleSpace2",
-    "pretty": "prettier --write \"./**/*.{ts,js,jsx,json}\"" 
+    "pretty": "prettier --write \"./**/*.{ts,js,jsx,json}\"",
+    "postinstall": "ngcc"
   },
   "private": true,
   "dependencies": {
