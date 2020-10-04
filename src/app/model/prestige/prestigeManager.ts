@@ -231,7 +231,7 @@ export class PrestigeManager {
       new Decimal(VELOCITY_PRESTIGE_MULTI)
     );
     sp.velocityBonusStack.bonuses.push(speedBonus);
-    sp.velocityBonusStack.bonuses.push(speedBonus);
+    sp.accelerationStack.bonuses.push(speedBonus);
     //#endregion
     //#region Misc
     const miscList = new Array<PrestigePoint>();

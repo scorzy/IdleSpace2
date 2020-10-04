@@ -1,0 +1,27 @@
+<nz-table
+  nzTemplateMode
+  #basicTable
+  nzSize="middle"
+  [nzTitle]="title"
+  [nzFooter]="footer"
+>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Bonus</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of bonuses">
+      <td>{{ data.name }}</td>
+      <td class="monospace">x {{ data.factor | format: false:6 }}</td>
+    </tr>
+  </tbody>
+</nz-table>
+
+<ng-template #footer>
+  Total
+  <span class="monospace total">{{
+    bonusStack.totalBonus | format: false:6
+  }}</span>
+</ng-template>

@@ -8,9 +8,7 @@ import { Game } from "../game";
 import {
   FLEET_NUMBER,
   FLEET_CAPACITY,
-  FLEET_CAPACITY_CARD,
-  ONE,
-  ZERO
+  FLEET_CAPACITY_CARD
 } from "../CONSTANTS";
 import { BuildShipsJob } from "./buildShipsJob";
 import { Job } from "../job/job";
@@ -56,7 +54,6 @@ export class ShipyardManager extends JobManager {
   unlockedModules = true;
   velocityBonusStack = new BonusStack();
   accelerationStack = new BonusStack();
-  totalInfrastructureBonus = ONE;
   autoReinforce = false;
   shipsProductionBonuses = new Array<Bonus>();
   constructor() {
@@ -159,22 +156,11 @@ export class ShipyardManager extends JobManager {
   postUpdate() {
     const oldSpeed = this.velocityBonusStack.totalBonus;
     const oldAcc = this.accelerationStack.totalBonus;
-    const oldSpeedAdd = this.totalInfrastructureBonus;
     this.velocityBonusStack.reloadBonus();
     this.accelerationStack.reloadBonus();
-    this.totalInfrastructureBonus = ZERO;
-    const infrastructures = Game.getGame().resourceManager
-      .unlockedInfrastructures;
-    for (let i = 0, n = infrastructures.length; i < n; i++) {
-      this.totalInfrastructureBonus = this.totalInfrastructureBonus.plus(
-        infrastructures[i].totalBonus
-      );
-    }
-    console.log(this.totalInfrastructureBonus.toNumber());
     if (
       !oldSpeed.eq(this.velocityBonusStack.totalBonus) ||
-      !oldAcc.eq(this.accelerationStack.totalBonus) ||
-      !oldSpeedAdd.eq(this.totalInfrastructureBonus)
+      !oldAcc.eq(this.accelerationStack.totalBonus)
     ) {
       for (let i = 0, n = this.shipDesigns.length; i < n; i++) {
         this.shipDesigns[i].reload();

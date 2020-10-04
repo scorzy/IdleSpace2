@@ -35,6 +35,7 @@ import { Technology } from "../researches/technology";
 import { MainService } from "src/app/main.service";
 import { OptionsService } from "src/app/options.service";
 import { Infrastructure } from "./infrastructure";
+import { InfraBonusUnit } from "../space/infraBonusUnit";
 
 export class ResourceManager {
   units = new Array<Unit>();
@@ -103,6 +104,8 @@ export class ResourceManager {
   megaNaval: MegaStructure;
   gateway: MegaStructure;
   megaComputing: MegaStructure;
+
+  infraBonusUnit: InfraBonusUnit;
   //#endregion
   constructor() {}
   makeUnits() {
@@ -529,6 +532,7 @@ export class ResourceManager {
     for (let i = 0, n = this.infrastructures.length; i < n; i++) {
       this.infrastructures[i].reloadBonus();
     }
+    this.infraBonusUnit.reloadQuantity();
   }
   deployComponents() {
     if (this.components.quantity.lte(0.1)) {
@@ -739,6 +743,10 @@ export class ResourceManager {
     sm.accelerationStack.bonuses.push(
       new Bonus(this.gateway, new Decimal(MEGA_SPEED_MULTI))
     );
+    this.infraBonusUnit = new InfraBonusUnit();
+    const infraBonus = new Bonus(this.infraBonusUnit, ONE);
+    sm.velocityBonusStack.bonuses.push(infraBonus);
+    sm.accelerationStack.bonuses.push(infraBonus);
   }
   prestige() {
     this.units.forEach((u) => u.prestige());

@@ -1,0 +1,17 @@
+<div
+  fxLayout="row"
+  fxLayout.xs="column"
+  fxLayoutAlign="start start"
+  fxLayoutGap="2rem"
+>
+  <app-stack-view
+    [bonusStack]="ms.game.shipyardManager.velocityBonusStack"
+    title="Velocity"
+  ></app-stack-view>
+
+  <br />
+  <app-stack-view
+    [bonusStack]="ms.game.shipyardManager.accelerationStack"
+    title="Acceleration"
+  ></app-stack-view>
+</div>

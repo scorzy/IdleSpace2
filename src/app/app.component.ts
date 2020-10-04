@@ -93,6 +93,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
   @HostListener("window:beforeunload", ["$event"])
   beforeUnloadHandler(event: any) {
+    if (this.ms.clearing) return;
     event.preventDefault();
     this.ms.saveSync();
     this.ms.saveToPlayFab();

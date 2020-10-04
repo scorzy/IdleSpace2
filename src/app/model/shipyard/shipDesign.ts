@@ -496,14 +496,10 @@ export class ShipDesign {
     this.thereatPerRound = Math.max(this.thereatPerRound, 0);
     if (!enemy) {
       this.velocity = this.velocity.times(
-        Game.getGame().shipyardManager.velocityBonusStack.totalBonus.plus(
-          Game.getGame().shipyardManager.totalInfrastructureBonus
-        )
+        Game.getGame().shipyardManager.velocityBonusStack.totalBonus
       );
       this.acceleration = this.acceleration.times(
-        Game.getGame().shipyardManager.velocityBonusStack.totalBonus.plus(
-          Game.getGame().shipyardManager.totalInfrastructureBonus
-        )
+        Game.getGame().shipyardManager.velocityBonusStack.totalBonus
       );
     }
   }

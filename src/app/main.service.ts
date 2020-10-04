@@ -55,6 +55,7 @@ export class MainService {
   playFabData = "";
   lastSave = 0;
   pageOk = true;
+  clearing = false;
   // bc: BroadcastChannel;
   constructor(
     private _formatPipe: FormatPipe,
@@ -255,6 +256,7 @@ export class MainService {
     }
   }
   clear() {
+    this.clearing = true;
     localStorage.removeItem(SAVE_ID);
     location.reload();
   }
