@@ -18,13 +18,14 @@ import {
 } from "./model/notifications/myNotification";
 import { trigger } from "@angular/animations";
 import { NzMessageService } from "ng-zorro-antd/message";
+import { fadeIn } from "./animations";
 
 @Component({
   selector: "app-root",
   templateUrl: "./app.component.html",
   styleUrls: ["./app.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush,
-  animations: [trigger("noop", [])]
+  animations: [trigger("noop", []), fadeIn]
 })
 export class AppComponent implements OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];

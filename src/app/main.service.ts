@@ -215,6 +215,10 @@ export class MainService {
     return JSON.stringify(save);
   }
   private saveToLocalStorage(data: string) {
+    if (data.length < 10) {
+      console.log("Save invalid");
+      return false;
+    }
     localStorage.setItem(SAVE_ID, data);
     this.game.notificationManager.addNotification(
       new MyNotification(NotificationTypes.SAVE, "Game Saved")
@@ -356,6 +360,10 @@ export class MainService {
       typeof PlayFab === "undefined" ||
       typeof PlayFab.ClientApi === "undefined"
     ) {
+      return false;
+    }
+    if (save.length < 10) {
+      console.log("PlayFab Save invalid");
       return false;
     }
 
