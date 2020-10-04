@@ -226,9 +226,12 @@ export class PrestigeManager {
     speedMulti.price = new Decimal(PRESTIGE_PRICE);
     this.prestigePoints.push(speedMulti);
     warList.push(speedMulti);
-    sp.velocityBonusStack.bonuses.push(
-      new Bonus(speedMulti, new Decimal(VELOCITY_PRESTIGE_MULTI))
+    const speedBonus = new Bonus(
+      speedMulti,
+      new Decimal(VELOCITY_PRESTIGE_MULTI)
     );
+    sp.velocityBonusStack.bonuses.push(speedBonus);
+    sp.velocityBonusStack.bonuses.push(speedBonus);
     //#endregion
     //#region Misc
     const miscList = new Array<PrestigePoint>();

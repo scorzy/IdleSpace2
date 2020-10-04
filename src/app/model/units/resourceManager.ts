@@ -739,14 +739,6 @@ export class ResourceManager {
     sm.accelerationStack.bonuses.push(
       new Bonus(this.gateway, new Decimal(MEGA_SPEED_MULTI))
     );
-
-    //  Infrastructures
-    for (let i = 0, n = this.infrastructures.length; i < n; i++) {
-      const infrastructure = this.infrastructures[i];
-      const infraBonus = new Bonus(infrastructure, infrastructure.speedBonus);
-      sm.velocityBonusStack.bonuses.push(infraBonus);
-      sm.accelerationStack.bonuses.push(infraBonus);
-    }
   }
   prestige() {
     this.units.forEach((u) => u.prestige());

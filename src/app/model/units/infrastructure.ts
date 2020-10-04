@@ -9,13 +9,15 @@ export class Infrastructure extends AbstractSpaceStation {
   speedOriginal = ONE;
   speedBonusUi = ONE;
   totalBonus = ONE;
+  totalBonusUi = ONE;
   reloadBonus() {
     if (!this.speedStack) return false;
     this.speedStack.reloadBonus();
     this.speedBonus = this.speedOriginal.times(this.speedStack.totalBonus);
+    this.totalBonus = this.quantity.times(this.speedBonus);
     this.priceDivBonus = this.buildPriceNext.div(this.speedBonus);
     this.speedBonusUi = this.speedBonus.times(100);
-    this.totalBonus = this.quantity.times(this.speedBonusUi);
+    this.totalBonusUi = this.quantity.times(this.speedBonusUi);
   }
   prestige() {
     super.prestige();
