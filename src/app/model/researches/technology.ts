@@ -13,6 +13,7 @@ const RESEARCH_BONUS = new Decimal(0.05);
 export class Technology implements IBase, IUnlockable, ITechnologyData {
   id = "";
   name = "";
+  description = "";
   quantity = ZERO;
   icon: string;
   progress = ZERO;

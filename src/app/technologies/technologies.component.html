@@ -1,5 +1,8 @@
 <h2>Technologies</h2>
-
+<p>
+  Technologies improve research speed, max ship module level, drone modding and
+  more.
+</p>
 <div fxLayout="row wrap" fxLayoutGap="0.5rem">
   <nz-card
     [nzTitle]="cardTitle"
@@ -27,8 +30,8 @@
     <ng-template #title>
       <span>
         {{ tech.name }}:
-        <span class="monospace">{{ tech.quantity | format: true }}</span></span
-      >
+        <span class="monospace">{{ tech.quantity | format: true }}</span>
+      </span>
     </ng-template>
     <ng-template #description>
       <span class="monospace"
@@ -39,6 +42,15 @@
       </span>
     </ng-template>
     <ng-template #extraTemplate>
+      <i
+        nz-icon
+        nzType="info-circle"
+        nzTheme="outline"
+        class="info-icon"
+        nz-popover
+        [nzPopoverTitle]="tech.name"
+        [nzPopoverContent]="descriptionPop"
+      ></i>
       <span class="text-secondary">Priority</span><br />
       <nz-input-number
         [(ngModel)]="tech.priority"
@@ -46,10 +58,15 @@
         nzMax="100"
         nzStep="1"
         nzSize="small"
-        style="max-height: 24px;"
+        style="max-height: 24px"
       ></nz-input-number>
     </ng-template>
-
     <app-progress [progress]="tech.progressPercent"></app-progress>
+
+    <ng-template #descriptionPop>
+      <div class="desc-popover">
+        {{ tech.description }}
+      </div>
+    </ng-template>
   </nz-card>
 </div>
