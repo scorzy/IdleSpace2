@@ -54,6 +54,8 @@ export class PrestigeManager {
   cards = new Array<PrestigeCard>();
   maxCards = 0;
   lockedCars = false;
+  minLevelToIncrease = 1;
+  ipotetchicalMultiplier = ONE;
   //#region Special cards
   victoryWarp: PrestigeCard;
   enemyDefeatWarp: PrestigeCard;
@@ -416,16 +418,16 @@ export class PrestigeManager {
   }
   loadNextMultiplier() {
     const maxEnemyLevel = Game.getGame().enemyManager.maxLevel;
-
+    const completedChallenges = Game.getGame()
+      .challengeManager.completed.times(CHALLENGE_XP_MULTI)
+      .toNumber();
     let realNextPrestigeMultiplier = ONE.plus(
       maxEnemyLevel * PRESTIGE_MULTI_PER_LEVEL
     ).pow(PRESTIGE_MULTI_EXP);
+    const nonMultiplied = realNextPrestigeMultiplier;
     if (this.challengeMultiplier.active) {
       realNextPrestigeMultiplier = realNextPrestigeMultiplier.times(
-        1 +
-          Game.getGame()
-            .challengeManager.completed.times(CHALLENGE_XP_MULTI)
-            .toNumber()
+        1 + completedChallenges
       );
     }
 
@@ -441,8 +443,24 @@ export class PrestigeManager {
     if (!this.realNextPrestigeMultiplier.eq(realNextPrestigeMultiplier)) {
       this.realNextPrestigeMultiplier = realNextPrestigeMultiplier;
     }
+
     if (!this.nextPrestigeMultiplier.eq(nextPrestigeMultiplier)) {
       this.nextPrestigeMultiplier = nextPrestigeMultiplier;
+
+      this.minLevelToIncrease = Math.ceil(
+        Decimal.times(
+          10,
+          Decimal.minus(nonMultiplied, 1).pow(1 / 1.2)
+        ).toNumber()
+      );
+      this.ipotetchicalMultiplier = ONE.plus(
+        this.minLevelToIncrease * PRESTIGE_MULTI_PER_LEVEL
+      ).pow(PRESTIGE_MULTI_EXP);
+      if (this.challengeMultiplier.active) {
+        this.ipotetchicalMultiplier = this.ipotetchicalMultiplier.times(
+          1 + completedChallenges
+        );
+      }
     }
   }
 

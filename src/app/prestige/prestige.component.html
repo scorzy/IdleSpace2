@@ -12,14 +12,29 @@
 
   <br />
   <span>
-    Without cards, experience multiplier would be (1 + max_enemy_level *0.1)^1.2
+    Without cards, experience multiplier would be
+    <span class="monospace">
+      (1 + max_enemy_level x 0.1)<sup>
+        {{ 1.2 | format }}
+      </sup>
+    </span>
     =
     <span class="monospace">
       {{ ms.game.prestigeManager.realNextPrestigeMultiplier | format }}
     </span>
   </span>
-
   <br />
+  Defeat enemy level
+  <strong class="monospace">
+    {{ ms.game.prestigeManager.minLevelToIncrease | format }}
+  </strong>
+  to increase exp. multiplier to
+  <strong class="monospace">
+    {{ ms.game.prestigeManager.ipotetchicalMultiplier | format }}
+  </strong>
+</p>
+
+<p>
   Your will gain
   <strong
     class="monospace"
@@ -37,6 +52,7 @@
   </strong>
   cards slots.
 </p>
+
 <p>
   Reset everything except "Exp Shop" and ship design. Ship design with locked
   module becomes blueprint. You will be able to defeat enemies again and gain
