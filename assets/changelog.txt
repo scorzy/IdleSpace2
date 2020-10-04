@@ -1,3 +1,7 @@
+4/10/2020
+-   Infrastructure bonus stack additive
+-   Added "Stats" page
+
 3/10/2020
 -   New challenge: Expanding Universe
 -   Increased "More velocity and acceleration" exp shop bonus from 10% to 15%
