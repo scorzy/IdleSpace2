@@ -48,7 +48,7 @@
     "lz-string": "^1.4.4",
     "md5": "^2.3.0",
     "ng-zorro-antd": "^10.0.0",
-    "postinstall": "^0.5.1",
+    "postinstall": "^0.7.0",
     "rxjs": "~6.6.3",
     "stylelint-config-prettier": "^8.0.2",
     "stylelint-config-sass-guidelines": "^7.1.0",
