@@ -477,9 +477,7 @@ export class ResearchManager extends JobManager {
     }
     if (
       this.newJobsOnBacklog ||
-      (res.exclusiveGroup &&
-        !this.toDo.some((r) => r.exclusiveGroup === res.exclusiveGroup) &&
-        res !== this.autoOrigin)
+      (res.exclusiveGroup && res !== this.autoOrigin)
     ) {
       this.backlog.push(res);
     } else this.toDo.push(res);

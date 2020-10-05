@@ -1,5 +1,6 @@
 5/10/2020
 -   Fixed research not unlocking after completing challenges
+-   Fixed auto origin
 
 4/10/2020
 -   Infrastructure bonus stack additive
