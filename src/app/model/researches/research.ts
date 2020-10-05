@@ -510,9 +510,7 @@ export class Research extends Job implements IUnlockable, IBase {
   unlock(): boolean {
     if (
       this.requiredChallenge &&
-      this.requiredChallenge.challenge.quantity.lte(
-        this.requiredChallenge.level
-      )
+      this.requiredChallenge.challenge.quantity.lt(this.requiredChallenge.level)
     ) {
       return false;
     }

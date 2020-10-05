@@ -1,3 +1,6 @@
+5/10/2020
+-   Fixed research not unlocking after completing challenges
+
 4/10/2020
 -   Infrastructure bonus stack additive
 -   Added "Stats" page
