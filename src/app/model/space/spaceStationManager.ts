@@ -71,20 +71,28 @@ export class SpaceStationManager extends JobManager {
       return false;
     }
     const rs = Game.getGame().resourceManager;
+    this.megaBuilt = rs.megastructures.reduce(
+      (prev, next) => prev.plus(next.quantity),
+      ZERO
+    );
     data.t.forEach((jobData) => {
       const unit =
         rs.spaceStations.find((s) => s.id === jobData.i) ||
         rs.megastructures.find((s) => s.id === jobData.i);
       if (unit) {
-        const job = new SpaceStationJob(unit);
+        let job: CivilianJob;
+        if (unit instanceof MegaStructure) {
+          job = new MegaStructureJob(unit);
+        } else if (unit instanceof SpaceStation) {
+          job = new SpaceStationJob(unit);
+        } else {
+          job = new CivilianJob(unit);
+        }
+
         job.load(jobData);
         this.toDo.push(job);
       }
     });
-    this.megaBuilt = rs.megastructures.reduce(
-      (prev, next) => prev.plus(next.quantity),
-      ZERO
-    );
   }
   //#endregion
 }
