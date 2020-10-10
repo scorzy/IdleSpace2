@@ -39,12 +39,13 @@ export class ChallengeComponent
     super.ngOnInit();
     this.ms.game.shipyardManager.designerView = true;
     this.ms.game.shipyardManager.postUpdate();
-    if (!this.noRoute)
+    if (!this.noRoute) {
       this.subscriptions.push(
         this.route.paramMap.subscribe((paramMap) =>
           this.getChallenge(paramMap.get("id"))
         )
       );
+    }
   }
   getChallenge(id: string) {
     this.challenge = this.ms.game.challengeManager.challenges.find(
