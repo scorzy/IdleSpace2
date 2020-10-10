@@ -6,7 +6,12 @@
     "
     class="main-container"
   >
-    <i nz-icon [nzType]="item.icon" [ngClass]="item.colorClass"></i>
+    <i
+      nz-icon
+      [nzType]="item.icon"
+      [ngClass]="item.colorClass"
+      [attr.aria-label]="item.name"
+    ></i>
     <div
       class="container"
       nz-popover
@@ -50,7 +55,7 @@
 
   <!-- Naval Capacity -->
   <div class="main-container">
-    <i nz-icon nzType="my:strafe"></i>
+    <i nz-icon nzType="my:strafe" aria-label="Naval Capacity"></i>
     <div class="container">
       <span class="monospace min-width">
         {{ ms.game.navalCapacity | format: true }}
@@ -66,7 +71,7 @@
     [nzPopoverContent]="habInfoTemplate"
     [nzPopoverTrigger]="popoverTrigger"
   >
-    <i nz-icon nzType="fa-s:globe"></i>
+    <i nz-icon nzType="fa-s:globe" aria-label="Habitable space"></i>
     <div class="container">
       <span class="monospace min-width">
         {{ ms.game.resourceManager.habitableSpace.quantity | format: true }}
@@ -80,7 +85,7 @@
     [nzPopoverContent]="miningInfoTemplate"
     [nzPopoverTrigger]="popoverTrigger"
   >
-    <i nz-icon nzType="my:mining"></i>
+    <i nz-icon nzType="my:mining" aria-label="Mining districts"></i>
     <div class="container">
       <span class="monospace min-width">
         {{ ms.game.resourceManager.miningDistrict.quantity | format: true }}
@@ -94,7 +99,7 @@
     [nzPopoverContent]="energyInfoTemplate"
     [nzPopoverTrigger]="popoverTrigger"
   >
-    <i nz-icon nzType="my:solar-power"></i>
+    <i nz-icon nzType="my:solar-power" aria-label="Energetic districts"></i>
     <div class="container">
       <span class="monospace min-width">
         {{ ms.game.resourceManager.energyDistrict.quantity | format: true }}
@@ -108,7 +113,12 @@
       nzPopoverTitle="Expanding Universe"
       nzPopoverContent="Multiplier for searching and distance"
     >
-      <i nz-icon nzType="arrows-alt" nzTheme="outline"></i>
+      <i
+        nz-icon
+        nzType="arrows-alt"
+        nzTheme="outline"
+        aria-label="Expanding Universe Factor"
+      ></i>
       <span class="monospace"
         >x{{ ms.game.challengeManager.expandingFactor | format }}</span
       >
