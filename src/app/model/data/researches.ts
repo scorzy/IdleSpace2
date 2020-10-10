@@ -37,7 +37,6 @@ export const RESEARCHES: IResearchData[] = [
     max: 1,
     priceMulti: 500,
     type: TECHNOLOGIES.MilitaryEngineering,
-    technologiesToUnlock: ["e", TECHNOLOGIES.CivilEngineering.id],
     prodMulti: [
       { unitId: "m", multi: 0.5 },
       { unitId: "e", multi: 0.2 }
@@ -126,7 +125,7 @@ export const RESEARCHES: IResearchData[] = [
     description: "Unlock Materials Technology",
     max: 1,
     type: TECHNOLOGIES.Materials,
-    technologiesToUnlock: ["m"],
+    technologiesToUnlock: ["m", TECHNOLOGIES.CivilEngineering.id],
     researchToUnlock: ["x", "N", "P", "M0", "or3"],
     inspirationBuildingId: "1",
     prodMulti: [
@@ -152,6 +151,7 @@ export const RESEARCHES: IResearchData[] = [
     max: 1,
     type: TECHNOLOGIES.Energy,
     technologiesToUnlock: [TECHNOLOGIES.Energy.id],
+    unitsToUnlock: ["8"],
     limitMulti: [{ unitId: "E", multi: 1 }],
     effMulti: [{ unitId: "e", multi: 0.1 }],
     researchToUnlock: ["E0", "E-0"],

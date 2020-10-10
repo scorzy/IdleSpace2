@@ -19,10 +19,10 @@
 
   <nz-alert
     *ngIf="
-      detailView && (unit.id === 'e' || unit.id === 'm') && unit.quantity.lt(10)
+      detailView && (unit.id === 'e' || unit.id === 'm') && unit.quantity.lt(30)
     "
     nzType="info"
-    nzMessage="Buy 10 or more to unlock new stuff."
+    nzMessage="Buy 30 or more to unlock new stuff."
     nzShowIcon
   >
   </nz-alert>

@@ -107,7 +107,10 @@
     </div>
   </div>
 
-  <div class="main-container">
+  <div
+    class="main-container"
+    *ngIf="ms.game.challengeManager.expandingChallenge.isActive"
+  >
     <span
       nz-popover
       nzPopoverTitle="Expanding Universe"

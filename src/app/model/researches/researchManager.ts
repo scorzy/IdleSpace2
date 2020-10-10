@@ -37,6 +37,7 @@ export class ResearchManager extends JobManager {
   scavenging: Research;
   robotics: Research;
   assimilation: Research;
+  scout: Research;
   //#endregion
   //#region Technologies
   militaryEngTech: Technology;
@@ -339,6 +340,7 @@ export class ResearchManager extends JobManager {
         shipTypeToUnlock: shipyard.shipTypes[i].id,
         inspirationDescription: "Win a battle vs. " + shipyard.shipTypes[i].name
       };
+      if (i === 1) resData.technologiesToUnlock = ["e"];
       resData.navalCapacity =
         shipyard.shipTypes[i].navalCapacity * SHIP_RESEARCH_NAV_CAP_MULTI;
       if (i + 1 < n) {
@@ -366,6 +368,7 @@ export class ResearchManager extends JobManager {
       };
       this.researches.push(new Research(bonusResData, this));
     }
+    this.scout = this.researches.find((res) => res.id === "s1");
   }
   makeSpaceStationResearches() {
     const first = this.researches.find((r) => r.id === "s2");

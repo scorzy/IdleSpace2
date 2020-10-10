@@ -73,7 +73,13 @@
     <span>Quit current challenge and start {{ challenge?.name }}</span>
   </button>
 
-  <button nz-button nzSize="large" nzType="secondary" routerLink="/prestige">
+  <button
+    nz-button
+    nzSize="large"
+    nzType="secondary"
+    routerLink="/prestige"
+    *ngIf="!noRoute"
+  >
     <i nz-icon nzType="left"></i>
     <span>Back</span>
   </button>

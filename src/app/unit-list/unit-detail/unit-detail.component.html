@@ -24,7 +24,10 @@
     </app-unit-card>
     <app-unit-card
       class="min-width"
-      *ngIf="storage"
+      *ngIf="
+        storage &&
+        (storage.id !== '8' || ms.game.researchManager.energyTech.unlocked)
+      "
       [unit]="storage"
       [detailView]="true"
     >
@@ -34,6 +37,55 @@
       <h3>{{ unit.name }} production:</h3>
       <app-prod-info [unit]="unit"></app-prod-info>
     </nz-card>
+
+    <div class="flex-item info-panel" *ngIf="os.operativityInfo">
+      <nz-alert
+        nzType="warning"
+        nzMessage="Drones Info"
+        [nzDescription]="opInfo"
+        nzShowIcon
+        nzCloseText="Dismiss"
+        (nzOnClose)="closeOperativityInfo()"
+      ></nz-alert>
+      <ng-template #opInfo>
+        <p>
+          Drones operativity can be adjusted with the slider. In case you run
+          out resources (like energy) every drones that depend on it will stop
+          working permanently. To fix drag the sliders to the right.<br />
+          Technicians are always 100% operative.
+        </p>
+      </ng-template>
+    </div>
+    <div class="flex-item info-panel" *ngIf="os.districtInfo">
+      <nz-alert
+        nzType="info"
+        nzMessage="Districts Info"
+        [nzDescription]="districtsInfo"
+        nzShowIcon
+        nzCloseText="Dismiss"
+        (nzOnClose)="closeDistrictInfo()"
+      ></nz-alert>
+      <ng-template #districtsInfo>
+        <p>
+          <span class="habSpace-color">
+            <i nz-icon nzType="fa-s:globe"></i>
+            Habitable space </span
+          >,
+          <span class="metal-color">
+            <i nz-icon nzType="my:mining"></i>
+            Mining districts
+          </span>
+          and
+          <span class="energy-color">
+            <i nz-icon nzType="my:solar-power"></i>
+            Energy districts
+          </span>
+          are required to build buildings. Districts can be obtained from
+          battle. It may take a while before you're ready to engage battle, so
+          don't waste them (don't buy batteries!).
+        </p>
+      </ng-template>
+    </div>
   </div>
 
   <div

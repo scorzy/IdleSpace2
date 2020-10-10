@@ -51,7 +51,7 @@
     nz-menu-item
     nzMatchRouter
     [routerLink]="'tech'"
-    *ngIf="ms.game.researchManager.researches[0].quantity.gt(0)"
+    *ngIf="ms.game.researchManager.unlockedTechnologies.length > 0"
     nz-tooltip
     nzTooltipPlacement="right"
     [nzTooltipTitle]="isCollapsed ? 'Technologies' : ''"
@@ -90,7 +90,7 @@
     nz-menu-item
     nzMatchRouter
     [routerLink]="'/des'"
-    *ngIf="ms.game.researchManager.researches[0].quantity.gt(0)"
+    *ngIf="ms.game.researchManager.scout.quantity.gt(0)"
     nz-tooltip
     nzTooltipPlacement="right"
     [nzTooltipTitle]="isCollapsed ? 'Designs' : ''"
@@ -103,7 +103,7 @@
     nz-menu-item
     nzMatchRouter
     [routerLink]="'/modules'"
-    *ngIf="ms.game.researchManager.researches[0].quantity.gt(0)"
+    *ngIf="ms.game.researchManager.scout.quantity.gt(0)"
     nz-tooltip
     nzTooltipPlacement="right"
     [nzTooltipTitle]="isCollapsed ? 'Modules' : ''"
@@ -116,7 +116,9 @@
     nz-menu-item
     nzMatchRouter
     routerLink="enemyList"
-    *ngIf="ms.game.researchManager.researches[0].quantity.gt(0)"
+    *ngIf="
+      !ms.game.firstRun || ms.game.researchManager.searching.quantity.gte(1)
+    "
     nz-tooltip
     nzTooltipPlacement="right"
     [nzTooltipTitle]="isCollapsed ? 'Enemies' : ''"

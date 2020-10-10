@@ -1,3 +1,7 @@
+10/10/2020
+-   Less overwhelming start
+-   Ui improvements
+
 5/10/2020
 -   Fixed research not unlocking after completing challenges
 -   Fixed auto origin

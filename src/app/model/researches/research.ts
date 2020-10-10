@@ -33,6 +33,7 @@ import { Bonus } from "../bonus/bonus";
 import { Challenge } from "../challenge/challenge";
 import { BonusStack } from "../bonus/bonusStack";
 import { Infrastructure } from "../units/infrastructure";
+import { MainService } from "src/app/main.service";
 
 export class Research extends Job implements IUnlockable, IBase {
   static lastVisId = 0;
@@ -485,6 +486,14 @@ export class Research extends Job implements IUnlockable, IBase {
       }
       const sm = Game.getGame().shipyardManager;
       if (sm.shipDesigns.length < 1) sm.addDefaultDesign();
+
+      if (Game.getGame().firstRun) {
+        MainService.instance.modal.info({
+          nzTitle: "Fleet unlocked",
+          nzContent:
+            "In order to build ships you'll need Work and Alloy. Stats with buying some Metallurgist and Workers, than check the Fleet screen and the Battle screen."
+        });
+      }
     }
 
     /**

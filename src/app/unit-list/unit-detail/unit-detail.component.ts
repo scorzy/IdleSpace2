@@ -15,6 +15,7 @@ import { BreakpointObserver } from "@angular/cdk/layout";
 import { Router, ActivatedRoute } from "@angular/router";
 import { Building } from "src/app/model/units/building";
 import { IDS } from "src/app/model/CONSTANTS";
+import { OptionsService } from "src/app/options.service";
 
 @Component({
   selector: "app-unit-detail",
@@ -32,6 +33,7 @@ export class UnitDetailComponent
   constructor(
     ms: MainService,
     cd: ChangeDetectorRef,
+    public os: OptionsService,
     private modalService: NzModalService,
     public breakpointObserver: BreakpointObserver,
     private router: Router,
@@ -88,5 +90,11 @@ export class UnitDetailComponent
         this.storage = this.ms.game.resourceManager.nukeSilos;
         break;
     }
+  }
+  closeOperativityInfo() {
+    this.os.operativityInfo = false;
+  }
+  closeDistrictInfo() {
+    this.os.districtInfo = false;
   }
 }

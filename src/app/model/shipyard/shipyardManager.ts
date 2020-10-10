@@ -577,6 +577,8 @@ export class ShipyardManager extends JobManager {
   addDefaultDesign() {
     this.addDesign("Drone", 1);
     const design = this.shipDesigns[0];
+    design.fleets[0].navalCapPercent = 1;
+    design.fleets[0].navalCapPercentUi = 1;
     FIRST_DRONE.modules.forEach((mod) => {
       const modId =
         typeof mod.moduleID === "string" ? mod.moduleID : sample(mod.moduleID);
@@ -587,6 +589,8 @@ export class ShipyardManager extends JobManager {
         size: mod.size
       });
     });
+    this.reloadFleetCapacity();
+    this.reinforceAll();
   }
   prestige() {
     this.modules.forEach((mod) => (mod.unlocked = false));

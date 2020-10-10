@@ -1,109 +1,131 @@
-<h2>Prestige</h2>
-<p>
-  Your current experience multiplier is:
-  <strong class="monospace">
-    {{ ms.game.prestigeManager.prestigeMultiplier | format }}
-  </strong>
+<div
+  fxLayout="row"
+  fxLayout.lt-md="column"
+  fxLayoutAlign="start start"
+  fxLayoutGap="rem"
+>
+  <div fxFlex.md="0 1 calc(60% - 1rem)" fxFlex.gt-md="0 1 calc(65% - 1rem)">
+    <h2>Prestige</h2>
+    <p>
+      Your current experience multiplier is:
+      <strong class="monospace">
+        {{ ms.game.prestigeManager.prestigeMultiplier | format }}
+      </strong>
 
-  Your next experience multiplier will be:
-  <strong class="monospace" [ngClass]="getMultiplierClass()">
-    {{ ms.game.prestigeManager.nextPrestigeMultiplier | format }}
-  </strong>
+      Your next experience multiplier will be:
+      <strong class="monospace" [ngClass]="getMultiplierClass()">
+        {{ ms.game.prestigeManager.nextPrestigeMultiplier | format }}
+      </strong>
 
-  <br />
-  <span>
-    Without cards, experience multiplier would be
-    <span class="monospace">
-      (1 + max_enemy_level x 0.1)<sup>
-        {{ 1.2 | format }}
-      </sup>
-    </span>
-    =
-    <span class="monospace">
-      {{ ms.game.prestigeManager.realNextPrestigeMultiplier | format }}
-    </span>
-  </span>
-  <br />
-  Defeat enemy level
-  <strong class="monospace">
-    {{ ms.game.prestigeManager.minLevelToIncrease | format }}
-  </strong>
-  to increase exp. multiplier to
-  <strong class="monospace">
-    {{ ms.game.prestigeManager.ipotetchicalMultiplier | format }}
-  </strong>
-</p>
+      <br />
+      <span>
+        Without cards, experience multiplier would be
+        <span class="monospace">
+          (1 + max_enemy_level x 0.1)<sup>
+            {{ 1.2 | format }}
+          </sup>
+        </span>
+        =
+        <span class="monospace">
+          {{ ms.game.prestigeManager.realNextPrestigeMultiplier | format }}
+        </span>
+      </span>
+      <br />
+      Defeat enemy level
+      <strong class="monospace">
+        {{ ms.game.prestigeManager.minLevelToIncrease | format }}
+      </strong>
+      to increase exp. multiplier to
+      <strong class="monospace">
+        {{ ms.game.prestigeManager.ipotetchicalMultiplier | format }}
+      </strong>
+    </p>
 
-<p>
-  Your will gain
-  <strong
-    class="monospace"
-    [class.text-success]="ms.game.lockedDarkMatter.gt(0)"
+    <p>
+      Your will gain
+      <strong
+        class="monospace"
+        [class.text-success]="ms.game.lockedDarkMatter.gt(0)"
+      >
+        {{ ms.game.lockedDarkMatter | time }}
+      </strong>
+      Dark Matter. Now you have
+      <strong class="monospace"> {{ ms.game.darkMatter | time }}</strong
+      >.
+      <br />
+      Your will gain
+      <strong class="monospace" [class.text-success]="newSlots > 0">
+        {{ newSlots | format: true }}
+      </strong>
+      cards slots.
+    </p>
+
+    <p>
+      Reset everything except "Exp Shop" and ship design. Ship design with
+      locked module becomes blueprint. You will be able to defeat enemies again
+      and gain Experience.
+      <br />
+      The "experience multiplier" multiply the effectiveness of experience
+      spent. "experience multiplier" is based on the max level of defeated
+      enemy. Every experience point spent is counted as "experience multiplier"
+      instead of one.
+      <br />
+      Defeat an enemy of level
+      <strong class="monospace">{{ nextEnemy | format: true }}</strong> to gain
+      more experience.
+    </p>
+    <nz-button-group>
+      <button
+        nz-button
+        nzType="primary"
+        nzSize="large"
+        (click)="ms.game.prestige()"
+      >
+        <span>Prestige</span>
+      </button>
+      <button
+        nz-button
+        nzType="default"
+        nzSize="large"
+        routerLink="/challenges/0"
+        *ngIf="this.ms.game.challengeManager.challenges[0].unlocked"
+      >
+        <span>Challenges</span>
+      </button>
+      <button
+        nz-button
+        nzType="danger"
+        nzSize="large"
+        *ngIf="this.ms.game.challengeManager.activeChallenge"
+        nz-popconfirm
+        nzPopconfirmTitle="Are you really sure ?"
+        nzPopconfirmPlacement="bottom"
+        (nzOnConfirm)="quitChallenge()"
+      >
+        <span
+          >Quit {{ this.ms.game.challengeManager.activeChallenge?.name }}</span
+        >
+      </button>
+    </nz-button-group>
+  </div>
+  <nz-card
+    fxFlex.md="0 1 calc(40% - 1rem)"
+    fxFlex.gt-md="0 1 calc(35% - 1rem)"
+    nzSize="small"
+    *ngIf="ms.game.challengeManager.activeChallenge"
+    nzTitle="Current challenge"
   >
-    {{ ms.game.lockedDarkMatter | time }}
-  </strong>
-  Dark Matter. Now you have
-  <strong class="monospace"> {{ ms.game.darkMatter | time }}</strong
-  >.
-  <br />
-  Your will gain
-  <strong class="monospace" [class.text-success]="newSlots > 0">
-    {{ newSlots | format: true }}
-  </strong>
-  cards slots.
-</p>
+    <!-- <nz-alert
+      *ngIf="this.ms.game.challengeManager.activeChallenge"
+      class="active-challenge"
+      nzType="info"
+      nzMessage="Current challenge"
+      nzShowIcon
+    ></nz-alert> -->
 
-<p>
-  Reset everything except "Exp Shop" and ship design. Ship design with locked
-  module becomes blueprint. You will be able to defeat enemies again and gain
-  Experience.
-  <br />
-  The "experience multiplier" multiply the effectiveness of experience spent.
-  "experience multiplier" is based on the max level of defeated enemy. Every
-  experience point spent is counted as "experience multiplier" instead of one.
-  <br />
-  Defeat an enemy of level
-  <strong class="monospace">{{ nextEnemy | format: true }}</strong> to gain more
-  experience.
-</p>
-<nz-button-group>
-  <button
-    nz-button
-    nzType="primary"
-    nzSize="large"
-    (click)="ms.game.prestige()"
-  >
-    <span>Prestige</span>
-  </button>
-  <button
-    nz-button
-    nzType="default"
-    nzSize="large"
-    routerLink="/challenges/0"
-    *ngIf="this.ms.game.challengeManager.challenges[0].unlocked"
-  >
-    <span>Challenges</span>
-  </button>
-  <button
-    nz-button
-    nzType="danger"
-    nzSize="large"
-    *ngIf="this.ms.game.challengeManager.activeChallenge"
-    nz-popconfirm
-    nzPopconfirmTitle="Are you really sure ?"
-    nzPopconfirmPlacement="bottom"
-    (nzOnConfirm)="quitChallenge()"
-  >
-    <span>Quit {{ this.ms.game.challengeManager.activeChallenge?.name }}</span>
-  </button>
-</nz-button-group>
-
-<nz-alert
-  *ngIf="this.ms.game.challengeManager.activeChallenge"
-  class="active-challenge"
-  nzType="info"
-  [nzMessage]="
-    'Current challenge: ' + this.ms.game.challengeManager.activeChallenge?.name
-  "
-  nzShowIcon
-></nz-alert>
+    <app-challenge
+      [challenge]="this.ms.game.challengeManager.activeChallenge"
+      [noRoute]="true"
+    ></app-challenge>
+  </nz-card>
+</div>

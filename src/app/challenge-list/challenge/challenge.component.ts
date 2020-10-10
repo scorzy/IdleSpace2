@@ -23,6 +23,7 @@ export class ChallengeComponent
   extends BaseComponentComponent
   implements OnInit, OnDestroy, AfterViewInit {
   @Input() challenge: Challenge;
+  @Input() noRoute = false;
   romanNum = "";
   constructor(
     ms: MainService,
@@ -38,11 +39,12 @@ export class ChallengeComponent
     super.ngOnInit();
     this.ms.game.shipyardManager.designerView = true;
     this.ms.game.shipyardManager.postUpdate();
-    this.subscriptions.push(
-      this.route.paramMap.subscribe((paramMap) =>
-        this.getChallenge(paramMap.get("id"))
-      )
-    );
+    if (!this.noRoute)
+      this.subscriptions.push(
+        this.route.paramMap.subscribe((paramMap) =>
+          this.getChallenge(paramMap.get("id"))
+        )
+      );
   }
   getChallenge(id: string) {
     this.challenge = this.ms.game.challengeManager.challenges.find(
