@@ -55,6 +55,16 @@
       </nz-input-group>
     </nz-form-control>
   </nz-form-item>
+  <nz-form-item>
+    <nz-form-label>Queue length </nz-form-label>
+    <nz-input-number
+      nzSize="small"
+      nzMax="10"
+      nzMin="0"
+      name="queue"
+      [(ngModel)]="ms.game.automationManager.spaceStationAutoBuyer.queueLength"
+    ></nz-input-number>
+  </nz-form-item>
 </form>
 
 <ng-template #autoInfoTemplate>
@@ -62,9 +72,5 @@
   <ul>
     <li>On / Off, Type</li>
     <li>Interval</li>
-    <li>
-      Priority <br />
-      (bigger number = high priority)
-    </li>
   </ul>
 </ng-template>

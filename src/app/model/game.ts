@@ -502,12 +502,13 @@ export class Game {
       });
     }
 
-    // this.enemyManager.maxLevel = 900;
+    //this.enemyManager.maxLevel = 900;
 
     this.challengeManager.afterLoad();
     this.researchManager.researches.forEach((res) => res.reload());
     this.postUpdate(0);
 
+    // this.challengeManager.expandingChallenge.quantity = new Decimal(10);
     // this.prestigeManager.maxCards = 20;
     // this.prestigeManager.lockedCars = false;
     // this.darkMatter = new Decimal(1e20);
