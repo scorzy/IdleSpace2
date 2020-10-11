@@ -14,12 +14,16 @@
 <nz-tabset>
   <nz-tab
     *ngFor="let tab of ms.game.prestigeManager.tabs; trackBy: getTabId"
-    [nzTitle]="tab.name"
+    [nzTitle]="titleTemplate"
   >
+    <ng-template #titleTemplate>
+      <i nz-icon [nzType]="tab.icon"></i>
+      {{ tab.name }}
+    </ng-template>
     <div fxLayout="column" fxLayout.gt-xs="row wrap" fxLayoutGap="10px">
       <nz-card
         *ngFor="let prestige of tab.prestige; trackBy: getPrestigeId"
-        style="width: 100%;"
+        style="width: 100%"
         nzSize="small"
         [nzTitle]="prestige.name"
         class="flex-item"
@@ -33,9 +37,7 @@
 
         <div fxLayout="row" fxLayoutAlign="space-between center">
           <span>
-            <strong>
-              Owned:
-            </strong>
+            <strong> Owned: </strong>
             <span>
               {{ prestige.realQuantity | format: true }}
             </span>
@@ -44,9 +46,7 @@
             </span>
           </span>
           <span>
-            <strong>
-              Price:
-            </strong>
+            <strong> Price: </strong>
             <span>
               {{ prestige.price | format: true }}
             </span>

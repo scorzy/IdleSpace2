@@ -49,6 +49,7 @@ export class PrestigeManager {
   prestigePoints = new Array<PrestigePoint>();
   tabs = new Array<{
     name: string;
+    icon: string;
     prestige: PrestigePoint[];
   }>();
   cards = new Array<PrestigeCard>();
@@ -129,6 +130,7 @@ export class PrestigeManager {
 
     this.tabs.push({
       name: "Drones",
+      icon: "my:vintage-robot",
       prestige: dronePrestigeList
     });
     rm.workers.forEach((w) => {
@@ -155,6 +157,7 @@ export class PrestigeManager {
     const scienceList = new Array<PrestigePoint>();
     this.tabs.push({
       name: "Science",
+      icon: "fa-s:flask",
       prestige: scienceList
     });
     //  Tech Multi
@@ -176,6 +179,7 @@ export class PrestigeManager {
     const warList = new Array<PrestigePoint>();
     this.tabs.push({
       name: "War",
+      icon: "my:strafe",
       prestige: warList
     });
     const distMulti = new PrestigePoint();
@@ -239,6 +243,7 @@ export class PrestigeManager {
     const miscList = new Array<PrestigePoint>();
     this.tabs.push({
       name: "Misc",
+      icon: "my:cube",
       prestige: miscList
     });
     const moreIdle = new PrestigePoint();
