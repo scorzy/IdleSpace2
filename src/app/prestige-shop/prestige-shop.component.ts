@@ -18,6 +18,7 @@ export class PrestigeShopComponent
   extends BaseComponentComponent
   implements OnInit, OnDestroy, AfterViewInit {
   buyOptions = [1, 10, 20, 100, 1e3];
+  techExpanded = true;
 
   ngOnInit() {
     this.reload();

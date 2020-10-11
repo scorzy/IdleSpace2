@@ -174,6 +174,8 @@ export const MORE_UP_PRESTIGE = 1;
 export const SIX_HOURS = 3600 * 6;
 export const BETTER_SPACE_STATION_PRESTIGE = 0.2;
 export const AUTOMATION_UNLOCKED_LEVEL = 2;
+export const MOD_LEVEL_PRESTIGE = 0.01;
+export const SHIP_JOB_PRESTIGE = 0.01;
 
 //  Prestige Card
 export const LEVEL_PER_CARD = 12;

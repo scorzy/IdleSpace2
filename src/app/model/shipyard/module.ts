@@ -1,4 +1,4 @@
-import { DEFAULT_MODULE_PRICE } from "../CONSTANTS";
+import { DEFAULT_MODULE_PRICE, MOD_LEVEL_PRESTIGE } from "../CONSTANTS";
 import { ModuleData } from "../data/modulesData";
 import { IUnlockable } from "../iUnlocable";
 import { Technology } from "../researches/technology";
@@ -83,6 +83,12 @@ export class Module implements IUnlockable {
           .toNumber();
       }
     }
+    this.maxLevel =
+      this.maxLevel *
+      (1 +
+        (Game.getGame().prestigeManager.modLevelPrestige.quantity.toNumber() *
+          MOD_LEVEL_PRESTIGE) /
+          100);
     this.maxLevel = Math.floor(this.maxLevel);
   }
   unlock(): boolean {

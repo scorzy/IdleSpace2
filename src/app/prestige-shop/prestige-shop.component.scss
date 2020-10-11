@@ -1,3 +1,6 @@
 div.ant-typography {
   margin: 0;
 }
+:host ::ng-deep .ant-tabs-extra-content {
+  width: 100%;
+}

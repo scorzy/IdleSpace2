@@ -26,7 +26,9 @@ import {
   BETTER_SPACE_STATION_PRESTIGE,
   MORE_HAB_FROM_STATIONS,
   KILL_STREAK_SPEED_CARD,
-  CHALLENGE_XP_MULTI
+  CHALLENGE_XP_MULTI,
+  MOD_LEVEL_PRESTIGE,
+  SHIP_JOB_PRESTIGE
 } from "../CONSTANTS";
 import { Game } from "../game";
 import {
@@ -40,6 +42,7 @@ import { PrestigeCard } from "./prestigeCard";
 import { PRESTIGE_CARDS } from "../data/prestigeCard";
 import { BonusStack } from "../bonus/bonusStack";
 import { IBase } from "../iBase";
+import { Technology } from "../researches/technology";
 
 export class PrestigeManager {
   experience = ZERO;
@@ -52,11 +55,20 @@ export class PrestigeManager {
     icon: string;
     prestige: PrestigePoint[];
   }>();
+  techTabs = new Array<{
+    name: string;
+    icon: string;
+    prestige: PrestigePoint[];
+  }>();
   cards = new Array<PrestigeCard>();
   maxCards = 0;
   lockedCars = false;
   minLevelToIncrease = 1;
   ipotetchicalMultiplier = ONE;
+  //#region Prestige
+  modLevelPrestige: PrestigePoint;
+  shipJobPrestige: PrestigePoint;
+  //#endregion
   //#region Special cards
   victoryWarp: PrestigeCard;
   enemyDefeatWarp: PrestigeCard;
@@ -276,6 +288,51 @@ export class PrestigeManager {
       );
     });
 
+    //#endregion
+    //#region Technologies
+    const tecPrestiges = new Array<{
+      tec: Technology;
+      prestiges: PrestigePoint[];
+    }>();
+    //#region Military
+    this.modLevelPrestige = new PrestigePoint();
+    this.modLevelPrestige.name = "More modules level";
+    this.modLevelPrestige.description =
+      "Increases all ships module level by " + MOD_LEVEL_PRESTIGE * 100 + "%";
+
+    this.shipJobPrestige = new PrestigePoint();
+    this.shipJobPrestige.name = "Faster ship construction";
+    this.shipJobPrestige.description =
+      "Increases ships build and upgrade speed by " +
+      SHIP_JOB_PRESTIGE * 100 +
+      "%";
+    sp.shipsProductionBonuses.push(
+      new Bonus(this.shipJobPrestige, new Decimal(SHIP_JOB_PRESTIGE))
+    );
+
+    tecPrestiges.push({
+      tec: sm.militaryEngTech,
+      prestiges: [this.modLevelPrestige, this.shipJobPrestige]
+    });
+    //#endregion
+    tecPrestiges.forEach((tp) => {
+      this.techTabs.push({
+        name: tp.tec.name,
+        icon: tp.tec.icon,
+        prestige: tp.prestiges
+      });
+      const techMulti = new PrestigePoint();
+      techMulti.id = tp.tec.id + "mu";
+      techMulti.name = "Faster " + tp.tec.name;
+      techMulti.description =
+        tp.tec.name + " increases " + TECH_PRESTIGE_MULTI * 100 + "% faster";
+      techMulti.price = new Decimal(PRESTIGE_PRICE);
+      this.prestigePoints.push(techMulti);
+      tp.prestiges.unshift(techMulti);
+      tp.tec.technologyBonus.bonuses.push(
+        new Bonus(techMulti, new Decimal(TECH_PRESTIGE_MULTI))
+      );
+    });
     //#endregion
   }
   generateCards() {
