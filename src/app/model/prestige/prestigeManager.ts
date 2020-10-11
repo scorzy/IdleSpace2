@@ -31,7 +31,12 @@ import {
   SHIP_JOB_PRESTIGE,
   MEGA_BUILD_SPEED_CARD,
   CIV_JOB_BUILD_SPEED,
-  MEGA_JOB_BUILD_SPEED
+  MEGA_JOB_BUILD_SPEED,
+  MORE_PRODUCTION,
+  SPEED_PRESTIGE,
+  ACCELERATION_PRESTIGE,
+  COMPUTING_BONUS,
+  COMPUTING_SEC_BONUS
 } from "../CONSTANTS";
 import { Game } from "../game";
 import {
@@ -110,6 +115,7 @@ export class PrestigeManager {
     const sm = Game.getGame().researchManager;
     const sp = Game.getGame().shipyardManager;
     const cm = Game.getGame().spaceStationManager;
+    const co = Game.getGame().computingManager;
     //#region Drones
     const dronePrestigeList = new Array<PrestigePoint>();
     //  Drones yields and consume more
@@ -300,11 +306,13 @@ export class PrestigeManager {
     }>();
     //#region Military
     this.modLevelPrestige = new PrestigePoint();
+    this.modLevelPrestige.id = "m1";
     this.modLevelPrestige.name = "Higher modules level";
     this.modLevelPrestige.description =
       "Increases all ships module level by " + MOD_LEVEL_PRESTIGE * 100 + "%";
 
     this.shipJobPrestige = new PrestigePoint();
+    this.shipJobPrestige.id = "m2";
     this.shipJobPrestige.name = "Faster ship construction";
     this.shipJobPrestige.description =
       "Increases ships build and upgrade speed by " +
@@ -321,6 +329,7 @@ export class PrestigeManager {
     //#endregion
     //#region Civilian
     const civBuildPrestige = new PrestigePoint();
+    civBuildPrestige.id = "c1";
     civBuildPrestige.name = "Faster civilian construction";
     civBuildPrestige.description =
       "Increase all civilian job build speed by " + CIV_JOB_BUILD_SPEED + "%";
@@ -329,6 +338,7 @@ export class PrestigeManager {
     );
 
     const megaPrestige = new PrestigePoint();
+    megaPrestige.id = "c2";
     megaPrestige.name = "Faster mega structure construction";
     megaPrestige.description =
       "Increase all mega structure build speed by " +
@@ -338,12 +348,96 @@ export class PrestigeManager {
       new Bonus(civBuildPrestige, new Decimal(CIV_JOB_BUILD_SPEED))
     );
 
+    const moreWork = new PrestigePoint();
+    moreWork.id = "c3";
+    moreWork.name = "More Work";
+    moreWork.description =
+      "Workers yeild and consume " + MORE_PRODUCTION + "% more";
+    rm.worker.prodAllBonus.bonuses.push(
+      new Bonus(moreWork, new Decimal(MORE_PRODUCTION))
+    );
+
     tecPrestiges.push({
       tec: sm.civilEngTech,
-      prestiges: [civBuildPrestige, megaPrestige]
+      prestiges: [moreWork, civBuildPrestige, megaPrestige]
     });
     //#endregion
+    //#region Physics
+    const moreScience = new PrestigePoint();
+    moreScience.id = "p1";
+    moreScience.name = "More Science";
+    moreScience.description =
+      "Scientist yeild and consume " + MORE_PRODUCTION * 100 + "% more";
+    rm.scientist.prodAllBonus.bonuses.push(
+      new Bonus(moreScience, new Decimal(MORE_PRODUCTION))
+    );
 
+    tecPrestiges.push({
+      tec: sm.physicsTech,
+      prestiges: [moreScience]
+    });
+    //#endregion
+    //#region Materials
+    const moreAlloy = new PrestigePoint();
+    moreAlloy.id = "a1";
+    moreAlloy.name = "More Alloy";
+    moreAlloy.description =
+      "Metallurgists yeild and consume " + MORE_PRODUCTION * 100 + "% more";
+    rm.metallurgist.prodAllBonus.bonuses.push(
+      new Bonus(moreAlloy, new Decimal(MORE_PRODUCTION))
+    );
+
+    tecPrestiges.push({
+      tec: sm.materialsTech,
+      prestiges: [moreAlloy]
+    });
+    //#endregion
+    //#region Propulsion
+    const speed = new PrestigePoint();
+    speed.id = "p1";
+    speed.name = "Higher Speed";
+    speed.description =
+      "Increase ships speed " + SPEED_PRESTIGE * 100 + "% more";
+    sp.velocityBonusStack.bonuses.push(
+      new Bonus(speed, new Decimal(SPEED_PRESTIGE))
+    );
+
+    const acceleration = new PrestigePoint();
+    acceleration.id = "a2";
+    acceleration.name = "Higher Acceleration";
+    acceleration.description =
+      "Increase ships acceleration " + ACCELERATION_PRESTIGE * 100 + "% more";
+    sp.accelerationStack.bonuses.push(
+      new Bonus(acceleration, new Decimal(ACCELERATION_PRESTIGE))
+    );
+    tecPrestiges.push({
+      tec: sm.propulsionTech,
+      prestiges: [speed, acceleration]
+    });
+    //#endregion
+    //#region Computing
+    const maxComputing = new PrestigePoint();
+    maxComputing.id = "u1";
+    maxComputing.name = "Max Computing";
+    maxComputing.description = "Increase max computing by " + COMPUTING_BONUS;
+    co.maxComputingStack.bonuses.push(
+      new Bonus(maxComputing, new Decimal(COMPUTING_BONUS))
+    );
+
+    const moreComputing = new PrestigePoint();
+    moreComputing.id = "u2";
+    moreComputing.name = "Computing Regeneration";
+    moreComputing.description =
+      "Increase computing regeneration by " + COMPUTING_SEC_BONUS * 100 + "%";
+    co.computingStack.bonuses.push(
+      new Bonus(moreComputing, new Decimal(COMPUTING_SEC_BONUS))
+    );
+
+    tecPrestiges.push({
+      tec: sm.computingTech,
+      prestiges: [maxComputing, moreComputing]
+    });
+    //#endregion
     tecPrestiges.forEach((tp) => {
       this.techTabs.push({
         name: tp.tec.name,
@@ -361,6 +455,7 @@ export class PrestigeManager {
       tp.tec.technologyBonus.bonuses.push(
         new Bonus(techMulti, new Decimal(TECH_PRESTIGE_MULTI))
       );
+      tp.prestiges.forEach((point) => this.prestigePoints.push(point));
     });
     //#endregion
   }
