@@ -28,7 +28,10 @@ import {
   KILL_STREAK_SPEED_CARD,
   CHALLENGE_XP_MULTI,
   MOD_LEVEL_PRESTIGE,
-  SHIP_JOB_PRESTIGE
+  SHIP_JOB_PRESTIGE,
+  MEGA_BUILD_SPEED_CARD,
+  CIV_JOB_BUILD_SPEED,
+  MEGA_JOB_BUILD_SPEED
 } from "../CONSTANTS";
 import { Game } from "../game";
 import {
@@ -106,6 +109,7 @@ export class PrestigeManager {
     const rm = Game.getGame().resourceManager;
     const sm = Game.getGame().researchManager;
     const sp = Game.getGame().shipyardManager;
+    const cm = Game.getGame().spaceStationManager;
     //#region Drones
     const dronePrestigeList = new Array<PrestigePoint>();
     //  Drones yields and consume more
@@ -296,7 +300,7 @@ export class PrestigeManager {
     }>();
     //#region Military
     this.modLevelPrestige = new PrestigePoint();
-    this.modLevelPrestige.name = "More modules level";
+    this.modLevelPrestige.name = "Higher modules level";
     this.modLevelPrestige.description =
       "Increases all ships module level by " + MOD_LEVEL_PRESTIGE * 100 + "%";
 
@@ -315,6 +319,31 @@ export class PrestigeManager {
       prestiges: [this.modLevelPrestige, this.shipJobPrestige]
     });
     //#endregion
+    //#region Civilian
+    const civBuildPrestige = new PrestigePoint();
+    civBuildPrestige.name = "Faster civilian construction";
+    civBuildPrestige.description =
+      "Increase all civilian job build speed by " + CIV_JOB_BUILD_SPEED + "%";
+    cm.commonBonuses.push(
+      new Bonus(civBuildPrestige, new Decimal(CIV_JOB_BUILD_SPEED))
+    );
+
+    const megaPrestige = new PrestigePoint();
+    megaPrestige.name = "Faster mega structure construction";
+    megaPrestige.description =
+      "Increase all mega structure build speed by " +
+      MEGA_JOB_BUILD_SPEED +
+      "%";
+    cm.commonBonuses.push(
+      new Bonus(civBuildPrestige, new Decimal(CIV_JOB_BUILD_SPEED))
+    );
+
+    tecPrestiges.push({
+      tec: sm.civilEngTech,
+      prestiges: [civBuildPrestige, megaPrestige]
+    });
+    //#endregion
+
     tecPrestiges.forEach((tp) => {
       this.techTabs.push({
         name: tp.tec.name,
@@ -340,6 +369,7 @@ export class PrestigeManager {
     const sm = Game.getGame().researchManager;
     const cm = Game.getGame().computingManager;
     const sy = Game.getGame().shipyardManager;
+    const sp = Game.getGame().spaceStationManager;
     this.cards = PRESTIGE_CARDS.map((data) => new PrestigeCard(data));
     //#region Drones
     const prodCard = this.cards.find((card) => card.id === "0");
@@ -463,6 +493,9 @@ export class PrestigeManager {
     rm.spaceStations.forEach((spaceStation) => {
       spaceStation.habSpaceStack.bonuses.push(moreHabBonus);
     });
+    sp.megaBonuses.push(
+      new Bonus(this.megaBuildSpeed, new Decimal(MEGA_BUILD_SPEED_CARD))
+    );
     //#endregion
     //#region challenges
     this.challengeMultiplier = this.cards.find((card) => card.id === "c0");

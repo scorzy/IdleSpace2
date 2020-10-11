@@ -1,4 +1,4 @@
-
+import { BonusStack } from "../bonus/bonusStack";
 import { Game } from "../game";
 import { Job } from "../job/job";
 import {
@@ -18,6 +18,11 @@ export class CivilianJob extends Job {
     this.reloadTotalBonus();
     this.reload();
     this.spaceStation.reloadBuildPrice();
+    this.bonuses = new BonusStack();
+    const sp = Game.getGame().spaceStationManager;
+    sp.commonBonuses.forEach((bon) => {
+      this.bonuses.bonuses.push(bon);
+    });
   }
   onCompleted() {
     const game = Game.getGame();

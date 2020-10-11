@@ -12,6 +12,7 @@ import { MegaStructure } from "../units/megaStructure";
 import { AbstractSpaceStation } from "../units/abstractSpaceStation";
 import { CivilianJob } from "./civilianJob";
 import { MegaStructureJob } from "./megaStructureJob";
+import { Bonus } from "../bonus/bonus";
 
 export class SpaceStationManager extends JobManager {
   toDo = new Array<CivilianJob>();
@@ -19,6 +20,8 @@ export class SpaceStationManager extends JobManager {
   megaInitialPrice = ONE;
   nextMegaPrice = ONE;
   megaBuilt = ZERO;
+  commonBonuses: Bonus[];
+  megaBonuses: Bonus[];
   constructor() {
     super();
     this.megaInitialPrice = Decimal.pow(
@@ -26,6 +29,8 @@ export class SpaceStationManager extends JobManager {
       Game.getGame().resourceManager.spaceStations.length
     ).times(SPACE_STATION_PRICE);
     this.nextMegaPrice = this.megaInitialPrice;
+    this.commonBonuses = new Array<Bonus>();
+    this.megaBonuses = new Array<Bonus>();
   }
   postUpdate() {
     for (let i = 0, n = this.toDo.length; i < n; i++) {

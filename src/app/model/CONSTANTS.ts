@@ -176,6 +176,8 @@ export const BETTER_SPACE_STATION_PRESTIGE = 0.2;
 export const AUTOMATION_UNLOCKED_LEVEL = 2;
 export const MOD_LEVEL_PRESTIGE = 0.01;
 export const SHIP_JOB_PRESTIGE = 0.01;
+export const CIV_JOB_BUILD_SPEED = 0.01;
+export const MEGA_JOB_BUILD_SPEED = 0.02;
 
 //  Prestige Card
 export const LEVEL_PER_CARD = 12;

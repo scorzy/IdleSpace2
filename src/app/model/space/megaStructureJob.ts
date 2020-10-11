@@ -1,14 +1,19 @@
 import { Game } from "../game";
 import { MEGA_BUILD_SPEED_CARD } from "../CONSTANTS";
 import { CivilianJob } from "./civilianJob";
+import { MegaStructure } from "../units/megaStructure";
+import { BonusStack } from "../bonus/bonusStack";
 
 export class MegaStructureJob extends CivilianJob {
-  get totalBonus(): Decimal {
-    return Game.getGame().prestigeManager.megaBuildSpeed.active
-      ? this.type.bonus.totalBonus.times(MEGA_BUILD_SPEED_CARD)
-      : this.type.bonus.totalBonus;
+  constructor(mega: MegaStructure) {
+    super(mega);
+    this.bonuses = this.bonuses || new BonusStack();
+
+    const common = Game.getGame().spaceStationManager.megaBonuses;
+    common.forEach((bon) => {
+      this.bonuses.bonuses.push(bon);
+    });
   }
-  set totalBonus(bon: Decimal) {}
 
   onCompleted() {
     super.onCompleted();
