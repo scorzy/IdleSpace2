@@ -36,7 +36,13 @@ import {
   SPEED_PRESTIGE,
   ACCELERATION_PRESTIGE,
   COMPUTING_BONUS,
-  COMPUTING_SEC_BONUS
+  COMPUTING_SEC_BONUS,
+  MAX_MOD_PRESTIGE,
+  MAX_DRONES_PRESTIGE,
+  FAST_SEARCH,
+  ENERGY_PRODUCTION_PRESTIGE,
+  ENERGY_STORAGE_PRESTIGE,
+  MINING_PRESTIGE
 } from "../CONSTANTS";
 import { Game } from "../game";
 import {
@@ -76,6 +82,7 @@ export class PrestigeManager {
   //#region Prestige
   modLevelPrestige: PrestigePoint;
   shipJobPrestige: PrestigePoint;
+  maxMods: PrestigePoint;
   //#endregion
   //#region Special cards
   victoryWarp: PrestigeCard;
@@ -116,6 +123,7 @@ export class PrestigeManager {
     const sp = Game.getGame().shipyardManager;
     const cm = Game.getGame().spaceStationManager;
     const co = Game.getGame().computingManager;
+    const em = Game.getGame().enemyManager;
     //#region Drones
     const dronePrestigeList = new Array<PrestigePoint>();
     //  Drones yields and consume more
@@ -436,6 +444,94 @@ export class PrestigeManager {
     tecPrestiges.push({
       tec: sm.computingTech,
       prestiges: [maxComputing, moreComputing]
+    });
+    //#endregion
+    //#region Robotics
+    this.maxMods = new PrestigePoint();
+    this.maxMods.id = "r1";
+    this.maxMods.name = "More Mod points";
+    this.maxMods.description =
+      "Increase max mod points by " + MAX_MOD_PRESTIGE * 100 + "%";
+
+    const maxDrones = new PrestigePoint();
+    maxDrones.id = "r2";
+    maxDrones.name = "Max Drones prestige";
+    maxDrones.description =
+      "Increase max drones by " + MAX_DRONES_PRESTIGE * 100 + "%";
+
+    const maxDroneBonus = new Bonus(
+      maxDrones,
+      new Decimal(MAX_DRONES_PRESTIGE)
+    );
+    rm.workers.forEach((w) => {
+      w.limitStackMulti = w.limitStackMulti || new BonusStack();
+      w.limitStackMulti.bonuses.push(maxDroneBonus);
+    });
+
+    tecPrestiges.push({
+      tec: sm.roboticsTech,
+      prestiges: [maxDrones, this.maxMods]
+    });
+    //#endregion
+    //#region Naval
+    tecPrestiges.push({
+      tec: sm.navalCapTech,
+      prestiges: []
+    });
+    //#endregion
+    //#region Search
+    const fastSearch = new PrestigePoint();
+    fastSearch.id = "s1";
+    fastSearch.name = "Optimised Search";
+    fastSearch.description =
+      "Increase searching speed by " + FAST_SEARCH * 100 + "%";
+
+    em.searchBonuses.push(new Bonus(fastSearch, new Decimal(FAST_SEARCH)));
+
+    tecPrestiges.push({
+      tec: sm.searchTech,
+      prestiges: [fastSearch]
+    });
+    //#endregion
+    //#region Energy
+    const energyProduction = new PrestigePoint();
+    energyProduction.id = "e1";
+    energyProduction.name = "Energy Production";
+    energyProduction.description =
+      "Technicians yeild " + ENERGY_PRODUCTION_PRESTIGE * 100 + "% more";
+
+    const energyStorage = new PrestigePoint();
+    energyStorage.id = "e2";
+    energyStorage.name = "Energy Storage";
+    energyStorage.description =
+      "Increase energy storage by " + ENERGY_STORAGE_PRESTIGE * 100 + "%";
+
+    rm.technician.prodEfficiency.bonuses.push(
+      new Bonus(energyProduction, new Decimal(ENERGY_PRODUCTION_PRESTIGE))
+    );
+    rm.energy.limitStackMulti.bonuses.push(
+      new Bonus(energyStorage, new Decimal(ENERGY_STORAGE_PRESTIGE))
+    );
+
+    tecPrestiges.push({
+      tec: sm.energyTech,
+      prestiges: [energyProduction, energyStorage]
+    });
+    //#endregion
+    //#region Mining
+    const moreMining = new PrestigePoint();
+    moreMining.id = "m1";
+    moreMining.name = "More Metal";
+    moreMining.description =
+      "Miners yeild and consume " + MINING_PRESTIGE * 100 + "% more";
+
+    rm.miner.prodAllBonus.bonuses.push(
+      new Bonus(moreMining, new Decimal(MINING_PRESTIGE))
+    );
+
+    tecPrestiges.push({
+      tec: sm.miningTech,
+      prestiges: [moreMining]
     });
     //#endregion
     tecPrestiges.forEach((tp) => {

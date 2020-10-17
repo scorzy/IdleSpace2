@@ -1,6 +1,7 @@
 import { Job } from "../job/job";
 import { SEARCH_JOB_PRICE, PRICE_GROW_RATE } from "../CONSTANTS";
 import { Game } from "../game";
+import { BonusStack } from "../bonus/bonusStack";
 
 export class SearchJob extends Job {
   //#endregion
@@ -31,6 +32,10 @@ export class SearchJob extends Job {
     SearchJob.LAST_ID++;
     this.canDelete = true;
     this.type = Game.getGame().researchManager.searchTech;
+    this.bonuses = new BonusStack();
+    Game.getGame().enemyManager.searchBonuses.forEach((bon) => {
+      this.bonuses.bonuses.push(bon);
+    });
     this.max = 1;
   }
   init() {

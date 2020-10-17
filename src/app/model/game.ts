@@ -509,10 +509,10 @@ export class Game {
     this.postUpdate(0);
 
     // this.challengeManager.expandingChallenge.quantity = new Decimal(10);
-    // this.prestigeManager.maxCards = 20;
-    // this.prestigeManager.lockedCars = false;
+    //  this.prestigeManager.maxCards = 80;
+    //   this.prestigeManager.lockedCars = false;
     // this.darkMatter = new Decimal(1e20);
-    // this.prestigeManager.experience = new Decimal(1e4);
+    //this.prestigeManager.experience = new Decimal(1e4);
     // this.challengeManager.scienceChallenge.quantity = new Decimal(1);
   }
   //#endregion

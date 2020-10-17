@@ -183,6 +183,12 @@ export const SPEED_PRESTIGE = 0.01;
 export const ACCELERATION_PRESTIGE = 0.01;
 export const COMPUTING_BONUS = 1;
 export const COMPUTING_SEC_BONUS = 0.01;
+export const MAX_MOD_PRESTIGE = 0.01;
+export const MAX_DRONES_PRESTIGE = 0.01;
+export const FAST_SEARCH = 0.01;
+export const ENERGY_PRODUCTION_PRESTIGE = 0.005;
+export const ENERGY_STORAGE_PRESTIGE = 0.1;
+export const MINING_PRESTIGE = 0.01;
 
 //  Prestige Card
 export const LEVEL_PER_CARD = 12;
