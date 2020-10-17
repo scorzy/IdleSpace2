@@ -314,13 +314,13 @@ export class PrestigeManager {
     }>();
     //#region Military
     this.modLevelPrestige = new PrestigePoint();
-    this.modLevelPrestige.id = "m1";
+    this.modLevelPrestige.id = "Y1";
     this.modLevelPrestige.name = "Higher modules level";
     this.modLevelPrestige.description =
       "Increases all ships module level by " + MOD_LEVEL_PRESTIGE * 100 + "%";
 
     this.shipJobPrestige = new PrestigePoint();
-    this.shipJobPrestige.id = "m2";
+    this.shipJobPrestige.id = "Y2";
     this.shipJobPrestige.name = "Faster ship construction";
     this.shipJobPrestige.description =
       "Increases ships build and upgrade speed by " +
@@ -337,7 +337,7 @@ export class PrestigeManager {
     //#endregion
     //#region Civilian
     const civBuildPrestige = new PrestigePoint();
-    civBuildPrestige.id = "c1";
+    civBuildPrestige.id = "C1";
     civBuildPrestige.name = "Faster civilian construction";
     civBuildPrestige.description =
       "Increase all civilian job build speed by " + CIV_JOB_BUILD_SPEED + "%";
@@ -346,7 +346,7 @@ export class PrestigeManager {
     );
 
     const megaPrestige = new PrestigePoint();
-    megaPrestige.id = "c2";
+    megaPrestige.id = "C2";
     megaPrestige.name = "Faster mega structure construction";
     megaPrestige.description =
       "Increase all mega structure build speed by " +
@@ -357,7 +357,7 @@ export class PrestigeManager {
     );
 
     const moreWork = new PrestigePoint();
-    moreWork.id = "c3";
+    moreWork.id = "C3";
     moreWork.name = "More Work";
     moreWork.description =
       "Workers yeild and consume " + MORE_PRODUCTION + "% more";
@@ -372,7 +372,7 @@ export class PrestigeManager {
     //#endregion
     //#region Physics
     const moreScience = new PrestigePoint();
-    moreScience.id = "p1";
+    moreScience.id = "H1";
     moreScience.name = "More Science";
     moreScience.description =
       "Scientist yeild and consume " + MORE_PRODUCTION * 100 + "% more";
@@ -387,7 +387,7 @@ export class PrestigeManager {
     //#endregion
     //#region Materials
     const moreAlloy = new PrestigePoint();
-    moreAlloy.id = "a1";
+    moreAlloy.id = "A1";
     moreAlloy.name = "More Alloy";
     moreAlloy.description =
       "Metallurgists yeild and consume " + MORE_PRODUCTION * 100 + "% more";
@@ -402,7 +402,7 @@ export class PrestigeManager {
     //#endregion
     //#region Propulsion
     const speed = new PrestigePoint();
-    speed.id = "p1";
+    speed.id = "P1";
     speed.name = "Higher Speed";
     speed.description =
       "Increase ships speed " + SPEED_PRESTIGE * 100 + "% more";
@@ -411,7 +411,7 @@ export class PrestigeManager {
     );
 
     const acceleration = new PrestigePoint();
-    acceleration.id = "a2";
+    acceleration.id = "P2";
     acceleration.name = "Higher Acceleration";
     acceleration.description =
       "Increase ships acceleration " + ACCELERATION_PRESTIGE * 100 + "% more";
@@ -425,7 +425,7 @@ export class PrestigeManager {
     //#endregion
     //#region Computing
     const maxComputing = new PrestigePoint();
-    maxComputing.id = "u1";
+    maxComputing.id = "U1";
     maxComputing.name = "Max Computing";
     maxComputing.description = "Increase max computing by " + COMPUTING_BONUS;
     co.maxComputingStack.bonuses.push(
@@ -433,7 +433,7 @@ export class PrestigeManager {
     );
 
     const moreComputing = new PrestigePoint();
-    moreComputing.id = "u2";
+    moreComputing.id = "U2";
     moreComputing.name = "Computing Regeneration";
     moreComputing.description =
       "Increase computing regeneration by " + COMPUTING_SEC_BONUS * 100 + "%";
@@ -448,13 +448,13 @@ export class PrestigeManager {
     //#endregion
     //#region Robotics
     this.maxMods = new PrestigePoint();
-    this.maxMods.id = "r1";
+    this.maxMods.id = "R1";
     this.maxMods.name = "More Mod points";
     this.maxMods.description =
       "Increase max mod points by " + MAX_MOD_PRESTIGE * 100 + "%";
 
     const maxDrones = new PrestigePoint();
-    maxDrones.id = "r2";
+    maxDrones.id = "R2";
     maxDrones.name = "Max Drones prestige";
     maxDrones.description =
       "Increase max drones by " + MAX_DRONES_PRESTIGE * 100 + "%";
@@ -481,7 +481,7 @@ export class PrestigeManager {
     //#endregion
     //#region Search
     const fastSearch = new PrestigePoint();
-    fastSearch.id = "s1";
+    fastSearch.id = "S1";
     fastSearch.name = "Optimised Search";
     fastSearch.description =
       "Increase searching speed by " + FAST_SEARCH * 100 + "%";
@@ -495,13 +495,13 @@ export class PrestigeManager {
     //#endregion
     //#region Energy
     const energyProduction = new PrestigePoint();
-    energyProduction.id = "e1";
+    energyProduction.id = "E1";
     energyProduction.name = "Energy Production";
     energyProduction.description =
       "Technicians yeild " + ENERGY_PRODUCTION_PRESTIGE * 100 + "% more";
 
     const energyStorage = new PrestigePoint();
-    energyStorage.id = "e2";
+    energyStorage.id = "E2";
     energyStorage.name = "Energy Storage";
     energyStorage.description =
       "Increase energy storage by " + ENERGY_STORAGE_PRESTIGE * 100 + "%";
@@ -520,7 +520,7 @@ export class PrestigeManager {
     //#endregion
     //#region Mining
     const moreMining = new PrestigePoint();
-    moreMining.id = "m1";
+    moreMining.id = "M1";
     moreMining.name = "More Metal";
     moreMining.description =
       "Miners yeild and consume " + MINING_PRESTIGE * 100 + "% more";
@@ -541,12 +541,11 @@ export class PrestigeManager {
         prestige: tp.prestiges
       });
       const techMulti = new PrestigePoint();
-      techMulti.id = tp.tec.id + "mu";
+      techMulti.id = tp.tec.id + "-";
       techMulti.name = "Faster " + tp.tec.name;
       techMulti.description =
         tp.tec.name + " increases " + TECH_PRESTIGE_MULTI * 100 + "% faster";
       techMulti.price = new Decimal(PRESTIGE_PRICE);
-      this.prestigePoints.push(techMulti);
       tp.prestiges.unshift(techMulti);
       tp.tec.technologyBonus.bonuses.push(
         new Bonus(techMulti, new Decimal(TECH_PRESTIGE_MULTI))
