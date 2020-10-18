@@ -1,5 +1,7 @@
+18/10/2020
 -   Experience shop update
 -   "Kill Streak: Speed Card" affects acceleration
+-   Price of first megastructure is 1e15
 
 11/10/2020
 -   Added queue length options for space stations and infrastructure automation

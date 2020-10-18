@@ -26,7 +26,7 @@ export class SpaceStationManager extends JobManager {
     super();
     this.megaInitialPrice = Decimal.pow(
       SPACE_STATION_GROW,
-      Game.getGame().resourceManager.spaceStations.length
+      Game.getGame().resourceManager.spaceStations.length - 1
     ).times(SPACE_STATION_PRICE);
     this.nextMegaPrice = this.megaInitialPrice;
     this.commonBonuses = new Array<Bonus>();
