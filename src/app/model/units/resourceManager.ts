@@ -452,6 +452,7 @@ export class ResourceManager {
     );
 
     if (OptionsService.instance.prodStopNoti) {
+      MainService.instance.modal.closeAll();
       MainService.instance.modal.warning({
         nzTitle: "Production stopped",
         nzContent:
