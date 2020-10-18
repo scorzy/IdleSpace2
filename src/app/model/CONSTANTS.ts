@@ -239,3 +239,4 @@ export const SKYHOOK_LEVEL = 4;
 export const ROTATING_SKYHOOK_LEVEL = 6;
 export const SUPER_TETHER_LEVEL = 8;
 export const INFRASTRUCTURE_AUTO_LEVEL = 3;
+export const PRESTIGE_POINT_QUANTITY = new Decimal(1e3);

@@ -546,6 +546,9 @@ export class PrestigeManager {
       techMulti.description =
         tp.tec.name + " increases " + TECH_PRESTIGE_MULTI * 100 + "% faster";
       techMulti.price = new Decimal(PRESTIGE_PRICE);
+      tp.prestiges.forEach((pre) => {
+        pre.requiredPoint = techMulti;
+      });
       tp.prestiges.unshift(techMulti);
       tp.tec.technologyBonus.bonuses.push(
         new Bonus(techMulti, new Decimal(TECH_PRESTIGE_MULTI))
@@ -553,6 +556,13 @@ export class PrestigeManager {
       tp.prestiges.forEach((point) => this.prestigePoints.push(point));
     });
     //#endregion
+    this.prestigePoints.forEach((point) => {
+      if (point.requiredPoint) {
+        point.requiredPoint.dependantPoints =
+          point.requiredPoint.dependantPoints || [];
+        point.requiredPoint.dependantPoints.push(point);
+      }
+    });
   }
   generateCards() {
     const rm = Game.getGame().resourceManager;
@@ -781,6 +791,10 @@ export class PrestigeManager {
     }
     if ("a" in data) this.maxCards = data.a;
     if ("l" in data) this.lockedCars = data.l;
+
+    this.prestigePoints.forEach((point) => {
+      point.checkLock();
+    });
   }
   //#endregion
 }

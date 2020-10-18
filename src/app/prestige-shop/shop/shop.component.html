@@ -11,6 +11,21 @@
     fxFlex.lg="0 0 calc(25% -10px)"
     fxFlex.xl="0 0 calc(20% -10px)"
   >
+    <span
+      *ngIf="prestige.requiredPoint"
+      [ngClass]="prestige.unLocked ? 'text-success' : 'text-danger'"
+    >
+      <i
+        nz-icon
+        [nzType]="prestige.unLocked ? 'unlock' : 'lock'"
+        nzTheme="outline"
+      ></i>
+      Require
+      <span class="monospace">{{
+        prestige.requiredQuantity | format: true
+      }}</span>
+      {{ prestige.requiredPoint.name }}
+    </span>
     <p>{{ prestige.description }}</p>
 
     <div fxLayout="row" fxLayoutAlign="space-between center">
@@ -45,6 +60,7 @@
           nzBlock
           (click)="prestige.buy(buyOpt)"
           [disabled]="
+            !prestige.unLocked ||
             prestige.price.times(buyOpt).gt(ms.game.prestigeManager.experience)
           "
         >
