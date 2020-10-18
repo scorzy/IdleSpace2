@@ -171,7 +171,7 @@ export const CHALLENGES: IChallengeData[] = [
     rewards: [
       "Gain " +
         NO_MULTIPLIER_MULTI * 100 +
-        " more experience x completion, stack additive (+10%, +20%, +30%...)"
+        " more experience x completion, stack additive (+15%, +30%, +45%...)"
     ],
     unlockLevel: 700,
     startLevel: 100,

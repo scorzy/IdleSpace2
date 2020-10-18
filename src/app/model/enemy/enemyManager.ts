@@ -15,7 +15,8 @@ import {
   DM_GAIN_CARD,
   ONE,
   KILL_STREAK_GAIN_CARD,
-  AUTOMATION_UNLOCKED_LEVEL
+  AUTOMATION_UNLOCKED_LEVEL,
+  NO_MULTIPLIER_MULTI
 } from "../CONSTANTS";
 import { MainService } from "src/app/main.service";
 import { BattleRequest } from "../battle/battleRequest";
@@ -414,10 +415,15 @@ export class EnemyManager extends JobManager {
     );
     return Decimal.floor(
       (ENEMY_BASE_EXP + baseChallengeExtra + enemyLevel * ENEMY_EXP_GROW_RATE) *
-        (Game.getGame().prestigeManager.moreExp.active ? 1 + EXP_GAIN_CARD : 1)
+        (Game.getGame().prestigeManager.moreExp.active
+          ? 1 + EXP_GAIN_CARD
+          : 1) *
+        (1 +
+          Game.getGame().challengeManager.noMultiplierChallenge.quantity.toNumber() *
+            NO_MULTIPLIER_MULTI)
     );
   }
-  getDarkMatter(enemyLevel): Decimal {
+  getDarkMatter(): Decimal {
     if (this.currentEnemy.level < ENEMY_EXP_START_LEVEL) return ZERO;
     let dmToAdd = Decimal.multiply(DM_PER_LEVEL, this.currentEnemy.level);
     if (Game.getGame().prestigeManager.moreDM.active) {
@@ -453,7 +459,7 @@ export class EnemyManager extends JobManager {
     }
     let dmToAdd = ZERO;
     if (this.currentEnemy.level >= ENEMY_EXP_START_LEVEL) {
-      dmToAdd = this.getDarkMatter(this.currentEnemy.level);
+      dmToAdd = this.getDarkMatter();
       Game.getGame().lockedDarkMatter = Game.getGame().lockedDarkMatter.plus(
         dmToAdd
       );

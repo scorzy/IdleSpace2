@@ -55,9 +55,7 @@ export class BattleComponent
       );
       if (!newExpGain.eq(this.expGain)) this.expGain = newExpGain;
 
-      const newDm = this.ms.game.enemyManager.getDarkMatter(
-        this.ms.game.enemyManager.currentEnemy.level
-      );
+      const newDm = this.ms.game.enemyManager.getDarkMatter();
       if (!newDm.eq(this.darkMatterGain)) this.darkMatterGain = newDm;
     }
   }

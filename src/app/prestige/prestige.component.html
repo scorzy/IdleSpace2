@@ -30,15 +30,19 @@
           {{ ms.game.prestigeManager.realNextPrestigeMultiplier | format }}
         </span>
       </span>
-      <br />
-      Defeat enemy level
-      <strong class="monospace">
-        {{ ms.game.prestigeManager.minLevelToIncrease | format }}
-      </strong>
-      to increase exp. multiplier to
-      <strong class="monospace">
-        {{ ms.game.prestigeManager.ipotetchicalMultiplier | format }}
-      </strong>
+      <ng-container
+        *ngIf="!ms.game.challengeManager.noMultiplierChallenge.isActive"
+      >
+        <br />
+        Defeat enemy level
+        <strong class="monospace">
+          {{ ms.game.prestigeManager.minLevelToIncrease | format }}
+        </strong>
+        to increase exp. multiplier to
+        <strong class="monospace">
+          {{ ms.game.prestigeManager.ipotetchicalMultiplier | format }}
+        </strong>
+      </ng-container>
     </p>
 
     <p>
