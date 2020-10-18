@@ -1,0 +1,75 @@
+<div fxLayout="column" fxLayout.gt-xs="row wrap" fxLayoutGap="10px">
+  <nz-card
+    *ngFor="let prestige of prestiges; trackBy: getPrestigeId"
+    style="width: 100%"
+    nzSize="small"
+    [nzTitle]="prestige.name"
+    class="flex-item"
+    fxFlex.xs="0 0 calc(100%)"
+    fxFlex.sm="0 0 calc(50% -10px)"
+    fxFlex.md="0 0 calc(33% -10px)"
+    fxFlex.lg="0 0 calc(25% -10px)"
+    fxFlex.xl="0 0 calc(20% -10px)"
+  >
+    <span
+      *ngIf="prestige.requiredPoint"
+      [ngClass]="prestige.unLocked ? 'text-success' : 'text-danger'"
+    >
+      <i
+        nz-icon
+        [nzType]="prestige.unLocked ? 'unlock' : 'lock'"
+        nzTheme="outline"
+      ></i>
+      Require
+      <span class="monospace">{{
+        prestige.requiredQuantity | format: true
+      }}</span>
+      {{ prestige.requiredPoint.name }}
+    </span>
+    <p>{{ prestige.description }}</p>
+
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+      <span>
+        <strong> Owned: </strong>
+        <span>
+          {{ prestige.realQuantity | format: true }}
+        </span>
+        <span *ngIf="prestige.max.lt(1e3)">
+          /{{ prestige.max | format: true }}
+        </span>
+      </span>
+      <span>
+        <strong> Price: </strong>
+        <span>
+          {{ prestige.price | format: true }}
+        </span>
+      </span>
+    </div>
+
+    <!-- Buttons -->
+    <div
+      fxLayout="column"
+      fxLayoutAlign="space-around stretch"
+      fxLayoutGap="12px"
+    >
+      <ng-container *ngFor="let buyOpt of buyOptions">
+        <button
+          *ngIf="prestige.realQuantity.plus(buyOpt).lte(prestige.max)"
+          nz-button
+          nzType="default"
+          nzBlock
+          (click)="prestige.buy(buyOpt)"
+          [disabled]="
+            !prestige.unLocked ||
+            prestige.price.times(buyOpt).gt(ms.game.prestigeManager.experience)
+          "
+        >
+          <span>
+            Buy {{ buyOpt | format: true }} for
+            {{ prestige.price.times(buyOpt) | format: true }} exp</span
+          >
+        </button>
+      </ng-container>
+    </div>
+  </nz-card>
+</div>

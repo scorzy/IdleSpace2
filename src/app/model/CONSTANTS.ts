@@ -174,6 +174,21 @@ export const MORE_UP_PRESTIGE = 1;
 export const SIX_HOURS = 3600 * 6;
 export const BETTER_SPACE_STATION_PRESTIGE = 0.2;
 export const AUTOMATION_UNLOCKED_LEVEL = 2;
+export const MOD_LEVEL_PRESTIGE = 0.01;
+export const SHIP_JOB_PRESTIGE = 0.01;
+export const CIV_JOB_BUILD_SPEED = 0.01;
+export const MEGA_JOB_BUILD_SPEED = 0.02;
+export const MORE_PRODUCTION = 0.1;
+export const SPEED_PRESTIGE = 0.01;
+export const ACCELERATION_PRESTIGE = 0.01;
+export const COMPUTING_BONUS = 1;
+export const COMPUTING_SEC_BONUS = 0.01;
+export const MAX_MOD_PRESTIGE = 0.01;
+export const MAX_DRONES_PRESTIGE = 0.01;
+export const FAST_SEARCH = 0.01;
+export const ENERGY_PRODUCTION_PRESTIGE = 0.005;
+export const ENERGY_STORAGE_PRESTIGE = 0.1;
+export const MINING_PRESTIGE = 0.01;
 
 //  Prestige Card
 export const LEVEL_PER_CARD = 12;
@@ -224,3 +239,5 @@ export const SKYHOOK_LEVEL = 4;
 export const ROTATING_SKYHOOK_LEVEL = 6;
 export const SUPER_TETHER_LEVEL = 8;
 export const INFRASTRUCTURE_AUTO_LEVEL = 3;
+export const PRESTIGE_POINT_QUANTITY = new Decimal(1e3);
+export const PRESTIGE_TECH_UNLOCK = 1e4;

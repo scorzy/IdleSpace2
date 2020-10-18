@@ -39,6 +39,7 @@ import {
   MyNotification,
   NotificationTypes
 } from "../notifications/myNotification";
+import { Bonus } from "../bonus/bonus";
 
 export class EnemyManager extends JobManager {
   enemies = new Array<Enemy>();
@@ -56,6 +57,7 @@ export class EnemyManager extends JobManager {
   searchLevel = 0;
   lostRow = 0;
   killStreak = 0;
+  searchBonuses: Bonus[];
   //#region Bonus
   districtMultiplier: BonusStack = new BonusStack();
   habSpaceMultiplier: BonusStack = new BonusStack();
@@ -76,6 +78,7 @@ export class EnemyManager extends JobManager {
   constructor() {
     super();
     this.fleetsInBattle = new Array(FLEET_NUMBER);
+    this.searchBonuses = new Array<Bonus>();
 
     this.autoAttackOptions = new Array<AutoAttackOption>();
     for (let i = 0; i < 5; i++) {

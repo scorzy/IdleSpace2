@@ -41,9 +41,7 @@
       <div fxLayout="row wrap" fxLayoutGap="1rem">
         <nz-radio-group [(ngModel)]="unit.autoMod.on" nzButtonStyle="solid">
           <label nz-radio-button [nzValue]="false">Manual</label>
-          <label nz-radio-button [nzValue]="true">
-            Auto
-          </label>
+          <label nz-radio-button [nzValue]="true"> Auto </label>
         </nz-radio-group>
 
         <div fxLayoutGap="1rem">
@@ -224,8 +222,20 @@
       <td>Double mod card</td>
       <td class="monospace text-right"></td>
       <td class="monospace"></td>
+      <td class="monospace">= x{{ 1.5 | format }}</td>
+    </tr>
+    <tr *ngIf="ms.game.prestigeManager.maxMods.quantity.gt(0)">
+      <td>{{ ms.game.prestigeManager.maxMods.name }}</td>
+      <td class="monospace text-right">
+        {{ ms.game.prestigeManager.maxMods.realQuantity | format }}
+      </td>
       <td class="monospace">
-        = x1.50
+        x{{ ms.game.prestigeManager.prestigeMultiplier | format }}
+      </td>
+      <td class="monospace">
+        = x{{
+          ms.game.prestigeManager.maxMods.quantity.times(0.01).plus(1) | format
+        }}
       </td>
     </tr>
   </table>

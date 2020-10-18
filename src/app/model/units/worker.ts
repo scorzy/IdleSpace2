@@ -7,7 +7,8 @@ import {
   MOD_COMPONENTS,
   MOD_RECYCLING,
   MAX_RECYCLING,
-  COMPONENT_PRICE
+  COMPONENT_PRICE,
+  MAX_DRONES_PRESTIGE
 } from "../CONSTANTS";
 import { IUnitData } from "../data/iUnitData";
 import { Technology } from "../researches/technology";
@@ -108,6 +109,13 @@ export class Worker extends Unit {
     if (Game.getGame().prestigeManager.doubleModsCard.active) {
       this.maxMods = this.maxMods.times(1.5);
     }
+    this.maxMods = this.maxMods.times(
+      ONE.plus(
+        Game.getGame().prestigeManager.maxMods.quantity.times(
+          MAX_DRONES_PRESTIGE
+        )
+      )
+    );
     this.maxMods = this.maxMods.times(multi).floor();
   }
   confirmMods(auto = false) {
