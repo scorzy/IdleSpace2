@@ -31,6 +31,7 @@ export class ChallengeManager {
   noHabSpaceChallenge: Challenge;
   noPhysics: Challenge;
   expandingChallenge: Challenge;
+  noMultiplierChallenge: Challenge;
   //#endregion
   constructor() {
     this.challenges = [];
@@ -55,6 +56,7 @@ export class ChallengeManager {
     this.noHabSpaceChallenge = this.challenges.find((c) => c.id === "6");
     this.noPhysics = this.challenges.find((c) => c.id === "7");
     this.expandingChallenge = this.challenges.find((c) => c.id === "8");
+    this.noMultiplierChallenge = this.challenges.find((c) => c.id === "9");
 
     //  Drone challenge
     const droneChallengeBonus = new Bonus(

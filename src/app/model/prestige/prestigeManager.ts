@@ -715,6 +715,9 @@ export class PrestigeManager {
     );
   }
   loadNextMultiplier() {
+    if (Game.getGame().challengeManager.noMultiplierChallenge.isActive) {
+      //TODO:
+    }
     const maxEnemyLevel = Game.getGame().enemyManager.maxLevel;
     const completedChallenges = Game.getGame()
       .challengeManager.completed.times(CHALLENGE_XP_MULTI)

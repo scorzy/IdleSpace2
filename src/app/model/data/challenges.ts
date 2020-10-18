@@ -16,7 +16,8 @@ import {
   ROTATING_SKYHOOK_LEVEL,
   SKYHOOK_LEVEL,
   SUPER_TETHER_LEVEL,
-  INFRASTRUCTURE_AUTO_LEVEL
+  INFRASTRUCTURE_AUTO_LEVEL,
+  NO_MULTIPLIER_MULTI
 } from "../CONSTANTS";
 
 export interface IChallengeData {
@@ -161,5 +162,19 @@ export const CHALLENGES: IChallengeData[] = [
     unlockLevel: 600,
     startLevel: 100,
     experiencePerCompletions: CHALLENGE_REWARD_EXP * 3
+  },
+  {
+    id: "9",
+    name: "No Exp Multiplier",
+    description:
+      "Your Experience Multiplier will reset to one. Experience Multiplier doesn't increase on prestige.",
+    rewards: [
+      "Gain " +
+        NO_MULTIPLIER_MULTI * 100 +
+        " more experience x completion, stack additive (+10%, +20%, +30%...)"
+    ],
+    unlockLevel: 700,
+    startLevel: 100,
+    experiencePerCompletions: CHALLENGE_REWARD_EXP * 3.5
   }
 ];
