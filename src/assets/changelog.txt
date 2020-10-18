@@ -1,4 +1,5 @@
 -   Experience shop update
+-   "Kill Streak: Speed Card" affects acceleration
 
 11/10/2020
 -   Added queue length options for space stations and infrastructure automation

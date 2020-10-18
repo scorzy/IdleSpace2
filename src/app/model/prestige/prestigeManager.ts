@@ -654,13 +654,13 @@ export class PrestigeManager {
     const compBon = new Bonus(components, new Decimal(COMPONENTS_CARD));
     rm.components.battleGainMulti.bonuses.push(compBon);
 
-    sy.velocityBonusStack.bonuses.push(
-      new Bonus(
-        killStreakSpeed,
-        new Decimal(KILL_STREAK_SPEED_CARD),
-        killStreak
-      )
+    const killStreakBonus = new Bonus(
+      killStreakSpeed,
+      new Decimal(KILL_STREAK_SPEED_CARD),
+      killStreak
     );
+    sy.velocityBonusStack.bonuses.push(killStreakBonus);
+    sy.accelerationStack.bonuses.push(killStreakBonus);
 
     //#endregion
     //#region Warp
