@@ -2,6 +2,8 @@
 -   Experience shop update
 -   "Kill Streak: Speed Card" affects acceleration
 -   Price of first megastructure is 1e15
+-   New challenge "No Exp Multiplier"
+-   Fixed multiple "Production stopped" modals at the same time
 
 11/10/2020
 -   Added queue length options for space stations and infrastructure automation
