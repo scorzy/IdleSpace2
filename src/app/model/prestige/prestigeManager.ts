@@ -42,7 +42,8 @@ import {
   FAST_SEARCH,
   ENERGY_PRODUCTION_PRESTIGE,
   ENERGY_STORAGE_PRESTIGE,
-  MINING_PRESTIGE
+  MINING_PRESTIGE,
+  PRESTIGE_TECH_UNLOCK
 } from "../CONSTANTS";
 import { Game } from "../game";
 import {
@@ -79,6 +80,8 @@ export class PrestigeManager {
   lockedCars = false;
   minLevelToIncrease = 1;
   ipotetchicalMultiplier = ONE;
+  totalSpent = ZERO;
+  techPointsUnlocked = false;
   //#region Prestige
   modLevelPrestige: PrestigePoint;
   shipJobPrestige: PrestigePoint;
@@ -540,18 +543,18 @@ export class PrestigeManager {
         icon: tp.tec.icon,
         prestige: tp.prestiges
       });
-      const techMulti = new PrestigePoint();
-      techMulti.id = tp.tec.id + "-";
-      techMulti.name = "Faster " + tp.tec.name;
-      techMulti.description =
+      const techMulti2 = new PrestigePoint();
+      techMulti2.id = tp.tec.id + "-";
+      techMulti2.name = "Faster " + tp.tec.name;
+      techMulti2.description =
         tp.tec.name + " increases " + TECH_PRESTIGE_MULTI * 100 + "% faster";
-      techMulti.price = new Decimal(PRESTIGE_PRICE);
+      techMulti2.price = new Decimal(PRESTIGE_PRICE);
       tp.prestiges.forEach((pre) => {
-        pre.requiredPoint = techMulti;
+        pre.requiredPoint = techMulti2;
       });
-      tp.prestiges.unshift(techMulti);
+      tp.prestiges.unshift(techMulti2);
       tp.tec.technologyBonus.bonuses.push(
-        new Bonus(techMulti, new Decimal(TECH_PRESTIGE_MULTI))
+        new Bonus(techMulti2, new Decimal(TECH_PRESTIGE_MULTI))
       );
       tp.prestiges.forEach((point) => this.prestigePoints.push(point));
     });
@@ -758,6 +761,15 @@ export class PrestigeManager {
       }
     }
   }
+  reloadSpentPoints() {
+    this.totalSpent = ZERO;
+    for (let i = 0, n = this.prestigePoints.length; i < n; i++) {
+      this.totalSpent = this.totalSpent.plus(
+        this.prestigePoints[i].realQuantity
+      );
+    }
+    this.techPointsUnlocked = this.totalSpent.gte(PRESTIGE_TECH_UNLOCK);
+  }
 
   //#region Save and Load
   getSave() {
@@ -792,6 +804,7 @@ export class PrestigeManager {
     if ("a" in data) this.maxCards = data.a;
     if ("l" in data) this.lockedCars = data.l;
 
+    this.reloadSpentPoints();
     this.prestigePoints.forEach((point) => {
       point.checkLock();
     });

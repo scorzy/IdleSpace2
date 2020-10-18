@@ -30,8 +30,10 @@ export class PrestigePoint implements IBase {
     if (this.realQuantity.plus(quantity).gt(this.max)) return false;
     this.realQuantity = this.realQuantity.plus(quantity);
     pm.experience = pm.experience.minus(price);
-    if (this.dependantPoints)
+    if (this.dependantPoints) {
       this.dependantPoints.forEach((point) => point.checkLock());
+    }
+    Game.getGame().prestigeManager.reloadSpentPoints();
     return true;
   }
   get quantity(): Decimal {
@@ -41,10 +43,11 @@ export class PrestigePoint implements IBase {
   }
   checkLock(): boolean {
     if (!this.requiredPoint) this.unLocked = true;
-    else
+    else {
       this.unLocked = this.requiredPoint.realQuantity.gte(
         this.requiredQuantity
       );
+    }
     return this.unLocked;
   }
   //#region

@@ -502,7 +502,7 @@ export class Game {
       });
     }
 
-    //this.enemyManager.maxLevel = 900;
+    // this.enemyManager.maxLevel = 900;
 
     this.challengeManager.afterLoad();
     this.researchManager.researches.forEach((res) => res.reload());
@@ -512,7 +512,7 @@ export class Game {
     //  this.prestigeManager.maxCards = 80;
     //   this.prestigeManager.lockedCars = false;
     // this.darkMatter = new Decimal(1e20);
-    //this.prestigeManager.experience = new Decimal(1e4);
+    // this.prestigeManager.experience = new Decimal(1e6);
     // this.challengeManager.scienceChallenge.quantity = new Decimal(1);
   }
   //#endregion

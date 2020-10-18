@@ -20,32 +20,81 @@
       <i nz-icon [nzType]="tab.icon"></i>
       {{ tab.name }}
     </ng-template>
-    <app-shop [prestiges]="tab.prestige"></app-shop>
+    <ng-template nz-tab>
+      <app-shop [prestiges]="tab.prestige"></app-shop>
+    </ng-template>
   </nz-tab>
 
-  <nz-tab [nzTitle]="techListTitle">
-    <nz-tabset
-      nzTabPosition="left"
-      [nzTabBarExtraContent]="extraTemplate"
-      class="tec-list"
-    >
-      <nz-tab
-        *ngFor="let tab of ms.game.prestigeManager.techTabs; trackBy: getTabId"
-        [nzTitle]="techTitleTemplate"
+  <nz-tab
+    [nzTitle]="techListTitle"
+    *ngIf="ms.game.prestigeManager.techPointsUnlocked"
+  >
+    <ng-template nz-tab>
+      <nz-tabset
+        nzTabPosition="left"
+        [nzTabBarExtraContent]="extraTemplate"
+        class="tec-list"
       >
-        <ng-template #techTitleTemplate>
-          <i nz-icon [nzType]="tab.icon"></i>
-          {{ techExpanded ? tab.name : "" }}
-        </ng-template>
-        <app-shop [prestiges]="tab.prestige"></app-shop>
-      </nz-tab>
-    </nz-tabset>
+        <nz-tab
+          *ngFor="
+            let tab of ms.game.prestigeManager.techTabs;
+            trackBy: getTabId
+          "
+          [nzTitle]="techTitleTemplate"
+        >
+          <ng-template #techTitleTemplate>
+            <i nz-icon [nzType]="tab.icon"></i>
+            {{ techExpanded ? tab.name : "" }}
+          </ng-template>
+          <ng-template nz-tab>
+            <app-shop [prestiges]="tab.prestige"></app-shop>
+          </ng-template>
+        </nz-tab>
+      </nz-tabset>
+    </ng-template>
+  </nz-tab>
+
+  <nz-tab
+    *ngIf="!ms.game.prestigeManager.techPointsUnlocked"
+    [nzTitle]="lockedTech"
+  >
+    <ng-template nz-tab>
+      <h3>
+        Require
+        <span class="monospace">
+          {{ PRESTIGE_TECH_UNLOCK | format }}
+        </span>
+        experience points spent on other categories.
+      </h3>
+      <p>
+        You have spent
+        <span class="monospace">
+          {{ ms.game.prestigeManager.totalSpent | format }}.
+        </span>
+      </p>
+      <div class="spent-progress">
+        <app-progress
+          [progress]="
+            ms.game.prestigeManager.totalSpent
+              .div(PRESTIGE_TECH_UNLOCK)
+              .times(100)
+              .floor()
+              .min(100)
+              .toNumber()
+          "
+        ></app-progress>
+      </div>
+    </ng-template>
   </nz-tab>
 </nz-tabset>
 
 <ng-template #techListTitle>
   <i nz-icon nzType="fa-s:book"></i>
   Technologies
+</ng-template>
+<ng-template #lockedTech>
+  <i nz-icon nzType="lock" nzTheme="outline"></i>
+  Locked
 </ng-template>
 
 <ng-template #extraTemplate>

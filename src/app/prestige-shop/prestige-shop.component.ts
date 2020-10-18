@@ -6,6 +6,7 @@ import {
   AfterViewInit
 } from "@angular/core";
 import { BaseComponentComponent } from "../base-component/base-component.component";
+import { PRESTIGE_TECH_UNLOCK } from "../model/CONSTANTS";
 import { PrestigePoint } from "../model/prestige/prestigePoint";
 
 @Component({
@@ -19,6 +20,7 @@ export class PrestigeShopComponent
   implements OnInit, OnDestroy, AfterViewInit {
   buyOptions = [1, 10, 20, 100, 1e3];
   techExpanded = true;
+  PRESTIGE_TECH_UNLOCK = PRESTIGE_TECH_UNLOCK;
 
   ngOnInit() {
     this.reload();

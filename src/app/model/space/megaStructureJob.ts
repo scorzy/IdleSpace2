@@ -1,5 +1,4 @@
 import { Game } from "../game";
-import { MEGA_BUILD_SPEED_CARD } from "../CONSTANTS";
 import { CivilianJob } from "./civilianJob";
 import { MegaStructure } from "../units/megaStructure";
 import { BonusStack } from "../bonus/bonusStack";
