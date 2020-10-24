@@ -1,3 +1,8 @@
+24/10/2020
+-   New automation: Auto Warp (requires card)
+-   Decreased exp shop "computing regeneration" bonus from 10% to 2%
+-   Fixed save not loading in some cases
+
 18/10/2020
 -   Experience shop update
 -   "Kill Streak: Speed Card" affects acceleration
