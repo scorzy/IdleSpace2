@@ -76,6 +76,13 @@ export const PRESTIGE_CARDS: ICardData[] = [
     description: "Drones have 50% more mods",
     icon: "fa-s:microchip"
   },
+  {
+    id: "6",
+    name: "Extreme modding",
+    description:
+      "Grants the ability of increasing max mods at expense of component prices.",
+    icon: "fa-s:microchip"
+  },
   //#endregion
   //#region Science
   {

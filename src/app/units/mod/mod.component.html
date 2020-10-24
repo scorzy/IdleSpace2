@@ -17,16 +17,42 @@
           Used:
           <span
             class="monospace"
-            [class.text-danger]="unit.modStack.usedTemp.gt(unit.maxMods)"
+            [class.text-danger]="unit.modStack.usedTemp.gt(unit.maxModsTemp)"
             >{{ unit.modStack.usedTemp | format: true }}
           </span>
         </span>
         <span nz-popover [nzPopoverContent]="maxTemplate">
           Total:
-          <span class="monospace">{{ unit.maxMods | format: true }} </span>
+          <span class="monospace">{{ unit.maxModsTemp | format: true }} </span>
         </span>
       </span>
       <form nz-form [nzLayout]="isLarge ? 'horizontal' : 'vertical'">
+        <nz-form-item>
+          <nz-form-label [nzSpan]="isLarge ? 8 : null">
+            <span nz-tooltip nzTooltipTitle="Increases max mods and price"
+              >Extreme modding</span
+            >
+          </nz-form-label>
+          <nz-input-number
+            class="inputBox monospace"
+            nzSize="small"
+            name="extreme"
+            nzMin="0"
+            nzMax="100"
+            [(ngModel)]="unit.extremeModLevelUi"
+            (change)="onModChange(true)"
+          ></nz-input-number>
+          <span class="auto-qty text-success" *ngIf="unit.extremeBonus > 0">
+            +<span class="monospace">{{
+              unit.extremeBonus * 100 | format
+            }}</span
+            >% max mods
+          </span>
+          <span class="auto-qty text-danger" *ngIf="unit.extremeBonus > 0">
+            x<span class="monospace">{{ unit.extremeMauls | format }}</span>
+            unit price
+          </span>
+        </nz-form-item>
         <app-mod-line
           *ngFor="let mod of unit.modStack.mods; trackBy: getModId"
           [mod]="mod"
@@ -35,6 +61,7 @@
           [unit]="unit"
           [auto]="unit.autoMod.on"
           (modChange)="onModChange($event)"
+          [extreme]="unit.extremeModLevel"
         ></app-mod-line>
       </form>
 
@@ -68,7 +95,6 @@
               *ngIf="unit.autoMod.on"
               nz-button
               nzType="primary"
-              [disabled]="disabled"
               (click)="savePriorities()"
             >
               <span>Save Priorities</span>

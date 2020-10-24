@@ -20,7 +20,6 @@ export class Mod {
   getPriority(actual = true) {
     return actual ? this.priority : this.priorityUi;
   }
-
   constructor(iModData: IModData) {
     this.name = iModData.name;
     this.description = iModData.description;

@@ -38,6 +38,7 @@ export class ModLineComponent
   isLarge = true;
   realMin = ZERO;
   realMax = ZERO;
+  @Input() extreme = 0;
   constructor(
     ms: MainService,
     cd: ChangeDetectorRef,
@@ -47,6 +48,7 @@ export class ModLineComponent
   }
   ngOnInit() {
     super.ngOnInit();
+    this.reload();
     this.subscriptions.push(
       this.breakpointObserver
         .observe(["(min-width: 899px)"])
@@ -55,9 +57,17 @@ export class ModLineComponent
           this.cd.markForCheck();
         })
     );
+    this.subscriptions.push(
+      this.ms.updateEmitter.subscribe((ev) => {
+        if (this.unit.autoMod.on) this.valueChangeAuto();
+        this.reload(true);
+        this.cd.markForCheck();
+      })
+    );
   }
   ngOnChanges(changes: SimpleChanges): void {
     this.reload(true);
+    this.cd.markForCheck();
   }
   valueChange(): void {
     this.mod.uiQuantity = parseDecimal(this.mod.uiQuantityString);
@@ -71,11 +81,12 @@ export class ModLineComponent
   }
   reload(noEmit = false) {
     this.unit.reloadAll();
-    this.realMax = this.mod.max.min(this.unit.maxMods);
-    this.realMin = this.mod.min.max(this.unit.maxMods.times(-1));
+    this.realMax = this.mod.max.min(this.unit.maxModsTemp);
+    this.realMin = this.mod.min.max(this.unit.maxModsTemp.times(-1));
     const ok =
-      this.mod.uiQuantity.lte(this.realMax) &&
-      this.mod.uiQuantity.gte(this.realMin);
+      this.unit.autoMod.on ||
+      (this.mod.uiQuantity.lte(this.realMax) &&
+        this.mod.uiQuantity.gte(this.realMin));
 
     this.status = ok ? "" : "error";
     this.mod.uiOk = ok;
@@ -93,7 +104,7 @@ export class ModLineComponent
       .max(this.realMin)
       .min(this.realMax)
       .min(
-        this.unit.maxMods
+        this.unit.maxModsTemp
           .plus(this.mod.uiQuantity)
           .minus(this.unit.modStack.usedTemp)
       );
@@ -107,10 +118,10 @@ export class ModLineComponent
   max() {
     this.mod.uiQuantity = Decimal.min(
       this.mod.max,
-      this.unit.maxMods
+      this.unit.maxModsTemp
         .plus(this.mod.uiQuantity)
         .minus(this.unit.modStack.usedTemp)
-    ).min(this.unit.maxMods);
+    ).min(this.unit.maxModsTemp);
     this.mod.uiQuantityString = MainService.formatPipe.transform(
       this.mod.uiQuantity,
       true
@@ -119,7 +130,7 @@ export class ModLineComponent
     this.cd.markForCheck();
   }
   min() {
-    this.mod.uiQuantity = this.mod.min.max(this.unit.maxMods.times(-1));
+    this.mod.uiQuantity = this.mod.min.max(this.unit.maxModsTemp.times(-1));
     this.mod.uiQuantityString = MainService.formatPipe.transform(
       this.mod.uiQuantity,
       true
