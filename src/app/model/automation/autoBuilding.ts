@@ -49,7 +49,7 @@ export class AutoBuilding extends AbstractAutobuyer {
   load(save: any): boolean {
     if (super.load(save)) {
       this.autoBuyType = save.aut ?? BuildingAutoBuyTypes.AS_NEED;
-      if ("mb" in save) this.maxBuy = save.mb;
+      if ("mb" in save && typeof save.mb == "number") this.maxBuy = save.mb;
       return true;
     }
   }

@@ -10,9 +10,7 @@ import { AutoRefresh } from "./autoRefresh";
 import { AutoMod } from "./autoMod";
 import { AutoFull } from "./autoFull";
 import { AutoPrestige } from "./autoPrestige";
-import {
-  InfrastructureAutoBuyer
-} from "./infrastructureAutoBuyer";
+import { InfrastructureAutoBuyer } from "./infrastructureAutoBuyer";
 
 export class AutomationManager {
   on = true;
@@ -66,6 +64,7 @@ export class AutomationManager {
   }
   update() {
     if (!this.on) return false;
+    if (Game.getGame().firstUpdate) return false;
 
     const now = Date.now();
     for (let i = 0, n = this.orderedAutoBuyers.length; i < n; i++) {
