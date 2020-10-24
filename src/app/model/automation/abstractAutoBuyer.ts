@@ -3,7 +3,13 @@ export abstract class AbstractAutobuyer {
   name: string;
   description = "";
   last = Date.now();
-  on = false;
+  private _on = false;
+  public get on() {
+    return this._on;
+  }
+  public set on(value) {
+    this._on = value;
+  }
   /**
    * Priority higher execute first
    */

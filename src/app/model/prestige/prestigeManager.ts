@@ -115,6 +115,7 @@ export class PrestigeManager {
   challengeMultiplier: PrestigeCard;
   fleetCapCard: PrestigeCard;
   autoPrestigeCard: PrestigeCard;
+  autoWarp: PrestigeCard;
   //#endregion
   constructor() {
     this.generateExperience();
@@ -670,6 +671,7 @@ export class PrestigeManager {
     this.battleWarp = this.cards.find((card) => card.id === "p3");
     this.modWarp = this.cards.find((card) => card.id === "p4");
     this.spaceStationWarp = this.cards.find((card) => card.id === "p5");
+    this.autoWarp = this.cards.find((card) => card.id === "p6");
     //#endregion
     //#region Computing
     this.longerSpells = this.cards.find((card) => card.id === "s0");

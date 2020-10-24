@@ -54,4 +54,12 @@
   >
     <app-auto-prestige></app-auto-prestige>
   </nz-card>
+  <nz-card
+    nzTitle="Auto Warp"
+    nzSize="small"
+    *ngIf="ms.game.prestigeManager.autoWarp.active"
+    style="width: 450px"
+  >
+    <app-auto-warp></app-auto-warp>
+  </nz-card>
 </div>

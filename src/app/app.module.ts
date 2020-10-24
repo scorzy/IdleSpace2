@@ -125,6 +125,7 @@ import { StatsComponent } from './stats/stats.component';
 import { SpeedStatsComponent } from './stats/speed-stats/speed-stats.component';
 import { StackViewComponent } from './stats/stack-view/stack-view.component';
 import { ShopComponent } from './prestige-shop/shop/shop.component';
+import { AutoWarpComponent } from './auto-buy/auto-warp/auto-warp.component';
 
 registerLocaleData(en);
 
@@ -214,7 +215,8 @@ const ngZorroConfig: NzConfig = {
     StatsComponent,
     SpeedStatsComponent,
     StackViewComponent,
-    ShopComponent
+    ShopComponent,
+    AutoWarpComponent
   ],
   imports: [
     BrowserModule,

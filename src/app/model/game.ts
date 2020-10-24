@@ -425,10 +425,11 @@ export class Game {
    * Warp with Dark Matter
    * @param time warp in seconds
    */
-  warp(time: number) {
+  warp(time: number): boolean {
     if (this.darkMatter.lt(time)) return false;
     this.darkMatter = this.darkMatter.minus(time);
     this.timeToWarp = this.timeToWarp + time;
+    return true;
   }
   //#region Save and Load
   getSave(): any {
@@ -509,8 +510,8 @@ export class Game {
     this.postUpdate(0);
 
     // this.challengeManager.expandingChallenge.quantity = new Decimal(10);
-    //  this.prestigeManager.maxCards = 80;
-    //   this.prestigeManager.lockedCars = false;
+    // this.prestigeManager.maxCards = 80;
+    // this.prestigeManager.lockedCars = false;
     // this.darkMatter = new Decimal(1e20);
     // this.prestigeManager.experience = new Decimal(1e6);
     // this.challengeManager.scienceChallenge.quantity = new Decimal(1);

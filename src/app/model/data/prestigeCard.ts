@@ -216,6 +216,13 @@ export const PRESTIGE_CARDS: ICardData[] = [
     description: "Warp (1 + level/2) seconds when completing a space station.",
     icon: "field-time"
   },
+  {
+    id: "p6",
+    name: "Auto Warp",
+    description:
+      "Unlock automation to warp fleet jobs and searching jobs with Dark Matter.",
+    icon: "field-time"
+  },
   //#endregion
   //#region Spells
   {

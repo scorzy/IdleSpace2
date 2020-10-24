@@ -1,0 +1,48 @@
+<form nz-form nzLayout="inline">
+  <nz-form-item>
+    <nz-form-label
+      nz-popover
+      nzPopoverTitle="Auto Warp"
+      [nzPopoverContent]="autoInfoTemplate"
+    >
+      Fleet
+    </nz-form-label>
+    <nz-switch
+      nzCompact
+      name="auto-warp-fleet"
+      [(ngModel)]="ms.game.automationManager.autoWarp.skipFleetJob"
+      nzSize="small"
+    >
+    </nz-switch>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label
+      nz-popover
+      nzPopoverTitle="Auto Warp"
+      [nzPopoverContent]="autoInfoTemplate"
+    >
+      Search
+    </nz-form-label>
+    <nz-switch
+      nzCompact
+      name="auto-warp-search"
+      [(ngModel)]="ms.game.automationManager.autoWarp.skipSearchJob"
+      nzSize="small"
+    >
+    </nz-switch>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label> Max Skip (minutes)</nz-form-label>
+    <nz-input-number
+      nzSize="small"
+      name="max-warp"
+      nzMin="0"
+      [(ngModel)]="ms.game.automationManager.autoWarp.maxWarp"
+    ></nz-input-number>
+  </nz-form-item>
+</form>
+
+<ng-template #autoInfoTemplate>
+  <p>Warp with Dark Matter in order to complete Ships jobs and Search jobs.</p>
+</ng-template>
