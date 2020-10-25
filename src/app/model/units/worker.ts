@@ -341,11 +341,14 @@ export class Worker extends Unit {
     if ("t" in save) {
       this.modStack.load(save.t);
     }
-    if ("p1" in save && typeof save.p1 == "number")
+    if ("p1" in save && typeof save.p1 === "number") {
       this.assemblyPriority = save.p1;
-    if ("p2" in save && typeof save.p2 == "number")
+    }
+    if ("p2" in save && typeof save.p2 === "number") {
       this.assemblyPriorityEnding = save.p2;
-    if ("ex" in save && typeof save.ex == "number")
-      this.extremeModLevel = save.p2;
+    }
+    if ("ex" in save && typeof save.ex === "number") {
+      this.extremeModLevel = save.ex;
+    }
   }
 }

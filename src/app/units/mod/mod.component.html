@@ -27,7 +27,7 @@
         </span>
       </span>
       <form nz-form [nzLayout]="isLarge ? 'horizontal' : 'vertical'">
-        <nz-form-item>
+        <nz-form-item *ngIf="ms.game.prestigeManager.extremeModsCard.active">
           <nz-form-label [nzSpan]="isLarge ? 8 : null">
             <span nz-tooltip nzTooltipTitle="Increases max mods and price"
               >Extreme modding</span
@@ -67,8 +67,12 @@
 
       <div fxLayout="row wrap" fxLayoutGap="1rem">
         <nz-radio-group [(ngModel)]="unit.autoMod.on" nzButtonStyle="solid">
-          <label nz-radio-button [nzValue]="false">Manual</label>
-          <label nz-radio-button [nzValue]="true"> Auto </label>
+          <label nz-radio-button [nzValue]="false"
+            ><i nz-icon nzType="fa-r:hand-point-up"></i> Manual</label
+          >
+          <label nz-radio-button [nzValue]="true"
+            ><i nz-icon nzType="sync" nzTheme="outline"></i> Auto
+          </label>
         </nz-radio-group>
 
         <div fxLayoutGap="1rem">
