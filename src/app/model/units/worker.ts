@@ -8,7 +8,9 @@ import {
   MOD_RECYCLING,
   MAX_RECYCLING,
   COMPONENT_PRICE,
-  MAX_DRONES_PRESTIGE
+  MAX_DRONES_PRESTIGE,
+  EXTREME_MOD_TOTAL_MULTI,
+  EXTREME_MOD_TOTAL_EXP
 } from "../CONSTANTS";
 import { IUnitData } from "../data/iUnitData";
 import { Technology } from "../researches/technology";
@@ -21,6 +23,7 @@ const ASSEMBLY_PRIORITY_ENDING = 500;
 export class Worker extends Unit {
   modStack: ModStack;
   maxMods: Decimal = ZERO;
+  maxModsTemp: Decimal = ZERO;
   unusedMods: Decimal = ZERO;
   maxTechMods: { technology: Technology; multi: number }[];
   recycle = ZERO;
@@ -38,6 +41,10 @@ export class Worker extends Unit {
   components = COMPONENT_PRICE;
   componentsTemp = COMPONENT_PRICE;
   componentPercent = 0;
+  extremeModLevel = 0;
+  extremeModLevelUi = 0;
+  extremeBonus = 0;
+  extremeMauls = ZERO;
   constructor(public unitData: IUnitData) {
     super(unitData);
     if ("componentsPrice" in unitData) {
@@ -75,6 +82,21 @@ export class Worker extends Unit {
       this.recycleTemp.times(recyclingMulti),
       this.componentsTemp.times(MAX_RECYCLING)
     );
+
+    if (Game.getGame().prestigeManager.extremeModsCard.active) {
+      this.extremeMauls = Decimal.pow(
+        EXTREME_MOD_TOTAL_EXP,
+        this.extremeModLevelUi
+      );
+      const extremeMultiComp = Decimal.pow(
+        EXTREME_MOD_TOTAL_EXP,
+        this.extremeModLevel
+      );
+      this.components = this.components.times(extremeMultiComp);
+      this.componentsTemp = this.componentsTemp.times(this.extremeMauls);
+    } else {
+      this.extremeMauls = ZERO;
+    }
   }
   makeMods() {
     this.modStack = new ModStack(this.id !== "e");
@@ -116,7 +138,22 @@ export class Worker extends Unit {
         )
       )
     );
+    this.maxModsTemp = new Decimal(this.maxMods);
+
+    if (Game.getGame().prestigeManager.extremeModsCard.active) {
+      this.extremeBonus = this.extremeModLevelUi * EXTREME_MOD_TOTAL_MULTI;
+      this.maxMods = this.maxMods.times(
+        1 + this.extremeModLevel * EXTREME_MOD_TOTAL_MULTI
+      );
+      this.maxModsTemp = this.maxModsTemp.times(
+        1 + this.extremeModLevelUi * EXTREME_MOD_TOTAL_MULTI
+      );
+    } else {
+      this.extremeBonus = 0;
+    }
+
     this.maxMods = this.maxMods.times(multi).floor();
+    this.maxModsTemp = this.maxModsTemp.times(multi).floor();
   }
   confirmMods(auto = false) {
     let recycle = this.recycle.plus(Game.getGame().baseRecycling);
@@ -187,20 +224,23 @@ export class Worker extends Unit {
     for (let i = 0; i < 7; i++) {
       let priSumPos = 0;
       let priSumNeg = 0;
-      let positiveMods = this.maxMods;
+      let positiveMods = this.maxModsTemp;
 
       //  Reload priorities
       for (const mod of this.modStack.mods) {
         positiveMods = positiveMods.minus(mod.uiQuantity);
         if (mod.getPriority(actual) === 0) continue;
         if (mod.getPriority(actual) > 0) {
-          if (mod.uiQuantity.lt(mod.max) && mod.uiQuantity.lt(this.maxMods)) {
+          if (
+            mod.uiQuantity.lt(mod.max) &&
+            mod.uiQuantity.lt(this.maxModsTemp)
+          ) {
             priSumPos += mod.getPriority(actual);
           }
         } else {
           if (
             mod.uiQuantity.gt(mod.min) &&
-            mod.uiQuantity.gt(this.maxMods.times(-1))
+            mod.uiQuantity.gt(this.maxModsTemp.times(-1))
           ) {
             priSumNeg += mod.getPriority(actual);
           }
@@ -212,15 +252,15 @@ export class Worker extends Unit {
           if (mod.getPriority(actual) >= 0) continue;
           if (
             mod.uiQuantity.lte(mod.min) ||
-            mod.uiQuantity.lte(this.maxMods.times(-1))
+            mod.uiQuantity.lte(this.maxModsTemp.times(-1))
           ) {
             continue;
           }
 
-          const modPerPriority = this.maxMods.div(priSumPos);
+          const modPerPriority = this.maxModsTemp.div(priSumPos);
           let toAdd = modPerPriority.times(mod.getPriority(actual));
           toAdd = toAdd.max(mod.min.minus(mod.uiQuantity));
-          toAdd = toAdd.max(this.maxMods.times(-1).minus(mod.uiQuantity));
+          toAdd = toAdd.max(this.maxModsTemp.times(-1).minus(mod.uiQuantity));
           toAdd = toAdd.floor();
           if (toAdd.gte(0)) toAdd = ZERO;
           if (toAdd.lt(0)) {
@@ -233,14 +273,17 @@ export class Worker extends Unit {
       if (priSumPos > 0) {
         for (const mod of this.modStack.mods) {
           if (mod.getPriority(actual) <= 0) continue;
-          if (mod.uiQuantity.gte(mod.max) || mod.uiQuantity.gte(this.maxMods)) {
+          if (
+            mod.uiQuantity.gte(mod.max) ||
+            mod.uiQuantity.gte(this.maxModsTemp)
+          ) {
             continue;
           }
 
           const modPerPriority = positiveMods.div(priSumPos);
           let toAdd = modPerPriority.times(mod.getPriority(actual));
           toAdd = toAdd.min(mod.max.minus(mod.uiQuantity));
-          toAdd = toAdd.min(this.maxMods.minus(mod.uiQuantity));
+          toAdd = toAdd.min(this.maxModsTemp.minus(mod.uiQuantity));
           toAdd = toAdd.floor();
           if (toAdd.lte(0)) toAdd = ZERO;
           if (toAdd.gt(0)) {
@@ -253,17 +296,17 @@ export class Worker extends Unit {
     for (const mod of this.modStack.mods) {
       used = mod.uiQuantity.plus(used);
     }
-    let toUse = this.maxMods.minus(used);
+    let toUse = this.maxModsTemp.minus(used);
     for (let i = 0; i < 7; i++) {
       const sortedMods = this.modStack.mods
         .filter(
-          (m) => m.getPriority(actual) > 0 && m.uiQuantity.lt(this.maxMods)
+          (m) => m.getPriority(actual) > 0 && m.uiQuantity.lt(this.maxModsTemp)
         )
         .sort((a, b) => a.getPriority(actual) - b.getPriority(actual));
       sortedMods.forEach((m) => {
         if (
           toUse.gt(0) &&
-          m.uiQuantity.lte(this.maxMods) &&
+          m.uiQuantity.lte(this.maxModsTemp) &&
           m.uiQuantity.lte(m.max)
         ) {
           m.uiQuantity = m.uiQuantity.plus(1);
@@ -290,6 +333,7 @@ export class Worker extends Unit {
     if (ASSEMBLY_PRIORITY_ENDING !== this.assemblyPriorityEnding) {
       ret.p2 = this.assemblyPriorityEnding;
     }
+    ret.ex = this.extremeModLevel;
     return ret;
   }
   load(save: any) {
@@ -297,7 +341,14 @@ export class Worker extends Unit {
     if ("t" in save) {
       this.modStack.load(save.t);
     }
-    if ("p1" in save) this.assemblyPriority = save.p1;
-    if ("p2" in save) this.assemblyPriorityEnding = save.p2;
+    if ("p1" in save && typeof save.p1 === "number") {
+      this.assemblyPriority = save.p1;
+    }
+    if ("p2" in save && typeof save.p2 === "number") {
+      this.assemblyPriorityEnding = save.p2;
+    }
+    if ("ex" in save && typeof save.ex === "number") {
+      this.extremeModLevel = save.ex;
+    }
   }
 }

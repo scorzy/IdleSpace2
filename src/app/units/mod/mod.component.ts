@@ -147,12 +147,13 @@ export class ModComponent
       this.disabled = true;
     } else {
       this.disabled =
-        this.unit.modStack.usedTemp.gt(this.unit.maxMods) ||
-        this.unit.modStack.mods.findIndex((m) => !m.uiOk) > -1;
+        this.unit.modStack.usedTemp.gt(this.unit.maxModsTemp) ||
+        this.unit.modStack.mods.some((m) => !m.uiOk);
     }
   }
   confirm() {
     if (this.disabled) return false;
+    this.unit.extremeModLevel = this.unit.extremeModLevelUi;
     this.unit.confirmMods();
 
     this.router.navigate(
@@ -160,6 +161,7 @@ export class ModComponent
     );
   }
   savePriorities() {
+    this.unit.extremeModLevel = this.unit.extremeModLevelUi;
     this.unit.modStack.mods.forEach((mod) => {
       mod.priority = mod.priorityUi;
     });

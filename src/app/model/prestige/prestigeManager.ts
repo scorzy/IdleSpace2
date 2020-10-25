@@ -116,6 +116,7 @@ export class PrestigeManager {
   fleetCapCard: PrestigeCard;
   autoPrestigeCard: PrestigeCard;
   autoWarp: PrestigeCard;
+  extremeModsCard: PrestigeCard;
   //#endregion
   constructor() {
     this.generateExperience();
@@ -582,6 +583,7 @@ export class PrestigeManager {
     const recycling = this.cards.find((card) => card.id === "3");
     const peaceCard = this.cards.find((card) => card.id === "4");
     this.doubleModsCard = this.cards.find((card) => card.id === "5");
+    this.extremeModsCard = this.cards.find((card) => card.id === "6");
     Game.getGame().recyclingMulti.bonuses.push(
       new Bonus(recycling, new Decimal(RECYCLING_CARD))
     );
