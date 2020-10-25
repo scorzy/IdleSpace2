@@ -61,7 +61,7 @@ export class AutoFleetUpdate extends AbstractAutobuyer {
   }
   load(save: any): boolean {
     if (super.load(save)) {
-      if ("ma" in save) this.maxLevel = save.ma;
+      if ("ma" in save && typeof save.ma === "number") this.maxLevel = save.ma;
       return true;
     }
   }

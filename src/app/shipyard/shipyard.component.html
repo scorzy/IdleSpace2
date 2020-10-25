@@ -199,7 +199,16 @@
     fxFlex.lg="0 1 calc(35% - 10px)"
     fxFlex.xl="0 1 calc(30% - 10px)"
   >
-    <h2>Jobs</h2>
+    <!-- <h2>Jobs</h2> -->
+    <div class="sort-form">
+      <button nz-button (click)="ms.game.shipyardManager.sortJobs()">
+        <i nz-icon nzType="sort-ascending" nzTheme="outline"></i> Sort
+      </button>
+      <label nz-checkbox [(ngModel)]="ms.game.shipyardManager.sort"
+        >Auto Sort</label
+      >
+    </div>
+
     <div
       cdkDropList
       [cdkDropListData]="ms.game.shipyardManager.toDo"

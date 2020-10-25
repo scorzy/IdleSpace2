@@ -233,6 +233,8 @@ export class MainService {
     if (save !== "") {
       const data = JSON.parse(save);
       this.last = data.t;
+      const now = Date.now();
+      if (this.last > now) this.last = now;
       this.game.load(data.g);
       if ("o" in data) {
         this.options.load(data.o);

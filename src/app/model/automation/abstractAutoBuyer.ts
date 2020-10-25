@@ -51,6 +51,9 @@ export abstract class AbstractAutobuyer {
     if ("p" in save && typeof save.p === "number") this.priority = save.p;
     if ("o" in save && typeof save.o === "boolean") this.on = save.o;
     if ("n" in save && typeof save.n === "number") this.interval = save.n;
+
+    const now = Date.now();
+    if (this.last > now) this.last = now;
     return true;
   }
   //#endregion

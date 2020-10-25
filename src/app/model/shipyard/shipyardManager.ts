@@ -56,6 +56,7 @@ export class ShipyardManager extends JobManager {
   accelerationStack = new BonusStack();
   autoReinforce = false;
   shipsProductionBonuses = new Array<Bonus>();
+  sort = false;
   constructor() {
     super();
     this.fleetNavCapPriority.fill(0);
@@ -268,6 +269,7 @@ export class ShipyardManager extends JobManager {
       }
       upJob.reload();
       upJob.reloadTotalBonus();
+      if (this.sort) this.sortJobs();
     }
     oldDesign.old = null;
     const index = this.shipDesigns.indexOf(oldDesign);
@@ -617,6 +619,11 @@ export class ShipyardManager extends JobManager {
       des.reloadRecursive();
     });
   }
+  sortJobs() {
+    this.toDo = this.toDo.sort((a, b) =>
+      a.getRemaining().cmp(b.getRemaining())
+    );
+  }
   //#region Save and Load
   getSave(): any {
     return {
@@ -624,10 +631,12 @@ export class ShipyardManager extends JobManager {
       t: this.toDo.map((j) => j.getSave()),
       n: this.fleetNavCapPriority,
       r: this.autoReinforce,
-      u: this.modules.filter((m) => m.unlocked).map((m) => m.id)
+      u: this.modules.filter((m) => m.unlocked).map((m) => m.id),
+      s: this.sort
     };
   }
   load(data: any) {
+    if ("s" in data && typeof data.s === "boolean") this.sort = data.s;
     if ("u" in data) {
       for (const modId of data.u) {
         const module = this.modules.find((m) => m.id === modId);
