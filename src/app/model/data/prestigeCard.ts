@@ -194,6 +194,14 @@ export const PRESTIGE_CARDS: ICardData[] = [
       PRICE_GROW_RATE_2,
     icon: "my:upgrade"
   },
+  {
+    id: "w10",
+    name: "Kill Streak: auto win",
+    description:
+      "Every third kill streak the next cell is defeated automatically",
+    icon: "my:strafe",
+    cardRequired: 2
+  },
   //#endregion
   //#region Warp
   {

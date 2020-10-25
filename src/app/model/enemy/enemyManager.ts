@@ -253,7 +253,9 @@ export class EnemyManager extends JobManager {
       //#endregion
       // Battle
       MainService.battleWorkers[fleetNum].postMessage(battleRequest);
+      return true;
     }
+    return false;
   }
   onBattleEnd(battleResult: BattleResult, fleetNum: number) {
     this.rewardString = "";
@@ -264,18 +266,25 @@ export class EnemyManager extends JobManager {
     }
     let done = true;
     if (this.currentEnemy) {
-      const oneShotChallenge = Game.getGame().challengeManager.oneShotChallenge
-        .isActive;
-      for (let i = 0, n = this.currentEnemy.designs.length; i < n; i++) {
-        const designId = this.currentEnemy.designs[i].id;
-        const lostD = battleResult.enemyLost.find((en) => en.id === designId);
-        if (lostD) {
-          const newNum = Math.floor(Math.max(cell.ships[i] - lostD.lost, 0));
-          if (newNum < 1 || !oneShotChallenge) cell.ships[i] = newNum;
+      if (battleResult) {
+        const oneShotChallenge = Game.getGame().challengeManager
+          .oneShotChallenge.isActive;
+        for (let i = 0, n = this.currentEnemy.designs.length; i < n; i++) {
+          const designId = this.currentEnemy.designs[i].id;
+          const lostD = battleResult.enemyLost.find((en) => en.id === designId);
+          if (lostD) {
+            const newNum = Math.floor(Math.max(cell.ships[i] - lostD.lost, 0));
+            if (newNum < 1 || !oneShotChallenge) cell.ships[i] = newNum;
+          }
+          if (cell.ships[i] > 0) {
+            done = false;
+          }
         }
-        if (cell.ships[i] > 0) {
-          done = false;
+      } else {
+        for (let k = 0, n2 = cell.ships.length; k < n2; k++) {
+          cell.ships[k] = 0;
         }
+        done = true;
       }
     }
     cell.done = done;
@@ -285,7 +294,7 @@ export class EnemyManager extends JobManager {
         this.lostRow = 0;
         this.killStreak++;
         this.reward(cell, fleetNum);
-        battleResult.won = true;
+        if (battleResult) battleResult.won = true;
         //#region Research Inspiration
         //  Ship types unlock
         const rm = Game.getGame().researchManager;
@@ -336,6 +345,22 @@ export class EnemyManager extends JobManager {
       this.currentEnemy?.reloadCell(this.currentEnemy.cells.indexOf(cell));
     }
     this.fleetsInBattle[fleetNum] = null;
+
+    if (
+      cell.done &&
+      this.killStreak > 0 &&
+      this.killStreak % 3 === 0 &&
+      Game.getGame().prestigeManager.killStreakWinCard.active
+    ) {
+      const toAttack = this.currentEnemy.cells.find(
+        (c) => !c.inBattle && !c.done
+      );
+      if (toAttack) {
+        toAttack.inBattle = true;
+        this.fleetsInBattle[fleetNum] = toAttack;
+        this.onBattleEnd(null, fleetNum);
+      }
+    }
   }
   surrender() {
     this.currentEnemy = null;
