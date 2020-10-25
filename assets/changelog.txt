@@ -1,7 +1,9 @@
 25/10/2020
 -   "Extreme modding" card
 -   Civilian Work auto sort 
+-   Fleet auto sort
 -   Fixed save problems
+-   Fixed problems with automation (time change)
 
 24/10/2020
 -   New automation: Auto Warp (requires card)
