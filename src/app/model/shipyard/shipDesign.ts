@@ -9,7 +9,9 @@ import {
   MIN_THREAT,
   UTILITY_MOD_DECREASE,
   SIZE_MULTI,
-  PRICE_GROW_RATE
+  PRICE_GROW_RATE,
+  ONE,
+  PRICE_GROW_RATE_2
 } from "../CONSTANTS";
 import { Game } from "../game";
 import { ShipType } from "./ShipType";
@@ -141,9 +143,14 @@ export class ShipDesign {
       // const priceMulti = Decimal.pow(1 + m.level / 5, PRICE_GROW_RATE).times(
       //   statsMulti
       // );
-      const priceMulti = Decimal.pow(PRICE_GROW_RATE, m.level).times(
-        statsMulti
-      );
+      let priceMulti = ONE;
+
+      priceMulti = Decimal.pow(
+        enemy || !Game.getGame().prestigeManager.lowerModulePrice.active
+          ? PRICE_GROW_RATE
+          : PRICE_GROW_RATE_2,
+        m.level
+      ).times(statsMulti);
 
       this.totalArmour += m.module.armour * statsMulti;
       this.totalShield += m.module.shield * statsMulti;

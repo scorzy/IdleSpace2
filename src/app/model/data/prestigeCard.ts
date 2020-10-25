@@ -27,7 +27,9 @@ import {
   MEGA_BUILD_SPEED_CARD,
   CHALLENGE_XP_MULTI,
   FLEET_CAPACITY_CARD,
-  FLEET_CAPACITY
+  FLEET_CAPACITY,
+  PRICE_GROW_RATE,
+  PRICE_GROW_RATE_2
 } from "../CONSTANTS";
 
 export interface ICardData extends ISimpleBase {
@@ -181,6 +183,16 @@ export const PRESTIGE_CARDS: ICardData[] = [
       " from " +
       FLEET_CAPACITY,
     icon: "my:strafe"
+  },
+  {
+    id: "w9",
+    name: "Better prices scaling",
+    description:
+      "Lower the exponential multiplier for modules prices from " +
+      PRICE_GROW_RATE +
+      " to " +
+      PRICE_GROW_RATE_2,
+    icon: "my:upgrade"
   },
   //#endregion
   //#region Warp

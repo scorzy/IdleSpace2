@@ -117,6 +117,7 @@ export class PrestigeManager {
   autoPrestigeCard: PrestigeCard;
   autoWarp: PrestigeCard;
   extremeModsCard: PrestigeCard;
+  lowerModulePrice: PrestigeCard;
   //#endregion
   constructor() {
     this.generateExperience();
@@ -635,6 +636,7 @@ export class PrestigeManager {
     const killStreakSpeed = this.cards.find((card) => card.id === "w6");
     this.killStreakGain = this.cards.find((card) => card.id === "w7");
     this.fleetCapCard = this.cards.find((card) => card.id === "w8");
+    this.lowerModulePrice = this.cards.find((card) => card.id === "w9");
 
     const killStreak: IBase = {
       id: "kiS",

@@ -1,5 +1,6 @@
 25/10/2020
 -   "Extreme modding" card
+-   "Better prices scaling" card
 -   Civilian Work auto sort 
 -   Fleet auto sort
 -   Fixed save problems
