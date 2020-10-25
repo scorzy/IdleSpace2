@@ -22,8 +22,11 @@ export class SpaceStationManager extends JobManager {
   megaBuilt = ZERO;
   commonBonuses: Bonus[];
   megaBonuses: Bonus[];
+  sort = false;
+  megastructureQueue: MegaStructure[];
   constructor() {
     super();
+    this.megastructureQueue = new Array<MegaStructure>();
     this.megaInitialPrice = Decimal.pow(
       SPACE_STATION_GROW,
       Game.getGame().resourceManager.spaceStations.length - 1
@@ -57,6 +60,7 @@ export class SpaceStationManager extends JobManager {
     unit.reloadBuildPrice();
     job.reloadTotalBonus();
     job.reload();
+    this.sortJobs();
   }
   prestige() {
     this.toDo = [];
@@ -65,21 +69,42 @@ export class SpaceStationManager extends JobManager {
     this.nextMegaPrice = ONE;
     this.megaBuilt = ZERO;
   }
+  sortJobs() {
+    this.toDo = this.toDo.sort((a, b) =>
+      a.getRemaining().cmp(b.getRemaining())
+    );
+  }
   //#region Save and Load
   getSave() {
-    return {
-      t: this.toDo.map((s) => s.getSave())
+    const ret: any = {
+      t: this.toDo.map((s) => s.getSave()),
+      S: this.sort
     };
+    if (this.megastructureQueue && this.megastructureQueue.length > 0) {
+      ret.mq = this.megastructureQueue.map((m) => m.id);
+    }
+    return ret;
   }
   load(data: any) {
     if (!("t" in data)) {
       return false;
     }
+    if ("S" in data && typeof data.S === "boolean") this.sort = data.S;
+
     const rs = Game.getGame().resourceManager;
     this.megaBuilt = rs.megastructures.reduce(
       (prev, next) => prev.plus(next.quantity),
       ZERO
     );
+    this.megastructureQueue = new Array<MegaStructure>();
+    if ("mq" in data) {
+      for (const mId of data.mq) {
+        const megastructure = rs.megastructures.find((s) => s.id === mId);
+        if (megastructure) {
+          this.megastructureQueue.push(megastructure);
+        }
+      }
+    }
     data.t.forEach((jobData) => {
       const unit =
         rs.spaceStations.find((s) => s.id === jobData.i) ||

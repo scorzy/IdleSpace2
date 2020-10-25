@@ -47,10 +47,10 @@ export abstract class AbstractAutobuyer {
     // tslint:disable-next-line:triple-equals
     if (!("i" in save || save.i != this.id)) return false;
 
-    if ("l" in save) this.last = save.l;
-    if ("p" in save) this.priority = save.p;
-    if ("o" in save) this.on = save.o;
-    if ("n" in save) this.interval = save.n;
+    if ("l" in save && typeof save.l === "number") this.last = save.l;
+    if ("p" in save && typeof save.p === "number") this.priority = save.p;
+    if ("o" in save && typeof save.o === "boolean") this.on = save.o;
+    if ("n" in save && typeof save.n === "number") this.interval = save.n;
     return true;
   }
   //#endregion

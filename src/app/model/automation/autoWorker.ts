@@ -4,10 +4,12 @@ import { Game } from "../game";
 import { ZERO } from "../CONSTANTS";
 
 const RESOURCE_GAP = 1;
+const DEFAULT_MAX_FACTORY = 100;
+const DEFAULT_MAX_BUY = 1;
 
 export class AutoWorker extends AbstractAutobuyer {
-  maxWhenFactory = 100;
-  maxBuy = 1;
+  maxWhenFactory = DEFAULT_MAX_FACTORY;
+  maxBuy = DEFAULT_MAX_BUY;
   constructor(public worker: Worker) {
     super();
     this.id = "_" + worker.id;
@@ -57,14 +59,18 @@ export class AutoWorker extends AbstractAutobuyer {
   //#region Save and Load
   getSave(): any {
     const ret = super.getSave();
-    ret.mf = this.maxWhenFactory;
-    ret.ma = this.maxBuy;
+    if (this.maxWhenFactory !== DEFAULT_MAX_FACTORY) {
+      ret.mf = this.maxWhenFactory;
+    }
+    if (this.maxWhenFactory !== DEFAULT_MAX_BUY) ret.ma = this.maxBuy;
     return ret;
   }
   load(save: any): boolean {
     if (super.load(save)) {
-      if ("mf" in save) this.maxWhenFactory = save.mf;
-      if ("ma" in save) this.maxBuy = save.ma;
+      if ("mf" in save && typeof save.mf === "number") {
+        this.maxWhenFactory = save.mf;
+      }
+      if ("ma" in save && typeof save.ma === "number") this.maxBuy = save.ma;
       return true;
     }
   }

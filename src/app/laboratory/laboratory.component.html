@@ -105,16 +105,12 @@
     </div>
 
     <div>
-      <nz-switch nzSize="small" [(ngModel)]="ms.game.researchManager.sort">
-      </nz-switch>
-      <label class="my-label"> Auto Sort</label>
-
-      <nz-switch
-        nzSize="small"
-        [(ngModel)]="ms.game.researchManager.newJobsOnBacklog"
+      <label nz-checkbox [(ngModel)]="ms.game.researchManager.sort"
+        >Auto Sort</label
       >
-      </nz-switch>
-      <label>New on BackLog</label>
+      <label nz-checkbox [(ngModel)]="ms.game.researchManager.newJobsOnBacklog"
+        >New on BackLog</label
+      >
     </div>
 
     <button nz-button nz-type="default" id="sort-btn" (click)="sort()">
