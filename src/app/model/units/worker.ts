@@ -321,6 +321,7 @@ export class Worker extends Unit {
       mod.quantity = ZERO;
     });
     this.modStack.reload();
+    this.reloadAll();
   }
   getSave(): any {
     const ret = super.getSave();
