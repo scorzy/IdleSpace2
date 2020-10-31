@@ -43,7 +43,9 @@ import {
   ENERGY_PRODUCTION_PRESTIGE,
   ENERGY_STORAGE_PRESTIGE,
   MINING_PRESTIGE,
-  PRESTIGE_TECH_UNLOCK
+  PRESTIGE_TECH_UNLOCK,
+  MORE_STORAGE_PRESTIGE,
+  MORE_STORAGE_CARD
 } from "../CONSTANTS";
 import { Game } from "../game";
 import {
@@ -86,6 +88,7 @@ export class PrestigeManager {
   modLevelPrestige: PrestigePoint;
   shipJobPrestige: PrestigePoint;
   maxMods: PrestigePoint;
+  moreStorage: PrestigePoint;
   //#endregion
   //#region Special cards
   victoryWarp: PrestigeCard;
@@ -312,6 +315,29 @@ export class PrestigeManager {
         new Bonus(moreSpaceStationSpace, new Decimal(MORE_UP_PRESTIGE))
       );
     });
+
+    this.moreStorage = new PrestigePoint();
+    this.moreStorage.id = "m3";
+    this.moreStorage.name = "More Storage";
+    this.moreStorage.description =
+      "+" +
+      MORE_STORAGE_PRESTIGE * 100 +
+      "% more energy, components and nuke storage.";
+    this.prestigePoints.push(this.moreStorage);
+    miscList.push(this.moreStorage);
+    const moreStorageBonus = new Bonus(
+      this.moreStorage,
+      new Decimal(MORE_STORAGE_PRESTIGE)
+    );
+    Game.getGame().resourceManager.energy.limitStackMulti.bonuses.push(
+      moreStorageBonus
+    );
+    Game.getGame().resourceManager.components.limitStackMulti.bonuses.push(
+      moreStorageBonus
+    );
+    Game.getGame().resourceManager.nuke.limitStackMulti.bonuses.push(
+      moreStorageBonus
+    );
 
     //#endregion
     //#region Technologies
@@ -586,6 +612,7 @@ export class PrestigeManager {
     const peaceCard = this.cards.find((card) => card.id === "4");
     this.doubleModsCard = this.cards.find((card) => card.id === "5");
     this.extremeModsCard = this.cards.find((card) => card.id === "6");
+    const storageCard = this.cards.find((card) => card.id === "7");
     Game.getGame().recyclingMulti.bonuses.push(
       new Bonus(recycling, new Decimal(RECYCLING_CARD))
     );
@@ -613,6 +640,20 @@ export class PrestigeManager {
         new Bonus(moreDrones, new Decimal(MORE_DRONES_CARD))
       );
     });
+
+    const moreStorageBonus = new Bonus(
+      storageCard,
+      new Decimal(MORE_STORAGE_CARD)
+    );
+    Game.getGame().resourceManager.energy.limitStackMulti.bonuses.push(
+      moreStorageBonus
+    );
+    Game.getGame().resourceManager.components.limitStackMulti.bonuses.push(
+      moreStorageBonus
+    );
+    Game.getGame().resourceManager.nuke.limitStackMulti.bonuses.push(
+      moreStorageBonus
+    );
     //#endregion
     //#region Science
     const technology = this.cards.find((card) => card.id === "r0");

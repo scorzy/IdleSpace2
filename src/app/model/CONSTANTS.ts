@@ -246,3 +246,5 @@ export const NO_MULTIPLIER_MULTI = 0.15;
 
 export const PRESTIGE_POINT_QUANTITY = new Decimal(1e3);
 export const PRESTIGE_TECH_UNLOCK = 1e4;
+export const MORE_STORAGE_PRESTIGE = 0.2;
+export const MORE_STORAGE_CARD = 1e3;

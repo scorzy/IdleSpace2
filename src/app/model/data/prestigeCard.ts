@@ -29,7 +29,8 @@ import {
   FLEET_CAPACITY_CARD,
   FLEET_CAPACITY,
   PRICE_GROW_RATE,
-  PRICE_GROW_RATE_2
+  PRICE_GROW_RATE_2,
+  MORE_STORAGE_CARD
 } from "../CONSTANTS";
 
 export interface ICardData extends ISimpleBase {
@@ -84,6 +85,15 @@ export const PRESTIGE_CARDS: ICardData[] = [
     description:
       "Grants the ability of increasing max mods at expense of component prices.",
     icon: "fa-s:microchip"
+  },
+  {
+    id: "7",
+    name: "Storage",
+    description:
+      "Increases energy, components and nuke storage by " +
+      MORE_STORAGE_CARD +
+      "%.",
+    icon: "database"
   },
   //#endregion
   //#region Science
