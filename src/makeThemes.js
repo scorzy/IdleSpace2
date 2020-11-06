@@ -4,7 +4,9 @@ const md5 = require("md5");
 const fsExtra = require("fs-extra");
 const LessPluginCleanCSS = require("less-plugin-clean-css");
 const darkThemeVars = require("ng-zorro-antd/dark-theme");
-const compactThemeVars = require("./themes-vars/myCompactVar.js");
+// const compactThemeVars = require("./themes-vars/myCompactVar.js");
+const compactThemeVars = require("ng-zorro-antd/compact-theme");
+
 const aliyunTheme = require("@ant-design/aliyun-theme").default;
 
 const darkCommon = require("./themes-vars/darkCommon.js");
@@ -133,6 +135,7 @@ function render(i) {
         modifyVars: theme.modifyVars
       },
       function (e, css) {
+        // console.log(e);
         var hash = md5(css.css);
         fs.writeFileSync(
           "./src/assets/themes/" + theme.name + "." + hash + ".css",

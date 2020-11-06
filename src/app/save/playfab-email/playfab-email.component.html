@@ -40,7 +40,7 @@
 </form>
 
 <button *ngIf="type === 1" nz-button nzType="primary" (click)="playFabLogin()">
-  Log in
+  <span>Log in</span>
 </button>
 <button
   *ngIf="type === 2"
@@ -48,8 +48,8 @@
   nzType="primary"
   (click)="registerPlayFab()"
 >
-  Register
+  <span>Register</span>
 </button>
 <button *ngIf="type === 3" nz-button nzType="primary" (click)="recover()">
-  Recover
+  <span>Recover</span>
 </button>

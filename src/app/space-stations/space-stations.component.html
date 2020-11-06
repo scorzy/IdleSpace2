@@ -195,7 +195,7 @@
           [nzPopoverContent]="megaTemplate"
           (click)="addStation(mega)"
         >
-          {{ mega.name }}
+          <span>{{ mega.name }}</span>
           <span *ngIf="mega.quantity.gt(0)" class="monospace mega-qta">
             {{ mega.quantity | format: true }}
           </span>
@@ -225,7 +225,8 @@
     <!-- <h2>Jobs</h2> -->
     <div class="sort-form">
       <button nz-button (click)="ms.game.spaceStationManager.sortJobs()">
-        <i nz-icon nzType="sort-ascending" nzTheme="outline"></i> Sort
+        <i nz-icon nzType="sort-ascending" nzTheme="outline"></i>
+        <span>Sort</span>
       </button>
       <label nz-checkbox [(ngModel)]="ms.game.spaceStationManager.sort"
         >Auto Sort</label

@@ -1,3 +1,6 @@
+06/11/2020
+-   Angular downgrade (memory leak)
+
 31/10/2020
 -   New card "Storage"
 -   New Prestige "More Storage", misc section
