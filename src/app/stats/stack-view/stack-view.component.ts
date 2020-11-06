@@ -22,7 +22,7 @@ export class StackViewComponent implements OnInit {
     this.bonuses = this.bonusStack.bonuses
       .filter((bon) => !bon.getBonus().eq(1))
       .map((bon) => {
-        console.log(bon.getBonus().toNumber());
+        // console.log(bon.getBonus().toNumber());
         return { name: bon.unit.name, factor: bon.getBonus() };
       });
   }
