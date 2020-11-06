@@ -12,7 +12,6 @@ import { StackViewComponent } from "./stack-view.component";
 describe("StackViewComponent", () => {
   let component: StackViewComponent;
   let fixture: ComponentFixture<StackViewComponent>;
-
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       schemas: [CUSTOM_ELEMENTS_SCHEMA],

@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed, waitForAsync } from "@angular/core/testing";
+import { ComponentFixture, TestBed, async } from "@angular/core/testing";
 import { SideMenuComponent } from "./side-menu.component";
 import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
 import { MainService } from "../main.service";
@@ -11,16 +11,14 @@ describe("SideMenuComponent", () => {
   let component: SideMenuComponent;
   let fixture: ComponentFixture<SideMenuComponent>;
 
-  beforeEach(
-    waitForAsync(() => {
-      TestBed.configureTestingModule({
-        schemas: [CUSTOM_ELEMENTS_SCHEMA],
-        imports: testImports,
-        declarations: [SideMenuComponent],
-        providers: [MainService, OptionsService, FormatPipe, TimePipe]
-      }).compileComponents();
-    })
-  );
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
+      imports: testImports,
+      declarations: [SideMenuComponent],
+      providers: [MainService, OptionsService, FormatPipe, TimePipe]
+    }).compileComponents();
+  }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(SideMenuComponent);

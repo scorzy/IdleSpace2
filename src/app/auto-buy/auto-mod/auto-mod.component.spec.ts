@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed, waitForAsync } from "@angular/core/testing";
+import { ComponentFixture, TestBed, async } from "@angular/core/testing";
 
 import { AutoModComponent } from "./auto-mod.component";
 import { testImports } from "src/app/app.component.spec";
@@ -11,15 +11,13 @@ describe("AutoModComponent", () => {
   let component: AutoModComponent;
   let fixture: ComponentFixture<AutoModComponent>;
 
-  beforeEach(
-    waitForAsync(() => {
-      TestBed.configureTestingModule({
-        imports: testImports,
-        declarations: [AutoModComponent, FormatPipe],
-        providers: [MainService, OptionsService, FormatPipe, TimePipe]
-      }).compileComponents();
-    })
-  );
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      imports: testImports,
+      declarations: [AutoModComponent, FormatPipe],
+      providers: [MainService, OptionsService, FormatPipe, TimePipe]
+    }).compileComponents();
+  }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(AutoModComponent);

@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed, waitForAsync } from "@angular/core/testing";
+import { ComponentFixture, TestBed, async } from "@angular/core/testing";
 
 import { UiComponent } from "./ui.component";
 import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
@@ -12,16 +12,14 @@ describe("UiComponent", () => {
   let component: UiComponent;
   let fixture: ComponentFixture<UiComponent>;
 
-  beforeEach(
-    waitForAsync(() => {
-      TestBed.configureTestingModule({
-        schemas: [CUSTOM_ELEMENTS_SCHEMA],
-        imports: testImports,
-        declarations: [UiComponent, FormatPipe],
-        providers: [MainService, OptionsService, FormatPipe, TimePipe]
-      }).compileComponents();
-    })
-  );
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
+      imports: testImports,
+      declarations: [UiComponent, FormatPipe],
+      providers: [MainService, OptionsService, FormatPipe, TimePipe]
+    }).compileComponents();
+  }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(UiComponent);

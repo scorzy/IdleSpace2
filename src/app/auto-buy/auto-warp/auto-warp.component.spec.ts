@@ -10,7 +10,6 @@ import { AutoWarpComponent } from "./auto-warp.component";
 describe("AutoWarpComponent", () => {
   let component: AutoWarpComponent;
   let fixture: ComponentFixture<AutoWarpComponent>;
-
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: testImports,

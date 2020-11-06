@@ -11,7 +11,6 @@ import { ShopComponent } from "./shop.component";
 describe("ShopComponent", () => {
   let component: ShopComponent;
   let fixture: ComponentFixture<ShopComponent>;
-
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       schemas: [CUSTOM_ELEMENTS_SCHEMA],

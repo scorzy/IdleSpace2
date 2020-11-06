@@ -11,7 +11,6 @@ import { StatsComponent } from "./stats.component";
 describe("StatsComponent", () => {
   let component: StatsComponent;
   let fixture: ComponentFixture<StatsComponent>;
-
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       schemas: [CUSTOM_ELEMENTS_SCHEMA],

@@ -11,7 +11,6 @@ import { SpeedStatsComponent } from "./speed-stats.component";
 describe("SpeedStatsComponent", () => {
   let component: SpeedStatsComponent;
   let fixture: ComponentFixture<SpeedStatsComponent>;
-
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       schemas: [CUSTOM_ELEMENTS_SCHEMA],

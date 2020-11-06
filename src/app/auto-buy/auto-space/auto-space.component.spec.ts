@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed, waitForAsync } from "@angular/core/testing";
+import { ComponentFixture, TestBed, async } from "@angular/core/testing";
 
 import { AutoSpaceComponent } from "./auto-space.component";
 import { testImports } from "src/app/app.component.spec";
@@ -11,15 +11,13 @@ describe("AutoSpaceComponent", () => {
   let component: AutoSpaceComponent;
   let fixture: ComponentFixture<AutoSpaceComponent>;
 
-  beforeEach(
-    waitForAsync(() => {
-      TestBed.configureTestingModule({
-        imports: testImports,
-        declarations: [AutoSpaceComponent, FormatPipe],
-        providers: [MainService, OptionsService, FormatPipe, TimePipe]
-      }).compileComponents();
-    })
-  );
+  beforeEach(async(() => {
+    TestBed.configureTestingModule({
+      imports: testImports,
+      declarations: [AutoSpaceComponent, FormatPipe],
+      providers: [MainService, OptionsService, FormatPipe, TimePipe]
+    }).compileComponents();
+  }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(AutoSpaceComponent);
