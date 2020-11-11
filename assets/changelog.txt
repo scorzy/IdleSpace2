@@ -1,3 +1,6 @@
+11/11/2020
+-   Ui fix. Tech prestige shop on firefox.
+
 06/11/2020
 -   Angular downgrade (memory leak)
 
