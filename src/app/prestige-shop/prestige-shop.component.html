@@ -30,11 +30,8 @@
     *ngIf="ms.game.prestigeManager.techPointsUnlocked"
   >
     <ng-template nz-tab>
-      <nz-tabset
-        nzTabPosition="left"
-        [nzTabBarExtraContent]="extraTemplate"
-        class="tec-list"
-      >
+      <nz-tabset nzTabPosition="left" class="tec-list">
+        <!-- [nzTabBarExtraContent]="extraTemplate" -->
         <nz-tab
           *ngFor="
             let tab of ms.game.prestigeManager.techTabs;
