@@ -28,7 +28,16 @@
     crossorigin="anonymous"></script>
 
     <script>
+     const url =
+      window.location !== window.parent.location
+        ? document.referrer
+        : document.location.href;
+
       preventScroll = function () {
+        if (!url.includes("kongregate")){
+          return false;
+        }
+        
         setTimeout(function () {
           $('.drag-list,.inner-content').on('DOMMouseScroll mousewheel', function (ev) {
             body = $('body')[0]
@@ -83,7 +92,7 @@
         max-width: 50%;
       }
     </style>
-<link rel="stylesheet" href="styles.160d2fd08489cdccd7fb.css"></head>
+<link rel="stylesheet" href="styles.2d29c63daff4e9efbbc3.css"></head>
 <body>
   <app-root>
     <div id="preload" class="flexCont">
@@ -95,5 +104,5 @@
       </div>
     </div>
   </app-root>
-<script src="runtime-es2015.0dae8cbc97194c7caed4.js" type="module"></script><script src="runtime-es5.0dae8cbc97194c7caed4.js" nomodule defer></script><script src="polyfills-es5.49c9542644fb4260c74c.js" nomodule defer></script><script src="polyfills-es2015.eba2ff7f6f2f086eed53.js" type="module"></script><script src="scripts.b12e528c5d029b2e6e1c.js" defer></script><script src="main-es2015.d120e7c2a4d27636b320.js" type="module"></script><script src="main-es5.d120e7c2a4d27636b320.js" nomodule defer></script></body>
+<script src="runtime-es2015.0dae8cbc97194c7caed4.js" type="module"></script><script src="runtime-es5.0dae8cbc97194c7caed4.js" nomodule defer></script><script src="polyfills-es5.49c9542644fb4260c74c.js" nomodule defer></script><script src="polyfills-es2015.eba2ff7f6f2f086eed53.js" type="module"></script><script src="scripts.b12e528c5d029b2e6e1c.js" defer></script><script src="main-es2015.e4ad0ec0fb3c0e229c71.js" type="module"></script><script src="main-es5.e4ad0ec0fb3c0e229c71.js" nomodule defer></script></body>
 </html>

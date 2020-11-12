@@ -1,3 +1,7 @@
+12/11/2020
+-   Ui Fix
+-   Large css themes
+
 11/11/2020
 -   Ui fix. Tech prestige shop on firefox.
 
