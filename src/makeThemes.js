@@ -12,10 +12,15 @@ const aliyunTheme = require("@ant-design/aliyun-theme").default;
 const darkCommon = require("./themes-vars/darkCommon.js");
 const myDarkVars = require("./themes-vars/myDarkVars.js");
 const commonModyVar = require("./themes-vars/commonModyVar");
+const commonCompVar = require("./themes-vars/commonCompVar");
 
 const smallText = {
   "@font-size-sm": "12px",
   "@font-size-base": "12px"
+};
+const normalText = {
+  "@font-size-sm": "14px",
+  "@font-size-base": "14px"
 };
 const colors = [
   { name: "blue", vars: null },
@@ -63,7 +68,6 @@ const base = [
     source: "dark-blue-2",
     modifyVars: {
       ...darkThemeVars,
-      ...compactThemeVars,
       ...darkCommon,
       ...myDarkVars,
       ...commonModyVar
@@ -74,7 +78,6 @@ const base = [
     source: "dark-blue",
     modifyVars: {
       ...darkThemeVars,
-      ...compactThemeVars,
       ...darkCommon,
       ...commonModyVar
     }
@@ -83,7 +86,6 @@ const base = [
     name: "light-blue",
     source: "light-blue",
     modifyVars: {
-      ...compactThemeVars,
       ...commonModyVar
     }
   },
@@ -91,8 +93,8 @@ const base = [
     name: "aliyun-blue",
     source: "light-blue",
     modifyVars: {
-      ...compactThemeVars,
       ...aliyunTheme,
+      ...normalText,
       ...commonModyVar
     }
   }
@@ -105,15 +107,41 @@ base.forEach((theme) => {
     const newTheme = {};
     newTheme.name = theme.name.replace("blue", color.name);
     newTheme.source = theme.source;
-    newTheme.modifyVars = { ...theme.modifyVars, ...color.vars };
+    const commonVars = { ...theme.modifyVars, ...color.vars };
+    newTheme.modifyVars = {
+      ...commonVars,
+      ...compactThemeVars,
+      ...commonCompVar
+    };
     toBuild.push(newTheme);
-    if (!theme.name.includes("aliyun")) {
-      const smallNew = {};
-      smallNew.name = newTheme.name + "-small";
-      smallNew.source = newTheme.source;
-      smallNew.modifyVars = { ...newTheme.modifyVars, ...smallText };
-      toBuild.push(smallNew);
-    }
+
+    const smallNew = {};
+    smallNew.name = newTheme.name + "-small";
+    smallNew.source = newTheme.source;
+    smallNew.modifyVars = {
+      ...commonVars,
+      ...compactThemeVars,
+      ...commonCompVar,
+      ...smallText
+    };
+    toBuild.push(smallNew);
+
+    const smallCompNew = {};
+    smallCompNew.name = newTheme.name + "-small-large";
+    smallCompNew.source = newTheme.source;
+    smallCompNew.modifyVars = {
+      ...commonVars,
+      ...smallText
+    };
+    toBuild.push(smallCompNew);
+
+    const compactNew = {};
+    compactNew.name = newTheme.name + "-large";
+    compactNew.source = newTheme.source;
+    compactNew.modifyVars = {
+      ...commonVars
+    };
+    toBuild.push(compactNew);
   });
 });
 
@@ -155,5 +183,5 @@ function render(i) {
   });
 }
 for (let thread = 0; thread < nThread; thread++) {
-  setTimeout(() => render(thread));
+  setTimeout(() => render(thread), 0);
 }
