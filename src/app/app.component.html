@@ -1,7 +1,7 @@
 <nz-layout
   *ngIf="ms.game && ms.ready && ms.pageOk"
   class="app-layout"
-  style="height: 100vh; width: 100vw"
+  style="width: 100vw"
   @fadeIn
 >
   <nz-header>
@@ -70,8 +70,6 @@
   ></app-side-menu>
 </nz-drawer>
 
-<app-spell-bar *ngIf="ms.game && ms.ready"></app-spell-bar>
-
 <!-- Custom Notifications -->
 <ng-template #customNoti let-myNoti="data">
   <div class="ant-notification-notice-content">
@@ -91,3 +89,5 @@
   <h1>Game is already opened in another tab!</h1>
   <button (click)="ms.reload()" nz-button nzType="primary">Refresh</button>
 </div>
+
+<app-spell-bar *ngIf="ms.game && ms.ready"></app-spell-bar>

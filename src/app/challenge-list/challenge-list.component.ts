@@ -37,7 +37,7 @@ export class ChallengeListComponent
         this.cd.markForCheck();
       }),
       this.breakpointObserver
-        .observe(["(min-width: 599px)"])
+        .observe(["(min-width: 699px)"])
         .subscribe((state: BreakpointState) => {
           this.isLarge = state.matches;
           if (!this.isLarge) this.ms.designListCollapsed = false;
@@ -47,7 +47,7 @@ export class ChallengeListComponent
   }
   ngAfterViewInit() {
     super.ngAfterViewInit();
-    if (!this.breakpointObserver.isMatched("(min-width: 599px)")) {
+    if (!this.breakpointObserver.isMatched("(min-width: 699px)")) {
       setTimeout(() => {
         this.ms.designListCollapsed = false;
       });

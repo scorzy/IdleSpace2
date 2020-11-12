@@ -29,7 +29,16 @@
     crossorigin="anonymous"></script>
 
     <script>
+     const url =
+      window.location !== window.parent.location
+        ? document.referrer
+        : document.location.href;
+
       preventScroll = function () {
+        if (!url.includes("kongregate")){
+          return false;
+        }
+        
         setTimeout(function () {
           $('.drag-list,.inner-content').on('DOMMouseScroll mousewheel', function (ev) {
             body = $('body')[0]

@@ -58,4 +58,12 @@ export class UnitListComponent
   getListId(index: number, sub: any) {
     return index;
   }
+  getWidth(): string {
+    const pageW = window.innerWidth;
+    if (pageW > 599) {
+      return "300px";
+    } else {
+      return pageW + "px";
+    }
+  }
 }
