@@ -1,3 +1,6 @@
+13/11/2020
+-   Fixed date format on battle screen
+
 12/11/2020
 -   Ui Fix
 -   Large css themes

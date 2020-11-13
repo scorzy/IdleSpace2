@@ -22,7 +22,8 @@
       <td class="fleet-td-1"><span>Eta</span></td>
       <td *ngFor="let i of fleets">
         <span *ngIf="ms.game.enemyManager.fleetsInBattle[i]" class="monospace">
-          {{ getEta(i) | date: "mm:ss:S" }}
+          <!-- {{ getEta(i) | date: "hh:mm:ss:S" }} -->
+          {{ getEta(i) | time }}
         </span>
       </td>
     </tr>

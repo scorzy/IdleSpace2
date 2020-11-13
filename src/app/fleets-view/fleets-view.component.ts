@@ -49,6 +49,6 @@ export class FleetsViewComponent
     const ret =
       this.ms.game.enemyManager.fleetsInBattle[fleetNum].eta -
       performance.now();
-    return ret > 0 ? ret : 0;
+    return ret > 0 ? ret / 1000 : 0;
   }
 }
