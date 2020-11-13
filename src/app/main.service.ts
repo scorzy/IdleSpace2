@@ -295,7 +295,7 @@ export class MainService {
       this.options.darkSide && OptionsService.isDark
         ? "assets/dark-scrollbar.css"
         : "";
-    if (myTheme !== this.scrollbarTheme.href) {
+    if (this.scrollbarTheme.href && myTheme !== this.scrollbarTheme.href) {
       this.scrollbarTheme.href = myTheme;
     }
   }

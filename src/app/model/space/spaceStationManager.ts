@@ -42,7 +42,7 @@ export class SpaceStationManager extends JobManager {
     }
     this.nextMegaPrice = MegaStructure.getMegaBuildPrice();
   }
-  addJob(unit: AbstractSpaceStation) {
+  addJob(unit: AbstractSpaceStation): boolean {
     if (!unit) {
       return false;
     }
@@ -61,6 +61,8 @@ export class SpaceStationManager extends JobManager {
     job.reloadTotalBonus();
     job.reload();
     this.sortJobs();
+
+    return true;
   }
   prestige() {
     this.toDo = [];

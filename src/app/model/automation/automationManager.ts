@@ -12,6 +12,7 @@ import { AutoFull } from "./autoFull";
 import { AutoPrestige } from "./autoPrestige";
 import { InfrastructureAutoBuyer } from "./infrastructureAutoBuyer";
 import { AutoWarp } from "./autoWarp";
+import { AutoMega } from "./autoMega";
 
 export class AutomationManager {
   on = true;
@@ -26,6 +27,7 @@ export class AutomationManager {
   autoPrestige: AutoPrestige;
   autoInfrastructure: InfrastructureAutoBuyer;
   autoWarp: AutoWarp;
+  autoMega: AutoMega;
 
   constructor() {
     const game = Game.getGame();
@@ -63,6 +65,9 @@ export class AutomationManager {
 
     this.autoWarp = new AutoWarp();
     this.autobuyers.push(this.autoWarp);
+
+    this.autoMega = new AutoMega();
+    this.autobuyers.push(this.autoMega);
 
     this.autobuyers.forEach((a) => a.reload());
     this.sort();

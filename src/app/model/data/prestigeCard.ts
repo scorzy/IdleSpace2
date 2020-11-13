@@ -352,6 +352,13 @@ export const PRESTIGE_CARDS: ICardData[] = [
     icon: "sync",
     cardRequired: 10
   },
+  {
+    id: "m9",
+    name: "Megastructure Automation",
+    description: "Unlock Megastructure Automation.",
+    icon: "my:defense-satellite",
+    cardRequired: 1
+  },
   //#endregion
   //#region Challenges
   {

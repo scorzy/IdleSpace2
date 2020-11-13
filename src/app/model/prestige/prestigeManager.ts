@@ -122,6 +122,7 @@ export class PrestigeManager {
   extremeModsCard: PrestigeCard;
   lowerModulePrice: PrestigeCard;
   killStreakWinCard: PrestigeCard;
+  megaAutomationCard: PrestigeCard;
   //#endregion
   constructor() {
     this.generateExperience();
@@ -738,6 +739,7 @@ export class PrestigeManager {
     this.extraEnergyDistricts = this.cards.find((card) => card.id === "m6");
     this.megaBuildSpeed = this.cards.find((card) => card.id === "m7");
     this.autoPrestigeCard = this.cards.find((card) => card.id === "m8");
+    this.megaAutomationCard = this.cards.find((card) => card.id === "m9");
     const moreHabBonus = new Bonus(
       this.moreHabSpaceFromStations,
       new Decimal(MORE_HAB_FROM_STATIONS)

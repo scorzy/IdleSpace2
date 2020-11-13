@@ -1,4 +1,6 @@
 13/11/2020
+-   Megastructure automation card
+-   Megastructure buff: from +30% max drones to +40%
 -   Fixed date format on battle screen
 
 12/11/2020

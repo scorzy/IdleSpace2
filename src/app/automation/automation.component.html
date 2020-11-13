@@ -62,4 +62,12 @@
   >
     <app-auto-warp></app-auto-warp>
   </nz-card>
+  <nz-card
+    *ngIf="ms.game.prestigeManager.megaAutomationCard.active"
+    nzTitle="Auto Megastructures"
+    nzSize="small"
+    class="auto-mega"
+  >
+    <app-auto-mega></app-auto-mega>
+  </nz-card>
 </div>

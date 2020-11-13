@@ -1,0 +1,71 @@
+<div fxLayout="column" fxLayoutGap="10px">
+  <form nz-form nzLayout="inline">
+    <nz-form-item>
+      <nz-form-label>On </nz-form-label>
+      <nz-form-control>
+        <nz-switch
+          [(ngModel)]="this.ms.game.automationManager.autoMega.on"
+          nzSize="small"
+          name="megaQ-On"
+        >
+        </nz-switch>
+      </nz-form-control>
+    </nz-form-item>
+  </form>
+
+  <div
+    class="add-mega-queue"
+    cdkDropList
+    fxLayout="column"
+    fxFlex="1 1 calc(60% )"
+    (cdkDropListDropped)="drop($event)"
+  >
+    <div
+      class="job-box"
+      cdkDrag
+      fxLayout="row"
+      *ngFor="
+        let mq of ms.game.automationManager.autoMega.megaQueue;
+        trackBy: getQId
+      "
+    >
+      <nz-select [(ngModel)]="mq.mega" class="mega-select" nzSize="small">
+        <nz-option
+          *ngFor="
+            let mega of ms.game.resourceManager.megastructures;
+            trackBy: getMegaId
+          "
+          [nzValue]="mega"
+          [nzLabel]="mega?.name"
+        >
+        </nz-option>
+      </nz-select>
+      <nz-input-number
+        [(ngModel)]="mq.quantity"
+        nzMin="1"
+        nzMax="1e3"
+        [nzSize]="'small'"
+      >
+      </nz-input-number>
+      <button nz-button nzType="link" (click)="delete(mq)">
+        <i nz-icon nzType="delete" nzTheme="outline"></i>
+      </button>
+    </div>
+  </div>
+
+  <div fxLayout="row" fxLayoutAlign="center" style="width: 100%">
+    <button
+      (click)="add()"
+      nz-button
+      nzType="dashed"
+      class="add-btn"
+      *ngIf="
+        this.ms.game.automationManager.autoMega.megaQueue.length <=
+        this.maxQueue
+      "
+    >
+      <i nz-icon nzType="plus"></i>
+      <span>Add Module</span>
+    </button>
+  </div>
+</div>
