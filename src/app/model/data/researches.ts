@@ -14,7 +14,9 @@ import {
   SPACE_PORT_LEVEL,
   ROTATING_SKYHOOK_LEVEL,
   SKYHOOK_LEVEL,
-  SUPER_TETHER_LEVEL
+  SUPER_TETHER_LEVEL,
+  MORE_DRONES_RESEARCH,
+  MORE_DRONES_RESEARCH_2
 } from "../CONSTANTS";
 import { ExclusiveResGroups } from "../researches/exclusiveResGroups";
 
@@ -731,6 +733,157 @@ export const RESEARCHES: IResearchData[] = [
     unitsToUnlock: [STRU_IDS.SuperTether],
     unlockFrom: "P6",
     requiredChallenge: { challengeId: "8", level: SUPER_TETHER_LEVEL }
+  },
+  //#endregion
+  //#region More Drones
+  {
+    id: "m-h",
+    name: "More search drones",
+    description: "",
+    type: TECHNOLOGIES.Search,
+    priceMulti: REPEATABLE_RES_PRICE_MULTI,
+    unlockFrom: "h11",
+    limitMulti: [{ unitId: IDS.Searcher, multi: MORE_DRONES_RESEARCH }]
+  },
+  {
+    id: "m-s",
+    name: "More scientist drones",
+    description: "",
+    type: TECHNOLOGIES.Physics,
+    priceMulti: REPEATABLE_RES_PRICE_MULTI,
+    unlockFrom: "p11",
+    limitMulti: [{ unitId: IDS.Scientist, multi: MORE_DRONES_RESEARCH }]
+  },
+  {
+    id: "m-E",
+    name: "More technician drones",
+    description: "",
+    type: TECHNOLOGIES.Energy,
+    priceMulti: REPEATABLE_RES_PRICE_MULTI,
+    unlockFrom: "E11",
+    limitMulti: [{ unitId: IDS.Technician, multi: MORE_DRONES_RESEARCH / 2 }]
+  },
+  {
+    id: "m-N",
+    name: "More mining drones",
+    description: "",
+    type: TECHNOLOGIES.Mining,
+    priceMulti: REPEATABLE_RES_PRICE_MULTI,
+    unlockFrom: "N11",
+    limitMulti: [{ unitId: IDS.Miner, multi: MORE_DRONES_RESEARCH }]
+  },
+  {
+    id: "m-M",
+    name: "More metallurgist drones",
+    description: "",
+    type: TECHNOLOGIES.Materials,
+    priceMulti: REPEATABLE_RES_PRICE_MULTI,
+    unlockFrom: "M11",
+    limitMulti: [{ unitId: IDS.Metallurgist, multi: MORE_DRONES_RESEARCH }]
+  },
+  {
+    id: "m-W",
+    name: "More worker drones",
+    description: "",
+    type: TECHNOLOGIES.Materials,
+    priceMulti: REPEATABLE_RES_PRICE_MULTI,
+    unlockFrom: "M11",
+    limitMulti: [{ unitId: IDS.Worker, multi: MORE_DRONES_RESEARCH }]
+  },
+  //#endregion
+  //#region More Drones 2
+  {
+    id: "M-h",
+    name: "Even more search drones",
+    description: "",
+    type: TECHNOLOGIES.Search,
+    priceMulti: REPEATABLE_RES_PRICE_MULTI,
+    unlockFrom: "h15",
+    limitMulti: [{ unitId: IDS.Searcher, multi: MORE_DRONES_RESEARCH_2 }]
+  },
+  {
+    id: "M-s",
+    name: "Even more scientist drones",
+    description: "",
+    type: TECHNOLOGIES.Physics,
+    priceMulti: REPEATABLE_RES_PRICE_MULTI,
+    unlockFrom: "p15",
+    limitMulti: [{ unitId: IDS.Scientist, multi: MORE_DRONES_RESEARCH_2 }]
+  },
+  {
+    id: "M-E",
+    name: "Even more technician drones",
+    description: "",
+    type: TECHNOLOGIES.Energy,
+    priceMulti: REPEATABLE_RES_PRICE_MULTI,
+    unlockFrom: "E15",
+    limitMulti: [{ unitId: IDS.Technician, multi: MORE_DRONES_RESEARCH_2 / 2 }]
+  },
+  {
+    id: "M-N",
+    name: "Even more mining drones",
+    description: "",
+    type: TECHNOLOGIES.Mining,
+    priceMulti: REPEATABLE_RES_PRICE_MULTI,
+    unlockFrom: "N15",
+    limitMulti: [{ unitId: IDS.Miner, multi: MORE_DRONES_RESEARCH_2 }]
+  },
+  {
+    id: "M-M",
+    name: "Even more metallurgist drones",
+    description: "",
+    type: TECHNOLOGIES.Materials,
+    priceMulti: REPEATABLE_RES_PRICE_MULTI,
+    unlockFrom: "M15",
+    limitMulti: [{ unitId: IDS.Metallurgist, multi: MORE_DRONES_RESEARCH_2 }]
+  },
+  {
+    id: "M-W",
+    name: "Even more worker drones",
+    description: "",
+    type: TECHNOLOGIES.Materials,
+    priceMulti: REPEATABLE_RES_PRICE_MULTI,
+    unlockFrom: "M15",
+    limitMulti: [{ unitId: IDS.Worker, multi: MORE_DRONES_RESEARCH_2 }]
+  },
+  //#endregion
+  //#region Civil
+  {
+    id: "se1",
+    name: "Space Engineering",
+    description: "",
+    max: 10,
+    type: TECHNOLOGIES.CivilEngineering,
+    unlockFrom: "i3",
+    spaceStationBuildBonus: 0.5
+  },
+  {
+    id: "se2",
+    name: "Advanced Space Engineering",
+    description: "",
+    max: 10,
+    type: TECHNOLOGIES.CivilEngineering,
+    unlockFrom: "ui7",
+    spaceStationBuildBonus: 1
+  },
+  {
+    id: "cV",
+    name: "Advanced Factories",
+    description: "",
+    max: 10,
+    type: TECHNOLOGIES.CivilEngineering,
+    limitMulti: [{ unitId: IDS.Worker, multi: 0.25 }],
+    unlockFrom: "CV0"
+  },
+  {
+    id: "spa",
+    name: "Orbital Expansions",
+    max: 10,
+    description: "Improve all space stations",
+    type: TECHNOLOGIES.CivilEngineering,
+    stationToUp: [],
+    inspirationDescription: "Build any space station",
+    unlockFrom: "CV0"
   }
   //#endregion
 ];

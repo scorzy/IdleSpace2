@@ -54,4 +54,6 @@ export interface IResearchData {
   technologyBonus?: { techId: string; multi: number }[];
   computingPerSec?: number;
   requiredChallenge?: { challengeId: string; level: number };
+  commonCivilianBonus?: number;
+  spaceStationBuildBonus?: number;
 }

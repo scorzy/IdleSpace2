@@ -386,7 +386,7 @@ export class PrestigeManager {
       "Increase all mega structure build speed by " +
       MEGA_JOB_BUILD_SPEED +
       "%";
-    cm.commonBonuses.push(
+    cm.megaBonuses.push(
       new Bonus(civBuildPrestige, new Decimal(CIV_JOB_BUILD_SPEED))
     );
 

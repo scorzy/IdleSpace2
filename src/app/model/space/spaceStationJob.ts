@@ -2,9 +2,18 @@ import { Game } from "../game";
 import { SpaceStation } from "../units/spaceStation";
 import { EXTRA_DISTRICTS_FROM_STATIONS } from "../CONSTANTS";
 import { CivilianJob } from "./civilianJob";
+import { BonusStack } from "../bonus/bonusStack";
 
 export class SpaceStationJob extends CivilianJob {
-  public spaceStation: SpaceStation;
+  constructor(public spaceStation: SpaceStation) {
+    super(spaceStation);
+    this.bonuses = this.bonuses || new BonusStack();
+
+    const common = Game.getGame().spaceStationManager.stationsBonuses;
+    common.forEach((bon) => {
+      this.bonuses.bonuses.push(bon);
+    });
+  }
   onCompleted() {
     super.onCompleted();
     const game = Game.getGame();

@@ -79,6 +79,9 @@ export const BASE_ARMOUR = 100;
 export const BASE_SHIP_PRICE = 40;
 export const BASE_EXPLOSION = BASE_ARMOUR;
 export const OPTIMIZE_RES_BONUS = 0.4;
+export const STANDARDIZED_RES_BONUS = 1;
+export const SPACE_STATIONS_EXPANSION = 2;
+export const SPACE_STATIONS_EXPANSION_PREFIX = "U";
 
 //  Search and enemies
 export const RESEARCH_GROW_RATE = 1.07;
@@ -134,10 +137,13 @@ export const PROPULSION_SPEED_MULTI = 0.2;
 export const TIER_ONE_RES_PRICE_MULTI = 10;
 export const INSPIRATION_PERCENT = 0.35;
 export const OPTIMIZED_SHIP_PREFIX = "op";
+export const STANDARDIZED_SHIP_PREFIX = "st";
 export const SPACE_STATION_UP_PREFIX = "u";
 export const ORIGIN_1_TECH_MULTI = 2;
 export const ORIGIN_1_TECH_2_MULTI = 1;
 export const REPEATABLE_RES_PRICE_MULTI = 0.1;
+export const MORE_DRONES_RESEARCH = 0.2;
+export const MORE_DRONES_RESEARCH_2 = 0.3;
 
 //  Buildings
 export const ENERGY_STORAGE = 1e4;

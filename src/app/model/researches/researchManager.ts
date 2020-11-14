@@ -11,7 +11,11 @@ import {
   RESEARCH_TECH_MOD_MULTI,
   PROPULSION_SPEED_MULTI,
   OPTIMIZED_SHIP_PREFIX,
-  SPACE_STATION_UP_PREFIX
+  SPACE_STATION_UP_PREFIX,
+  STANDARDIZED_SHIP_PREFIX,
+  STANDARDIZED_RES_BONUS,
+  SPACE_STATIONS_EXPANSION,
+  SPACE_STATIONS_EXPANSION_PREFIX
 } from "../CONSTANTS";
 import { IResearchData } from "../data/iResearchData";
 
@@ -170,7 +174,7 @@ export class ResearchManager extends JobManager {
         inspirationBuilding: ""
       }
     ].forEach((res) => {
-      for (let i = res.start; i < 9; i++) {
+      for (let i = res.start; i < 20; i++) {
         const resData: IResearchData = {
           id: res.id + i,
           max: 1,
@@ -178,7 +182,7 @@ export class ResearchManager extends JobManager {
           description: res.name,
           type: res.tech
         };
-        if (i + 1 < 9) {
+        if (i + 1 < 20) {
           resData.researchToUnlock = [res.id + (i + 1)];
         }
         if (res.inspirationBuilding !== "") {
@@ -327,6 +331,26 @@ export class ResearchManager extends JobManager {
         this.researches.push(new Research(resData, this));
       }
     });
+
+    const civResLen = 11;
+    for (let i = 0; i < civResLen; i++) {
+      const resData: IResearchData = {
+        id: "CV" + i,
+        max: 1,
+        name: "Civilian Engineering" + " " + (i + 1),
+        description: "",
+        commonCivilianBonus: 0.2,
+        spaceStationBuildBonus: 1,
+        type: TECHNOLOGIES.CivilEngineering
+      };
+      if (i < civResLen - 1) {
+        resData.researchToUnlock = ["CV" + (1 + i)];
+      }
+      if (i === 0) {
+        resData.unlockFrom = "ui7";
+      }
+      this.researches.push(new Research(resData, this));
+    }
   }
   makeShipsResearches() {
     const shipyard = Game.getGame().shipyardManager;
@@ -368,12 +392,38 @@ export class ResearchManager extends JobManager {
       };
       this.researches.push(new Research(bonusResData, this));
     }
+    let prevId = "";
+    for (let i = shipyard.shipTypes.length - 1; i >= 0; i--) {
+      const id = STANDARDIZED_SHIP_PREFIX + shipyard.shipTypes[i].id;
+      const bonusResData2: IResearchData = {
+        id: id,
+        max: 10,
+        name: "Standardized " + shipyard.shipTypes[i].name,
+        priceMulti: 1,
+        description: "Improve " + shipyard.shipTypes[i].name + " build speed",
+        type: TECHNOLOGIES.MilitaryEngineering,
+        shipProductionBonus: [
+          { shipType: shipyard.shipTypes[i].id, multi: STANDARDIZED_RES_BONUS }
+        ],
+        inspirationDescription: "Build one " + shipyard.shipTypes[i].name
+      };
+      if (prevId !== "") {
+        bonusResData2.researchToUnlock = [prevId];
+      }
+      if (i === 0) {
+        bonusResData2.unlockFrom = "s10";
+      }
+      prevId = id;
+      this.researches.push(new Research(bonusResData2, this));
+    }
+
     this.scout = this.researches.find((res) => res.id === "s1");
   }
   makeSpaceStationResearches() {
     const first = this.researches.find((r) => r.id === "s2");
     first.resData.researchToUnlock.push("i0");
     const builderUpData = RESEARCHES.find((r) => r.id === "or32");
+    const orbitalExpData = RESEARCHES.find((r) => r.id === "spa");
     builderUpData.stationToUp = [];
     const spaceStations = Game.getGame().resourceManager.spaceStations;
     for (let i = 0, n = spaceStations.length; i < n; i++) {
@@ -412,10 +462,36 @@ export class ResearchManager extends JobManager {
 
       builderUpData.stationToUp.push({
         stationId: spaceStations[i].id,
-        habSpace: 0.2
+        habSpace: 0.25
+      });
+      orbitalExpData.stationToUp.push({
+        stationId: spaceStations[i].id,
+        habSpace: 0.5
       });
     }
 
+    //  Expansions
+
+    for (let i = spaceStations.length - 1; i >= 0; i--) {
+      let id = SPACE_STATIONS_EXPANSION_PREFIX + spaceStations[i].id;
+      const resDataUp: IResearchData = {
+        id: id,
+        name: spaceStations[i].name + " Expansion",
+        description: "",
+        type: TECHNOLOGIES.CivilEngineering,
+        priceMulti: 0.1,
+        stationToUp: [
+          {
+            stationId: spaceStations[i].id,
+            habSpace: SPACE_STATIONS_EXPANSION
+          }
+        ]
+      };
+      resDataUp.unlockFrom = "CV" + (1 + i);
+      this.researches.push(new Research(resDataUp, this));
+    }
+
+    //  Infrastructures
     const infrastructure = Game.getGame().resourceManager.infrastructures;
     for (let i = 0, n = infrastructure.length; i < n; i++) {
       // Upgrade

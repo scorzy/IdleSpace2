@@ -98,7 +98,7 @@ export class Research extends Job implements IUnlockable, IBase {
     super();
     this.resData = researchData;
     this.id = researchData.id;
-    this.name = researchData.name; // + " " + this.id;
+    this.name = researchData.name + " " + this.id;
     this.originalName = this.name;
     this.description = researchData.description;
     this.visId = Research.lastVisId++;
@@ -212,6 +212,7 @@ export class Research extends Job implements IUnlockable, IBase {
     const em = Game.getGame().enemyManager;
     const cm = Game.getGame().computingManager;
     const rm = Game.getGame().researchManager;
+    const ss = Game.getGame().spaceStationManager;
 
     if ("researchToUnlock" in this.resData) {
       this.researchToUnlock = this.resData.researchToUnlock.map((unlId) =>
@@ -301,6 +302,16 @@ export class Research extends Job implements IUnlockable, IBase {
           this.inspirationDescription = "Build one " + station.name;
         }
       });
+    }
+    if ("spaceStationBuildBonus" in this.resData) {
+      ss.stationsBonuses.push(
+        new Bonus(this, new Decimal(this.resData.spaceStationBuildBonus))
+      );
+    }
+    if ("commonCivilianBonus" in this.resData) {
+      ss.commonBonuses.push(
+        new Bonus(this, new Decimal(this.resData.commonCivilianBonus))
+      );
     }
     if ("infrastructureToUp" in this.resData) {
       this.resData.infrastructureToUp.forEach((infraBon) => {

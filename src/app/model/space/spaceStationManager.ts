@@ -21,6 +21,7 @@ export class SpaceStationManager extends JobManager {
   nextMegaPrice = ONE;
   megaBuilt = ZERO;
   commonBonuses: Bonus[];
+  stationsBonuses: Bonus[];
   megaBonuses: Bonus[];
   sort = false;
   megastructureQueue: MegaStructure[];
@@ -33,6 +34,7 @@ export class SpaceStationManager extends JobManager {
     ).times(SPACE_STATION_PRICE);
     this.nextMegaPrice = this.megaInitialPrice;
     this.commonBonuses = new Array<Bonus>();
+    this.stationsBonuses = new Array<Bonus>();
     this.megaBonuses = new Array<Bonus>();
   }
   postUpdate() {
