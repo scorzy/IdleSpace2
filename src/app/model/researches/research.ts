@@ -94,11 +94,13 @@ export class Research extends Job implements IUnlockable, IBase {
   noUnlockChallenges: Challenge[];
   requiredChallenge: { challenge: Challenge; level: number };
   infrastructureToUp: { infrastructure: Infrastructure; bonus: number }[];
+  commonCivilianBonus: number;
+  spaceStationBuildBonus: number;
   constructor(researchData: IResearchData, researchManager: ResearchManager) {
     super();
     this.resData = researchData;
     this.id = researchData.id;
-    this.name = researchData.name + " " + this.id;
+    this.name = researchData.name; //+ " " + this.id;
     this.originalName = this.name;
     this.description = researchData.description;
     this.visId = Research.lastVisId++;
@@ -304,11 +306,13 @@ export class Research extends Job implements IUnlockable, IBase {
       });
     }
     if ("spaceStationBuildBonus" in this.resData) {
+      this.spaceStationBuildBonus = this.resData.spaceStationBuildBonus;
       ss.stationsBonuses.push(
         new Bonus(this, new Decimal(this.resData.spaceStationBuildBonus))
       );
     }
     if ("commonCivilianBonus" in this.resData) {
+      this.commonCivilianBonus = this.resData.commonCivilianBonus;
       ss.commonBonuses.push(
         new Bonus(this, new Decimal(this.resData.commonCivilianBonus))
       );

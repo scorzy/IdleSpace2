@@ -176,7 +176,7 @@ export class Enemy {
       //       100 * Math.pow(MOD_LEVEL_EXP, this.level) * modLevelMulti
       //   ) / 10;
       this.modLevel = Math.floor(
-        10 + 6 * this.level + 2 * Math.pow(2 * this.level, 0.5)
+        10 + 6 * this.level + 2 * Math.pow(2 * this.level, 0.65)
       );
       this.weaponDefenceRatio = 0.2 + Math.random() * 0.5;
       const sm = Game.getGame().shipyardManager;

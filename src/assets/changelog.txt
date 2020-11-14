@@ -1,3 +1,7 @@
+-   More researches
+-   More ship modules
+-   Balancement: higher enemies ship level
+
 13/11/2020
 -   Megastructure automation card
 -   Megastructure buff: from +30% max drones to +40%

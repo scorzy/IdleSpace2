@@ -10,7 +10,8 @@ import {
   BASE_THREAT,
   BASE_CARGO,
   BASE_ADAPTIVE_PRECISION,
-  BASE_PRECISION
+  BASE_PRECISION,
+  DOUBLE_ENERGY_WEAPON_MULTI
 } from "../CONSTANTS";
 export class ModuleData {
   id: string;
@@ -61,6 +62,19 @@ export const modules: ModuleData[] = [
     shape: "my:metal-scales"
   },
   {
+    id: "A2",
+    name: "Advanced Armour",
+    description: "Armour is the second and last layer of hit points of a ship.",
+    armour: MODULE_ARMOUR * DOUBLE_ENERGY_WEAPON_MULTI,
+    energy: -1,
+    price: DEFAULT_MODULE_PRICE * 10,
+    technologies: [
+      { technologyId: TECHNOLOGIES.MilitaryEngineering.id, multi: 0.9 },
+      { technologyId: TECHNOLOGIES.Materials.id, multi: 1.1 }
+    ],
+    shape: "my:metal-scales"
+  },
+  {
     id: "E",
     name: "Stealth Armour",
     description: "This armour decrease fire drawn from enemies.",
@@ -78,7 +92,7 @@ export const modules: ModuleData[] = [
     name: "Ablative Armour",
     description: "An advanced armour that decrease incoming damage.",
     armour: 0.7 * MODULE_ARMOUR,
-    armourDamageReduction: 0.2 * MODULE_ARMOUR,
+    armourDamageReduction: 0.22 * MODULE_ARMOUR,
     technologies: [
       { technologyId: TECHNOLOGIES.MilitaryEngineering.id, multi: 1 },
       { technologyId: TECHNOLOGIES.Materials.id, multi: 1 }
@@ -94,7 +108,7 @@ export const modules: ModuleData[] = [
     explosion: -3 * MODULE_ARMOUR,
     armour: 2 * MODULE_ARMOUR,
     armourPercent: 15,
-    armourDamageReduction: 0.16 * MODULE_ARMOUR,
+    armourDamageReduction: 0.18 * MODULE_ARMOUR,
     technologies: [
       { technologyId: TECHNOLOGIES.MilitaryEngineering.id, multi: 1 },
       { technologyId: TECHNOLOGIES.Materials.id, multi: 1 }
@@ -107,7 +121,7 @@ export const modules: ModuleData[] = [
     description: "Deflector decreases incoming armour damage.",
     energy: -1,
     armour: MODULE_ARMOUR / 4,
-    armourDamageReduction: 0.25 * MODULE_ARMOUR,
+    armourDamageReduction: 0.3 * MODULE_ARMOUR,
     armourPercent: 8,
     technologies: [
       { technologyId: TECHNOLOGIES.MilitaryEngineering.id, multi: 1 },
@@ -124,6 +138,19 @@ export const modules: ModuleData[] = [
     technologies: [
       { technologyId: TECHNOLOGIES.MilitaryEngineering.id, multi: 1 },
       { technologyId: TECHNOLOGIES.Physics.id, multi: 1 }
+    ],
+    shape: "my:bubble-field"
+  },
+  {
+    id: "s1",
+    name: "Advanced Shield",
+    description: "Shields are the first layer of hit points of a ship.",
+    shield: MODULE_SHIELD * DOUBLE_ENERGY_WEAPON_MULTI,
+    energy: -2,
+    price: DEFAULT_MODULE_PRICE * 10,
+    technologies: [
+      { technologyId: TECHNOLOGIES.MilitaryEngineering.id, multi: 0.9 },
+      { technologyId: TECHNOLOGIES.Physics.id, multi: 1.1 }
     ],
     shape: "my:bubble-field"
   },
@@ -147,7 +174,7 @@ export const modules: ModuleData[] = [
     energy: -2,
     shield: MODULE_SHIELD / 4,
     shieldPercent: 8,
-    shieldDamageReduction: 0.25 * MODULE_ARMOUR,
+    shieldDamageReduction: 0.3 * MODULE_ARMOUR,
     technologies: [
       { technologyId: TECHNOLOGIES.MilitaryEngineering.id, multi: 1 },
       { technologyId: TECHNOLOGIES.Physics.id, multi: 1 }
@@ -241,6 +268,20 @@ export const modules: ModuleData[] = [
     shape: "my:laser-blast"
   },
   {
+    id: "L1",
+    name: "Gamma Laser",
+    damage: MODULE_DAMAGE * DOUBLE_ENERGY_WEAPON_MULTI,
+    shieldDamagePercent: 75,
+    armourDamagePercent: 125,
+    energy: -2,
+    price: DEFAULT_MODULE_PRICE * 10,
+    technologies: [
+      { technologyId: TECHNOLOGIES.MilitaryEngineering.id, multi: 0.9 },
+      { technologyId: TECHNOLOGIES.Physics.id, multi: 1.1 }
+    ],
+    shape: "my:laser-blast"
+  },
+  {
     id: "p",
     name: "Plasma",
     energy: -1,
@@ -328,6 +369,21 @@ export const modules: ModuleData[] = [
     technologies: [
       { technologyId: TECHNOLOGIES.MilitaryEngineering.id, multi: 1 },
       { technologyId: TECHNOLOGIES.Propulsion.id, multi: 1 }
+    ],
+
+    shape: "my:clout"
+  },
+  {
+    id: "d1",
+    name: "Advanced Mass Driver",
+    energy: -2,
+    damage: MODULE_DAMAGE * DOUBLE_ENERGY_WEAPON_MULTI,
+    price: DEFAULT_MODULE_PRICE * 10,
+    shieldDamagePercent: 125,
+    armourDamagePercent: 75,
+    technologies: [
+      { technologyId: TECHNOLOGIES.MilitaryEngineering.id, multi: 0.9 },
+      { technologyId: TECHNOLOGIES.Propulsion.id, multi: 1.1 }
     ],
 
     shape: "my:clout"

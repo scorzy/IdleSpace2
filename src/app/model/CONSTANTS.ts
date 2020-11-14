@@ -124,6 +124,7 @@ export const UTILITY_MOD_DECREASE = 0.96;
 export const BASE_CARGO = 2;
 export const BASE_ADAPTIVE_PRECISION = 200;
 export const BASE_PRECISION = 300;
+export const DOUBLE_ENERGY_WEAPON_MULTI = 1.75;
 
 export const NUKE_DAMAGE = MODULE_ARMOUR;
 

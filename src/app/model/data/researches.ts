@@ -218,6 +218,24 @@ export const RESEARCHES: IResearchData[] = [
     unlockFrom: "h1",
     districtMulti: 0.25
   },
+  {
+    id: "hz4",
+    name: "Better habitability search",
+    description: "",
+    type: TECHNOLOGIES.Search,
+    priceMulti: REPEATABLE_RES_PRICE_MULTI,
+    unlockFrom: "h10",
+    districtMulti: 0.25
+  },
+  {
+    id: "hz5",
+    name: "Advanced Searching",
+    description: "",
+    type: TECHNOLOGIES.Search,
+    priceMulti: REPEATABLE_RES_PRICE_MULTI,
+    unlockFrom: "h14",
+    districtMulti: 0.3
+  },
   //#endregion
   //#region Energy
   {

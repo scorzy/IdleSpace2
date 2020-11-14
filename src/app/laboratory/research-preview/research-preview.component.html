@@ -88,6 +88,13 @@
     +{{ research.energyDistMulti | percent }} energetic districts
     <span class="text-secondary"> from enemies </span>
   </li>
+  <li *ngIf="research.commonCivilianBonus">
+    +{{ research.commonCivilianBonus | percent }} civilian engineering build
+    speed
+  </li>
+  <li *ngIf="research.spaceStationBuildBonus">
+    +{{ research.spaceStationBuildBonus | percent }} space stations build speed
+  </li>
   <li *ngFor="let hsbBonus of research.spaceStationsToUp">
     <span class="text-secondary">{{ hsbBonus.spaceStation.name }}</span> +
     {{ hsbBonus.multi | percent }} habitable space
@@ -117,8 +124,8 @@
   </li>
   <li *ngFor="let shipProdMulti of research.shipProductionBonus">
     +{{ shipProdMulti.multi | percent }}
-    <span class="text-secondary">production of</span>
     {{ shipProdMulti.shipType.name }}
+    <span class="text-secondary">production speed</span>
   </li>
   <li *ngIf="research.navalCapacity > 0">
     + {{ research.navalCapacity | format: true }} naval capacity

@@ -285,6 +285,7 @@ export class ResearchManager extends JobManager {
           if (i === 6) resData.modulesToUnlock = ["c"];
           if (i === 7) resData.modulesToUnlock = ["w"];
           // if (i === 8) resData.modulesToUnlock = [""];
+          if (i === 11) resData.modulesToUnlock = ["d1"];
         }
         //  Energy - Generators
         if (res.tech === TECHNOLOGIES.Energy) {
@@ -302,6 +303,7 @@ export class ResearchManager extends JobManager {
           if (i === 5) resData.modulesToUnlock = ["b"];
           // if (i === 6) resData.modulesToUnlock = ["V"];
           if (i === 7) resData.modulesToUnlock = ["D"];
+          if (i === 10) resData.modulesToUnlock = ["A2"];
         }
         //  Physics
         if (res.tech === TECHNOLOGIES.Physics) {
@@ -312,6 +314,8 @@ export class ResearchManager extends JobManager {
           if (i === 6) resData.modulesToUnlock = ["P"];
           if (i === 7) resData.modulesToUnlock = ["j"];
           if (i === 8) resData.modulesToUnlock = ["i", "e"];
+          if (i === 11) resData.modulesToUnlock = ["L1"];
+          if (i === 13) resData.modulesToUnlock = ["s1"];
         }
         //  Mining
         if (res.tech === TECHNOLOGIES.Mining) {
@@ -396,7 +400,7 @@ export class ResearchManager extends JobManager {
     for (let i = shipyard.shipTypes.length - 1; i >= 0; i--) {
       const id = STANDARDIZED_SHIP_PREFIX + shipyard.shipTypes[i].id;
       const bonusResData2: IResearchData = {
-        id: id,
+        id,
         max: 10,
         name: "Standardized " + shipyard.shipTypes[i].name,
         priceMulti: 1,
@@ -466,16 +470,16 @@ export class ResearchManager extends JobManager {
       });
       orbitalExpData.stationToUp.push({
         stationId: spaceStations[i].id,
-        habSpace: 0.5
+        habSpace: 1
       });
     }
 
     //  Expansions
 
     for (let i = spaceStations.length - 1; i >= 0; i--) {
-      let id = SPACE_STATIONS_EXPANSION_PREFIX + spaceStations[i].id;
+      const id = SPACE_STATIONS_EXPANSION_PREFIX + spaceStations[i].id;
       const resDataUp: IResearchData = {
-        id: id,
+        id,
         name: spaceStations[i].name + " Expansion",
         description: "",
         type: TECHNOLOGIES.CivilEngineering,
