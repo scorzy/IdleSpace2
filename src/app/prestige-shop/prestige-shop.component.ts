@@ -8,6 +8,7 @@ import {
 import { BaseComponentComponent } from "../base-component/base-component.component";
 import { PRESTIGE_TECH_UNLOCK } from "../model/CONSTANTS";
 import { PrestigePoint } from "../model/prestige/prestigePoint";
+import { parseDecimal } from "../model/utility/parseDecimal";
 
 @Component({
   selector: "app-prestige-shop",
@@ -33,6 +34,11 @@ export class PrestigeShopComponent
   }
   reload() {
     this.ms.game.prestigeManager.prestigePoints.forEach((p) => p.reload());
+  }
+  reloadCustomBuy() {
+    this.ms.game.prestigeManager.customBuy = parseDecimal(
+      this.ms.game.prestigeManager.customBuyString
+    );
   }
   getTabId(index: number, tab: any) {
     return index;

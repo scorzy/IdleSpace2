@@ -10,6 +10,19 @@
     {{ ms.game.prestigeManager.prestigeMultiplier | format }}
   </strong>
 </p>
+<form nz-form [nzLayout]="'inline'">
+  <nz-form-item>
+    <nz-form-label nzFor="custom">Custom buy</nz-form-label>
+    <nz-form-control>
+      <input
+        nz-input
+        [(ngModel)]="ms.game.prestigeManager.customBuyString"
+        (change)="reloadCustomBuy()"
+        name="custom-buy"
+      />
+    </nz-form-control>
+  </nz-form-item>
+</form>
 
 <nz-tabset>
   <nz-tab
@@ -21,7 +34,10 @@
       {{ tab.name }}
     </ng-template>
     <ng-template nz-tab>
-      <app-shop [prestiges]="tab.prestige"></app-shop>
+      <app-shop
+        [prestiges]="tab.prestige"
+        [customBuy]="ms.game.prestigeManager.customBuy"
+      ></app-shop>
     </ng-template>
   </nz-tab>
 
@@ -44,7 +60,10 @@
             {{ techExpanded ? tab.name : "" }}
           </ng-template>
           <ng-template nz-tab>
-            <app-shop [prestiges]="tab.prestige"></app-shop>
+            <app-shop
+              [prestiges]="tab.prestige"
+              [customBuy]="ms.game.prestigeManager.customBuy"
+            ></app-shop>
           </ng-template>
         </nz-tab>
       </nz-tabset>

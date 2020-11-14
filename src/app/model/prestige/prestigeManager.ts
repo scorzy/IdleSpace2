@@ -124,6 +124,8 @@ export class PrestigeManager {
   killStreakWinCard: PrestigeCard;
   megaAutomationCard: PrestigeCard;
   //#endregion
+  customBuyString = "100";
+  customBuy = new Decimal(100);
   constructor() {
     this.generateExperience();
     this.generateCards();

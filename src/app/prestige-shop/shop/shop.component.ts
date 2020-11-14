@@ -19,6 +19,7 @@ export class ShopComponent
   extends BaseComponentComponent
   implements OnInit, OnDestroy, AfterViewInit {
   @Input() prestiges: PrestigePoint[];
+  @Input() customBuy: Decimal;
   buyOptions = [1, 10, 20, 100, 1e3, 1e4, 1e5, 1e6];
 
   getPrestigeId(index: number, prestige: PrestigePoint) {

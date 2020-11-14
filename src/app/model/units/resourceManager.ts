@@ -553,8 +553,8 @@ export class ResourceManager {
     }
     for (let i = 0, n = this.unlockedWorkers.length; i < n; i++) {
       if (
-        this.unlockedWorkers[i].quantity
-          .minus(this.unlockedWorkers[i].limit)
+        this.unlockedWorkers[i].limit
+          .minus(this.unlockedWorkers[i].quantity)
           .gt(Number.EPSILON)
       ) {
         const worker = this.unlockedWorkers[i];

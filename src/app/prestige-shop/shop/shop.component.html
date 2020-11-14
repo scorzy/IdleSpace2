@@ -52,9 +52,9 @@
       fxLayoutAlign="space-around stretch"
       fxLayoutGap="12px"
     >
-      <ng-container *ngFor="let buyOpt of buyOptions">
+      <ng-container *ngFor="let buyOpt of buyOptions.concat(customBuy)">
         <button
-          *ngIf="prestige.realQuantity.plus(buyOpt).lte(prestige.max)"
+          *ngIf="buyOpt && prestige.realQuantity.plus(buyOpt).lte(prestige.max)"
           nz-button
           nzType="default"
           nzBlock
