@@ -18,6 +18,7 @@ import {
   SPACE_STATIONS_EXPANSION_PREFIX
 } from "../CONSTANTS";
 import { IResearchData } from "../data/iResearchData";
+import { ExclusiveResGroups } from "./exclusiveResGroups";
 
 const SHIP_RESEARCH_NAV_CAP_MULTI = 5;
 
@@ -35,6 +36,7 @@ export class ResearchManager extends JobManager {
   sort = true;
   researchNotAdded = ZERO;
   autoOrigin: Research;
+  autoSpecialization: Research;
   //#region Researches
   nukeResearch: Research;
   searching: Research;
@@ -560,7 +562,10 @@ export class ResearchManager extends JobManager {
     }
     if (
       this.newJobsOnBacklog ||
-      (res.exclusiveGroup && res !== this.autoOrigin)
+      (res.exclusiveGroup === ExclusiveResGroups.FIRST_ORIGIN &&
+        res !== this.autoOrigin) ||
+      (res.exclusiveGroup === ExclusiveResGroups.SPECIALIZATION &&
+        res !== this.autoSpecialization)
     ) {
       this.backlog.push(res);
     } else this.toDo.push(res);
@@ -645,6 +650,7 @@ export class ResearchManager extends JobManager {
     };
     if (this.newJobsOnBacklog) ret.k = this.newJobsOnBacklog;
     if (this.autoOrigin) ret.a = this.autoOrigin.id;
+    if (this.autoSpecialization) ret.S = this.autoSpecialization.id;
     return ret;
   }
   load(data: any, oldGameVersion: number) {
@@ -697,6 +703,11 @@ export class ResearchManager extends JobManager {
     }
     if ("a" in data) {
       this.autoOrigin = this.researches.find((res) => res.id === data.a);
+    }
+    if ("S" in data) {
+      this.autoSpecialization = this.researches.find(
+        (res) => res.id === data.S
+      );
     }
     this.done.forEach((res) => {
       res.onCompleted(true, oldGameVersion);

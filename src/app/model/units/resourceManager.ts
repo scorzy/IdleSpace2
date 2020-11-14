@@ -334,12 +334,12 @@ export class ResourceManager {
     for (let i = 0, n = this.unlockedProductionUnits.length; i < n; i++) {
       const isLimited =
         this.unlockedProductionUnits[i].id !== "e" &&
-        this.unlockedProductionUnits[i].production.findIndex(
+        this.unlockedProductionUnits[i].production.some(
           (pro) =>
             pro.ratio.gt(0) &&
             (pro.product.limit.lte(Number.EPSILON) ||
               pro.product.quantity.gte(pro.product.limit))
-        ) > -1;
+        );
       this.unlockedProductionUnits[i].isLimited = isLimited;
 
       for (
@@ -552,7 +552,11 @@ export class ResourceManager {
       }
     }
     for (let i = 0, n = this.unlockedWorkers.length; i < n; i++) {
-      if (this.unlockedWorkers[i].quantity.lt(this.unlockedWorkers[i].limit)) {
+      if (
+        this.unlockedWorkers[i].quantity
+          .minus(this.unlockedWorkers[i].limit)
+          .gt(Number.EPSILON)
+      ) {
         const worker = this.unlockedWorkers[i];
         worker.reloadNeedComponent();
         const toAdd = this.components.quantity

@@ -902,6 +902,19 @@ export const RESEARCHES: IResearchData[] = [
     stationToUp: [],
     inspirationDescription: "Build any space station",
     unlockFrom: "CV0"
+  },
+  //#endregion
+  //#region Specialization Mega Builder
+  {
+    id: "spe1",
+    max: 1,
+    name: "Mega Builders",
+    description:
+      "Mega builders are specialized in building big ships, big space stations and megastructures.",
+    exclusiveGroup: ExclusiveResGroups.SPECIALIZATION,
+    type: TECHNOLOGIES.CivilEngineering,
+    unlockFrom: "CV2",
+    spellToUnlock: "spe1"
   }
   //#endregion
 ];

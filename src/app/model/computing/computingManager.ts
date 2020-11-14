@@ -14,6 +14,7 @@ import { WarSpell } from "./warSpell";
 import { DroneSpell } from "./droneSpell";
 import { Bonus } from "../bonus/bonus";
 import { Game } from "../game";
+import { MegaBuilderSpell } from "./megaBuilderSpell";
 
 export class ComputingManager {
   currentComputing = 0;
@@ -36,12 +37,14 @@ export class ComputingManager {
     const builderSpell = new BuilderSpell();
     const warSpell = new WarSpell();
     const droneSpell = new DroneSpell();
+    const megaBuilderSpell = new MegaBuilderSpell();
     this.spells = [
       this.warpSpell,
       researchSpell,
       builderSpell,
       warSpell,
-      droneSpell
+      droneSpell,
+      megaBuilderSpell
     ];
     this.currentSpells = [this.warpSpell];
 
