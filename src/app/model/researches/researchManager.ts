@@ -244,7 +244,7 @@ export class ResearchManager extends JobManager {
             resData.limitMulti = [
               {
                 unitId: "E",
-                multi: 0.5
+                multi: 1
               }
             ];
             break;

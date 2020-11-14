@@ -577,7 +577,7 @@ export class ResourceManager {
             .floor()
             .max(1);
           worker.quantity = worker.quantity.plus(built);
-          if (worker.quantity.gte(worker.limit)) {
+          if (worker.quantity.minus(worker.limit).gte(Number.EPSILON)) {
             const diff = worker.quantity.minus(worker.limit);
             worker.quantity = worker.limit;
             added = added.minus(diff.times(worker.components));
