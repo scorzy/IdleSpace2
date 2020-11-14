@@ -1,7 +1,9 @@
 <h2>Ui Settings</h2>
-<form nz-form>
+<form nz-form nzLayout="horizontal">
   <nz-form-item>
-    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="theme">Theme</nz-form-label>
+    <nz-form-label [nzXs]="24" [nzSm]="12" [nzMd]="8" [nzLg]="6" nzFor="theme"
+      >Theme</nz-form-label
+    >
     <nz-select
       [(ngModel)]="os.themeId"
       (ngModelChange)="ms.setTheme()"
@@ -13,20 +15,11 @@
         [nzValue]="theme.css"
         [nzLabel]="theme.name"
       ></nz-option>
-
-      <!-- <nz-option nzValue="dark-green-2" nzLabel="Dark Green 2"></nz-option>
-      <nz-option nzValue="dark-blue-2" nzLabel="Dark Blue 2"></nz-option>
-      <nz-option nzValue="dark-green" nzLabel="Dark Green"></nz-option>
-      <nz-option nzValue="dark-blue" nzLabel="Dark Blue"></nz-option>
-      <nz-option nzValue="light-green" nzLabel="Light Green"></nz-option>
-      <nz-option nzValue="light-blue" nzLabel="Light Blue"></nz-option>
-      <nz-option nzValue="aliyun-green" nzLabel="Aliyun Green"></nz-option>
-      <nz-option nzValue="aliyun-blue" nzLabel="Aliyun Blue"></nz-option> -->
     </nz-select>
   </nz-form-item>
 
   <nz-form-item>
-    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="format">
+    <nz-form-label [nzXs]="24" [nzSm]="12" [nzMd]="8" [nzLg]="6" nzFor="format">
       Number format (reload required)
     </nz-form-label>
     <nz-select
@@ -41,9 +34,10 @@
       <nz-option nzValue="longScale" nzLabel="Long Scale"></nz-option>
     </nz-select>
   </nz-form-item>
-
+</form>
+<form nz-form nzLayout="horizontal" class="switch-form">
   <nz-form-item>
-    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="side">
+    <nz-form-label [nzXs]="24" [nzSm]="16" [nzMd]="8" [nzLg]="6" nzFor="side">
       Side menu theme
     </nz-form-label>
     <nz-switch
@@ -54,7 +48,7 @@
   </nz-form-item>
 
   <nz-form-item>
-    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="usa">
+    <nz-form-label [nzXs]="24" [nzSm]="16" [nzMd]="8" [nzLg]="6" nzFor="usa">
       USA decimal format (reload required)
     </nz-form-label>
     <nz-switch
@@ -65,42 +59,48 @@
   </nz-form-item>
 
   <nz-form-item>
-    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="small">
+    <nz-form-label [nzXs]="24" [nzSm]="16" [nzMd]="8" [nzLg]="6" nzFor="small">
       Small Headers
     </nz-form-label>
     <nz-switch name="small" [(ngModel)]="os.compactCardHeader"></nz-switch>
   </nz-form-item>
 
   <nz-form-item>
-    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="pn">
+    <nz-form-label [nzXs]="24" [nzSm]="16" [nzMd]="8" [nzLg]="6" nzFor="pn">
       "Production stopped" modal
     </nz-form-label>
     <nz-switch name="pn" [(ngModel)]="os.prodStopNoti"></nz-switch>
   </nz-form-item>
 
   <nz-form-item>
-    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="ci">
+    <nz-form-label [nzXs]="24" [nzSm]="16" [nzMd]="8" [nzLg]="6" nzFor="ci">
       Show components info
     </nz-form-label>
     <nz-switch name="ci" [(ngModel)]="os.showComponentsInfo"></nz-switch>
   </nz-form-item>
 
   <nz-form-item>
-    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="dd">
+    <nz-form-label [nzXs]="24" [nzSm]="16" [nzMd]="8" [nzLg]="6" nzFor="dd">
       Show drones status
     </nz-form-label>
     <nz-switch name="dd" [(ngModel)]="os.showDronesStatus"></nz-switch>
   </nz-form-item>
 
   <nz-form-item>
-    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="listUi">
+    <nz-form-label [nzXs]="24" [nzSm]="16" [nzMd]="8" [nzLg]="6" nzFor="listUi">
       List ui for workers
     </nz-form-label>
     <nz-switch name="listUi" [(ngModel)]="os.listUi"></nz-switch>
   </nz-form-item>
 
   <nz-form-item>
-    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="showDesc">
+    <nz-form-label
+      [nzXs]="24"
+      [nzSm]="16"
+      [nzMd]="8"
+      [nzLg]="6"
+      nzFor="showDesc"
+    >
       Show descriptions
     </nz-form-label>
     <nz-switch name="showDesc" [(ngModel)]="os.showDescriptions"></nz-switch>
@@ -109,63 +109,81 @@
   <h2>Notifications</h2>
 
   <nz-form-item>
-    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="sp">
+    <nz-form-label [nzXs]="24" [nzSm]="16" [nzMd]="8" [nzLg]="6" nzFor="sp">
       Space station completed notifications
     </nz-form-label>
     <nz-switch name="sp" [(ngModel)]="os.spaceStationNotifications"></nz-switch>
   </nz-form-item>
 
   <nz-form-item>
-    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="bw">
+    <nz-form-label [nzXs]="24" [nzSm]="16" [nzMd]="8" [nzLg]="6" nzFor="bw">
       Battle Win notification
     </nz-form-label>
     <nz-switch name="bw" [(ngModel)]="os.battleWinNotification"></nz-switch>
   </nz-form-item>
 
   <nz-form-item>
-    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="bl">
+    <nz-form-label [nzXs]="24" [nzSm]="16" [nzMd]="8" [nzLg]="6" nzFor="bl">
       Battle Lost notification
     </nz-form-label>
     <nz-switch name="bl" [(ngModel)]="os.battleLostNotification"></nz-switch>
   </nz-form-item>
 
   <nz-form-item>
-    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="w1">
+    <nz-form-label [nzXs]="24" [nzSm]="16" [nzMd]="8" [nzLg]="6" nzFor="w1">
       All warp notifications
     </nz-form-label>
     <nz-switch name="w1" [(ngModel)]="os.allWarpNoti"></nz-switch>
   </nz-form-item>
 
   <nz-form-item>
-    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="w2">
+    <nz-form-label [nzXs]="24" [nzSm]="16" [nzMd]="8" [nzLg]="6" nzFor="w2">
       Small(10 sec) warp notifications
     </nz-form-label>
     <nz-switch name="w2" [(ngModel)]="os.smallWarpNoti"></nz-switch>
   </nz-form-item>
 
   <nz-form-item>
-    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="experience">
+    <nz-form-label
+      [nzXs]="24"
+      [nzSm]="16"
+      [nzMd]="8"
+      [nzLg]="6"
+      nzFor="experience"
+    >
       Experience notifications
     </nz-form-label>
     <nz-switch name="experience" [(ngModel)]="os.expNoti"></nz-switch>
   </nz-form-item>
 
   <nz-form-item>
-    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="defeat">
+    <nz-form-label [nzXs]="24" [nzSm]="16" [nzMd]="8" [nzLg]="6" nzFor="defeat">
       Enemy defeat notifications
     </nz-form-label>
     <nz-switch name="defeat" [(ngModel)]="os.enemyDefeatNoti"></nz-switch>
   </nz-form-item>
 
   <nz-form-item>
-    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="research">
+    <nz-form-label
+      [nzXs]="24"
+      [nzSm]="16"
+      [nzMd]="8"
+      [nzLg]="6"
+      nzFor="research"
+    >
       Research notifications
     </nz-form-label>
     <nz-switch name="research" [(ngModel)]="os.researchNoti"></nz-switch>
   </nz-form-item>
 
   <nz-form-item>
-    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="research-boost">
+    <nz-form-label
+      [nzXs]="24"
+      [nzSm]="16"
+      [nzMd]="8"
+      [nzLg]="6"
+      nzFor="research-boost"
+    >
       Research boost notifications
     </nz-form-label>
     <nz-switch
@@ -177,14 +195,14 @@
   <h2>Tutorial info</h2>
 
   <nz-form-item>
-    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="t2">
+    <nz-form-label [nzXs]="24" [nzSm]="16" [nzMd]="8" [nzLg]="6" nzFor="t2">
       Space Stations completed notifications
     </nz-form-label>
     <nz-switch name="t2" [(ngModel)]="os.operativityInfo"></nz-switch>
   </nz-form-item>
 
   <nz-form-item>
-    <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="t1">
+    <nz-form-label [nzXs]="24" [nzSm]="16" [nzMd]="8" [nzLg]="6" nzFor="t1">
       Show districts info
     </nz-form-label>
     <nz-switch name="t1" [(ngModel)]="os.districtInfo"></nz-switch>

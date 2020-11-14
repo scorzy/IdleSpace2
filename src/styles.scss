@@ -242,6 +242,9 @@ nz-card-meta {
 .ant-notification-bottomRight {
   bottom: 0 !important;
 }
+.ant-notification {
+  margin: 0;
+}
 .ant-form-vertical .ant-form-item-label {
   padding: 0;
 }
@@ -253,4 +256,10 @@ nz-alert {
 }
 .no-wrap {
   white-space: nowrap;
+}
+@media (max-width: 575px) {
+  .switch-form .ant-form-item .ant-form-item-control,
+  .switch-form .ant-form-item .ant-form-item-label {
+    flex: 1;
+  }
 }
