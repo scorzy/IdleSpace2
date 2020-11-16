@@ -128,6 +128,16 @@
         ></nz-option>
       </nz-select>
     </div>
+    <div>
+      <label>Auto Specialization:</label>
+      <nz-select [(ngModel)]="ms.game.researchManager.autoSpecialization">
+        <nz-option
+          [nzValue]="spec"
+          [nzLabel]="spec.name"
+          *ngFor="let spec of specializations; trackBy: getResId"
+        ></nz-option>
+      </nz-select>
+    </div>
 
     <div>
       <strong>Tech. Bonuses </strong>

@@ -353,7 +353,7 @@ export class ResearchManager extends JobManager {
         resData.researchToUnlock = ["CV" + (1 + i)];
       }
       if (i === 0) {
-        resData.unlockFrom = "ui7";
+        resData.unlockFrom = "i7";
       }
       this.researches.push(new Research(resData, this));
     }

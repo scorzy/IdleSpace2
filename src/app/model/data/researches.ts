@@ -881,8 +881,8 @@ export const RESEARCHES: IResearchData[] = [
     description: "",
     max: 10,
     type: TECHNOLOGIES.CivilEngineering,
-    unlockFrom: "ui7",
-    spaceStationBuildBonus: 1
+    unlockFrom: "i7",
+    spaceStationBuildBonus: 2
   },
   {
     id: "cV",
@@ -914,7 +914,37 @@ export const RESEARCHES: IResearchData[] = [
     exclusiveGroup: ExclusiveResGroups.SPECIALIZATION,
     type: TECHNOLOGIES.CivilEngineering,
     unlockFrom: "CV2",
-    spellToUnlock: "spe1"
+    spellToUnlock: "spe1",
+    researchToUnlock: ["spe1-1"]
+  },
+  {
+    id: "spe1-1",
+    max: 10,
+    name: "Advanced Habitat",
+    description: "Improved Habitats.",
+    exclusiveGroup: ExclusiveResGroups.SPECIALIZATION,
+    type: TECHNOLOGIES.CivilEngineering,
+    stationToUp: [{ stationId: "i6", habSpace: 5 }],
+    researchToUnlock: ["spe1-2"]
+  },
+  {
+    id: "spe1-2",
+    max: 10,
+    name: "Advanced Ring World",
+    description: "Improved Ring World.",
+    exclusiveGroup: ExclusiveResGroups.SPECIALIZATION,
+    type: TECHNOLOGIES.CivilEngineering,
+    stationToUp: [{ stationId: "i7", habSpace: 5 }],
+    researchToUnlock: ["spe1-3"]
+  },
+  {
+    id: "spe1-3",
+    max: 10,
+    name: "Advanced Double Ring World",
+    description: "Improved Ring World.",
+    exclusiveGroup: ExclusiveResGroups.SPECIALIZATION,
+    type: TECHNOLOGIES.CivilEngineering,
+    stationToUp: [{ stationId: "i8", habSpace: 5 }]
   }
   //#endregion
 ];

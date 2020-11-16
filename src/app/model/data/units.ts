@@ -568,6 +568,12 @@ export const UNITS: IUnitData[] = [
     description: "",
     unitType: UNIT_TYPES.SPACE_STATION
   },
+  {
+    id: "i8",
+    name: "Double Ring World",
+    description: "",
+    unitType: UNIT_TYPES.SPACE_STATION
+  },
   ,
   //#endregion
   //#region MegaStructure

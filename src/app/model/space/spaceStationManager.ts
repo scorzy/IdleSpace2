@@ -28,10 +28,10 @@ export class SpaceStationManager extends JobManager {
   constructor() {
     super();
     this.megastructureQueue = new Array<MegaStructure>();
-    this.megaInitialPrice = Decimal.pow(
-      SPACE_STATION_GROW,
-      Game.getGame().resourceManager.spaceStations.length - 1
-    ).times(SPACE_STATION_PRICE);
+    // this.megaInitialPrice = Decimal.pow(SPACE_STATION_GROW, 7).times(
+    //   SPACE_STATION_PRICE
+    // );
+    this.megaInitialPrice = new Decimal(1e12);
     this.nextMegaPrice = this.megaInitialPrice;
     this.commonBonuses = new Array<Bonus>();
     this.stationsBonuses = new Array<Bonus>();

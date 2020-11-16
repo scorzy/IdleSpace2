@@ -27,9 +27,13 @@ export class LaboratoryComponent
   extends BaseComponentComponent
   implements OnInit, OnDestroy, AfterViewInit {
   origins: Research[];
+  specializations: Research[];
   ngOnInit() {
     this.origins = this.ms.game.researchManager.researches.filter(
       (res) => res.exclusiveGroup === ExclusiveResGroups.FIRST_ORIGIN
+    );
+    this.specializations = this.ms.game.researchManager.researches.filter(
+      (res) => res.exclusiveGroup === ExclusiveResGroups.SPECIALIZATION
     );
     this.reloadUi();
     this.subscriptions.push(
