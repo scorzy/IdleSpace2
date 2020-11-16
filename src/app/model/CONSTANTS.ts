@@ -143,8 +143,8 @@ export const SPACE_STATION_UP_PREFIX = "u";
 export const ORIGIN_1_TECH_MULTI = 2;
 export const ORIGIN_1_TECH_2_MULTI = 1;
 export const REPEATABLE_RES_PRICE_MULTI = 0.1;
-export const MORE_DRONES_RESEARCH = 0.2;
-export const MORE_DRONES_RESEARCH_2 = 0.3;
+export const MORE_DRONES_RESEARCH = 0.1;
+export const MORE_DRONES_RESEARCH_2 = 0.15;
 
 //  Buildings
 export const ENERGY_STORAGE = 1e4;

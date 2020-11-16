@@ -19,6 +19,7 @@ import {
   MORE_DRONES_RESEARCH_2
 } from "../CONSTANTS";
 import { ExclusiveResGroups } from "../researches/exclusiveResGroups";
+import { ShipType } from "../shipyard/ShipType";
 
 export const RESEARCHES: IResearchData[] = [
   //#region Researches
@@ -890,7 +891,7 @@ export const RESEARCHES: IResearchData[] = [
     description: "",
     max: 10,
     type: TECHNOLOGIES.CivilEngineering,
-    limitMulti: [{ unitId: IDS.Worker, multi: 0.25 }],
+    limitMulti: [{ unitId: IDS.Worker, multi: 0.1 }],
     unlockFrom: "CV0"
   },
   {
@@ -915,14 +916,15 @@ export const RESEARCHES: IResearchData[] = [
     type: TECHNOLOGIES.CivilEngineering,
     unlockFrom: "CV2",
     spellToUnlock: "spe1",
-    researchToUnlock: ["spe1-1"]
+    researchToUnlock: ["spe1-1", "spe1-4"],
+    limitMulti: [{ unitId: IDS.Worker, multi: 0.3 }],
+    effMulti: [{ unitId: IDS.Worker, multi: 0.2 }]
   },
   {
     id: "spe1-1",
     max: 10,
     name: "Advanced Habitat",
     description: "Improved Habitats.",
-    exclusiveGroup: ExclusiveResGroups.SPECIALIZATION,
     type: TECHNOLOGIES.CivilEngineering,
     stationToUp: [{ stationId: "i6", habSpace: 5 }],
     researchToUnlock: ["spe1-2"]
@@ -932,7 +934,6 @@ export const RESEARCHES: IResearchData[] = [
     max: 10,
     name: "Advanced Ring World",
     description: "Improved Ring World.",
-    exclusiveGroup: ExclusiveResGroups.SPECIALIZATION,
     type: TECHNOLOGIES.CivilEngineering,
     stationToUp: [{ stationId: "i7", habSpace: 5 }],
     researchToUnlock: ["spe1-3"]
@@ -942,9 +943,34 @@ export const RESEARCHES: IResearchData[] = [
     max: 10,
     name: "Advanced Double Ring World",
     description: "Improved Ring World.",
-    exclusiveGroup: ExclusiveResGroups.SPECIALIZATION,
     type: TECHNOLOGIES.CivilEngineering,
     stationToUp: [{ stationId: "i8", habSpace: 5 }]
+  },
+  {
+    id: "spe1-4",
+    max: 10,
+    name: "Advanced Dreadnought",
+    description: "Improved Dreadnought build speed.",
+    type: TECHNOLOGIES.MilitaryEngineering,
+    shipProductionBonus: [{ shipType: 9, multi: 5 }],
+    researchToUnlock: ["spe1-5"]
+  },
+  {
+    id: "spe1-5",
+    max: 10,
+    name: "Advanced Titan",
+    description: "Improved Titan build speed.",
+    type: TECHNOLOGIES.MilitaryEngineering,
+    shipProductionBonus: [{ shipType: 10, multi: 5 }],
+    researchToUnlock: ["spe1-6"]
+  },
+  {
+    id: "spe1-6",
+    max: 10,
+    name: "Advanced Dreadnought",
+    description: "Improved Colossus build speed.",
+    type: TECHNOLOGIES.MilitaryEngineering,
+    shipProductionBonus: [{ shipType: 11, multi: 5 }]
   }
   //#endregion
 ];

@@ -151,14 +151,6 @@ export class Research extends Job implements IUnlockable, IBase {
         (t) => t.id === this.resData.shipTypeToUnlock
       );
     }
-    if ("shipProductionBonus" in researchData) {
-      this.shipProductionBonus = researchData.shipProductionBonus.map((spb) => {
-        return {
-          shipType: sm.shipTypes.find((t) => t.id === spb.shipType),
-          multi: spb.multi
-        };
-      });
-    }
 
     this.type = researchManager.technologies.find(
       (tec) => tec.id === researchData.type.id
@@ -232,6 +224,14 @@ export class Research extends Job implements IUnlockable, IBase {
         resBonusData.type.bonus.bonuses.push(
           new Bonus(this, new Decimal(resBonusData.bonus))
         );
+      });
+    }
+    if ("shipProductionBonus" in this.resData) {
+      this.shipProductionBonus = this.resData.shipProductionBonus.map((spb) => {
+        return {
+          shipType: sm.shipTypes.find((t) => t.id === spb.shipType),
+          multi: spb.multi
+        };
       });
     }
     if ("battleMulti" in this.resData) {
