@@ -35,6 +35,7 @@ export class SearchComponent
   minDistance = ZERO;
   maxDistance = ZERO;
   pointBalance = 0;
+  extended = false;
   constructor(
     ms: MainService,
     cd: ChangeDetectorRef,
@@ -65,6 +66,7 @@ export class SearchComponent
     ];
   }
   ngOnInit() {
+    this.extended = this.ms.game.prestigeManager.extendedSearchCard.active;
     this.reload();
     this.subscriptions.push(
       this.ms.updateEmitter.subscribe(() => {

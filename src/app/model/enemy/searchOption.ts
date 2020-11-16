@@ -8,6 +8,7 @@ export class SearchOption implements ISearchOption {
   name: string;
   min = 0;
   max = 100;
+  extendedMax = 200;
   bonusMinStart = 0;
   bonusMinEnd = 0;
   bonusMaxStart = 0;
@@ -22,6 +23,9 @@ export class SearchOption implements ISearchOption {
     }
     if ("max" in data) {
       this.max = data.max;
+    }
+    if ("extendedMax" in data) {
+      this.extendedMax = data.extendedMax;
     }
     if ("bonusMinStart" in data) {
       this.bonusMinStart = data.bonusMinStart;

@@ -370,6 +370,15 @@ export const PRESTIGE_CARDS: ICardData[] = [
       "% per challenge completed.",
     icon: "arrow-up",
     cardRequired: 5
+  },
+  //#endregion
+  //#region Search
+  {
+    id: "k0",
+    name: "Extend Search",
+    description: "Increase maximum search points from 100 to 200.",
+    icon: "my:radar-sweep",
+    cardRequired: 1
   }
   //#endregion
 ];

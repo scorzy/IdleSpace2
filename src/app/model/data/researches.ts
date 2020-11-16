@@ -19,7 +19,6 @@ import {
   MORE_DRONES_RESEARCH_2
 } from "../CONSTANTS";
 import { ExclusiveResGroups } from "../researches/exclusiveResGroups";
-import { ShipType } from "../shipyard/ShipType";
 
 export const RESEARCHES: IResearchData[] = [
   //#region Researches

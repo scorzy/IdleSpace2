@@ -105,12 +105,31 @@ export class EnemyManager extends JobManager {
   search(level: number) {
     const searchJob = new SearchJob();
     searchJob.enemyLevel = level;
-    searchJob.habitabilityOpt = this.habitabilityOpt.quantity;
-    searchJob.distanceOpt = this.distanceOpt.quantity;
-    searchJob.energyOpt = this.energyOpt.quantity;
-    searchJob.metalOpt = this.metalOpt.quantity;
-    searchJob.scienceOpt = this.scienceOpt.quantity;
-    searchJob.componentOpt = this.componentOpt.quantity;
+    const max = Game.getGame().prestigeManager.extendedSearchCard.active;
+    searchJob.habitabilityOpt = Math.min(
+      max ? this.habitabilityOpt.extendedMax : this.habitabilityOpt.max,
+      this.habitabilityOpt.quantity
+    );
+    searchJob.distanceOpt = Math.min(
+      max ? this.distanceOpt.extendedMax : this.distanceOpt.max,
+      this.distanceOpt.quantity
+    );
+    searchJob.energyOpt = Math.min(
+      max ? this.energyOpt.extendedMax : this.energyOpt.max,
+      this.energyOpt.quantity
+    );
+    searchJob.metalOpt = Math.min(
+      max ? this.metalOpt.extendedMax : this.metalOpt.max,
+      this.metalOpt.quantity
+    );
+    searchJob.scienceOpt = Math.min(
+      max ? this.scienceOpt.extendedMax : this.scienceOpt.max,
+      this.scienceOpt.quantity
+    );
+    searchJob.componentOpt = Math.min(
+      max ? this.componentOpt.extendedMax : this.componentOpt.max,
+      this.componentOpt.quantity
+    );
     searchJob.init();
     this.toDo.push(searchJob);
   }

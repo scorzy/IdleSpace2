@@ -123,6 +123,7 @@ export class PrestigeManager {
   lowerModulePrice: PrestigeCard;
   killStreakWinCard: PrestigeCard;
   megaAutomationCard: PrestigeCard;
+  extendedSearchCard: PrestigeCard;
   //#endregion
   customBuyString = "100";
   customBuy = new Decimal(100);
@@ -592,6 +593,7 @@ export class PrestigeManager {
       tp.prestiges.forEach((point) => this.prestigePoints.push(point));
     });
     //#endregion
+
     this.prestigePoints.forEach((point) => {
       if (point.requiredPoint) {
         point.requiredPoint.dependantPoints =
@@ -755,7 +757,9 @@ export class PrestigeManager {
     //#endregion
     //#region challenges
     this.challengeMultiplier = this.cards.find((card) => card.id === "c0");
-
+    //#endregion
+    //#region Search
+    this.extendedSearchCard = this.cards.find((card) => card.id === "k0");
     //#endregion
   }
   addExperience(quantity: Decimal) {

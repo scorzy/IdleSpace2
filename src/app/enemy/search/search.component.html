@@ -53,7 +53,7 @@
               [(ngModel)]="opt.quantity"
               (ngModelChange)="reload()"
               [nzMin]="opt.min"
-              [nzMax]="opt.max"
+              [nzMax]="extended ? opt.extendedMax : opt.max"
               nzStep="1"
               [name]="opt.id"
             ></nz-slider>

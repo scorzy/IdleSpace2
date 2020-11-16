@@ -3,6 +3,7 @@ export interface ISearchOption {
   name: string;
   min?: number;
   max?: number;
+  extendedMax?: number;
   bonusMinStart?: number;
   bonusMinEnd?: number;
   bonusMaxStart?: number;

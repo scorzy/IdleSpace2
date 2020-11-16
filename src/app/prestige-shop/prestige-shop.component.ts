@@ -6,7 +6,7 @@ import {
   AfterViewInit
 } from "@angular/core";
 import { BaseComponentComponent } from "../base-component/base-component.component";
-import { ONE, PRESTIGE_TECH_UNLOCK } from "../model/CONSTANTS";
+import { PRESTIGE_TECH_UNLOCK } from "../model/CONSTANTS";
 import { PrestigePoint } from "../model/prestige/prestigePoint";
 import { parseDecimal } from "../model/utility/parseDecimal";
 

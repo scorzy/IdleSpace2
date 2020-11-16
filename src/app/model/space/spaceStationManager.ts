@@ -4,8 +4,6 @@ import { Game } from "../game";
 import { SpaceStation } from "../units/spaceStation";
 import {
   ONE,
-  SPACE_STATION_GROW,
-  SPACE_STATION_PRICE,
   ZERO
 } from "../CONSTANTS";
 import { MegaStructure } from "../units/megaStructure";
