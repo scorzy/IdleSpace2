@@ -60,6 +60,13 @@ export class BattleComponent
     }
   }
   attack(num = -1) {
+    for (
+      let i = 0, n = this.ms.game.shipyardManager.shipDesigns.length;
+      i < n;
+      i++
+    ) {
+      this.ms.game.shipyardManager.shipDesigns[i].battleTime = -1;
+    }
     if (num === -1) {
       for (let i = 0; i < FLEET_NUMBER; i++) {
         this.ms.game.enemyManager.attackCell(i);

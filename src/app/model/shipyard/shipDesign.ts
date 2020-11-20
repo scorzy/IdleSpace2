@@ -58,6 +58,8 @@ export class ShipDesign {
   isDefence = false;
   next: ShipDesign;
   available = false;
+  battleTime = -1;
+  private shipData: ShipData = null;
 
   constructor() {
     this.fleets = new Array<FleetShips>(FLEET_NUMBER);
@@ -541,22 +543,23 @@ export class ShipDesign {
     this.old = null;
   }
   getShipData(): ShipData {
-    const ret = new ShipData();
-    ret.designId = this.id;
-    ret.name = this.name + " r. " + this.rev;
-    ret.totalArmour = this.totalArmour;
-    ret.totalShield = this.totalShield;
-    ret.armourReduction = this.armourReduction;
-    ret.shieldReduction = this.shieldReduction;
-    ret.threat = this.threat;
-    ret.thereatPerRound = this.thereatPerRound;
-    ret.explosionThreshold = this.explosionThreshold;
-    ret.explosionDamage = this.explosionDamage;
-    ret.weapons = this.weapons;
-    ret.shieldRecharge = this.shieldRecharge;
-    ret.isDefence = this.isDefence;
+    if (!this.shipData) this.shipData = new ShipData();
 
-    return ret;
+    this.shipData.designId = this.id;
+    this.shipData.name = this.name + " r. " + this.rev;
+    this.shipData.totalArmour = this.totalArmour;
+    this.shipData.totalShield = this.totalShield;
+    this.shipData.armourReduction = this.armourReduction;
+    this.shipData.shieldReduction = this.shieldReduction;
+    this.shipData.threat = this.threat;
+    this.shipData.thereatPerRound = this.thereatPerRound;
+    this.shipData.explosionThreshold = this.explosionThreshold;
+    this.shipData.explosionDamage = this.explosionDamage;
+    this.shipData.weapons = this.weapons;
+    this.shipData.shieldRecharge = this.shieldRecharge;
+    this.shipData.isDefence = this.isDefence;
+
+    return this.shipData;
   }
   maximize() {
     this.modules.forEach((mod) => {

@@ -147,8 +147,12 @@ export class EnemyManager extends JobManager {
       this.toDo[i].reload();
     }
     Game.getGame().enemyManager.reloadNukeDamage();
+    const playerDesign = Game.getGame().shipyardManager.shipDesigns;
     //  Auto Attack
     if (this.currentEnemy && this.autoAttackEnabled) {
+      for (let i = 0, n = playerDesign.length; i < n; i++) {
+        playerDesign[i].battleTime = -1;
+      }
       const sm = Game.getGame().shipyardManager;
       for (let i = 0; i < 5; i++) {
         if (
@@ -226,16 +230,21 @@ export class EnemyManager extends JobManager {
           const shipData = playerDesign[i].getShipData();
           shipData.quantity = playerDesign[i].fleets[fleetNum].shipsQuantity;
           battleRequest.playerFleet.push(shipData);
-          const tempMax = solveEquation(
-            ZERO,
-            playerDesign[i].acceleration,
-            playerDesign[i].velocity,
-            this.currentEnemy.distance.times(-1)
-          );
-          for (const sol of tempMax) {
-            if (sol.gt(maxTime)) {
-              maxTime = sol.toNumber();
+          if (playerDesign[i].battleTime < 0) {
+            const tempMax = solveEquation(
+              ZERO,
+              playerDesign[i].acceleration,
+              playerDesign[i].velocity,
+              this.currentEnemy.distance.times(-1)
+            );
+            for (const sol of tempMax) {
+              if (sol.gte(playerDesign[i].battleTime))
+                playerDesign[i].battleTime = sol.toNumber();
             }
+          }
+
+          if (playerDesign[i].battleTime > maxTime) {
+            maxTime = playerDesign[i].battleTime;
           }
         }
 
