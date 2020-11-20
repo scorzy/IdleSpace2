@@ -50,12 +50,6 @@
       >
         <ng-template #fleetTitle>
           <strong class="fleet-name"> {{ panel.name }} </strong>
-          <!-- <span class="sub-title text-secondary">
-            Capacity:
-            <span class="monospace">
-              {{ ms.game.shipyardManager.fleetsCapacity[i] | format }}
-            </span>
-          </span> -->
 
           <span class="text-secondary">Priority: </span>
           <nz-input-number
@@ -64,7 +58,8 @@
             nzMin="0"
             nzMax="5000"
             [(ngModel)]="ms.game.shipyardManager.fleetNavCapPriorityUi[i]"
-          ></nz-input-number>
+          >
+          </nz-input-number>
           <span class="text-secondary">Capacity: </span>
           <span class="monospace fleet-capacity">{{
             ms.game.shipyardManager.fleetsCapacity[i] | format
@@ -104,6 +99,7 @@
               </th>
               <th nz-tooltip nzTooltipTitle="Desired quantity">Qty</th>
               <th nz-tooltip nzTooltipTitle="New Desired quantity">New</th>
+              <th nzWidth="2rem"></th>
             </tr>
           </thead>
           <tbody>
@@ -172,17 +168,48 @@
                   }}
                 </span>
               </td>
+              <td>
+                <button
+                  nz-button
+                  nzType="link"
+                  nzTrigger="click"
+                  nz-dropdown
+                  [nzDropdownMenu]="menu1"
+                  nzPlacement="bottomRight"
+                >
+                  <i nz-icon nzType="ellipsis"></i>
+                </button>
+                <nz-dropdown-menu #menu1="nzDropdownMenu">
+                  <ul nz-menu>
+                    <li nz-menu-item (click)="view(design, designView)">
+                      <i nz-icon nzType="eye"></i>
+                      View
+                    </li>
+                    <li nz-menu-item [routerLink]="'/des/edit/' + design.id">
+                      <i nz-icon nzType="arrow-right" nzTheme="outline"></i>
+                      Go to design
+                    </li>
+                    <li
+                      nz-menu-item
+                      (click)="design.deleteOutDated()"
+                      [nzDisabled]="!design.old"
+                    >
+                      <i nz-icon nzType="delete" nzTheme="outline"></i>
+                      Delete outdated ships
+                    </li>
+                    <li
+                      nz-menu-item
+                      (click)="ms.game.shipyardManager.delete(design)"
+                    >
+                      <i nz-icon nzType="delete" nzTheme="outline"></i>
+                      Delete design
+                    </li>
+                  </ul>
+                </nz-dropdown-menu>
+              </td>
             </tr>
           </tbody>
         </nz-table>
-
-        <!-- <button
-          nz-button
-          (click)="reinforce(panel.fleet)"
-          class="reinforce_num"
-        >
-          Reinforce {{ panel.fleet }}
-        </button> -->
       </nz-collapse-panel>
     </nz-collapse>
 
@@ -227,4 +254,6 @@
   </div>
 </div>
 
-<!-- nzVirtualForTrackBy="getDesignId" -->
+<ng-template #designView let-params let-ref="modalRef">
+  <app-design-detail [data]="params.value"></app-design-detail>
+</ng-template>

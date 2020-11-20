@@ -127,6 +127,7 @@ import { StackViewComponent } from './stats/stack-view/stack-view.component';
 import { ShopComponent } from './prestige-shop/shop/shop.component';
 import { AutoWarpComponent } from './auto-buy/auto-warp/auto-warp.component';
 import { AutoMegaComponent } from './auto-buy/auto-mega/auto-mega.component';
+import { DesignDetailComponent } from './design-detail/design-detail.component';
 
 registerLocaleData(en);
 
@@ -218,7 +219,8 @@ const ngZorroConfig: NzConfig = {
     StackViewComponent,
     ShopComponent,
     AutoWarpComponent,
-    AutoMegaComponent
+    AutoMegaComponent,
+    DesignDetailComponent
   ],
   imports: [
     BrowserModule,

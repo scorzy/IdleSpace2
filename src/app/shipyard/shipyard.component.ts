@@ -4,7 +4,8 @@ import {
   ChangeDetectorRef,
   OnInit,
   OnDestroy,
-  AfterViewInit
+  AfterViewInit,
+  TemplateRef
 } from "@angular/core";
 import { MainService } from "../main.service";
 import { ShipDesign } from "../model/shipyard/shipDesign";
@@ -14,6 +15,7 @@ import { FleetShips } from "../model/shipyard/fleetShips";
 import { BaseComponentComponent } from "../base-component/base-component.component";
 import { FLEET_NUMBER, FLEET_CAPACITY } from "../model/CONSTANTS";
 import { trigger } from "@angular/animations";
+import { NzModalRef, NzModalService } from "ng-zorro-antd/modal";
 
 @Component({
   selector: "app-shipyard",
@@ -36,11 +38,13 @@ export class ShipyardComponent
       fleet: 0
     }
   ];
+  tplModal?: NzModalRef;
 
   constructor(
     ms: MainService,
     cd: ChangeDetectorRef,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private modal: NzModalService
   ) {
     super(ms, cd);
   }
@@ -143,5 +147,16 @@ export class ShipyardComponent
       this.ms.game.shipyardManager.fleetNavCapPriorityUi[i] =
         index >= i ? 1 : 0;
     }
+  }
+  view(design: ShipDesign, tplContent: TemplateRef<{}>): void {
+    this.tplModal = this.modal.create({
+      nzTitle: design.name,
+      nzContent: tplContent,
+      nzClosable: true,
+      nzComponentParams: {
+        value: design
+      },
+      nzFooter: null
+    });
   }
 }

@@ -238,8 +238,9 @@ export class EnemyManager extends JobManager {
               this.currentEnemy.distance.times(-1)
             );
             for (const sol of tempMax) {
-              if (sol.gte(playerDesign[i].battleTime))
+              if (sol.gte(playerDesign[i].battleTime)) {
                 playerDesign[i].battleTime = sol.toNumber();
+              }
             }
           }
 
