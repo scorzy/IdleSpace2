@@ -96,6 +96,7 @@ export class Research extends Job implements IUnlockable, IBase {
   infrastructureToUp: { infrastructure: Infrastructure; bonus: number }[];
   commonCivilianBonus: number;
   spaceStationBuildBonus: number;
+  fleetCapacity: number;
   constructor(researchData: IResearchData, researchManager: ResearchManager) {
     super();
     this.resData = researchData;
@@ -111,6 +112,7 @@ export class Research extends Job implements IUnlockable, IBase {
 
     const rs = Game.getGame().resourceManager;
     const sm = Game.getGame().shipyardManager;
+    const game = Game.getGame();
 
     this._max2 = researchData.max ?? 10;
     this.growRate = researchData.growRate ?? RESEARCH_GROW_RATE;
@@ -142,6 +144,9 @@ export class Research extends Job implements IUnlockable, IBase {
     }
     if ("navalCapacity" in researchData) {
       this.navalCapacity = this.resData.navalCapacity;
+      game.additiveNavalCapStack.bonuses.push(
+        new Bonus(this, new Decimal(this.navalCapacity))
+      );
     }
     if ("recycling" in researchData) {
       this.recycling = this.resData.recycling;
@@ -194,7 +199,6 @@ export class Research extends Job implements IUnlockable, IBase {
         }
       }
     }
-
     if ("computingPerSec" in researchData) {
       this.computingPerSec = researchData.computingPerSec;
     }
@@ -418,6 +422,12 @@ export class Research extends Job implements IUnlockable, IBase {
       this.shipProductionBonusAll = this.resData.shipProductionBonusAll;
       sm.shipsProductionBonuses.push(
         new Bonus(this, new Decimal(this.shipProductionBonusAll))
+      );
+    }
+    if ("fleetCapacity" in this.resData) {
+      this.fleetCapacity = this.resData.fleetCapacity;
+      sm.additiveFleetCapStack.bonuses.push(
+        new Bonus(this, new Decimal(this.fleetCapacity))
       );
     }
   }

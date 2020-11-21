@@ -127,6 +127,9 @@
     {{ shipProdMulti.shipType.name }}
     <span class="text-secondary">production speed</span>
   </li>
+  <li *ngIf="research.fleetCapacity > 0">
+    + {{ research.fleetCapacity | format: true }} fleet capacity
+  </li>
   <li *ngIf="research.navalCapacity > 0">
     + {{ research.navalCapacity | format: true }} naval capacity
   </li>

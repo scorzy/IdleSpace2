@@ -188,10 +188,7 @@ export const PRESTIGE_CARDS: ICardData[] = [
     id: "w8",
     name: "More fleet capacity",
     description:
-      "Increase maximum fleet capacity to " +
-      FLEET_CAPACITY_CARD +
-      " from " +
-      FLEET_CAPACITY,
+      "+" + FLEET_CAPACITY_CARD + " fleet capacity." + FLEET_CAPACITY,
     icon: "my:strafe"
   },
   {

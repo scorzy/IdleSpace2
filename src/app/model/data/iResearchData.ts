@@ -56,4 +56,5 @@ export interface IResearchData {
   requiredChallenge?: { challengeId: string; level: number };
   commonCivilianBonus?: number;
   spaceStationBuildBonus?: number;
+  fleetCapacity?: number;
 }

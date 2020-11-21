@@ -16,7 +16,8 @@ import {
   MEGA_SPEED_MULTI,
   SCIENCE_CHALLENGE_LIMIT,
   INFRASTRUCTURE_BONUS,
-  SPACE_INFRASTRUCTURE_PRICE
+  SPACE_INFRASTRUCTURE_PRICE,
+  MEGA_NAVAL_MULTI
 } from "../CONSTANTS";
 import { Price } from "../prices/price";
 import { Components } from "./components";
@@ -183,6 +184,9 @@ export class ResourceManager {
 
     this.megaNaval = this.megastructures.find(
       (u) => u.id === MEGA_IDS.MegaNaval
+    );
+    Game.getGame().multiNavalCapStack.bonuses.push(
+      new Bonus(this.megaNaval, new Decimal(MEGA_NAVAL_MULTI))
     );
     this.gateway = this.megastructures.find((u) => u.id === MEGA_IDS.Gateway);
     this.megaComputing = this.megastructures.find(

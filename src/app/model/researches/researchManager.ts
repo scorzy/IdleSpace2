@@ -15,10 +15,12 @@ import {
   STANDARDIZED_SHIP_PREFIX,
   STANDARDIZED_RES_BONUS,
   SPACE_STATIONS_EXPANSION,
-  SPACE_STATIONS_EXPANSION_PREFIX
+  SPACE_STATIONS_EXPANSION_PREFIX,
+  ONE
 } from "../CONSTANTS";
 import { IResearchData } from "../data/iResearchData";
 import { ExclusiveResGroups } from "./exclusiveResGroups";
+import { Bonus } from "../bonus/bonus";
 
 const SHIP_RESEARCH_NAV_CAP_MULTI = 5;
 
@@ -89,6 +91,10 @@ export class ResearchManager extends JobManager {
     this.roboticsTech = this.technologies.find(
       (t) => t.id === TECHNOLOGIES.Robotics.id
     );
+    Game.getGame().additiveNavalCapStack.bonuses.push(
+      new Bonus(this.navalCapTech, ONE)
+    );
+
     //  Researches
     this.researches = RESEARCHES.map((resData) => new Research(resData, this));
     this.nukeResearch = this.researches.find((res) => res.id === "b");
@@ -97,16 +103,20 @@ export class ResearchManager extends JobManager {
     this.assimilation = this.researches.find((res) => res.id === "ns1");
     this.robotics = this.researches.find((res) => res.id === "x");
 
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 21; i++) {
       const resData: IResearchData = {
         id: "n" + i,
         max: 1,
         name: "Naval Logistics " + i,
         description: "Increase Naval Capacity",
-        type: TECHNOLOGIES.Naval,
-        navalCapacity: 30 * Math.pow(1.75, i)
+        type: TECHNOLOGIES.Naval
       };
-      if (i + 1 < 10) {
+      if (i < 10) {
+        resData.navalCapacity = 30 * Math.pow(1.75, i);
+      } else {
+        resData.fleetCapacity = 1e3;
+      }
+      if (i + 1 < 21) {
         resData.researchToUnlock = ["n" + (i + 1)];
       }
       if (i > 1) {

@@ -8,7 +8,7 @@ import { Game } from "../game";
 import {
   FLEET_NUMBER,
   FLEET_CAPACITY,
-  FLEET_CAPACITY_CARD
+  ONE
 } from "../CONSTANTS";
 import { BuildShipsJob } from "./buildShipsJob";
 import { Job } from "../job/job";
@@ -57,12 +57,19 @@ export class ShipyardManager extends JobManager {
   autoReinforce = false;
   shipsProductionBonuses = new Array<Bonus>();
   sort = false;
+  additiveFleetCapStack = new BonusStack();
   constructor() {
     super();
     this.fleetNavCapPriority.fill(0);
     this.fleetNavCapPriority[0] = 100;
     this.fleetNavCapPriorityUi.fill(0);
     this.fleetNavCapPriorityUi[0] = 100;
+    this.additiveFleetCapStack.bonuses.push(
+      new Bonus(
+        { id: "", name: "Fleet Capacity", quantity: ONE },
+        new Decimal(FLEET_CAPACITY)
+      )
+    );
   }
   init() {
     this.shipTypes = SHIP_TYPES.map((s) => new ShipType(s));
@@ -289,9 +296,10 @@ export class ShipyardManager extends JobManager {
    * Calculate fleets capacity and num of ships to build
    */
   reloadFleetCapacity() {
-    const maxFleetCap = Game.getGame().prestigeManager.fleetCapCard.active
-      ? FLEET_CAPACITY_CARD
-      : FLEET_CAPACITY;
+    let maxFleetCap = 0;
+    this.additiveFleetCapStack.reloadAdditiveBonus();
+    maxFleetCap =
+      maxFleetCap + this.additiveFleetCapStack.totalAdditiveBonus.toNumber();
     for (let k = 0, n = this.shipDesigns.length; k < n; k++) {
       this.shipDesigns[k].reloadAvailability();
     }

@@ -45,7 +45,8 @@ import {
   MINING_PRESTIGE,
   PRESTIGE_TECH_UNLOCK,
   MORE_STORAGE_PRESTIGE,
-  MORE_STORAGE_CARD
+  MORE_STORAGE_CARD,
+  FLEET_CAPACITY_CARD
 } from "../CONSTANTS";
 import { Game } from "../game";
 import {
@@ -714,6 +715,13 @@ export class PrestigeManager {
     );
     sy.velocityBonusStack.bonuses.push(killStreakBonus);
     sy.accelerationStack.bonuses.push(killStreakBonus);
+
+    sy.additiveFleetCapStack.bonuses.push(
+      new Bonus(this.fleetCapCard, new Decimal(FLEET_CAPACITY_CARD))
+    );
+    Game.getGame().multiNavalCapStack.bonuses.push(
+      new Bonus(this.navalCapCard, ONE)
+    );
 
     //#endregion
     //#region Warp

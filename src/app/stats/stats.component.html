@@ -2,4 +2,26 @@
   <nz-tab nzTitle="Ships speed">
     <ng-template nz-tab> <app-speed-stats> </app-speed-stats> </ng-template>
   </nz-tab>
+  <nz-tab nzTitle="Naval Capacity">
+    <ng-template nz-tab>
+      <div
+        fxLayout="row"
+        fxLayout.xs="column"
+        fxLayoutAlign="start start"
+        fxLayoutGap="2rem"
+      >
+        <app-stack-view
+          [additiveStack]="ms.game.additiveNavalCapStack"
+          [bonusStack]="ms.game.multiNavalCapStack"
+          title="Naval Capacity"
+        ></app-stack-view>
+
+        <br />
+        <app-stack-view
+          [additiveStack]="ms.game.shipyardManager.additiveFleetCapStack"
+          title="Fleet Capacity"
+        ></app-stack-view>
+      </div>
+    </ng-template>
+  </nz-tab>
 </nz-tabset>

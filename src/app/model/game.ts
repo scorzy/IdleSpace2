@@ -8,8 +8,6 @@ import {
   SIX_HOURS,
   LEVEL_PER_CARD,
   UPDATE_WARP_CARD,
-  NAVAL_CAP_CARD_MULTI,
-  MEGA_NAVAL_MULTI,
   ONE,
   AUTOMATION_UNLOCKED_LEVEL,
   GAME_VERSION
@@ -29,6 +27,7 @@ import { PrestigeManager } from "./prestige/prestigeManager";
 import { BonusStack } from "./bonus/bonusStack";
 import { ChallengeManager } from "./challenge/challengeManager";
 import { Challenge } from "./challenge/challenge";
+import { Bonus } from "./bonus/bonus";
 
 /**
  * Game is the main class that orchestrate everything game related
@@ -79,6 +78,8 @@ export class Game {
   firstUpdate = true;
   firstRun = true;
   automationUnlocked = false;
+  additiveNavalCapStack: BonusStack;
+  multiNavalCapStack: BonusStack;
 
   private _gameId = "";
   private battleResults: { result: BattleResult; fleet: number }[] = [];
@@ -94,6 +95,14 @@ export class Game {
   constructor() {
     Game.instance = this;
     this.idleTimeMultipliers = new BonusStack();
+    this.additiveNavalCapStack = new BonusStack();
+    this.multiNavalCapStack = new BonusStack();
+    this.additiveNavalCapStack.bonuses.push(
+      new Bonus(
+        { id: "", name: "Initial Naval Capacity", quantity: ONE },
+        new Decimal(BASE_NAVAL_CAPACITY)
+      )
+    );
     this.generateGameId();
     this.resourceManager = new ResourceManager();
     this.resourceManager.makeUnits();
@@ -286,22 +295,27 @@ export class Game {
     this.prestigeManager.loadNextMultiplier();
   }
   reloadNavalCapacity() {
-    this.navalCapacity = BASE_NAVAL_CAPACITY;
-    for (let i = 0, n = this.researchManager.researches.length; i < n; i++) {
-      this.navalCapacity += this.researchManager.researches[i].quantity
-        .times(this.researchManager.researches[i].navalCapacity)
-        .toNumber();
-    }
-    this.navalCapacity += this.researchManager.navalCapTech.quantity.toNumber();
-    if (this.resourceManager.megaNaval.quantity.gt(0)) {
-      this.navalCapacity *=
-        1 +
-        this.resourceManager.megaNaval.quantity.toNumber() * MEGA_NAVAL_MULTI;
-    }
-
-    if (this.prestigeManager.navalCapCard.active) {
-      this.navalCapacity *= 1 + NAVAL_CAP_CARD_MULTI;
-    }
+    this.additiveNavalCapStack.reloadAdditiveBonus();
+    this.multiNavalCapStack.reloadBonus();
+    this.navalCapacity = this.additiveNavalCapStack.totalAdditiveBonus
+      .times(this.multiNavalCapStack.totalBonus)
+      .toNumber();
+    // TODO:check
+    // this.navalCapacity = BASE_NAVAL_CAPACITY;
+    // for (let i = 0, n = this.researchManager.researches.length; i < n; i++) {
+    //   this.navalCapacity += this.researchManager.researches[i].quantity
+    //     .times(this.researchManager.researches[i].navalCapacity)
+    //     .toNumber();
+    // }
+    // this.navalCapacity += this.researchManager.navalCapTech.quantity.toNumber();
+    // if (this.resourceManager.megaNaval.quantity.gt(0)) {
+    //   this.navalCapacity *=
+    //     1 +
+    //     this.resourceManager.megaNaval.quantity.toNumber() * MEGA_NAVAL_MULTI;
+    // }
+    // if (this.prestigeManager.navalCapCard.active) {
+    //   this.navalCapacity *= 1 + NAVAL_CAP_CARD_MULTI;
+    // }
     this.navalCapacity = Math.floor(this.navalCapacity);
 
     this.shipyardManager.reloadFleetCapacity();
