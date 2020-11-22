@@ -17,9 +17,11 @@ export class StackViewComponent implements OnInit {
   @Input() additiveStack: BonusStack;
   @Input() bonusStack: BonusStack;
   @Input() title = "";
+  @Input() integer = false;
   additiveBonuses: { name: string; factor: Decimal }[];
   bonuses: { name: string; factor: Decimal }[];
   total = ZERO;
+  @Input() digits = 6;
   constructor() {}
 
   ngOnInit(): void {

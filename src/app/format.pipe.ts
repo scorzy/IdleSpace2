@@ -11,7 +11,7 @@ export class FormatPipe implements PipeTransform {
     if (!(value1 instanceof Decimal)) value1 = new Decimal(value1);
 
     const formatter = this.options.formatter;
-    if (this.options.numFormat !== "scientific") {
+    if (this.options.numFormat !== "scientific" || integer) {
       sigfigs = 3;
     }
 

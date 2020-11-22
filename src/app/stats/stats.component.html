@@ -13,12 +13,16 @@
         <app-stack-view
           [additiveStack]="ms.game.additiveNavalCapStack"
           [bonusStack]="ms.game.multiNavalCapStack"
+          [integer]="true"
+          [digits]="3"
           title="Naval Capacity"
         ></app-stack-view>
 
         <br />
         <app-stack-view
           [additiveStack]="ms.game.shipyardManager.additiveFleetCapStack"
+          [integer]="true"
+          [digits]="3"
           title="Fleet Capacity"
         ></app-stack-view>
       </div>
