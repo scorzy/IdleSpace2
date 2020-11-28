@@ -31,6 +31,8 @@ export class ComputingManager {
   autoCastResearch3: Research;
   autoCastResearchFull: Research;
   warpSpell: Spell;
+  showAll = false;
+
   constructor() {
     this.warpSpell = new WarpSpell();
     const researchSpell = new ResearchSpell();
@@ -47,6 +49,7 @@ export class ComputingManager {
       megaBuilderSpell
     ];
     this.currentSpells = [this.warpSpell];
+    this.warpSpell.unlocked = true;
 
     this.computingStackMulti.bonuses.push(
       new Bonus(
@@ -111,7 +114,7 @@ export class ComputingManager {
         this.currentSpells[i].percent = Math.floor(
           100 -
             (100 * (this.currentSpells[i].endTime - now)) /
-              this.currentSpells[i].duration
+              this.currentSpells[i].getDuration()
         );
       } else {
         this.currentSpells[i].percent = 100;
@@ -165,25 +168,31 @@ export class ComputingManager {
       return false;
     }
     this.currentSpells.push(spell);
+    spell.unlocked = true;
   }
   prestige() {
     const now = Date.now();
     this.currentSpells.forEach((spell) => {
       spell.endTime = now;
       spell.active = false;
+      spell.unlocked = false;
     });
     this.currentSpells = [this.warpSpell];
     this.currentComputing = 0;
+    this.warpSpell.unlocked = true;
   }
+
   //#region Save and Load
   getSave(): any {
-    return {
+    const save: any = {
       c: this.currentComputing,
       s: this.currentSpells.map((sp) => sp.getSave()),
       a: this.spells
         .filter((sp) => !this.currentSpells.some((csp) => csp === sp))
         .map((sp) => sp.getSave(true))
     };
+    if (this.showAll) save.w = this.showAll;
+    return save;
   }
   load(data: any) {
     if ("c" in data) this.currentComputing = data.c;
@@ -201,9 +210,11 @@ export class ComputingManager {
         if (spell && this.currentSpells.findIndex((s) => s === spell) < 0) {
           this.currentSpells.push(spell);
           spell.load(data.s[i]);
+          spell.unlocked = true;
         }
       }
     }
+    if ("w" in data && typeof data.w === "boolean") this.showAll = data.w;
   }
   //#endregion
 }

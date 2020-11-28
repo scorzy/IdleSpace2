@@ -141,6 +141,19 @@
   </li>
   <li
     (click)="selectLink.emit()"
+    nz-menu-item
+    nzMatchRouter
+    routerLink="spells"
+    *ngIf="ms.game.researchManager.computingTech.quantity.gt(0)"
+    nz-tooltip
+    nzTooltipPlacement="right"
+    [nzTooltipTitle]="isCollapsed ? 'Spells' : ''"
+  >
+    <i nz-icon nzType="fa-s:crosshairs"></i>
+    <span>Spells</span>
+  </li>
+  <li
+    (click)="selectLink.emit()"
     *ngIf="ms.game.automationUnlocked"
     nz-menu-item
     nzMatchRouter

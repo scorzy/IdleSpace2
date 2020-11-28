@@ -1,0 +1,117 @@
+<h2>Spells</h2>
+
+<!-- <p>
+  Technologies improve research speed, max ship module level, drone modding and
+  more.
+</p> -->
+
+<label
+  class="show-label"
+  nz-checkbox
+  [(ngModel)]="ms.game.computingManager.showAll"
+  (ngModelChange)="setList()"
+  >Show all</label
+>
+
+<div fxLayout="row wrap" fxLayoutGap="0.5rem">
+  <nz-card
+    [nzTitle]="cardTitle"
+    [nzExtra]="extraTemplate"
+    nzSize="small"
+    class="spell-container"
+    fxFlex="100%"
+    fxFlex.gt-sm="0 0 calc(50% -0.5rem)"
+    fxFlex.gt-md="0 0 calc(33% -0.5rem)"
+    *ngFor="let spell of spellList; trackBy: getSpellId"
+    @fadeIn
+  >
+    <ng-template #cardTitle>
+      <nz-card-meta
+        [nzAvatar]="avatarTemplate"
+        [nzTitle]="title"
+        [nzDescription]="description"
+      ></nz-card-meta>
+    </ng-template>
+    <ng-template #avatarTemplate>
+      <i
+        nz-icon
+        [nzType]="spell.icon"
+        [ngClass]="spell.colorClass"
+        *ngIf="spell.unlocked; else lock"
+      ></i>
+      <ng-template #lock
+        ><i nz-icon nzType="lock" nzTheme="outline" class="text-secondary"></i
+      ></ng-template>
+    </ng-template>
+    <ng-template #title>
+      <span> {{ spell.name }}</span>
+    </ng-template>
+    <ng-template #description>
+      <div
+        fxLayout="row"
+        fxLayoutAlign="start end"
+        fxLayoutGap="15px"
+        class="text-secondary spell-info"
+      >
+        <div>
+          <span class="monospace">{{ spell.price | format: true }}</span>
+        </div>
+        <div *ngIf="spell.duration > 0">
+          <i nz-icon nzType="fa-r:hourglass" class="hour-icon"></i>
+          <span class="monospace">
+            {{ spell.getDuration() / 1000 | time: 1 }}
+          </span>
+        </div>
+      </div></ng-template
+    >
+    <ng-template #extraTemplate> </ng-template>
+    <p>{{ spell.description }}</p>
+    <div
+      *ngIf="ms.game.computingManager.autoCastResearch1.level > 0"
+      fxLayout="row"
+      fxLayoutAlign="start center"
+      fxLayoutGap="10px"
+      class="autocast"
+    >
+      <button
+        nz-button
+        class="activate-btn"
+        [disabled]="!spell.canAfford"
+        (click)="spell.activate()"
+      >
+        Activate
+      </button>
+      <div>
+        Auto
+        <nz-radio-group [(ngModel)]="spell.autoCastPriority">
+          <label nz-radio-button [nzValue]="valueNo">No</label>
+          <label nz-radio-button [nzValue]="value1">1</label>
+          <label
+            *ngIf="ms.game.computingManager.autoCastResearch2.level > 0"
+            nz-radio-button
+            [nzValue]="value2"
+            >2</label
+          >
+          <label
+            *ngIf="ms.game.computingManager.autoCastResearch3.level > 0"
+            nz-radio-button
+            [nzValue]="value3"
+            >3</label
+          >
+        </nz-radio-group>
+      </div>
+      <label
+        *ngIf="
+          spell.autoCastPriority === value1 &&
+          ms.game.computingManager.autoCastResearchFull.level > 0
+        "
+        nz-checkbox
+        [(ngModel)]="spell.onFull"
+        >On Full Computing</label
+      >
+    </div>
+    <app-progress
+      [progress]="spell.active ? 100 - spell.percent : 0"
+    ></app-progress>
+  </nz-card>
+</div>

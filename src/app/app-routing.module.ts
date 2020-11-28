@@ -33,6 +33,7 @@ import { UnitListComponent } from "./unit-list/unit-list.component";
 import { UnitDetailComponent } from "./unit-list/unit-detail/unit-detail.component";
 import { ChallengeListComponent } from "./challenge-list/challenge-list.component";
 import { ChallengeComponent } from "./challenge-list/challenge/challenge.component";
+import { SpellsComponent } from "./spells/spells.component";
 export const routes: Routes = [
   { path: "", pathMatch: "full", redirectTo: "/info" },
   { path: "des", pathMatch: "full", redirectTo: "/des/add" },
@@ -59,6 +60,7 @@ export const routes: Routes = [
     ]
   },
   { path: "search", component: SearchComponent },
+  { path: "spells", component: SpellsComponent },
   { path: "battle", component: BattleComponent },
   { path: "report-list", component: ReportListComponent },
   { path: "report/:id", component: BattleReportComponent },

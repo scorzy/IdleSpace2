@@ -23,6 +23,7 @@ export class Spell implements IBase {
   percent = 0;
   autoCastPriority = 0;
   onFull = false;
+  unlocked = false;
   activate() {
     if (this.active) return false;
     const cp = Game.getGame().computingManager;
