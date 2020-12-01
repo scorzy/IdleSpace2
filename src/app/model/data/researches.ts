@@ -16,9 +16,11 @@ import {
   SKYHOOK_LEVEL,
   SUPER_TETHER_LEVEL,
   MORE_DRONES_RESEARCH,
-  MORE_DRONES_RESEARCH_2
+  MORE_DRONES_RESEARCH_2,
+  MODDERS_1_MULTI
 } from "../CONSTANTS";
 import { ExclusiveResGroups } from "../researches/exclusiveResGroups";
+import { Technology } from "../researches/technology";
 
 export const RESEARCHES: IResearchData[] = [
   //#region Researches
@@ -337,7 +339,7 @@ export const RESEARCHES: IResearchData[] = [
     requiredChallenge: { challengeId: "7", level: ANTI_SHIELD_SHELL_LEVEL }
   },
   //#endregion
-  //#region Origin Science
+  //#region Origin: Science
   {
     id: "or1",
     name: "Scientists origin",
@@ -415,7 +417,7 @@ export const RESEARCHES: IResearchData[] = [
     inspirationSpaceStationId: "i2"
   },
   //#endregion
-  //#region Origin War
+  //#region Origin: War
   {
     id: "or2",
     name: "War origin",
@@ -520,7 +522,7 @@ export const RESEARCHES: IResearchData[] = [
     ]
   },
   //#endregion
-  //#region Origin Builders
+  //#region Origin: Builders
   {
     id: "or3",
     name: "Builders origin",
@@ -904,7 +906,7 @@ export const RESEARCHES: IResearchData[] = [
     unlockFrom: "CV0"
   },
   //#endregion
-  //#region Specialization Mega Builder
+  //#region Specialization: Mega Builder
   {
     id: "spe1",
     max: 1,
@@ -970,6 +972,46 @@ export const RESEARCHES: IResearchData[] = [
     description: "Improved Colossus build speed.",
     type: TECHNOLOGIES.MilitaryEngineering,
     shipProductionBonus: [{ shipType: 11, multi: 5 }]
+  },
+  //#endregion
+  //#region Specialization: Modders
+  {
+    id: "spe2",
+    max: 1,
+    name: "Modders",
+    description: "Modders are trying to achieve the best possible drone.",
+    exclusiveGroup: ExclusiveResGroups.SPECIALIZATION,
+    type: TECHNOLOGIES.Robotics,
+    researchToUnlock: ["spe2-1","spe2-2"],
+    unlockFrom: "x11",
+    limitMulti: [{ unitId: MAT_IDS.Components, multi: 2 }],
+    recycling: 10,
+    modPoints: [
+      { unitId: IDS.Miner, multi: MODDERS_1_MULTI },
+      { unitId: IDS.Technician, multi: MODDERS_1_MULTI },
+      { unitId: IDS.Scientist, multi: MODDERS_1_MULTI },
+      { unitId: IDS.Metallurgist, multi: MODDERS_1_MULTI },
+      { unitId: IDS.Worker, multi: MODDERS_1_MULTI },
+      // { unitId: IDS.Replicator, multi: MODDERS_1_MULTI },
+      { unitId: IDS.Searcher, multi: MODDERS_1_MULTI },
+      { unitId: IDS.NukeSpecialist, multi: MODDERS_1_MULTI }
+    ]
+  },
+  {
+    id: "spe2-1",
+    max: 1,
+    name: "Advanced Robotics",
+    description: "",
+    type: TECHNOLOGIES.Robotics,
+    technologyBonus: [{ techId: TECHNOLOGIES.Robotics.id, multi: 5 }]
+  },
+  {
+    id: "spe2-2",
+    max: 1,
+    name: "Advanced Drone Storage",
+    description: "",
+    type: TECHNOLOGIES.Robotics,
+    limitMulti: [{ unitId: MAT_IDS.Components, multi: 10 }],
   }
   //#endregion
 ];

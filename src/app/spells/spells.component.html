@@ -1,9 +1,21 @@
 <h2>Spells</h2>
 
-<!-- <p>
-  Technologies improve research speed, max ship module level, drone modding and
-  more.
-</p> -->
+<p>
+  Computing capacity:
+  <strong class="monospace">{{
+    ms.game.computingManager.computingCapacity | format: true
+  }}</strong>
+  Active spells:
+  <strong class="monospace">{{
+    ms.game.computingManager.activeSpells | format: true
+  }}</strong>
+  <span *ngIf="ms.game.computingManager.penality > 1">
+    Next spell will costs x<strong class="monospace text-danger">{{
+      ms.game.computingManager.penality | format: true
+    }}</strong>
+    more.
+  </span>
+</p>
 
 <label
   class="show-label"
@@ -28,7 +40,7 @@
     <ng-template #cardTitle>
       <nz-card-meta
         [nzAvatar]="avatarTemplate"
-        [nzTitle]="title"
+        [nzTitle]="spell.name"
         [nzDescription]="description"
       ></nz-card-meta>
     </ng-template>
@@ -54,7 +66,10 @@
         class="text-secondary spell-info"
       >
         <div>
-          <span class="monospace">{{ spell.price | format: true }}</span>
+          <span class="monospace"
+            >{{ spell.actualPrice | format: true }}
+            <small>({{ spell.price | format: true }})</small>
+          </span>
         </div>
         <div *ngIf="spell.duration > 0">
           <i nz-icon nzType="fa-r:hourglass" class="hour-icon"></i>

@@ -8,7 +8,7 @@ import { IBase } from "../iBase";
 
 export class MegaBuilderSpell extends Spell {
   id = "spe1";
-  name = "Production initiative";
+  name = "Mega initiative";
   icon = "my:defense-satellite";
   colorClass = "production-color";
   duration = 60 * 5 * 1e3;

@@ -15,6 +15,7 @@ import { DroneSpell } from "./droneSpell";
 import { Bonus } from "../bonus/bonus";
 import { Game } from "../game";
 import { MegaBuilderSpell } from "./megaBuilderSpell";
+import { WorkerInitiativeSpell } from "./workerInitiativeSpell";
 
 export class ComputingManager {
   currentComputing = 0;
@@ -32,6 +33,9 @@ export class ComputingManager {
   autoCastResearchFull: Research;
   warpSpell: Spell;
   showAll = false;
+  computingCapacity = 3;
+  activeSpells = 0;
+  penality = 1;
 
   constructor() {
     this.warpSpell = new WarpSpell();
@@ -50,6 +54,22 @@ export class ComputingManager {
     ];
     this.currentSpells = [this.warpSpell];
     this.warpSpell.unlocked = true;
+
+    const rs = Game.getGame().resourceManager;
+    const workerInitArr = [
+      { worker: rs.miner, building: rs.mine },
+      { worker: rs.technician, building: rs.powerPlant },
+      { worker: rs.scientist, building: rs.laboratory },
+      { worker: rs.metallurgist, building: rs.foundry },
+      { worker: rs.worker, building: rs.factory },
+      { worker: rs.searcher, building: rs.observatory },
+      { worker: rs.replicator, building: rs.droneFactory },
+      { worker: rs.nukeDrone, building: rs.nukeFactory }
+    ];
+    workerInitArr.forEach((a) => {
+      const spell = new WorkerInitiativeSpell(a.worker, a.building);
+      this.spells.push(spell);
+    });
 
     this.computingStackMulti.bonuses.push(
       new Bonus(
@@ -105,12 +125,14 @@ export class ComputingManager {
     //#endregion
     //#region Update spells status
     const now = Date.now();
+    this.activeSpells = 0;
     for (let i = 0, n = this.currentSpells.length; i < n; i++) {
       if (this.currentSpells[i].endTime < now) {
         this.currentSpells[i].active = false;
       }
 
       if (this.currentSpells[i].active) {
+        this.activeSpells++;
         this.currentSpells[i].percent = Math.floor(
           100 -
             (100 * (this.currentSpells[i].endTime - now)) /
@@ -119,11 +141,8 @@ export class ComputingManager {
       } else {
         this.currentSpells[i].percent = 100;
       }
-
-      this.currentSpells[i].canAfford =
-        !this.currentSpells[i].active &&
-        this.currentSpells[i].price <= this.currentComputing;
     }
+    this.reloadPenality();
     //#endregion
     //#region Auto Cast
     let nextLevelOk = true;
@@ -148,7 +167,7 @@ export class ComputingManager {
             this.autoCastResearchFull.level < 1 ||
             this.currentComputing >= this.maxComputing)
         ) {
-          this.currentSpells[k].activate();
+          if (this.currentSpells[k].activate()) this.activeSpells++;
           // if (
           //   this.currentSpells[k].autoCastPriority === 1 &&
           //   this.currentSpells[k].active
@@ -161,7 +180,20 @@ export class ComputingManager {
       }
       if (!nextLevelOk) break;
     }
+    this.reloadPenality();
     //#endregion
+  }
+  reloadPenality() {
+    this.penality =
+      this.activeSpells >= this.computingCapacity
+        ? Math.pow(10, 1 + this.activeSpells - this.computingCapacity)
+        : 1;
+    for (let i = 0, n = this.currentSpells.length; i < n; i++) {
+      this.spells[i].actualPrice = this.spells[i].price * this.penality;
+      this.currentSpells[i].canAfford =
+        !this.currentSpells[i].active &&
+        this.currentSpells[i].actualPrice <= this.currentComputing;
+    }
   }
   addSpell(spell: Spell) {
     if (this.currentSpells.findIndex((s) => s.id === spell.id) > -1) {

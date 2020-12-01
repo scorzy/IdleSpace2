@@ -24,11 +24,12 @@ export class Spell implements IBase {
   autoCastPriority = 0;
   onFull = false;
   unlocked = false;
+  actualPrice = 1000;
   activate() {
     if (this.active) return false;
     const cp = Game.getGame().computingManager;
-    if (cp.currentComputing < this.price) return false;
-    cp.currentComputing -= this.price;
+    if (cp.currentComputing < this.actualPrice) return false;
+    cp.currentComputing -= this.actualPrice;
     this.onActivate();
     this.active = true;
     this.endTime = Date.now() + this.getDuration();

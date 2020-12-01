@@ -2,7 +2,7 @@ import { Spell } from "./spell";
 import { Game } from "../game";
 import { Bonus } from "../bonus/bonus";
 
-const baseBonus = new Decimal(0.2);
+const baseBonus = new Decimal(0.1);
 const buildingBonus = new Decimal(0.01);
 export class DroneSpell extends Spell {
   id = "d1";
