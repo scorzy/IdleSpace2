@@ -22,7 +22,7 @@ export class AutoBuilding extends AbstractAutobuyer {
     let ret = false;
     switch (this.autoBuyType) {
       case BuildingAutoBuyTypes.ASAP:
-        ret = this.building.buy(new Decimal(this.maxBuy));
+        ret = this.building.buy(this.building.buyPrice.maxBuy.min(this.maxBuy));
         break;
       case BuildingAutoBuyTypes.AS_NEED:
         if (

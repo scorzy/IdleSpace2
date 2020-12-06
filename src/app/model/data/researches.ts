@@ -17,7 +17,8 @@ import {
   SUPER_TETHER_LEVEL,
   MORE_DRONES_RESEARCH,
   MORE_DRONES_RESEARCH_2,
-  MODDERS_1_MULTI
+  MODDERS_1_MULTI,
+  MODDERS_2_MULTI
 } from "../CONSTANTS";
 import { ExclusiveResGroups } from "../researches/exclusiveResGroups";
 
@@ -981,7 +982,7 @@ export const RESEARCHES: IResearchData[] = [
     description: "Modders are trying to achieve the best possible drone.",
     exclusiveGroup: ExclusiveResGroups.SPECIALIZATION,
     type: TECHNOLOGIES.Robotics,
-    researchToUnlock: ["spe2-1", "spe2-2"],
+    researchToUnlock: ["spe2-1", "spe2-2", "spe2-3"],
     unlockFrom: "x11",
     limitMulti: [{ unitId: MAT_IDS.Components, multi: 2 }],
     recycling: 10,
@@ -998,19 +999,55 @@ export const RESEARCHES: IResearchData[] = [
   },
   {
     id: "spe2-1",
-    max: 1,
+    max: 10,
     name: "Advanced Robotics",
     description: "",
     type: TECHNOLOGIES.Robotics,
-    technologyBonus: [{ techId: TECHNOLOGIES.Robotics.id, multi: 5 }]
+    technologyBonus: [{ techId: TECHNOLOGIES.Robotics.id, multi: 1 }]
   },
   {
     id: "spe2-2",
-    max: 1,
+    max: 10,
     name: "Advanced Drone Storage",
     description: "",
     type: TECHNOLOGIES.Robotics,
     limitMulti: [{ unitId: MAT_IDS.Components, multi: 10 }]
+  },
+  {
+    id: "spe2-3",
+    max: 1,
+    name: "Menial drones upgrade",
+    description: "",
+    researchToUnlock: ["spe2-4"],
+    type: TECHNOLOGIES.Robotics,
+    modPoints: [
+      { unitId: IDS.Miner, multi: MODDERS_2_MULTI },
+      { unitId: IDS.Technician, multi: MODDERS_2_MULTI },
+      { unitId: IDS.Metallurgist, multi: MODDERS_2_MULTI }
+    ]
+  },
+  {
+    id: "spe2-4",
+    max: 1,
+    name: "Specialist drones upgrade",
+    researchToUnlock: ["spe2-5"],
+    description: "",
+    type: TECHNOLOGIES.Robotics,
+    modPoints: [
+      { unitId: IDS.Worker, multi: MODDERS_2_MULTI },
+      { unitId: IDS.NukeSpecialist, multi: MODDERS_2_MULTI }
+    ]
+  },
+  {
+    id: "spe2-5",
+    max: 1,
+    name: "Science drones upgrade",
+    description: "",
+    type: TECHNOLOGIES.Robotics,
+    modPoints: [
+      { unitId: IDS.Scientist, multi: MODDERS_2_MULTI },
+      { unitId: IDS.Searcher, multi: MODDERS_2_MULTI }
+    ]
   }
   //#endregion
 ];

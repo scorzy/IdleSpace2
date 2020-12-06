@@ -146,6 +146,7 @@ export const REPEATABLE_RES_PRICE_MULTI = 0.1;
 export const MORE_DRONES_RESEARCH = 0.1;
 export const MORE_DRONES_RESEARCH_2 = 0.15;
 export const MODDERS_1_MULTI = 0.05;
+export const MODDERS_2_MULTI = 0.2;
 
 //  Buildings
 export const ENERGY_STORAGE = 1e4;
