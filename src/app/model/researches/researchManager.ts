@@ -16,7 +16,8 @@ import {
   STANDARDIZED_RES_BONUS,
   SPACE_STATIONS_EXPANSION,
   SPACE_STATIONS_EXPANSION_PREFIX,
-  ONE
+  ONE,
+  IDS
 } from "../CONSTANTS";
 import { IResearchData } from "../data/iResearchData";
 import { ExclusiveResGroups } from "./exclusiveResGroups";
@@ -134,28 +135,32 @@ export class ResearchManager extends JobManager {
         id: "p",
         start: 0,
         tech: TECHNOLOGIES.Physics,
-        inspirationBuilding: "3"
+        inspirationBuilding: "3",
+        spell: IDS.Scientist + "I"
       },
       {
         name: "Searching",
         id: "h",
         start: 0,
         tech: TECHNOLOGIES.Search,
-        inspirationBuilding: "6"
+        inspirationBuilding: "6",
+        spell: IDS.Searcher + "I"
       },
       {
         name: "Materials",
         id: "M",
         start: 0,
         tech: TECHNOLOGIES.Materials,
-        inspirationBuilding: "4"
+        inspirationBuilding: "4",
+        spell: IDS.Metallurgist + "I"
       },
       {
         name: "Energy",
         id: "E",
         start: 0,
         tech: TECHNOLOGIES.Energy,
-        inspirationBuilding: "2"
+        inspirationBuilding: "2",
+        spell: IDS.Technician + "I"
       },
       {
         name: "Computing",
@@ -169,14 +174,16 @@ export class ResearchManager extends JobManager {
         id: "x",
         start: 1,
         tech: TECHNOLOGIES.Robotics,
-        inspirationBuilding: "7"
+        inspirationBuilding: "7",
+        spell: IDS.Replicator + "I"
       },
       {
         name: "Mining",
         id: "N",
         start: 1,
         tech: TECHNOLOGIES.Mining,
-        inspirationBuilding: "1"
+        inspirationBuilding: "1",
+        spell: IDS.Miner + "I"
       },
       {
         name: "Propulsion",
@@ -199,6 +206,9 @@ export class ResearchManager extends JobManager {
         }
         if (res.inspirationBuilding !== "") {
           resData.inspirationBuildingId = res.inspirationBuilding;
+        }
+        if (res.spell && i === 2) {
+          resData.spellToUnlock = res.spell;
         }
 
         const modPlus = RESEARCH_TECH_MOD_MULTI;

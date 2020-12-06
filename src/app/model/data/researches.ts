@@ -20,7 +20,6 @@ import {
   MODDERS_1_MULTI
 } from "../CONSTANTS";
 import { ExclusiveResGroups } from "../researches/exclusiveResGroups";
-import { Technology } from "../researches/technology";
 
 export const RESEARCHES: IResearchData[] = [
   //#region Researches
@@ -982,7 +981,7 @@ export const RESEARCHES: IResearchData[] = [
     description: "Modders are trying to achieve the best possible drone.",
     exclusiveGroup: ExclusiveResGroups.SPECIALIZATION,
     type: TECHNOLOGIES.Robotics,
-    researchToUnlock: ["spe2-1","spe2-2"],
+    researchToUnlock: ["spe2-1", "spe2-2"],
     unlockFrom: "x11",
     limitMulti: [{ unitId: MAT_IDS.Components, multi: 2 }],
     recycling: 10,
@@ -1011,7 +1010,7 @@ export const RESEARCHES: IResearchData[] = [
     name: "Advanced Drone Storage",
     description: "",
     type: TECHNOLOGIES.Robotics,
-    limitMulti: [{ unitId: MAT_IDS.Components, multi: 10 }],
+    limitMulti: [{ unitId: MAT_IDS.Components, multi: 10 }]
   }
   //#endregion
 ];

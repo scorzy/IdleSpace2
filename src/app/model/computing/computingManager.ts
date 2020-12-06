@@ -70,6 +70,9 @@ export class ComputingManager {
       const spell = new WorkerInitiativeSpell(a.worker, a.building);
       this.spells.push(spell);
     });
+    this.spells.forEach((spell) => {
+      spell.actualPrice = spell.price;
+    });
 
     this.computingStackMulti.bonuses.push(
       new Bonus(
@@ -189,7 +192,8 @@ export class ComputingManager {
         ? Math.pow(10, 1 + this.activeSpells - this.computingCapacity)
         : 1;
     for (let i = 0, n = this.currentSpells.length; i < n; i++) {
-      this.spells[i].actualPrice = this.spells[i].price * this.penality;
+      this.currentSpells[i].actualPrice =
+        this.currentSpells[i].price * this.penality;
       this.currentSpells[i].canAfford =
         !this.currentSpells[i].active &&
         this.currentSpells[i].actualPrice <= this.currentComputing;

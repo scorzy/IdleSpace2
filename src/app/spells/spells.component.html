@@ -15,6 +15,15 @@
     }}</strong>
     more.
   </span>
+  <span class="comp">
+    Computing:
+    <span class="monospace">
+      {{ ms.game.computingManager.currentComputing | format: true }}/{{
+        ms.game.computingManager.maxComputing | format: true
+      }}
+      +{{ ms.game.computingManager.computingPerSec | format: true }}/s
+    </span>
+  </span>
 </p>
 
 <label
