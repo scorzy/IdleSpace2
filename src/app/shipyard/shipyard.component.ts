@@ -119,6 +119,16 @@ export class ShipyardComponent
       });
     });
   }
+  confirmFleet(fleetNum: number) {
+    this.ms.game.shipyardManager.fleetNavCapPriority[fleetNum] = Math.min(
+      FLEET_CAPACITY,
+      Math.max(this.ms.game.shipyardManager.fleetNavCapPriorityUi[fleetNum], 0)
+    );
+    this.ms.game.shipyardManager.shipDesigns.forEach((des) => {
+      des.fleets[fleetNum].navalCapPercent =
+        des.fleets[fleetNum].navalCapPercentUi;
+    });
+  }
   reinforceAll() {
     this.ms.game.shipyardManager.reinforceAll();
   }

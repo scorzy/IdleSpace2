@@ -4,7 +4,12 @@
   fxLayoutAlign="flex-start"
   fxLayoutGap.gt-sm="10px"
 >
-  <div fxFlex.lt-md="100%" fxFlex="0 1 calc(60% - 10px)">
+  <div
+    fxFlex.lt-md="100%"
+    fxFlex.md="0 1 calc(60% - 10px)"
+    fxFlex.lg="0 1 calc(65% - 10px)"
+    fxFlex.xl="0 1 calc(70% - 10px)"
+  >
     <h2>Fleets</h2>
 
     <nz-button-group>
@@ -199,7 +204,13 @@
                     </li>
                     <li
                       nz-menu-item
-                      (click)="ms.game.shipyardManager.delete(design)"
+                      class="text-danger"
+                      nz-popconfirm
+                      [nzPopconfirmTitle]="
+                        'Are you sure delete ' + design.name + '?'
+                      "
+                      nzPopconfirmPlacement="bottom"
+                      (nzOnConfirm)="ms.game.shipyardManager.delete(design)"
                     >
                       <i nz-icon nzType="delete" nzTheme="outline"></i>
                       Delete design
@@ -210,6 +221,14 @@
             </tr>
           </tbody>
         </nz-table>
+        <button
+          class="fleet-confirm-btn"
+          nz-button
+          nzType="primary"
+          (click)="confirmFleet(i)"
+        >
+          <span>Confirm Fleet {{ i + 1 }}</span>
+        </button>
       </nz-collapse-panel>
     </nz-collapse>
 
