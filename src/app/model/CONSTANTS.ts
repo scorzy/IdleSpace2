@@ -20,6 +20,19 @@ export const IDS = {
   Replicator: "X",
   NukeSpecialist: "B"
 };
+export const BUILD_IDS = {
+  Mine: "1",
+  PowerPlant: "2",
+  Batteries: "8",
+  Laboratory: "3",
+  Foundry: "4",
+  Factory: "5",
+  Observatory: "6",
+  DroneFactory: "7",
+  DroneDepot: "9",
+  NukeFactory: "10",
+  NukeSilos: "11"
+};
 export const MAT_IDS = {
   Metal: "M",
   Energy: "E",

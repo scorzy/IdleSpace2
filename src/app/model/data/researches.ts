@@ -18,9 +18,11 @@ import {
   MORE_DRONES_RESEARCH,
   MORE_DRONES_RESEARCH_2,
   MODDERS_1_MULTI,
-  MODDERS_2_MULTI
+  MODDERS_2_MULTI,
+  BUILD_IDS
 } from "../CONSTANTS";
 import { ExclusiveResGroups } from "../researches/exclusiveResGroups";
+import { Building } from "../units/building";
 
 export const RESEARCHES: IResearchData[] = [
   //#region Researches
@@ -1003,7 +1005,37 @@ export const RESEARCHES: IResearchData[] = [
     name: "Advanced Robotics",
     description: "",
     type: TECHNOLOGIES.Robotics,
+    researchToUnlock: ["spe2-12"],
     technologyBonus: [{ techId: TECHNOLOGIES.Robotics.id, multi: 1 }]
+  },
+  {
+    id: "spe2-12",
+    max: 10,
+    name: "Recyclable designs",
+    description: "",
+    type: TECHNOLOGIES.Robotics,
+    researchToUnlock: ["spe2-13"],
+    recycling: 100,
+    technologyBonus: [{ techId: TECHNOLOGIES.Robotics.id, multi: 0.5 }]
+  },
+  {
+    id: "spe2-13",
+    max: 10,
+    name: "Extensible designs",
+    description: "",
+    type: TECHNOLOGIES.Robotics,
+    recycling: 100,
+    technologyBonus: [{ techId: TECHNOLOGIES.Robotics.id, multi: 0.5 }],
+    modPoints: [
+      { unitId: IDS.Miner, multi: MODDERS_1_MULTI / 2 },
+      { unitId: IDS.Technician, multi: MODDERS_1_MULTI / 2 },
+      { unitId: IDS.Scientist, multi: MODDERS_1_MULTI / 2 },
+      { unitId: IDS.Metallurgist, multi: MODDERS_1_MULTI / 2 },
+      { unitId: IDS.Worker, multi: MODDERS_1_MULTI / 2 },
+      // { unitId: IDS.Replicator, multi: MODDERS_1_MULTI },
+      { unitId: IDS.Searcher, multi: MODDERS_1_MULTI / 2 },
+      { unitId: IDS.NukeSpecialist, multi: MODDERS_1_MULTI / 2 }
+    ]
   },
   {
     id: "spe2-2",
@@ -1011,7 +1043,17 @@ export const RESEARCHES: IResearchData[] = [
     name: "Advanced Drone Storage",
     description: "",
     type: TECHNOLOGIES.Robotics,
-    limitMulti: [{ unitId: MAT_IDS.Components, multi: 10 }]
+    researchToUnlock: ["spe2-23"],
+    limitMulti: [{ unitId: MAT_IDS.Components, multi: 10 }],
+    buildingPoints: [{ buildingId: BUILD_IDS.DroneFactory, quantity: 1 }]
+  },
+  {
+    id: "spe2-23",
+    max: 10,
+    name: "Advanced Drone Factory",
+    description: "",
+    type: TECHNOLOGIES.Robotics,
+    buildingPoints: [{ buildingId: BUILD_IDS.DroneFactory, quantity: 5 }]
   },
   {
     id: "spe2-3",
