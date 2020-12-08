@@ -22,7 +22,6 @@ import {
   BUILD_IDS
 } from "../CONSTANTS";
 import { ExclusiveResGroups } from "../researches/exclusiveResGroups";
-import { Building } from "../units/building";
 
 export const RESEARCHES: IResearchData[] = [
   //#region Researches

@@ -1,6 +1,8 @@
+8/12/2020
 -   More researches
 -   More ship modules
 -   Balancement: higher enemies ship level
+-   2 Specialization
 
 13/11/2020
 -   Megastructure automation card
