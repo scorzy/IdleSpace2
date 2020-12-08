@@ -13,7 +13,7 @@
     "
     nz-tooltip
     nzTooltipPlacement="right"
-    [nzTooltipTitle]="isCollapsed ? 'Workers' : ''"
+    [nzTooltipTitle]="!mobile && isCollapsed ? 'Workers' : ''"
     (click)="selectLink.emit()"
   >
     <i nz-icon nzType="my:vintage-robot"></i>
@@ -28,7 +28,7 @@
     [routerLink]="'space'"
     nz-tooltip
     nzTooltipPlacement="right"
-    [nzTooltipTitle]="isCollapsed ? 'Space Stations' : ''"
+    [nzTooltipTitle]="!mobile && isCollapsed ? 'Space Stations' : ''"
   >
     <i nz-icon nzType="my:defense-satellite"></i>
     <span>Space Stations</span>
@@ -41,7 +41,7 @@
     *ngIf="ms.game.resourceManager.scientist.unlocked"
     nz-tooltip
     nzTooltipPlacement="right"
-    [nzTooltipTitle]="isCollapsed ? 'Laboratory' : ''"
+    [nzTooltipTitle]="!mobile && isCollapsed ? 'Laboratory' : ''"
   >
     <i nz-icon nzType="fa-s:flask"></i>
     <span>Laboratory</span>
@@ -54,7 +54,7 @@
     *ngIf="ms.game.researchManager.unlockedTechnologies.length > 0"
     nz-tooltip
     nzTooltipPlacement="right"
-    [nzTooltipTitle]="isCollapsed ? 'Technologies' : ''"
+    [nzTooltipTitle]="!mobile && isCollapsed ? 'Technologies' : ''"
   >
     <i nz-icon nzType="fa-s:book"></i>
     <span>Technologies</span>
@@ -67,7 +67,7 @@
     *ngIf="ms.game.resourceManager.scientist.unlocked"
     nz-tooltip
     nzTooltipPlacement="right"
-    [nzTooltipTitle]="isCollapsed ? 'Tree' : ''"
+    [nzTooltipTitle]="!mobile && isCollapsed ? 'Tree' : ''"
   >
     <i nz-icon nzType="fa-s:project-diagram"></i>
     <span>Tree</span>
@@ -80,7 +80,7 @@
     *ngIf="ms.game.researchManager.researches[0].quantity.gt(0)"
     nz-tooltip
     nzTooltipPlacement="right"
-    [nzTooltipTitle]="isCollapsed ? 'Fleet' : ''"
+    [nzTooltipTitle]="!mobile && isCollapsed ? 'Fleet' : ''"
   >
     <i nz-icon nzType="my:strafe"></i>
     <span>Fleet</span>
@@ -93,7 +93,7 @@
     *ngIf="ms.game.researchManager.scout.quantity.gt(0)"
     nz-tooltip
     nzTooltipPlacement="right"
-    [nzTooltipTitle]="isCollapsed ? 'Designs' : ''"
+    [nzTooltipTitle]="!mobile && isCollapsed ? 'Designs' : ''"
   >
     <i nz-icon nzType="fa-s:pencil-ruler"></i>
     <span>Designs</span>
@@ -106,7 +106,7 @@
     *ngIf="ms.game.researchManager.scout.quantity.gt(0)"
     nz-tooltip
     nzTooltipPlacement="right"
-    [nzTooltipTitle]="isCollapsed ? 'Modules' : ''"
+    [nzTooltipTitle]="!mobile && isCollapsed ? 'Modules' : ''"
   >
     <i nz-icon nzType="fa-s:table"></i>
     <span>Modules</span>
@@ -121,7 +121,7 @@
     "
     nz-tooltip
     nzTooltipPlacement="right"
-    [nzTooltipTitle]="isCollapsed ? 'Enemies' : ''"
+    [nzTooltipTitle]="!mobile && isCollapsed ? 'Enemies' : ''"
   >
     <i nz-icon nzType="fa-s:search"></i>
     <span>Enemies</span>
@@ -134,7 +134,7 @@
     *ngIf="ms.game.researchManager.researches[0].quantity.gt(0)"
     nz-tooltip
     nzTooltipPlacement="right"
-    [nzTooltipTitle]="isCollapsed ? 'Battle' : ''"
+    [nzTooltipTitle]="!mobile && isCollapsed ? 'Battle' : ''"
   >
     <i nz-icon nzType="fa-s:crosshairs"></i>
     <span>Battle</span>
@@ -147,7 +147,7 @@
     *ngIf="ms.game.researchManager.computingTech.quantity.gt(0)"
     nz-tooltip
     nzTooltipPlacement="right"
-    [nzTooltipTitle]="isCollapsed ? 'Spells' : ''"
+    [nzTooltipTitle]="!mobile && isCollapsed ? 'Spells' : ''"
   >
     <i nz-icon nzType="my:computing"></i>
     <span>Spells</span>
@@ -160,7 +160,7 @@
     routerLink="automation"
     nz-tooltip
     nzTooltipPlacement="right"
-    [nzTooltipTitle]="isCollapsed ? 'Automation' : ''"
+    [nzTooltipTitle]="!mobile && isCollapsed ? 'Automation' : ''"
   >
     <i nz-icon nzType="sync"></i>
     <span>Automation</span>
@@ -173,7 +173,7 @@
     *ngIf="ms.game.researchManager.researches[0].quantity.gt(0)"
     nz-tooltip
     nzTooltipPlacement="right"
-    [nzTooltipTitle]="isCollapsed ? 'Reports' : ''"
+    [nzTooltipTitle]="!mobile && isCollapsed ? 'Reports' : ''"
   >
     <i nz-icon nzType="fa-s:chart-bar"></i>
     <span>Reports</span>
@@ -185,7 +185,7 @@
     [routerLink]="'noti'"
     nz-tooltip
     nzTooltipPlacement="right"
-    [nzTooltipTitle]="isCollapsed ? 'Notifications' : ''"
+    [nzTooltipTitle]="!mobile && isCollapsed ? 'Notifications' : ''"
   >
     <i nz-icon nzType="notification" nzTheme="outline"></i>
     <span>Notifications</span>
@@ -198,7 +198,7 @@
     routerLink="prestige"
     nz-tooltip
     nzTooltipPlacement="right"
-    [nzTooltipTitle]="isCollapsed ? 'Prestige' : ''"
+    [nzTooltipTitle]="!mobile && isCollapsed ? 'Prestige' : ''"
   >
     <i nz-icon nzType="arrow-up" nzTheme="outline"></i>
     <span>Prestige</span>
@@ -211,7 +211,7 @@
     routerLink="expShop"
     nz-tooltip
     nzTooltipPlacement="right"
-    [nzTooltipTitle]="isCollapsed ? 'Exp Shop' : ''"
+    [nzTooltipTitle]="!mobile && isCollapsed ? 'Exp Shop' : ''"
   >
     <i nz-icon nzType="shop" nzTheme="fill"></i>
     <span>Exp Shop</span>
@@ -224,7 +224,7 @@
     routerLink="cards"
     nz-tooltip
     nzTooltipPlacement="right"
-    [nzTooltipTitle]="isCollapsed ? 'Cards' : ''"
+    [nzTooltipTitle]="!mobile && isCollapsed ? 'Cards' : ''"
   >
     <i nz-icon nzType="fa-s:layer-group" nzTheme="fill"></i>
     <span>Cards</span>
@@ -237,7 +237,7 @@
     *ngIf="!ms.game.firstRun || ms.game.darkMatter.gt(1)"
     nz-tooltip
     nzTooltipPlacement="right"
-    [nzTooltipTitle]="isCollapsed ? 'Warps' : ''"
+    [nzTooltipTitle]="!mobile && isCollapsed ? 'Warps' : ''"
   >
     <i nz-icon nzType="field-time" nzTheme="outline"></i>
     <span>Warps</span>
@@ -249,7 +249,7 @@
     [routerLink]="'options'"
     nz-tooltip
     nzTooltipPlacement="right"
-    [nzTooltipTitle]="isCollapsed ? 'Options' : ''"
+    [nzTooltipTitle]="!mobile && isCollapsed ? 'Options' : ''"
   >
     <i nz-icon nzType="setting"></i>
     <span>Options</span>
@@ -261,7 +261,7 @@
     [routerLink]="'info'"
     nz-tooltip
     nzTooltipPlacement="right"
-    [nzTooltipTitle]="isCollapsed ? 'Info' : ''"
+    [nzTooltipTitle]="!mobile && isCollapsed ? 'Info' : ''"
   >
     <i nz-icon nzType="info-circle" nzTheme="outline"></i>
     <span>Info</span>

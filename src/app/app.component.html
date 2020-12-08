@@ -66,7 +66,8 @@
   <app-side-menu
     [notCollapsed]="true"
     [isCollapsed]="ms.isCollapsed"
-    (select)="closeDrawer()"
+    [mobile]="true"
+    (selectLink)="closeDrawer()"
   ></app-side-menu>
 </nz-drawer>
 
@@ -90,4 +91,4 @@
   <button (click)="ms.reload()" nz-button nzType="primary">Refresh</button>
 </div>
 
-<app-spell-bar *ngIf="ms.game && ms.ready"></app-spell-bar>
+<app-spell-bar *ngIf="isLarge && ms.game && ms.ready"></app-spell-bar>

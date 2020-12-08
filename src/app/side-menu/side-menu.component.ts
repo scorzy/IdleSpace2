@@ -27,6 +27,7 @@ export class SideMenuComponent
   implements OnInit, OnDestroy, AfterViewInit {
   @Input() isCollapsed = false;
   @Input() notCollapsed = false;
+  @Input() mobile = false;
   @Output() selectLink = new EventEmitter();
   buyString = "Max";
 

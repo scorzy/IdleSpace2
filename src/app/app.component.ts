@@ -19,6 +19,7 @@ import {
 import { trigger } from "@angular/animations";
 import { NzMessageService } from "ng-zorro-antd/message";
 import { fadeIn } from "./animations";
+import { BreakpointObserver, BreakpointState } from "@angular/cdk/layout";
 
 @Component({
   selector: "app-root",
@@ -38,12 +39,14 @@ export class AppComponent implements OnInit, OnDestroy {
   loadMessage = "";
   pageOk = true;
   visible = false;
+  isLarge = false;
   constructor(
     public ms: MainService,
     public os: OptionsService,
     private notification: NzNotificationService,
     private cd: ChangeDetectorRef,
-    private message: NzMessageService
+    private message: NzMessageService,
+    public breakpointObserver: BreakpointObserver
   ) {}
 
   open(): void {
@@ -76,7 +79,13 @@ export class AppComponent implements OnInit, OnDestroy {
               break;
           }
         }
-      })
+      }),
+      this.breakpointObserver
+        .observe(["(min-width: 699px)"])
+        .subscribe((state: BreakpointState) => {
+          this.isLarge = state.matches;
+          this.cd.markForCheck();
+        })
     );
   }
   ngOnDestroy() {
