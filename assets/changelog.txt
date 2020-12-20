@@ -1,5 +1,6 @@
 20/12/2020
 -   Auto Prestige update
+-   New ship module: cyborgizer (Modders specialization)
 
 8/12/2020
 -   More researches
