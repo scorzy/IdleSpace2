@@ -15,8 +15,8 @@ export class AutoPrestige extends AbstractAutobuyer {
     const game = Game.getGame();
     if (!game.prestigeManager.autoPrestigeCard.active) return false;
     if (
-      game.enemyManager.maxLevel > this.maxLevel ||
-      Date.now() - game.lastPrestigeTime > this.maxTime
+      (this.maxLevel > 0 && game.enemyManager.maxLevel > this.maxLevel) ||
+      (this.maxTime >= 1 && Date.now() - game.lastPrestigeTime > this.maxTime)
     ) {
       game.prestige();
     }
