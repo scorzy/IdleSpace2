@@ -7,6 +7,11 @@ import {
 import { IChallengeData } from "../data/challenges";
 import { IBase } from "../iBase";
 import { Game } from "../game";
+import {
+  MyNotification,
+  NotificationTypes
+} from "../notifications/myNotification";
+import { MainService } from "src/app/main.service";
 
 export class Challenge implements IBase {
   id = "";
@@ -43,7 +48,15 @@ export class Challenge implements IBase {
       this.quantity = this.quantity.plus(1);
       const expToAdd = this.quantity.times(this.experiencePerCompletions);
       if (expToAdd.gt(0)) {
-        Game.getGame().prestigeManager.addExperience(expToAdd);
+        const game = Game.getGame();
+        game.prestigeManager.addExperience(expToAdd);
+        game.notificationManager.addNotification(
+          new MyNotification(
+            NotificationTypes.CHALLENGE,
+            this.name + " " + MainService.formatPipe.transform(this.quantity),
+            "+" + MainService.formatPipe.transform(expToAdd) + " exp"
+          )
+        );
       }
       this.reload();
     }

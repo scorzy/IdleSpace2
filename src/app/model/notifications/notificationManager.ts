@@ -57,6 +57,12 @@ export class NotificationManager {
     ) {
       return;
     }
+    if (
+      noti.type === NotificationTypes.CHALLENGE &&
+      !OptionsService.instance.challengeNoti
+    ) {
+      return;
+    }
 
     if (noti.type === NotificationTypes.RESEARCH) {
       this.researchesNotifications = this.researchesNotifications.filter(
@@ -69,7 +75,7 @@ export class NotificationManager {
   }
   notifyResearches() {
     if (this.researchesNotifications.length < 3) {
-      for (let noti of this.researchesNotifications) {
+      for (const noti of this.researchesNotifications) {
         MainService?.instance?.notificationEmitter?.emit(noti);
       }
     } else {

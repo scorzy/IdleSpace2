@@ -192,6 +192,19 @@
     ></nz-switch>
   </nz-form-item>
 
+  <nz-form-item>
+    <nz-form-label
+      [nzXs]="24"
+      [nzSm]="16"
+      [nzMd]="8"
+      [nzLg]="6"
+      nzFor="challenge"
+    >
+      Challenge notifications
+    </nz-form-label>
+    <nz-switch name="challenge" [(ngModel)]="os.challengeNoti"></nz-switch>
+  </nz-form-item>
+
   <h2>Tutorial info</h2>
 
   <nz-form-item>

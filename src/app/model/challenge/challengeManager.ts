@@ -172,6 +172,8 @@ export class ChallengeManager {
     if ("e" in save) {
       this.expandingStartDate = save.e;
     }
+    this.challenges[0].nextLevel = 100;
+    this.challenges[0].quantity = ZERO;
   }
   afterLoad() {
     const maxLevel = Game.getGame().enemyManager.maxLevel - 1;

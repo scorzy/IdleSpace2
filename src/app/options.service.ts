@@ -28,6 +28,7 @@ export class OptionsService {
   enemyDefeatNoti = true;
   researchNoti = true;
   researchBoostNoti = true;
+  challengeNoti = true;
 
   showComponentsInfo = true;
   showDronesStatus = true;
@@ -108,6 +109,7 @@ export class OptionsService {
       ed: this.enemyDefeatNoti,
       rn: this.researchNoti,
       rb: this.researchBoostNoti,
+      k: this.challengeNoti,
       wk: this.warpKeys.map((warpKey) => [warpKey.key, warpKey.minutes])
     };
   }
@@ -135,6 +137,7 @@ export class OptionsService {
     if ("ed" in data) this.enemyDefeatNoti = data.ed;
     if ("rn" in data) this.researchNoti = data.rn;
     if ("rb" in data) this.researchBoostNoti = data.rb;
+    if ("k" in data) this.challengeNoti = data.k;
 
     if ("t1" in data) this.districtInfo = data.t1;
     if ("t2" in data) this.operativityInfo = data.t2;

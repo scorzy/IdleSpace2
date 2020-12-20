@@ -13,7 +13,8 @@ export enum NotificationTypes {
   RESEARCH_INSPIRED,
   WARP,
   EXPERIENCE,
-  EXTRA_TIME
+  EXTRA_TIME,
+  CHALLENGE
 }
 export class MyNotification {
   dateTime = Date.now();
@@ -73,6 +74,10 @@ export class MyNotification {
       case NotificationTypes.EXTRA_TIME:
         this.icon = "field-time";
         this.iconClass = Game.getGame().resourceManager.science.colorClass;
+        break;
+      case NotificationTypes.CHALLENGE:
+        this.icon = "my:laurel-crown";
+        this.iconClass = "text-success";
         break;
     }
   }
