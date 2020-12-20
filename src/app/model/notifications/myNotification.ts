@@ -1,4 +1,5 @@
 import { Game } from "../game";
+import { Research } from "../researches/research";
 
 export enum NotificationTypes {
   SAVE,
@@ -19,6 +20,7 @@ export class MyNotification {
   icon = "";
   iconClass = "";
   template = true;
+  research: Research;
   constructor(
     public type: NotificationTypes,
     public title: string,

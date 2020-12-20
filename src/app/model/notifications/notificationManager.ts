@@ -5,6 +5,7 @@ import { OptionsService } from "src/app/options.service";
 const MAX_NOTIFICATION = 50;
 export class NotificationManager {
   notifications = new Array<MyNotification>();
+  researchesNotifications = new Array<MyNotification>();
 
   addNotification(noti: MyNotification, opt = 0) {
     this.notifications.unshift(noti);
@@ -57,6 +58,28 @@ export class NotificationManager {
       return;
     }
 
-    MainService?.instance?.notificationEmitter?.emit(noti);
+    if (noti.type === NotificationTypes.RESEARCH) {
+      this.researchesNotifications = this.researchesNotifications.filter(
+        (n) => !n.research || n.research !== noti.research
+      );
+      this.researchesNotifications.push(noti);
+    } else {
+      MainService?.instance?.notificationEmitter?.emit(noti);
+    }
+  }
+  notifyResearches() {
+    if (this.researchesNotifications.length < 3) {
+      for (let noti of this.researchesNotifications) {
+        MainService?.instance?.notificationEmitter?.emit(noti);
+      }
+    } else {
+      MainService?.instance?.notificationEmitter?.emit(
+        new MyNotification(
+          NotificationTypes.RESEARCH,
+          this.researchesNotifications.length + " researches completed"
+        )
+      );
+    }
+    this.researchesNotifications = [];
   }
 }

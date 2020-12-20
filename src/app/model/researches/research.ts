@@ -532,12 +532,12 @@ export class Research extends Job implements IUnlockable, IBase {
     }
 
     if (!force) {
-      Game.getGame().notificationManager.addNotification(
-        new MyNotification(
-          NotificationTypes.RESEARCH,
-          this.name // + " completed!"
-        )
+      const noti = new MyNotification(
+        NotificationTypes.RESEARCH,
+        this.name // + " completed!"
       );
+      noti.research = this;
+      Game.getGame().notificationManager.addNotification(noti);
       this.inspiration = false;
     }
   }

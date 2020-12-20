@@ -264,6 +264,8 @@ export class Game {
     }
   }
   postUpdate(delta: number) {
+    this.notificationManager.notifyResearches();
+
     this.challengeManager.postUpdate();
     this.computingManager.update(delta);
     this.reloadWorkPerSec();
