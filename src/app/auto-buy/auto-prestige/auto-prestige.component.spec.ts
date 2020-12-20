@@ -16,7 +16,7 @@ describe("AutoPrestigeComponent", () => {
     TestBed.configureTestingModule({
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
       imports: testImports,
-      declarations: [AutoPrestigeComponent, FormatPipe],
+      declarations: [AutoPrestigeComponent, FormatPipe, TimePipe],
       providers: [MainService, OptionsService, FormatPipe, TimePipe]
     }).compileComponents();
   }));

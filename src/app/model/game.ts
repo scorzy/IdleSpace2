@@ -80,6 +80,7 @@ export class Game {
   automationUnlocked = false;
   additiveNavalCapStack: BonusStack;
   multiNavalCapStack: BonusStack;
+  lastPrestigeTime = Date.now();
 
   private _gameId = "";
   private battleResults: { result: BattleResult; fleet: number }[] = [];
@@ -200,6 +201,7 @@ export class Game {
     let n = 0;
     while (toUpdate > 0 && n < 20) {
       n++;
+      // console.log(n + " " + toUpdate);
       this.resourceManager.shipyardWork.limit = this.shipyardManager
         .getWorkNeeded()
         .plus(this.spaceStationManager.getWorkNeeded());
@@ -240,7 +242,6 @@ export class Game {
       this.resourceManager.shipyardWork.quantity = ZERO;
       this.enemyManager.addProgress(this.resourceManager.search.quantity);
       this.resourceManager.search.quantity = ZERO;
-      // console.log(n + " " + toUpdate);
     }
     this.firstUpdate = false;
   }
@@ -415,6 +416,7 @@ export class Game {
     this.firstRun = false;
     this.postUpdate(0);
     MainService.instance.lastUnitId = "m";
+    this.lastPrestigeTime = Date.now();
   }
   startChallenge(challenge: Challenge) {
     if (!this.challengeManager.startChallenge(challenge)) return;
@@ -462,7 +464,8 @@ export class Game {
       fr: this.firstRun,
       j: this.challengeManager.getSave(),
       u: this.automationUnlocked,
-      v: GAME_VERSION
+      v: GAME_VERSION,
+      P: this.lastPrestigeTime
     };
   }
   load(data: any) {
@@ -470,6 +473,9 @@ export class Game {
       throw new Error("Save not valid");
     }
     const saveVersion = "v" in data ? data.v : 0;
+    if ("P" in data && typeof data.P === "number") {
+      this.lastPrestigeTime = data.P;
+    }
 
     if ("u" in data) this.automationUnlocked = data.u;
     if ("fr" in data) this.firstRun = data.fr;

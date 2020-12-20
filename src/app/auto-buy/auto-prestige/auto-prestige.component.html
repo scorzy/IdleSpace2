@@ -1,3 +1,7 @@
+<p>
+  Prestige when max enemy level reach "Max Level" or when the time elapsed in
+  this prestige reach "hh mm"
+</p>
 <form nz-form nzLayout="inline">
   <nz-form-item>
     <nz-form-label>On</nz-form-label>
@@ -41,10 +45,10 @@
   </nz-form-item>
 
   <nz-form-item>
-    <nz-form-label>Min Level</nz-form-label>
+    <nz-form-label>Max Level</nz-form-label>
     <nz-form-control>
       <nz-input-number
-        [(ngModel)]="ms.game.automationManager.autoPrestige.minLevel"
+        [(ngModel)]="ms.game.automationManager.autoPrestige.maxLevel"
         [nzSize]="'small'"
         [nzMin]="1"
         [nzStep]="1"
@@ -53,3 +57,8 @@
     </nz-form-control>
   </nz-form-item>
 </form>
+
+<span>
+  This prestige time:
+  <span class="monospace"> {{ getTime() | time }} </span>
+</span>

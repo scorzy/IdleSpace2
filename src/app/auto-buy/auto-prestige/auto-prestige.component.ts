@@ -21,15 +21,17 @@ export class AutoPrestigeComponent
 
   ngOnInit() {
     this.minutes =
-      (this.ms.game.automationManager.autoPrestige.interval / 1000 / 60) % 60;
+      (this.ms.game.automationManager.autoPrestige.maxTime / 1000 / 60) % 60;
     this.hours = Math.floor(
-      this.ms.game.automationManager.autoPrestige.interval / (1000 * 60 * 60)
+      this.ms.game.automationManager.autoPrestige.maxTime / (1000 * 60 * 60)
     );
     super.ngOnInit();
   }
-
+  getTime(): number {
+    return (Date.now() - this.ms.game.lastPrestigeTime) / 1000;
+  }
   setInterval() {
-    this.ms.game.automationManager.autoPrestige.interval =
+    this.ms.game.automationManager.autoPrestige.maxTime =
       (this.hours * 60 + this.minutes) * 60 * 1000;
   }
 }
