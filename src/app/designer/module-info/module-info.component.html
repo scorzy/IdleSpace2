@@ -150,6 +150,15 @@
     >{{ mod.explosionDamage | number: "1.0-0" }}
   </span>
   <span
+    *ngIf="mod.terraformer > 0"
+    class="habSpace-color"
+    nz-tooltip
+    nzTooltipTitle="Increase district gains. Total bonus is 'number of ships' * 'cargo bonus'"
+    fxLayout="row"
+  >
+    <i nz-icon nzType="fa-s:globe"></i>{{ mod.terraformer | format }}%
+  </span>
+  <span
     *ngIf="mod.cargo > 0"
     class="cargo-color"
     nz-tooltip
@@ -157,6 +166,15 @@
     fxLayout="row"
   >
     <i nz-icon nzType="my:cube"></i>{{ mod.cargo | format }}%
+  </span>
+  <span
+    *ngIf="mod.components > 0"
+    class="component-color"
+    nz-tooltip
+    nzTooltipTitle="Components, components rewards from battle. Stack additive. Total bonus is 'number of ships' * 'cargo bonus'"
+    fxLayout="row"
+  >
+    <i nz-icon nzType="fa-s:microchip"></i>{{ mod.components | format }}%
   </span>
   <span
     *ngIf="mod.scienceLab > 0"

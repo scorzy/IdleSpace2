@@ -987,6 +987,7 @@ export const RESEARCHES: IResearchData[] = [
     unlockFrom: "x11",
     limitMulti: [{ unitId: MAT_IDS.Components, multi: 2 }],
     recycling: 10,
+    modulesToUnlock: ["y"],
     modPoints: [
       { unitId: IDS.Miner, multi: MODDERS_1_MULTI },
       { unitId: IDS.Technician, multi: MODDERS_1_MULTI },

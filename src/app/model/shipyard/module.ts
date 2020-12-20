@@ -39,6 +39,8 @@ export class Module implements IUnlockable {
   precision = 0;
   adaptivePrecision = 0;
   threatGainMulti = 1;
+  components = 0;
+  terraformer = 0;
   research: Research;
   specialResearch: Research;
   groupId = 0;

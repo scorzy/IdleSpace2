@@ -16,7 +16,8 @@ import {
   ONE,
   KILL_STREAK_GAIN_CARD,
   AUTOMATION_UNLOCKED_LEVEL,
-  NO_MULTIPLIER_MULTI
+  NO_MULTIPLIER_MULTI,
+  MAT_IDS
 } from "../CONSTANTS";
 import { MainService } from "src/app/main.service";
 import { BattleRequest } from "../battle/battleRequest";
@@ -422,6 +423,30 @@ export class EnemyManager extends JobManager {
     }
     return asPercent ? scienceLab : scienceLab.div(100).plus(1);
   }
+  getComponents(fleetNum: number, asPercent = false): Decimal {
+    const playerDesign = Game.getGame().shipyardManager.shipDesigns;
+    let comp = ZERO;
+    for (let i = 0, n = playerDesign.length; i < n; i++) {
+      comp = comp.plus(
+        playerDesign[i].components.times(
+          playerDesign[i].fleets[fleetNum].shipsQuantity
+        )
+      );
+    }
+    return asPercent ? comp : comp.div(100).plus(1);
+  }
+  getTerraformer(fleetNum: number, asPercent = false): Decimal {
+    const playerDesign = Game.getGame().shipyardManager.shipDesigns;
+    let ter = ZERO;
+    for (let i = 0, n = playerDesign.length; i < n; i++) {
+      ter = ter.plus(
+        playerDesign[i].terraformer.times(
+          playerDesign[i].fleets[fleetNum].shipsQuantity
+        )
+      );
+    }
+    return asPercent ? ter : ter.div(100).plus(1);
+  }
   reward(cell: Cell, fleetNum: number) {
     //  Card Warp
     if (Game.getGame().prestigeManager.victoryWarp.active) {
@@ -433,6 +458,8 @@ export class EnemyManager extends JobManager {
     }
     const cargo = this.getCargo(fleetNum);
     const scienceLab = this.getLab(fleetNum);
+    const components = this.getComponents(fleetNum);
+    const terraformer = this.getTerraformer(fleetNum);
 
     for (let i = 0, n = cell.materials.length; i < n; i++) {
       const mat = cell.materials[i];
@@ -445,6 +472,12 @@ export class EnemyManager extends JobManager {
         ) {
           toAdd = toAdd.times(scienceLab);
         } else toAdd = toAdd.times(cargo);
+        if (mat.material.unitData.id === MAT_IDS.Components) {
+          toAdd.times(components);
+        }
+      }
+      if (mat.material.unitData.unitType === UNIT_TYPES.DISTRICT) {
+        toAdd = toAdd.times(terraformer);
       }
       if (toAdd.gt(0)) {
         if (Game.getGame().prestigeManager.killStreakGain.active) {

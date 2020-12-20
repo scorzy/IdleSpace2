@@ -63,5 +63,25 @@
         <span class="monospace"> +{{ lab[i] | format }}% </span>
       </td>
     </tr>
+    <tr>
+      <td class="fleet-td-1">
+        <span nz-tooltip nzTooltipTitle="Increase components gained from battle"
+          >Components</span
+        >
+      </td>
+      <td *ngFor="let i of fleets">
+        <span class="monospace"> +{{ components[i] | format }}% </span>
+      </td>
+    </tr>
+    <tr>
+      <td class="fleet-td-1">
+        <span nz-tooltip nzTooltipTitle="Increase districts gained from battle"
+          >Terraformer</span
+        >
+      </td>
+      <td *ngFor="let i of fleets">
+        <span class="monospace"> +{{ terraformer[i] | format }}% </span>
+      </td>
+    </tr>
   </tbody>
 </nz-table>

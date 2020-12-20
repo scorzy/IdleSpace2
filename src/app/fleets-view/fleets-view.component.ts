@@ -22,10 +22,15 @@ export class FleetsViewComponent
   fleets = [0, 1, 2, 3, 4];
   cargo = new Array<Decimal>();
   lab = new Array<Decimal>();
+  components = new Array<Decimal>();
+  terraformer = new Array<Decimal>();
+
   constructor(ms: MainService, cd: ChangeDetectorRef) {
     super(ms, cd);
     this.cargo = [ZERO, ZERO, ZERO, ZERO, ZERO];
     this.lab = [ZERO, ZERO, ZERO, ZERO, ZERO];
+    this.components = [ZERO, ZERO, ZERO, ZERO, ZERO];
+    this.terraformer = [ZERO, ZERO, ZERO, ZERO, ZERO];
   }
   ngOnInit() {
     this.setStats();
@@ -41,8 +46,12 @@ export class FleetsViewComponent
     for (let i = 0; i < FLEET_NUMBER; i++) {
       const newCargo = this.ms.game.enemyManager.getCargo(i, true);
       const newLab = this.ms.game.enemyManager.getLab(i, true);
+      const newComp = this.ms.game.enemyManager.getComponents(i, true);
+      const newTer = this.ms.game.enemyManager.getTerraformer(i, true);
       if (!this.cargo[i].eq(newCargo)) this.cargo[i] = newCargo;
       if (!this.lab[i].eq(newLab)) this.lab[i] = newLab;
+      if (!this.components[i].eq(newComp)) this.components[i] = newComp;
+      if (!this.terraformer[i].eq(newTer)) this.terraformer[i] = newTer;
     }
   }
   getEta(fleetNum: number): number {

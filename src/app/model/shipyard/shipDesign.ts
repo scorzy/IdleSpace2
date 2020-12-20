@@ -42,6 +42,8 @@ export class ShipDesign {
   energy = 0;
   price = ZERO;
   cargo = ZERO;
+  components = ZERO;
+  terraformer = ZERO;
   scienceLab = ZERO;
   shieldRecharge = 0;
   velocity = BASE_VELOCITY_DECIMAL;
@@ -86,6 +88,8 @@ export class ShipDesign {
     this.shieldReduction = 0;
     this.price = new Decimal(BASE_SHIP_PRICE * (this.type.id + 1));
     this.cargo = ZERO;
+    this.components = ZERO;
+    this.terraformer = ZERO;
     this.scienceLab = ZERO;
     this.totalPoints = 0;
     this.energy = 0;
@@ -176,6 +180,12 @@ export class ShipDesign {
       this.price = this.price.plus(priceMulti.times(m.module.price));
       this.cargo = this.cargo.plus(
         Decimal.multiply(m.module.cargo, statsMulti)
+      );
+      this.components = this.components.plus(
+        Decimal.multiply(m.module.components, statsMulti)
+      );
+      this.terraformer = this.terraformer.plus(
+        Decimal.multiply(m.module.terraformer, statsMulti)
       );
       this.scienceLab = this.scienceLab.plus(
         Decimal.multiply(m.module.scienceLab, statsMulti)

@@ -11,7 +11,8 @@ import {
   BASE_CARGO,
   BASE_ADAPTIVE_PRECISION,
   BASE_PRECISION,
-  DOUBLE_ENERGY_WEAPON_MULTI
+  DOUBLE_ENERGY_WEAPON_MULTI,
+  BASE_TERRAFORMER
 } from "../CONSTANTS";
 export class ModuleData {
   id: string;
@@ -36,6 +37,8 @@ export class ModuleData {
   shape?: string;
   cargo?: number;
   scienceLab?: number;
+  components?: number;
+  terraformer?: number;
   technologies: { technologyId: string; multi: number }[];
   shieldRecharge?: number;
   velocity?: number;
@@ -626,6 +629,21 @@ export const modules: ModuleData[] = [
     affectedWeaponsTechnologies: [TECHNOLOGIES.Propulsion.id],
     armourDamagePercent: -5,
     shieldDamagePercent: 16
+  },
+  {
+    id: "y",
+    name: "Cyborgizer",
+    description:
+      "Spread nanobots in the planet, increasing components and habitability.",
+    price: 200,
+    energy: -2,
+    shape: "my:nano-bot",
+    technologies: [
+      { technologyId: TECHNOLOGIES.Robotics.id, multi: 1.4 },
+      { technologyId: TECHNOLOGIES.Search.id, multi: 0.6 }
+    ],
+    components: BASE_CARGO * 10,
+    terraformer: BASE_TERRAFORMER / 10
   },
   //#endregion
   //#region Thrusters
