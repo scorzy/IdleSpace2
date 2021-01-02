@@ -70,7 +70,8 @@ const base = [
       ...darkThemeVars,
       ...darkCommon,
       ...myDarkVars,
-      ...commonModyVar
+      ...commonModyVar,
+      ...normalText
     }
   },
   {
@@ -79,14 +80,16 @@ const base = [
     modifyVars: {
       ...darkThemeVars,
       ...darkCommon,
-      ...commonModyVar
+      ...commonModyVar,
+      ...normalText
     }
   },
   {
     name: "light-blue",
     source: "light-blue",
     modifyVars: {
-      ...commonModyVar
+      ...commonModyVar,
+      ...normalText
     }
   },
   {
