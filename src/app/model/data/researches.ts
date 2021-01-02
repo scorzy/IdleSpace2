@@ -1090,6 +1090,107 @@ export const RESEARCHES: IResearchData[] = [
       { unitId: IDS.Scientist, multi: MODDERS_2_MULTI },
       { unitId: IDS.Searcher, multi: MODDERS_2_MULTI }
     ]
+  },
+  //#endregion
+  //#region Specialization: Explorers
+  {
+    id: "spe3",
+    max: 1,
+    name: "Explorers",
+    description: "Explorers focus on space exploration.",
+    exclusiveGroup: ExclusiveResGroups.SPECIALIZATION,
+    type: TECHNOLOGIES.Search,
+    unlockFrom: "h11",
+    researchToUnlock: ["spe3-1", "spe3-2", "spe3-3"],
+    modulesToUnlock: ["K"],
+    limitMulti: [{ unitId: IDS.Searcher, multi: 0.3 }],
+    effMulti: [{ unitId: IDS.Searcher, multi: 0.3 }],
+    technologyBonus: [
+      { techId: TECHNOLOGIES.Search.id, multi: 0.5 },
+      { techId: TECHNOLOGIES.Physics.id, multi: 0.2 }
+    ]
+  },
+  {
+    id: "spe3-1",
+    max: 10,
+    name: "Improved Search 1",
+    description: "Increase districts gain.",
+    type: TECHNOLOGIES.Search,
+    researchToUnlock: ["spe3-12"],
+    districtMulti: 0.15
+  },
+  {
+    id: "spe3-12",
+    max: 10,
+    name: "Improved Search 2",
+    description: "Increase districts gain.",
+    type: TECHNOLOGIES.Search,
+    researchToUnlock: ["spe3-13"],
+    districtMulti: 0.2
+  },
+  {
+    id: "spe3-13",
+    max: 10,
+    name: "Improved Search 3",
+    description: "Increase districts gain.",
+    type: TECHNOLOGIES.Search,
+    districtMulti: 0.25
+  },
+  {
+    id: "spe3-2",
+    max: 1,
+    name: "Search infrastructure",
+    description: "Improve searching infrastructures.",
+    type: TECHNOLOGIES.Search,
+    researchToUnlock: ["spe3-22"],
+    buildingPoints: [
+      { buildingId: BUILD_IDS.Observatory, quantity: 6 },
+      { buildingId: BUILD_IDS.Laboratory, quantity: 2 }
+    ]
+  },
+  {
+    id: "spe3-22",
+    max: 10,
+    name: "Search efficiency",
+    description: "Improve searching.",
+    type: TECHNOLOGIES.Search,
+    researchToUnlock: ["spe3-23"],
+    effMulti: [{ unitId: IDS.Searcher, multi: 0.3 }]
+  },
+  {
+    id: "spe3-23",
+    max: 10,
+    name: "Science efficiency",
+    description: "Improve scientists.",
+    type: TECHNOLOGIES.Search,
+    effMulti: [{ unitId: IDS.Scientist, multi: 0.3 }]
+  },
+  {
+    id: "spe3-3",
+    max: 1,
+    name: "Propulsion - Velocity",
+    description: "Improve ship speed.",
+    type: TECHNOLOGIES.Propulsion,
+    researchToUnlock: ["spe3-32"],
+    speedMulti: 0.2
+  },
+  {
+    id: "spe3-32",
+    max: 10,
+    name: "Propulsion - Acceleration",
+    description: "Improve ships acceleration.",
+    type: TECHNOLOGIES.Propulsion,
+    researchToUnlock: ["spe3-33"],
+    accelerationMulti: 0.2
+  },
+  {
+    id: "spe3-33",
+    max: 10,
+    name: "improved Propulsion",
+    description: "Improve ships speed and acceleration.",
+    type: TECHNOLOGIES.Propulsion,
+    speedMulti: 0.15,
+    accelerationMulti: 0.15
   }
   //#endregion
 ];
