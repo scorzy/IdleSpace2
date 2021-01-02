@@ -76,6 +76,9 @@ export class AutoFleetUpdate extends AbstractAutobuyer {
           });
           if (up) copy.reload();
         }
+        if (up && copy.valid) {
+          sm.update(design, copy);
+        }
       }
     }
 
