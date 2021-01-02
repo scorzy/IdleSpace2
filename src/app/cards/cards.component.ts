@@ -16,6 +16,8 @@ import {
 } from "@angular/cdk/drag-drop";
 import { Game } from "../model/game";
 import { LEVEL_PER_CARD } from "../model/CONSTANTS";
+import { NzCascaderOption } from "ng-zorro-antd/cascader";
+import { Spell } from "../model/computing/spell";
 
 @Component({
   selector: "app-cards",
@@ -28,6 +30,10 @@ export class CardsComponent implements OnInit, AfterViewInit {
   inUse: Array<PrestigeCard>;
   points = 0;
   LEVEL_PER_CARD = LEVEL_PER_CARD;
+  nzOptions: NzCascaderOption[];
+  favouriteModuleInUse = false;
+  favouriteSpellInUse = false;
+  favouriteModuleUi: [number, string] = [0, ""];
   @HostBinding("class.disable-animation") animationDisabled = true;
   constructor(public ms: MainService) {}
 
@@ -36,7 +42,33 @@ export class CardsComponent implements OnInit, AfterViewInit {
       (c) => !c.active
     );
     this.inUse = this.ms.game.prestigeManager.cards.filter((c) => c.active);
+    if (this.ms.game.prestigeManager.favouriteModule) {
+      this.favouriteModuleUi = [
+        this.ms.game.prestigeManager.favouriteModule.groupId,
+        this.ms.game.prestigeManager.favouriteModule.id
+      ];
+    }
+
+    this.nzOptions = this.ms.game.shipyardManager.groups.map((group) => {
+      return {
+        value: group.id,
+        label: group.name,
+        group,
+        children: group.all
+          .filter((mod) => mod.unlocked)
+          .map((mod) => {
+            return {
+              value: mod.id,
+              label: mod.name,
+              mod,
+              isLeaf: true
+            };
+          })
+      };
+    });
+
     this.reloadPoints();
+    this.reloadFavourite();
   }
   ngAfterViewInit() {
     setTimeout(() => {
@@ -65,6 +97,7 @@ export class CardsComponent implements OnInit, AfterViewInit {
       );
     }
     this.reloadPoints();
+    this.reloadFavourite();
   }
   maxPredicate(item: CdkDrag<PrestigeCard>, list: CdkDropList<PrestigeCard>) {
     const points = list
@@ -79,5 +112,22 @@ export class CardsComponent implements OnInit, AfterViewInit {
     this.ms.game.prestigeManager.cards.forEach((card) => (card.active = false));
     this.inUse.forEach((card) => (card.active = true));
     this.ms.game.prestigeManager.lockedCars = true;
+  }
+  getSpellId(index: number, spell: Spell) {
+    return spell.id;
+  }
+  reloadFavourite() {
+    this.favouriteModuleInUse = this.inUse.some(
+      (c) => c.id === this.ms.game.prestigeManager.favouriteModuleCard.id
+    );
+    this.favouriteSpellInUse = this.inUse.some(
+      (c) => c.id === this.ms.game.prestigeManager.favouriteSpellCard.id
+    );
+  }
+  onModuleChanges(values: string[]): void {
+    const modId = values[values.length - 1];
+    this.ms.game.prestigeManager.favouriteModule = this.ms.game.shipyardManager.modules.find(
+      (mod) => mod.id === modId
+    );
   }
 }

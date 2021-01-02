@@ -61,6 +61,8 @@ import { PRESTIGE_CARDS } from "../data/prestigeCard";
 import { BonusStack } from "../bonus/bonusStack";
 import { IBase } from "../iBase";
 import { Technology } from "../researches/technology";
+import { Module } from "../shipyard/module";
+import { Spell } from "../computing/spell";
 
 export class PrestigeManager {
   experience = ZERO;
@@ -125,6 +127,12 @@ export class PrestigeManager {
   killStreakWinCard: PrestigeCard;
   megaAutomationCard: PrestigeCard;
   extendedSearchCard: PrestigeCard;
+  favouriteModuleCard: PrestigeCard;
+  favouriteSpellCard: PrestigeCard;
+  //#endregion
+  //#region Others
+  favouriteModule: Module;
+  favouriteSpell: Spell;
   //#endregion
   customBuyString = "100";
   customBuy = new Decimal(100);
@@ -686,6 +694,7 @@ export class PrestigeManager {
     this.fleetCapCard = this.cards.find((card) => card.id === "w8");
     this.lowerModulePrice = this.cards.find((card) => card.id === "w9");
     this.killStreakWinCard = this.cards.find((card) => card.id === "w10");
+    this.favouriteModuleCard = this.cards.find((card) => card.id === "w11");
 
     const killStreak: IBase = {
       id: "kiS",
@@ -737,6 +746,7 @@ export class PrestigeManager {
     this.longerSpells = this.cards.find((card) => card.id === "s0");
     const computingRegeneration = this.cards.find((card) => card.id === "s1");
     this.moreComputing = this.cards.find((card) => card.id === "s2");
+    this.favouriteSpellCard = this.cards.find((card) => card.id === "s3");
     cm.computingStackMulti.bonuses.push(
       new Bonus(computingRegeneration, new Decimal(COMPUTING_REGENERATION_CARD))
     );
@@ -844,7 +854,7 @@ export class PrestigeManager {
 
   //#region Save and Load
   getSave() {
-    return {
+    const save: any = {
       e: this.experience,
       m: this.prestigeMultiplier,
       p: this.prestigePoints.map((p) => p.getSave()),
@@ -852,6 +862,9 @@ export class PrestigeManager {
       a: this.maxCards,
       l: this.lockedCars
     };
+    if (this.favouriteModule) save.M = this.favouriteModule.id;
+    if (this.favouriteSpell) save.S = this.favouriteSpell.id;
+    return save;
   }
   load(data: any) {
     if ("e" in data) this.experience = new Decimal(data.e);
@@ -874,6 +887,16 @@ export class PrestigeManager {
     }
     if ("a" in data) this.maxCards = data.a;
     if ("l" in data) this.lockedCars = data.l;
+    if ("M" in data) {
+      this.favouriteModule = Game.getGame().shipyardManager.modules.find(
+        (mod) => mod.id === data.M
+      );
+    }
+    if ("S" in data) {
+      this.favouriteSpell = Game.getGame().computingManager.spells.find(
+        (sp) => sp.id === data.S
+      );
+    }
 
     this.reloadSpentPoints();
     this.prestigePoints.forEach((point) => {

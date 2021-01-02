@@ -5,11 +5,7 @@ import { SHIP_TYPES } from "../data/shipTypes";
 import { modules } from "../data/modulesData";
 import { JobManager } from "../job/jobManager";
 import { Game } from "../game";
-import {
-  FLEET_NUMBER,
-  FLEET_CAPACITY,
-  ONE
-} from "../CONSTANTS";
+import { FLEET_NUMBER, FLEET_CAPACITY, ONE } from "../CONSTANTS";
 import { BuildShipsJob } from "./buildShipsJob";
 import { Job } from "../job/job";
 import { UpdateShipJob } from "./updateShipJob";
@@ -626,6 +622,14 @@ export class ShipyardManager extends JobManager {
     this.shipDesigns.forEach((des) => {
       des.reloadRecursive();
     });
+
+    //  Favourite module
+    if (
+      Game.getGame().prestigeManager.favouriteModuleCard.active &&
+      Game.getGame().prestigeManager.favouriteModule
+    ) {
+      Game.getGame().prestigeManager.favouriteModule.unlock();
+    }
   }
   sortJobs() {
     this.toDo = this.toDo.sort((a, b) =>

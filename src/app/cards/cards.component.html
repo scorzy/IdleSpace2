@@ -69,5 +69,118 @@
     >
       <span>Confirm</span>
     </button>
+
+    <div
+      class="favourite-div"
+      fxLayout="column"
+      fxLayoutAlign="start start"
+      fxLayoutGap="0.5rem"
+    >
+      <!-- Favourite Module -->
+      <div *ngIf="favouriteModuleInUse">
+        <label>Favourite module</label>
+        <div>
+          <nz-cascader
+            fxFlex="1 1 0"
+            class="module-select"
+            name="Favourite module"
+            nzPlaceHolder="Favourite module"
+            [nzLabelRender]="renderTpl"
+            [nzOptions]="nzOptions"
+            [(ngModel)]="favouriteModuleUi"
+            [nzOptionRender]="renderOptTpl"
+            (ngModelChange)="onModuleChanges($event)"
+          >
+          </nz-cascader>
+
+          <ng-template
+            #renderTpl
+            let-labels="labels"
+            let-selectedOptions="selectedOptions"
+          >
+            <span
+              *ngIf="selectedOptions"
+              nz-typography
+              [nzType]="
+                selectedOptions[selectedOptions.length - 1]?.mod &&
+                !selectedOptions[selectedOptions.length - 1]?.mod?.unlocked
+                  ? 'warning'
+                  : ''
+              "
+            >
+              <i
+                nz-icon
+                [nzType]="
+                  selectedOptions[selectedOptions.length - 1]?.mod?.shape
+                "
+              ></i>
+              <span>
+                {{ selectedOptions[selectedOptions.length - 1]?.label }}
+              </span>
+            </span>
+          </ng-template>
+
+          <ng-template #renderOptTpl let-option let-index="index">
+            <span
+              [nz-popover]="option?.mod"
+              [nzPopoverTitle]="modTitleTemplate"
+              [nzPopoverContent]="modTemplate"
+              nzPopoverPlacement="right"
+              [nzPopoverTrigger]="option?.mod ? 'hover' : 'null'"
+              style="width: 100%"
+              class="mod-options"
+              nz-typography
+              [nzType]="option?.mod && !option?.mod?.unlocked ? 'warning' : ''"
+            >
+              <i nz-icon [nzType]="option?.mod?.shape"></i>
+              <span>
+                {{ option.label }}
+              </span>
+            </span>
+
+            <ng-template #modTitleTemplate>
+              <i nz-icon [nzType]="option?.mod?.shape"></i>
+              {{ option.label }}
+            </ng-template>
+
+            <ng-template #modTemplate>
+              <div class="mod-info-container">
+                <app-module-info [mod]="option?.mod"></app-module-info>
+              </div>
+            </ng-template>
+          </ng-template>
+        </div>
+      </div>
+
+      <div *ngIf="favouriteSpellInUse">
+        <label>Favourite spell</label>
+        <div>
+          <nz-select
+            nzShowSearch
+            nzAllowClear
+            nzPlaceHolder="Favourite spell"
+            [(ngModel)]="ms.game.prestigeManager.favouriteSpell"
+            [nzCustomTemplate]="spellLabel"
+            class="spells-select"
+          >
+            <nz-option
+              *ngFor="
+                let spell of ms.game.computingManager.currentSpells;
+                trackBy: getSpellId
+              "
+              nzCustomContent
+              [nzLabel]="spell.name"
+              [nzValue]="spell"
+            >
+              <i nz-icon [nzType]="spell.icon"></i> {{ spell.name }}
+            </nz-option>
+          </nz-select>
+          <ng-template #spellLabel let-selected>
+            <i nz-icon [nzType]="selected.nzValue.icon"></i>
+            {{ selected.nzLabel }}
+          </ng-template>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

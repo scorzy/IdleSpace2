@@ -209,6 +209,14 @@ export const PRESTIGE_CARDS: ICardData[] = [
     icon: "my:strafe",
     cardRequired: 2
   },
+  {
+    id: "w11",
+    name: "Favourite ship module",
+    description:
+      "Choose an unlocked ship module. Start next run with that module unlocked.",
+    icon: "my:strafe",
+    cardRequired: 1
+  },
   //#endregion
   //#region Warp
   {
@@ -279,6 +287,13 @@ export const PRESTIGE_CARDS: ICardData[] = [
     name: "More Computing",
     description:
       "Increase maximum computing by " + COMPUTING_MAX_CARD * 100 + "%",
+    icon: "my:computing"
+  },
+  {
+    id: "s3",
+    name: "Favourite Spell",
+    description:
+      "Choose a spell that is unlocked. You start next runs with that spell unlocked.",
     icon: "my:computing"
   },
   //#endregion
