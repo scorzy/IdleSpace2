@@ -171,6 +171,7 @@ export class Unit implements IBase, IUnlockable {
       this.limitStackMulti.reloadBonus();
       this.limit = this.limit.times(this.limitStackMulti.totalBonus);
     }
+    this.limit = this.limit.floor();
     return true;
   }
   reloadMaxBuy() {
