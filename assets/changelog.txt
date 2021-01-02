@@ -1,3 +1,6 @@
+2/1/2021
+-   Improved Auto Fleet updater
+
 20/12/2020
 -   Auto Prestige update
 -   New ship module: cyborgizer (Modders specialization)
