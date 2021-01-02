@@ -1,12 +1,6 @@
 <form nz-form nzLayout="inline">
   <nz-form-item>
-    <nz-form-label
-      nz-popover
-      nzPopoverTitle="Fleet updater"
-      [nzPopoverContent]="autoInfoTemplate"
-    >
-      On
-    </nz-form-label>
+    <nz-form-label> On </nz-form-label>
     <nz-form-control>
       <nz-input-group nzCompact>
         <nz-switch
@@ -30,22 +24,13 @@
     </nz-form-control>
   </nz-form-item>
 
-  <nz-form-label> Max module level </nz-form-label>
+  <nz-form-label> Max ratio</nz-form-label>
   <nz-form-control>
     <nz-input-number
-      [(ngModel)]="ms.game.automationManager.fleetUpdater.maxLevel"
+      [(ngModel)]="ms.game.automationManager.fleetUpdater.maxRatio"
       name="maxLvF"
       id="maxLvF"
       nzMin="0"
     ></nz-input-number>
   </nz-form-control>
 </form>
-
-<ng-template #autoInfoTemplate>
-  Options:
-  <ul>
-    <li>On / Off</li>
-    <li>Interval</li>
-    <li>Max Level; 0 equals unlimited</li>
-  </ul>
-</ng-template>

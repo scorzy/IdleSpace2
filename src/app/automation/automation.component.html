@@ -16,9 +16,36 @@
 </form>
 
 <div fxLayout="row wrap" fxLayoutGap="5px">
-  <nz-card nzTitle="Fleet design updater" nzSize="small" style="width: 250px">
+  <nz-card
+    nzTitle="Fleet design updater"
+    [nzExtra]="fleetUpInfo"
+    nzSize="small"
+    style="width: 200px"
+  >
     <app-auto-fleet-up></app-auto-fleet-up>
   </nz-card>
+  <ng-template #fleetUpInfo>
+    <i
+      nz-icon
+      nzType="info-circle"
+      nzTheme="outline"
+      class="info-icon"
+      nz-popover
+      nzPopoverTitle="Fleet design updater"
+      [nzPopoverContent]="fleetUpDesc"
+    ></i>
+  </ng-template>
+  <ng-template #fleetUpDesc>
+    <p class="auto-description">
+      Automatically update design's module level. Update only design with at
+      leat one ship. 'Fleet design updater' will not downgrade ships levels.
+      <br />
+      <strong>'Max ratio'</strong> is the maximum 'work per second'/'average
+      module price', increasing it will result in higher but also expensive
+      module levels.
+    </p>
+  </ng-template>
+
   <nz-card nzTitle="Auto search" nzSize="small" style="width: 270px">
     <app-auto-search></app-auto-search>
   </nz-card>

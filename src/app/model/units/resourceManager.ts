@@ -84,6 +84,8 @@ export class ResourceManager {
   replicator: Worker;
   nukeDrone: Worker;
 
+  workProduction: Production;
+
   mine: Building;
   powerPlant: Building;
   laboratory: Building;
@@ -756,6 +758,10 @@ export class ResourceManager {
     const infraBonus = new Bonus(this.infraBonusUnit, ONE);
     sm.velocityBonusStack.bonuses.push(infraBonus);
     sm.accelerationStack.bonuses.push(infraBonus);
+
+    this.workProduction = this.worker.production.find((prod) =>
+      prod.ratio.gt(0)
+    );
   }
   prestige() {
     this.units.forEach((u) => u.prestige());
