@@ -39,6 +39,7 @@ export class AutoFleetUpdate extends AbstractAutobuyer {
             growRate
           )
         );
+        console.log(maxLevel);
         const tMax = { typeId: design.type.id, max: maxLevel };
         typesMax.push(tMax);
       } else {
@@ -75,6 +76,9 @@ export class AutoFleetUpdate extends AbstractAutobuyer {
             }
           });
           if (up) copy.reload();
+        }
+        if (up && copy.valid) {
+          sm.update(design, copy);
         }
       }
     }
