@@ -1,4 +1,8 @@
-import { ComponentFixture, TestBed, async } from "@angular/core/testing";
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync
+} from "@angular/core/testing";
 
 import { PrestigeCardComponent } from "./prestige-card.component";
 import { testImports } from "src/app/app.component.spec";
@@ -13,13 +17,15 @@ describe("PrestigeCardComponent", () => {
   let component: PrestigeCardComponent;
   let fixture: ComponentFixture<PrestigeCardComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: testImports,
-      declarations: [PrestigeCardComponent, FormatPipe, SizePipe],
-      providers: [MainService, OptionsService, FormatPipe, TimePipe]
-    }).compileComponents();
-  }));
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        imports: testImports,
+        declarations: [PrestigeCardComponent, FormatPipe, SizePipe],
+        providers: [MainService, OptionsService, FormatPipe, TimePipe]
+      }).compileComponents();
+    })
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(PrestigeCardComponent);

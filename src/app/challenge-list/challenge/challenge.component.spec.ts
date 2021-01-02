@@ -1,5 +1,9 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
-import { ComponentFixture, TestBed, async } from "@angular/core/testing";
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync
+} from "@angular/core/testing";
 import { ActivatedRoute, convertToParamMap } from "@angular/router";
 import { of } from "rxjs";
 import { testImports } from "src/app/app.component.spec";
@@ -16,23 +20,25 @@ describe("ChallengeComponent", () => {
   let component: ChallengeComponent;
   let fixture: ComponentFixture<ChallengeComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      schemas: [CUSTOM_ELEMENTS_SCHEMA],
-      imports: testImports,
-      declarations: [ChallengeComponent, FormatPipe, SizePipe],
-      providers: [
-        MainService,
-        OptionsService,
-        FormatPipe,
-        TimePipe,
-        {
-          provide: ActivatedRoute,
-          useValue: { paramMap: of(convertToParamMap({ id: "0" })) }
-        }
-      ]
-    }).compileComponents();
-  }));
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        schemas: [CUSTOM_ELEMENTS_SCHEMA],
+        imports: testImports,
+        declarations: [ChallengeComponent, FormatPipe, SizePipe],
+        providers: [
+          MainService,
+          OptionsService,
+          FormatPipe,
+          TimePipe,
+          {
+            provide: ActivatedRoute,
+            useValue: { paramMap: of(convertToParamMap({ id: "0" })) }
+          }
+        ]
+      }).compileComponents();
+    })
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ChallengeComponent);
