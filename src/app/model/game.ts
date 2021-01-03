@@ -28,6 +28,7 @@ import { BonusStack } from "./bonus/bonusStack";
 import { ChallengeManager } from "./challenge/challengeManager";
 import { Challenge } from "./challenge/challenge";
 import { Bonus } from "./bonus/bonus";
+import { AchievementManager } from "./achievements/achievementManager";
 
 /**
  * Game is the main class that orchestrate everything game related
@@ -47,6 +48,7 @@ export class Game {
   computingManager: ComputingManager;
   prestigeManager: PrestigeManager;
   challengeManager: ChallengeManager;
+  achievementManager: AchievementManager;
 
   navalCapacity: number = BASE_NAVAL_CAPACITY;
 
@@ -124,6 +126,9 @@ export class Game {
     this.prestigeManager = new PrestigeManager();
     this.challengeManager = new ChallengeManager();
     this.researchManager.setChallengesRelations();
+
+    this.achievementManager = new AchievementManager();
+    this.researchManager.researches.forEach((res) => res.loadMax());
 
     this.shipyardManager.afterResearchesInit();
 
@@ -467,7 +472,8 @@ export class Game {
       j: this.challengeManager.getSave(),
       u: this.automationUnlocked,
       v: GAME_VERSION,
-      P: this.lastPrestigeTime
+      P: this.lastPrestigeTime,
+      A: this.achievementManager.getSave()
     };
   }
   load(data: any) {
@@ -524,7 +530,10 @@ export class Game {
         }
       });
     }
-
+    if ("A" in data) {
+      this.achievementManager.load(data.A);
+    }
+    this.researchManager.researches.forEach((res) => res.loadMax());
     // this.enemyManager.maxLevel = 900;
 
     this.challengeManager.afterLoad();

@@ -544,6 +544,7 @@ export class EnemyManager extends JobManager {
         const exp = this.getExperience(this.currentEnemy.level);
         pm.addExperience(exp);
       }
+      Game.getGame().achievementManager.onDefeatEnemyAchievements();
       this.maxLevel++;
     }
     let dmToAdd = ZERO;

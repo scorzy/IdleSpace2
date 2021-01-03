@@ -42,14 +42,9 @@ export class Research extends Job implements IUnlockable, IBase {
   visLevel = 0;
   private originalName: string;
   private _max2 = 1;
+  private _maxRes;
   get max() {
-    if (this._max2 < 2) return this._max2;
-    if (!Game.getGame().prestigeManager) return this._max2;
-    return (
-      (this._max2 +
-        Game.getGame().challengeManager?.scienceChallenge.quantity.toNumber()) *
-      (Game.getGame().prestigeManager.doubleRepeatableResearches.active ? 2 : 1)
-    );
+    return this._maxRes;
   }
   set max(val: number) {
     this._max2 = val;
@@ -610,6 +605,19 @@ export class Research extends Job implements IUnlockable, IBase {
     this.quantity = ZERO;
 
     this.reload();
+  }
+  loadMax() {
+    if (this._max2 < 2) this._maxRes = this._max2;
+    if (!Game.getGame().prestigeManager) this._maxRes = this._max2;
+    this._maxRes =
+      (this._max2 +
+        (Game.getGame().achievementManager.science1.done ? 1 : 0) +
+        (Game.getGame().achievementManager.science2.done ? 2 : 0) +
+        (Game.getGame().achievementManager.science3.done ? 3 : 0) +
+        Game.getGame().challengeManager?.scienceChallenge.quantity.toNumber()) *
+      (Game.getGame().prestigeManager.doubleRepeatableResearches.active
+        ? 2
+        : 1);
   }
   //#region Save and Load
   getSave(done = false): any {
