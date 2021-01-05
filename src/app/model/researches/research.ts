@@ -611,9 +611,7 @@ export class Research extends Job implements IUnlockable, IBase {
     if (!Game.getGame().prestigeManager) this._maxRes = this._max2;
     this._maxRes =
       (this._max2 +
-        (Game.getGame().achievementManager.science1.done ? 1 : 0) +
-        (Game.getGame().achievementManager.science2.done ? 2 : 0) +
-        (Game.getGame().achievementManager.science3.done ? 3 : 0) +
+        Game.getGame().achievementManager.scienceAck.quantity.toNumber() +
         Game.getGame().challengeManager?.scienceChallenge.quantity.toNumber()) *
       (Game.getGame().prestigeManager.doubleRepeatableResearches.active
         ? 2

@@ -246,6 +246,18 @@
     (click)="selectLink.emit()"
     nz-menu-item
     nzMatchRouter
+    routerLink="ack"
+    nz-tooltip
+    nzTooltipPlacement="right"
+    [nzTooltipTitle]="!mobile && isCollapsed ? 'Achievements' : ''"
+  >
+    <i nz-icon nzType="field-time" nzTheme="outline"></i>
+    <span>Achievements</span>
+  </li>
+  <li
+    (click)="selectLink.emit()"
+    nz-menu-item
+    nzMatchRouter
     [routerLink]="'options'"
     nz-tooltip
     nzTooltipPlacement="right"

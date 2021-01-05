@@ -34,6 +34,7 @@ import { UnitDetailComponent } from "./unit-list/unit-detail/unit-detail.compone
 import { ChallengeListComponent } from "./challenge-list/challenge-list.component";
 import { ChallengeComponent } from "./challenge-list/challenge/challenge.component";
 import { SpellsComponent } from "./spells/spells.component";
+import { AchievementsComponent } from "./achievements/achievements.component";
 export const routes: Routes = [
   { path: "", pathMatch: "full", redirectTo: "/info" },
   { path: "des", pathMatch: "full", redirectTo: "/des/add" },
@@ -51,6 +52,7 @@ export const routes: Routes = [
   { path: "options", pathMatch: "full", component: OptionsComponent },
   { path: "noti", pathMatch: "full", component: NotificationListComponent },
   { path: "fleet", pathMatch: "full", component: ShipyardComponent },
+  { path: "ack", pathMatch: "full", component: AchievementsComponent },
   {
     path: "des",
     component: ListComponent,

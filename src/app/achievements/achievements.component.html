@@ -1,0 +1,34 @@
+<h2>Achievements</h2>
+
+<nz-collapse>
+  <nz-collapse-panel
+    *ngFor="let panel of ms.game.achievementManager.groups; trackBy: getGroupId"
+    [nzHeader]="panel.name"
+  >
+    <ng-container *ngFor="let ack of panel.list; trackBy: getAckId">
+      <i
+        nz-icon
+        [nzType]="ack.icon"
+        class="achievement-icon"
+        [ngClass]="
+          ack.quantity.gte(ack.max) ? ack.colorClass : 'text-secondary'
+        "
+        nz-popover
+        [nzPopoverTitle]="ack.name"
+        [nzPopoverContent]="ackDescription"
+      >
+      </i>
+      <ng-template #ackDescription>
+        <p class="ack-description">
+          {{ ack.description }}
+        </p>
+        <span *ngIf="ack.max > 1">
+          Series:
+          <span class="monospace">
+            {{ ack.quantity | format: true }}/{{ ack.max | format: true }}
+          </span>
+        </span>
+      </ng-template>
+    </ng-container>
+  </nz-collapse-panel>
+</nz-collapse>

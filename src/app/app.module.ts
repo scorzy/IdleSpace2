@@ -129,6 +129,7 @@ import { AutoWarpComponent } from './auto-buy/auto-warp/auto-warp.component';
 import { AutoMegaComponent } from './auto-buy/auto-mega/auto-mega.component';
 import { DesignDetailComponent } from './design-detail/design-detail.component';
 import { SpellsComponent } from './spells/spells.component';
+import { AchievementsComponent } from './achievements/achievements.component';
 
 registerLocaleData(en);
 
@@ -222,7 +223,8 @@ const ngZorroConfig: NzConfig = {
     AutoWarpComponent,
     AutoMegaComponent,
     DesignDetailComponent,
-    SpellsComponent
+    SpellsComponent,
+    AchievementsComponent
   ],
   imports: [
     BrowserModule,

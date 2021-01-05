@@ -1,81 +1,47 @@
+import { ORIGIN_LEVELS } from "../CONSTANTS";
+
 export interface IAchievementData {
   id: string;
   name: string;
   description: string;
   icon: string;
   colorClass: string;
+  groupId: string;
+  max?: number;
+  enemyLevels?: number[];
 }
 export const ACHIEVEMENTS_DATA: IAchievementData[] = [
   //#region Origins
   {
-    id: "os1",
+    id: "os",
     name: "Science I",
     description:
-      "Reach level 100 with science origin. Repeatable researches can be repeated one more time.",
+      "Reach level #enemyLevel@ with science origin. Repeatable researches can be repeated one more time.",
     icon: "fa-s:atom",
-    colorClass: "science-color"
+    colorClass: "science-color",
+    groupId: "or",
+    max: 3,
+    enemyLevels: ORIGIN_LEVELS
   },
   {
-    id: "os2",
-    name: "Science II",
-    description:
-      "Reach level 200 with science origin. Repeatable researches can be repeated two more times.",
-    icon: "fa-s:atom",
-    colorClass: "science-color"
-  },
-  {
-    id: "os3",
-    name: "Science III",
-    description:
-      "Reach level 500 with science origin. Repeatable researches can be repeated tree more times.",
-    icon: "fa-s:atom",
-    colorClass: "science-color"
-  },
-  //#endregion
-  //#region Origin War
-  {
-    id: "ow1",
+    id: "ow",
     name: "War I",
-    description: "Reach level 100 with war origin.",
+    description: "Reach level #enemyLevel@ with war origin.",
     icon: "my:medal",
-    colorClass: "damage-color"
+    colorClass: "damage-color",
+    groupId: "or",
+    max: 3,
+    enemyLevels: ORIGIN_LEVELS
   },
   {
-    id: "ow2",
-    name: "War II",
-    description: "Reach level 200 with war origin.",
-    icon: "my:medal",
-    colorClass: "damage-color"
-  },
-  {
-    id: "ow3",
-    name: "War III",
-    description: "Reach level 500 with war origin.",
-    icon: "my:medal",
-    colorClass: "damage-color"
-  },
-  //#endregion
-  //#region Origin Builders
-  {
-    id: "ob1",
+    id: "ob",
     name: "Builders I",
-    description: "Reach level 100 with builders origin.",
+    description: "Reach level #enemyLevel@ with builders origin.",
     icon: "fa-s:cog",
-    colorClass: "production-color"
-  },
-  {
-    id: "ob2",
-    name: "Builders II",
-    description: "Reach level 200 with builders origin.",
-    icon: "fa-s:cog",
-    colorClass: "production-color"
-  },
-  {
-    id: "ob3",
-    name: "Builders III",
-    description: "Reach level 500 with builders origin.",
-    icon: "fa-s:cog",
-    colorClass: "production-color"
+    colorClass: "production-color",
+    groupId: "or",
+    max: 3,
+    enemyLevels: ORIGIN_LEVELS
   }
   //#endregion
 ];
