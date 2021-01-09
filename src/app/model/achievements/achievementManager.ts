@@ -1,7 +1,8 @@
+import { Bonus } from "../bonus/bonus";
 import { ACHIEVEMENTS_DATA } from "../data/achievementData";
 import { Game } from "../game";
 import { Achievement } from "./achievement";
-import { maxEnemyLevelAck } from "./maxEnemyLevelAck";
+import { MaxEnemyLevelAck } from "./maxEnemyLevelAck";
 
 export class AchievementManager {
   achievements: Array<Achievement>;
@@ -20,16 +21,19 @@ export class AchievementManager {
         list: []
       }
     ];
-    this.achievements = ACHIEVEMENTS_DATA.map((aData) => {
+    this.achievements = [];
+    for (let aData of ACHIEVEMENTS_DATA) {
       let ret: Achievement;
       switch (aData.groupId) {
         case "or":
-          ret = new maxEnemyLevelAck(aData);
+          ret = new MaxEnemyLevelAck(aData);
+          break;
         default:
           ret = new Achievement(aData);
       }
-      return ret;
-    });
+      this.achievements.push(ret);
+    }
+
     this.achievements.forEach((ack) => {
       const group = this.groups.find((gr) => gr.id === ack.groupId);
       group.list.push(ack);
@@ -38,6 +42,19 @@ export class AchievementManager {
     this.scienceAck = this.achievements.find((a) => a.id === "os");
     this.warAck = this.achievements.find((a) => a.id === "ow");
     this.buildersAck = this.achievements.find((a) => a.id === "ob");
+  }
+  afterInit() {
+    this.achievements.forEach((ack) => ack.updateDescription());
+
+    const rs = Game.getGame().resourceManager;
+    const sy = Game.getGame().shipyardManager;
+
+    rs.worker.prodEfficiency.bonuses.push(
+      new Bonus(this.buildersAck, new Decimal(0.5))
+    );
+    sy.velocityBonusStack.bonuses.push(
+      new Bonus(this.warAck, new Decimal(0.2))
+    );
   }
   onDefeatEnemyAchievements() {
     let done = false;

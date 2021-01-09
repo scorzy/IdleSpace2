@@ -26,7 +26,8 @@ export const ACHIEVEMENTS_DATA: IAchievementData[] = [
   {
     id: "ow",
     name: "War I",
-    description: "Reach level #enemyLevel@ with war origin.",
+    description:
+      "Reach level #enemyLevel@ with war origin. +20% ship velocity.",
     icon: "my:medal",
     colorClass: "damage-color",
     groupId: "or",
@@ -36,7 +37,8 @@ export const ACHIEVEMENTS_DATA: IAchievementData[] = [
   {
     id: "ob",
     name: "Builders I",
-    description: "Reach level #enemyLevel@ with builders origin.",
+    description:
+      "Reach level #enemyLevel@ with builders origin. Workers yeilds 50% more.",
     icon: "fa-s:cog",
     colorClass: "production-color",
     groupId: "or",

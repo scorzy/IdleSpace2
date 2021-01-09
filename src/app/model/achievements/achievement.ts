@@ -24,7 +24,6 @@ export class Achievement implements IBase {
     this.colorClass = data.colorClass;
     this.groupId = data.groupId;
     if (data.max) this.max = data.max;
-    this.updateDescription();
   }
   complete(): boolean {
     const newQta = this.checkQuantity();

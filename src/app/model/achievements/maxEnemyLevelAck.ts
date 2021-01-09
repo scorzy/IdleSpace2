@@ -3,7 +3,7 @@ import { IAchievementData } from "../data/achievementData";
 import { Game } from "../game";
 import { Achievement } from "./achievement";
 
-export class maxEnemyLevelAck extends Achievement {
+export class MaxEnemyLevelAck extends Achievement {
   enemyLevels: number[];
   constructor(data: IAchievementData) {
     super(data);

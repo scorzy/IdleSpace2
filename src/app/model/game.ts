@@ -133,6 +133,7 @@ export class Game {
     this.shipyardManager.afterResearchesInit();
 
     this.setTheme();
+    this.achievementManager.afterInit();
 
     this.battleStats = Array<{
       id: string;
