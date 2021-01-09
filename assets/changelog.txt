@@ -1,3 +1,6 @@
+9/1/2021
+-   Improved battle performances
+
 2/1/2021
 -   Improved Auto Fleet updater
 -   New cards: "Favourite ship modules" and "Favourite spell"
