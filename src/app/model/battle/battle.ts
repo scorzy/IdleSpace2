@@ -182,23 +182,23 @@ export function battle(battleRequest: BattleRequest): any {
   //#region results
   battleResult.gameId = battleRequest.gameId;
   battleResult.playerLost = [];
-  for (let data of battleRequest.playerFleet) {
-    let lost = data.quantity - data.ships.length;
+  for (const data of battleRequest.playerFleet) {
+    const lost = data.quantity - data.ships.length;
     if (lost > 0) {
       battleResult.playerLost.push({
         id: data.designId,
-        lost: lost
+        lost
       });
     }
   }
 
   battleResult.enemyLost = [];
-  for (let data of battleRequest.enemyFleet) {
-    let lost = data.quantity - data.ships.length;
+  for (const data of battleRequest.enemyFleet) {
+    const lost = data.quantity - data.ships.length;
     if (lost > 0) {
       battleResult.enemyLost.push({
         id: data.designId,
-        lost: lost
+        lost
       });
     }
   }
