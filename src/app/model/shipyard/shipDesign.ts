@@ -565,7 +565,17 @@ export class ShipDesign {
     this.shipData.thereatPerRound = this.thereatPerRound;
     this.shipData.explosionThreshold = this.explosionThreshold;
     this.shipData.explosionDamage = this.explosionDamage;
-    this.shipData.weapons = this.weapons;
+    this.shipData.weapons = this.weapons.map((w) => {
+      return {
+        damage: w.damage,
+        armourPercent: w.armourPercent,
+        shieldPercent: w.shieldPercent,
+        defencePercent: w.defencePercent,
+        precision: w.precision,
+        adaptivePrecision: w.adaptivePrecision,
+        threatMulti: 1
+      };
+    });
     this.shipData.shieldRecharge = this.shieldRecharge;
     this.shipData.isDefence = this.isDefence;
 

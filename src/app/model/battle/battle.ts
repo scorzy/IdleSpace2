@@ -181,18 +181,27 @@ export function battle(battleRequest: BattleRequest): any {
   //#endregion
   //#region results
   battleResult.gameId = battleRequest.gameId;
-  battleResult.playerLost = battleRequest.playerFleet.map((data) => {
-    return {
-      id: data.designId,
-      lost: data.quantity - data.ships.length
-    };
-  });
-  battleResult.enemyLost = battleRequest.enemyFleet.map((data) => {
-    return {
-      id: data.designId,
-      lost: data.quantity - data.ships.length
-    };
-  });
+  battleResult.playerLost = [];
+  for (let data of battleRequest.playerFleet) {
+    let lost = data.quantity - data.ships.length;
+    if (lost > 0) {
+      battleResult.playerLost.push({
+        id: data.designId,
+        lost: lost
+      });
+    }
+  }
+
+  battleResult.enemyLost = [];
+  for (let data of battleRequest.enemyFleet) {
+    let lost = data.quantity - data.ships.length;
+    if (lost > 0) {
+      battleResult.enemyLost.push({
+        id: data.designId,
+        lost: lost
+      });
+    }
+  }
   //#endregion
   //#region aggregate statistics
   battleResult.stats = [];
