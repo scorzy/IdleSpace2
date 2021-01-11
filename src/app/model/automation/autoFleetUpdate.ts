@@ -39,7 +39,6 @@ export class AutoFleetUpdate extends AbstractAutobuyer {
             growRate
           )
         );
-        console.log(maxLevel);
         const tMax = { typeId: design.type.id, max: maxLevel };
         typesMax.push(tMax);
       } else {
