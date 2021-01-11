@@ -695,6 +695,18 @@ export const modules: ModuleData[] = [
     shape: "my:rocket-thruster"
   },
   {
+    id: "K",
+    name: "Jump Drive",
+    price: 100,
+    energy: -3,
+    technologies: [
+      { technologyId: TECHNOLOGIES.Physics.id, multi: 1.7 },
+      { technologyId: TECHNOLOGIES.Propulsion.id, multi: 0.3 }
+    ],
+    acceleration: BASE_ACCELERATION * 7,
+    shape: "my:rocket-thruster"
+  },
+  {
     id: "l",
     name: "Solar Sail",
     technologies: [

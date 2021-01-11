@@ -1,5 +1,14 @@
+11/1/2021
+-   Fleet updater fix and allow downgrade
+-   Increased design limit from 20 to 40
+
+9/1/2021
+-   Improved battle performances
+
 2/1/2021
 -   Improved Auto Fleet updater
+-   New cards: "Favourite ship modules" and "Favourite spell"
+-   Explorers specialization
 
 20/12/2020
 -   Auto Prestige update

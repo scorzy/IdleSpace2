@@ -216,6 +216,14 @@ export class ComputingManager {
     this.currentSpells = [this.warpSpell];
     this.currentComputing = 0;
     this.warpSpell.unlocked = true;
+
+    //  Favourite spell
+    if (
+      Game.getGame().prestigeManager.favouriteSpellCard.active &&
+      Game.getGame().prestigeManager.favouriteSpell
+    ) {
+      this.addSpell(Game.getGame().prestigeManager.favouriteSpell);
+    }
   }
 
   //#region Save and Load
