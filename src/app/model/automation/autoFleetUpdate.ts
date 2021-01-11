@@ -6,6 +6,7 @@ import { PRICE_GROW_RATE, PRICE_GROW_RATE_2 } from "../CONSTANTS";
 export class AutoFleetUpdate extends AbstractAutobuyer {
   id = "fu";
   maxRatio = 5;
+  allowDowngrade = false;
   automate(): boolean {
     const game = Game.getGame();
     if (!game.resourceManager.worker.unlocked) return false;
@@ -33,10 +34,13 @@ export class AutoFleetUpdate extends AbstractAutobuyer {
         job.quantity = 0;
         job.design = null;
         const jobBonus = job.totalBonus;
-        maxLevel = Math.floor(
-          Decimal.logarithm(
-            shipWorkPerSec.times(jobBonus).times(this.maxRatio / 100),
-            growRate
+        maxLevel = Math.max(
+          10,
+          Math.floor(
+            Decimal.logarithm(
+              shipWorkPerSec.times(jobBonus).times(this.maxRatio / 100),
+              growRate
+            )
           )
         );
         const tMax = { typeId: design.type.id, max: maxLevel };
@@ -49,11 +53,9 @@ export class AutoFleetUpdate extends AbstractAutobuyer {
       let up = false;
       let newMinMax = Number.POSITIVE_INFINITY;
       copy.modules.forEach((mod) => {
-        const max =
-          maxLevel > 0
-            ? Math.min(mod.module.maxLevel - 1, maxLevel)
-            : mod.module.maxLevel - 1;
-        if (mod.level < max) {
+        const max = Math.min(mod.module.maxLevel - 1, maxLevel);
+
+        if (mod.level < max || (this.allowDowngrade && mod.level !== max)) {
           mod.level = max;
           up = true;
         }
@@ -71,7 +73,7 @@ export class AutoFleetUpdate extends AbstractAutobuyer {
           copy.modules.forEach((mod) => {
             if (mod.level < newMinMax) {
               up = true;
-              mod.level = Math.max(mod.level, newMinMax);
+              mod.level = newMinMax;
             }
           });
           if (up) copy.reload();
@@ -88,11 +90,13 @@ export class AutoFleetUpdate extends AbstractAutobuyer {
   getSave(): any {
     const ret = super.getSave();
     if (this.maxRatio > 0) ret.mr = this.maxRatio;
+    if (this.allowDowngrade) ret.A = this.allowDowngrade;
     return ret;
   }
   load(save: any): boolean {
     if (super.load(save)) {
       if ("mr" in save && typeof save.mr === "number") this.maxRatio = save.mr;
+      if ("A" in save) this.allowDowngrade = save.A as boolean;
       return true;
     }
   }
