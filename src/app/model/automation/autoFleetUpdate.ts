@@ -13,6 +13,7 @@ export class AutoFleetUpdate extends AbstractAutobuyer {
     const sm = game.shipyardManager;
     if (sm.designerView) return false;
 
+    //  Get work per second
     const shipWorkPerSec = game.resourceManager.workProduction.prodPerSecFull
       .times(100 - game.civilianWorkPercent)
       .div(100);
@@ -26,6 +27,7 @@ export class AutoFleetUpdate extends AbstractAutobuyer {
       if (design.old) continue;
       if (!design.fleets.some((fleet) => fleet.shipsQuantity > 0)) continue;
 
+      // Calculate max level
       let maxLevel = 10;
       const typeMax = typesMax.find((tm) => tm.typeId === design.type.id);
       if (!typeMax) {
@@ -49,6 +51,7 @@ export class AutoFleetUpdate extends AbstractAutobuyer {
         maxLevel = typeMax.max;
       }
 
+      // Check if an update is needed
       let copy = design.getCopy();
       let up = false;
       let newMinMax = Number.POSITIVE_INFINITY;
