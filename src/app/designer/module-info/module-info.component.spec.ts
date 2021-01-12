@@ -34,7 +34,7 @@ describe("ModuleInfoComponent", () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ModuleInfoComponent);
     component = fixture.componentInstance;
-    // tslint:disable-next-line
+    // eslint-disable-next-line
     const game = new Game();
     component.mod = new Module();
     component.mod.init(modules[0]);

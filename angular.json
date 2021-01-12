@@ -18,7 +18,10 @@
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "showCircularDependencies": false,
-            "allowedCommonJsDependencies": ["json-2-csv", "lz-string"],
+            "allowedCommonJsDependencies": [
+              "json-2-csv",
+              "lz-string"
+            ],
             "outputPath": "dist/IdleSpace2",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -35,7 +38,9 @@
                 "output": "/assets/"
               }
             ],
-            "styles": ["src/styles.scss"],
+            "styles": [
+              "src/styles.scss"
+            ],
             "scripts": [
               "node_modules/break_infinity.js/dist/break_infinity.min.js",
               "node_modules/swarm-numberformat/dist/swarm-numberformat.min.js"
@@ -105,7 +110,9 @@
                 "output": "/assets/"
               }
             ],
-            "styles": ["src/styles.scss"],
+            "styles": [
+              "src/styles.scss"
+            ],
             "scripts": [
               "node_modules/break_infinity.js/dist/break_infinity.min.js",
               "node_modules/swarm-numberformat/dist/swarm-numberformat.min.js"
@@ -114,15 +121,12 @@
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": [
-              "tsconfig.app.json",
-              "tsconfig.spec.json",
-              "e2e/tsconfig.json",
-              "tsconfig.worker.json"
-            ],
-            "exclude": ["**/node_modules/**"]
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
           }
         },
         "e2e": {

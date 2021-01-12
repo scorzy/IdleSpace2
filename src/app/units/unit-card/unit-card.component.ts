@@ -101,6 +101,7 @@ export class UnitCardComponent
   getPriceId(index: number, pri: Price) {
     return index + pri.spendable.id;
   }
+  // eslint-disable-next-line @typescript-eslint/ban-types
   createModal(tplContent: TemplateRef<{}>, tplFooter: TemplateRef<{}>): void {
     this.tplModal = this.modalService.create({
       nzTitle: this.unit.name,

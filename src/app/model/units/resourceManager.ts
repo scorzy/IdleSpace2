@@ -420,6 +420,7 @@ export class ResourceManager {
 
   /**
    * Update function.
+   *
    * @param seconds time in seconds
    */
   update(seconds: DecimalSource) {

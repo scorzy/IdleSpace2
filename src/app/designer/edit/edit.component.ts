@@ -60,21 +60,17 @@ export class EditComponent
     });
   }
   ngOnInit() {
-    this.nzOptions = this.ms.game.shipyardManager.groups.map((group) => {
-      return {
+    this.nzOptions = this.ms.game.shipyardManager.groups.map((group) => ({
         value: group.id,
         label: group.name,
         group,
-        children: group.all.map((mod) => {
-          return {
+        children: group.all.map((mod) => ({
             value: mod.id,
             label: mod.name,
             mod,
             isLeaf: true
-          };
-        })
-      };
-    });
+          }))
+      }));
 
     this.ms.game.shipyardManager.designerView = true;
     this.ms.game.shipyardManager.postUpdate();
