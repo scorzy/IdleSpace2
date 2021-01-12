@@ -220,13 +220,13 @@
       </button>
       <button
         nz-button
-        nzType="danger"
+        nzDanger
         *ngIf="original.old"
         (click)="original.deleteOutDated()"
       >
         <span>Delete Outdated</span>
       </button>
-      <button nz-button nzType="danger" (click)="delete()">
+      <button nz-button nzDanger (click)="delete()">
         <i nz-icon nzType="delete" nzTheme="outline"></i>
         <span>Delete Design</span>
       </button>
@@ -234,7 +234,6 @@
 
     <div style="margin-top: 0.5rem" *ngIf="otherDesigns.length > 0">
       <nz-form-label
-        nz-tooltip
         nzTooltipTitle="Next design will be used instead of this whe available."
         >Next Design</nz-form-label
       >

@@ -18,6 +18,7 @@
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
             "showCircularDependencies": false,
+            "allowedCommonJsDependencies": ["json-2-csv", "lz-string"],
             "outputPath": "dist/IdleSpace2",
             "index": "src/index.html",
             "main": "src/main.ts",
