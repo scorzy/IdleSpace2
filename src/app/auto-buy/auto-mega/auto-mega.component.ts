@@ -44,6 +44,7 @@ export class AutoMegaComponent
       this.animationDisabled = false;
     });
   }
+  // eslint-disable-next-line @typescript-eslint/ban-types
   drop(event: CdkDragDrop<{}>) {
     moveItemInArray(
       this.ms.game.automationManager.autoMega.megaQueue,

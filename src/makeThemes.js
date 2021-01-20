@@ -8,6 +8,7 @@ const darkThemeVars = require("ng-zorro-antd/dark-theme");
 const compactThemeVars = require("ng-zorro-antd/compact-theme");
 
 const aliyunTheme = require("@ant-design/aliyun-theme").default;
+// const aliyunTheme = require("ng-zorro-antd/ng-zorro-antd.aliyun.less").default;
 
 const darkCommon = require("./themes-vars/darkCommon.js");
 const myDarkVars = require("./themes-vars/myDarkVars.js");
@@ -70,7 +71,8 @@ const base = [
       ...darkThemeVars,
       ...darkCommon,
       ...myDarkVars,
-      ...commonModyVar
+      ...commonModyVar,
+      ...normalText
     }
   },
   {
@@ -79,14 +81,16 @@ const base = [
     modifyVars: {
       ...darkThemeVars,
       ...darkCommon,
-      ...commonModyVar
+      ...commonModyVar,
+      ...normalText
     }
   },
   {
     name: "light-blue",
     source: "light-blue",
     modifyVars: {
-      ...commonModyVar
+      ...commonModyVar,
+      ...normalText
     }
   },
   {
@@ -147,8 +151,6 @@ base.forEach((theme) => {
 
 const built = [];
 fsExtra.emptyDirSync("./src/assets/themes/");
-let i = 0;
-const nThread = 8;
 
 function render(i) {
   let theme = toBuild[i];
@@ -170,7 +172,7 @@ function render(i) {
           css.css
         );
         built.push(theme.name + "." + hash + ".css");
-        if (i + nThread < toBuild.length) render(i + nThread);
+        if (i + 1 < toBuild.length) render(i + 1);
         if (toBuild.length === toBuild.length) {
           fs.writeFile(
             "./src/app/model/data/themes.json",
@@ -182,6 +184,5 @@ function render(i) {
     );
   });
 }
-for (let thread = 0; thread < nThread; thread++) {
-  setTimeout(() => render(thread), 0);
-}
+
+setTimeout(() => render(0), 0);

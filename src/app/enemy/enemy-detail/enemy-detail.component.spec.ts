@@ -1,4 +1,8 @@
-import { ComponentFixture, TestBed, async } from "@angular/core/testing";
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync
+} from "@angular/core/testing";
 
 import { EnemyDetailComponent } from "./enemy-detail.component";
 import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
@@ -13,14 +17,16 @@ describe("EnemyDetailComponent", () => {
   let component: EnemyDetailComponent;
   let fixture: ComponentFixture<EnemyDetailComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      schemas: [CUSTOM_ELEMENTS_SCHEMA],
-      imports: testImports,
-      declarations: [EnemyDetailComponent, FormatPipe, TimePipe],
-      providers: [MainService, OptionsService, FormatPipe, TimePipe]
-    }).compileComponents();
-  }));
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        schemas: [CUSTOM_ELEMENTS_SCHEMA],
+        imports: testImports,
+        declarations: [EnemyDetailComponent, FormatPipe, TimePipe],
+        providers: [MainService, OptionsService, FormatPipe, TimePipe]
+      }).compileComponents();
+    })
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(EnemyDetailComponent);

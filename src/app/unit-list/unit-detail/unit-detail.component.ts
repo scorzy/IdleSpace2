@@ -29,6 +29,7 @@ export class UnitDetailComponent
   @Input() unit: Unit;
   @Input() building: Building;
   @Input() storage: Building;
+  // eslint-disable-next-line
   Number = Number;
   constructor(
     ms: MainService,
@@ -53,7 +54,7 @@ export class UnitDetailComponent
   }
   getUnits(params: any) {
     this.unit = this.ms.game.resourceManager.units.find(
-      // tslint:disable-next-line:triple-equals
+      // eslint-disable-next-line eqeqeq
       (u) => u.id == params.id
     );
     if (!this.unit) this.unit = this.ms.game.resourceManager.unlockedUnits[0];

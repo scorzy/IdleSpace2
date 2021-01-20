@@ -44,10 +44,9 @@
           <nz-form-label
             [nzSpan]="7"
             [nzFor]="opt.id"
-            nz-tooltip
             [nzTooltipTitle]="opt.tooltip"
-            >{{ opt.name }}</nz-form-label
-          >
+            >{{ opt.name }}
+          </nz-form-label>
           <nz-form-control [nzSpan]="15">
             <nz-slider
               [(ngModel)]="opt.quantity"

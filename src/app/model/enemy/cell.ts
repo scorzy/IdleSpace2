@@ -103,12 +103,10 @@ export class Cell {
   getSave(): any {
     const ret: any = {};
     if (this.materials && this.materials.length > 0) {
-      ret.m = this.materials.map((mat) => {
-        return {
+      ret.m = this.materials.map((mat) => ({
           i: mat.material.id,
           q: mat.quantity
-        };
-      });
+        }));
     }
     if (this.ships) {
       ret.s = this.ships;

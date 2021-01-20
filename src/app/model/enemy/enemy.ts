@@ -40,7 +40,7 @@ import { enemySuffixes } from "../data/enemySuffixes";
 import icons from "../data/icons.json";
 
 export class ExtraTile {
-  number = 0;
+  num = 0;
   constructor(public unit: Unit) {}
 }
 export class Enemy {
@@ -140,10 +140,10 @@ export class Enemy {
       }
     ];
     tileArr.forEach((elem) => {
-      elem.tile.number = Math.floor(
+      elem.tile.num = Math.floor(
         elem.range.min + (elem.range.max - elem.range.min) * Math.random()
       );
-      if (elem.tile.number > 0) {
+      if (elem.tile.num > 0) {
         this.tiles.push(elem.tile);
       }
     });
@@ -388,7 +388,7 @@ export class Enemy {
     let rowCell: Cell[] = [];
     let row = 0;
     this.tiles.forEach((tile) => {
-      for (let i = 0; i < tile.number; i++) {
+      for (let i = 0; i < tile.num; i++) {
         rowCell = [];
         rowCell = this.cells.filter(
           (c) => c.index >= row * 10 && c.index < (1 + row) * 10
@@ -793,12 +793,10 @@ export class Enemy {
       ret.c = this.cells.map((c) => c.getSave());
     }
     if (this.tiles && this.tiles.length > 0) {
-      ret.e = this.tiles.map((extra) => {
-        return {
-          n: extra.number,
-          u: extra.unit.id
-        };
-      });
+      ret.e = this.tiles.map((extra) => ({
+        n: extra.num,
+        u: extra.unit.id
+      }));
     }
     return ret;
   }
@@ -846,7 +844,7 @@ export class Enemy {
       for (let i = 0, n = data.e.length; i < n; i++) {
         const unit = rs.units.find((u) => u.id === data.e[i].u);
         if (unit) {
-          this.tiles.push({ number: data.e[i].n, unit });
+          this.tiles.push({ num: data.e[i].n, unit });
         }
       }
     }

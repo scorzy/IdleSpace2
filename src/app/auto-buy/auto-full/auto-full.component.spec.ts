@@ -1,4 +1,8 @@
-import { ComponentFixture, TestBed, async } from "@angular/core/testing";
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync
+} from "@angular/core/testing";
 
 import { AutoFullComponent } from "./auto-full.component";
 import { testImports } from "src/app/app.component.spec";
@@ -11,13 +15,15 @@ describe("AutoFullComponent", () => {
   let component: AutoFullComponent;
   let fixture: ComponentFixture<AutoFullComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: testImports,
-      declarations: [AutoFullComponent, FormatPipe],
-      providers: [MainService, OptionsService, FormatPipe, TimePipe]
-    }).compileComponents();
-  }));
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        imports: testImports,
+        declarations: [AutoFullComponent, FormatPipe],
+        providers: [MainService, OptionsService, FormatPipe, TimePipe]
+      }).compileComponents();
+    })
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(AutoFullComponent);

@@ -59,7 +59,9 @@ export class MaterialTopComponent
   }
   createModal(
     title: string,
+    // eslint-disable-next-line @typescript-eslint/ban-types
     tplContent: TemplateRef<{}>,
+    // eslint-disable-next-line @typescript-eslint/ban-types
     tplFooter: TemplateRef<{}>
   ): void {
     this.tplModal = this.modalService.create({

@@ -1,4 +1,8 @@
-import { ComponentFixture, TestBed, async } from "@angular/core/testing";
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync
+} from "@angular/core/testing";
 
 import { AutoSearchComponent } from "./auto-search.component";
 import { testImports } from "src/app/app.component.spec";
@@ -11,13 +15,15 @@ describe("AutoSearchComponent", () => {
   let component: AutoSearchComponent;
   let fixture: ComponentFixture<AutoSearchComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: testImports,
-      declarations: [AutoSearchComponent, FormatPipe],
-      providers: [MainService, OptionsService, FormatPipe, TimePipe]
-    }).compileComponents();
-  }));
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        imports: testImports,
+        declarations: [AutoSearchComponent, FormatPipe],
+        providers: [MainService, OptionsService, FormatPipe, TimePipe]
+      }).compileComponents();
+    })
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(AutoSearchComponent);
