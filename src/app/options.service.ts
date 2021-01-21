@@ -1,4 +1,5 @@
 import { Injectable, EventEmitter } from "@angular/core";
+import { NzTabPosition } from "ng-zorro-antd/tabs";
 declare let numberformat;
 
 export const THEMES = ["dark-green", "dark-blue", "light-green", "light-blue"];
@@ -44,6 +45,11 @@ export class OptionsService {
     minutes: number;
   }[];
   lastWarpId = 3;
+
+  unitTabSize = "default";
+  unitTabStyle = "line";
+  unitTabPosition: NzTabPosition = "top";
+
   constructor() {
     try {
       const n = 1.1;
@@ -110,7 +116,10 @@ export class OptionsService {
       rn: this.researchNoti,
       rb: this.researchBoostNoti,
       k: this.challengeNoti,
-      wk: this.warpKeys.map((warpKey) => [warpKey.key, warpKey.minutes])
+      wk: this.warpKeys.map((warpKey) => [warpKey.key, warpKey.minutes]),
+      uts: this.unitTabSize,
+      uty: this.unitTabStyle,
+      utp: this.unitTabPosition
     };
   }
   load(data: any) {
@@ -141,6 +150,9 @@ export class OptionsService {
 
     if ("t1" in data) this.districtInfo = data.t1;
     if ("t2" in data) this.operativityInfo = data.t2;
+    if ("uts" in data) this.unitTabSize = data.uts;
+    if ("uty") this.unitTabStyle = data.uty;
+    // if ("utp") this.unitTabPosition = data.utp;
     this.generateFormatter();
 
     if ("wk" in data) {

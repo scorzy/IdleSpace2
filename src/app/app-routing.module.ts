@@ -29,11 +29,15 @@ import { PrestigeComponent } from "./prestige/prestige.component";
 import { WarpComponent } from "./warp/warp.component";
 import { CardsComponent } from "./cards/cards.component";
 import { InfoComponent } from "./info/info.component";
-import { UnitListComponent } from "./unit-list/unit-list.component";
+import {
+  UnitListComponent,
+  UnitListComponent
+} from "./unit-list/unit-list.component";
 import { UnitDetailComponent } from "./unit-list/unit-detail/unit-detail.component";
 import { ChallengeListComponent } from "./challenge-list/challenge-list.component";
 import { ChallengeComponent } from "./challenge-list/challenge/challenge.component";
 import { SpellsComponent } from "./spells/spells.component";
+import { UnitTabsComponent } from "./unit-list/unit-tabs/unit-tabs.component";
 export const routes: Routes = [
   { path: "", pathMatch: "full", redirectTo: "/info" },
   { path: "des", pathMatch: "full", redirectTo: "/des/add" },
@@ -78,17 +82,14 @@ export const routes: Routes = [
       { path: "search", pathMatch: "full", component: SearchComponent }
     ]
   },
-  { path: "unitList", pathMatch: "full", redirectTo: "unitList/unitDetail/m" },
   {
     path: "unitList",
-    component: UnitListComponent,
-    children: [
-      {
-        path: "unitDetail/:id",
-        pathMatch: "full",
-        component: UnitDetailComponent
-      }
-    ]
+    pathMatch: "full",
+    redirectTo: "unitList/m"
+  },
+  {
+    path: "unitList/:id",
+    component: UnitListComponent
   },
   { path: "automation", pathMatch: "full", component: AutomationComponent },
   { path: "expShop", component: PrestigeShopComponent },
@@ -110,7 +111,12 @@ export const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { useHash: true, relativeLinkResolution: "legacy" })],
+  imports: [
+    RouterModule.forRoot(routes, {
+      useHash: true,
+      relativeLinkResolution: "legacy"
+    })
+  ],
   exports: [RouterModule]
 })
 export class AppRoutingModule {}

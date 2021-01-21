@@ -1,0 +1,58 @@
+<nz-tabset
+  [nzType]="os.unitTabStyle"
+  [nzSize]="os.unitTabSize"
+  [nzTabPosition]="os.unitTabPosition"
+  [nzTabBarExtraContent]="extraTemplate"
+>
+  <nz-tab nzTitle="Overview">
+    <ng-template nz-tab> <app-unit-detail></app-unit-detail> </ng-template>
+  </nz-tab>
+  <nz-tab *ngIf="hasMods && worker.maxMods.gt(0)" [nzTitle]="modsTitle">
+    <ng-template nz-tab> <app-mod></app-mod> </ng-template>
+  </nz-tab>
+  <nz-tab
+    *ngIf="hasDepartments && building.maxDepartments > 0"
+    [nzTitle]="depTitle"
+  >
+    <ng-template nz-tab> <app-department></app-department> </ng-template>
+  </nz-tab>
+</nz-tabset>
+
+<ng-template #modsTitle>
+  Mods
+  <span
+    class="monospace"
+    [class.text-secondary]="worker.modStack.used >= worker.maxMods"
+    >{{ worker.modStack.used | format: true }}/{{
+      worker.maxMods | format: true
+    }}</span
+  >
+</ng-template>
+<ng-template #depTitle>
+  Building
+  <span
+    class="monospace"
+    [class.text-secondary]="building.usedDepartments >= building.maxDepartments"
+    >{{ building.usedDepartments | format: true }}/{{
+      building.maxDepartments | format: true
+    }}</span
+  >
+</ng-template>
+<ng-template #extraTemplate>
+  <button nz-button nzType="text" (click)="open()">
+    <i nz-icon nzType="setting"></i>
+  </button>
+</ng-template>
+
+<nz-drawer
+  [nzClosable]="true"
+  [nzMaskClosable]="true"
+  [nzVisible]="options"
+  nzPlacement="right"
+  nzTitle="Page Options"
+  (nzOnClose)="close()"
+>
+  <ng-container *nzDrawerContent>
+    <app-unit-options></app-unit-options>
+  </ng-container>
+</nz-drawer>
