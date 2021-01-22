@@ -1,5 +1,6 @@
 22/1/2021
 -   Fixed negative numbers in Exp Shop
+-   Unit page update
 
 12/1/2021
 -   Fixed tutorial challenge
