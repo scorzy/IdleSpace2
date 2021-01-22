@@ -1,4 +1,7 @@
-12/1/2020
+22/1/2021
+-   Fixed negative numbers in Exp Shop
+
+12/1/2021
 -   Fixed tutorial challenge
 
 11/1/2021
