@@ -12,7 +12,7 @@ import { Unit } from "src/app/model/units/unit";
 import { MainService } from "src/app/main.service";
 import { NzModalService } from "ng-zorro-antd/modal";
 import { BreakpointObserver } from "@angular/cdk/layout";
-import { Router, ActivatedRoute } from "@angular/router";
+import { Router, ActivatedRoute, ParamMap } from "@angular/router";
 import { Building } from "src/app/model/units/building";
 import { IDS } from "src/app/model/CONSTANTS";
 import { OptionsService } from "src/app/options.service";
@@ -44,18 +44,18 @@ export class UnitDetailComponent
   }
   ngOnInit(): void {
     this.unit = this.ms.game.resourceManager.unlockedUnits[0];
-    this.getUnits(this.route.snapshot.params);
+    this.getUnits(this.route.snapshot.paramMap);
     this.subscriptions.push(
       this.ms.updateEmitter.subscribe(() => {
         this.cd.markForCheck();
       }),
-      this.route.params.subscribe(this.getUnits.bind(this))
+      this.route.paramMap.subscribe(this.getUnits.bind(this))
     );
   }
-  getUnits(params: any) {
+  getUnits(params: ParamMap) {
     this.unit = this.ms.game.resourceManager.units.find(
       // eslint-disable-next-line eqeqeq
-      (u) => u.id == params.id
+      (u) => u.id == params.get("id")
     );
     if (!this.unit) this.unit = this.ms.game.resourceManager.unlockedUnits[0];
     this.ms.lastUnitId = this.unit.id;

@@ -17,6 +17,7 @@ import { Technology } from "../researches/technology";
 import { Research } from "../researches/research";
 import { AutoWorker } from "../automation/autoWorker";
 import { AutoMod } from "../automation/autoMod";
+import { Building } from "./building";
 
 const ASSEMBLY_PRIORITY = 50;
 const ASSEMBLY_PRIORITY_ENDING = 500;
@@ -45,6 +46,7 @@ export class Worker extends Unit {
   extremeModLevelUi = 0;
   extremeBonus = 0;
   extremeMauls = ZERO;
+  relativeBuilding: Building;
   constructor(public unitData: IUnitData) {
     super(unitData);
     if ("componentsPrice" in unitData) {

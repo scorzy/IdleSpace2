@@ -1,0 +1,53 @@
+<form nz-form nzLayout="horizontal">
+  <nz-form-item>
+    <nz-form-label>Tab Style</nz-form-label>
+    <nz-form-control>
+      <nz-radio-group [(ngModel)]="os.unitTabStyle" name="tab-style">
+        <label nz-radio-button nzValue="line"><span>Line</span></label>
+        <label nz-radio-button nzValue="card"><span>Card</span></label>
+      </nz-radio-group>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label>Tab Size</nz-form-label>
+    <nz-form-control>
+      <nz-radio-group [(ngModel)]="os.unitTabSize" name="tab-size">
+        <label nz-radio-button nzValue="small"><span>Small</span></label>
+        <label nz-radio-button nzValue="default"><span>Default</span></label>
+        <label nz-radio-button nzValue="large"><span>Large</span></label>
+      </nz-radio-group>
+    </nz-form-control>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label> Small Headers </nz-form-label>
+    <nz-switch name="small" [(ngModel)]="os.compactCardHeader"></nz-switch>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label nzFor="ci"> Show components info </nz-form-label>
+    <nz-switch name="ci" [(ngModel)]="os.showComponentsInfo"></nz-switch>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label nzFor="dd"> Show drones status </nz-form-label>
+    <nz-switch name="dd" [(ngModel)]="os.showDronesStatus"></nz-switch>
+  </nz-form-item>
+
+  <nz-form-item>
+    <nz-form-label nzFor="utm"> Show mod buttons </nz-form-label>
+    <nz-switch name="utm" [(ngModel)]="os.unitTabShowModBtn"></nz-switch>
+  </nz-form-item>
+
+  <!-- <nz-form-item>
+    <nz-form-label nzFor="pp"> Show drones status </nz-form-label>
+    <nz-select name="pp" [(ngModel)]="os.unitTabPosition" style="width: 80px">
+      <nz-option
+        *ngFor="let option of posOptions"
+        [nzLabel]="option.label"
+        [nzValue]="option.value"
+      ></nz-option>
+    </nz-select>
+  </nz-form-item> -->
+</form>
