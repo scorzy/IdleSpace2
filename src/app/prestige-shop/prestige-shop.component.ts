@@ -37,7 +37,7 @@ export class PrestigeShopComponent
   reloadCustomBuy() {
     this.ms.game.prestigeManager.customBuy = parseDecimal(
       this.ms.game.prestigeManager.customBuyString
-    );
+    ).max(1);
   }
   getTabId(index: number, tab: any) {
     return index;
