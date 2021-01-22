@@ -6,8 +6,6 @@ import {
   OnDestroy,
   ChangeDetectorRef
 } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
-import { constructor } from "jasmine";
 import { BaseComponentComponent } from "src/app/base-component/base-component.component";
 import { MainService } from "src/app/main.service";
 import { OptionsService } from "src/app/options.service";
@@ -21,12 +19,12 @@ import { OptionsService } from "src/app/options.service";
 export class UnitOptionsComponent
   extends BaseComponentComponent
   implements OnInit, OnDestroy, AfterViewInit {
-  posOptions = [
-    { value: "top", label: "top" },
-    { value: "left", label: "left" },
-    { value: "right", label: "right" },
-    { value: "bottom", label: "bottom" }
-  ];
+  // posOptions = [
+  //   { value: "top", label: "top" },
+  //   { value: "left", label: "left" },
+  //   { value: "right", label: "right" },
+  //   { value: "bottom", label: "bottom" }
+  // ];
 
   constructor(
     ms: MainService,

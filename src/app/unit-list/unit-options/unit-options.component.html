@@ -1,4 +1,4 @@
-<form nz-form nzLayout="vertical">
+<form nz-form nzLayout="horizontal">
   <nz-form-item>
     <nz-form-label>Tab Style</nz-form-label>
     <nz-form-control>
@@ -36,6 +36,11 @@
   </nz-form-item>
 
   <nz-form-item>
+    <nz-form-label nzFor="utm"> Show mod buttons </nz-form-label>
+    <nz-switch name="utm" [(ngModel)]="os.unitTabShowModBtn"></nz-switch>
+  </nz-form-item>
+
+  <!-- <nz-form-item>
     <nz-form-label nzFor="pp"> Show drones status </nz-form-label>
     <nz-select name="pp" [(ngModel)]="os.unitTabPosition" style="width: 80px">
       <nz-option
@@ -44,5 +49,5 @@
         [nzValue]="option.value"
       ></nz-option>
     </nz-select>
-  </nz-form-item>
+  </nz-form-item> -->
 </form>

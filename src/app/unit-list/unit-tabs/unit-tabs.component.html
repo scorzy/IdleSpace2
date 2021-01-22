@@ -1,7 +1,7 @@
 <nz-tabset
   [nzType]="os.unitTabStyle"
   [nzSize]="os.unitTabSize"
-  [nzTabPosition]="os.unitTabPosition"
+  nzTabPosition="top"
   [nzTabBarExtraContent]="extraTemplate"
 >
   <nz-tab nzTitle="Overview">
@@ -30,6 +30,7 @@
 </ng-template>
 <ng-template #depTitle>
   Building
+
   <span
     class="monospace"
     [class.text-secondary]="building.usedDepartments >= building.maxDepartments"
@@ -39,6 +40,7 @@
   >
 </ng-template>
 <ng-template #extraTemplate>
+  <app-buy-menu></app-buy-menu>
   <button nz-button nzType="text" (click)="open()">
     <i nz-icon nzType="setting"></i>
   </button>
@@ -51,8 +53,9 @@
   nzPlacement="right"
   nzTitle="Page Options"
   (nzOnClose)="close()"
+  [nzWidth]="300"
 >
-  <ng-container *nzDrawerContent>
-    <app-unit-options></app-unit-options>
-  </ng-container>
+  <!-- <ng-container *nzDrawerContent> -->
+  <app-unit-options></app-unit-options>
+  <!-- </ng-container> -->
 </nz-drawer>

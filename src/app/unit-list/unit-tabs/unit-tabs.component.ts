@@ -1,4 +1,3 @@
-import { BreakpointObserver } from "@angular/cdk/layout";
 import {
   Component,
   OnInit,
@@ -7,8 +6,7 @@ import {
   OnDestroy,
   ChangeDetectorRef
 } from "@angular/core";
-import { Router, ActivatedRoute } from "@angular/router";
-import { NzModalService } from "ng-zorro-antd/modal";
+import { ActivatedRoute } from "@angular/router";
 import { BaseComponentComponent } from "src/app/base-component/base-component.component";
 import { MainService } from "src/app/main.service";
 import { Unit } from "src/app/model/units/unit";
@@ -32,6 +30,7 @@ export class UnitTabsComponent
   hasDepartments = false;
   building: Building;
   options = false;
+  buyString = "Max";
 
   constructor(
     ms: MainService,
@@ -66,7 +65,15 @@ export class UnitTabsComponent
       }
     }
   }
-
+  setCustomBuy(fixed: boolean, num: number, text: string) {
+    this.ms.game.buyFixed = fixed;
+    if (this.ms.game.buyFixed) {
+      this.ms.game.customBuy = new Decimal(num);
+    } else {
+      this.ms.game.customBuyPercent = num;
+    }
+    this.buyString = text;
+  }
   open(): void {
     this.options = true;
   }

@@ -131,6 +131,7 @@ import { DesignDetailComponent } from "./design-detail/design-detail.component";
 import { SpellsComponent } from "./spells/spells.component";
 import { UnitTabsComponent } from "./unit-list/unit-tabs/unit-tabs.component";
 import { UnitOptionsComponent } from "./unit-list/unit-options/unit-options.component";
+import { BuyMenuComponent } from "./units/buy-menu/buy-menu.component";
 
 registerLocaleData(en);
 
@@ -226,7 +227,8 @@ const ngZorroConfig: NzConfig = {
     DesignDetailComponent,
     SpellsComponent,
     UnitTabsComponent,
-    UnitOptionsComponent
+    UnitOptionsComponent,
+    BuyMenuComponent
   ],
   imports: [
     BrowserModule,

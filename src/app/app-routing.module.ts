@@ -29,15 +29,10 @@ import { PrestigeComponent } from "./prestige/prestige.component";
 import { WarpComponent } from "./warp/warp.component";
 import { CardsComponent } from "./cards/cards.component";
 import { InfoComponent } from "./info/info.component";
-import {
-  UnitListComponent,
-  UnitListComponent
-} from "./unit-list/unit-list.component";
-import { UnitDetailComponent } from "./unit-list/unit-detail/unit-detail.component";
+import { UnitListComponent } from "./unit-list/unit-list.component";
 import { ChallengeListComponent } from "./challenge-list/challenge-list.component";
 import { ChallengeComponent } from "./challenge-list/challenge/challenge.component";
 import { SpellsComponent } from "./spells/spells.component";
-import { UnitTabsComponent } from "./unit-list/unit-tabs/unit-tabs.component";
 export const routes: Routes = [
   { path: "", pathMatch: "full", redirectTo: "/info" },
   { path: "des", pathMatch: "full", redirectTo: "/des/add" },

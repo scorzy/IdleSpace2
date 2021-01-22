@@ -1,16 +1,24 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
+import { ComponentFixture, TestBed } from "@angular/core/testing";
+import { testImports } from "src/app/app.component.spec";
+import { FormatPipe } from "src/app/format.pipe";
+import { MainService } from "src/app/main.service";
+import { OptionsService } from "src/app/options.service";
+import { TimePipe } from "src/app/time.pipe";
 
-import { UnitOptionsComponent } from './unit-options.component';
+import { UnitOptionsComponent } from "./unit-options.component";
 
-describe('UnitOptionsComponent', () => {
+describe("UnitOptionsComponent", () => {
   let component: UnitOptionsComponent;
   let fixture: ComponentFixture<UnitOptionsComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ UnitOptionsComponent ]
-    })
-    .compileComponents();
+      schemas: [CUSTOM_ELEMENTS_SCHEMA],
+      imports: testImports,
+      declarations: [UnitOptionsComponent, FormatPipe],
+      providers: [MainService, OptionsService, FormatPipe, TimePipe]
+    }).compileComponents();
   });
 
   beforeEach(() => {
@@ -19,7 +27,7 @@ describe('UnitOptionsComponent', () => {
     fixture.detectChanges();
   });
 
-  it('should create', () => {
+  it("should create", () => {
     expect(component).toBeTruthy();
   });
 });

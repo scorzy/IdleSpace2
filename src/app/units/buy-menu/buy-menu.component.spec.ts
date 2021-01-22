@@ -6,23 +6,23 @@ import { MainService } from "src/app/main.service";
 import { OptionsService } from "src/app/options.service";
 import { TimePipe } from "src/app/time.pipe";
 
-import { UnitTabsComponent } from "./unit-tabs.component";
+import { BuyMenuComponent } from "./buy-menu.component";
 
-describe("UnitTabsComponent", () => {
-  let component: UnitTabsComponent;
-  let fixture: ComponentFixture<UnitTabsComponent>;
+describe("BuyMenuComponent", () => {
+  let component: BuyMenuComponent;
+  let fixture: ComponentFixture<BuyMenuComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
       imports: testImports,
-      declarations: [UnitTabsComponent, FormatPipe],
+      declarations: [BuyMenuComponent, FormatPipe],
       providers: [MainService, OptionsService, FormatPipe, TimePipe]
     }).compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(UnitTabsComponent);
+    fixture = TestBed.createComponent(BuyMenuComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

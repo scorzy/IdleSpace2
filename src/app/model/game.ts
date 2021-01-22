@@ -342,6 +342,7 @@ export class Game {
   }
   /**
    * Process ended battles.
+   *
    * @param warpTime
    */
   processBattles(warpTime: number) {

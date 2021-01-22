@@ -49,6 +49,7 @@ export class OptionsService {
   unitTabSize = "default";
   unitTabStyle = "line";
   unitTabPosition: NzTabPosition = "top";
+  unitTabShowModBtn = false;
 
   constructor() {
     try {
@@ -119,7 +120,8 @@ export class OptionsService {
       wk: this.warpKeys.map((warpKey) => [warpKey.key, warpKey.minutes]),
       uts: this.unitTabSize,
       uty: this.unitTabStyle,
-      utp: this.unitTabPosition
+      utm: this.unitTabShowModBtn
+      // utp: this.unitTabPosition
     };
   }
   load(data: any) {
@@ -151,7 +153,8 @@ export class OptionsService {
     if ("t1" in data) this.districtInfo = data.t1;
     if ("t2" in data) this.operativityInfo = data.t2;
     if ("uts" in data) this.unitTabSize = data.uts;
-    if ("uty") this.unitTabStyle = data.uty;
+    if ("uty" in data) this.unitTabStyle = data.uty;
+    if ("utm" in data) this.unitTabShowModBtn = data.utm;
     // if ("utp") this.unitTabPosition = data.utp;
     this.generateFormatter();
 

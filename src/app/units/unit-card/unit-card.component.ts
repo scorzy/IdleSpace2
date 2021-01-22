@@ -46,6 +46,7 @@ export class UnitCardComponent
   customBuy = ONE;
   hasDepartments = false;
   isDistrict = false;
+  showModBtn = false;
   constructor(
     ms: MainService,
     cd: ChangeDetectorRef,
@@ -57,10 +58,12 @@ export class UnitCardComponent
     super(ms, cd);
   }
   ngOnInit() {
+    this.showModBtn = !this.os.listUi || this.os.unitTabShowModBtn;
     this.initialize();
 
     this.subscriptions.push(
       this.ms.updateEmitter.subscribe(() => {
+        this.showModBtn = !this.os.listUi || this.os.unitTabShowModBtn;
         this.unit.reloadMaxBuy();
         this.reloadCustomBuy();
         this.cd.markForCheck();
