@@ -126,11 +126,8 @@
     </span>
   </div>
 
-  <div class="main-container buy-menu">
-    <span nz-dropdown [nzDropdownMenu]="buyMenu">
-      <i nz-icon nzType="shopping-cart"></i>
-      <span>Buy {{ buyString }}</span>
-    </span>
+  <div class="main-container" *ngIf="!os.listUi">
+    <app-buy-menu></app-buy-menu>
   </div>
 </div>
 
@@ -139,16 +136,6 @@
     <span>Ok</span>
   </button>
 </ng-template>
-
-<nz-dropdown-menu #buyMenu="nzDropdownMenu">
-  <ul nz-menu nzSelectable>
-    <li nz-menu-item (click)="setCustomBuy(false, 0.5, 'Half')">Buy Half</li>
-    <li nz-menu-item (click)="setCustomBuy(false, 1, 'Max')">Buy Max</li>
-    <li nz-menu-item (click)="setCustomBuy(true, 10, '10')">Buy 10</li>
-    <li nz-menu-item (click)="setCustomBuy(true, 100, '100')">Buy 100</li>
-    <li nz-menu-item (click)="setCustomBuy(true, 1000, '1000')">Buy 1000</li>
-  </ul>
-</nz-dropdown-menu>
 
 <ng-template #habTitleTemplate>
   <span class="habSpace-color">

@@ -63,12 +63,14 @@
   (nzOnClose)="close()"
   [nzBodyStyle]="{ padding: 0 }"
 >
-  <app-side-menu
-    [notCollapsed]="true"
-    [isCollapsed]="ms.isCollapsed"
-    [mobile]="true"
-    (selectLink)="closeDrawer()"
-  ></app-side-menu>
+  <ng-container *nzDrawerContent>
+    <app-side-menu
+      [notCollapsed]="true"
+      [isCollapsed]="ms.isCollapsed"
+      [mobile]="true"
+      (selectLink)="closeDrawer()"
+    ></app-side-menu>
+  </ng-container>
 </nz-drawer>
 
 <!-- Custom Notifications -->

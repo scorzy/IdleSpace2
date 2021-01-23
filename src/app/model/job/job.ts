@@ -52,6 +52,7 @@ export abstract class Job {
 
   /**
    * Adds progress
+   *
    * @param progress to add
    * @returns rest
    */

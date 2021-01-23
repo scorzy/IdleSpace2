@@ -60,7 +60,7 @@ export class SpaceStationsComponent
     this.search();
   }
   search() {
-    /* tslint:disable */
+    /* eslint-disable */
     if (this.ms.game.resourceManager.unlockedSpaceStations.length < 1) return;
     if (this.sortName && this.sortValue) {
       if (
@@ -89,7 +89,7 @@ export class SpaceStationsComponent
           );
       }
     }
-    /* tslint:enable */
+    /* eslint-enable */
   }
   reloadMegaQueue() {
     this.megaQueue = 0;

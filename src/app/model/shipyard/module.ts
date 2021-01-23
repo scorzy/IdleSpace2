@@ -60,14 +60,12 @@ export class Module implements IUnlockable {
     );
 
     if ("technologies" in moduleData) {
-      this.technologies = moduleData.technologies.map((tec) => {
-        return {
+      this.technologies = moduleData.technologies.map((tec) => ({
           technology: Game.getGame().researchManager.technologies.find(
             (t) => t.id === tec.technologyId
           ),
           multi: tec.multi
-        };
-      });
+        }));
     }
     if ("affectedWeaponsTechnologies" in moduleData) {
       this.affectedWeaponsTechnologies = moduleData.affectedWeaponsTechnologies.map(

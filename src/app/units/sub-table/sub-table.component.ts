@@ -60,8 +60,7 @@ export class SubTableComponent
           bon.unit.quantity.gt(0) &&
           (!bon.secondMultiplier || bon.secondMultiplier.quantity.gt(0))
       )
-      .map((bonus) => {
-        return {
+      .map((bonus) => ({
           what: bonus.unit.name,
           // (bonus.secondMultiplier ? " " + bonus.secondMultiplier.name : ""),
           quantity: bonus.unit.quantity.times(
@@ -69,8 +68,7 @@ export class SubTableComponent
           ),
           effect: bonus.multiplier.times(100),
           total: bonus.getBonus().times(100)
-        };
-      });
+        }));
 
     return ret;
   }

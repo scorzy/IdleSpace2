@@ -53,6 +53,12 @@ export class DepartmentComponent
     this.building = this.ms.game.resourceManager.buildings.find(
       (u) => id === u.id
     );
+    if (!this.building) {
+      const worker = this.ms.game.resourceManager.workers.find(
+        (u) => id === u.id
+      );
+      this.building = worker.relativeBuilding;
+    }
     this.cd.markForCheck();
   }
   getDepId(index: number, department: Department) {

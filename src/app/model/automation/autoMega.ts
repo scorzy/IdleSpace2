@@ -46,12 +46,10 @@ export class AutoMega extends AbstractAutobuyer {
     const save = super.getSave();
     save.Q = this.megaQueue
       .filter((m) => m.mega)
-      .map((m) => {
-        return {
+      .map((m) => ({
           m: m.mega.id,
           q: m.quantity
-        };
-      });
+        }));
     return save;
   }
   load(save: any): boolean {

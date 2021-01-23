@@ -1,4 +1,8 @@
-import { ComponentFixture, TestBed, async } from "@angular/core/testing";
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync
+} from "@angular/core/testing";
 
 import { PricesComponent } from "./prices.component";
 import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
@@ -13,14 +17,16 @@ describe("PricesComponent", () => {
   let component: PricesComponent;
   let fixture: ComponentFixture<PricesComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      schemas: [CUSTOM_ELEMENTS_SCHEMA],
-      imports: testImports,
-      declarations: [PricesComponent, FormatPipe],
-      providers: [MainService, OptionsService, FormatPipe, TimePipe]
-    }).compileComponents();
-  }));
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        schemas: [CUSTOM_ELEMENTS_SCHEMA],
+        imports: testImports,
+        declarations: [PricesComponent, FormatPipe],
+        providers: [MainService, OptionsService, FormatPipe, TimePipe]
+      }).compileComponents();
+    })
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(PricesComponent);

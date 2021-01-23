@@ -90,6 +90,7 @@ export class Game {
   /**
    * Gets game return instance of game
    * this is not a real singleton, may return null
+   *
    * @returns game
    */
   static getGame(): Game {
@@ -140,6 +141,9 @@ export class Game {
       battleResult: BattleResult;
     }>();
   }
+  /**
+   * Generate an unique ID. Used for battle.
+   */
   private generateGameId() {
     this._gameId = Date.now().toString() + Math.random().toString();
   }
@@ -150,6 +154,7 @@ export class Game {
    * Update function.
    * Works only with resource growing at max rate of x^2
    * When something reach zero consumers are stopped and it will update again
+   *
    * @param delta in seconds
    */
   update(delta: number) {
@@ -304,6 +309,9 @@ export class Game {
     this.extraAttacks[3] = true;
     this.extraAttacks[4] = true;
   }
+  /**
+   * Reload naval capacity.
+   */
   reloadNavalCapacity() {
     this.additiveNavalCapStack.reloadAdditiveBonus();
     this.multiNavalCapStack.reloadBonus();
@@ -330,6 +338,9 @@ export class Game {
 
     this.shipyardManager.reloadFleetCapacity();
   }
+  /**
+   * Add BattleResult to results list.
+   */
   onBattleEnd(battleResult: BattleResult, fleetNum: number) {
     if (battleResult.gameId !== this.gameId) {
       return;
@@ -343,6 +354,11 @@ export class Game {
       this.extraAttacks[fleetNum] = false;
     }
   }
+  /**
+   * Process ended battles.
+   *
+   * @param warpTime
+   */
   processBattles(warpTime: number) {
     const now = performance.now();
     if (this.prestigeManager.battleWarp.active) {
@@ -385,6 +401,9 @@ export class Game {
       }
     }
   }
+  /**
+   * Set technologies colors
+   */
   setTheme() {
     this.researchManager.technologies.forEach((tech) => {
       tech.setTheme();
@@ -455,6 +474,7 @@ export class Game {
   }
   /**
    * Warp with Dark Matter
+   *
    * @param time warp in seconds
    */
   warp(time: number): boolean {

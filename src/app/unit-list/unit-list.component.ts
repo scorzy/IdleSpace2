@@ -9,7 +9,7 @@ import {
 import { BaseComponentComponent } from "../base-component/base-component.component";
 import { MainService } from "../main.service";
 import { OptionsService } from "../options.service";
-import { ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { BreakpointObserver, BreakpointState } from "@angular/cdk/layout";
 import { Unit } from "../model/units/unit";
 
@@ -28,6 +28,7 @@ export class UnitListComponent
     cd: ChangeDetectorRef,
     public os: OptionsService,
     private route: ActivatedRoute,
+    private router: Router,
     public breakpointObserver: BreakpointObserver
   ) {
     super(ms, cd);
@@ -51,6 +52,13 @@ export class UnitListComponent
   ngOnDestroy() {
     super.ngOnDestroy();
     this.ms.innerContent = true;
+  }
+  navigate(id: string) {
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: { id },
+      queryParamsHandling: "merge" // remove to replace all query params by provided
+    });
   }
   getId(index: number, unit: Unit) {
     return unit.id;

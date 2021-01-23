@@ -120,15 +120,18 @@ import { ChallengeListComponent } from "./challenge-list/challenge-list.componen
 import { ChallengeComponent } from "./challenge-list/challenge/challenge.component";
 import { AutoPrestigeComponent } from "./auto-buy/auto-prestige/auto-prestige.component";
 import { PlayfabEmailComponent } from "./save/playfab-email/playfab-email.component";
-import { AutoInfraComponent } from './auto-buy/auto-infra/auto-infra.component';
-import { StatsComponent } from './stats/stats.component';
-import { SpeedStatsComponent } from './stats/speed-stats/speed-stats.component';
-import { StackViewComponent } from './stats/stack-view/stack-view.component';
-import { ShopComponent } from './prestige-shop/shop/shop.component';
-import { AutoWarpComponent } from './auto-buy/auto-warp/auto-warp.component';
-import { AutoMegaComponent } from './auto-buy/auto-mega/auto-mega.component';
-import { DesignDetailComponent } from './design-detail/design-detail.component';
-import { SpellsComponent } from './spells/spells.component';
+import { AutoInfraComponent } from "./auto-buy/auto-infra/auto-infra.component";
+import { StatsComponent } from "./stats/stats.component";
+import { SpeedStatsComponent } from "./stats/speed-stats/speed-stats.component";
+import { StackViewComponent } from "./stats/stack-view/stack-view.component";
+import { ShopComponent } from "./prestige-shop/shop/shop.component";
+import { AutoWarpComponent } from "./auto-buy/auto-warp/auto-warp.component";
+import { AutoMegaComponent } from "./auto-buy/auto-mega/auto-mega.component";
+import { DesignDetailComponent } from "./design-detail/design-detail.component";
+import { SpellsComponent } from "./spells/spells.component";
+import { UnitTabsComponent } from "./unit-list/unit-tabs/unit-tabs.component";
+import { UnitOptionsComponent } from "./unit-list/unit-options/unit-options.component";
+import { BuyMenuComponent } from "./units/buy-menu/buy-menu.component";
 
 registerLocaleData(en);
 
@@ -222,7 +225,10 @@ const ngZorroConfig: NzConfig = {
     AutoWarpComponent,
     AutoMegaComponent,
     DesignDetailComponent,
-    SpellsComponent
+    SpellsComponent,
+    UnitTabsComponent,
+    UnitOptionsComponent,
+    BuyMenuComponent
   ],
   imports: [
     BrowserModule,

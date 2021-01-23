@@ -15,6 +15,8 @@ import { NzMessageService } from "ng-zorro-antd/message";
 import * as LZString from "lz-string";
 
 declare let kongregateAPI: any;
+
+// eslint-disable-next-line @typescript-eslint/naming-convention
 declare let PlayFab: any;
 
 export const SAVE_ID = "IS2_save";
@@ -450,9 +452,7 @@ export class MainService {
       if (data) {
         if (data.data.Data) {
           const raw = Object.values(data.data.Data)
-            .map((val: any) => {
-              return val.Value;
-            })
+            .map((val: any) => val.Value)
             .join("");
           // console.log(raw);
           this.lzWorker.postMessage({ m: raw, a: "d", t: "P" });

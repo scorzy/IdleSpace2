@@ -8,9 +8,7 @@
   <li
     nz-menu-item
     nzMatchRouter
-    [routerLink]="
-      os.listUi ? 'unitList/unitDetail/' + ms.lastUnitId : 'units/w'
-    "
+    [routerLink]="os.listUi ? 'unitList/' : 'units/w'"
     nz-tooltip
     nzTooltipPlacement="right"
     [nzTooltipTitle]="!mobile && isCollapsed ? 'Workers' : ''"

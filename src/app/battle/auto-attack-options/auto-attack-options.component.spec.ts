@@ -1,4 +1,8 @@
-import { ComponentFixture, TestBed, async } from "@angular/core/testing";
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync
+} from "@angular/core/testing";
 
 import { AutoAttackOptionsComponent } from "./auto-attack-options.component";
 import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
@@ -13,14 +17,16 @@ describe("AutoAttackOptionsComponent", () => {
   let component: AutoAttackOptionsComponent;
   let fixture: ComponentFixture<AutoAttackOptionsComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      schemas: [CUSTOM_ELEMENTS_SCHEMA],
-      imports: testImports,
-      declarations: [AutoAttackOptionsComponent, FormatPipe, SizePipe],
-      providers: [MainService, OptionsService, FormatPipe, TimePipe]
-    }).compileComponents();
-  }));
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        schemas: [CUSTOM_ELEMENTS_SCHEMA],
+        imports: testImports,
+        declarations: [AutoAttackOptionsComponent, FormatPipe, SizePipe],
+        providers: [MainService, OptionsService, FormatPipe, TimePipe]
+      }).compileComponents();
+    })
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(AutoAttackOptionsComponent);

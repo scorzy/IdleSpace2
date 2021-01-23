@@ -6,9 +6,9 @@
   [nzActions]="
     unit.buyPrice?.prices?.length === 0
       ? []
-      : unit.modStack && unit.maxMods.gt(0)
+      : showModBtn && unit.modStack && unit.maxMods.gt(0)
       ? [buyOne, buyMax, mod]
-      : building && hasDepartments && building.maxDepartments > 0
+      : showModBtn && building && hasDepartments && building.maxDepartments > 0
       ? [buyOne, buyMax, dep]
       : [buyOne, buyMax]
   "

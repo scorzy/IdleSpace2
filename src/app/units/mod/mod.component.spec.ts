@@ -1,4 +1,8 @@
-import { ComponentFixture, TestBed, async } from "@angular/core/testing";
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync
+} from "@angular/core/testing";
 import { ModComponent } from "./mod.component";
 import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
 import { testImports } from "src/app/app.component.spec";
@@ -14,23 +18,25 @@ describe("ModComponent", () => {
   let component: ModComponent;
   let fixture: ComponentFixture<ModComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      schemas: [CUSTOM_ELEMENTS_SCHEMA],
-      imports: testImports,
-      declarations: [ModComponent, FormatPipe],
-      providers: [
-        MainService,
-        OptionsService,
-        FormatPipe,
-        TimePipe,
-        {
-          provide: ActivatedRoute,
-          useValue: { paramMap: of(convertToParamMap({ id: "m" })) }
-        }
-      ]
-    }).compileComponents();
-  }));
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        schemas: [CUSTOM_ELEMENTS_SCHEMA],
+        imports: testImports,
+        declarations: [ModComponent, FormatPipe],
+        providers: [
+          MainService,
+          OptionsService,
+          FormatPipe,
+          TimePipe,
+          {
+            provide: ActivatedRoute,
+            useValue: { paramMap: of(convertToParamMap({ id: "m" })) }
+          }
+        ]
+      }).compileComponents();
+    })
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ModComponent);

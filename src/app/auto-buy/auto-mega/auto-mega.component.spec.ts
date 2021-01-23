@@ -1,4 +1,8 @@
-import { async, ComponentFixture, TestBed } from "@angular/core/testing";
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync
+} from "@angular/core/testing";
 
 import { AutoMegaComponent } from "./auto-mega.component";
 import { testImports } from "src/app/app.component.spec";
@@ -11,13 +15,15 @@ describe("AutoMegaComponent", () => {
   let component: AutoMegaComponent;
   let fixture: ComponentFixture<AutoMegaComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      declarations: [AutoMegaComponent, FormatPipe],
-      imports: testImports,
-      providers: [MainService, OptionsService, FormatPipe, TimePipe]
-    }).compileComponents();
-  }));
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [AutoMegaComponent, FormatPipe],
+        imports: testImports,
+        providers: [MainService, OptionsService, FormatPipe, TimePipe]
+      }).compileComponents();
+    })
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(AutoMegaComponent);

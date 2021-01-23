@@ -534,8 +534,7 @@ export class ShipDesign {
         ? []
         : this.modules
             .filter((l) => l.module)
-            .map((mod) => {
-              return {
+            .map((mod) => ({
                 module: mod.module,
                 level: mod.level,
                 size: mod.size,
@@ -544,8 +543,7 @@ export class ShipDesign {
                 validateStatus: "",
                 errorTip: "",
                 uiModel: [mod.module.groupId, mod.module.id]
-              };
-            });
+              }));
     ret.reload(errorCheck);
     return ret;
   }

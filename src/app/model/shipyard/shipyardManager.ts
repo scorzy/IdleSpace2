@@ -15,7 +15,7 @@ import sample from "lodash-es/sample";
 import { BonusStack } from "../bonus/bonusStack";
 import { Bonus } from "../bonus/bonus";
 
-const MAX_DESIGN = 20;
+const MAX_DESIGN = 40;
 
 export class ShipyardManager extends JobManager {
   shipDesigns = new Array<ShipDesign>();

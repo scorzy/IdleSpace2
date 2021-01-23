@@ -1,4 +1,8 @@
-import { ComponentFixture, TestBed, async } from "@angular/core/testing";
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync
+} from "@angular/core/testing";
 
 import { DistrictInfoComponent } from "./district-info.component";
 import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
@@ -13,14 +17,16 @@ describe("DistrictInfoComponent", () => {
   let component: DistrictInfoComponent;
   let fixture: ComponentFixture<DistrictInfoComponent>;
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      schemas: [CUSTOM_ELEMENTS_SCHEMA],
-      imports: testImports,
-      declarations: [DistrictInfoComponent, FormatPipe],
-      providers: [MainService, OptionsService, FormatPipe, TimePipe]
-    }).compileComponents();
-  }));
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        schemas: [CUSTOM_ELEMENTS_SCHEMA],
+        imports: testImports,
+        declarations: [DistrictInfoComponent, FormatPipe],
+        providers: [MainService, OptionsService, FormatPipe, TimePipe]
+      }).compileComponents();
+    })
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(DistrictInfoComponent);
