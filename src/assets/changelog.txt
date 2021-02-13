@@ -1,3 +1,6 @@
+12/2/2021
+-   Fixed fleet list ui
+
 22/1/2021
 -   Fixed negative numbers in Exp Shop
 -   Unit page update
