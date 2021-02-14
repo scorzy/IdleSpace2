@@ -21,7 +21,7 @@
           {{ needNuke | format: true }} ({{ nukePercent | percent }})</span
         >
       </button>
-      <button nz-button nzType="danger" (click)="surrender()">
+      <button nz-button nzDanger (click)="surrender()">
         <span>Surrender</span>
       </button>
       <button nz-button nzType="default" (click)="autoAttackOptions = true">
@@ -231,5 +231,7 @@
   nzTitle="Auto Attack Option"
   (nzOnClose)="autoAttackOptions = false"
 >
-  <app-auto-attack-options></app-auto-attack-options>
+  <ng-container *nzDrawerContent>
+    <app-auto-attack-options></app-auto-attack-options>
+  </ng-container>
 </nz-drawer>

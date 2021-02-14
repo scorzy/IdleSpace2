@@ -28,7 +28,6 @@ export class MaterialTopComponent
   tplModal: NzModalRef;
   popoverTrigger: string = null;
   Decimal = Decimal;
-  buyString = "Max";
 
   constructor(
     ms: MainService,
@@ -46,12 +45,6 @@ export class MaterialTopComponent
       this.ms.updateEmitter.subscribe(() => {
         this.cd.markForCheck();
       })
-      // ,
-      // this.breakpointObserver
-      //   .observe(["(min-width: 959px)"])
-      //   .subscribe((state: BreakpointState) => {
-      //     this.popoverTrigger = state.matches ? "hover" : "null";
-      //   })
     );
   }
   getId(index: number, mat: Unit) {
@@ -59,7 +52,9 @@ export class MaterialTopComponent
   }
   createModal(
     title: string,
+    // eslint-disable-next-line @typescript-eslint/ban-types
     tplContent: TemplateRef<{}>,
+    // eslint-disable-next-line @typescript-eslint/ban-types
     tplFooter: TemplateRef<{}>
   ): void {
     this.tplModal = this.modalService.create({
@@ -72,15 +67,5 @@ export class MaterialTopComponent
   }
   destroyTplModal() {
     this.tplModal.destroy();
-  }
-
-  setCustomBuy(fixed: boolean, num: number, text: string) {
-    this.ms.game.buyFixed = fixed;
-    if (this.ms.game.buyFixed) {
-      this.ms.game.customBuy = new Decimal(num);
-    } else {
-      this.ms.game.customBuyPercent = num;
-    }
-    this.buyString = text;
   }
 }

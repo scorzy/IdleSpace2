@@ -122,14 +122,12 @@ export class Research extends Job implements IUnlockable, IBase {
       );
     }
     if ("technologyBonus" in researchData) {
-      this.technologyBonus = researchData.technologyBonus.map((data) => {
-        return {
+      this.technologyBonus = researchData.technologyBonus.map((data) => ({
           technology: researchManager.technologies.find(
             (a) => a.id === data.techId
           ),
           multi: data.multi
-        };
-      });
+        }));
       this.technologyBonus.forEach((data) => {
         data.technology.technologyBonus.bonuses.push(
           new Bonus(this, new Decimal(data.multi))
@@ -225,12 +223,10 @@ export class Research extends Job implements IUnlockable, IBase {
       });
     }
     if ("shipProductionBonus" in this.resData) {
-      this.shipProductionBonus = this.resData.shipProductionBonus.map((spb) => {
-        return {
+      this.shipProductionBonus = this.resData.shipProductionBonus.map((spb) => ({
           shipType: sm.shipTypes.find((t) => t.id === spb.shipType),
           multi: spb.multi
-        };
-      });
+        }));
     }
     if ("battleMulti" in this.resData) {
       this.resData.battleMulti.forEach((multi) => {

@@ -1,4 +1,8 @@
-import { ComponentFixture, TestBed, async } from "@angular/core/testing";
+import {
+  ComponentFixture,
+  TestBed,
+  waitForAsync
+} from "@angular/core/testing";
 
 import { BattleTableComponent } from "./battle-table.component";
 import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
@@ -14,14 +18,16 @@ import { TimePipe } from "src/app/time.pipe";
 describe("BattleTableComponent", () => {
   let component: BattleTableComponent;
   let fixture: ComponentFixture<BattleTableComponent>;
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      schemas: [CUSTOM_ELEMENTS_SCHEMA],
-      imports: testImports,
-      declarations: [BattleTableComponent, FormatPipe, SizePipe],
-      providers: [MainService, OptionsService, FormatPipe, TimePipe]
-    }).compileComponents();
-  }));
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        schemas: [CUSTOM_ELEMENTS_SCHEMA],
+        imports: testImports,
+        declarations: [BattleTableComponent, FormatPipe, SizePipe],
+        providers: [MainService, OptionsService, FormatPipe, TimePipe]
+      }).compileComponents();
+    })
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(BattleTableComponent);

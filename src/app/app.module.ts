@@ -130,6 +130,10 @@ import { AutoMegaComponent } from './auto-buy/auto-mega/auto-mega.component';
 import { DesignDetailComponent } from './design-detail/design-detail.component';
 import { SpellsComponent } from './spells/spells.component';
 import { AchievementsComponent } from './achievements/achievements.component';
+import { UnitTabsComponent } from "./unit-list/unit-tabs/unit-tabs.component";
+import { UnitOptionsComponent } from "./unit-list/unit-options/unit-options.component";
+import { BuyMenuComponent } from "./units/buy-menu/buy-menu.component";
+
 
 registerLocaleData(en);
 
@@ -225,6 +229,9 @@ const ngZorroConfig: NzConfig = {
     DesignDetailComponent,
     SpellsComponent,
     AchievementsComponent
+    UnitTabsComponent,
+    UnitOptionsComponent,
+    BuyMenuComponent
   ],
   imports: [
     BrowserModule,

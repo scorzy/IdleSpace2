@@ -1,4 +1,4 @@
-<div fxLayout="rows" fxLayout.lt-sm="column" style="width: 100%;">
+<div fxLayout="rows" fxLayout.lt-sm="column" style="width: 100%">
   <div fxFlex="50%" fxLayout="column" fxLayoutGap="0.6rem">
     <h2>
       <i nz-icon [nzType]="enemy.icon"></i>
@@ -24,7 +24,7 @@
         >
           <span>Attack</span>
         </button>
-        <button nz-button nzType="danger" (click)="delete()">
+        <button nz-button nzDanger (click)="delete()">
           <i nz-icon nzType="delete"></i>
           <span>Delete</span>
         </button>

@@ -158,6 +158,7 @@ export class ShipyardComponent
         index >= i ? 1 : 0;
     }
   }
+  // eslint-disable-next-line @typescript-eslint/ban-types
   view(design: ShipDesign, tplContent: TemplateRef<{}>): void {
     this.tplModal = this.modal.create({
       nzTitle: design.name,

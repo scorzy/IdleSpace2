@@ -47,11 +47,40 @@
 
   <nz-form-item nz-row>
     <nz-form-control [nzSpan]="14" [nzOffset]="4">
-      <button nz-button nzType="primary">
+      <button
+        nz-button
+        nzType="primary"
+        [disabled]="ms.game.shipyardManager.shipDesigns.length >= 40"
+      >
         <span>Create</span>
       </button>
     </nz-form-control>
   </nz-form-item>
+
+  <div class="alert-container">
+    <nz-alert
+      *ngIf="ms.game.shipyardManager.shipDesigns.length < 40; else limitReached"
+      nzType="info"
+      nzShowIcon
+      [nzMessage]="designInUse"
+    ></nz-alert>
+    <ng-template #designInUse>
+      Design in use:
+      {{ ms.game.shipyardManager.shipDesigns.length | format: true }} of 40
+    </ng-template>
+
+    <ng-template #limitReached>
+      <nz-alert
+        #limitReached
+        nzType="warning"
+        nzShowIcon
+        [nzMessage]="designMax"
+      ></nz-alert>
+    </ng-template>
+    <ng-template #designMax>
+      Design limit reached. Modify or delete an existing design.</ng-template
+    >
+  </div>
 </form>
 
 <ng-template #suffixIconButton>

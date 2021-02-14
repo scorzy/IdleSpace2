@@ -285,6 +285,8 @@ export class EnemyManager extends JobManager {
       //#endregion
       // Battle
       MainService.battleWorkers[fleetNum].postMessage(battleRequest);
+      // let result = battle(JSON.parse(JSON.stringify(battleRequest)));
+      // Game.getGame().onBattleEnd(result, fleetNum);
       return true;
     }
     return false;

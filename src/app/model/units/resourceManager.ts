@@ -184,6 +184,16 @@ export class ResourceManager {
     this.droneDepot = this.buildings.find((u) => u.id === "9");
     this.nukeSilos = this.buildings.find((u) => u.id === "11");
 
+    this.miner.relativeBuilding = this.mine;
+    this.technician.relativeBuilding = this.powerPlant;
+    this.scientist.relativeBuilding = this.laboratory;
+    this.metallurgist.relativeBuilding = this.foundry;
+    this.metallurgist.relativeBuilding = this.factory;
+    this.worker.relativeBuilding = this.factory;
+    this.searcher.relativeBuilding = this.observatory;
+    this.nukeDrone.relativeBuilding = this.nukeFactory;
+    this.replicator.relativeBuilding = this.droneFactory;
+
     this.megaNaval = this.megastructures.find(
       (u) => u.id === MEGA_IDS.MegaNaval
     );
@@ -420,6 +430,7 @@ export class ResourceManager {
 
   /**
    * Update function.
+   *
    * @param seconds time in seconds
    */
   update(seconds: DecimalSource) {

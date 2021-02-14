@@ -28,17 +28,13 @@ export class StackViewComponent implements OnInit {
     if (this.additiveStack) {
       this.additiveBonuses = this.additiveStack.bonuses
         .filter((bon) => !bon.getBonus().eq(1))
-        .map((bon) => {
-          return { name: bon.unit.name, factor: bon.getAdditiveBonus() };
-        });
+        .map((bon) => ({ name: bon.unit.name, factor: bon.getAdditiveBonus() }));
     }
 
     if (this.bonusStack) {
       this.bonuses = this.bonusStack.bonuses
         .filter((bon) => !bon.getBonus().eq(1))
-        .map((bon) => {
-          return { name: bon.unit.name, factor: bon.getBonus() };
-        });
+        .map((bon) => ({ name: bon.unit.name, factor: bon.getBonus() }));
     }
 
     this.total = (this.additiveStack

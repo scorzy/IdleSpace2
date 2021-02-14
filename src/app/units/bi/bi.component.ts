@@ -24,6 +24,7 @@ export class BiComponent
   extends BaseComponentComponent
   implements OnInit, OnDestroy, AfterViewInit {
   @Input() unit: Unit;
+  // eslint-disable-next-line
   Number = Number;
   constructor(
     ms: MainService,

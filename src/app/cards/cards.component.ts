@@ -49,23 +49,19 @@ export class CardsComponent implements OnInit, AfterViewInit {
       ];
     }
 
-    this.nzOptions = this.ms.game.shipyardManager.groups.map((group) => {
-      return {
+    this.nzOptions = this.ms.game.shipyardManager.groups.map((group) => ({
         value: group.id,
         label: group.name,
         group,
         children: group.all
           .filter((mod) => mod.unlocked)
-          .map((mod) => {
-            return {
+          .map((mod) => ({
               value: mod.id,
               label: mod.name,
               mod,
               isLeaf: true
-            };
-          })
-      };
-    });
+            }))
+      }));
 
     this.reloadPoints();
     this.reloadFavourite();

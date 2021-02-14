@@ -1,3 +1,20 @@
+12/2/2021
+-   Fixed fleet list ui
+
+22/1/2021
+-   Fixed negative numbers in Exp Shop
+-   Unit page update
+
+12/1/2021
+-   Fixed tutorial challenge
+
+11/1/2021
+-   Fleet updater fix and allow downgrade
+-   Increased design limit from 20 to 40
+
+9/1/2021
+-   Improved battle performances
+
 2/1/2021
 -   Improved Auto Fleet updater
 -   New cards: "Favourite ship modules" and "Favourite spell"

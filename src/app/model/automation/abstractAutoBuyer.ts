@@ -44,7 +44,7 @@ export abstract class AbstractAutobuyer {
     return ret;
   }
   load(save: any) {
-    // tslint:disable-next-line:triple-equals
+    // eslint-disable-next-line eqeqeq
     if (!("i" in save || save.i != this.id)) return false;
 
     if ("l" in save && typeof save.l === "number") this.last = save.l;

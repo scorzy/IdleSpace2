@@ -17,7 +17,7 @@ import { Game } from "../game";
 import { ShipType } from "./ShipType";
 import { MainService } from "src/app/main.service";
 import { FleetShips } from "./fleetShips";
-import { ShipData } from "../battle/shipData";
+import { ShipData, WeaponData } from "../battle/shipData";
 import { Weapon } from "./weapon";
 import { IShipModule } from "./IShipModule";
 
@@ -534,8 +534,7 @@ export class ShipDesign {
         ? []
         : this.modules
             .filter((l) => l.module)
-            .map((mod) => {
-              return {
+            .map((mod) => ({
                 module: mod.module,
                 level: mod.level,
                 size: mod.size,
@@ -544,8 +543,7 @@ export class ShipDesign {
                 validateStatus: "",
                 errorTip: "",
                 uiModel: [mod.module.groupId, mod.module.id]
-              };
-            });
+              }));
     ret.reload(errorCheck);
     return ret;
   }
@@ -565,7 +563,19 @@ export class ShipDesign {
     this.shipData.thereatPerRound = this.thereatPerRound;
     this.shipData.explosionThreshold = this.explosionThreshold;
     this.shipData.explosionDamage = this.explosionDamage;
-    this.shipData.weapons = this.weapons;
+    this.shipData.weapons = [];
+    for (const w of this.weapons) {
+      const wData: WeaponData = {
+        damage: w.damage,
+        armourPercent: w.armourPercent,
+        shieldPercent: w.shieldPercent,
+        defencePercent: w.defencePercent,
+        precision: w.precision,
+        adaptivePrecision: w.adaptivePrecision,
+        threatMulti: 1
+      };
+      this.shipData.weapons.push(wData);
+    }
     this.shipData.shieldRecharge = this.shieldRecharge;
     this.shipData.isDefence = this.isDefence;
 
