@@ -22,7 +22,7 @@ export class AchievementManager {
       }
     ];
     this.achievements = [];
-    for (let aData of ACHIEVEMENTS_DATA) {
+    for (const aData of ACHIEVEMENTS_DATA) {
       let ret: Achievement;
       switch (aData.groupId) {
         case "or":

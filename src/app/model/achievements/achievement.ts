@@ -1,4 +1,4 @@
-import { ONE, ZERO } from "../CONSTANTS";
+import { ZERO } from "../CONSTANTS";
 import { IAchievementData } from "../data/achievementData";
 import { IBase } from "../iBase";
 
@@ -11,7 +11,7 @@ export class Achievement implements IBase {
   icon: string;
   colorClass: string;
   groupId: string;
-  max: number = 1;
+  max = 1;
   progress = ZERO;
   total = ZERO;
 

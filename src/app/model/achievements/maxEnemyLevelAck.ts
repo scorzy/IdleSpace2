@@ -18,7 +18,7 @@ export class MaxEnemyLevelAck extends Achievement {
     return ret;
   }
   updateDescription() {
-    let next = this.enemyLevels[
+    const next = this.enemyLevels[
       Math.min(this.enemyLevels.length - 1, this.quantity.toNumber())
     ];
     this.description = this._description.replace(

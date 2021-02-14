@@ -274,3 +274,4 @@ export const MORE_STORAGE_CARD = 1e3;
 
 // Achievements
 export const ORIGIN_LEVELS = [100, 200, 500];
+export const SPECIALIZATION_LEVELS = [200, 500, 1000];
