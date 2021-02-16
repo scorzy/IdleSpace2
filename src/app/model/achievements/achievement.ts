@@ -1,8 +1,9 @@
 import { ZERO } from "../CONSTANTS";
 import { IAchievementData } from "../data/achievementData";
 import { IBase } from "../iBase";
+import { IGroupParent } from "./iGroupParent";
 
-export class Achievement implements IBase {
+export abstract class Achievement implements IBase {
   quantity: Decimal = ZERO;
   id: string;
   name: string;
@@ -14,6 +15,9 @@ export class Achievement implements IBase {
   max = 1;
   progress = ZERO;
   total = ZERO;
+  parent: IGroupParent;
+  levels: number[];
+  percent = 100;
 
   constructor(data: IAchievementData) {
     this.id = data.id;
@@ -24,6 +28,10 @@ export class Achievement implements IBase {
     this.colorClass = data.colorClass;
     this.groupId = data.groupId;
     if (data.max) this.max = data.max;
+    if ("levels" in data) {
+      this.levels = data.levels;
+      this.max = this.levels.length;
+    }
   }
   complete(): boolean {
     const newQta = this.checkQuantity();
@@ -31,11 +39,15 @@ export class Achievement implements IBase {
 
     this.quantity = new Decimal(newQta);
     this.updateDescription();
+    this.parent.reloadNumber();
+    this.reloadPercent();
     return true;
   }
-  checkQuantity(): number | Decimal {
-    return 0;
+  reloadPercent() {
+    this.percent =
+      100 - Math.floor(this.quantity.div(this.max).toNumber() * 100);
   }
+  abstract checkQuantity(): number | Decimal;
   updateDescription() {}
   //#region Save and Load
   getSave(): any {
@@ -48,7 +60,9 @@ export class Achievement implements IBase {
   load(data: any) {
     if (!("i" in data) || data.i !== this.id) return false;
     if ("q" in data) this.quantity = new Decimal(data.q);
+    this.complete();
     this.updateDescription();
+    this.reloadPercent();
   }
   //#endregion
 }

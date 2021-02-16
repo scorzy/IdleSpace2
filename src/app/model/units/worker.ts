@@ -133,6 +133,13 @@ export class Worker extends Unit {
     if (Game.getGame().prestigeManager.doubleModsCard.active) {
       this.maxMods = this.maxMods.times(1.5);
     }
+    if (Game.getGame().achievementManager.moddersAck.quantity.gte(1)) {
+      this.maxMods = this.maxMods.times(
+        ONE.plus(
+          Game.getGame().achievementManager.moddersAck.quantity.times(0.1)
+        )
+      );
+    }
     this.maxMods = this.maxMods.times(
       ONE.plus(
         Game.getGame().prestigeManager.maxMods.quantity.times(

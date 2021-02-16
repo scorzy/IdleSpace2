@@ -275,3 +275,7 @@ export const MORE_STORAGE_CARD = 1e3;
 // Achievements
 export const ORIGIN_LEVELS = [100, 200, 500];
 export const SPECIALIZATION_LEVELS = [200, 500, 1000];
+export const WORKERS_LEVELS = [100, 1e3, 1e5, 1e10, 1e20, 1e30];
+export const WORKER_BONUS = 0.1;
+export const BUILDINGS_LEVELS = [100, 200, 1e3, 1e4];
+export const BUILDINGS_BONUS = 0.1;

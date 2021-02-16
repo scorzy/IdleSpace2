@@ -123,11 +123,11 @@ export class Research extends Job implements IUnlockable, IBase {
     }
     if ("technologyBonus" in researchData) {
       this.technologyBonus = researchData.technologyBonus.map((data) => ({
-          technology: researchManager.technologies.find(
-            (a) => a.id === data.techId
-          ),
-          multi: data.multi
-        }));
+        technology: researchManager.technologies.find(
+          (a) => a.id === data.techId
+        ),
+        multi: data.multi
+      }));
       this.technologyBonus.forEach((data) => {
         data.technology.technologyBonus.bonuses.push(
           new Bonus(this, new Decimal(data.multi))
@@ -223,10 +223,12 @@ export class Research extends Job implements IUnlockable, IBase {
       });
     }
     if ("shipProductionBonus" in this.resData) {
-      this.shipProductionBonus = this.resData.shipProductionBonus.map((spb) => ({
+      this.shipProductionBonus = this.resData.shipProductionBonus.map(
+        (spb) => ({
           shipType: sm.shipTypes.find((t) => t.id === spb.shipType),
           multi: spb.multi
-        }));
+        })
+      );
     }
     if ("battleMulti" in this.resData) {
       this.resData.battleMulti.forEach((multi) => {
@@ -604,14 +606,15 @@ export class Research extends Job implements IUnlockable, IBase {
   }
   loadMax() {
     if (this._max2 < 2) this._maxRes = this._max2;
-    if (!Game.getGame().prestigeManager) this._maxRes = this._max2;
-    this._maxRes =
-      (this._max2 +
-        Game.getGame().achievementManager.scienceAck.quantity.toNumber() +
-        Game.getGame().challengeManager?.scienceChallenge.quantity.toNumber()) *
-      (Game.getGame().prestigeManager.doubleRepeatableResearches.active
-        ? 2
-        : 1);
+    else {
+      const game = Game.getGame();
+      if (!game.prestigeManager) this._maxRes = this._max2;
+      this._maxRes =
+        (this._max2 +
+          game.achievementManager.scienceAck.quantity.toNumber() +
+          game.challengeManager?.scienceChallenge.quantity.toNumber()) *
+        (game.prestigeManager.doubleRepeatableResearches.active ? 2 : 1);
+    }
   }
   //#region Save and Load
   getSave(done = false): any {

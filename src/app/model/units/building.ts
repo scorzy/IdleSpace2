@@ -6,6 +6,7 @@ import { IBase } from "../iBase";
 import { ZERO } from "../CONSTANTS";
 import { AutoBuilding } from "../automation/autoBuilding";
 import { Game } from "../game";
+import { BonusStack } from "../bonus/bonusStack";
 
 export class Department implements IDepartmentData, IBase {
   id: string;
@@ -27,7 +28,7 @@ export class Building extends Unit {
   researchesToInspire: Array<Research>;
   autoBuyer: AutoBuilding;
   autoDepartments = false;
-
+  departmentsAck: IBase;
   addDep(dep: Department) {
     if (this.usedDepartments < this.maxDepartments) {
       dep.quantity = dep.quantity.plus(1);
@@ -37,6 +38,9 @@ export class Building extends Unit {
   reloadMaxDep() {
     if (!this.departmentResearches) return false;
     this.maxDepartments = 0;
+    if (this.departmentsAck) {
+      this.maxDepartments = this.departmentsAck.quantity.toNumber();
+    }
     for (let i = 0, n = this.departmentResearches.length; i < n; i++) {
       for (
         let k = 0, n2 = this.departmentResearches[i].buildingPoints.length;
