@@ -1,8 +1,4 @@
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync
-} from "@angular/core/testing";
+import { ComponentFixture, TestBed, waitForAsync } from "@angular/core/testing";
 
 import { AutoPrestigeComponent } from "./auto-prestige.component";
 import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
@@ -28,6 +24,7 @@ describe("AutoPrestigeComponent", () => {
   );
 
   beforeEach(() => {
+    localStorage.clear();
     fixture = TestBed.createComponent(AutoPrestigeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

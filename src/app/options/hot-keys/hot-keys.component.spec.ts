@@ -1,8 +1,4 @@
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync
-} from "@angular/core/testing";
+import { ComponentFixture, TestBed, waitForAsync } from "@angular/core/testing";
 
 import { HotKeysComponent } from "./hot-keys.component";
 import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
@@ -28,6 +24,7 @@ describe("HotKeysComponent", () => {
   );
 
   beforeEach(() => {
+    localStorage.clear();
     fixture = TestBed.createComponent(HotKeysComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

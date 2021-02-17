@@ -1,8 +1,4 @@
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync
-} from "@angular/core/testing";
+import { ComponentFixture, TestBed, waitForAsync } from "@angular/core/testing";
 
 import { StorageComponent } from "./storage.component";
 import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
@@ -28,6 +24,7 @@ describe("StorageComponent", () => {
   );
 
   beforeEach(() => {
+    localStorage.clear();
     fixture = TestBed.createComponent(StorageComponent);
     component = fixture.componentInstance;
     component.unit = component.ms.game.resourceManager.units[0];

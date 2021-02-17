@@ -21,6 +21,7 @@ describe("SpeedStatsComponent", () => {
   });
 
   beforeEach(() => {
+    localStorage.clear();
     fixture = TestBed.createComponent(SpeedStatsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

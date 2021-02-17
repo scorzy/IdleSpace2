@@ -20,6 +20,7 @@ describe("AutoInfraComponent", () => {
   });
 
   beforeEach(() => {
+    localStorage.clear();
     fixture = TestBed.createComponent(AutoInfraComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

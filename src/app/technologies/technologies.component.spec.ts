@@ -1,8 +1,4 @@
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync
-} from "@angular/core/testing";
+import { ComponentFixture, TestBed, waitForAsync } from "@angular/core/testing";
 
 import { TechnologiesComponent } from "./technologies.component";
 import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
@@ -28,6 +24,7 @@ describe("TechnologiesComponent", () => {
   );
 
   beforeEach(() => {
+    localStorage.clear();
     fixture = TestBed.createComponent(TechnologiesComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

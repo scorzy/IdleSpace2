@@ -21,6 +21,7 @@ describe("ShopComponent", () => {
   });
 
   beforeEach(() => {
+    localStorage.clear();
     fixture = TestBed.createComponent(ShopComponent);
     component = fixture.componentInstance;
     component.prestiges = component.ms.game.prestigeManager.tabs[0].prestige;

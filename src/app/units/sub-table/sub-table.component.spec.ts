@@ -1,8 +1,4 @@
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync
-} from "@angular/core/testing";
+import { ComponentFixture, TestBed, waitForAsync } from "@angular/core/testing";
 
 import { SubTableComponent } from "./sub-table.component";
 import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
@@ -30,6 +26,7 @@ describe("SubTableComponent", () => {
   );
 
   beforeEach(() => {
+    localStorage.clear();
     fixture = TestBed.createComponent(SubTableComponent);
     component = fixture.componentInstance;
     component.unit = new Unit(UNITS[0]);

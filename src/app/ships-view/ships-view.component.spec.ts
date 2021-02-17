@@ -1,8 +1,4 @@
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync
-} from "@angular/core/testing";
+import { ComponentFixture, TestBed, waitForAsync } from "@angular/core/testing";
 
 import { ShipsViewComponent } from "./ships-view.component";
 import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
@@ -30,6 +26,7 @@ describe("ShipsViewComponent", () => {
   );
 
   beforeEach(() => {
+    localStorage.clear();
     fixture = TestBed.createComponent(ShipsViewComponent);
     component = fixture.componentInstance;
     component.designs = [new ShipDesign()];

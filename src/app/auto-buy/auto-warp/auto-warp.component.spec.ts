@@ -19,6 +19,7 @@ describe("AutoWarpComponent", () => {
   });
 
   beforeEach(() => {
+    localStorage.clear();
     fixture = TestBed.createComponent(AutoWarpComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

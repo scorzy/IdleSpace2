@@ -22,6 +22,7 @@ describe("StackViewComponent", () => {
   });
 
   beforeEach(() => {
+    localStorage.clear();
     fixture = TestBed.createComponent(StackViewComponent);
     component = fixture.componentInstance;
     component.bonusStack = new BonusStack();

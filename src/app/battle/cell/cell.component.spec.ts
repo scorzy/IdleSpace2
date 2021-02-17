@@ -1,8 +1,4 @@
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync
-} from "@angular/core/testing";
+import { ComponentFixture, TestBed, waitForAsync } from "@angular/core/testing";
 
 import { CellComponent } from "./cell.component";
 import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
@@ -31,6 +27,7 @@ describe("CellComponent", () => {
   );
 
   beforeEach(() => {
+    localStorage.clear();
     fixture = TestBed.createComponent(CellComponent);
     component = fixture.componentInstance;
     component.ms.game = new Game();

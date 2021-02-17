@@ -70,16 +70,16 @@ export class NotificationManager {
       );
       this.researchesNotifications.push(noti);
     } else {
-      MainService?.instance?.notificationEmitter?.emit(noti);
+      MainService?.instance?.notificationEmitter?.next(noti);
     }
   }
   notifyResearches() {
     if (this.researchesNotifications.length < 3) {
       for (const noti of this.researchesNotifications) {
-        MainService?.instance?.notificationEmitter?.emit(noti);
+        MainService?.instance?.notificationEmitter?.next(noti);
       }
     } else {
-      MainService?.instance?.notificationEmitter?.emit(
+      MainService?.instance?.notificationEmitter?.next(
         new MyNotification(
           NotificationTypes.RESEARCH,
           this.researchesNotifications.length + " researches completed"

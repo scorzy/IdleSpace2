@@ -1,8 +1,4 @@
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync
-} from "@angular/core/testing";
+import { ComponentFixture, TestBed, waitForAsync } from "@angular/core/testing";
 
 import { AutoMegaComponent } from "./auto-mega.component";
 import { testImports } from "src/app/app.component.spec";
@@ -26,6 +22,7 @@ describe("AutoMegaComponent", () => {
   );
 
   beforeEach(() => {
+    localStorage.clear();
     fixture = TestBed.createComponent(AutoMegaComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

@@ -1,8 +1,4 @@
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync
-} from "@angular/core/testing";
+import { ComponentFixture, TestBed, waitForAsync } from "@angular/core/testing";
 
 import { JobComponent } from "./job.component";
 import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
@@ -29,6 +25,7 @@ describe("JobComponent", () => {
   );
 
   beforeEach(() => {
+    localStorage.clear();
     fixture = TestBed.createComponent(JobComponent);
     component = fixture.componentInstance;
     component.ms.game = new Game();

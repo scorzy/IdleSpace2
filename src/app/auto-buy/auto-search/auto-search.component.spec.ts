@@ -1,8 +1,4 @@
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync
-} from "@angular/core/testing";
+import { ComponentFixture, TestBed, waitForAsync } from "@angular/core/testing";
 
 import { AutoSearchComponent } from "./auto-search.component";
 import { testImports } from "src/app/app.component.spec";
@@ -26,6 +22,7 @@ describe("AutoSearchComponent", () => {
   );
 
   beforeEach(() => {
+    localStorage.clear();
     fixture = TestBed.createComponent(AutoSearchComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

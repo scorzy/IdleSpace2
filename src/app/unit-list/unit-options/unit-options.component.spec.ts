@@ -22,6 +22,7 @@ describe("UnitOptionsComponent", () => {
   });
 
   beforeEach(() => {
+    localStorage.clear();
     fixture = TestBed.createComponent(UnitOptionsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

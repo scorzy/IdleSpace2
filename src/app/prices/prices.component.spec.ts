@@ -1,8 +1,4 @@
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync
-} from "@angular/core/testing";
+import { ComponentFixture, TestBed, waitForAsync } from "@angular/core/testing";
 
 import { PricesComponent } from "./prices.component";
 import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
@@ -29,6 +25,7 @@ describe("PricesComponent", () => {
   );
 
   beforeEach(() => {
+    localStorage.clear();
     fixture = TestBed.createComponent(PricesComponent);
     component = fixture.componentInstance;
     component.ms.game = new Game();

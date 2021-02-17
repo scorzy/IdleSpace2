@@ -1,8 +1,4 @@
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync
-} from "@angular/core/testing";
+import { ComponentFixture, TestBed, waitForAsync } from "@angular/core/testing";
 
 import { AutoSurrenderComponent } from "./auto-surrender.component";
 import { testImports } from "src/app/app.component.spec";
@@ -26,6 +22,7 @@ describe("AutoSurrenderComponent", () => {
   );
 
   beforeEach(() => {
+    localStorage.clear();
     fixture = TestBed.createComponent(AutoSurrenderComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

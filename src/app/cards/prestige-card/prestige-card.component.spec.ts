@@ -1,8 +1,4 @@
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync
-} from "@angular/core/testing";
+import { ComponentFixture, TestBed, waitForAsync } from "@angular/core/testing";
 
 import { PrestigeCardComponent } from "./prestige-card.component";
 import { testImports } from "src/app/app.component.spec";
@@ -28,6 +24,7 @@ describe("PrestigeCardComponent", () => {
   );
 
   beforeEach(() => {
+    localStorage.clear();
     fixture = TestBed.createComponent(PrestigeCardComponent);
     component = fixture.componentInstance;
     const game = new Game();
