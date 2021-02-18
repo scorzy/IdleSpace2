@@ -29,6 +29,7 @@ import { ChallengeManager } from "./challenge/challengeManager";
 import { Challenge } from "./challenge/challenge";
 import { Bonus } from "./bonus/bonus";
 import { AchievementManager } from "./achievements/achievementManager";
+import { StatsManager } from "./stats/statsManager";
 
 /**
  * Game is the main class that orchestrate everything game related
@@ -49,6 +50,7 @@ export class Game {
   prestigeManager: PrestigeManager;
   challengeManager: ChallengeManager;
   achievementManager: AchievementManager;
+  statsManager: StatsManager;
 
   navalCapacity: number = BASE_NAVAL_CAPACITY;
 
@@ -98,6 +100,7 @@ export class Game {
   }
   constructor() {
     Game.instance = this;
+    this.statsManager = new StatsManager();
     this.idleTimeMultipliers = new BonusStack();
     this.additiveNavalCapStack = new BonusStack();
     this.multiNavalCapStack = new BonusStack();
@@ -494,7 +497,8 @@ export class Game {
       u: this.automationUnlocked,
       v: GAME_VERSION,
       P: this.lastPrestigeTime,
-      A: this.achievementManager.getSave()
+      A: this.achievementManager.getSave(),
+      S: this.statsManager.getSave()
     };
   }
   load(data: any) {
@@ -502,6 +506,8 @@ export class Game {
       throw new Error("Save not valid");
     }
     const saveVersion = "v" in data ? data.v : 0;
+    if ("S" in data) this.statsManager.load(data.S);
+
     if ("P" in data && typeof data.P === "number") {
       this.lastPrestigeTime = data.P;
     }

@@ -309,10 +309,10 @@ export class EnemyManager extends JobManager {
           if (lostD) {
             const newNum = Math.floor(Math.max(cell.ships[i] - lostD.lost, 0));
             if (newNum < 1 || !oneShotChallenge) cell.ships[i] = newNum;
+            this.currentEnemy.designs[i].addKilledStat(lostD.lost);
           }
-          if (cell.ships[i] > 0) {
-            done = false;
-          }
+
+          if (cell.ships[i] > 0) done = false;
         }
       } else {
         for (let k = 0, n2 = cell.ships.length; k < n2; k++) {

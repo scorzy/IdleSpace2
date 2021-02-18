@@ -1,5 +1,4 @@
 import { IAchievementData } from "../data/achievementData";
-import { Game } from "../game";
 import { IBase } from "../iBase";
 import { LevelAck } from "./levelAck";
 
