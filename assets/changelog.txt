@@ -1,3 +1,6 @@
+18/2/2021
+-   Fixed memory leak
+
 12/2/2021
 -   Fixed fleet list ui
 
