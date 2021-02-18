@@ -1,6 +1,45 @@
 <h2>Achievements</h2>
 
-<nz-collapse>
+<ng-container
+  *ngFor="let panel of ms.game.achievementManager.groups; trackBy: getGroupId"
+>
+  <nz-divider [nzText]="panel.name" nzOrientation="left"></nz-divider>
+  <ng-container *ngFor="let ack of panel.list; trackBy: getAckId">
+    <i
+      nz-icon
+      [nzType]="ack.icon"
+      class="achievement-icon text-secondary"
+      nz-popover
+      [nzPopoverTitle]="ack.name"
+      [nzPopoverContent]="ackDescription"
+    >
+    </i>
+    <i
+      nz-icon
+      [nzType]="ack.icon"
+      class="achievement-icon completed-overlay"
+      [ngClass]="ack.colorClass"
+      nz-popover
+      [nzPopoverTitle]="ack.name"
+      [nzPopoverContent]="ackDescription"
+      [style.clip-path]="clip(ack)"
+    >
+    </i>
+    <ng-template #ackDescription>
+      <p class="ack-description">
+        {{ ack.description }}
+      </p>
+      <span *ngIf="ack.max > 1">
+        Series:
+        <span class="monospace">
+          {{ ack.quantity | format: true }}/{{ ack.max | format: true }}
+        </span>
+      </span>
+    </ng-template>
+  </ng-container>
+</ng-container>
+
+<!-- <nz-collapse>
   <nz-collapse-panel
     *ngFor="let panel of ms.game.achievementManager.groups; trackBy: getGroupId"
     [nzHeader]="header"
@@ -47,4 +86,4 @@
       </ng-template>
     </ng-container>
   </nz-collapse-panel>
-</nz-collapse>
+</nz-collapse> -->

@@ -133,6 +133,7 @@ import { AchievementsComponent } from "./achievements/achievements.component";
 import { UnitTabsComponent } from "./unit-list/unit-tabs/unit-tabs.component";
 import { UnitOptionsComponent } from "./unit-list/unit-options/unit-options.component";
 import { BuyMenuComponent } from "./units/buy-menu/buy-menu.component";
+import { NzDividerModule } from "ng-zorro-antd/divider";
 
 registerLocaleData(en);
 
@@ -275,7 +276,8 @@ const ngZorroConfig: NzConfig = {
     NzCascaderModule,
     NzDropDownModule,
     NzPopconfirmModule,
-    NzMessageModule
+    NzMessageModule,
+    NzDividerModule
   ],
   providers: [
     { provide: NZ_I18N, useValue: en_US },

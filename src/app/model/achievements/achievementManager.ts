@@ -1,5 +1,12 @@
 import { Bonus } from "../bonus/bonus";
-import { BUILDINGS_LEVELS, WORKERS_LEVELS, WORKER_BONUS } from "../CONSTANTS";
+import {
+  BUILDINGS_LEVELS,
+  BUILD_IDS,
+  IDS,
+  ONE,
+  WORKERS_LEVELS,
+  WORKER_BONUS
+} from "../CONSTANTS";
 import { ACHIEVEMENTS_DATA } from "../data/achievementData";
 import { Game } from "../game";
 import { Achievement } from "./achievement";
@@ -64,11 +71,15 @@ export class AchievementManager {
     //#endregion
     //#region Buildings Achievements
     rm.buildings.forEach((b) => {
+      const hasDep = b.departments?.length > 0 ?? false;
       const ackData = {
         id: "w" + b.id,
         name: b.name,
         description:
-          "Get #level@ " + b.name + ". +1 " + b.name + " departments.",
+          "Get #level@ " +
+          b.name +
+          ". " +
+          (hasDep ? "+1 " + b.name + " departments." : "+100% storage."),
         icon: b.icon,
         colorClass: b.colorClass,
         groupId: "eco",
@@ -78,7 +89,22 @@ export class AchievementManager {
       const ack = new UnitQuantityAck(ackData);
       ack.unit = b;
       this.achievements.push(ack);
-      b.departmentsAck = ack;
+      if (hasDep) {
+        b.departmentsAck = ack;
+      } else {
+        const bonus = new Bonus(ack, ONE);
+        switch (b.id) {
+          case BUILD_IDS.Batteries:
+            rm.energy.limitStackMulti.bonuses.push(bonus);
+            break;
+          case BUILD_IDS.DroneDepot:
+            rm.components.limitStackMulti.bonuses.push(bonus);
+            break;
+          case BUILD_IDS.NukeSilos:
+            rm.nuke.limitStackMulti.bonuses.push(bonus);
+            break;
+        }
+      }
     });
     //#endregion
 
