@@ -524,7 +524,7 @@ export class ShipDesign {
       );
     }
   }
-  getCopy(errorCheck = true) {
+  getCopy(errorCheck = true, ui = true) {
     const ret = new ShipDesign();
     ret.name = this.name;
     ret.id = this.id;
@@ -536,16 +536,22 @@ export class ShipDesign {
         ? []
         : this.modules
             .filter((l) => l.module)
-            .map((mod) => ({
-              module: mod.module,
-              level: mod.level,
-              size: mod.size,
-              moduleId: mod.module.id,
-              levelUi: MainService.formatPipe.transform(mod.level, true),
-              validateStatus: "",
-              errorTip: "",
-              uiModel: [mod.module.groupId, mod.module.id]
-            }));
+            .map((mod) => {
+              const modCopy: any = {
+                module: mod.module,
+                level: mod.level,
+                size: mod.size,
+                moduleId: mod.module.id,
+                levelUi: ui
+                  ? MainService.formatPipe.transform(mod.level, true)
+                  : "",
+                validateStatus: "",
+                errorTip: "",
+                uiModel: [mod.module.groupId, mod.module.id]
+              };
+
+              return modCopy;
+            });
     ret.reload(errorCheck);
     return ret;
   }
