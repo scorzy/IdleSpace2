@@ -273,9 +273,31 @@ export const MORE_STORAGE_PRESTIGE = 0.2;
 export const MORE_STORAGE_CARD = 1e3;
 
 // Achievements
+export const ACK_LEVEL_STR = "#level@";
 export const ORIGIN_LEVELS = [100, 200, 500];
 export const SPECIALIZATION_LEVELS = [200, 500, 1000];
 export const WORKERS_LEVELS = [100, 1e3, 1e5, 1e10, 1e20, 1e30];
 export const WORKER_BONUS = 0.1;
 export const BUILDINGS_LEVELS = [100, 200, 1e3, 1e4];
 export const BUILDINGS_BONUS = 0.1;
+export const KILL_SHIP_LEVELS = [1e3, 1e4, 1e5, 1e6];
+export const KILL_SHIP_BONUS = 1;
+export const BUILT_SHIP_LEVELS = [100, 1e3, 1e4, 1e5];
+export const BUILT_SHIP_BONUS = 1;
+export const LONGEST_WARP_LEVELS = [
+  3600, //  hour
+  3600 * 24, //  day
+  3600 * 24 * 7, //  week
+  3600 * 24 * 30, //  month
+  3600 * 24 * 365 //  year
+];
+export const LONGEST_WARP_BONUS = 0.1;
+export const TOTAL_WARP_LEVELS = [
+  3600, //  hour
+  3600 * 24, //  day
+  3600 * 24 * 7, //  week
+  3600 * 24 * 30, //  month
+  3600 * 24 * 365, //  year
+  3600 * 24 * 365 * 10 // 10 year
+];
+export const TOTAL_WARP_BONUS = 0.1;

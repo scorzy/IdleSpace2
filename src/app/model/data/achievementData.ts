@@ -1,4 +1,8 @@
-import { ORIGIN_LEVELS, SPECIALIZATION_LEVELS } from "../CONSTANTS";
+import {
+  ACK_LEVEL_STR,
+  ORIGIN_LEVELS,
+  SPECIALIZATION_LEVELS
+} from "../CONSTANTS";
 
 export interface IAchievementData {
   id: string;
@@ -16,7 +20,9 @@ export const ACHIEVEMENTS_DATA: IAchievementData[] = [
     id: "os",
     name: "Science",
     description:
-      "Reach level #level@ with Science origin. Repeatable researches can be repeated one more time.",
+      "Reach level " +
+      ACK_LEVEL_STR +
+      " with Science origin. Repeatable researches can be repeated one more time.",
     icon: "fa-s:atom",
     colorClass: "science-color",
     groupId: "or",
@@ -26,7 +32,8 @@ export const ACHIEVEMENTS_DATA: IAchievementData[] = [
   {
     id: "ow",
     name: "War",
-    description: "Reach level #level@ with War origin. +20% ship velocity.",
+    description:
+      "Reach level " + ACK_LEVEL_STR + " with War origin. +20% ship velocity.",
     icon: "my:medal",
     colorClass: "damage-color",
     groupId: "or",
@@ -37,7 +44,9 @@ export const ACHIEVEMENTS_DATA: IAchievementData[] = [
     id: "ob",
     name: "Builders",
     description:
-      "Reach level #level@ with Builders origin. Workers yeilds 50% more.",
+      "Reach level " +
+      ACK_LEVEL_STR +
+      " with Builders origin. Workers yeilds 50% more.",
     icon: "fa-s:cog",
     colorClass: "production-color",
     groupId: "or",
@@ -50,7 +59,9 @@ export const ACHIEVEMENTS_DATA: IAchievementData[] = [
     id: "smb",
     name: "Mega Builders",
     description:
-      "Reach level #level@ with Mega Builders specialization. +100% megastructures build speed.",
+      "Reach level " +
+      ACK_LEVEL_STR +
+      " with Mega Builders specialization. +100% megastructures build speed.",
     icon: "fa-s:cog",
     colorClass: "production-color",
     groupId: "or",
@@ -61,7 +72,9 @@ export const ACHIEVEMENTS_DATA: IAchievementData[] = [
     id: "sm",
     name: "Modders",
     description:
-      "Reach level #level@ with Modders specialization. +10% max mods.",
+      "Reach level " +
+      ACK_LEVEL_STR +
+      " with Modders specialization. +10% max mods.",
     icon: "my:vintage-robot",
     colorClass: "component-color",
     groupId: "or",
@@ -72,7 +85,9 @@ export const ACHIEVEMENTS_DATA: IAchievementData[] = [
     id: "se",
     name: "Explorers",
     description:
-      "Reach level #level@ with Explorers specialization. +10% districts from enemies.",
+      "Reach level " +
+      ACK_LEVEL_STR +
+      " with Explorers specialization. +10% districts from enemies.",
     icon: "my:radar-sweep",
     colorClass: "search-color",
     groupId: "or",

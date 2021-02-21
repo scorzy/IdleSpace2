@@ -1,17 +1,25 @@
 import { Bonus } from "../bonus/bonus";
 import {
+  ACK_LEVEL_STR,
   BUILDINGS_LEVELS,
   BUILD_IDS,
   IDS,
+  LONGEST_WARP_BONUS,
   ONE,
+  TOTAL_WARP_BONUS,
   WORKERS_LEVELS,
   WORKER_BONUS
 } from "../CONSTANTS";
 import { ACHIEVEMENTS_DATA } from "../data/achievementData";
+import { SHIP_TYPES } from "../data/shipTypes";
 import { Game } from "../game";
 import { Achievement } from "./achievement";
 import { AchievementGroup } from "./achievementGroup";
+import { BuiltShipAck } from "./builtShipsAck";
 import { EnemyLevelAck } from "./enemyLevelAck";
+import { KillShipAck } from "./killShipAck";
+import { LongestWarpAck } from "./longestWarpAck";
+import { TotalWarpAck } from "./totalWarpAck";
 import { UnitQuantityAck } from "./unitQuantityAck";
 
 export class AchievementManager {
@@ -30,7 +38,10 @@ export class AchievementManager {
   constructor() {
     this.groups = [
       new AchievementGroup("or", "Factions"),
-      new AchievementGroup("eco", "Economy")
+      new AchievementGroup("eco", "Economy"),
+      new AchievementGroup("wa", "Ships Killed"),
+      new AchievementGroup("w1", "Ships Built"),
+      new AchievementGroup("o", "Others")
     ];
     this.achievements = [];
     for (const aData of ACHIEVEMENTS_DATA) {
@@ -50,7 +61,9 @@ export class AchievementManager {
         id: "w" + w.id,
         name: w.name,
         description:
-          "Get #level@ " +
+          "Get " +
+          ACK_LEVEL_STR +
+          " " +
           w.name +
           ". " +
           w.name +
@@ -76,7 +89,9 @@ export class AchievementManager {
         id: "w" + b.id,
         name: b.name,
         description:
-          "Get #level@ " +
+          "Get " +
+          ACK_LEVEL_STR +
+          " " +
           b.name +
           ". " +
           (hasDep ? "+1 " + b.name + " departments." : "+100% storage."),
@@ -107,7 +122,28 @@ export class AchievementManager {
       }
     });
     //#endregion
+    //#region Ships
+    SHIP_TYPES.forEach((SHIP_TYPE) => {
+      this.achievements.push(KillShipAck.GetKillShipAck(SHIP_TYPE, false)); //  Ships killed
+    });
+    SHIP_TYPES.forEach((SHIP_TYPE) => {
+      this.achievements.push(KillShipAck.GetKillShipAck(SHIP_TYPE, true)); // Ground Defences
+      this.achievements.push(BuiltShipAck.GetBuiltShipAck(SHIP_TYPE)); //  Ships built
+    });
+    //#endregion
+    //#region Warp
+    const longestWarpAck = new LongestWarpAck();
+    this.achievements.push(longestWarpAck);
+    Game.getGame().enemyManager.darkMatterMultipliers.bonuses.push(
+      new Bonus(longestWarpAck, new Decimal(LONGEST_WARP_BONUS))
+    );
 
+    const totalWarpAck = new TotalWarpAck();
+    this.achievements.push(totalWarpAck);
+    Game.getGame().enemyManager.darkMatterMultipliers.bonuses.push(
+      new Bonus(longestWarpAck, new Decimal(TOTAL_WARP_BONUS))
+    );
+    //#endregion
     this.achievements.forEach((ack) => {
       const group = this.groups.find((gr) => gr.id === ack.groupId);
       group.list.push(ack);
@@ -140,6 +176,11 @@ export class AchievementManager {
     em.districtMultiplier.bonuses.push(
       new Bonus(this.explorerAck, new Decimal(0.1))
     );
+  }
+  postUpdate() {
+    for (const ack of this.achievements) {
+      ack.complete();
+    }
   }
   onDefeatEnemyAchievements() {
     let done = false;

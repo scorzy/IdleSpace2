@@ -60,6 +60,7 @@ export class EnemyManager extends JobManager {
   lostRow = 0;
   killStreak = 0;
   searchBonuses: Bonus[];
+  darkMatterMultipliers: BonusStack = new BonusStack();
   //#region Bonus
   districtMultiplier: BonusStack = new BonusStack();
   habSpaceMultiplier: BonusStack = new BonusStack();
@@ -143,6 +144,7 @@ export class EnemyManager extends JobManager {
     this.enemies.push(enemy);
   }
   postUpdate() {
+    this.darkMatterMultipliers.reloadBonus();
     for (let i = 0, n = this.toDo.length; i < n; i++) {
       this.toDo[i].reloadTotalBonus();
       this.toDo[i].reload();
@@ -517,6 +519,7 @@ export class EnemyManager extends JobManager {
   getDarkMatter(): Decimal {
     if (this.currentEnemy.level < ENEMY_EXP_START_LEVEL) return ZERO;
     let dmToAdd = Decimal.multiply(DM_PER_LEVEL, this.currentEnemy.level);
+    dmToAdd = dmToAdd.times(this.darkMatterMultipliers.totalBonus);
     if (Game.getGame().prestigeManager.moreDM.active) {
       dmToAdd = dmToAdd.times(1 + DM_GAIN_CARD);
     }

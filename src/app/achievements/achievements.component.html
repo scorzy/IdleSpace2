@@ -30,60 +30,23 @@
         {{ ack.description }}
       </p>
       <span *ngIf="ack.max > 1">
-        Series:
-        <span class="monospace">
-          {{ ack.quantity | format: true }}/{{ ack.max | format: true }}
-        </span>
-      </span>
-    </ng-template>
-  </ng-container>
-</ng-container>
-
-<!-- <nz-collapse>
-  <nz-collapse-panel
-    *ngFor="let panel of ms.game.achievementManager.groups; trackBy: getGroupId"
-    [nzHeader]="header"
-  >
-    <ng-template #header>
-      {{ panel.name }}
-      <span class="monospace"
-        >{{ panel.current | format: true }}/{{
-          panel.total | format: true
-        }}</span
-      >
-    </ng-template>
-    <ng-container *ngFor="let ack of panel.list; trackBy: getAckId">
-      <i
-        nz-icon
-        [nzType]="ack.icon"
-        class="achievement-icon text-secondary"
-        nz-popover
-        [nzPopoverTitle]="ack.name"
-        [nzPopoverContent]="ackDescription"
-      >
-      </i>
-      <i
-        nz-icon
-        [nzType]="ack.icon"
-        class="achievement-icon completed-overlay"
-        [ngClass]="ack.colorClass"
-        nz-popover
-        [nzPopoverTitle]="ack.name"
-        [nzPopoverContent]="ackDescription"
-        [style.clip-path]="clip(ack)"
-      >
-      </i>
-      <ng-template #ackDescription>
-        <p class="ack-description">
-          {{ ack.description }}
-        </p>
-        <span *ngIf="ack.max > 1">
+        <span class="series">
           Series:
           <span class="monospace">
             {{ ack.quantity | format: true }}/{{ ack.max | format: true }}
           </span>
         </span>
-      </ng-template>
-    </ng-container>
-  </nz-collapse-panel>
-</nz-collapse> -->
+
+        Progress:
+        <span class="monospace" *ngIf="ack.formatNext; else formatStandard">
+          {{ ack.formatNext(ack.progress) }}/{{ ack.formatNext(ack.next) }}
+        </span>
+        <ng-template #formatStandard>
+          <span class="monospace">
+            {{ ack.progress | format: true }}/{{ ack.next | format: true }}
+          </span>
+        </ng-template>
+      </span>
+    </ng-template>
+  </ng-container>
+</ng-container>

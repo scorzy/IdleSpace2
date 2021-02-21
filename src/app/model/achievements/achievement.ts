@@ -13,7 +13,7 @@ export abstract class Achievement implements IBase {
   colorClass: string;
   groupId: string;
   max = 1;
-  progress = ZERO;
+  progress: Decimal | number = 0;
   total = ZERO;
   parent: IGroupParent;
   levels: number[];
@@ -48,6 +48,7 @@ export abstract class Achievement implements IBase {
       100 - Math.floor(this.quantity.div(this.max).toNumber() * 100);
   }
   abstract checkQuantity(): number | Decimal;
+  abstract getCurrentLevel(): number | Decimal;
   updateDescription() {}
   //#region Save and Load
   getSave(): any {

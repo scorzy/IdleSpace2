@@ -1,20 +1,25 @@
+import { ZERO } from "../CONSTANTS";
 import { SHIP_TYPES } from "../data/shipTypes";
 
 export class ShipStat {
-  constructor(public killed = 0, public built = 0) {}
+  constructor(public name: string, public killed = 0, public built = 0) {}
 }
 export class StatsManager {
+  longestWarp = ZERO;
+  totalWarp = ZERO;
   shipTypesMap: Map<number, ShipStat> = new Map();
   constructor() {
     SHIP_TYPES.forEach((st) => {
       //    Ship
-      const stat = new ShipStat();
-      this.shipTypesMap.set(st.id, stat);
+      this.shipTypesMap.set(st.id, new ShipStat(st.name));
 
       //    Defence
-      const stat2 = new ShipStat();
-      this.shipTypesMap.set(st.id * -1, stat2);
+      this.shipTypesMap.set(st.id * -1, new ShipStat(st.defenceName));
     });
+  }
+  onWarp(warp: number | Decimal) {
+    this.longestWarp = Decimal.max(this.longestWarp, warp);
+    this.totalWarp = this.totalWarp.plus(warp);
   }
   //#region Save and load
   getSave(): any {
@@ -29,9 +34,12 @@ export class StatsManager {
       }
     });
     if (ships.length > 0) save.s = ships;
+
+    if (this.longestWarp.gt(0)) save.l = this.longestWarp;
     return save;
   }
   load(data: any) {
+    if ("l" in data) this.longestWarp = new Decimal(data.l);
     if ("s" in data) {
       for (const shipData of data.s) {
         if ("i" in shipData && typeof shipData.i === "number") {

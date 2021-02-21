@@ -85,6 +85,7 @@ export class Game {
   additiveNavalCapStack: BonusStack;
   multiNavalCapStack: BonusStack;
   lastPrestigeTime = Date.now();
+  skipPost = false;
 
   private _gameId = "";
   private battleResults: { result: BattleResult; fleet: number }[] = [];
@@ -165,6 +166,7 @@ export class Game {
    * @param delta in seconds
    */
   update(delta: number) {
+    //  Warps
     this.idleTimeMultipliers.reloadBonus();
     if (delta > SIX_HOURS) {
       const oldDelta = delta;
@@ -202,15 +204,14 @@ export class Game {
         ),
         this.timeToWarp
       );
+      this.statsManager.onWarp(this.timeToWarp);
     }
     let toUpdate = delta + this.timeToWarp;
     const warped = this.timeToWarp;
     this.timeToWarp = 0;
     this.processBattles(warped);
 
-    if (this.automationUnlocked) {
-      this.automationManager.update();
-    }
+    if (this.automationUnlocked) this.automationManager.update();
 
     let n = 0;
     while (toUpdate > 0 && n < 20) {
@@ -278,6 +279,7 @@ export class Game {
     }
   }
   postUpdate(delta: number) {
+    this.skipPost = !this.skipPost;
     this.notificationManager.notifyResearches();
 
     this.challengeManager.postUpdate();
@@ -310,6 +312,7 @@ export class Game {
       this.resourceManager.energy.limit
     );
     this.prestigeManager.loadNextMultiplier();
+    if (!this.skipPost) this.achievementManager.postUpdate();
   }
   /**
    * Reload naval capacity.
@@ -320,24 +323,7 @@ export class Game {
     this.navalCapacity = this.additiveNavalCapStack.totalAdditiveBonus
       .times(this.multiNavalCapStack.totalBonus)
       .toNumber();
-    // TODO:check
-    // this.navalCapacity = BASE_NAVAL_CAPACITY;
-    // for (let i = 0, n = this.researchManager.researches.length; i < n; i++) {
-    //   this.navalCapacity += this.researchManager.researches[i].quantity
-    //     .times(this.researchManager.researches[i].navalCapacity)
-    //     .toNumber();
-    // }
-    // this.navalCapacity += this.researchManager.navalCapTech.quantity.toNumber();
-    // if (this.resourceManager.megaNaval.quantity.gt(0)) {
-    //   this.navalCapacity *=
-    //     1 +
-    //     this.resourceManager.megaNaval.quantity.toNumber() * MEGA_NAVAL_MULTI;
-    // }
-    // if (this.prestigeManager.navalCapCard.active) {
-    //   this.navalCapacity *= 1 + NAVAL_CAP_CARD_MULTI;
-    // }
     this.navalCapacity = Math.floor(this.navalCapacity);
-
     this.shipyardManager.reloadFleetCapacity();
   }
   /**
