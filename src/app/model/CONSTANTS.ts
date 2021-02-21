@@ -301,3 +301,7 @@ export const TOTAL_WARP_LEVELS = [
   3600 * 24 * 365 * 10 // 10 year
 ];
 export const TOTAL_WARP_BONUS = 0.1;
+export const SPELL_CAST_LEVELS = [10, 100, 1e3, 1e4];
+export const SPELL_CAST_BONUS = 0.1;
+export const CON_SPELL_CAST_LEVELS = [3, 6, 9, 12];
+export const CON_SPELL_CAST_BONUS = 0.1;

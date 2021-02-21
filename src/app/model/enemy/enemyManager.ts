@@ -565,7 +565,7 @@ export class EnemyManager extends JobManager {
         "Enemy Defeated!" +
           (dmToAdd.lte(0)
             ? ""
-            : " +" + MainService.timePipe.transform(dmToAdd) + " dark matter"),
+            : " +" + MainService.timePipe.transform(dmToAdd)),
         "Lv. " +
           MainService.formatPipe.transform(this.currentEnemy.level, true) +
           " " +

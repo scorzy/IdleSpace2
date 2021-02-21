@@ -3,9 +3,11 @@ import {
   ACK_LEVEL_STR,
   BUILDINGS_LEVELS,
   BUILD_IDS,
+  CON_SPELL_CAST_BONUS,
   IDS,
   LONGEST_WARP_BONUS,
   ONE,
+  SPELL_CAST_BONUS,
   TOTAL_WARP_BONUS,
   WORKERS_LEVELS,
   WORKER_BONUS
@@ -16,9 +18,11 @@ import { Game } from "../game";
 import { Achievement } from "./achievement";
 import { AchievementGroup } from "./achievementGroup";
 import { BuiltShipAck } from "./builtShipsAck";
+import { ConcurrentSpellsAck } from "./concurrentSpellsAck";
 import { EnemyLevelAck } from "./enemyLevelAck";
 import { KillShipAck } from "./killShipAck";
 import { LongestWarpAck } from "./longestWarpAck";
+import { SpellCastAck } from "./spellCastAck";
 import { TotalWarpAck } from "./totalWarpAck";
 import { UnitQuantityAck } from "./unitQuantityAck";
 
@@ -26,6 +30,8 @@ export class AchievementManager {
   achievements: Array<Achievement>;
   groups: Array<AchievementGroup>;
   showTab = false;
+  quantity = 0;
+  total = 0;
   //#region Origins
   scienceAck: Achievement;
   warAck: Achievement;
@@ -35,6 +41,11 @@ export class AchievementManager {
   megaBuildersAck: Achievement;
   moddersAck: Achievement;
   explorerAck: Achievement;
+  //#endregion
+  //#region Spells
+  spellCastAck: Achievement;
+  concurrentSpellsAck: Achievement;
+
   //#endregion
   constructor() {
     this.groups = [
@@ -145,11 +156,18 @@ export class AchievementManager {
       new Bonus(longestWarpAck, new Decimal(TOTAL_WARP_BONUS))
     );
     //#endregion
+    //#endregion Spell
+    this.spellCastAck = new SpellCastAck();
+    this.achievements.push(this.spellCastAck);
+    this.concurrentSpellsAck = new ConcurrentSpellsAck();
+    this.achievements.push(this.concurrentSpellsAck);
+    //#endregion
     this.achievements.forEach((ack) => {
       const group = this.groups.find((gr) => gr.id === ack.groupId);
       group.list.push(ack);
       group.total += ack.max;
       ack.parent = group;
+      this.total = this.total + ack.max;
     });
 
     this.scienceAck = this.achievements.find((a) => a.id === "os");
@@ -166,16 +184,17 @@ export class AchievementManager {
     const sy = Game.getGame().shipyardManager;
     const sp = Game.getGame().spaceStationManager;
     const em = Game.getGame().enemyManager;
+    const cm = Game.getGame().computingManager;
 
-    rs.worker.prodEfficiency.bonuses.push(
-      new Bonus(this.buildersAck, new Decimal(0.5))
+    rs.worker.prodEfficiency.bonuses.push(new Bonus(this.buildersAck, 0.5));
+    sy.velocityBonusStack.bonuses.push(new Bonus(this.warAck, 0.2));
+    sp.megaBonuses.push(new Bonus(this.megaBuildersAck, 1));
+    em.districtMultiplier.bonuses.push(new Bonus(this.explorerAck, 0.1));
+    cm.computingStackMulti.bonuses.push(
+      new Bonus(this.spellCastAck, SPELL_CAST_BONUS)
     );
-    sy.velocityBonusStack.bonuses.push(
-      new Bonus(this.warAck, new Decimal(0.2))
-    );
-    sp.megaBonuses.push(new Bonus(this.megaBuildersAck, new Decimal(1)));
-    em.districtMultiplier.bonuses.push(
-      new Bonus(this.explorerAck, new Decimal(0.1))
+    cm.computingStackMulti.bonuses.push(
+      new Bonus(this.concurrentSpellsAck, CON_SPELL_CAST_BONUS)
     );
   }
   postUpdate() {
@@ -205,6 +224,12 @@ export class AchievementManager {
     } else if (game.researchManager.explorersSpec.quantity.gte(1)) {
       this.explorerAck.complete();
     }
+  }
+  reloadTotal() {
+    this.quantity = this.achievements.reduce(
+      (prev, cur) => prev + cur.quantity.toNumber(),
+      0
+    );
   }
   //#region Save and Load
   getSave(): any {

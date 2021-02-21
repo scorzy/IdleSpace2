@@ -33,6 +33,7 @@ export class Spell implements IBase {
     this.onActivate();
     this.active = true;
     this.endTime = Date.now() + this.getDuration();
+    Game.getGame().statsManager.onSpellCast(this);
   }
   getDuration(): number {
     return (

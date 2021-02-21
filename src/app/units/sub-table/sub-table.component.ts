@@ -61,14 +61,14 @@ export class SubTableComponent
           (!bon.secondMultiplier || bon.secondMultiplier.quantity.gt(0))
       )
       .map((bonus) => ({
-          what: bonus.unit.name,
-          // (bonus.secondMultiplier ? " " + bonus.secondMultiplier.name : ""),
-          quantity: bonus.unit.quantity.times(
-            bonus.secondMultiplier ? bonus.secondMultiplier.quantity : 1
-          ),
-          effect: bonus.multiplier.times(100),
-          total: bonus.getBonus().times(100)
-        }));
+        what: bonus.unit.name,
+        // (bonus.secondMultiplier ? " " + bonus.secondMultiplier.name : ""),
+        quantity: bonus.unit.quantity.times(
+          bonus.secondMultiplier ? bonus.secondMultiplier.quantity : 1
+        ),
+        effect: Decimal.times(bonus.multiplier, 100),
+        total: bonus.getBonus().times(100)
+      }));
 
     return ret;
   }

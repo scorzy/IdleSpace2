@@ -1,4 +1,5 @@
-import { ZERO } from "../CONSTANTS";
+import { Spell } from "../computing/spell";
+import { ONE, ZERO } from "../CONSTANTS";
 import { SHIP_TYPES } from "../data/shipTypes";
 
 export class ShipStat {
@@ -7,6 +8,7 @@ export class ShipStat {
 export class StatsManager {
   longestWarp = ZERO;
   totalWarp = ZERO;
+  spellsCast = ZERO;
   shipTypesMap: Map<number, ShipStat> = new Map();
   constructor() {
     SHIP_TYPES.forEach((st) => {
@@ -20,6 +22,9 @@ export class StatsManager {
   onWarp(warp: number | Decimal) {
     this.longestWarp = Decimal.max(this.longestWarp, warp);
     this.totalWarp = this.totalWarp.plus(warp);
+  }
+  onSpellCast(spell: Spell) {
+    this.spellsCast = this.spellsCast.plus(ONE);
   }
   //#region Save and load
   getSave(): any {
@@ -36,10 +41,12 @@ export class StatsManager {
     if (ships.length > 0) save.s = ships;
 
     if (this.longestWarp.gt(0)) save.l = this.longestWarp;
+    if (this.spellsCast.gt(0)) save.c = this.spellsCast;
     return save;
   }
   load(data: any) {
     if ("l" in data) this.longestWarp = new Decimal(data.l);
+    if ("c" in data) this.spellsCast = new Decimal(data.c);
     if ("s" in data) {
       for (const shipData of data.s) {
         if ("i" in shipData && typeof shipData.i === "number") {

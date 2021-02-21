@@ -11,6 +11,7 @@ export class AchievementGroup implements IGroupParent {
     this.current = this.list.reduce((a, b) => a + b.quantity.toNumber(), 0);
     if (this.current > 0) {
       Game.getGame().achievementManager.showTab = true;
+      Game.getGame().achievementManager.reloadTotal();
     }
   }
 }

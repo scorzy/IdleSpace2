@@ -1,4 +1,12 @@
-<h2>Achievements</h2>
+<h2>
+  <i nz-icon nzType="trophy" nzTheme="outline" class="achievement-color"></i>
+  Achievements
+  <span class="total-ack monospace text-secondary">
+    {{ ms.game.achievementManager.quantity | format: true }}/{{
+      ms.game.achievementManager.total | format: true
+    }}
+  </span>
+</h2>
 
 <ng-container
   *ngFor="let panel of ms.game.achievementManager.groups; trackBy: getGroupId"
