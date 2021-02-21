@@ -25,6 +25,7 @@ import { UnitQuantityAck } from "./unitQuantityAck";
 export class AchievementManager {
   achievements: Array<Achievement>;
   groups: Array<AchievementGroup>;
+  showTab = false;
   //#region Origins
   scienceAck: Achievement;
   warAck: Achievement;
@@ -37,8 +38,8 @@ export class AchievementManager {
   //#endregion
   constructor() {
     this.groups = [
-      new AchievementGroup("or", "Factions"),
       new AchievementGroup("eco", "Economy"),
+      new AchievementGroup("or", "Factions"),
       new AchievementGroup("wa", "Ships Killed"),
       new AchievementGroup("w1", "Ships Built"),
       new AchievementGroup("o", "Others")
@@ -64,9 +65,9 @@ export class AchievementManager {
           "Get " +
           ACK_LEVEL_STR +
           " " +
-          w.name +
+          w.namePlural +
           ". " +
-          w.name +
+          w.namePlural +
           " yeild " +
           WORKER_BONUS * 100 +
           "% more.",

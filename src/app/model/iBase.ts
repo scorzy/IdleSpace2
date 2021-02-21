@@ -1,6 +1,7 @@
 export interface ISimpleBase {
   id: string;
   name: string;
+  namePlural?: string;
   description?: string;
   icon?: string;
   colorClass?: string;

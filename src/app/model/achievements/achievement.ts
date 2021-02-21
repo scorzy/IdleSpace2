@@ -1,6 +1,12 @@
+import { convertToRoman } from "ant-utils";
 import { ZERO } from "../CONSTANTS";
 import { IAchievementData } from "../data/achievementData";
+import { Game } from "../game";
 import { IBase } from "../iBase";
+import {
+  MyNotification,
+  NotificationTypes
+} from "../notifications/myNotification";
 import { IGroupParent } from "./iGroupParent";
 
 export abstract class Achievement implements IBase {
@@ -41,6 +47,14 @@ export abstract class Achievement implements IBase {
     this.updateDescription();
     this.parent.reloadNumber();
     this.reloadPercent();
+
+    Game.getGame().notificationManager.addNotification(
+      new MyNotification(
+        NotificationTypes.ACHIEVEMENT,
+        this.name +
+          (this.quantity.gt(1) ? " " + convertToRoman(this.quantity) : "")
+      )
+    );
     return true;
   }
   reloadPercent() {

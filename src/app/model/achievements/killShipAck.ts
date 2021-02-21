@@ -27,7 +27,7 @@ export class KillShipAck extends LevelAck {
     const shipName = isDefence ? shipType.defenceName : shipType.name;
     return new KillShipAck(
       {
-        id: "K" + shipType.id,
+        id: (isDefence ? "D" : "K") + shipType.id,
         name: shipName + " destroyed",
         description:
           "Destroy " +

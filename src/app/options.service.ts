@@ -30,6 +30,7 @@ export class OptionsService {
   researchNoti = true;
   researchBoostNoti = true;
   challengeNoti = true;
+  achievementsNoti = true;
 
   showComponentsInfo = true;
   showDronesStatus = true;
@@ -120,7 +121,8 @@ export class OptionsService {
       wk: this.warpKeys.map((warpKey) => [warpKey.key, warpKey.minutes]),
       uts: this.unitTabSize,
       uty: this.unitTabStyle,
-      utm: this.unitTabShowModBtn
+      utm: this.unitTabShowModBtn,
+      K: this.achievementsNoti
       // utp: this.unitTabPosition
     };
   }
@@ -149,6 +151,7 @@ export class OptionsService {
     if ("rn" in data) this.researchNoti = data.rn;
     if ("rb" in data) this.researchBoostNoti = data.rb;
     if ("k" in data) this.challengeNoti = data.k;
+    if ("K" in data) this.achievementsNoti = data.K;
 
     if ("t1" in data) this.districtInfo = data.t1;
     if ("t2" in data) this.operativityInfo = data.t2;

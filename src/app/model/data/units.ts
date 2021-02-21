@@ -127,6 +127,7 @@ export const UNITS: IUnitData[] = [
   {
     id: "m",
     name: "Miner",
+    namePlural: "Miners",
     icon: "my:asteroid",
     colorClass: "metal-color",
     description: "Miners yield metal and consume energy.",
@@ -151,6 +152,7 @@ export const UNITS: IUnitData[] = [
   {
     id: "e",
     name: "Technician",
+    namePlural: "Technicians",
     icon: "my:electric",
     colorClass: "energy-color",
     description: "Technicians yield energy.",
@@ -172,6 +174,7 @@ export const UNITS: IUnitData[] = [
   {
     id: "s",
     name: "Scientist",
+    namePlural: "Scientists",
     colorClass: "science-color",
     icon: "fa-s:flask",
     description: "Scientists yield science.",
@@ -197,6 +200,7 @@ export const UNITS: IUnitData[] = [
   {
     id: "a",
     name: "Metallurgist",
+    namePlural: "Metallurgists",
     icon: "my:metal-bar",
     colorClass: "alloy-color",
     description: "Metallurgists turn metal into alloy.",
@@ -222,6 +226,7 @@ export const UNITS: IUnitData[] = [
   {
     id: "w",
     name: "Worker",
+    namePlural: "Workers",
     icon: "fa-s:wrench",
     colorClass: "production-color",
     description: "Workers build ships and space stations with alloy.",
@@ -257,6 +262,7 @@ export const UNITS: IUnitData[] = [
   {
     id: "r",
     name: "Searcher",
+    namePlural: "Searchers",
     icon: "my:radar-sweep",
     description: "Searchers look for new enemies.",
     colorClass: "search-color",
@@ -285,6 +291,7 @@ export const UNITS: IUnitData[] = [
   {
     id: "X",
     name: "Replicator",
+    namePlural: "Replicators",
     icon: "fa-s:microchip",
     description: "Replicators turn alloy into droids components.",
     colorClass: "component-color",
@@ -315,6 +322,7 @@ export const UNITS: IUnitData[] = [
   {
     id: "B",
     name: "Nuke Specialist",
+    namePlural: "Nuke Specialists",
     icon: "my:rocket",
     description: "Nuke Specialists make nuke with alloy.",
     colorClass: "nuke-color",
