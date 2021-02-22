@@ -1,31 +1,24 @@
-<nz-table nzTemplateMode nzSize="small" *ngIf="subData.length > 0">
+<nz-table
+  [nzData]="subData"
+  nzSize="small"
+  *ngIf="subData.length > 0"
+  #subTable
+  nzShowPagination
+  nzShowSizeChanger
+>
   <tbody>
-    <tr *ngFor="let d of subData; trackBy: getIndex">
-      <td>{{ d.what }}</td>
-      <!-- <td>
-        <span
-          class="monospace"
-          nz-text
-          [nzType]="d.quantity.gte(0) ? '' : 'danger'"
-          >{{ d.quantity | format }}</span
-        >
+    <tr *ngFor="let d of subTable.data; trackBy: getIndex">
+      <td>
+        <i nz-icon [nzType]="d.icon"> </i>
       </td>
+      <td>{{ d.what }}</td>
       <td>
-        x
-        <span
-          class="monospace"
-          nz-text
-          [nzType]="d.effect.gte(0) ? '' : 'danger'"
-          >{{ d.effect | format }}%</span
-        >
-      </td> -->
-      <td>
-        =
+        +
         <span
           class="monospace"
           nz-text
           [nzType]="d.total.gte(0) ? '' : 'danger'"
-          >x{{ d.total | format }}%</span
+          >{{ d.total | format }}%</span
         >
       </td>
     </tr>

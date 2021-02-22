@@ -30,6 +30,14 @@ import { Challenge } from "./challenge/challenge";
 import { Bonus } from "./bonus/bonus";
 import { AchievementManager } from "./achievements/achievementManager";
 import { StatsManager } from "./stats/statsManager";
+import { Achievement } from "./achievements/achievement";
+import { Spell } from "./computing/spell";
+import { IBase } from "./iBase";
+import { PrestigeCard } from "./prestige/prestigeCard";
+import { PrestigePoint } from "./prestige/prestigePoint";
+import { Research } from "./researches/research";
+import { Building } from "./units/building";
+import { SpaceStation } from "./units/spaceStation";
 
 /**
  * Game is the main class that orchestrate everything game related
@@ -463,6 +471,27 @@ export class Game {
     this.darkMatter = this.darkMatter.minus(time);
     this.timeToWarp = this.timeToWarp + time;
     return true;
+  }
+  static GetClassIcon(base:IBase):string{
+    let ret = "";
+    if (base instanceof Research) {
+      ret = "fa-s:flask";
+    } else if (base instanceof Challenge) {
+      ret = "fa-s:flask";
+    } else if (base instanceof Achievement) {
+      ret = "trophy";
+    } else if (base instanceof PrestigeCard) {
+      ret = "fa-s:layer-group";
+    } else if (base instanceof PrestigePoint) {
+      ret= "arrow-up";
+    } else if (base instanceof Building) {
+      ret = "fa-s:building";
+    } else if (base instanceof SpaceStation) {
+      ret = "my:defense-satellite";
+    } else if (base instanceof Spell) {
+      ret = "my:computing";
+    }
+    return ret;
   }
   //#region Save and Load
   getSave(): any {
