@@ -137,6 +137,7 @@ export class PrestigeManager {
   //#endregion
   customBuyString = "100";
   customBuy = new Decimal(100);
+  prestigePage = false;
   constructor() {
     this.generateExperience();
     this.generateCards();
@@ -833,22 +834,46 @@ export class PrestigeManager {
     if (!this.realNextPrestigeMultiplier.eq(realNextPrestigeMultiplier)) {
       this.realNextPrestigeMultiplier = realNextPrestigeMultiplier;
     }
-
     if (!this.nextPrestigeMultiplier.eq(nextPrestigeMultiplier)) {
       this.nextPrestigeMultiplier = nextPrestigeMultiplier;
+    }
+
+    //  Next multiplier
+    if (this.prestigePage) {
+      let currentMultiplierNoMulti = this.prestigeMultiplier;
+      if (this.challengeMultiplier.active) {
+        currentMultiplierNoMulti = currentMultiplierNoMulti.div(
+          1 + completedChallenges
+        );
+      }
+      if (this.achievementMultiplierCard.active) {
+        currentMultiplierNoMulti = currentMultiplierNoMulti.div(
+          1 + Game.getGame().achievementManager.quantity / 100
+        );
+      }
+      currentMultiplierNoMulti = Decimal.max(
+        currentMultiplierNoMulti,
+        currentMultiplierNoMulti
+      );
 
       this.minLevelToIncrease = Math.ceil(
         Decimal.times(
           10,
-          Decimal.minus(nonMultiplied, 1).pow(1 / 1.2)
+          Decimal.minus(currentMultiplierNoMulti, 1).pow(1 / 1.2)
         ).toNumber()
       );
+
       this.ipotetchicalMultiplier = ONE.plus(
         this.minLevelToIncrease * PRESTIGE_MULTI_PER_LEVEL
       ).pow(PRESTIGE_MULTI_EXP);
       if (this.challengeMultiplier.active) {
         this.ipotetchicalMultiplier = this.ipotetchicalMultiplier.times(
           1 + completedChallenges
+        );
+      }
+      if (this.achievementMultiplierCard.active) {
+        this.ipotetchicalMultiplier = this.ipotetchicalMultiplier.times(
+          1 + Game.getGame().achievementManager.quantity / 100
         );
       }
     }
