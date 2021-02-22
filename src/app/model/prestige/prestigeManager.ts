@@ -129,6 +129,7 @@ export class PrestigeManager {
   extendedSearchCard: PrestigeCard;
   favouriteModuleCard: PrestigeCard;
   favouriteSpellCard: PrestigeCard;
+  achievementMultiplierCard: PrestigeCard;
   //#endregion
   //#region Others
   favouriteModule: Module;
@@ -773,8 +774,9 @@ export class PrestigeManager {
       new Bonus(this.megaBuildSpeed, new Decimal(MEGA_BUILD_SPEED_CARD))
     );
     //#endregion
-    //#region challenges
+    //#region multipliers
     this.challengeMultiplier = this.cards.find((card) => card.id === "c0");
+    this.achievementMultiplierCard = this.cards.find((card) => card.id === "A");
     //#endregion
     //#region Search
     this.extendedSearchCard = this.cards.find((card) => card.id === "k0");
@@ -797,16 +799,25 @@ export class PrestigeManager {
       return true;
     }
     const maxEnemyLevel = Game.getGame().enemyManager.maxLevel;
-    const completedChallenges = Game.getGame()
-      .challengeManager.completed.times(CHALLENGE_XP_MULTI)
-      .toNumber();
     let realNextPrestigeMultiplier = ONE.plus(
       maxEnemyLevel * PRESTIGE_MULTI_PER_LEVEL
     ).pow(PRESTIGE_MULTI_EXP);
     const nonMultiplied = realNextPrestigeMultiplier;
+
+    //  Challenges
+    const completedChallenges = Game.getGame()
+      .challengeManager.completed.times(CHALLENGE_XP_MULTI)
+      .toNumber();
     if (this.challengeMultiplier.active) {
       realNextPrestigeMultiplier = realNextPrestigeMultiplier.times(
         1 + completedChallenges
+      );
+    }
+
+    //  Challenges
+    if (this.achievementMultiplierCard.active) {
+      realNextPrestigeMultiplier = realNextPrestigeMultiplier.times(
+        1 + Game.getGame().achievementManager.quantity / 100
       );
     }
 
