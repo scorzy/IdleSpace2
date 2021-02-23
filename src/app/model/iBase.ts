@@ -5,6 +5,7 @@ export interface ISimpleBase {
   description?: string;
   icon?: string;
   colorClass?: string;
+  typeIcon?: string;
 }
 export interface IBase extends ISimpleBase {
   quantity: Decimal;

@@ -59,6 +59,18 @@ export const STRU_IDS = {
   RotatingSkyhook: "s2",
   SuperTether: "s3"
 };
+
+export const RESEARCH_ICON = "fa-s:flask";
+export const TECHNOLOGY_ICON = "fa-s:book";
+export const CHALLENGE_ICON = "trophy";
+export const ACHIEVEMENT_ICON = "trophy";
+export const PRESTIGE_CARD_ICON = "fa-s:layer-group";
+export const PRESTIGE_POINT_ICON = "fa-s:layer-group";
+export const BUILDING_ICON = "fa-s:building";
+export const DEPARTMENT_ICON = "fa-s:building";
+export const SPACE_STATION_ICON = "my:defense-satellite";
+export const SPELL_ICON = "my:computing";
+
 export const UNIT_PRICE_GROW_RATE = 1.04;
 export const BUILDING_PRICE_GROW_RATE = 1.08;
 export const SPACE_STATION_PRICE = 1e6;

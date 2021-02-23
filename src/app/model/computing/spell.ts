@@ -1,4 +1,4 @@
-import { ONE, ZERO, SPELL_DURATION_CARD } from "../CONSTANTS";
+import { ONE, ZERO, SPELL_DURATION_CARD, SPELL_ICON } from "../CONSTANTS";
 import { Game } from "../game";
 import { IBase } from "../iBase";
 
@@ -25,6 +25,7 @@ export class Spell implements IBase {
   onFull = false;
   unlocked = false;
   actualPrice = 1000;
+  typeIcon = SPELL_ICON;
   activate() {
     if (this.active) return false;
     const cp = Game.getGame().computingManager;

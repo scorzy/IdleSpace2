@@ -115,7 +115,12 @@ export class Game {
     this.multiNavalCapStack = new BonusStack();
     this.additiveNavalCapStack.bonuses.push(
       new Bonus(
-        { id: "", name: "Initial Naval Capacity", quantity: ONE },
+        {
+          id: "",
+          name: "Initial Naval Capacity",
+          quantity: ONE,
+          typeIcon: "my:strafe"
+        },
         new Decimal(BASE_NAVAL_CAPACITY)
       )
     );
@@ -472,7 +477,7 @@ export class Game {
     this.timeToWarp = this.timeToWarp + time;
     return true;
   }
-  static GetClassIcon(base:IBase):string{
+  static GetClassIcon(base: IBase): string {
     let ret = "";
     if (base instanceof Research) {
       ret = "fa-s:flask";
@@ -483,7 +488,7 @@ export class Game {
     } else if (base instanceof PrestigeCard) {
       ret = "fa-s:layer-group";
     } else if (base instanceof PrestigePoint) {
-      ret= "arrow-up";
+      ret = "arrow-up";
     } else if (base instanceof Building) {
       ret = "fa-s:building";
     } else if (base instanceof SpaceStation) {

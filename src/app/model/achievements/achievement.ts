@@ -1,5 +1,5 @@
 import { convertToRoman } from "ant-utils";
-import { ZERO } from "../CONSTANTS";
+import { ACHIEVEMENT_ICON, ZERO } from "../CONSTANTS";
 import { IAchievementData } from "../data/achievementData";
 import { Game } from "../game";
 import { IBase } from "../iBase";
@@ -24,6 +24,7 @@ export abstract class Achievement implements IBase {
   parent: IGroupParent;
   levels: number[];
   percent = 100;
+  typeIcon = ACHIEVEMENT_ICON;
 
   constructor(data: IAchievementData) {
     this.id = data.id;

@@ -2,7 +2,8 @@ import forOwn from "lodash-es/forOwn";
 import {
   CHALLENGE_REPEAT_LEVEL,
   ZERO,
-  CHALLENGE_REWARD_EXP
+  CHALLENGE_REWARD_EXP,
+  CHALLENGE_ICON
 } from "../CONSTANTS";
 import { IChallengeData } from "../data/challenges";
 import { IBase } from "../iBase";
@@ -27,6 +28,7 @@ export class Challenge implements IBase {
 
   icon = "";
   colorClass = "";
+  typeIcon = CHALLENGE_ICON;
 
   init(data: IChallengeData) {
     forOwn(

@@ -636,6 +636,7 @@ export class PrestigeManager {
     const isInWar: IBase = {
       id: "inWar",
       name: "In War",
+      typeIcon: "",
       get quantity() {
         return Game.getGame().enemyManager.currentEnemy ? ZERO : ONE;
       }
@@ -701,6 +702,7 @@ export class PrestigeManager {
     const killStreak: IBase = {
       id: "kiS",
       name: "Kill Streak",
+      typeIcon: "",
       get quantity() {
         return new Decimal(Game.getGame().enemyManager.killStreak);
       }

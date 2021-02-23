@@ -11,7 +11,8 @@ import {
   TIER_ONE_RES_PRICE_MULTI,
   INSPIRATION_PERCENT,
   INSPIRATION_CARD,
-  GAME_VERSION
+  GAME_VERSION,
+  RESEARCH_ICON
 } from "../CONSTANTS";
 import { IUnlockable } from "../iUnlocable";
 import { Game } from "../game";
@@ -92,6 +93,7 @@ export class Research extends Job implements IUnlockable, IBase {
   commonCivilianBonus: number;
   spaceStationBuildBonus: number;
   fleetCapacity: number;
+  typeIcon = RESEARCH_ICON;
   constructor(researchData: IResearchData, researchManager: ResearchManager) {
     super();
     this.resData = researchData;

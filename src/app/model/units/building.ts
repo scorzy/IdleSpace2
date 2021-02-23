@@ -3,7 +3,7 @@ import { IDepartmentData } from "../data/departments";
 import assign from "lodash-es/assign";
 import { Research } from "../researches/research";
 import { IBase } from "../iBase";
-import { ZERO } from "../CONSTANTS";
+import { BUILDING_ICON, DEPARTMENT_ICON, ZERO } from "../CONSTANTS";
 import { AutoBuilding } from "../automation/autoBuilding";
 import { Game } from "../game";
 import { BonusStack } from "../bonus/bonusStack";
@@ -14,6 +14,7 @@ export class Department implements IDepartmentData, IBase {
   description: string;
   quantity = ZERO;
   priority = 0;
+  typeIcon = DEPARTMENT_ICON;
 
   constructor(depData: IDepartmentData) {
     assign(this, depData);
@@ -29,6 +30,7 @@ export class Building extends Unit {
   autoBuyer: AutoBuilding;
   autoDepartments = false;
   departmentsAck: IBase;
+  typeIcon = BUILDING_ICON;
   addDep(dep: Department) {
     if (this.usedDepartments < this.maxDepartments) {
       dep.quantity = dep.quantity.plus(1);

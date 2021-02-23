@@ -13,6 +13,7 @@ export class Unit implements IBase, IUnlockable {
   id = "";
   name = "";
   namePlural = "";
+  typeIcon = "";
   description = "";
   unlocked = false;
   icon = "";
