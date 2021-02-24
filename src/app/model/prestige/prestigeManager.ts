@@ -46,7 +46,8 @@ import {
   PRESTIGE_TECH_UNLOCK,
   MORE_STORAGE_PRESTIGE,
   MORE_STORAGE_CARD,
-  FLEET_CAPACITY_CARD
+  FLEET_CAPACITY_CARD,
+  DRONE_PRESTIGE_QUANTITY
 } from "../CONSTANTS";
 import { Game } from "../game";
 import {
@@ -151,7 +152,8 @@ export class PrestigeManager {
     const em = Game.getGame().enemyManager;
     //#region Drones
     const dronePrestigeList = new Array<PrestigePoint>();
-    //  Drones yields and consume more
+
+    //  Starter pack
     const starterPack = new PrestigePoint();
     starterPack.id = "d0";
     starterPack.name = "Starter Pack";
@@ -164,6 +166,7 @@ export class PrestigeManager {
     this.prestigePoints.push(starterPack);
     dronePrestigeList.push(starterPack);
 
+    //  Drones yields and consume more
     const droneMulti = new PrestigePoint();
     droneMulti.id = "d1";
     droneMulti.name = "Drones production prestige";
@@ -183,29 +186,36 @@ export class PrestigeManager {
     this.prestigePoints.push(droneEff);
     dronePrestigeList.push(droneEff);
 
+    //  Drones quantity
+    const droneQty = new PrestigePoint();
+    droneQty.id = "d3";
+    droneQty.name = "Drones quantity prestige";
+    droneQty.description =
+      "+" + DRONE_PRESTIGE_QUANTITY * 100 + "% more drones";
+    droneQty.price = new Decimal(PRESTIGE_PRICE);
+    this.prestigePoints.push(droneQty);
+    dronePrestigeList.push(droneQty);
+
     this.tabs.push({
       name: "Drones",
       icon: "my:vintage-robot",
       prestige: dronePrestigeList
     });
+    const startBon = new Bonus(
+      starterPack,
+      new Decimal(DRONE_PRESTIGE_START_OFFER)
+    );
+    const prodBon = new Bonus(
+      droneMulti,
+      new Decimal(DRONE_PRESTIGE_PRODUCTION)
+    );
+    const effBon = new Bonus(droneEff, new Decimal(DRONE_PRESTIGE_EFFICIENCY));
+    const qtyBon = new Bonus(droneQty, DRONE_PRESTIGE_QUANTITY);
     rm.workers.forEach((w) => {
-      const startBon = new Bonus(
-        starterPack,
-        new Decimal(DRONE_PRESTIGE_START_OFFER)
-      );
       w.prodAllBonus.bonuses.push(startBon);
-
-      const prodBon = new Bonus(
-        droneMulti,
-        new Decimal(DRONE_PRESTIGE_PRODUCTION)
-      );
       w.prodAllBonus.bonuses.push(prodBon);
-
-      const effBon = new Bonus(
-        droneEff,
-        new Decimal(DRONE_PRESTIGE_EFFICIENCY)
-      );
       w.prodEfficiency.bonuses.push(effBon);
+      w.limitStackMulti.bonuses.push(qtyBon);
     });
     //#endregion
     //#region Science
@@ -512,7 +522,6 @@ export class PrestigeManager {
       new Decimal(MAX_DRONES_PRESTIGE)
     );
     rm.workers.forEach((w) => {
-      w.limitStackMulti = w.limitStackMulti || new BonusStack();
       w.limitStackMulti.bonuses.push(maxDroneBonus);
     });
 
