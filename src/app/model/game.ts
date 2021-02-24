@@ -146,8 +146,6 @@ export class Game {
     this.researchManager.setChallengesRelations();
 
     this.achievementManager = new AchievementManager();
-    this.researchManager.researches.forEach((res) => res.loadMax());
-
     this.shipyardManager.afterResearchesInit();
 
     this.setTheme();
@@ -161,6 +159,7 @@ export class Game {
       date: number;
       battleResult: BattleResult;
     }>();
+    this.researchManager.researches.forEach((res) => res.loadMax());
   }
   /**
    * Generate an unique ID. Used for battle.

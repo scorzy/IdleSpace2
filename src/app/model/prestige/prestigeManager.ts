@@ -47,7 +47,9 @@ import {
   MORE_STORAGE_PRESTIGE,
   MORE_STORAGE_CARD,
   FLEET_CAPACITY_CARD,
-  DRONE_PRESTIGE_QUANTITY
+  DRONE_PRESTIGE_QUANTITY,
+  PRESTIGE_PRICE_SUPER,
+  FLEET_CAPACITY_PRESTIGE
 } from "../CONSTANTS";
 import { Game } from "../game";
 import {
@@ -93,6 +95,7 @@ export class PrestigeManager {
   shipJobPrestige: PrestigePoint;
   maxMods: PrestigePoint;
   moreStorage: PrestigePoint;
+  plusOneResearch: PrestigePoint;
   //#endregion
   //#region Special cards
   victoryWarp: PrestigeCard;
@@ -239,6 +242,19 @@ export class PrestigeManager {
         new Bonus(techMulti, new Decimal(TECH_PRESTIGE_MULTI))
       );
     });
+    //  +1 researches
+    this.plusOneResearch = new PrestigePoint();
+    this.plusOneResearch.id = "s2";
+    this.plusOneResearch.name = "Research +1";
+    this.plusOneResearch.description =
+      "Repeatable researches can be repeated one time more";
+    this.plusOneResearch.price = new Decimal(PRESTIGE_PRICE_SUPER);
+    this.prestigePoints.push(this.plusOneResearch);
+    scienceList.push(this.plusOneResearch);
+    this.plusOneResearch.onBuy = (qty: Decimal) => {
+      Game.getGame().researchManager.researches.forEach((r) => r.loadMax());
+    };
+
     //#endregion
     //#region War
     const warList = new Array<PrestigePoint>();
@@ -531,9 +547,19 @@ export class PrestigeManager {
     });
     //#endregion
     //#region Naval
+    const fleetCapacity = new PrestigePoint();
+    fleetCapacity.id = "W1";
+    fleetCapacity.name = "Fleet capacity";
+    fleetCapacity.price = new Decimal(100);
+    fleetCapacity.description =
+      "+" + FLEET_CAPACITY_PRESTIGE + " fleet capacity";
+    Game.getGame().shipyardManager.additiveFleetCapStack.bonuses.push(
+      new Bonus(fleetCapacity, FLEET_CAPACITY_PRESTIGE)
+    );
+
     tecPrestiges.push({
       tec: sm.navalCapTech,
-      prestiges: []
+      prestiges: [fleetCapacity]
     });
     //#endregion
     //#region Search

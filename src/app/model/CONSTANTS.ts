@@ -198,6 +198,7 @@ export const COMPUTING_TECH_BONUS = 0.01;
 export const PRESTIGE_MULTI_PER_LEVEL = 0.1;
 export const PRESTIGE_MULTI_EXP = 1.2;
 export const PRESTIGE_PRICE = 10;
+export const PRESTIGE_PRICE_SUPER = 1e4;
 export const DRONE_PRESTIGE_START_OFFER = 0.15;
 export const DRONE_PRESTIGE_PRODUCTION = 0.05;
 export const DRONE_PRESTIGE_EFFICIENCY = 0.02;
@@ -209,7 +210,7 @@ export const COMPONENT_PRESTIGE_MULTI = 0.3;
 export const VELOCITY_PRESTIGE_MULTI = 0.12;
 export const MORE_UP_PRESTIGE = 1;
 export const SIX_HOURS = 3600 * 6;
-export const BETTER_SPACE_STATION_PRESTIGE = 0.2;
+export const BETTER_SPACE_STATION_PRESTIGE = 0.5;
 export const AUTOMATION_UNLOCKED_LEVEL = 2;
 export const MOD_LEVEL_PRESTIGE = 0.01;
 export const SHIP_JOB_PRESTIGE = 0.01;
@@ -226,6 +227,7 @@ export const FAST_SEARCH = 0.01;
 export const ENERGY_PRODUCTION_PRESTIGE = 0.005;
 export const ENERGY_STORAGE_PRESTIGE = 0.1;
 export const MINING_PRESTIGE = 0.01;
+export const FLEET_CAPACITY_PRESTIGE = 1;
 
 //  Prestige Card
 export const LEVEL_PER_CARD = 12;

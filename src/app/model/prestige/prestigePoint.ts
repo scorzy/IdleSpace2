@@ -23,6 +23,7 @@ export class PrestigePoint implements IBase {
   dependantPoints: PrestigePoint[];
   unLocked = true;
   typeIcon = PRESTIGE_POINT_ICON;
+  onBuy: (quantity: Decimal) => void;
   reload() {
     const pm = Game.getGame().prestigeManager;
     this.maxBuy = pm.experience.div(this.price).floor();
@@ -41,6 +42,7 @@ export class PrestigePoint implements IBase {
       this.dependantPoints.forEach((point) => point.checkLock());
     }
     Game.getGame().prestigeManager.reloadSpentPoints();
+    if (this.onBuy) this.onBuy(quantity);
     return true;
   }
   get quantity(): Decimal {

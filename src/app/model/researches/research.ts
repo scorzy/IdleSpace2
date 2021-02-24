@@ -611,11 +611,13 @@ export class Research extends Job implements IUnlockable, IBase {
     else {
       const game = Game.getGame();
       if (!game.prestigeManager) this._maxRes = this._max2;
-      this._maxRes =
+      this._maxRes = Math.floor(
         (this._max2 +
+          game.prestigeManager.plusOneResearch.quantity.toNumber() +
           game.achievementManager.scienceAck.quantity.toNumber() +
           game.challengeManager?.scienceChallenge.quantity.toNumber()) *
-        (game.prestigeManager.doubleRepeatableResearches.active ? 2 : 1);
+          (game.prestigeManager.doubleRepeatableResearches.active ? 2 : 1)
+      );
     }
   }
   //#region Save and Load
