@@ -1,6 +1,6 @@
 <nz-layout
   *ngIf="ms.game && ms.ready && ms.pageOk"
-  style="width: 100vw"
+  style="width: 100vw; height: 100vh"
   @fadeIn
 >
   <nz-sider
@@ -46,7 +46,8 @@
     </nz-header>
 
     <nz-content>
-      <div [class.inner-content]="ms.innerContent" class="full-height">
+      <!-- [class.inner-content]="ms.innerContent" -->
+      <div class="full-height">
         <router-outlet></router-outlet>
       </div>
     </nz-content>
