@@ -150,6 +150,16 @@ export class EnemyManager extends JobManager {
       this.toDo[i].reload();
     }
     Game.getGame().enemyManager.reloadNukeDamage();
+    this.autoAttack();
+    //  Auto Next
+    if (this.autoNext && !this.currentEnemy) {
+      const next = this.enemies.find((n) => n.level <= this.maxLevel);
+      if (next) {
+        this.attackEnemy(next);
+      }
+    }
+  }
+  autoAttack() {
     const playerDesign = Game.getGame().shipyardManager.shipDesigns;
     //  Auto Attack
     if (this.currentEnemy && this.autoAttackEnabled) {
@@ -164,13 +174,6 @@ export class EnemyManager extends JobManager {
         ) {
           this.attackCell(i, true);
         }
-      }
-    }
-    //  Auto Next
-    if (this.autoNext && !this.currentEnemy) {
-      const next = this.enemies.find((n) => n.level <= this.maxLevel);
-      if (next) {
-        this.attackEnemy(next);
       }
     }
   }

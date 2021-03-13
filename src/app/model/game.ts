@@ -28,6 +28,7 @@ import { BonusStack } from "./bonus/bonusStack";
 import { ChallengeManager } from "./challenge/challengeManager";
 import { Challenge } from "./challenge/challenge";
 import { Bonus } from "./bonus/bonus";
+import { result } from "lodash-es";
 import { AchievementManager } from "./achievements/achievementManager";
 import { StatsManager } from "./stats/statsManager";
 import { Achievement } from "./achievements/achievement";
@@ -93,6 +94,7 @@ export class Game {
   additiveNavalCapStack: BonusStack;
   multiNavalCapStack: BonusStack;
   lastPrestigeTime = Date.now();
+  extraAttacks = [true, true, true, true, true];
   skipPost = false;
 
   private _gameId = "";
@@ -324,6 +326,11 @@ export class Game {
       this.resourceManager.energy.limit
     );
     this.prestigeManager.loadNextMultiplier();
+    this.extraAttacks[0] = true;
+    this.extraAttacks[1] = true;
+    this.extraAttacks[2] = true;
+    this.extraAttacks[3] = true;
+    this.extraAttacks[4] = true;
     if (!this.skipPost) this.achievementManager.postUpdate();
   }
   /**
@@ -345,7 +352,14 @@ export class Game {
     if (battleResult.gameId !== this.gameId) {
       return;
     }
+
     this.battleResults.push({ result: battleResult, fleet: fleetNum });
+    const now = performance.now();
+    if (now >= battleResult.endTime && this.extraAttacks[fleetNum]) {
+      this.processBattles(0);
+      this.enemyManager.autoAttack();
+      this.extraAttacks[fleetNum] = false;
+    }
   }
   /**
    * Process ended battles.
