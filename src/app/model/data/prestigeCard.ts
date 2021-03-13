@@ -217,6 +217,13 @@ export const PRESTIGE_CARDS: ICardData[] = [
     icon: "my:strafe",
     cardRequired: 1
   },
+  {
+    id: "w12",
+    name: "Double Attack",
+    description:
+      "Your fleet can twice in the same turn. It happens battle time is less than 0.1s and no reinforce is needed.",
+    icon: "my:strafe"
+  },
   //#endregion
   //#region Warp
   {

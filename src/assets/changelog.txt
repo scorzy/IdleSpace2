@@ -1,5 +1,6 @@
 -   Added achievements
 -   Added new prestiges: drone quantity, +1 researches, +1 fleet capacity
+-   Added Double Attack card
 -   Reduced "Increase technology gain" from 50% to 20%
 -   Reduced "Drones production prestige" from 10% to 5%
 -   Increased "Better Space Stations" from 20% to 50%

@@ -28,7 +28,6 @@ import { BonusStack } from "./bonus/bonusStack";
 import { ChallengeManager } from "./challenge/challengeManager";
 import { Challenge } from "./challenge/challenge";
 import { Bonus } from "./bonus/bonus";
-import { result } from "lodash-es";
 import { AchievementManager } from "./achievements/achievementManager";
 import { StatsManager } from "./stats/statsManager";
 import { Achievement } from "./achievements/achievement";
@@ -355,7 +354,11 @@ export class Game {
 
     this.battleResults.push({ result: battleResult, fleet: fleetNum });
     const now = performance.now();
-    if (now >= battleResult.endTime && this.extraAttacks[fleetNum]) {
+    if (
+      this.prestigeManager.doubleAttackCard.active &&
+      now >= battleResult.endTime &&
+      this.extraAttacks[fleetNum]
+    ) {
       this.processBattles(0);
       this.enemyManager.autoAttack();
       this.extraAttacks[fleetNum] = false;

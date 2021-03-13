@@ -134,6 +134,7 @@ export class PrestigeManager {
   favouriteModuleCard: PrestigeCard;
   favouriteSpellCard: PrestigeCard;
   achievementMultiplierCard: PrestigeCard;
+  doubleAttackCard: PrestigeCard;
   //#endregion
   //#region Others
   favouriteModule: Module;
@@ -733,6 +734,7 @@ export class PrestigeManager {
     this.lowerModulePrice = this.cards.find((card) => card.id === "w9");
     this.killStreakWinCard = this.cards.find((card) => card.id === "w10");
     this.favouriteModuleCard = this.cards.find((card) => card.id === "w11");
+    this.doubleAttackCard = this.cards.find((card) => card.id === "w12");
 
     const killStreak: IBase = {
       id: "kiS",
