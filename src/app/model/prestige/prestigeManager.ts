@@ -46,7 +46,10 @@ import {
   PRESTIGE_TECH_UNLOCK,
   MORE_STORAGE_PRESTIGE,
   MORE_STORAGE_CARD,
-  FLEET_CAPACITY_CARD
+  FLEET_CAPACITY_CARD,
+  DRONE_PRESTIGE_QUANTITY,
+  PRESTIGE_PRICE_SUPER,
+  FLEET_CAPACITY_PRESTIGE
 } from "../CONSTANTS";
 import { Game } from "../game";
 import {
@@ -92,6 +95,7 @@ export class PrestigeManager {
   shipJobPrestige: PrestigePoint;
   maxMods: PrestigePoint;
   moreStorage: PrestigePoint;
+  plusOneResearch: PrestigePoint;
   //#endregion
   //#region Special cards
   victoryWarp: PrestigeCard;
@@ -129,6 +133,7 @@ export class PrestigeManager {
   extendedSearchCard: PrestigeCard;
   favouriteModuleCard: PrestigeCard;
   favouriteSpellCard: PrestigeCard;
+  achievementMultiplierCard: PrestigeCard;
   //#endregion
   //#region Others
   favouriteModule: Module;
@@ -136,6 +141,7 @@ export class PrestigeManager {
   //#endregion
   customBuyString = "100";
   customBuy = new Decimal(100);
+  prestigePage = false;
   constructor() {
     this.generateExperience();
     this.generateCards();
@@ -149,7 +155,8 @@ export class PrestigeManager {
     const em = Game.getGame().enemyManager;
     //#region Drones
     const dronePrestigeList = new Array<PrestigePoint>();
-    //  Drones yields and consume more
+
+    //  Starter pack
     const starterPack = new PrestigePoint();
     starterPack.id = "d0";
     starterPack.name = "Starter Pack";
@@ -162,6 +169,7 @@ export class PrestigeManager {
     this.prestigePoints.push(starterPack);
     dronePrestigeList.push(starterPack);
 
+    //  Drones yields and consume more
     const droneMulti = new PrestigePoint();
     droneMulti.id = "d1";
     droneMulti.name = "Drones production prestige";
@@ -181,29 +189,36 @@ export class PrestigeManager {
     this.prestigePoints.push(droneEff);
     dronePrestigeList.push(droneEff);
 
+    //  Drones quantity
+    const droneQty = new PrestigePoint();
+    droneQty.id = "d3";
+    droneQty.name = "Drones quantity prestige";
+    droneQty.description =
+      "+" + DRONE_PRESTIGE_QUANTITY * 100 + "% more drones";
+    droneQty.price = new Decimal(PRESTIGE_PRICE);
+    this.prestigePoints.push(droneQty);
+    dronePrestigeList.push(droneQty);
+
     this.tabs.push({
       name: "Drones",
       icon: "my:vintage-robot",
       prestige: dronePrestigeList
     });
+    const startBon = new Bonus(
+      starterPack,
+      new Decimal(DRONE_PRESTIGE_START_OFFER)
+    );
+    const prodBon = new Bonus(
+      droneMulti,
+      new Decimal(DRONE_PRESTIGE_PRODUCTION)
+    );
+    const effBon = new Bonus(droneEff, new Decimal(DRONE_PRESTIGE_EFFICIENCY));
+    const qtyBon = new Bonus(droneQty, DRONE_PRESTIGE_QUANTITY);
     rm.workers.forEach((w) => {
-      const startBon = new Bonus(
-        starterPack,
-        new Decimal(DRONE_PRESTIGE_START_OFFER)
-      );
       w.prodAllBonus.bonuses.push(startBon);
-
-      const prodBon = new Bonus(
-        droneMulti,
-        new Decimal(DRONE_PRESTIGE_PRODUCTION)
-      );
       w.prodAllBonus.bonuses.push(prodBon);
-
-      const effBon = new Bonus(
-        droneEff,
-        new Decimal(DRONE_PRESTIGE_EFFICIENCY)
-      );
       w.prodEfficiency.bonuses.push(effBon);
+      w.limitStackMulti.bonuses.push(qtyBon);
     });
     //#endregion
     //#region Science
@@ -227,6 +242,19 @@ export class PrestigeManager {
         new Bonus(techMulti, new Decimal(TECH_PRESTIGE_MULTI))
       );
     });
+    //  +1 researches
+    this.plusOneResearch = new PrestigePoint();
+    this.plusOneResearch.id = "s2";
+    this.plusOneResearch.name = "Research +1";
+    this.plusOneResearch.description =
+      "Repeatable researches can be repeated one time more";
+    this.plusOneResearch.price = new Decimal(PRESTIGE_PRICE_SUPER);
+    this.prestigePoints.push(this.plusOneResearch);
+    scienceList.push(this.plusOneResearch);
+    this.plusOneResearch.onBuy = (qty: Decimal) => {
+      Game.getGame().researchManager.researches.forEach((r) => r.loadMax());
+    };
+
     //#endregion
     //#region War
     const warList = new Array<PrestigePoint>();
@@ -510,7 +538,6 @@ export class PrestigeManager {
       new Decimal(MAX_DRONES_PRESTIGE)
     );
     rm.workers.forEach((w) => {
-      w.limitStackMulti = w.limitStackMulti || new BonusStack();
       w.limitStackMulti.bonuses.push(maxDroneBonus);
     });
 
@@ -520,9 +547,19 @@ export class PrestigeManager {
     });
     //#endregion
     //#region Naval
+    const fleetCapacity = new PrestigePoint();
+    fleetCapacity.id = "W1";
+    fleetCapacity.name = "Fleet capacity";
+    fleetCapacity.price = new Decimal(100);
+    fleetCapacity.description =
+      "+" + FLEET_CAPACITY_PRESTIGE + " fleet capacity";
+    Game.getGame().shipyardManager.additiveFleetCapStack.bonuses.push(
+      new Bonus(fleetCapacity, FLEET_CAPACITY_PRESTIGE)
+    );
+
     tecPrestiges.push({
       tec: sm.navalCapTech,
-      prestiges: []
+      prestiges: [fleetCapacity]
     });
     //#endregion
     //#region Search
@@ -634,6 +671,7 @@ export class PrestigeManager {
     const isInWar: IBase = {
       id: "inWar",
       name: "In War",
+      typeIcon: "",
       get quantity() {
         return Game.getGame().enemyManager.currentEnemy ? ZERO : ONE;
       }
@@ -699,6 +737,7 @@ export class PrestigeManager {
     const killStreak: IBase = {
       id: "kiS",
       name: "Kill Streak",
+      typeIcon: "",
       get quantity() {
         return new Decimal(Game.getGame().enemyManager.killStreak);
       }
@@ -773,8 +812,9 @@ export class PrestigeManager {
       new Bonus(this.megaBuildSpeed, new Decimal(MEGA_BUILD_SPEED_CARD))
     );
     //#endregion
-    //#region challenges
+    //#region multipliers
     this.challengeMultiplier = this.cards.find((card) => card.id === "c0");
+    this.achievementMultiplierCard = this.cards.find((card) => card.id === "A");
     //#endregion
     //#region Search
     this.extendedSearchCard = this.cards.find((card) => card.id === "k0");
@@ -797,16 +837,25 @@ export class PrestigeManager {
       return true;
     }
     const maxEnemyLevel = Game.getGame().enemyManager.maxLevel;
-    const completedChallenges = Game.getGame()
-      .challengeManager.completed.times(CHALLENGE_XP_MULTI)
-      .toNumber();
     let realNextPrestigeMultiplier = ONE.plus(
       maxEnemyLevel * PRESTIGE_MULTI_PER_LEVEL
     ).pow(PRESTIGE_MULTI_EXP);
     const nonMultiplied = realNextPrestigeMultiplier;
+
+    //  Challenges
+    const completedChallenges = Game.getGame()
+      .challengeManager.completed.times(CHALLENGE_XP_MULTI)
+      .toNumber();
     if (this.challengeMultiplier.active) {
       realNextPrestigeMultiplier = realNextPrestigeMultiplier.times(
         1 + completedChallenges
+      );
+    }
+
+    //  Challenges
+    if (this.achievementMultiplierCard.active) {
+      realNextPrestigeMultiplier = realNextPrestigeMultiplier.times(
+        1 + Game.getGame().achievementManager.quantity / 100
       );
     }
 
@@ -822,22 +871,46 @@ export class PrestigeManager {
     if (!this.realNextPrestigeMultiplier.eq(realNextPrestigeMultiplier)) {
       this.realNextPrestigeMultiplier = realNextPrestigeMultiplier;
     }
-
     if (!this.nextPrestigeMultiplier.eq(nextPrestigeMultiplier)) {
       this.nextPrestigeMultiplier = nextPrestigeMultiplier;
+    }
+
+    //  Next multiplier
+    if (this.prestigePage) {
+      let currentMultiplierNoMulti = this.prestigeMultiplier;
+      if (this.challengeMultiplier.active) {
+        currentMultiplierNoMulti = currentMultiplierNoMulti.div(
+          1 + completedChallenges
+        );
+      }
+      if (this.achievementMultiplierCard.active) {
+        currentMultiplierNoMulti = currentMultiplierNoMulti.div(
+          1 + Game.getGame().achievementManager.quantity / 100
+        );
+      }
+      currentMultiplierNoMulti = Decimal.max(
+        currentMultiplierNoMulti,
+        currentMultiplierNoMulti
+      );
 
       this.minLevelToIncrease = Math.ceil(
         Decimal.times(
           10,
-          Decimal.minus(nonMultiplied, 1).pow(1 / 1.2)
+          Decimal.minus(currentMultiplierNoMulti, 1).pow(1 / 1.2)
         ).toNumber()
       );
+
       this.ipotetchicalMultiplier = ONE.plus(
         this.minLevelToIncrease * PRESTIGE_MULTI_PER_LEVEL
       ).pow(PRESTIGE_MULTI_EXP);
       if (this.challengeMultiplier.active) {
         this.ipotetchicalMultiplier = this.ipotetchicalMultiplier.times(
           1 + completedChallenges
+        );
+      }
+      if (this.achievementMultiplierCard.active) {
+        this.ipotetchicalMultiplier = this.ipotetchicalMultiplier.times(
+          1 + Game.getGame().achievementManager.quantity / 100
         );
       }
     }

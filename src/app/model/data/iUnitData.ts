@@ -4,6 +4,7 @@ import { IDepartmentData } from "./departments";
 export interface IUnitData {
   id: string;
   name: string;
+  namePlural?: string;
   description: string;
   startQuantity?: DecimalSource;
   unlockQuantity?: DecimalSource;

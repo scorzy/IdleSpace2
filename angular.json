@@ -20,7 +20,8 @@
             "showCircularDependencies": false,
             "allowedCommonJsDependencies": [
               "json-2-csv",
-              "lz-string"
+              "lz-string",
+              "date-fns"
             ],
             "outputPath": "dist/IdleSpace2",
             "index": "src/index.html",
@@ -38,9 +39,7 @@
                 "output": "/assets/"
               }
             ],
-            "styles": [
-              "src/styles.scss"
-            ],
+            "styles": ["src/styles.scss"],
             "scripts": [
               "node_modules/break_infinity.js/dist/break_infinity.min.js",
               "node_modules/swarm-numberformat/dist/swarm-numberformat.min.js"
@@ -110,9 +109,7 @@
                 "output": "/assets/"
               }
             ],
-            "styles": [
-              "src/styles.scss"
-            ],
+            "styles": ["src/styles.scss"],
             "scripts": [
               "node_modules/break_infinity.js/dist/break_infinity.min.js",
               "node_modules/swarm-numberformat/dist/swarm-numberformat.min.js"
@@ -123,10 +120,7 @@
         "lint": {
           "builder": "@angular-eslint/builder:lint",
           "options": {
-            "lintFilePatterns": [
-              "src/**/*.ts",
-              "src/**/*.html"
-            ]
+            "lintFilePatterns": ["src/**/*.ts", "src/**/*.html"]
           }
         },
         "e2e": {

@@ -47,6 +47,12 @@ export class ResearchManager extends JobManager {
   robotics: Research;
   assimilation: Research;
   scout: Research;
+  scienceOrigin: Research;
+  warOrigin: Research;
+  buildersOrigin: Research;
+  megaBuildersSpec: Research;
+  moddersSpec: Research;
+  explorersSpec: Research;
   //#endregion
   //#region Technologies
   militaryEngTech: Technology;
@@ -103,6 +109,12 @@ export class ResearchManager extends JobManager {
     this.scavenging = this.researches.find((res) => res.id === "ns");
     this.assimilation = this.researches.find((res) => res.id === "ns1");
     this.robotics = this.researches.find((res) => res.id === "x");
+    this.scienceOrigin = this.researches.find((res) => res.id === "or1");
+    this.warOrigin = this.researches.find((res) => res.id === "or2");
+    this.buildersOrigin = this.researches.find((res) => res.id === "or3");
+    this.megaBuildersSpec = this.researches.find((res) => res.id === "spe1");
+    this.moddersSpec = this.researches.find((res) => res.id === "spe2");
+    this.explorersSpec = this.researches.find((res) => res.id === "spe3");
 
     for (let i = 0; i < 21; i++) {
       const resData: IResearchData = {

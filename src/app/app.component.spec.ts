@@ -4,7 +4,6 @@ import { AppComponent } from "./app.component";
 import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
 import { MainService } from "./main.service";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
-
 import { NzGridModule } from "ng-zorro-antd/grid";
 import { NzCardModule } from "ng-zorro-antd/card";
 import { NzFormModule } from "ng-zorro-antd/form";
@@ -45,6 +44,7 @@ import { FormatPipe } from "./format.pipe";
 import { OptionsService } from "./options.service";
 import { NzDropDownModule } from "ng-zorro-antd/dropdown";
 import { TimePipe } from "./time.pipe";
+import { NzDividerModule } from "ng-zorro-antd/divider";
 export const testImports = [
   RouterTestingModule,
   FormsModule,
@@ -88,7 +88,8 @@ export const testImports = [
   NzTagModule,
   NzToolTipModule,
   NzTypographyModule,
-  NzDropDownModule
+  NzDropDownModule,
+  NzDividerModule
 ];
 
 describe("AppComponent", () => {

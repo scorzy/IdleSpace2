@@ -1,6 +1,6 @@
 import { IBase } from "../iBase";
 import { IUnlockable } from "../iUnlocable";
-import { ZERO, ONE } from "../CONSTANTS";
+import { ZERO, ONE, TECHNOLOGY_ICON } from "../CONSTANTS";
 import { Bonus } from "../bonus/bonus";
 import { BonusStack } from "../bonus/bonusStack";
 import { ITechnologyData } from "../data/technologyData";
@@ -28,6 +28,7 @@ export class Technology implements IBase, IUnlockable, ITechnologyData {
   darkColor: string;
   lightColor: string;
   technologyBonus: BonusStack;
+  typeIcon = TECHNOLOGY_ICON;
 
   constructor(data: ITechnologyData) {
     assign(this, data);

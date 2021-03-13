@@ -1,5 +1,11 @@
 import { IBase } from "../iBase";
-import { TEN, ZERO, ONE, PRESTIGE_POINT_QUANTITY } from "../CONSTANTS";
+import {
+  TEN,
+  ZERO,
+  ONE,
+  PRESTIGE_POINT_QUANTITY,
+  PRESTIGE_POINT_ICON
+} from "../CONSTANTS";
 import { Game } from "../game";
 
 export class PrestigePoint implements IBase {
@@ -16,6 +22,8 @@ export class PrestigePoint implements IBase {
   requiredQuantity = PRESTIGE_POINT_QUANTITY;
   dependantPoints: PrestigePoint[];
   unLocked = true;
+  typeIcon = PRESTIGE_POINT_ICON;
+  onBuy: (quantity: Decimal) => void;
   reload() {
     const pm = Game.getGame().prestigeManager;
     this.maxBuy = pm.experience.div(this.price).floor();
@@ -34,6 +42,7 @@ export class PrestigePoint implements IBase {
       this.dependantPoints.forEach((point) => point.checkLock());
     }
     Game.getGame().prestigeManager.reloadSpentPoints();
+    if (this.onBuy) this.onBuy(quantity);
     return true;
   }
   get quantity(): Decimal {

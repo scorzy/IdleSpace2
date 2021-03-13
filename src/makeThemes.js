@@ -21,7 +21,9 @@ const smallText = {
 };
 const normalText = {
   "@font-size-sm": "14px",
-  "@font-size-base": "14px"
+  "@font-size-base": "14px",
+  "font-size-sm": "14px",
+  "font-size-base": "14px"
 };
 const colors = [
   { name: "blue", vars: null },
@@ -98,8 +100,8 @@ const base = [
     source: "light-blue",
     modifyVars: {
       ...aliyunTheme,
-      ...normalText,
-      ...commonModyVar
+      ...commonModyVar,
+      ...normalText
     }
   }
 ];
@@ -115,6 +117,7 @@ base.forEach((theme) => {
     newTheme.modifyVars = {
       ...commonVars,
       ...compactThemeVars,
+      ...normalText,
       ...commonCompVar
     };
     toBuild.push(newTheme);

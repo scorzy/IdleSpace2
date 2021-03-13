@@ -108,6 +108,7 @@ export class CardsComponent implements OnInit, AfterViewInit {
     this.ms.game.prestigeManager.cards.forEach((card) => (card.active = false));
     this.inUse.forEach((card) => (card.active = true));
     this.ms.game.prestigeManager.lockedCars = true;
+    this.ms.game.researchManager.researches.forEach((res) => res.loadMax());
   }
   getSpellId(index: number, spell: Spell) {
     return spell.id;

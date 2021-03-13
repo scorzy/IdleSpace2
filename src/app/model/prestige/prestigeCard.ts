@@ -1,5 +1,5 @@
 import { IBase } from "../iBase";
-import { ONE, ZERO } from "../CONSTANTS";
+import { ONE, PRESTIGE_CARD_ICON, ZERO } from "../CONSTANTS";
 import { ICardData } from "../data/prestigeCard";
 
 export class PrestigeCard implements IBase {
@@ -10,6 +10,7 @@ export class PrestigeCard implements IBase {
   colorClass?: string;
   active = false;
   cardRequired = 1;
+  typeIcon = PRESTIGE_CARD_ICON;
   constructor(data: ICardData) {
     this.id = data.id;
     this.name = data.name;

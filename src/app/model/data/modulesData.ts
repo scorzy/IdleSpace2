@@ -538,8 +538,8 @@ export const modules: ModuleData[] = [
   },
   {
     id: "G",
-    name: "Clocking Device",
-    description: "Clocking Device decrease threat generated from damage done.",
+    name: "Cloaking Device",
+    description: "Cloaking Device decrease threat generated from damage done.",
     technologies: [
       { technologyId: TECHNOLOGIES.Physics.id, multi: 1 },
       { technologyId: TECHNOLOGIES.Materials.id, multi: 1 }

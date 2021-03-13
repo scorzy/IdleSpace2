@@ -35,7 +35,8 @@ export class ShipyardComponent
       active: false,
       name: "Fleet 1",
       disabled: false,
-      fleet: 0
+      fleet: 0,
+      activated: false
     }
   ];
   tplModal?: NzModalRef;
@@ -58,7 +59,8 @@ export class ShipyardComponent
         active: false,
         name: this.fleetNames[i],
         disabled: false,
-        fleet: i
+        fleet: i,
+        activated: false
       });
     }
     this.subscriptions.push(
@@ -169,5 +171,8 @@ export class ShipyardComponent
       },
       nzFooter: null
     });
+  }
+  activeChange(event: Event, panel: any) {
+    panel.activated = true;
   }
 }

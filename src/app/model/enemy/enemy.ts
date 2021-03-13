@@ -151,17 +151,10 @@ export class Enemy {
     //#region Naval
     const navalCapMulti = 1 + Math.floor(1.2 * Math.random()) / 10;
     const modLevelMulti = Math.floor(10 / navalCapMulti) / 10;
-    // const maxNavalCap =
-    //   navalCapMulti *
-    //   Math.min(
-    //     BASE_NAVAL_CAPACITY -
-    //       4 +
-    //       Math.pow(ENEMY_NAVAL_CAP_LEVEL * this.level, 0.86),
-    //     FLEET_CAPACITY
-    //   );
-    const maxNavalCap = Math.min(
-      21 + (this.level * 5300) / (this.level + 400),
-      FLEET_CAPACITY
+    const maxNavalCap = Math.floor(
+      21 +
+        (this.level * 5300) / (this.level + 400) +
+        (this.level * 9000) / (this.level + 25000)
     );
     let defPercent = 0;
     if (searchJob.enemyLevel < 1) {
@@ -169,19 +162,13 @@ export class Enemy {
       this.designs.push(this.generateDesign(FIRST_DRONE, this.modLevel));
       sum = 1;
     } else {
-      //#region Ships
-      // this.modLevel =
-      //   Math.floor(
-      //     12 * this.level +
-      //       100 * Math.pow(MOD_LEVEL_EXP, this.level) * modLevelMulti
-      //   ) / 10;
       this.modLevel = Math.floor(
         10 + 6 * this.level + 2 * Math.pow(2 * this.level, 0.65)
       );
       this.weaponDefenceRatio = 0.2 + Math.random() * 0.5;
       const sm = Game.getGame().shipyardManager;
       const maxShip = Math.min(
-        10,
+        sm.shipTypes.length,
         Math.floor(
           2 + (10 * this.level) / (60 + Math.random() * 20 + this.level)
         )
@@ -290,7 +277,7 @@ export class Enemy {
       }
       if (defPercent > 0) {
         const maxDef = Math.floor(
-          1 + (10 * (this.level - 10)) / (5 + Math.random() * 10 + this.level)
+          1 + (11 * (this.level - 10)) / (60 + Math.random() * 20 + this.level)
         );
         const allowedDefTypes = sm.shipTypes.slice(0, maxDef);
         for (let k = 0; k < defNum; k++) {

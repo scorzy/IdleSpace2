@@ -91,7 +91,9 @@ export class Cell {
           totalDamage = totalDamage - defeated * totalDef;
           this.ships[i] -= defeated;
           this.ships[i] = Math.max(this.ships[i], 0);
+          curEnemy.designs[i].addKilledStat(defeated);
         } else {
+          curEnemy.designs[i].addKilledStat(this.ships[i]);
           this.ships[i] = 0;
         }
       }
@@ -104,9 +106,9 @@ export class Cell {
     const ret: any = {};
     if (this.materials && this.materials.length > 0) {
       ret.m = this.materials.map((mat) => ({
-          i: mat.material.id,
-          q: mat.quantity
-        }));
+        i: mat.material.id,
+        q: mat.quantity
+      }));
     }
     if (this.ships) {
       ret.s = this.ships;

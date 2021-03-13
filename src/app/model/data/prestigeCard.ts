@@ -379,7 +379,7 @@ export const PRESTIGE_CARDS: ICardData[] = [
     description:
       "Increase experience multiplier by " +
       CHALLENGE_XP_MULTI * 100 +
-      "% per challenge completed.",
+      "% per completed challenge.",
     icon: "arrow-up",
     cardRequired: 5
   },
@@ -391,6 +391,16 @@ export const PRESTIGE_CARDS: ICardData[] = [
     description: "Increase maximum search points from 100 to 200.",
     icon: "my:radar-sweep",
     cardRequired: 1
+  },
+  //#endregion
+  //#region Achievements
+  {
+    id: "A",
+    name: "Achievements multiplier",
+    description:
+      "Increase experience multiplier by 1% per completed achievement.",
+    icon: "trophy",
+    cardRequired: 5
   }
   //#endregion
 ];

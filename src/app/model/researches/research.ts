@@ -11,7 +11,8 @@ import {
   TIER_ONE_RES_PRICE_MULTI,
   INSPIRATION_PERCENT,
   INSPIRATION_CARD,
-  GAME_VERSION
+  GAME_VERSION,
+  RESEARCH_ICON
 } from "../CONSTANTS";
 import { IUnlockable } from "../iUnlocable";
 import { Game } from "../game";
@@ -42,14 +43,9 @@ export class Research extends Job implements IUnlockable, IBase {
   visLevel = 0;
   private originalName: string;
   private _max2 = 1;
+  private _maxRes;
   get max() {
-    if (this._max2 < 2) return this._max2;
-    if (!Game.getGame().prestigeManager) return this._max2;
-    return (
-      (this._max2 +
-        Game.getGame().challengeManager?.scienceChallenge.quantity.toNumber()) *
-      (Game.getGame().prestigeManager.doubleRepeatableResearches.active ? 2 : 1)
-    );
+    return this._maxRes;
   }
   set max(val: number) {
     this._max2 = val;
@@ -97,6 +93,7 @@ export class Research extends Job implements IUnlockable, IBase {
   commonCivilianBonus: number;
   spaceStationBuildBonus: number;
   fleetCapacity: number;
+  typeIcon = RESEARCH_ICON;
   constructor(researchData: IResearchData, researchManager: ResearchManager) {
     super();
     this.resData = researchData;
@@ -128,11 +125,11 @@ export class Research extends Job implements IUnlockable, IBase {
     }
     if ("technologyBonus" in researchData) {
       this.technologyBonus = researchData.technologyBonus.map((data) => ({
-          technology: researchManager.technologies.find(
-            (a) => a.id === data.techId
-          ),
-          multi: data.multi
-        }));
+        technology: researchManager.technologies.find(
+          (a) => a.id === data.techId
+        ),
+        multi: data.multi
+      }));
       this.technologyBonus.forEach((data) => {
         data.technology.technologyBonus.bonuses.push(
           new Bonus(this, new Decimal(data.multi))
@@ -228,10 +225,12 @@ export class Research extends Job implements IUnlockable, IBase {
       });
     }
     if ("shipProductionBonus" in this.resData) {
-      this.shipProductionBonus = this.resData.shipProductionBonus.map((spb) => ({
+      this.shipProductionBonus = this.resData.shipProductionBonus.map(
+        (spb) => ({
           shipType: sm.shipTypes.find((t) => t.id === spb.shipType),
           multi: spb.multi
-        }));
+        })
+      );
     }
     if ("battleMulti" in this.resData) {
       this.resData.battleMulti.forEach((multi) => {
@@ -606,6 +605,20 @@ export class Research extends Job implements IUnlockable, IBase {
     this.quantity = ZERO;
 
     this.reload();
+  }
+  loadMax() {
+    if (this._max2 < 2) this._maxRes = this._max2;
+    else {
+      const game = Game.getGame();
+      if (!game.prestigeManager) this._maxRes = this._max2;
+      this._maxRes = Math.floor(
+        (this._max2 +
+          game.prestigeManager.plusOneResearch.quantity.toNumber() +
+          game.achievementManager.scienceAck.quantity.toNumber() +
+          game.challengeManager?.scienceChallenge.quantity.toNumber()) *
+          (game.prestigeManager.doubleRepeatableResearches.active ? 2 : 1)
+      );
+    }
   }
   //#region Save and Load
   getSave(done = false): any {

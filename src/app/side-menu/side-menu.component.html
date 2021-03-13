@@ -241,6 +241,19 @@
     <span>Warps</span>
   </li>
   <li
+    *ngIf="ms.game.achievementManager.showTab"
+    (click)="selectLink.emit()"
+    nz-menu-item
+    nzMatchRouter
+    routerLink="ack"
+    nz-tooltip
+    nzTooltipPlacement="right"
+    [nzTooltipTitle]="!mobile && isCollapsed ? 'Achievements' : ''"
+  >
+    <i nz-icon nzType="trophy" nzTheme="outline"></i>
+    <span>Achievements</span>
+  </li>
+  <li
     (click)="selectLink.emit()"
     nz-menu-item
     nzMatchRouter
