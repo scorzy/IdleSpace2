@@ -134,7 +134,6 @@ import { UnitTabsComponent } from "./unit-list/unit-tabs/unit-tabs.component";
 import { UnitOptionsComponent } from "./unit-list/unit-options/unit-options.component";
 import { BuyMenuComponent } from "./units/buy-menu/buy-menu.component";
 import { NzDividerModule } from "ng-zorro-antd/divider";
-import { UiScrollModule } from "ngx-ui-scroll";
 
 registerLocaleData(en);
 
@@ -278,8 +277,7 @@ const ngZorroConfig: NzConfig = {
     NzDropDownModule,
     NzPopconfirmModule,
     NzMessageModule,
-    NzDividerModule,
-    UiScrollModule
+    NzDividerModule
   ],
   providers: [
     { provide: NZ_I18N, useValue: en_US },
