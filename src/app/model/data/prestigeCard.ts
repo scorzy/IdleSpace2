@@ -35,6 +35,7 @@ import {
 
 export interface ICardData extends ISimpleBase {
   cardRequired?: number;
+  requirement?: string;
 }
 
 export const PRESTIGE_CARDS: ICardData[] = [
@@ -125,6 +126,14 @@ export const PRESTIGE_CARDS: ICardData[] = [
     name: "Double Level Researches",
     description: "Repeatable researches can be repeated double times.",
     icon: "fa-s:flask"
+  },
+  {
+    id: "r4",
+    name: "More Researches",
+    description: "Add more repeatable researches.",
+    icon: "fa-s:flask",
+    requirement: "r3",
+    cardRequired: 2
   },
   //#endregion
   //#region War

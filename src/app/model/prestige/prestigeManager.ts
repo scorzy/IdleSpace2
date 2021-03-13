@@ -135,6 +135,7 @@ export class PrestigeManager {
   favouriteSpellCard: PrestigeCard;
   achievementMultiplierCard: PrestigeCard;
   doubleAttackCard: PrestigeCard;
+  moreRepeatableResearches: PrestigeCard;
   //#endregion
   //#region Others
   favouriteModule: Module;
@@ -656,6 +657,13 @@ export class PrestigeManager {
     const sy = Game.getGame().shipyardManager;
     const sp = Game.getGame().spaceStationManager;
     this.cards = PRESTIGE_CARDS.map((data) => new PrestigeCard(data));
+    PRESTIGE_CARDS.forEach((cardData) => {
+      if (cardData.requirement) {
+        const card = this.cards.find((c) => c.id === cardData.id);
+        const req = this.cards.find((c) => c.id === cardData.requirement);
+        card.requirement = req;
+      }
+    });
     //#region Drones
     const prodCard = this.cards.find((card) => card.id === "0");
     const effCard = this.cards.find((card) => card.id === "1");
@@ -715,6 +723,7 @@ export class PrestigeManager {
     this.doubleRepeatableResearches = this.cards.find(
       (card) => card.id === "r3"
     );
+    this.moreRepeatableResearches = this.cards.find((card) => card.id === "r4");
     sm.technologies.forEach((tech) => {
       tech.technologyBonus.bonuses.push(
         new Bonus(technology, new Decimal(TECHNOLOGY_CARD))

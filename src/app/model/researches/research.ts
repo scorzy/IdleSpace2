@@ -35,6 +35,7 @@ import { Challenge } from "../challenge/challenge";
 import { BonusStack } from "../bonus/bonusStack";
 import { Infrastructure } from "../units/infrastructure";
 import { MainService } from "src/app/main.service";
+import { PrestigeCard } from "../prestige/prestigeCard";
 
 export class Research extends Job implements IUnlockable, IBase {
   static lastVisId = 0;
@@ -94,6 +95,7 @@ export class Research extends Job implements IUnlockable, IBase {
   spaceStationBuildBonus: number;
   fleetCapacity: number;
   typeIcon = RESEARCH_ICON;
+  requiredCard: PrestigeCard;
   constructor(researchData: IResearchData, researchManager: ResearchManager) {
     super();
     this.resData = researchData;
@@ -537,6 +539,7 @@ export class Research extends Job implements IUnlockable, IBase {
     }
   }
   unlock(): boolean {
+    if (this.requiredCard && !this.requiredCard.active) return false;
     if (
       this.requiredChallenge &&
       this.requiredChallenge.challenge.quantity.lt(this.requiredChallenge.level)

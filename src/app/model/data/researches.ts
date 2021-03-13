@@ -258,6 +258,16 @@ export const RESEARCHES: IResearchData[] = [
     priceMulti: REPEATABLE_RES_PRICE_MULTI,
     energyDistMulti: 0.3
   },
+  {
+    id: "E-3",
+    name: "Field Modulation",
+    description: "",
+    type: TECHNOLOGIES.Energy,
+    unlockFrom: "E1",
+    requiredCardId: "r4",
+    priceMulti: REPEATABLE_RES_PRICE_MULTI,
+    effMulti: [{ unitId: IDS.Technician, multi: 0.04 }]
+  },
   //#endregion
   //#region Mining
   {

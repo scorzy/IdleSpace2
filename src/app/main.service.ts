@@ -43,6 +43,7 @@ export class MainService {
   updateEmitter = new EventEmitter<number>();
   saveEmitter = new EventEmitter<number>();
   exportEmitter = new EventEmitter<string>();
+  cardChangeEmitter = new EventEmitter<number>();
   lzWorker: Worker;
   enemyListCollapsed = false;
   designListCollapsed = false;

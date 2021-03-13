@@ -653,6 +653,16 @@ export class ResearchManager extends JobManager {
         .cmp(b.total.minus(b.progress).div(b.totalBonus))
     );
   }
+  setPrestigeRelations() {
+    const pm = Game.getGame().prestigeManager;
+    this.researches.forEach((res) => {
+      if (res.resData.requiredCardId) {
+        res.requiredCard = pm.cards.find(
+          (c) => c.id === res.resData.requiredCardId
+        );
+      }
+    });
+  }
   prestige() {
     this.researches.forEach((res) => res.prestige());
     this.technologies.forEach((tech) => tech.prestige());

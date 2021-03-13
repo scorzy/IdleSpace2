@@ -1,6 +1,7 @@
 import { IBase } from "../iBase";
 import { ONE, PRESTIGE_CARD_ICON, ZERO } from "../CONSTANTS";
 import { ICardData } from "../data/prestigeCard";
+import { Game } from "../game";
 
 export class PrestigeCard implements IBase {
   id: string;
@@ -11,6 +12,8 @@ export class PrestigeCard implements IBase {
   active = false;
   cardRequired = 1;
   typeIcon = PRESTIGE_CARD_ICON;
+  requirement: PrestigeCard;
+  selected = false;
   constructor(data: ICardData) {
     this.id = data.id;
     this.name = data.name;

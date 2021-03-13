@@ -145,6 +145,7 @@ export class Game {
     this.prestigeManager = new PrestigeManager();
     this.challengeManager = new ChallengeManager();
     this.researchManager.setChallengesRelations();
+    this.researchManager.setPrestigeRelations();
 
     this.achievementManager = new AchievementManager();
     this.shipyardManager.afterResearchesInit();
