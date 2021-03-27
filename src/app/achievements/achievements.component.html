@@ -1,0 +1,68 @@
+<h2>
+  <i nz-icon nzType="trophy" nzTheme="outline" class="achievement-color"></i>
+  Achievements
+  <span class="total-ack monospace text-secondary">
+    {{ ms.game.achievementManager.quantity | format: true }}/{{
+      ms.game.achievementManager.total | format: true
+    }}
+  </span>
+</h2>
+
+<ng-container
+  *ngFor="let panel of ms.game.achievementManager.groups; trackBy: getGroupId"
+>
+  <nz-divider [nzText]="title" nzOrientation="left"></nz-divider>
+  <ng-template #title>
+    <span class="title">
+      {{ panel.name }}
+    </span>
+    <span class="text-secondary monospace">
+      {{ panel.current + "/" + panel.total }}
+    </span>
+  </ng-template>
+  <ng-container *ngFor="let ack of panel.list; trackBy: getAckId">
+    <i
+      nz-icon
+      [nzType]="ack.icon"
+      class="achievement-icon text-secondary"
+      nz-popover
+      [nzPopoverTitle]="ack.name"
+      [nzPopoverContent]="ackDescription"
+    >
+    </i>
+    <i
+      nz-icon
+      [nzType]="ack.icon"
+      class="achievement-icon completed-overlay"
+      [ngClass]="ack.colorClass"
+      nz-popover
+      [nzPopoverTitle]="ack.name"
+      [nzPopoverContent]="ackDescription"
+      [style.clip-path]="clip(ack)"
+    >
+    </i>
+    <ng-template #ackDescription>
+      <p class="ack-description">
+        {{ ack.description }}
+      </p>
+      <span *ngIf="ack.max > 1">
+        <span class="series">
+          Series:
+          <span class="monospace">
+            {{ ack.quantity | format: true }}/{{ ack.max | format: true }}
+          </span>
+        </span>
+
+        Progress:
+        <span class="monospace" *ngIf="ack.formatNext; else formatStandard">
+          {{ ack.formatNext(ack.progress) }}/{{ ack.formatNext(ack.next) }}
+        </span>
+        <ng-template #formatStandard>
+          <span class="monospace">
+            {{ ack.progress | format: true }}/{{ ack.next | format: true }}
+          </span>
+        </ng-template>
+      </span>
+    </ng-template>
+  </ng-container>
+</ng-container>

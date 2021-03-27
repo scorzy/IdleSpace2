@@ -12,6 +12,8 @@ import { MainService } from "src/app/main.service";
 export class Unit implements IBase, IUnlockable {
   id = "";
   name = "";
+  namePlural = "";
+  typeIcon = "";
   description = "";
   unlocked = false;
   icon = "";
@@ -48,6 +50,8 @@ export class Unit implements IBase, IUnlockable {
   constructor(public unitData: IUnitData) {
     this.id = unitData.id;
     this.name = unitData.name;
+    this.namePlural =
+      "namePlural" in unitData ? unitData.namePlural : unitData.name;
     this.description = unitData.description;
     if ("startQuantity" in unitData) {
       this.unlocked = true;

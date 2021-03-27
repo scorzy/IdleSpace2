@@ -3,7 +3,8 @@ import {
   OnInit,
   ChangeDetectionStrategy,
   HostBinding,
-  AfterViewInit
+  AfterViewInit,
+  EventEmitter
 } from "@angular/core";
 import { PrestigeCard } from "../model/prestige/prestigeCard";
 import { MainService } from "../main.service";
@@ -50,21 +51,26 @@ export class CardsComponent implements OnInit, AfterViewInit {
     }
 
     this.nzOptions = this.ms.game.shipyardManager.groups.map((group) => ({
-        value: group.id,
-        label: group.name,
-        group,
-        children: group.all
-          .filter((mod) => mod.unlocked)
-          .map((mod) => ({
-              value: mod.id,
-              label: mod.name,
-              mod,
-              isLeaf: true
-            }))
-      }));
+      value: group.id,
+      label: group.name,
+      group,
+      children: group.all
+        .filter((mod) => mod.unlocked)
+        .map((mod) => ({
+          value: mod.id,
+          label: mod.name,
+          mod,
+          isLeaf: true
+        }))
+    }));
 
     this.reloadPoints();
     this.reloadFavourite();
+    for (let i = 0, n = this.ms.game.prestigeManager.cards.length; i < n; i++) {
+      this.ms.game.prestigeManager.cards[
+        i
+      ].selected = this.ms.game.prestigeManager.cards[i].active;
+    }
   }
   ngAfterViewInit() {
     setTimeout(() => {
@@ -77,7 +83,8 @@ export class CardsComponent implements OnInit, AfterViewInit {
   getCardId(index: number, card: PrestigeCard) {
     return card.id;
   }
-  drop(event: CdkDragDrop<string[]>) {
+  drop(event: CdkDragDrop<PrestigeCard[]>) {
+    const card = event.previousContainer.data[event.previousIndex];
     if (event.previousContainer === event.container) {
       moveItemInArray(
         event.container.data,
@@ -94,8 +101,11 @@ export class CardsComponent implements OnInit, AfterViewInit {
     }
     this.reloadPoints();
     this.reloadFavourite();
+    card.selected = this.inUse.some((c) => c === card);
+    this.ms.cardChangeEmitter.emit(Date.now());
   }
   maxPredicate(item: CdkDrag<PrestigeCard>, list: CdkDropList<PrestigeCard>) {
+    if (item.data.requirement && !item.data.requirement.active) return false;
     const points = list
       .getSortedItems()
       .reduce((p, c) => p + c.data.cardRequired, 0);
@@ -108,6 +118,10 @@ export class CardsComponent implements OnInit, AfterViewInit {
     this.ms.game.prestigeManager.cards.forEach((card) => (card.active = false));
     this.inUse.forEach((card) => (card.active = true));
     this.ms.game.prestigeManager.lockedCars = true;
+    this.ms.game.researchManager.researches.forEach((res) => res.loadMax());
+  }
+  isCardInUse(card: PrestigeCard): boolean {
+    return this.inUse.some((c) => c === card);
   }
   getSpellId(index: number, spell: Spell) {
     return spell.id;

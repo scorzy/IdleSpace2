@@ -7,18 +7,21 @@
 >
   <thead>
     <tr>
+      <th></th>
       <th>Name</th>
       <th>Bonus</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let addData of additiveBonuses">
+      <td><i nz-icon [nzType]="addData.typeIcon"></i></td>
       <td>{{ addData.name }}</td>
       <td class="monospace">+ {{ addData.factor | format: integer:digits }}</td>
     </tr>
     <tr *ngFor="let data of bonuses">
+      <td><i nz-icon [nzType]="data.typeIcon"></i></td>
       <td>{{ data.name }}</td>
-      <td class="monospace">x {{ data.factor | format: false:digits }}</td>
+      <td class="monospace">+ {{ data.factor | format: false:digits }} %</td>
     </tr>
   </tbody>
 </nz-table>

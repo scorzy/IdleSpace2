@@ -1,8 +1,5 @@
 import { Unit } from "./unit";
-import {
-  ZERO,
-  UNIT_PRICE_GROW_RATE
-} from "../CONSTANTS";
+import { ZERO, UNIT_PRICE_GROW_RATE, SPACE_STATION_ICON } from "../CONSTANTS";
 import { Game } from "../game";
 import { Research } from "../researches/research";
 
@@ -11,6 +8,7 @@ export abstract class AbstractSpaceStation extends Unit {
   buildPriceNext = ZERO;
   researchesToInspire: Array<Research>;
   level = 0;
+  typeIcon = SPACE_STATION_ICON;
 
   getBuildPrice(index = Number.POSITIVE_INFINITY) {
     const toDoList = Game.getGame().spaceStationManager.toDo;

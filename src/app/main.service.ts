@@ -44,6 +44,7 @@ export class MainService {
   updateEmitter = new Subject<number>();
   saveEmitter = new Subject<number>();
   exportEmitter = new Subject<string>();
+  cardChangeEmitter = new Subject<number>();
   lzWorker: Worker;
   enemyListCollapsed = false;
   designListCollapsed = false;
@@ -68,23 +69,6 @@ export class MainService {
     private message: NzMessageService,
     @Inject(DOCUMENT) private document: Document
   ) {
-    // this.bc = new BroadcastChannel("IS2_channel");
-    // this.bc.postMessage("Open");
-    // this.bc.postMessage("Ask");
-    // this.bc.onmessage = (message) => {
-    //   const data = message.data;
-    //   switch (data) {
-    //     case "Ask":
-    //       this.bc.postMessage("Already");
-    //       break;
-    //     case "Already":
-    //       this.pageOk = false;
-    //       this.game = null;
-    //       this.updateEmitter.emit(-1);
-    //       break;
-    //   }
-    // };
-
     if (!this.pageOk) return;
     this.last = Date.now();
     MainService.instance = this;

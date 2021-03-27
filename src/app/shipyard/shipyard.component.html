@@ -52,6 +52,7 @@
         [nzHeader]="fleetTitle"
         [nzActive]="panel.active"
         [nzDisabled]="panel.disabled"
+        (nzActiveChange)="activeChange($event, panel)"
       >
         <ng-template #fleetTitle>
           <strong class="fleet-name"> {{ panel.name }} </strong>
@@ -88,6 +89,7 @@
           nzTemplateMode
           nzSize="middle"
           nzTableLayout="fixed"
+          *ngIf="panel.activated"
         >
           <thead>
             <tr>

@@ -28,6 +28,16 @@ import { BonusStack } from "./bonus/bonusStack";
 import { ChallengeManager } from "./challenge/challengeManager";
 import { Challenge } from "./challenge/challenge";
 import { Bonus } from "./bonus/bonus";
+import { AchievementManager } from "./achievements/achievementManager";
+import { StatsManager } from "./stats/statsManager";
+import { Achievement } from "./achievements/achievement";
+import { Spell } from "./computing/spell";
+import { IBase } from "./iBase";
+import { PrestigeCard } from "./prestige/prestigeCard";
+import { PrestigePoint } from "./prestige/prestigePoint";
+import { Research } from "./researches/research";
+import { Building } from "./units/building";
+import { SpaceStation } from "./units/spaceStation";
 
 /**
  * Game is the main class that orchestrate everything game related
@@ -47,6 +57,8 @@ export class Game {
   computingManager: ComputingManager;
   prestigeManager: PrestigeManager;
   challengeManager: ChallengeManager;
+  achievementManager: AchievementManager;
+  statsManager: StatsManager;
 
   navalCapacity: number = BASE_NAVAL_CAPACITY;
 
@@ -81,6 +93,8 @@ export class Game {
   additiveNavalCapStack: BonusStack;
   multiNavalCapStack: BonusStack;
   lastPrestigeTime = Date.now();
+  extraAttacks = [true, true, true, true, true];
+  skipPost = false;
 
   private _gameId = "";
   private battleResults: { result: BattleResult; fleet: number }[] = [];
@@ -96,12 +110,18 @@ export class Game {
   }
   constructor() {
     Game.instance = this;
+    this.statsManager = new StatsManager();
     this.idleTimeMultipliers = new BonusStack();
     this.additiveNavalCapStack = new BonusStack();
     this.multiNavalCapStack = new BonusStack();
     this.additiveNavalCapStack.bonuses.push(
       new Bonus(
-        { id: "", name: "Initial Naval Capacity", quantity: ONE },
+        {
+          id: "",
+          name: "Initial Naval Capacity",
+          quantity: ONE,
+          typeIcon: "my:strafe"
+        },
         new Decimal(BASE_NAVAL_CAPACITY)
       )
     );
@@ -125,10 +145,13 @@ export class Game {
     this.prestigeManager = new PrestigeManager();
     this.challengeManager = new ChallengeManager();
     this.researchManager.setChallengesRelations();
+    this.researchManager.setPrestigeRelations();
 
+    this.achievementManager = new AchievementManager();
     this.shipyardManager.afterResearchesInit();
 
     this.setTheme();
+    this.achievementManager.afterInit();
 
     this.battleStats = Array<{
       id: string;
@@ -138,6 +161,7 @@ export class Game {
       date: number;
       battleResult: BattleResult;
     }>();
+    this.researchManager.researches.forEach((res) => res.loadMax());
   }
   /**
    * Generate an unique ID. Used for battle.
@@ -156,6 +180,7 @@ export class Game {
    * @param delta in seconds
    */
   update(delta: number) {
+    //  Warps
     this.idleTimeMultipliers.reloadBonus();
     if (delta > SIX_HOURS) {
       const oldDelta = delta;
@@ -193,15 +218,14 @@ export class Game {
         ),
         this.timeToWarp
       );
+      this.statsManager.onWarp(this.timeToWarp);
     }
     let toUpdate = delta + this.timeToWarp;
     const warped = this.timeToWarp;
     this.timeToWarp = 0;
     this.processBattles(warped);
 
-    if (this.automationUnlocked) {
-      this.automationManager.update();
-    }
+    if (this.automationUnlocked) this.automationManager.update();
 
     let n = 0;
     while (toUpdate > 0 && n < 20) {
@@ -269,6 +293,7 @@ export class Game {
     }
   }
   postUpdate(delta: number) {
+    this.skipPost = !this.skipPost;
     this.notificationManager.notifyResearches();
 
     this.challengeManager.postUpdate();
@@ -301,6 +326,12 @@ export class Game {
       this.resourceManager.energy.limit
     );
     this.prestigeManager.loadNextMultiplier();
+    this.extraAttacks[0] = true;
+    this.extraAttacks[1] = true;
+    this.extraAttacks[2] = true;
+    this.extraAttacks[3] = true;
+    this.extraAttacks[4] = true;
+    if (!this.skipPost) this.achievementManager.postUpdate();
   }
   /**
    * Reload naval capacity.
@@ -311,24 +342,7 @@ export class Game {
     this.navalCapacity = this.additiveNavalCapStack.totalAdditiveBonus
       .times(this.multiNavalCapStack.totalBonus)
       .toNumber();
-    // TODO:check
-    // this.navalCapacity = BASE_NAVAL_CAPACITY;
-    // for (let i = 0, n = this.researchManager.researches.length; i < n; i++) {
-    //   this.navalCapacity += this.researchManager.researches[i].quantity
-    //     .times(this.researchManager.researches[i].navalCapacity)
-    //     .toNumber();
-    // }
-    // this.navalCapacity += this.researchManager.navalCapTech.quantity.toNumber();
-    // if (this.resourceManager.megaNaval.quantity.gt(0)) {
-    //   this.navalCapacity *=
-    //     1 +
-    //     this.resourceManager.megaNaval.quantity.toNumber() * MEGA_NAVAL_MULTI;
-    // }
-    // if (this.prestigeManager.navalCapCard.active) {
-    //   this.navalCapacity *= 1 + NAVAL_CAP_CARD_MULTI;
-    // }
     this.navalCapacity = Math.floor(this.navalCapacity);
-
     this.shipyardManager.reloadFleetCapacity();
   }
   /**
@@ -338,7 +352,18 @@ export class Game {
     if (battleResult.gameId !== this.gameId) {
       return;
     }
+
     this.battleResults.push({ result: battleResult, fleet: fleetNum });
+    const now = performance.now();
+    if (
+      this.prestigeManager.doubleAttackCard.active &&
+      now >= battleResult.endTime &&
+      this.extraAttacks[fleetNum]
+    ) {
+      this.processBattles(0);
+      this.enemyManager.autoAttack();
+      this.extraAttacks[fleetNum] = false;
+    }
   }
   /**
    * Process ended battles.
@@ -469,6 +494,27 @@ export class Game {
     this.timeToWarp = this.timeToWarp + time;
     return true;
   }
+  static GetClassIcon(base: IBase): string {
+    let ret = "";
+    if (base instanceof Research) {
+      ret = "fa-s:flask";
+    } else if (base instanceof Challenge) {
+      ret = "fa-s:flask";
+    } else if (base instanceof Achievement) {
+      ret = "trophy";
+    } else if (base instanceof PrestigeCard) {
+      ret = "fa-s:layer-group";
+    } else if (base instanceof PrestigePoint) {
+      ret = "arrow-up";
+    } else if (base instanceof Building) {
+      ret = "fa-s:building";
+    } else if (base instanceof SpaceStation) {
+      ret = "my:defense-satellite";
+    } else if (base instanceof Spell) {
+      ret = "my:computing";
+    }
+    return ret;
+  }
   //#region Save and Load
   getSave(): any {
     return {
@@ -487,7 +533,9 @@ export class Game {
       j: this.challengeManager.getSave(),
       u: this.automationUnlocked,
       v: GAME_VERSION,
-      P: this.lastPrestigeTime
+      P: this.lastPrestigeTime,
+      A: this.achievementManager.getSave(),
+      S: this.statsManager.getSave()
     };
   }
   load(data: any) {
@@ -495,6 +543,8 @@ export class Game {
       throw new Error("Save not valid");
     }
     const saveVersion = "v" in data ? data.v : 0;
+    if ("S" in data) this.statsManager.load(data.S);
+
     if ("P" in data && typeof data.P === "number") {
       this.lastPrestigeTime = data.P;
     }
@@ -544,7 +594,10 @@ export class Game {
         }
       });
     }
-
+    if ("A" in data) {
+      this.achievementManager.load(data.A);
+    }
+    this.researchManager.researches.forEach((res) => res.loadMax());
     // this.enemyManager.maxLevel = 900;
 
     this.challengeManager.afterLoad();

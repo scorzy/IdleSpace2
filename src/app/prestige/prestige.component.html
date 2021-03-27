@@ -36,13 +36,17 @@
         <br />
         Defeat enemy level
         <strong class="monospace">
-          {{ ms.game.prestigeManager.minLevelToIncrease | format }}
+          {{ ms.game.prestigeManager.minLevelToIncrease | format: true }}
         </strong>
         to increase exp. multiplier to
         <strong class="monospace">
           {{ ms.game.prestigeManager.ipotetchicalMultiplier | format }}
         </strong>
       </ng-container>
+      <br />
+      Defeat an enemy of level
+      <strong class="monospace">{{ nextEnemy | format: true }}</strong> to gain
+      more experience.
     </p>
 
     <p>
@@ -73,10 +77,6 @@
       spent. "experience multiplier" is based on the max level of defeated
       enemy. Every experience point spent is counted as "experience multiplier"
       instead of one.
-      <br />
-      Defeat an enemy of level
-      <strong class="monospace">{{ nextEnemy | format: true }}</strong> to gain
-      more experience.
     </p>
     <nz-button-group>
       <button

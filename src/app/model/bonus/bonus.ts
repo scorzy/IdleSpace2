@@ -5,7 +5,7 @@ export class Bonus {
   storage = false;
   constructor(
     public unit: IBase,
-    public multiplier: Decimal,
+    public multiplier: Decimal | number,
     public secondMultiplier: IBase = null,
     public addUnit: IBase = null,
     public addMultiplier: Decimal = null

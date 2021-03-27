@@ -60,6 +60,7 @@ export class EnemyManager extends JobManager {
   lostRow = 0;
   killStreak = 0;
   searchBonuses: Bonus[];
+  darkMatterMultipliers: BonusStack = new BonusStack();
   //#region Bonus
   districtMultiplier: BonusStack = new BonusStack();
   habSpaceMultiplier: BonusStack = new BonusStack();
@@ -143,11 +144,22 @@ export class EnemyManager extends JobManager {
     this.enemies.push(enemy);
   }
   postUpdate() {
+    this.darkMatterMultipliers.reloadBonus();
     for (let i = 0, n = this.toDo.length; i < n; i++) {
       this.toDo[i].reloadTotalBonus();
       this.toDo[i].reload();
     }
     Game.getGame().enemyManager.reloadNukeDamage();
+    this.autoAttack();
+    //  Auto Next
+    if (this.autoNext && !this.currentEnemy) {
+      const next = this.enemies.find((n) => n.level <= this.maxLevel);
+      if (next) {
+        this.attackEnemy(next);
+      }
+    }
+  }
+  autoAttack() {
     const playerDesign = Game.getGame().shipyardManager.shipDesigns;
     //  Auto Attack
     if (this.currentEnemy && this.autoAttackEnabled) {
@@ -162,13 +174,6 @@ export class EnemyManager extends JobManager {
         ) {
           this.attackCell(i, true);
         }
-      }
-    }
-    //  Auto Next
-    if (this.autoNext && !this.currentEnemy) {
-      const next = this.enemies.find((n) => n.level <= this.maxLevel);
-      if (next) {
-        this.attackEnemy(next);
       }
     }
   }
@@ -309,10 +314,10 @@ export class EnemyManager extends JobManager {
           if (lostD) {
             const newNum = Math.floor(Math.max(cell.ships[i] - lostD.lost, 0));
             if (newNum < 1 || !oneShotChallenge) cell.ships[i] = newNum;
+            this.currentEnemy.designs[i].addKilledStat(lostD.lost);
           }
-          if (cell.ships[i] > 0) {
-            done = false;
-          }
+
+          if (cell.ships[i] > 0) done = false;
         }
       } else {
         for (let k = 0, n2 = cell.ships.length; k < n2; k++) {
@@ -517,6 +522,7 @@ export class EnemyManager extends JobManager {
   getDarkMatter(): Decimal {
     if (this.currentEnemy.level < ENEMY_EXP_START_LEVEL) return ZERO;
     let dmToAdd = Decimal.multiply(DM_PER_LEVEL, this.currentEnemy.level);
+    dmToAdd = dmToAdd.times(this.darkMatterMultipliers.totalBonus);
     if (Game.getGame().prestigeManager.moreDM.active) {
       dmToAdd = dmToAdd.times(1 + DM_GAIN_CARD);
     }
@@ -546,6 +552,7 @@ export class EnemyManager extends JobManager {
         const exp = this.getExperience(this.currentEnemy.level);
         pm.addExperience(exp);
       }
+      Game.getGame().achievementManager.onDefeatEnemyAchievements();
       this.maxLevel++;
     }
     let dmToAdd = ZERO;
@@ -561,7 +568,7 @@ export class EnemyManager extends JobManager {
         "Enemy Defeated!" +
           (dmToAdd.lte(0)
             ? ""
-            : " +" + MainService.timePipe.transform(dmToAdd) + " dark matter"),
+            : " +" + MainService.timePipe.transform(dmToAdd)),
         "Lv. " +
           MainService.formatPipe.transform(this.currentEnemy.level, true) +
           " " +

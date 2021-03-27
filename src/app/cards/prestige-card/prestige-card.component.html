@@ -2,15 +2,46 @@
   <nz-card-meta
     [nzAvatar]="avatarTemplate"
     [nzTitle]="titleTemplate"
-    [nzDescription]="card.description"
+    [nzDescription]="descTemplate"
   ></nz-card-meta>
 </nz-card>
 
 <ng-template #avatarTemplate>
-  <i nz-icon [nzType]="card.icon"></i>
+  <i
+    nz-icon
+    [class.text-secondary]="card.requirement && !card.requirement.selected"
+    [nzType]="
+      !card.requirement || card.requirement.selected ? card.icon : 'lock'
+    "
+  ></i>
 </ng-template>
 
 <ng-template #titleTemplate>
-  <span>{{ card.name }}</span>
-  <span class="monospace card-req">{{ card.cardRequired }}</span>
+  <span
+    [class.text-secondary]="card.requirement && !card.requirement.selected"
+    >{{ card.name }}</span
+  >
+  <span
+    [class.text-secondary]="card.requirement && !card.requirement.selected"
+    class="monospace card-req"
+    >{{ card.cardRequired }}</span
+  >
+</ng-template>
+
+<ng-template #descTemplate>
+  <div *ngIf="card.requirement">
+    <i
+      nz-icon
+      class="lock-icon"
+      [class.text-success]="card.requirement.selected"
+      [class.text-danger]="!card.requirement.selected"
+      [nzType]="
+        !card.requirement || card.requirement.selected ? 'unlock' : 'lock'
+      "
+    ></i>
+    <span>
+      {{ card.requirement.name }}
+    </span>
+  </div>
+  <span>{{ card.description }}</span>
 </ng-template>

@@ -1,7 +1,7 @@
 import {
   Component,
-  OnInit,
   ChangeDetectionStrategy,
+  OnInit,
   Input
 } from "@angular/core";
 import { BonusStack } from "src/app/model/bonus/bonusStack";
@@ -18,23 +18,32 @@ export class StackViewComponent implements OnInit {
   @Input() bonusStack: BonusStack;
   @Input() title = "";
   @Input() integer = false;
-  additiveBonuses: { name: string; factor: Decimal }[];
-  bonuses: { name: string; factor: Decimal }[];
-  total = ZERO;
   @Input() digits = 6;
+  additiveBonuses: { name: string; factor: Decimal; typeIcon: string }[];
+  bonuses: { name: string; factor: Decimal; typeIcon: string }[];
+  total = ZERO;
+
   constructor() {}
 
   ngOnInit(): void {
     if (this.additiveStack) {
       this.additiveBonuses = this.additiveStack.bonuses
         .filter((bon) => !bon.getBonus().eq(1))
-        .map((bon) => ({ name: bon.unit.name, factor: bon.getAdditiveBonus() }));
+        .map((bon) => ({
+          name: bon.unit.name,
+          factor: bon.getAdditiveBonus(),
+          typeIcon: bon.unit.typeIcon
+        }));
     }
 
     if (this.bonusStack) {
       this.bonuses = this.bonusStack.bonuses
         .filter((bon) => !bon.getBonus().eq(1))
-        .map((bon) => ({ name: bon.unit.name, factor: bon.getBonus() }));
+        .map((bon) => ({
+          name: bon.unit.name,
+          factor: bon.getBonus().times(100).minus(100),
+          typeIcon: bon.unit.typeIcon
+        }));
     }
 
     this.total = (this.additiveStack

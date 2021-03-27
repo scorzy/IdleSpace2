@@ -1,11 +1,18 @@
 {
   "root": true,
-  "ignorePatterns": ["projects/**/*"],
+  "ignorePatterns": [
+    "projects/**/*"
+  ],
   "overrides": [
     {
-      "files": ["*.ts"],
+      "files": [
+        "*.ts"
+      ],
       "parserOptions": {
-        "project": ["tsconfig.json", "e2e/tsconfig.json"],
+        "project": [
+          "tsconfig.json",
+          "e2e/tsconfig.json"
+        ],
         "createDefaultProgram": true
       },
       "extends": [
@@ -13,7 +20,10 @@
         "plugin:@angular-eslint/ng-cli-compat--formatting-add-on",
         "plugin:@angular-eslint/template/process-inline-templates"
       ],
-      "plugins": ["eslint-plugin-react", "eslint-plugin-rxjs"],
+      "plugins": [
+        "eslint-plugin-react",
+        "eslint-plugin-rxjs"
+      ],
       "rules": {
         "@angular-eslint/component-selector": [
           "error",
@@ -50,11 +60,23 @@
             }
           }
         ],
-        "@typescript-eslint/semi": ["off", null],
+        "@typescript-eslint/semi": [
+          "off",
+          null
+        ],
         "@typescript-eslint/type-annotation-spacing": "off",
-        "arrow-parens": ["off", "always"],
-        "brace-style": ["off", "off"],
-        "curly": ["error", "multi-line"],
+        "arrow-parens": [
+          "off",
+          "always"
+        ],
+        "brace-style": [
+          "off",
+          "off"
+        ],
+        "curly": [
+          "error",
+          "multi-line"
+        ],
         "eol-last": "off",
         "id-blacklist": "error",
         "import/order": "off",
@@ -71,31 +93,45 @@
         "react/jsx-wrap-multilines": "off",
         "rxjs/no-internal": "error",
         "space-before-function-paren": "off",
-        "space-in-parens": ["off", "never"],
+        "space-in-parens": [
+          "off",
+          "never"
+        ],
         "quotes": "off",
         "@typescript-eslint/quotes": [
           "error",
           "double",
-          { "avoidEscape": true }
+          {
+            "avoidEscape": true
+          }
         ],
         "@typescript-eslint/member-ordering": "off",
         "@typescript-eslint/naming-convention": [
           "error",
           {
             "selector": "variableLike",
-            "format": ["camelCase", "UPPER_CASE"],
+            "format": [
+              "camelCase",
+              "UPPER_CASE"
+            ],
             "leadingUnderscore": "allow"
           }
         ],
         "no-underscore-dangle": "off",
         "no-shadow": "off",
-        "@typescript-eslint/no-shadow": ["error"],
+        "@typescript-eslint/no-shadow": [
+          "error"
+        ],
         "prefer-arrow/prefer-arrow-functions": "off"
       }
     },
     {
-      "files": ["*.html"],
-      "extends": ["plugin:@angular-eslint/template/recommended"],
+      "files": [
+        "*.html"
+      ],
+      "extends": [
+        "plugin:@angular-eslint/template/recommended"
+      ],
       "rules": {}
     }
   ]

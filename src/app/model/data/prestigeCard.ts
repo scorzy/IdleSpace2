@@ -35,6 +35,7 @@ import {
 
 export interface ICardData extends ISimpleBase {
   cardRequired?: number;
+  requirement?: string;
 }
 
 export const PRESTIGE_CARDS: ICardData[] = [
@@ -126,6 +127,14 @@ export const PRESTIGE_CARDS: ICardData[] = [
     description: "Repeatable researches can be repeated double times.",
     icon: "fa-s:flask"
   },
+  {
+    id: "r4",
+    name: "More Researches",
+    description: "Add more repeatable researches.",
+    icon: "fa-s:flask",
+    requirement: "r3",
+    cardRequired: 2
+  },
   //#endregion
   //#region War
   {
@@ -216,6 +225,13 @@ export const PRESTIGE_CARDS: ICardData[] = [
       "Choose an unlocked ship module. Start next run with that module unlocked.",
     icon: "my:strafe",
     cardRequired: 1
+  },
+  {
+    id: "w12",
+    name: "Double Attack",
+    description:
+      "Your fleet can twice in the same turn. It happens battle time is less than 0.1s and no reinforce is needed.",
+    icon: "my:strafe"
   },
   //#endregion
   //#region Warp
@@ -379,7 +395,7 @@ export const PRESTIGE_CARDS: ICardData[] = [
     description:
       "Increase experience multiplier by " +
       CHALLENGE_XP_MULTI * 100 +
-      "% per challenge completed.",
+      "% per completed challenge.",
     icon: "arrow-up",
     cardRequired: 5
   },
@@ -391,6 +407,16 @@ export const PRESTIGE_CARDS: ICardData[] = [
     description: "Increase maximum search points from 100 to 200.",
     icon: "my:radar-sweep",
     cardRequired: 1
+  },
+  //#endregion
+  //#region Achievements
+  {
+    id: "A",
+    name: "Achievements multiplier",
+    description:
+      "Increase experience multiplier by 1% per completed achievement.",
+    icon: "trophy",
+    cardRequired: 5
   }
   //#endregion
 ];

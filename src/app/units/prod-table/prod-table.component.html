@@ -59,11 +59,25 @@
     <app-sub-table [positiveOnly]="true" [unit]="unit"></app-sub-table>
   </div>
   <nz-collapse *ngIf="expandable">
-    <nz-collapse-panel nzHeader="General bonus - Yielded and consumed">
-      <app-sub-table [positiveOnly]="false" [unit]="unit"></app-sub-table>
+    <nz-collapse-panel
+      nzHeader="General bonus - Yielded and consumed"
+      [(nzActive)]="genBon"
+    >
+      <app-sub-table
+        *ngIf="genBon"
+        [positiveOnly]="false"
+        [unit]="unit"
+      ></app-sub-table>
     </nz-collapse-panel>
-    <nz-collapse-panel nzHeader="Efficiency bonus - Yielded only">
-      <app-sub-table [positiveOnly]="true" [unit]="unit"></app-sub-table>
+    <nz-collapse-panel
+      nzHeader="Efficiency bonus - Yielded only"
+      [(nzActive)]="effBon"
+    >
+      <app-sub-table
+        *ngIf="effBon"
+        [positiveOnly]="true"
+        [unit]="unit"
+      ></app-sub-table>
     </nz-collapse-panel>
   </nz-collapse>
 </div>

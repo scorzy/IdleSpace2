@@ -20,6 +20,7 @@ import { FleetShips } from "./fleetShips";
 import { ShipData, WeaponData } from "../battle/shipData";
 import { Weapon } from "./weapon";
 import { IShipModule } from "./IShipModule";
+import { ShipStat } from "../stats/statsManager";
 
 const BASE_VELOCITY_DECIMAL = new Decimal(BASE_VELOCITY);
 export class ShipDesign {
@@ -61,6 +62,7 @@ export class ShipDesign {
   next: ShipDesign;
   available = false;
   battleTime = -1;
+  shipStats: ShipStat;
   private shipData: ShipData = null;
 
   constructor() {
@@ -522,7 +524,7 @@ export class ShipDesign {
       );
     }
   }
-  getCopy(errorCheck = true) {
+  getCopy(errorCheck = true, ui = true) {
     const ret = new ShipDesign();
     ret.name = this.name;
     ret.id = this.id;
@@ -534,16 +536,22 @@ export class ShipDesign {
         ? []
         : this.modules
             .filter((l) => l.module)
-            .map((mod) => ({
+            .map((mod) => {
+              const modCopy: any = {
                 module: mod.module,
                 level: mod.level,
                 size: mod.size,
                 moduleId: mod.module.id,
-                levelUi: MainService.formatPipe.transform(mod.level, true),
+                levelUi: ui
+                  ? MainService.formatPipe.transform(mod.level, true)
+                  : "",
                 validateStatus: "",
                 errorTip: "",
                 uiModel: [mod.module.groupId, mod.module.id]
-              }));
+              };
+
+              return modCopy;
+            });
     ret.reload(errorCheck);
     return ret;
   }
@@ -612,6 +620,21 @@ export class ShipDesign {
   reloadRecursive() {
     if (this.next) this.next.reloadRecursive();
     this.reload();
+  }
+  private checkStats() {
+    if (!this.shipStats) {
+      this.shipStats = Game.getGame().statsManager.shipTypesMap.get(
+        this.type.id * (this.isDefence ? -1 : 1)
+      );
+    }
+  }
+  addBuiltStat(quantity: number) {
+    this.checkStats();
+    this.shipStats.built += quantity;
+  }
+  addKilledStat(quantity: number) {
+    this.checkStats();
+    this.shipStats.killed += quantity;
   }
   //#region Save and Load
   getSave(): any {
