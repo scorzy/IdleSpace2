@@ -102,7 +102,7 @@ export class CardsComponent implements OnInit, AfterViewInit {
     this.reloadPoints();
     this.reloadFavourite();
     card.selected = this.inUse.some((c) => c === card);
-    this.ms.cardChangeEmitter.emit(Date.now());
+    this.ms.cardChangeEmitter.next(Date.now());
   }
   maxPredicate(item: CdkDrag<PrestigeCard>, list: CdkDropList<PrestigeCard>) {
     if (item.data.requirement && !item.data.requirement.active) return false;
