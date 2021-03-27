@@ -846,7 +846,7 @@ export class PrestigeManager {
     this.totalSpent = ZERO;
     for (let i = 0, n = this.prestigePoints.length; i < n; i++) {
       this.totalSpent = this.totalSpent.plus(
-        this.prestigePoints[i].realQuantity
+        this.prestigePoints[i].realQuantity.times(this.prestigePoints[i].price)
       );
     }
     this.techPointsUnlocked = this.totalSpent.gte(PRESTIGE_TECH_UNLOCK);
