@@ -1,8 +1,4 @@
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync
-} from "@angular/core/testing";
+import { ComponentFixture, TestBed, waitForAsync } from "@angular/core/testing";
 
 import { DesignInfoComponent } from "./design-info.component";
 import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
@@ -30,6 +26,7 @@ describe("DesignInfoComponent", () => {
   );
 
   beforeEach(() => {
+    localStorage.clear();
     fixture = TestBed.createComponent(DesignInfoComponent);
     component = fixture.componentInstance;
     component.original = new ShipDesign();

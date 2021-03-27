@@ -1,8 +1,4 @@
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync
-} from "@angular/core/testing";
+import { ComponentFixture, TestBed, waitForAsync } from "@angular/core/testing";
 
 import { AutoFleetUpComponent } from "./auto-fleet-up.component";
 import { testImports } from "src/app/app.component.spec";
@@ -25,6 +21,7 @@ describe("AutoFleetUpComponent", () => {
   );
 
   beforeEach(() => {
+    localStorage.clear();
     fixture = TestBed.createComponent(AutoFleetUpComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

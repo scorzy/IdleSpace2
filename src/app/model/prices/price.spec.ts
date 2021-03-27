@@ -6,6 +6,7 @@ import { Unit } from "../units/unit";
 describe("Price", () => {
   let spendable: IBase = new Unit(UNITS[0]);
   beforeEach(() => {
+    localStorage.clear();
     spendable = new Unit(UNITS[0]);
   });
   it("should create an instance", () => {

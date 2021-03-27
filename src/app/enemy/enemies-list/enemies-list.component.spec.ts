@@ -1,8 +1,4 @@
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync
-} from "@angular/core/testing";
+import { ComponentFixture, TestBed, waitForAsync } from "@angular/core/testing";
 
 import { EnemiesListComponent } from "./enemies-list.component";
 import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
@@ -28,6 +24,8 @@ describe("EnemiesListComponent", () => {
   );
 
   beforeEach(() => {
+    localStorage.clear();
+    localStorage.clear();
     fixture = TestBed.createComponent(EnemiesListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

@@ -188,7 +188,6 @@ export class ResourceManager {
     this.technician.relativeBuilding = this.powerPlant;
     this.scientist.relativeBuilding = this.laboratory;
     this.metallurgist.relativeBuilding = this.foundry;
-    this.metallurgist.relativeBuilding = this.factory;
     this.worker.relativeBuilding = this.factory;
     this.searcher.relativeBuilding = this.observatory;
     this.nukeDrone.relativeBuilding = this.nukeFactory;

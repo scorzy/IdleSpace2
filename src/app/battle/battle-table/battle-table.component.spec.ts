@@ -1,8 +1,4 @@
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync
-} from "@angular/core/testing";
+import { ComponentFixture, TestBed, waitForAsync } from "@angular/core/testing";
 
 import { BattleTableComponent } from "./battle-table.component";
 import { CUSTOM_ELEMENTS_SCHEMA } from "@angular/core";
@@ -30,6 +26,7 @@ describe("BattleTableComponent", () => {
   );
 
   beforeEach(() => {
+    localStorage.clear();
     fixture = TestBed.createComponent(BattleTableComponent);
     component = fixture.componentInstance;
     component.ms.game.enemyManager.currentEnemy = new Enemy();

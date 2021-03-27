@@ -1,8 +1,4 @@
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync
-} from "@angular/core/testing";
+import { ComponentFixture, TestBed, waitForAsync } from "@angular/core/testing";
 
 import { AutoModComponent } from "./auto-mod.component";
 import { testImports } from "src/app/app.component.spec";
@@ -26,6 +22,7 @@ describe("AutoModComponent", () => {
   );
 
   beforeEach(() => {
+    localStorage.clear();
     fixture = TestBed.createComponent(AutoModComponent);
     component = fixture.componentInstance;
     component.autoMod = component.ms.game.resourceManager.workers[0].autoMod;

@@ -1,8 +1,4 @@
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync
-} from "@angular/core/testing";
+import { ComponentFixture, TestBed, waitForAsync } from "@angular/core/testing";
 
 import { AutomationComponent } from "./automation.component";
 import { testImports } from "../app.component.spec";
@@ -28,6 +24,7 @@ describe("AutomationComponent", () => {
   );
 
   beforeEach(() => {
+    localStorage.clear();
     fixture = TestBed.createComponent(AutomationComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

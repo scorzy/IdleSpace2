@@ -22,6 +22,7 @@ describe("BuyMenuComponent", () => {
   });
 
   beforeEach(() => {
+    localStorage.clear();
     fixture = TestBed.createComponent(BuyMenuComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

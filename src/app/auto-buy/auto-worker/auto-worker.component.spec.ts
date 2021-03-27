@@ -1,8 +1,4 @@
-import {
-  ComponentFixture,
-  TestBed,
-  waitForAsync
-} from "@angular/core/testing";
+import { ComponentFixture, TestBed, waitForAsync } from "@angular/core/testing";
 
 import { AutoWorkerComponent } from "./auto-worker.component";
 import { Game } from "src/app/model/game";
@@ -27,6 +23,7 @@ describe("AutoWorkerComponent", () => {
   );
 
   beforeEach(() => {
+    localStorage.clear();
     fixture = TestBed.createComponent(AutoWorkerComponent);
     component = fixture.componentInstance;
     const game = new Game();

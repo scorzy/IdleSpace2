@@ -5,6 +5,7 @@ describe("workspace-project App", () => {
   let page: AppPage;
 
   beforeEach(() => {
+    localStorage.clear();
     page = new AppPage();
   });
 

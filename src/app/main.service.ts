@@ -1,4 +1,4 @@
-import { Injectable, EventEmitter, Inject } from "@angular/core";
+import { Injectable, Inject } from "@angular/core";
 import { Game } from "./model/game";
 import { formatDate, DOCUMENT } from "@angular/common";
 import { FormatPipe } from "./format.pipe";
@@ -13,6 +13,7 @@ import { TimePipe } from "./time.pipe";
 import { NzModalService } from "ng-zorro-antd/modal";
 import { NzMessageService } from "ng-zorro-antd/message";
 import * as LZString from "lz-string";
+import { Subject } from "rxjs";
 
 declare let kongregateAPI: any;
 
@@ -40,14 +41,14 @@ export class MainService {
   innerContent = true;
   game: Game;
   last: number;
-  updateEmitter = new EventEmitter<number>();
-  saveEmitter = new EventEmitter<number>();
-  exportEmitter = new EventEmitter<string>();
-  cardChangeEmitter = new EventEmitter<number>();
+  updateEmitter = new Subject<number>();
+  saveEmitter = new Subject<number>();
+  exportEmitter = new Subject<string>();
+  cardChangeEmitter = new Subject<number>();
   lzWorker: Worker;
   enemyListCollapsed = false;
   designListCollapsed = false;
-  notificationEmitter = new EventEmitter<MyNotification>();
+  notificationEmitter = new Subject<MyNotification>();
   ready = false;
   kongregate: any;
   lastUnitId = "M";
@@ -89,7 +90,7 @@ export class MainService {
       if ("a" in data && data.a === "c") {
         //  Compress request
         if ("t" in data && data.t === "E") {
-          this.exportEmitter.emit(data.m);
+          this.exportEmitter.next(data.m);
         } else {
           if ("t" in data && data.t === "P") {
             this.savePlayFab(data.m);
@@ -164,7 +165,7 @@ export class MainService {
     this.last = now;
 
     this.game.postUpdate(diff);
-    this.updateEmitter.emit(this.last);
+    this.updateEmitter.next(this.last);
   }
   save(refresh = false) {
     if (!this.pageOk) return;
@@ -209,7 +210,7 @@ export class MainService {
     this.game.notificationManager.addNotification(
       new MyNotification(NotificationTypes.SAVE, "Game Saved")
     );
-    this.saveEmitter.emit(1);
+    this.saveEmitter.next(1);
     this.lastSave = Date.now();
   }
   private load(save: string) {
@@ -230,7 +231,7 @@ export class MainService {
     this.setSideTheme();
     this.loadedDate = this.last;
     this.lastSave = this.last;
-    this.notificationEmitter.emit(
+    this.notificationEmitter.next(
       new MyNotification(
         NotificationTypes.LOAD,
         "Game Loaded",
@@ -315,7 +316,7 @@ export class MainService {
       this.message.success("Logged in");
       this.loadPlayFab(true);
     }
-    this.saveEmitter.emit();
+    this.saveEmitter.next();
   }
   registerPlayFab(email: string, psw: string) {
     PlayFab.ClientApi.RegisterPlayFabUser(
@@ -338,7 +339,7 @@ export class MainService {
       console.log("User Registered");
       this.message.success("User Registered");
     }
-    this.saveEmitter.emit();
+    this.saveEmitter.next();
   }
   private savePlayFab(save: string) {
     if (
