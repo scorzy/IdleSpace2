@@ -643,7 +643,7 @@ export class Enemy {
       }
       let tempEnergy = energy + pointToUse * module.energy;
       let tempUsedPoint = usedPoints + pointToUse;
-      let copy = design.getCopy(false);
+      let copy = design.getCopy(false, false);
       let nTry = 0;
 
       // Energy
