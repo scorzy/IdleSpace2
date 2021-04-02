@@ -246,6 +246,7 @@ export class PrestigeManager {
     });
     //  +1 researches
     this.plusOneResearch = new PrestigePoint();
+    this.plusOneResearch.multiplied = false;
     this.plusOneResearch.id = "s2";
     this.plusOneResearch.name = "Research +1";
     this.plusOneResearch.description =
@@ -552,7 +553,7 @@ export class PrestigeManager {
     const fleetCapacity = new PrestigePoint();
     fleetCapacity.id = "W1";
     fleetCapacity.name = "Fleet capacity";
-    fleetCapacity.price = new Decimal(100);
+    fleetCapacity.price = new Decimal(1000);
     fleetCapacity.description =
       "+" + FLEET_CAPACITY_PRESTIGE + " fleet capacity";
     Game.getGame().shipyardManager.additiveFleetCapStack.bonuses.push(

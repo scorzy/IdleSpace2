@@ -47,7 +47,7 @@ export class FormatPipe implements PipeTransform {
         str = str.replace(".", ",");
       }
     }
-
+    //console.log(str);
     return (value1.lt(0) ? "-" : "") + str;
   }
 }

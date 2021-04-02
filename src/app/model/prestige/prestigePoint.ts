@@ -23,6 +23,8 @@ export class PrestigePoint implements IBase {
   dependantPoints: PrestigePoint[];
   unLocked = true;
   typeIcon = PRESTIGE_POINT_ICON;
+  multiplied = true;
+
   onBuy: (quantity: Decimal) => void;
   reload() {
     const pm = Game.getGame().prestigeManager;
@@ -46,9 +48,11 @@ export class PrestigePoint implements IBase {
     return true;
   }
   get quantity(): Decimal {
-    return this.realQuantity.times(
-      Game.getGame().prestigeManager.prestigeMultiplier
-    );
+    return !this.multiplied
+      ? this.realQuantity
+      : this.realQuantity.times(
+          Game.getGame().prestigeManager.prestigeMultiplier
+        );
   }
   checkLock(): boolean {
     if (!this.requiredPoint) this.unLocked = true;
