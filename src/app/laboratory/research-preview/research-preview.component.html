@@ -30,6 +30,17 @@
     <span class="text-secondary"> lv.</span>
     <span class="monospace">{{ research.requiredChallenge.level }}</span>
   </li>
+  <li *ngIf="research.requiredCard">
+    <i
+      nz-icon
+      class="bottom-icon"
+      [nzType]="research.requiredCard.active ? 'check' : 'stop'"
+      [ngClass]="research.requiredCard.active ? 'text-success' : 'text-danger'"
+    >
+    </i>
+    <span class="text-secondary"> Require Card: </span
+    >{{ research.requiredCard.name }}
+  </li>
   <li *ngFor="let unit of research.unitsToUnlock; trackBy: getId">
     <span class="text-secondary">Unlock unit:</span> {{ unit.name }}
   </li>
