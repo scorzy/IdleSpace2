@@ -27,7 +27,7 @@
         <span
           class="min-width"
           *ngIf="item.quantity.gt(0.001) || item.id === 'x' || item.id === 'b'"
-          >{{ item.quantity | format: false:2 }}</span
+          >{{ item.quantityUi | format: false:2 }}</span
         >
         <span class="min-width" *ngIf="item.showUiLimit"
           >/{{ item.uiLimit | format: false:2 }}</span
@@ -35,7 +35,7 @@
       </span>
       <span class="min-width per-sec">
         <span [class]="item.perSec.gte(0) ? '' : 'text-danger'"
-          >{{ item.perSec | format: false:2 }}/s</span
+          >{{ item.perSecUi | format: false:2 }}/s</span
         >
       </span>
     </div>
@@ -72,7 +72,7 @@
     <i nz-icon nzType="fa-s:globe" aria-label="Habitable space"></i>
     <div class="container">
       <span class="monospace min-width">
-        {{ ms.game.resourceManager.habitableSpace.quantity | format: true }}
+        {{ ms.game.resourceManager.habitableSpace.quantityUi | format: true }}
       </span>
     </div>
   </div>
@@ -86,7 +86,7 @@
     <i nz-icon nzType="my:mining" aria-label="Mining districts"></i>
     <div class="container">
       <span class="monospace min-width">
-        {{ ms.game.resourceManager.miningDistrict.quantity | format: true }}
+        {{ ms.game.resourceManager.miningDistrict.quantityUi | format: true }}
       </span>
     </div>
   </div>
@@ -100,7 +100,7 @@
     <i nz-icon nzType="my:solar-power" aria-label="Energetic districts"></i>
     <div class="container">
       <span class="monospace min-width">
-        {{ ms.game.resourceManager.energyDistrict.quantity | format: true }}
+        {{ ms.game.resourceManager.energyDistrict.quantityUi | format: true }}
       </span>
     </div>
   </div>

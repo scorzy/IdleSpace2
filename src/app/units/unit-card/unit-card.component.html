@@ -218,7 +218,7 @@
       nz-popover
       [nzPopoverContent]="limitPopover"
     >
-      {{ unit.quantity | format: true }}
+      {{ unit.quantityUi | format: true }}
       <span *ngIf="unit.limit.lt(Decimal.MAX_VALUE)">
         /{{ unit.limit | format: true }}
       </span>
@@ -247,7 +247,7 @@
     [nzPopoverContent]="limitPopover"
     [class.text-danger]="unit.limit.lte(unit.quantity)"
   >
-    {{ unit.quantity | format: true }}
+    {{ unit.quantityUi | format: true }}
     <span *ngIf="unit.limit.lt(Decimal.MAX_VALUE)">
       /{{ unit.limit | format: true }}
     </span>

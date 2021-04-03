@@ -11,7 +11,7 @@
   <span class="name"> {{ unit.name }}&nbsp; </span>
   <span class="perSec monospace" *ngIf="!unit.perSec.eq(0)">
     <span [class.text-danger]="unit.perSec.lt(0)">
-      {{ unit.perSec | format }}/s
+      {{ unit.perSecUi | format }}/s
     </span>
   </span>
   <span
@@ -19,7 +19,7 @@
     class="quantity monospace"
     [class.text-danger]="unit.quantity.gte(unit.limit)"
   >
-    {{ unit.quantity | format }}
+    {{ unit.quantityUi | format }}
     <!-- /{{ unit.limit | format }} -->
   </span>
 </span>
