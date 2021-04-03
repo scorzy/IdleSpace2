@@ -11,7 +11,8 @@ import {
   SIZE_MULTI,
   PRICE_GROW_RATE,
   ONE,
-  PRICE_GROW_RATE_2
+  PRICE_GROW_RATE_2,
+  PRICE_GROW_RATE_3
 } from "../CONSTANTS";
 import { Game } from "../game";
 import { ShipType } from "./ShipType";
@@ -152,10 +153,12 @@ export class ShipDesign {
       //   statsMulti
       // );
       let priceMulti = ONE;
-
+      const pm = Game.getGame().prestigeManager;
       priceMulti = Decimal.pow(
-        enemy || !Game.getGame().prestigeManager.lowerModulePrice.active
+        enemy || !pm.lowerModulePrice.active
           ? PRICE_GROW_RATE
+          : pm.lowerModulePrice2.active
+          ? PRICE_GROW_RATE_3
           : PRICE_GROW_RATE_2,
         m.level
       ).times(statsMulti);

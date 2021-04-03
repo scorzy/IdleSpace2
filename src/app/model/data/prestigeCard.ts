@@ -30,7 +30,8 @@ import {
   FLEET_CAPACITY,
   PRICE_GROW_RATE,
   PRICE_GROW_RATE_2,
-  MORE_STORAGE_CARD
+  MORE_STORAGE_CARD,
+  PRICE_GROW_RATE_3
 } from "../CONSTANTS";
 
 export interface ICardData extends ISimpleBase {
@@ -208,6 +209,17 @@ export const PRESTIGE_CARDS: ICardData[] = [
       PRICE_GROW_RATE +
       " to " +
       PRICE_GROW_RATE_2,
+    icon: "my:upgrade"
+  },
+  {
+    id: "w9-",
+    name: "Better prices scaling 2",
+    requirement: "w9",
+    description:
+      "Lower the exponential multiplier for modules prices from " +
+      PRICE_GROW_RATE_2 +
+      " to " +
+      PRICE_GROW_RATE_3,
     icon: "my:upgrade"
   },
   {

@@ -136,6 +136,7 @@ export const ANTI_MISSILES_END_PERCENTAGE = 100;
 // Modules
 export const PRICE_GROW_RATE = 1.06;
 export const PRICE_GROW_RATE_2 = 1.03;
+export const PRICE_GROW_RATE_3 = 1.02;
 export const SIZE_MULTI = 0.2;
 export const MODULE_ARMOUR = 200;
 export const MODULE_SHIELD = 200;

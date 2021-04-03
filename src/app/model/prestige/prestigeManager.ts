@@ -128,6 +128,7 @@ export class PrestigeManager {
   autoWarp: PrestigeCard;
   extremeModsCard: PrestigeCard;
   lowerModulePrice: PrestigeCard;
+  lowerModulePrice2: PrestigeCard;
   killStreakWinCard: PrestigeCard;
   megaAutomationCard: PrestigeCard;
   extendedSearchCard: PrestigeCard;
@@ -742,6 +743,7 @@ export class PrestigeManager {
     this.killStreakGain = this.cards.find((card) => card.id === "w7");
     this.fleetCapCard = this.cards.find((card) => card.id === "w8");
     this.lowerModulePrice = this.cards.find((card) => card.id === "w9");
+    this.lowerModulePrice2 = this.cards.find((card) => card.id === "w9-");
     this.killStreakWinCard = this.cards.find((card) => card.id === "w10");
     this.favouriteModuleCard = this.cards.find((card) => card.id === "w11");
     this.doubleAttackCard = this.cards.find((card) => card.id === "w12");
