@@ -15,7 +15,7 @@
         {
             "type": "chrome",
             "request": "launch",
-            "name": "Launch Chrome against localhost",
+            "name": "Chrome linux",
             "url": "http://localhost:4200",
             "webRoot": "${workspaceFolder}",
             "runtimeExecutable": "/bin/google-chrome-stable"

@@ -26,7 +26,6 @@ export class PrestigeCardComponent implements OnInit, OnDestroy {
     if (this.card.cardRequired) {
       this.cardSub = this.ms.cardChangeEmitter.subscribe(() => {
         this.cd.markForCheck();
-        console.log(this.card.id);
       });
     }
   }
