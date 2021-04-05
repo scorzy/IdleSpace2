@@ -152,6 +152,8 @@ export class CardsComponent implements OnInit, AfterViewInit {
     this.inUse.forEach((card) => (card.active = true));
     this.ms.game.prestigeManager.lockedCars = true;
     this.ms.game.researchManager.researches.forEach((res) => res.loadMax());
+    this.ms.game.resourceManager.onSpaceStationPriceChange();
+    this.ms.game.spaceStationManager.onGrowRateChange();
   }
   isCardInUse(card: PrestigeCard): boolean {
     return this.inUse.some((c) => c === card);

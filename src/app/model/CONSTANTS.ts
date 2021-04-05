@@ -72,6 +72,8 @@ export const SPACE_STATION_ICON = "my:defense-satellite";
 export const SPELL_ICON = "my:computing";
 
 export const UNIT_PRICE_GROW_RATE = 1.04;
+export const STATION_PRICE_GROW_RATE_1 = 1.03;
+export const STATION_PRICE_GROW_RATE_2 = 1.02;
 export const BUILDING_PRICE_GROW_RATE = 1.08;
 export const SPACE_STATION_PRICE = 1e6;
 export const SPACE_INFRASTRUCTURE_PRICE = 1e10;

@@ -137,6 +137,8 @@ export class PrestigeManager {
   achievementMultiplierCard: PrestigeCard;
   doubleAttackCard: PrestigeCard;
   moreRepeatableResearches: PrestigeCard;
+  spaceStationPrice1: PrestigeCard;
+  spaceStationPrice2: PrestigeCard;
   //#endregion
   //#region Others
   favouriteModule: Module;
@@ -808,6 +810,8 @@ export class PrestigeManager {
     this.moreExp = this.cards.find((card) => card.id === "m0");
     this.moreDM = this.cards.find((card) => card.id === "m1");
     this.moreHabSpaceFromStations = this.cards.find((card) => card.id === "m2");
+    this.spaceStationPrice1 = this.cards.find((card) => card.id === "m21");
+    this.spaceStationPrice2 = this.cards.find((card) => card.id === "m22");
     this.doubleDepartmentsCard = this.cards.find((card) => card.id === "m3");
     this.noDecreasePrestige = this.cards.find((card) => card.id === "m4");
     this.extraMiningDistricts = this.cards.find((card) => card.id === "m5");

@@ -1,5 +1,11 @@
 import { Unit } from "./unit";
-import { ZERO, UNIT_PRICE_GROW_RATE, SPACE_STATION_ICON } from "../CONSTANTS";
+import {
+  ZERO,
+  UNIT_PRICE_GROW_RATE,
+  SPACE_STATION_ICON,
+  STATION_PRICE_GROW_RATE_1,
+  STATION_PRICE_GROW_RATE_2
+} from "../CONSTANTS";
 import { Game } from "../game";
 import { Research } from "../researches/research";
 
@@ -21,7 +27,13 @@ export abstract class AbstractSpaceStation extends Unit {
         }
       }
     }
-    return Decimal.pow(UNIT_PRICE_GROW_RATE, this.quantity.plus(queued))
+    const pm = Game.getGame().prestigeManager;
+    const growRate = pm.spaceStationPrice1.active
+      ? pm.spaceStationPrice2.active
+        ? STATION_PRICE_GROW_RATE_2
+        : STATION_PRICE_GROW_RATE_1
+      : UNIT_PRICE_GROW_RATE;
+    return Decimal.pow(growRate, this.quantity.plus(queued))
       .times(this.buildPrice)
       .floor();
   }

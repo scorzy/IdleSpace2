@@ -31,7 +31,10 @@ import {
   PRICE_GROW_RATE,
   PRICE_GROW_RATE_2,
   MORE_STORAGE_CARD,
-  PRICE_GROW_RATE_3
+  PRICE_GROW_RATE_3,
+  UNIT_PRICE_GROW_RATE,
+  STATION_PRICE_GROW_RATE_1,
+  STATION_PRICE_GROW_RATE_2
 } from "../CONSTANTS";
 
 export interface ICardData extends ISimpleBase {
@@ -351,6 +354,8 @@ export const PRESTIGE_CARDS: ICardData[] = [
     icon: "arrow-up",
     cardRequired: 2
   },
+  //#endregion
+  //#region Space Stations
   {
     id: "m2",
     name: "Bigger Space Stations",
@@ -358,6 +363,27 @@ export const PRESTIGE_CARDS: ICardData[] = [
       "Increase hab. space from space station by " +
       MORE_HAB_FROM_STATIONS * 100 +
       "%",
+    icon: "my:defense-satellite"
+  },
+  {
+    id: "m21",
+    name: "Better Space Stations price scaling",
+    description:
+      "Reduce space stations scaling price from: " +
+      UNIT_PRICE_GROW_RATE +
+      " to " +
+      STATION_PRICE_GROW_RATE_1,
+    icon: "my:defense-satellite"
+  },
+  {
+    id: "m22",
+    name: "Better Space Stations price scaling",
+    requirement: "m21",
+    description:
+      "Reduce space stations scaling price from: " +
+      STATION_PRICE_GROW_RATE_1 +
+      " to " +
+      STATION_PRICE_GROW_RATE_2,
     icon: "my:defense-satellite"
   },
   {
@@ -378,6 +404,8 @@ export const PRESTIGE_CARDS: ICardData[] = [
       "% of hab space.",
     icon: "my:defense-satellite"
   },
+  //#endregion
+  //#region Others
   {
     id: "m7",
     name: "Mega Engineering",
