@@ -307,6 +307,8 @@ ng-zorro-antd/checkbox
 
 ng-zorro-antd/collapse
 
+ng-zorro-antd/divider
+
 ng-zorro-antd/drawer
 
 ng-zorro-antd/dropdown
