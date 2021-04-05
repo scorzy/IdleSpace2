@@ -53,6 +53,7 @@ export class MainService {
   kongregate: any;
   lastUnitId = "M";
   playFabId = "";
+  playFabLoaded = false;
   lastPlayFabSave = 0;
   loadedDate = 0;
   playfabDate = 0;
@@ -184,6 +185,7 @@ export class MainService {
   saveToPlayFab() {
     if (!this.game) return;
     if (!this.pageOk) return;
+    if (!this.playFabLoaded) return;
     if (this.playFabId === "") return;
     const save = this.getSave();
     this.lzWorker.postMessage({ m: save, a: "c", t: "P" });
@@ -297,6 +299,7 @@ export class MainService {
 
   //#region PlayFab
   playFabLoginEmail(email: string, psw: string) {
+    this.playFabLoaded = false;
     PlayFab.ClientApi.LoginWithEmailAddress(
       { TitleId: PLAYFAB_TITLE_ID, Email: email, Password: psw },
       this.logInCallBack.bind(this)
@@ -314,7 +317,7 @@ export class MainService {
       PlayFab.settings.titleId = PLAYFAB_TITLE_ID;
       console.log("Logged in to playFab");
       this.message.success("Logged in");
-      this.loadPlayFab(true);
+      this.loadPlayFab();
     }
     this.saveEmitter.next();
   }
@@ -401,7 +404,7 @@ export class MainService {
       return true;
     }
   }
-  loadPlayFab(auto = false) {
+  loadPlayFab() {
     if (
       !this.playFabId ||
       typeof PlayFab === "undefined" ||
@@ -434,14 +437,15 @@ export class MainService {
         return;
       }
 
-      if (data) {
-        if (data.data.Data) {
-          const raw = Object.values(data.data.Data)
-            .map((val: any) => val.Value)
-            .join("");
-          // console.log(raw);
-          this.lzWorker.postMessage({ m: raw, a: "d", t: "P" });
-        }
+      if (data && data.data.Data) {
+        const raw = Object.values(data.data.Data)
+          .map((val: any) => val.Value)
+          .join("");
+        // console.log(raw);
+        if (raw !== "") this.lzWorker.postMessage({ m: raw, a: "d", t: "P" });
+        else this.playFabLoaded = true;
+      } else {
+        this.playFabLoaded = true;
       }
     } catch (e) {
       console.log(e);
@@ -487,11 +491,18 @@ export class MainService {
           "</li><li>Local Save: " +
           formatDate(this.loadedDate, "medium", "EN") +
           "</li></ul>",
-        nzOnOk: () => this.load(save)
+        nzOnOk: () => {
+          this.load(save);
+          this.playFabLoaded = true;
+        },
+        nzOnCancel: () => {
+          this.playFabLoaded = true;
+        }
       });
     }
   }
   private playFabKongLogin() {
+    this.playFabLoaded = false;
     if (!this.kongregate) {
       this.message.error("You need to be logged in to Kongregate.");
       return;
