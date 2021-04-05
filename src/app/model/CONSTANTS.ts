@@ -59,7 +59,21 @@ export const STRU_IDS = {
   RotatingSkyhook: "s2",
   SuperTether: "s3"
 };
+
+export const RESEARCH_ICON = "fa-s:flask";
+export const TECHNOLOGY_ICON = "fa-s:book";
+export const CHALLENGE_ICON = "trophy";
+export const ACHIEVEMENT_ICON = "trophy";
+export const PRESTIGE_CARD_ICON = "fa-s:layer-group";
+export const PRESTIGE_POINT_ICON = "fa-s:layer-group";
+export const BUILDING_ICON = "fa-s:building";
+export const DEPARTMENT_ICON = "fa-s:building";
+export const SPACE_STATION_ICON = "my:defense-satellite";
+export const SPELL_ICON = "my:computing";
+
 export const UNIT_PRICE_GROW_RATE = 1.04;
+export const STATION_PRICE_GROW_RATE_1 = 1.03;
+export const STATION_PRICE_GROW_RATE_2 = 1.02;
 export const BUILDING_PRICE_GROW_RATE = 1.08;
 export const SPACE_STATION_PRICE = 1e6;
 export const SPACE_INFRASTRUCTURE_PRICE = 1e10;
@@ -124,6 +138,7 @@ export const ANTI_MISSILES_END_PERCENTAGE = 100;
 // Modules
 export const PRICE_GROW_RATE = 1.06;
 export const PRICE_GROW_RATE_2 = 1.03;
+export const PRICE_GROW_RATE_3 = 1.02;
 export const SIZE_MULTI = 0.2;
 export const MODULE_ARMOUR = 200;
 export const MODULE_SHIELD = 200;
@@ -186,17 +201,19 @@ export const COMPUTING_TECH_BONUS = 0.01;
 export const PRESTIGE_MULTI_PER_LEVEL = 0.1;
 export const PRESTIGE_MULTI_EXP = 1.2;
 export const PRESTIGE_PRICE = 10;
+export const PRESTIGE_PRICE_SUPER = 1e4;
 export const DRONE_PRESTIGE_START_OFFER = 0.15;
-export const DRONE_PRESTIGE_PRODUCTION = 0.1;
+export const DRONE_PRESTIGE_PRODUCTION = 0.05;
 export const DRONE_PRESTIGE_EFFICIENCY = 0.02;
-export const TECH_PRESTIGE_MULTI = 0.5;
+export const DRONE_PRESTIGE_QUANTITY = 0.1;
+export const TECH_PRESTIGE_MULTI = 0.2;
 export const DISTRICT_PRESTIGE_MULTI = 0.5;
 export const MATERIAL_PRESTIGE_MULTI = 5;
 export const COMPONENT_PRESTIGE_MULTI = 0.3;
 export const VELOCITY_PRESTIGE_MULTI = 0.12;
 export const MORE_UP_PRESTIGE = 1;
 export const SIX_HOURS = 3600 * 6;
-export const BETTER_SPACE_STATION_PRESTIGE = 0.2;
+export const BETTER_SPACE_STATION_PRESTIGE = 0.5;
 export const AUTOMATION_UNLOCKED_LEVEL = 2;
 export const MOD_LEVEL_PRESTIGE = 0.01;
 export const SHIP_JOB_PRESTIGE = 0.01;
@@ -213,6 +230,7 @@ export const FAST_SEARCH = 0.01;
 export const ENERGY_PRODUCTION_PRESTIGE = 0.005;
 export const ENERGY_STORAGE_PRESTIGE = 0.1;
 export const MINING_PRESTIGE = 0.01;
+export const FLEET_CAPACITY_PRESTIGE = 1;
 
 //  Prestige Card
 export const LEVEL_PER_CARD = 12;
@@ -271,3 +289,37 @@ export const PRESTIGE_POINT_QUANTITY = new Decimal(1e3);
 export const PRESTIGE_TECH_UNLOCK = 1e4;
 export const MORE_STORAGE_PRESTIGE = 0.2;
 export const MORE_STORAGE_CARD = 1e3;
+
+// Achievements
+export const ACK_LEVEL_STR = "#level@";
+export const ORIGIN_LEVELS = [100, 200, 500];
+export const SPECIALIZATION_LEVELS = [200, 500, 1000];
+export const WORKERS_LEVELS = [100, 1e3, 1e5, 1e10, 1e20, 1e30];
+export const WORKER_BONUS = 0.1;
+export const BUILDINGS_LEVELS = [100, 200, 1e3, 1e4];
+export const BUILDINGS_BONUS = 0.1;
+export const KILL_SHIP_LEVELS = [1e3, 1e4, 1e5, 1e6];
+export const KILL_SHIP_BONUS = 1;
+export const BUILT_SHIP_LEVELS = [100, 1e3, 1e4, 1e5];
+export const BUILT_SHIP_BONUS = 1;
+export const LONGEST_WARP_LEVELS = [
+  3600, //  hour
+  3600 * 24, //  day
+  3600 * 24 * 7, //  week
+  3600 * 24 * 30, //  month
+  3600 * 24 * 365 //  year
+];
+export const LONGEST_WARP_BONUS = 0.1;
+export const TOTAL_WARP_LEVELS = [
+  3600, //  hour
+  3600 * 24, //  day
+  3600 * 24 * 7, //  week
+  3600 * 24 * 30, //  month
+  3600 * 24 * 365, //  year
+  3600 * 24 * 365 * 10 // 10 year
+];
+export const TOTAL_WARP_BONUS = 0.1;
+export const SPELL_CAST_LEVELS = [10, 100, 1e3, 1e4];
+export const SPELL_CAST_BONUS = 0.1;
+export const CON_SPELL_CAST_LEVELS = [3, 6, 9, 12];
+export const CON_SPELL_CAST_BONUS = 0.1;

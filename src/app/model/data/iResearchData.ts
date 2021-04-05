@@ -57,4 +57,5 @@ export interface IResearchData {
   commonCivilianBonus?: number;
   spaceStationBuildBonus?: number;
   fleetCapacity?: number;
+  requiredCardId?: string;
 }

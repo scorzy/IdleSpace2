@@ -2,10 +2,7 @@ import { JobManager } from "../job/jobManager";
 import { SpaceStationJob } from "./spaceStationJob";
 import { Game } from "../game";
 import { SpaceStation } from "../units/spaceStation";
-import {
-  ONE,
-  ZERO
-} from "../CONSTANTS";
+import { ONE, ZERO } from "../CONSTANTS";
 import { MegaStructure } from "../units/megaStructure";
 import { AbstractSpaceStation } from "../units/abstractSpaceStation";
 import { CivilianJob } from "./civilianJob";
@@ -75,6 +72,9 @@ export class SpaceStationManager extends JobManager {
     this.toDo = this.toDo.sort((a, b) =>
       a.getRemaining().cmp(b.getRemaining())
     );
+  }
+  onGrowRateChange() {
+    this.toDo.forEach((toDo) => toDo.reload());
   }
   //#region Save and Load
   getSave() {

@@ -20,6 +20,8 @@ export class PrestigeComponent
   newSlots = 0;
   nextEnemy = 0;
   ngOnInit() {
+    this.ms.game.prestigeManager.prestigePage = true;
+    this.ms.game.prestigeManager.loadNextMultiplier();
     this.newSlots = this.getNextCardSlots();
     this.nextEnemy = Math.max(
       this.ms.game.enemyManager.maxLevel,
@@ -35,6 +37,10 @@ export class PrestigeComponent
         this.newSlots = this.getNextCardSlots();
       })
     );
+  }
+  ngOnDestroy() {
+    this.ms.game.prestigeManager.prestigePage = true;
+    super.ngOnDestroy();
   }
   getMultiplierClass() {
     if (

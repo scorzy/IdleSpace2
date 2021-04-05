@@ -52,7 +52,7 @@ export class AutoFleetUpdate extends AbstractAutobuyer {
       }
 
       // Check if an update is needed
-      let copy = design.getCopy();
+      let copy = design.getCopy(false, false);
       let up = false;
       let newMinMax = Number.POSITIVE_INFINITY;
       copy.modules.forEach((mod) => {
@@ -71,7 +71,7 @@ export class AutoFleetUpdate extends AbstractAutobuyer {
         copy.reload();
         //  If not valid, try to decrease module level
         if (!copy.valid) {
-          copy = design.getCopy();
+          copy = design.getCopy(false, false);
           up = false;
           copy.modules.forEach((mod) => {
             if (mod.level < newMinMax) {

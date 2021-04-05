@@ -2,7 +2,8 @@ import forOwn from "lodash-es/forOwn";
 import {
   CHALLENGE_REPEAT_LEVEL,
   ZERO,
-  CHALLENGE_REWARD_EXP
+  CHALLENGE_REWARD_EXP,
+  CHALLENGE_ICON
 } from "../CONSTANTS";
 import { IChallengeData } from "../data/challenges";
 import { IBase } from "../iBase";
@@ -27,6 +28,7 @@ export class Challenge implements IBase {
 
   icon = "";
   colorClass = "";
+  typeIcon = CHALLENGE_ICON;
 
   init(data: IChallengeData) {
     forOwn(
@@ -45,10 +47,10 @@ export class Challenge implements IBase {
   }
   advance(enemyLevel: number) {
     if (enemyLevel >= this.nextLevel) {
+      const game = Game.getGame();
       this.quantity = this.quantity.plus(1);
       const expToAdd = this.quantity.times(this.experiencePerCompletions);
       if (expToAdd.gt(0)) {
-        const game = Game.getGame();
         game.prestigeManager.addExperience(expToAdd);
         game.notificationManager.addNotification(
           new MyNotification(
@@ -59,6 +61,7 @@ export class Challenge implements IBase {
         );
       }
       this.reload();
+      game.researchManager.researches.forEach((res) => res.loadMax());
     }
   }
   get isActive(): boolean {

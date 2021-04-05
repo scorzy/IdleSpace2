@@ -59,6 +59,9 @@ export class BuildShipsJob extends Job {
       if (researchToInspire) {
         researchToInspire.inspire();
       }
+
+      //  Update Stats
+      this.design.addBuiltStat(toBuild);
     }
     return ret;
   }

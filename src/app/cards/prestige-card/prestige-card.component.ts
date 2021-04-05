@@ -2,8 +2,13 @@ import {
   Component,
   OnInit,
   ChangeDetectionStrategy,
-  Input
+  Input,
+  OnDestroy,
+  EventEmitter,
+  ChangeDetectorRef
 } from "@angular/core";
+import { Subscription } from "rxjs";
+import { MainService } from "src/app/main.service";
 import { PrestigeCard } from "src/app/model/prestige/prestigeCard";
 
 @Component({
@@ -12,9 +17,19 @@ import { PrestigeCard } from "src/app/model/prestige/prestigeCard";
   styleUrls: ["./prestige-card.component.scss"],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class PrestigeCardComponent implements OnInit {
+export class PrestigeCardComponent implements OnInit, OnDestroy {
   @Input() card: PrestigeCard;
-  constructor() {}
+  cardSub: Subscription;
 
-  ngOnInit(): void {}
+  constructor(public ms: MainService, protected cd: ChangeDetectorRef) {}
+  ngOnInit(): void {
+    if (this.card.cardRequired) {
+      this.cardSub = this.ms.cardChangeEmitter.subscribe(() => {
+        this.cd.markForCheck();
+      });
+    }
+  }
+  ngOnDestroy(): void {
+    if (this.cardSub) this.cardSub.unsubscribe();
+  }
 }

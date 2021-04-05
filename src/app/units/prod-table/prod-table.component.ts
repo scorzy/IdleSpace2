@@ -22,6 +22,8 @@ export class ProdTableComponent
   @Input() unit: Unit;
   @Input() col = false;
   @Input() expandable = false;
+  genBon = false;
+  effBon = false;
   getProdId(index: number, production: Production) {
     return index + production.producer.id + production.product.id;
   }

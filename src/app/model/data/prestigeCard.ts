@@ -30,11 +30,16 @@ import {
   FLEET_CAPACITY,
   PRICE_GROW_RATE,
   PRICE_GROW_RATE_2,
-  MORE_STORAGE_CARD
+  MORE_STORAGE_CARD,
+  PRICE_GROW_RATE_3,
+  UNIT_PRICE_GROW_RATE,
+  STATION_PRICE_GROW_RATE_1,
+  STATION_PRICE_GROW_RATE_2
 } from "../CONSTANTS";
 
 export interface ICardData extends ISimpleBase {
   cardRequired?: number;
+  requirement?: string;
 }
 
 export const PRESTIGE_CARDS: ICardData[] = [
@@ -126,6 +131,14 @@ export const PRESTIGE_CARDS: ICardData[] = [
     description: "Repeatable researches can be repeated double times.",
     icon: "fa-s:flask"
   },
+  {
+    id: "r4",
+    name: "More Researches",
+    description: "Add more repeatable researches.",
+    icon: "fa-s:flask",
+    requirement: "r3",
+    cardRequired: 2
+  },
   //#endregion
   //#region War
   {
@@ -202,6 +215,17 @@ export const PRESTIGE_CARDS: ICardData[] = [
     icon: "my:upgrade"
   },
   {
+    id: "w9-",
+    name: "Better prices scaling 2",
+    requirement: "w9",
+    description:
+      "Lower the exponential multiplier for modules prices from " +
+      PRICE_GROW_RATE_2 +
+      " to " +
+      PRICE_GROW_RATE_3,
+    icon: "my:upgrade"
+  },
+  {
     id: "w10",
     name: "Kill Streak: auto win",
     description:
@@ -216,6 +240,13 @@ export const PRESTIGE_CARDS: ICardData[] = [
       "Choose an unlocked ship module. Start next run with that module unlocked.",
     icon: "my:strafe",
     cardRequired: 1
+  },
+  {
+    id: "w12",
+    name: "Double Attack",
+    description:
+      "Your fleet can twice in the same turn. It happens battle time is less than 0.1s and no reinforce is needed.",
+    icon: "my:strafe"
   },
   //#endregion
   //#region Warp
@@ -323,6 +354,8 @@ export const PRESTIGE_CARDS: ICardData[] = [
     icon: "arrow-up",
     cardRequired: 2
   },
+  //#endregion
+  //#region Space Stations
   {
     id: "m2",
     name: "Bigger Space Stations",
@@ -330,6 +363,27 @@ export const PRESTIGE_CARDS: ICardData[] = [
       "Increase hab. space from space station by " +
       MORE_HAB_FROM_STATIONS * 100 +
       "%",
+    icon: "my:defense-satellite"
+  },
+  {
+    id: "m21",
+    name: "Better Space Stations price scaling",
+    description:
+      "Reduce space stations scaling price from: " +
+      UNIT_PRICE_GROW_RATE +
+      " to " +
+      STATION_PRICE_GROW_RATE_1,
+    icon: "my:defense-satellite"
+  },
+  {
+    id: "m22",
+    name: "Better Space Stations price scaling",
+    requirement: "m21",
+    description:
+      "Reduce space stations scaling price from: " +
+      STATION_PRICE_GROW_RATE_1 +
+      " to " +
+      STATION_PRICE_GROW_RATE_2,
     icon: "my:defense-satellite"
   },
   {
@@ -350,6 +404,8 @@ export const PRESTIGE_CARDS: ICardData[] = [
       "% of hab space.",
     icon: "my:defense-satellite"
   },
+  //#endregion
+  //#region Others
   {
     id: "m7",
     name: "Mega Engineering",
@@ -379,7 +435,7 @@ export const PRESTIGE_CARDS: ICardData[] = [
     description:
       "Increase experience multiplier by " +
       CHALLENGE_XP_MULTI * 100 +
-      "% per challenge completed.",
+      "% per completed challenge.",
     icon: "arrow-up",
     cardRequired: 5
   },
@@ -391,6 +447,16 @@ export const PRESTIGE_CARDS: ICardData[] = [
     description: "Increase maximum search points from 100 to 200.",
     icon: "my:radar-sweep",
     cardRequired: 1
+  },
+  //#endregion
+  //#region Achievements
+  {
+    id: "A",
+    name: "Achievements multiplier",
+    description:
+      "Increase experience multiplier by 1% per completed achievement.",
+    icon: "trophy",
+    cardRequired: 5
   }
   //#endregion
 ];

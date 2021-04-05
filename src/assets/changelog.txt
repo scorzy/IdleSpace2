@@ -1,3 +1,12 @@
+-   Added achievements
+-   Added new prestiges: drone quantity, +1 researches, +1 fleet capacity
+-   Added Double Attack card
+-   Added Space station scaling price cards
+-   Reduced "Increase technology gain" from 50% to 20%
+-   Reduced "Drones production prestige" from 10% to 5%
+-   Increased "Better Space Stations" from 20% to 50%
+-   Fixed PlayFab saving before save download
+
 27/3/2021
 -   Fixed exp shop considering the number of items purchased
 -   Fixed metallurgist building leading to factory

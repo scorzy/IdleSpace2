@@ -26,6 +26,12 @@
       }}</span>
       {{ prestige.requiredPoint.name }}
     </span>
+
+    <span *ngIf="!prestige.multiplied" class="text-warning">
+      <i nz-icon nzType="warning" nzTheme="outline"></i>
+      Not affected by prestige multiplier!
+    </span>
+
     <p>{{ prestige.description }}</p>
 
     <div fxLayout="row" fxLayoutAlign="space-between center">
@@ -38,6 +44,14 @@
           /{{ prestige.max | format: true }}
         </span>
       </span>
+
+      <span>
+        <strong> Quantity: </strong>
+        <span>
+          {{ prestige.quantity | format: true }}
+        </span>
+      </span>
+
       <span>
         <strong> Price: </strong>
         <span>
@@ -52,7 +66,9 @@
       fxLayoutAlign="space-around stretch"
       fxLayoutGap="12px"
     >
-      <ng-container *ngFor="let buyOpt of buyOptions.concat(customBuy)">
+      <ng-container
+        *ngFor="let buyOpt of buyOptions.concat(customBuy); trackBy: getBuyOpt"
+      >
         <button
           *ngIf="buyOpt && prestige.realQuantity.plus(buyOpt).lte(prestige.max)"
           nz-button

@@ -192,6 +192,15 @@ export const RESEARCHES: IResearchData[] = [
     battleMulti: [{ materialId: MAT_IDS.Components, multi: 1 }],
     inspirationDescription: "Defeat an enemy"
   },
+  {
+    id: "ns2",
+    name: "Improved ships design",
+    description: "",
+    type: TECHNOLOGIES.MilitaryEngineering,
+    unlockFrom: "n3",
+    requiredCardId: "r4",
+    shipProductionBonusAll: 0.1
+  },
   //#endregion
   //#region Search
   {
@@ -258,6 +267,16 @@ export const RESEARCHES: IResearchData[] = [
     priceMulti: REPEATABLE_RES_PRICE_MULTI,
     energyDistMulti: 0.3
   },
+  {
+    id: "E-3",
+    name: "Field Modulation",
+    description: "",
+    type: TECHNOLOGIES.Energy,
+    unlockFrom: "E1",
+    requiredCardId: "r4",
+    priceMulti: REPEATABLE_RES_PRICE_MULTI,
+    effMulti: [{ unitId: IDS.Technician, multi: 0.02 }]
+  },
   //#endregion
   //#region Mining
   {
@@ -274,6 +293,16 @@ export const RESEARCHES: IResearchData[] = [
     description: "",
     type: TECHNOLOGIES.Mining,
     unlockFrom: "N1",
+    priceMulti: REPEATABLE_RES_PRICE_MULTI,
+    miningDistMulti: 0.3
+  },
+  {
+    id: "N-2",
+    name: "Asteroid mining",
+    description: "",
+    type: TECHNOLOGIES.Mining,
+    unlockFrom: "N-1",
+    requiredCardId: "r4",
     priceMulti: REPEATABLE_RES_PRICE_MULTI,
     miningDistMulti: 0.3
   },

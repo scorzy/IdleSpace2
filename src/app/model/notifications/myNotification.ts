@@ -14,7 +14,8 @@ export enum NotificationTypes {
   WARP,
   EXPERIENCE,
   EXTRA_TIME,
-  CHALLENGE
+  CHALLENGE,
+  ACHIEVEMENT
 }
 export class MyNotification {
   dateTime = Date.now();
@@ -78,6 +79,10 @@ export class MyNotification {
       case NotificationTypes.CHALLENGE:
         this.icon = "my:laurel-crown";
         this.iconClass = "text-success";
+        break;
+      case NotificationTypes.ACHIEVEMENT:
+        this.icon = "trophy";
+        this.iconClass = "achievement-color";
         break;
     }
   }

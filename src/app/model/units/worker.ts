@@ -18,6 +18,7 @@ import { Research } from "../researches/research";
 import { AutoWorker } from "../automation/autoWorker";
 import { AutoMod } from "../automation/autoMod";
 import { Building } from "./building";
+import { BonusStack } from "../bonus/bonusStack";
 
 const ASSEMBLY_PRIORITY = 50;
 const ASSEMBLY_PRIORITY_ENDING = 500;
@@ -47,6 +48,7 @@ export class Worker extends Unit {
   extremeBonus = 0;
   extremeMauls = ZERO;
   relativeBuilding: Building;
+  limitStackMulti = new BonusStack();
   constructor(public unitData: IUnitData) {
     super(unitData);
     if ("componentsPrice" in unitData) {
@@ -132,6 +134,13 @@ export class Worker extends Unit {
     }
     if (Game.getGame().prestigeManager.doubleModsCard.active) {
       this.maxMods = this.maxMods.times(1.5);
+    }
+    if (Game.getGame().achievementManager.moddersAck.quantity.gte(1)) {
+      this.maxMods = this.maxMods.times(
+        ONE.plus(
+          Game.getGame().achievementManager.moddersAck.quantity.times(0.1)
+        )
+      );
     }
     this.maxMods = this.maxMods.times(
       ONE.plus(

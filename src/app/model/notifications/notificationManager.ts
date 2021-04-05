@@ -63,7 +63,12 @@ export class NotificationManager {
     ) {
       return;
     }
-
+    if (
+      noti.type === NotificationTypes.ACHIEVEMENT &&
+      !OptionsService.instance.achievementsNoti
+    ) {
+      return;
+    }
     if (noti.type === NotificationTypes.RESEARCH) {
       this.researchesNotifications = this.researchesNotifications.filter(
         (n) => !n.research || n.research !== noti.research

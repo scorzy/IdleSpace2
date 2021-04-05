@@ -1,7 +1,10 @@
 import { Unit } from "./unit";
 import {
   ZERO,
-  UNIT_PRICE_GROW_RATE
+  UNIT_PRICE_GROW_RATE,
+  SPACE_STATION_ICON,
+  STATION_PRICE_GROW_RATE_1,
+  STATION_PRICE_GROW_RATE_2
 } from "../CONSTANTS";
 import { Game } from "../game";
 import { Research } from "../researches/research";
@@ -11,6 +14,7 @@ export abstract class AbstractSpaceStation extends Unit {
   buildPriceNext = ZERO;
   researchesToInspire: Array<Research>;
   level = 0;
+  typeIcon = SPACE_STATION_ICON;
 
   getBuildPrice(index = Number.POSITIVE_INFINITY) {
     const toDoList = Game.getGame().spaceStationManager.toDo;
@@ -23,7 +27,13 @@ export abstract class AbstractSpaceStation extends Unit {
         }
       }
     }
-    return Decimal.pow(UNIT_PRICE_GROW_RATE, this.quantity.plus(queued))
+    const pm = Game.getGame().prestigeManager;
+    const growRate = pm.spaceStationPrice1.active
+      ? pm.spaceStationPrice2.active
+        ? STATION_PRICE_GROW_RATE_2
+        : STATION_PRICE_GROW_RATE_1
+      : UNIT_PRICE_GROW_RATE;
+    return Decimal.pow(growRate, this.quantity.plus(queued))
       .times(this.buildPrice)
       .floor();
   }

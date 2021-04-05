@@ -245,6 +245,22 @@
         = x{{ res.quantity.times(getResMod(res)).plus(1) | format }}
       </td>
     </tr>
+    <tr *ngIf="ms.game.achievementManager.moddersAck.quantity.gte(1)">
+      <td colspan="4" class="row-title">Achievements</td>
+    </tr>
+    <tr *ngIf="ms.game.achievementManager.moddersAck.quantity.gte(1)">
+      <td>Modders achievement</td>
+      <td class="monospace text-right">
+        {{ ms.game.achievementManager.moddersAck.quantity | format: true }}
+      </td>
+      <td class="monospace">x0.1</td>
+      <td class="monospace">
+        = x{{
+          ms.game.achievementManager.moddersAck.quantity.times(0.1)
+            | format: true
+        }}
+      </td>
+    </tr>
     <tr *ngIf="ms.game.prestigeManager.doubleModsCard.active">
       <td colspan="4" class="row-title">Prestige</td>
     </tr>

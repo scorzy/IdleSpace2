@@ -63,6 +63,7 @@
       "severity": "error"
     },
     "no-unused-declaration": true,
+    "no-unused-variable": true,
     "nz-secondary-entry-imports": true
   }
 }

@@ -777,6 +777,10 @@ export class ResourceManager {
     this.units.forEach((u) => u.prestige());
     this.reloadLists();
   }
+  onSpaceStationPriceChange() {
+    this.spaceStations.forEach((sp) => sp.reloadBuildPrice());
+    this.infrastructures.forEach((sp) => sp.reloadBuildPrice());
+  }
   //#region Save and Load
   getSave(): any {
     return {

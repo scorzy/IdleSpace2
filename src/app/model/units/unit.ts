@@ -12,6 +12,8 @@ import { MainService } from "src/app/main.service";
 export class Unit implements IBase, IUnlockable {
   id = "";
   name = "";
+  namePlural = "";
+  typeIcon = "";
   description = "";
   unlocked = false;
   icon = "";
@@ -35,8 +37,11 @@ export class Unit implements IBase, IUnlockable {
   limitStackMulti: BonusStack;
 
   quantity = new Decimal();
+  quantityUi = new Decimal();
   private _quantityOld = this.quantity;
   perSec = new Decimal();
+  perSecUi = new Decimal();
+
   private _perSecOld = this.perSec;
 
   battleGainMulti: BonusStack;
@@ -48,6 +53,8 @@ export class Unit implements IBase, IUnlockable {
   constructor(public unitData: IUnitData) {
     this.id = unitData.id;
     this.name = unitData.name;
+    this.namePlural =
+      "namePlural" in unitData ? unitData.namePlural : unitData.name;
     this.description = unitData.description;
     if ("startQuantity" in unitData) {
       this.unlocked = true;
@@ -106,11 +113,31 @@ export class Unit implements IBase, IUnlockable {
       this.quantity = this._quantityOld;
     } else {
       this._quantityOld = this.quantity;
+      const newMantissa = Math.floor(this.quantity.mantissa * 1e4) / 1e4;
+      if (
+        newMantissa !== this.quantityUi.mantissa ||
+        this.quantityUi.exponent !== this.quantity.exponent
+      ) {
+        this.quantityUi = Decimal.fromMantissaExponent_noNormalize(
+          newMantissa,
+          this.quantity.exponent
+        );
+      }
     }
     if (this._perSecOld.eq(this.perSec)) {
       this.perSec = this._perSecOld;
     } else {
       this._perSecOld = this.perSec;
+      const newMantissa = Math.floor(this.perSec.mantissa * 1e4) / 1e4;
+      if (
+        newMantissa !== this.perSecUi.mantissa ||
+        this.perSecUi.exponent !== this.perSec.exponent
+      ) {
+        this.perSecUi = Decimal.fromMantissaExponent_noNormalize(
+          newMantissa,
+          this.perSec.exponent
+        );
+      }
     }
     if (this._oldLimit.eq(this.limit)) {
       this.limit = this._oldLimit;

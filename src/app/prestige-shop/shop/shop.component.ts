@@ -35,4 +35,7 @@ export class ShopComponent
   getPrestigeId(index: number, prestige: PrestigePoint) {
     return prestige.id;
   }
+  getBuyOpt(index: number, buyOpt: Decimal) {
+    return buyOpt;
+  }
 }
