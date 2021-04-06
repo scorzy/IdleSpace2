@@ -14,6 +14,8 @@ export class Module implements IUnlockable {
   shape = "";
   armour = 0;
   shield = 0;
+  armourPen = 0;
+  shieldPen = 0;
   armourPercent = 0;
   shieldPercent = 0;
   energy = 0;
@@ -45,6 +47,7 @@ export class Module implements IUnlockable {
   specialResearch: Research;
   groupId = 0;
   affectedWeaponsTechnologies?: Technology[];
+
   constructor() {}
   init(moduleData: ModuleData) {
     forOwn(
@@ -61,11 +64,11 @@ export class Module implements IUnlockable {
 
     if ("technologies" in moduleData) {
       this.technologies = moduleData.technologies.map((tec) => ({
-          technology: Game.getGame().researchManager.technologies.find(
-            (t) => t.id === tec.technologyId
-          ),
-          multi: tec.multi
-        }));
+        technology: Game.getGame().researchManager.technologies.find(
+          (t) => t.id === tec.technologyId
+        ),
+        multi: tec.multi
+      }));
     }
     if ("affectedWeaponsTechnologies" in moduleData) {
       this.affectedWeaponsTechnologies = moduleData.affectedWeaponsTechnologies.map(

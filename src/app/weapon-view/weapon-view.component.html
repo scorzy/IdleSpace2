@@ -42,6 +42,28 @@
       <i nz-icon nzType="my:falling-bomb"></i>
       {{ weapon.defencePercent | format: true }}%
     </span>
+
+    <span
+      *ngIf="weapon.armourPen > 0"
+      class="armour-damage-color"
+      nz-tooltip
+      nzTooltipTitle="Ignore armour damage reduction"
+      fxLayout="row"
+    >
+      <i nz-icon nzType="my:laser-blast-minus"></i>
+      {{ weapon.armourPen | number: "1.0-0" }}
+    </span>
+    <span
+      *ngIf="weapon.shieldPen > 0"
+      class="shield-damage-color"
+      nz-tooltip
+      nzTooltipTitle="Ignore shield damage reduction"
+      fxLayout="row"
+    >
+      <i nz-icon nzType="my:supersonic-bullet-minus"></i>
+      {{ weapon.shieldPen | number: "1.0-0" }}
+    </span>
+
     <span
       *ngIf="weapon.threatMulti !== 1"
       class="threat-color"

@@ -40,6 +40,28 @@
     <i nz-icon nzType="my:supersonic-bullet"></i>
     {{ mod.shieldDamagePercent | number: "1.0-0" }}%
   </span>
+
+  <span
+    *ngIf="mod.armourPen > 0"
+    class="armour-damage-color"
+    nz-tooltip
+    nzTooltipTitle="Ignore armour damage reduction"
+    fxLayout="row"
+  >
+    <i nz-icon nzType="my:laser-blast-minus"></i>
+    {{ mod.armourPen | number: "1.0-0" }}
+  </span>
+  <span
+    *ngIf="mod.shieldPen > 0"
+    class="shield-damage-color"
+    nz-tooltip
+    nzTooltipTitle="Ignore shield damage reduction"
+    fxLayout="row"
+  >
+    <i nz-icon nzType="my:supersonic-bullet-minus"></i>
+    {{ mod.shieldPen | number: "1.0-0" }}
+  </span>
+
   <span
     *ngIf="mod.defenceDamagePercent !== 100"
     class="defence-damage-color"

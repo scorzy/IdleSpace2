@@ -177,9 +177,10 @@
   height: 100%;
 }
 
-// .ant-layout-content {
-//   min-height: auto;
-// }
+.ant-layout-content {
+  // min-height: auto;
+  overflow-y: scroll;
+}
 
 .center {
   text-align: center;

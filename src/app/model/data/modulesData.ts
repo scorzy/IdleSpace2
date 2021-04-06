@@ -12,7 +12,11 @@ import {
   BASE_ADAPTIVE_PRECISION,
   BASE_PRECISION,
   DOUBLE_ENERGY_WEAPON_MULTI,
-  BASE_TERRAFORMER
+  BASE_TERRAFORMER,
+  WEAPON_PEN_1_MINUS,
+  WEAPON_PEN_1,
+  WEAPON_PEN_2_MINUS,
+  WEAPON_PEN_2
 } from "../CONSTANTS";
 export class ModuleData {
   id: string;
@@ -20,6 +24,8 @@ export class ModuleData {
   description?: string;
   armour?: number;
   shield?: number;
+  armourPen?: number;
+  shieldPen?: number;
   armourPercent?: number;
   shieldPercent?: number;
   energy?: number;
@@ -285,11 +291,40 @@ export const modules: ModuleData[] = [
     shape: "my:laser-blast"
   },
   {
+    id: "L2",
+    name: "X Laser",
+    damage: MODULE_DAMAGE - WEAPON_PEN_1_MINUS,
+    shieldDamagePercent: 80,
+    armourDamagePercent: 120,
+    energy: -1,
+    armourPen: WEAPON_PEN_1,
+    technologies: [
+      { technologyId: TECHNOLOGIES.MilitaryEngineering.id, multi: 1 },
+      { technologyId: TECHNOLOGIES.Physics.id, multi: 1 }
+    ],
+    shape: "my:laser-blast"
+  },
+  {
     id: "p",
     name: "Plasma",
     energy: -1,
     price: DEFAULT_MODULE_PRICE * 1.5,
     damage: MODULE_DAMAGE,
+    shieldDamagePercent: 30,
+    armourDamagePercent: 170,
+    technologies: [
+      { technologyId: TECHNOLOGIES.MilitaryEngineering.id, multi: 1.2 },
+      { technologyId: TECHNOLOGIES.Physics.id, multi: 0.8 }
+    ],
+    shape: "my:plasma-bolt"
+  },
+  {
+    id: "p2",
+    name: "Plasma Cannon",
+    energy: -1,
+    price: DEFAULT_MODULE_PRICE * 1.5,
+    damage: MODULE_DAMAGE - WEAPON_PEN_2_MINUS,
+    armourDamageReduction: WEAPON_PEN_2,
     shieldDamagePercent: 30,
     armourDamagePercent: 170,
     technologies: [
@@ -392,6 +427,22 @@ export const modules: ModuleData[] = [
     shape: "my:clout"
   },
   {
+    id: "d2",
+    name: "AntiShield Mass Driver",
+    energy: -1,
+    damage: MODULE_DAMAGE - WEAPON_PEN_1_MINUS,
+    price: DEFAULT_MODULE_PRICE,
+    shieldDamagePercent: 120,
+    armourDamagePercent: 80,
+    shieldPen: WEAPON_PEN_1,
+    technologies: [
+      { technologyId: TECHNOLOGIES.MilitaryEngineering.id, multi: 1 },
+      { technologyId: TECHNOLOGIES.Propulsion.id, multi: 1 }
+    ],
+
+    shape: "my:clout"
+  },
+  {
     id: "n",
     name: "Railgun",
     energy: -1,
@@ -414,6 +465,22 @@ export const modules: ModuleData[] = [
     price: DEFAULT_MODULE_PRICE * 3,
     shieldDamagePercent: 155,
     armourDamagePercent: 45,
+    technologies: [
+      { technologyId: TECHNOLOGIES.MilitaryEngineering.id, multi: 1 },
+      { technologyId: TECHNOLOGIES.Propulsion.id, multi: 1 }
+    ],
+
+    shape: "my:supersonic-bullet"
+  },
+  {
+    id: "c1",
+    name: "Gauss Cannon",
+    energy: -1,
+    damage: MODULE_DAMAGE - WEAPON_PEN_2_MINUS,
+    price: DEFAULT_MODULE_PRICE * 3,
+    shieldDamagePercent: 170,
+    armourDamagePercent: 30,
+    shieldPen: WEAPON_PEN_2,
     technologies: [
       { technologyId: TECHNOLOGIES.MilitaryEngineering.id, multi: 1 },
       { technologyId: TECHNOLOGIES.Propulsion.id, multi: 1 }

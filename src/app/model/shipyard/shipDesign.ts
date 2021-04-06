@@ -207,7 +207,9 @@ export class ShipDesign {
           defencePercent: m.module.defenceDamagePercent,
           precision: m.module.precision * statsMulti,
           adaptivePrecision: m.module.adaptivePrecision * statsMulti,
-          threatMulti: m.module.threatGainMulti
+          threatMulti: m.module.threatGainMulti,
+          armourPen: m.module.armourPen,
+          shieldPen: m.module.shieldPen
         });
       }
     }
@@ -583,6 +585,8 @@ export class ShipDesign {
         defencePercent: w.defencePercent,
         precision: w.precision,
         adaptivePrecision: w.adaptivePrecision,
+        armourPen: w.armourPen,
+        shieldPen: w.shieldPen,
         threatMulti: 1
       };
       this.shipData.weapons.push(wData);
