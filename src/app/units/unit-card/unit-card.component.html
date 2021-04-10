@@ -104,6 +104,12 @@
           nzPopoverTitle="Components Assembly Priority"
           [nzPopoverContent]="priorityTemplate"
           >Comp. priorities
+          <i
+            nz-icon
+            nzType="question-circle"
+            nzTheme="outline"
+            class="question-icon"
+          ></i>
         </nz-form-label>
         <nz-form-control>
           <nz-input-group nzCompact>
@@ -147,7 +153,14 @@
         nzTooltipPlacement="right"
         nzTooltipTitle="Stored components, when full a new drone is created."
       >
-        Components:
+        Components
+        <i
+          nz-icon
+          nzType="question-circle"
+          nzTheme="outline"
+          class="question-icon"
+        ></i
+        >:
       </span>
       <span class="monospace">
         {{ unit.storedComponents | format }}/{{
