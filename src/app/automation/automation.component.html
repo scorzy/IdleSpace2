@@ -48,12 +48,70 @@
     </p>
   </ng-template>
 
-  <nz-card nzTitle="Auto search" nzSize="small" style="width: 270px">
+  <nz-card
+    nzTitle="Auto search"
+    nzSize="small"
+    style="width: 270px"
+    [nzExtra]="autoSearchInfo"
+  >
     <app-auto-search></app-auto-search>
   </nz-card>
-  <nz-card nzTitle="Auto space stations" nzSize="small" style="width: 270px">
+  <ng-template #autoSearchInfo>
+    <i
+      nz-icon
+      nzType="info-circle"
+      nzTheme="outline"
+      class="info-icon"
+      nz-popover
+      nzPopoverTitle="Auto search"
+      [nzPopoverContent]="autoSearchDesc"
+    ></i>
+  </ng-template>
+  <ng-template #autoSearchDesc>
+    <div class="auto-description">
+      <p>Automatically search for new enemies.</p>
+      Options:
+      <ul>
+        <li>On / Off</li>
+        <li>Max Level</li>
+        <li>Interval</li>
+      </ul>
+    </div>
+  </ng-template>
+
+  <!-- Auto space stations -->
+  <nz-card
+    nzTitle="Auto space stations"
+    nzSize="small"
+    style="width: 270px"
+    [nzExtra]="autoSpaceInfo"
+  >
     <app-auto-space></app-auto-space>
   </nz-card>
+  <ng-template #autoSpaceInfo>
+    <i
+      nz-icon
+      nzType="info-circle"
+      nzTheme="outline"
+      class="info-icon"
+      nz-popover
+      nzPopoverTitle="Auto space stations"
+      [nzPopoverContent]="autoSpaceDesc"
+    ></i>
+  </ng-template>
+  <ng-template #autoSpaceDesc>
+    <div class="auto-description">
+      <p>Automatically queues space stations.</p>
+      Options:
+      <ul>
+        <li>On / Off, Type</li>
+        <li>Interval</li>
+        <li>Queue length: max space stations queued simultaneously</li>
+      </ul>
+    </div>
+  </ng-template>
+
+  <!-- Auto infrastructure -->
   <nz-card
     nzTitle="Auto infrastructure"
     *ngIf="
@@ -63,40 +121,217 @@
     "
     nzSize="small"
     style="width: 270px"
+    [nzExtra]="autoInfraInfo"
   >
     <app-auto-infra></app-auto-infra>
   </nz-card>
-  <nz-card nzTitle="Auto surrender" nzSize="small" style="width: 270px">
+  <ng-template #autoInfraInfo>
+    <i
+      nz-icon
+      nzType="info-circle"
+      nzTheme="outline"
+      class="info-icon"
+      nz-popover
+      nzPopoverTitle="Auto infrastructure"
+      [nzPopoverContent]="autoInfraDesc"
+    ></i>
+  </ng-template>
+  <ng-template #autoInfraDesc>
+    <div class="auto-description">
+      <p>Automatically queues infrastructure.</p>
+      Options:
+      <ul>
+        <li>On / Off, Type</li>
+        <li>Interval</li>
+        <li>
+          Priority <br />
+          (bigger number = high priority)
+        </li>
+        <li>Queue length: max infrastructure queued simultaneously</li>
+      </ul>
+    </div>
+  </ng-template>
+
+  <!-- Auto surrender -->
+  <nz-card
+    nzTitle="Auto surrender"
+    nzSize="small"
+    style="width: 270px"
+    [nzExtra]="autoSurrenderInfo"
+  >
     <app-auto-surrender></app-auto-surrender>
   </nz-card>
-  <nz-card nzTitle="Auto Refresh" nzSize="small" style="width: 270px">
+  <ng-template #autoSurrenderInfo>
+    <i
+      nz-icon
+      nzType="info-circle"
+      nzTheme="outline"
+      class="info-icon"
+      nz-popover
+      nzPopoverTitle="Auto surrender"
+      [nzPopoverContent]="autoSurrenderDesc"
+    ></i>
+  </ng-template>
+  <ng-template #autoSurrenderDesc>
+    <div class="auto-description">
+      <p>Automatically surrender if in case of long losing streaks.</p>
+      Options:
+      <ul>
+        <li>On / Off</li>
+        <li>Losing Streak</li>
+        <li>Interval</li>
+      </ul>
+    </div>
+  </ng-template>
+
+  <!-- Auto Refresh -->
+  <nz-card
+    nzTitle="Auto Refresh"
+    nzSize="small"
+    style="width: 270px"
+    [nzExtra]="autoRefreshInfo"
+  >
     <app-auto-refresh></app-auto-refresh>
   </nz-card>
-  <nz-card nzTitle="Auto 100%" nzSize="small" style="width: 270px">
+  <ng-template #autoRefreshInfo>
+    <i
+      nz-icon
+      nzType="info-circle"
+      nzTheme="outline"
+      class="info-icon"
+      nz-popover
+      nzPopoverTitle="Auto refresh"
+      [nzPopoverContent]="autoRefreshDesc"
+    ></i>
+  </ng-template>
+  <ng-template #autoRefreshDesc>
+    <div class="auto-description">
+      <p>
+        Automatically save and reload the page. Use it only in case of memory
+        leaks.
+      </p>
+      Options:
+      <ul>
+        <li>On / Off</li>
+        <li>Interval</li>
+      </ul>
+    </div>
+  </ng-template>
+
+  <!-- Auto 100% -->
+  <nz-card
+    nzTitle="Auto 100%"
+    nzSize="small"
+    style="width: 270px"
+    [nzExtra]="auto100Info"
+  >
     <app-auto-full></app-auto-full>
   </nz-card>
+  <ng-template #auto100Info>
+    <i
+      nz-icon
+      nzType="info-circle"
+      nzTheme="outline"
+      class="info-icon"
+      nz-popover
+      nzPopoverTitle="Auto 100%"
+      [nzPopoverContent]="auto100Desc"
+    ></i>
+  </ng-template>
+  <ng-template #auto100Desc>
+    <div class="auto-description">
+      <p>Automatically set operativity to 100% for all workers.</p>
+      Options:
+      <ul>
+        <li>On / Off</li>
+        <li>Interval</li>
+      </ul>
+    </div>
+  </ng-template>
+
+  <!-- Auto Prestige -->
   <nz-card
     *ngIf="ms.game.prestigeManager.autoPrestigeCard.active"
     nzTitle="Auto Prestige"
     nzSize="small"
     style="width: 500px"
+    [nzExtra]="autoPrestigeInfo"
   >
     <app-auto-prestige></app-auto-prestige>
   </nz-card>
+  <ng-template #autoPrestigeInfo>
+    <i
+      nz-icon
+      nzType="info-circle"
+      nzTheme="outline"
+      class="info-icon"
+      nz-popover
+      nzPopoverTitle="Auto Prestige"
+      [nzPopoverContent]="autoPrestigeDesc"
+    ></i>
+  </ng-template>
+  <ng-template #autoPrestigeDesc>
+    <div class="auto-description">
+      <p>
+        Prestige when max enemy level reach "Max Level" or when the time elapsed
+        in this prestige reach "hh mm"
+      </p>
+    </div>
+  </ng-template>
+
+  <!-- Auto Warp -->
   <nz-card
     nzTitle="Auto Warp"
     nzSize="small"
     *ngIf="ms.game.prestigeManager.autoWarp.active"
     style="width: 450px"
+    [nzExtra]="autoWarpInfo"
   >
     <app-auto-warp></app-auto-warp>
   </nz-card>
+  <ng-template #autoWarpInfo>
+    <i
+      nz-icon
+      nzType="info-circle"
+      nzTheme="outline"
+      class="info-icon"
+      nz-popover
+      nzPopoverTitle="Auto Warp"
+      [nzPopoverContent]="autoWarpDesc"
+    ></i>
+  </ng-template>
+  <ng-template #autoWarpDesc>
+    <div class="auto-description">
+      <p>
+        Warp with Dark Matter in order to complete Ships jobs and Search jobs.
+      </p>
+    </div>
+  </ng-template>
+
+  <!-- Auto Megastructures -->
   <nz-card
     *ngIf="ms.game.prestigeManager.megaAutomationCard.active"
     nzTitle="Auto Megastructures"
     nzSize="small"
     class="auto-mega"
+    [nzExtra]="autoMegaInfo"
   >
     <app-auto-mega></app-auto-mega>
   </nz-card>
+  <ng-template #autoMegaInfo>
+    <i
+      nz-icon
+      nzType="info-circle"
+      nzTheme="outline"
+      class="info-icon"
+      nz-popover
+      nzPopoverTitle="Auto Megastructures"
+      [nzPopoverContent]="autoMegaDesc"
+    ></i>
+  </ng-template>
+  <ng-template #autoMegaDesc>
+    <div class="auto-description">
+      <p>Automatically queues megastructures in an orderly fashion.</p>
+    </div>
+  </ng-template>
 </div>

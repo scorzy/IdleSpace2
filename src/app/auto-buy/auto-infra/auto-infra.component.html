@@ -1,11 +1,6 @@
 <form nz-form nzLayout="inline">
   <nz-form-item>
-    <nz-form-label
-      nz-popover
-      nzPopoverTitle="Automation"
-      [nzPopoverContent]="autoInfoTemplate"
-      >Auto
-    </nz-form-label>
+    <nz-form-label>Auto </nz-form-label>
     <nz-form-control>
       <nz-input-group nzCompact>
         <nz-select
@@ -60,15 +55,3 @@
     ></nz-input-number>
   </nz-form-item>
 </form>
-
-<ng-template #autoInfoTemplate>
-  Options:
-  <ul>
-    <li>On / Off, Type</li>
-    <li>Interval</li>
-    <li>
-      Priority <br />
-      (bigger number = high priority)
-    </li>
-  </ul>
-</ng-template>

@@ -1,6 +1,7 @@
 10/04/2021
 -   Added challenge: Extreme resistance
 -   Added anti damage-reduction weapons
+-   Improved Automation page UI 
 
 05/04/2021
 -   Added achievements

@@ -1,12 +1,6 @@
 <form nz-form nzLayout="inline">
   <nz-form-item>
-    <nz-form-label
-      nz-popover
-      nzPopoverTitle="Auto Warp"
-      [nzPopoverContent]="autoInfoTemplate"
-    >
-      Fleet
-    </nz-form-label>
+    <nz-form-label> Fleet </nz-form-label>
     <nz-switch
       nzCompact
       name="auto-warp-fleet"
@@ -16,13 +10,7 @@
     </nz-switch>
   </nz-form-item>
   <nz-form-item>
-    <nz-form-label
-      nz-popover
-      nzPopoverTitle="Auto Warp"
-      [nzPopoverContent]="autoInfoTemplate"
-    >
-      Search
-    </nz-form-label>
+    <nz-form-label> Search </nz-form-label>
     <nz-switch
       nzCompact
       name="auto-warp-search"
@@ -42,7 +30,3 @@
     ></nz-input-number>
   </nz-form-item>
 </form>
-
-<ng-template #autoInfoTemplate>
-  <p>Warp with Dark Matter in order to complete Ships jobs and Search jobs.</p>
-</ng-template>

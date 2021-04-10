@@ -1,12 +1,6 @@
 <form nz-form nzLayout="inline">
   <nz-form-item>
-    <nz-form-label
-      nz-popover
-      nzPopoverTitle="Auto Surrender"
-      [nzPopoverContent]="autoInfoTemplate"
-    >
-      On
-    </nz-form-label>
+    <nz-form-label> On </nz-form-label>
     <nz-form-control>
       <nz-input-group nzCompact>
         <nz-switch
@@ -36,12 +30,3 @@
     </nz-form-control>
   </nz-form-item>
 </form>
-
-<ng-template #autoInfoTemplate>
-  Options:
-  <ul>
-    <li>On / Off</li>
-    <li>Losing Streak</li>
-    <li>Interval</li>
-  </ul>
-</ng-template>
