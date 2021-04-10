@@ -325,7 +325,10 @@ function dealDamage(
   if (target.shield > 0) {
     let shieldDamageDone = 0;
     damageToDo *= weapon.shieldPercent;
-    damageToDo -= target.shipData.shieldReduction;
+    damageToDo -= Math.max(
+      target.shipData.shieldReduction - weapon.shieldPen,
+      0
+    );
     if (damageToDo > 0) {
       const shield = target.shield;
       target.shield -= damageToDo;
@@ -355,7 +358,10 @@ function dealDamage(
   //  Damage to armour
   if (damageToDo > 0) {
     damageToDo *= weapon.armourPercent;
-    damageToDo -= target.shipData.armourReduction;
+    damageToDo -= Math.max(
+      target.shipData.armourReduction - weapon.armourPen,
+      0
+    );
     if (damageToDo > 0) {
       const armour = target.armour;
       target.armour -= damageToDo;

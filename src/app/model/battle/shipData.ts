@@ -6,6 +6,8 @@ export class WeaponData {
   armourPercent: number;
   shieldPercent: number;
   defencePercent: number;
+  armourPen: number;
+  shieldPen: number;
   precision: number;
   adaptivePrecision: number;
   threatMulti = 1;

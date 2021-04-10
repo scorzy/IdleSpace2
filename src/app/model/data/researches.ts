@@ -201,6 +201,26 @@ export const RESEARCHES: IResearchData[] = [
     requiredCardId: "r4",
     shipProductionBonusAll: 0.1
   },
+  {
+    id: "p-L2",
+    name: "X Laser",
+    description: "Unlock X Laser.",
+    unlockFrom: "p10",
+    type: TECHNOLOGIES.Physics,
+    max: 1,
+    requiredChallenge: { challengeId: "10", level: 7 },
+    modulesToUnlock: ["L2"]
+  },
+  {
+    id: "p-p2",
+    name: "Plasma Cannon",
+    description: "Unlock Plasma Cannon.",
+    unlockFrom: "p16",
+    type: TECHNOLOGIES.Physics,
+    max: 1,
+    requiredChallenge: { challengeId: "10", level: 10 },
+    modulesToUnlock: ["p2"]
+  },
   //#endregion
   //#region Search
   {
@@ -345,6 +365,26 @@ export const RESEARCHES: IResearchData[] = [
     type: TECHNOLOGIES.Propulsion,
     accelerationMulti: 0.15,
     max: 10
+  },
+  {
+    id: "P-d2",
+    name: "AntiShield Mass Driver",
+    description: "Unlock AntiShield Mass Driver.",
+    unlockFrom: "P10",
+    type: TECHNOLOGIES.Propulsion,
+    max: 1,
+    requiredChallenge: { challengeId: "10", level: 8 },
+    modulesToUnlock: ["d2"]
+  },
+  {
+    id: "P-c1",
+    name: "Gauss Cannon",
+    description: "Unlock Gauss Cannon.",
+    unlockFrom: "P16",
+    type: TECHNOLOGIES.Propulsion,
+    max: 1,
+    requiredChallenge: { challengeId: "10", level: 11 },
+    modulesToUnlock: ["c1"]
   },
   //#endregion
   //#region Materials

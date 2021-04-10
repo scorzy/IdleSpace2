@@ -213,7 +213,7 @@ export class Enemy {
 
       this.favouriteDefences = shuffle(
         sm.allDefences.filter(
-          (d) => d.armourDamageReduction > 0 || d.shieldDamageReduction
+          (d) => d.armourDamageReduction > 0 || d.shieldDamageReduction > 0
         )
       ).slice(0, 2);
 
@@ -517,6 +517,8 @@ export class Enemy {
   }
   private generateRandomDesign(type: ShipType, isDefence = false): ShipDesign {
     const sm = Game.getGame().shipyardManager;
+    const extremeDefences = Game.getGame().challengeManager.extremeResistance
+      .isActive;
 
     const design = new ShipDesign();
     design.name = isDefence ? type.defenceName : type.name;
@@ -596,11 +598,14 @@ export class Enemy {
                 (prev, cur) => prev + (cur.module.id === "A" ? cur.size : 0),
                 0
               );
-              if (armourLevel > 2) {
+              if (armourLevel > 2 || (extremeDefences && armourLevel > 1)) {
                 this.favouriteDefences.forEach((def) => {
                   if (def.armourDamageReduction > 0) {
                     chooseList.push(def);
                     chooseList.push(def);
+                    if (extremeDefences) {
+                      chooseList.push(def);
+                    }
                   }
                 });
               }
@@ -610,11 +615,14 @@ export class Enemy {
                 (prev, cur) => prev + (cur.module.id === "s" ? cur.size : 0),
                 0
               );
-              if (shieldLevel > 2) {
+              if (shieldLevel > 2 || (extremeDefences && shieldLevel > 1)) {
                 this.favouriteDefences.forEach((def) => {
                   if (def.shieldDamageReduction > 0) {
                     chooseList.push(def);
                     chooseList.push(def);
+                    if (extremeDefences) {
+                      chooseList.push(def);
+                    }
                   }
                 });
               }

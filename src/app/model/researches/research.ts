@@ -513,7 +513,7 @@ export class Research extends Job implements IUnlockable, IBase {
         MainService.instance.modal.info({
           nzTitle: "Fleet unlocked",
           nzContent:
-            "In order to build ships you'll need Work and Alloy. Stats with buying some Metallurgist and Workers, than check the Fleet screen and the Battle screen."
+            "In order to build ships you'll need Work and Alloy. Stat with buying some Metallurgist and Workers, than check the Fleet screen and the Battle screen."
         });
       }
     }
