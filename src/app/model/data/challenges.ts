@@ -176,5 +176,23 @@ export const CHALLENGES: IChallengeData[] = [
     unlockLevel: 700,
     startLevel: 100,
     experiencePerCompletions: CHALLENGE_REWARD_EXP * 3.5
+  },
+  {
+    id: "10",
+    name: "Extreme resistance",
+    description:
+      "Increase armour and shield damage reduction by ten times. " +
+      "Works for both your and enemies ships. " +
+      "Enemies are more likely to equip damage reduction defences.",
+    rewards: [
+      "Unlock anti damage-reduction weapons, weapons must be researched.",
+      "Lv. 7 X Laser",
+      "Lv. 8 AntiShield Mass Driver",
+      "Lv. 10 Plasma Cannon",
+      "Lv. 11 Gauss Cannon"
+    ],
+    unlockLevel: 400,
+    startLevel: 100,
+    experiencePerCompletions: CHALLENGE_REWARD_EXP * 1.5
   }
 ];

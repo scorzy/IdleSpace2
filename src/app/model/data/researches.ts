@@ -208,8 +208,8 @@ export const RESEARCHES: IResearchData[] = [
     unlockFrom: "p10",
     type: TECHNOLOGIES.Physics,
     max: 1,
+    requiredChallenge: { challengeId: "10", level: 7 },
     modulesToUnlock: ["L2"]
-    //requiredChallenge: { challengeId: "7", level: ANTI_ARMOUR_SHELL_LEVEL }
   },
   {
     id: "p-p2",
@@ -218,8 +218,8 @@ export const RESEARCHES: IResearchData[] = [
     unlockFrom: "p16",
     type: TECHNOLOGIES.Physics,
     max: 1,
+    requiredChallenge: { challengeId: "10", level: 10 },
     modulesToUnlock: ["p2"]
-    //requiredChallenge: { challengeId: "7", level: ANTI_ARMOUR_SHELL_LEVEL }
   },
   //#endregion
   //#region Search
@@ -373,8 +373,8 @@ export const RESEARCHES: IResearchData[] = [
     unlockFrom: "P10",
     type: TECHNOLOGIES.Propulsion,
     max: 1,
+    requiredChallenge: { challengeId: "10", level: 8 },
     modulesToUnlock: ["d2"]
-    //requiredChallenge: { challengeId: "7", level: ANTI_ARMOUR_SHELL_LEVEL }
   },
   {
     id: "P-c1",
@@ -383,8 +383,8 @@ export const RESEARCHES: IResearchData[] = [
     unlockFrom: "P16",
     type: TECHNOLOGIES.Propulsion,
     max: 1,
+    requiredChallenge: { challengeId: "10", level: 11 },
     modulesToUnlock: ["c1"]
-    //requiredChallenge: { challengeId: "7", level: ANTI_ARMOUR_SHELL_LEVEL }
   },
   //#endregion
   //#region Materials

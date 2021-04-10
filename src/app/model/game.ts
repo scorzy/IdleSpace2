@@ -598,7 +598,7 @@ export class Game {
       this.achievementManager.load(data.A);
     }
     this.researchManager.researches.forEach((res) => res.loadMax());
-    // this.enemyManager.maxLevel = 900;
+    //this.enemyManager.maxLevel = 900;
 
     this.challengeManager.afterLoad();
     this.researchManager.researches.forEach((res) => res.reload());

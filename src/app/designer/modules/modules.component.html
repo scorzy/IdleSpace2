@@ -79,6 +79,7 @@
           *ngIf="mod.research"
           class="researches"
         >
+          <!-- Research -->
           <span
             fxLayoutAlign="center center"
             nz-popover
@@ -100,6 +101,7 @@
             </ng-template>
           </span>
 
+          <!-- Research Special -->
           <span
             fxLayoutAlign="center center"
             *ngIf="mod.specialResearch"
@@ -120,6 +122,20 @@
                 [research]="mod.specialResearch"
               ></app-research-preview>
             </ng-template>
+          </span>
+
+          <!-- Challenge-->
+          <span
+            *ngIf="mod.research.requiredChallenge"
+            fxLayoutAlign="center center"
+          >
+            <span>
+              <span class="text-secondary">Challenge:</span>
+              {{ mod.research.requiredChallenge.challenge.name }} Lv.
+              {{
+                mod.research.requiredChallenge.challenge.level | format: true
+              }}
+            </span>
           </span>
         </div>
       </div>

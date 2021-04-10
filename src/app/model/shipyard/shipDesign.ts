@@ -149,9 +149,6 @@ export class ShipDesign {
       modSum++;
       this.totalPoints = this.totalPoints + m.size;
       const statsMulti = ShipDesign.getStatsMulti(m);
-      // const priceMulti = Decimal.pow(1 + m.level / 5, PRICE_GROW_RATE).times(
-      //   statsMulti
-      // );
       let priceMulti = ONE;
       const pm = Game.getGame().prestigeManager;
       priceMulti = Decimal.pow(
@@ -167,6 +164,7 @@ export class ShipDesign {
       this.totalShield += m.module.shield * statsMulti;
       this.armourReduction += m.module.armourDamageReduction * statsMulti;
       this.shieldReduction += m.module.shieldDamageReduction * statsMulti;
+
       const damage = m.module.damage * statsMulti;
       this.totalDamage += damage;
       this.explosionDamage += m.module.explosionDamage * statsMulti;
@@ -208,8 +206,8 @@ export class ShipDesign {
           precision: m.module.precision * statsMulti,
           adaptivePrecision: m.module.adaptivePrecision * statsMulti,
           threatMulti: m.module.threatGainMulti,
-          armourPen: m.module.armourPen,
-          shieldPen: m.module.shieldPen
+          armourPen: m.module.armourPen * statsMulti,
+          shieldPen: m.module.shieldPen * statsMulti
         });
       }
     }
@@ -493,6 +491,11 @@ export class ShipDesign {
       }
     }
     //#endregion
+
+    if (Game.getGame().challengeManager.extremeResistance.isActive) {
+      this.armourReduction *= 10;
+      this.shieldReduction *= 10;
+    }
 
     this.explosionThreshold = Math.max(this.explosionThreshold, 0);
     this.valid =
