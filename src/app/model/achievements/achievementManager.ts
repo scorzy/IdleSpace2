@@ -175,7 +175,11 @@ export class AchievementManager {
     this.buildersAck = this.achievements.find((a) => a.id === "ob");
     this.megaBuildersAck = this.achievements.find((a) => a.id === "smb");
     this.moddersAck = this.achievements.find((a) => a.id === "sm");
-    this.explorerAck = this.achievements.find((a) => a.id === "sm");
+    this.explorerAck = this.achievements.find((a) => a.id === "se");
+
+    this.groups
+      .find((gr) => gr.id === "or")
+      .list.forEach((ack) => (ack.autoCheck = false));
   }
   afterInit() {
     this.achievements.forEach((ack) => ack.updateDescription());
@@ -199,7 +203,7 @@ export class AchievementManager {
   }
   postUpdate() {
     for (const ack of this.achievements) {
-      ack.complete();
+      if (ack.autoCheck) ack.complete();
     }
   }
   onDefeatEnemyAchievements() {

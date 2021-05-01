@@ -25,6 +25,7 @@ export abstract class Achievement implements IBase {
   levels: number[];
   percent = 100;
   typeIcon = ACHIEVEMENT_ICON;
+  autoCheck = true;
 
   constructor(data: IAchievementData) {
     this.id = data.id;
